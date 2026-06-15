@@ -4,6 +4,27 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
+import {
+  Bot,
+  Zap,
+  Wrench,
+  Puzzle,
+  BookOpen,
+  Lightbulb,
+  BarChart3,
+  Home,
+  Target,
+  ArrowLeftRight,
+  FlaskConical,
+  Tag,
+  Shield,
+  Rocket,
+  Microscope,
+  ScrollText,
+  Cpu,
+  Search,
+  ArrowRight,
+} from "lucide-react";
 
 interface Props {
   agents: AgentProfile[];
@@ -11,22 +32,22 @@ interface Props {
 }
 
 const sections = [
-  { id: "agents", href: "/agents", title: "Agent Directory", description: "Compare autonomous AI agents side-by-side.", icon: "🤖", color: "from-primary/20 to-primary/5" },
-  { id: "llms", href: "/llms", title: "LLM Pricing", description: "Pricing, context windows, and benchmark scores.", icon: "⚡", color: "from-amber-500/20 to-amber-500/5" },
-  { id: "services", href: "/services", title: "Services", description: "Hosting, security, data, and observability vendors.", icon: "🛠️", color: "from-yellow-500/20 to-yellow-500/5" },
-  { id: "skills", href: "/skills", title: "Skills & Addons", description: "Reusable skills, MCP servers, plugins, and extensions.", icon: "🧩", color: "from-purple-500/20 to-purple-500/5" },
-  { id: "guides", href: "/guides", title: "How-To Guides", description: "Curated starting points and deep dives.", icon: "📚", color: "from-cyan-500/20 to-cyan-500/5" },
-  { id: "tips", href: "/tips", title: "Tips & Tricks", description: "Bite-sized advice to level up your agent workflow.", icon: "💡", color: "from-orange-500/20 to-orange-500/5" },
-  { id: "tests", href: "/tests", title: "Test Results", description: "Real-world benchmark reports from the community.", icon: "📊", color: "from-emerald-500/20 to-emerald-500/5" },
-  { id: "self-hosting", href: "/self-hosting", title: "Self-Hosting", description: "Hardware and OS guides for local agents and LLMs.", icon: "🏠", color: "from-green-500/20 to-green-500/5" },
-  { id: "use-cases", href: "/use-cases", title: "Use Cases", description: "Find agents for code review, UI building, debugging, research, and security.", icon: "🎯", color: "from-violet-500/20 to-violet-500/5" },
-  { id: "alternatives", href: "/alternatives", title: "Alternatives", description: "Top replacements for Copilot, Cursor, ChatGPT, Claude, and more.", icon: "🔀", color: "from-amber-400/20 to-amber-400/5" },
-  { id: "deployment-recipes", href: "/deployment-recipes", title: "Deployment Recipes", description: "Copy-paste recipes for Ollama, Open WebUI, Cline, and more.", icon: "🧪", color: "from-pink-500/20 to-pink-500/5" },
-  { id: "deals", href: "/deals", title: "Vendor Deals", description: "Credits, startup programs, and free tiers.", icon: "🏷️", color: "from-teal-500/20 to-teal-500/5" },
-  { id: "safety", href: "/safety", title: "AI Safety", description: "Permission models, prompt injection defenses, and trust checklists.", icon: "🛡️", color: "from-red-500/20 to-red-500/5" },
-  { id: "getting-started", href: "/getting-started", title: "Getting Started", description: "A learning path from your first agent to local self-hosting.", icon: "🚀", color: "from-blue-500/20 to-blue-500/5" },
-  { id: "lab", href: "/lab", title: "The Lab", description: "Experiments on AI hardware, software, applications, and devices.", icon: "🔬", color: "from-fuchsia-500/20 to-fuchsia-500/5" },
-  { id: "changelog", href: "/changelog", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: "📝", color: "from-slate-500/20 to-slate-500/5" },
+  { id: "agents", href: "/agents", title: "Agent Directory", description: "Compare autonomous AI agents side-by-side.", icon: Bot },
+  { id: "llms", href: "/llms", title: "LLM Pricing", description: "Pricing, context windows, and benchmark scores.", icon: Cpu },
+  { id: "services", href: "/services", title: "Services", description: "Hosting, security, data, and observability vendors.", icon: Wrench },
+  { id: "skills", href: "/skills", title: "Skills & Addons", description: "Reusable skills, MCP servers, plugins, and extensions.", icon: Puzzle },
+  { id: "guides", href: "/guides", title: "How-To Guides", description: "Curated starting points and deep dives.", icon: BookOpen },
+  { id: "tips", href: "/tips", title: "Tips & Tricks", description: "Bite-sized advice to level up your agent workflow.", icon: Lightbulb },
+  { id: "tests", href: "/tests", title: "Test Results", description: "Real-world benchmark reports from the community.", icon: BarChart3 },
+  { id: "self-hosting", href: "/self-hosting", title: "Self-Hosting", description: "Hardware and OS guides for local agents and LLMs.", icon: Home },
+  { id: "use-cases", href: "/use-cases", title: "Use Cases", description: "Find agents for code review, UI building, debugging, research, and security.", icon: Target },
+  { id: "alternatives", href: "/alternatives", title: "Alternatives", description: "Top replacements for Copilot, Cursor, ChatGPT, Claude, and more.", icon: ArrowLeftRight },
+  { id: "deployment-recipes", href: "/deployment-recipes", title: "Deployment Recipes", description: "Copy-paste recipes for Ollama, Open WebUI, Cline, and more.", icon: FlaskConical },
+  { id: "deals", href: "/deals", title: "Vendor Deals", description: "Credits, startup programs, and free tiers.", icon: Tag },
+  { id: "safety", href: "/safety", title: "AI Safety", description: "Permission models, prompt injection defenses, and trust checklists.", icon: Shield },
+  { id: "getting-started", href: "/getting-started", title: "Getting Started", description: "A learning path from your first agent to local self-hosting.", icon: Rocket },
+  { id: "lab", href: "/lab", title: "The Lab", description: "Experiments on AI hardware, software, applications, and devices.", icon: Microscope },
+  { id: "changelog", href: "/changelog", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: ScrollText },
 ];
 
 export default function HubClient({ agents, genericItems }: Props) {
@@ -68,38 +89,43 @@ export default function HubClient({ agents, genericItems }: Props) {
   }, [q]);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <section className="relative overflow-hidden border-b border-border px-6 py-20 md:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
-        <div className="relative mx-auto max-w-4xl text-center">
-          <span className="inline-block rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+    <div className="flex flex-1 flex-col">
+      <section className="relative overflow-hidden border-b border-hairline px-6 pt-20 pb-24 md:pt-28 md:pb-32">
+        <div className="bg-grid-faint absolute inset-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
+        <div className="relative mx-auto max-w-5xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-panel px-4 py-1.5 text-xs font-medium text-foreground-secondary">
+            <Zap className="h-3.5 w-3.5 text-accent" />
             Independent AI Directory
-          </span>
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight md:text-6xl">
-            SMF Clearinghouse
+          </div>
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+            Find the right AI agent.
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
-            Your starting point for autonomous AI agents, LLMs, services, skills, and practical know-how.
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">
+            Compare autonomous agents, LLM pricing, open-source tools, vendor services, and tested self-hosting recipes.
           </p>
 
           <div className="mx-auto mt-8 max-w-xl">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search agents, services, skills, guides, tips, tests..."
-              className="w-full rounded-xl border border-border bg-background px-5 py-3 text-foreground placeholder:text-muted-foreground outline-none focus:border-primary"
-            />
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-tertiary" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search agents, services, skills, guides, tips, tests..."
+                className="w-full rounded-xl border border-hairline bg-panel pl-11 pr-4 py-3.5 text-foreground placeholder:text-foreground-tertiary outline-none transition-all focus:border-accent focus:ring-1 focus:ring-accent"
+              />
+            </div>
           </div>
 
           {query && hasResults && (
-            <div className="mt-8 rounded-xl border border-border bg-card p-5 text-left shadow-sm">
+            <div className="mx-auto mt-6 max-w-3xl rounded-xl border border-hairline bg-panel p-5 text-left">
               {topAgents.length > 0 && (
                 <div className="mb-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Agents</p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Agents</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {topAgents.map((a) => (
-                      <Link key={a.id} href={`/agents/${a.id}`} className="rounded-lg border border-border bg-secondary px-3 py-2 text-sm text-foreground hover:border-primary hover:text-primary">
+                      <Link key={a.id} href={`/agents/${a.id}`} className="rounded-md border border-hairline bg-elevated px-3 py-1.5 text-sm text-foreground transition-colors hover:border-accent hover:text-accent">
                         {a.name}
                       </Link>
                     ))}
@@ -108,12 +134,14 @@ export default function HubClient({ agents, genericItems }: Props) {
               )}
               {genericResults.length > 0 && (
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Sections</p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Sections</p>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     {genericResults.map((i) => (
-                      <Link key={`${i.section}-${i.slug}`} href={i.href} className="flex items-center justify-between rounded-lg border border-border bg-secondary px-3 py-2 text-sm text-foreground hover:border-primary hover:text-primary">
+                      <Link key={`${i.section}-${i.slug}`} href={i.href} className="flex items-center justify-between rounded-md border border-hairline bg-elevated px-3 py-2 text-sm text-foreground transition-colors hover:border-accent hover:text-accent">
                         <span className="truncate pr-2">{i.title}</span>
-                        <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground capitalize">{getSectionTitle(i.section)}</span>
+                        <span className="shrink-0 rounded-full bg-hairline px-2 py-0.5 text-xs text-foreground-secondary capitalize font-mono">
+                          {getSectionTitle(i.section)}
+                        </span>
                       </Link>
                     ))}
                   </div>
@@ -123,21 +151,44 @@ export default function HubClient({ agents, genericItems }: Props) {
           )}
 
           {query && !hasResults && (
-            <p className="mt-6 text-sm text-muted-foreground">No results for &quot;{query}&quot;. Try a broader term or browse the sections below.</p>
+            <p className="mt-6 text-sm text-foreground-secondary">
+              No results for &quot;{query}&quot;. Try a broader term or browse the sections below.
+            </p>
           )}
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-12">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredSections.map((s) => (
-            <Link key={s.href} href={s.href} className={`group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br ${s.color} p-6 transition-all hover:border-primary hover:shadow-sm`}>
-              <div className="mb-4 text-4xl">{s.icon}</div>
-              <h2 className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">{s.title}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{s.description}</p>
-              <div className="mt-4 text-sm font-semibold text-primary">Explore →</div>
-            </Link>
-          ))}
+      <section className="mx-auto w-full max-w-7xl px-6 py-16 md:py-20">
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Directory</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">Browse by category</h2>
+          </div>
+          <span className="text-sm text-foreground-tertiary font-mono">{filteredSections.length} sections</span>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredSections.map((s) => {
+            const Icon = s.icon;
+            return (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="group relative flex flex-col justify-between rounded-xl border border-hairline bg-panel p-5 transition-all hover:border-hairline-strong hover:bg-elevated"
+              >
+                <div>
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-hairline bg-elevated text-foreground-secondary transition-colors group-hover:border-accent group-hover:text-accent">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-lg font-medium text-foreground transition-colors group-hover:text-accent">{s.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-foreground-secondary">{s.description}</p>
+                </div>
+                <div className="mt-5 flex items-center text-sm font-medium text-accent">
+                  Explore <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>

@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import { getAllAgents, getAgentCategories, getAgentPricings, getAgentRuntimes } from "@/lib/marketplace/loader";
 import AgentsDirectoryClient from "@/components/AgentsDirectoryClient";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Agent Directory — SMF Clearinghouse",
@@ -14,13 +16,19 @@ export default function AgentsDirectoryPage() {
   const pricings = getAgentPricings();
 
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-muted-foreground">Loading agent directory...</div>}>
-      <AgentsDirectoryClient
-        agents={agents}
-        categories={categories}
-        runtimes={runtimes}
-        pricings={pricings}
-      />
-    </Suspense>
+    <div className="flex min-h-screen flex-col">
+      <Nav />
+      <main className="flex-1">
+        <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-foreground-secondary font-mono">Loading agent directory...</div>}>
+          <AgentsDirectoryClient
+            agents={agents}
+            categories={categories}
+            runtimes={runtimes}
+            pricings={pricings}
+          />
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
   );
 }
