@@ -229,4 +229,9 @@
   [data-agent-name="v0"] h3 { color: #ffffff; }
   [data-agent-name="windsurf"] h3 { color: #fac800; }
   [data-agent-name="zed"] h3 { color: #00d2ef; }
+  [data-agent-name="perplexity"] h3 { color: #e85d4e; }
+  [data-agent-name="chatgpt"] h3 { color: #10a37f; }
+  [data-agent-name="gemini"] h3 { color: #4285f4; }
+  [data-agent-name="letta"] h3 { color: #8b5cf6; }
+  [data-agent-name="manus"] h3 { color: #f59e0b; }
 }

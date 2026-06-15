@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import AgentCard from "@/components/AgentCard";
@@ -13,26 +13,49 @@ interface Props {
   categories: string[];
   runtimes: string[];
   pricings: string[];
+  initialCompare?: string;
 }
 
 const GITHUB_ISSUE_URL = "https://github.com/smfworks/aiclearinghouse-site/issues/new";
 const MAX_COMPARE = 3;
 
-function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props) {
+function SearchParamsReader({
+  onParams,
+}: {
+  onParams: (compare: string | null) => void;
+}) {
   const searchParams = useSearchParams();
+  const compare = searchParams.get("compare");
+  useEffect(() => {
+    onParams(compare);
+  }, [compare, onParams]);
+  return null;
+}
+
+function useHydratedCompare(initialCompare: string | undefined, agents: AgentProfile[]) {
+  return useMemo(() => {
+    return new Set(
+      initialCompare
+        ? initialCompare
+            .split(",")
+            .map((s) => s.trim())
+            .filter((s) => agents.some((a) => a.id === s))
+        : []
+    );
+  }, [initialCompare, agents]);
+}
+
+function AgentsDirectoryInner({
+  agents,
+  categories,
+  runtimes,
+  pricings,
+  initialCompare,
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const initialCompare = searchParams.get("compare");
-  const initialSelected = new Set(
-    initialCompare
-      ? initialCompare
-          .split(",")
-          .map((s) => s.trim())
-          .filter((s) => agents.some((a) => a.id === s))
-      : []
-  );
-
+  const initialSelected = useHydratedCompare(initialCompare, agents);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [runtime, setRuntime] = useState("All");
@@ -40,10 +63,21 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
   const [openSourceOnly, setOpenSourceOnly] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(initialSelected);
   const [compareOpen, setCompareOpen] = useState(initialSelected.size > 0);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setSelected(initialSelected);
+    setCompareOpen(initialSelected.size > 0);
+  }, [initialSelected]);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
     const ids = Array.from(selected).join(",");
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
     if (ids) {
       params.set("compare", ids);
     } else {
@@ -51,7 +85,7 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
     }
     const url = ids ? `${pathname}?${params.toString()}` : pathname;
     router.replace(url, { scroll: false });
-  }, [selected, pathname, router, searchParams]);
+  }, [selected, pathname, router, isClient]);
 
   const filtered = agents.filter((agent) => {
     const q = search.toLowerCase();
@@ -105,7 +139,8 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
           </div>
           <h1 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">Agent Directory</h1>
           <p className="mt-5 text-lg text-foreground-secondary md:text-xl">
-            Compare autonomous AI agents side by side. Find the right coding agent, orchestrator, no-code builder, or enterprise assistant.
+            Compare autonomous AI agents side by side. Find the right coding agent, orchestrator,
+            no-code builder, or enterprise assistant.
           </p>
           <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
             {statTile("Agents listed", stats.total, "text-cyan")}
@@ -120,7 +155,9 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
         <div className="mb-8 rounded-xl border border-hairline bg-panel p-5 shadow-[0_0_30px_-12px_rgba(0,0,0,0.5)]">
           <div className="grid gap-4 md:grid-cols-5">
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Search</label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+                Search
+              </label>
               <input
                 type="text"
                 value={search}
@@ -130,7 +167,9 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Category</label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+                Category
+              </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -145,7 +184,9 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Runtime</label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+                Runtime
+              </label>
               <select
                 value={runtime}
                 onChange={(e) => setRuntime(e.target.value)}
@@ -160,7 +201,9 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Pricing</label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+                Pricing
+              </label>
               <select
                 value={pricing}
                 onChange={(e) => setPricing(e.target.value)}
@@ -213,7 +256,10 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
         </div>
 
         {compareOpen && (
-          <AgentComparison agents={agents.filter((a) => selected.has(a.id))} onClose={() => setCompareOpen(false)} />
+          <AgentComparison
+            agents={agents.filter((a) => selected.has(a.id))}
+            onClose={() => setCompareOpen(false)}
+          />
         )}
 
         {filtered.length > 0 ? (
@@ -262,6 +308,18 @@ function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props)
   );
 }
 
+function AgentDirectorySuspenseBoundary(props: Props) {
+  const [clientCompare, setClientCompare] = useState<string | undefined>(undefined);
+  const initialCompare = props.initialCompare ?? clientCompare;
+
+  return (
+    <>
+      <SearchParamsReader onParams={(compare) => setClientCompare(compare ?? undefined)} />
+      <AgentsDirectoryInner {...props} initialCompare={initialCompare} />
+    </>
+  );
+}
+
 export default function AgentsDirectoryClient(props: Props) {
   return (
     <Suspense
@@ -271,7 +329,7 @@ export default function AgentsDirectoryClient(props: Props) {
         </div>
       }
     >
-      <AgentsDirectoryInner {...props} />
+      <AgentDirectorySuspenseBoundary {...props} />
     </Suspense>
   );
 }

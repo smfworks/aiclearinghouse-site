@@ -9,7 +9,11 @@ export const metadata = {
   description: "Compare autonomous AI agents side-by-side. Filter by category, runtime, and pricing.",
 };
 
-export default function AgentsDirectoryPage() {
+export default function AgentsDirectoryPage({
+  searchParams,
+}: {
+  searchParams?: { compare?: string };
+}) {
   const agents = getAllAgents();
   const categories = getAgentCategories();
   const runtimes = getAgentRuntimes();
@@ -19,12 +23,19 @@ export default function AgentsDirectoryPage() {
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-foreground-secondary font-mono">Loading agent directory...</div>}>
+        <Suspense
+          fallback={
+            <div className="flex min-h-screen items-center justify-center text-foreground-secondary font-mono">
+              Loading agent directory...
+            </div>
+          }
+        >
           <AgentsDirectoryClient
             agents={agents}
             categories={categories}
             runtimes={runtimes}
             pricings={pricings}
+            initialCompare={searchParams?.compare}
           />
         </Suspense>
       </main>

@@ -2,12 +2,16 @@ import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
 import { ExternalLink, GitBranch, Check } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
+import { getAgentColor } from "@/lib/agent-colors";
 
 interface Props {
   agent: AgentProfile;
 }
 
 export default function AgentDetail({ agent }: Props) {
+  const color = getAgentColor(agent.id);
+  const colorStyle = { color } as React.CSSProperties;
+
   return (
     <div className="mx-auto max-w-4xl">
       <Link
@@ -21,11 +25,17 @@ export default function AgentDetail({ agent }: Props) {
         <div className="border-b border-hairline bg-elevated px-8 py-8 md:px-12">
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex items-center gap-5">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-canvas text-3xl font-medium text-foreground">
+              <div
+                className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-canvas text-3xl font-medium border border-hairline"
+                style={colorStyle}
+              >
                 {agent.name.charAt(0)}
               </div>
               <div>
-                <h1 className="text-3xl font-medium tracking-tight md:text-4xl">
+                <h1
+                  className="text-3xl font-medium tracking-tight md:text-4xl"
+                  style={colorStyle}
+                >
                   {agent.name}
                 </h1>
                 <p className="mt-1 text-lg text-foreground-secondary">
@@ -65,7 +75,8 @@ export default function AgentDetail({ agent }: Props) {
                 href={agent.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
+                className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white transition-all hover:opacity-90"
+                style={{ backgroundColor: color }}
               >
                 Visit Website
                 <ExternalLink className="h-4 w-4" />
@@ -76,7 +87,7 @@ export default function AgentDetail({ agent }: Props) {
                 href={agent.repository}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-hairline bg-canvas px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-hairline-strong hover:text-accent"
+                className="inline-flex items-center gap-2 rounded-lg border border-hairline bg-canvas px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-hairline-strong hover:text-cyan"
               >
                 View Source
                 <GitBranch className="h-4 w-4" />
@@ -93,7 +104,7 @@ export default function AgentDetail({ agent }: Props) {
             <ul className="space-y-3">
               {agent.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-3 text-foreground-secondary">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                  <Check className="mt-0.5 h-4 w-4 shrink-0" style={colorStyle} />
                   {feature}
                 </li>
               ))}
