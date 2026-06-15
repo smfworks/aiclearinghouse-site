@@ -6,7 +6,6 @@ import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
 import {
   Bot,
-  Zap,
   Wrench,
   Puzzle,
   BookOpen,
@@ -35,14 +34,39 @@ interface Props {
   genericItems: Record<string, MarketplaceItem[]>;
 }
 
+type SectionColor = {
+  text: string;
+  glow: string;
+  muted: string;
+};
+
+const sectionColors: Record<string, SectionColor> = {
+  "getting-started": { text: "#f5a623", glow: "rgba(245, 166, 35, 0.28)", muted: "rgba(245, 166, 35, 0.10)" },
+  agents: { text: "#22d3ee", glow: "rgba(34, 211, 238, 0.28)", muted: "rgba(34, 211, 238, 0.10)" },
+  llms: { text: "#a78bfa", glow: "rgba(167, 139, 250, 0.28)", muted: "rgba(167, 139, 250, 0.10)" },
+  services: { text: "#60a5fa", glow: "rgba(96, 165, 250, 0.28)", muted: "rgba(96, 165, 250, 0.10)" },
+  skills: { text: "#34d399", glow: "rgba(52, 211, 153, 0.28)", muted: "rgba(52, 211, 153, 0.10)" },
+  guides: { text: "#fbbf24", glow: "rgba(251, 191, 36, 0.28)", muted: "rgba(251, 191, 36, 0.10)" },
+  tips: { text: "#a3e635", glow: "rgba(163, 230, 53, 0.28)", muted: "rgba(163, 230, 53, 0.10)" },
+  tests: { text: "#fb7185", glow: "rgba(251, 113, 133, 0.28)", muted: "rgba(251, 113, 133, 0.10)" },
+  "self-hosting": { text: "#4ade80", glow: "rgba(74, 222, 128, 0.28)", muted: "rgba(74, 222, 128, 0.10)" },
+  "use-cases": { text: "#fb923c", glow: "rgba(251, 146, 60, 0.28)", muted: "rgba(251, 146, 60, 0.10)" },
+  alternatives: { text: "#f472b6", glow: "rgba(244, 114, 182, 0.28)", muted: "rgba(244, 114, 182, 0.10)" },
+  "deployment-recipes": { text: "#f59e0b", glow: "rgba(245, 158, 11, 0.28)", muted: "rgba(245, 158, 11, 0.10)" },
+  deals: { text: "#facc15", glow: "rgba(250, 204, 21, 0.28)", muted: "rgba(250, 204, 21, 0.10)" },
+  safety: { text: "#ef4444", glow: "rgba(239, 68, 68, 0.28)", muted: "rgba(239, 68, 68, 0.10)" },
+  lab: { text: "#818cf8", glow: "rgba(129, 140, 248, 0.28)", muted: "rgba(129, 140, 248, 0.10)" },
+  changelog: { text: "#2dd4bf", glow: "rgba(45, 212, 191, 0.28)", muted: "rgba(45, 212, 191, 0.10)" },
+};
+
 const sections = [
   { id: "getting-started", href: "/getting-started", title: "Getting Started", description: "A learning path from your first agent to local self-hosting.", icon: Rocket, featured: true },
   { id: "agents", href: "/agents", title: "Agent Directory", description: "Compare autonomous AI agents side-by-side.", icon: Bot, featured: true },
   { id: "llms", href: "/llms", title: "LLM Pricing", description: "Pricing, context windows, and benchmark scores.", icon: Cpu, featured: true },
   { id: "services", href: "/services", title: "Services", description: "Hosting, security, data, and observability vendors.", icon: Wrench },
-  { id: "skills", href: "/skills", title: "Skills & Addons", description: "Reusable skills, MCP servers, plugins, and extensions.", icon: Puzzle },
+  { id: "skills", href: "/skills", title: "Skills \u0026 Addons", description: "Reusable skills, MCP servers, plugins, and extensions.", icon: Puzzle },
   { id: "guides", href: "/guides", title: "How-To Guides", description: "Curated starting points and deep dives.", icon: BookOpen },
-  { id: "tips", href: "/tips", title: "Tips & Tricks", description: "Bite-sized advice to level up your agent workflow.", icon: Lightbulb },
+  { id: "tips", href: "/tips", title: "Tips \u0026 Tricks", description: "Bite-sized advice to level up your agent workflow.", icon: Lightbulb },
   { id: "tests", href: "/tests", title: "Test Results", description: "Real-world benchmark reports from the community.", icon: BarChart3 },
   { id: "self-hosting", href: "/self-hosting", title: "Self-Hosting", description: "Hardware and OS guides for local agents and LLMs.", icon: Home },
   { id: "use-cases", href: "/use-cases", title: "Use Cases", description: "Find agents for code review, UI building, debugging, research, and security.", icon: Target },
@@ -53,6 +77,10 @@ const sections = [
   { id: "lab", href: "/lab", title: "The Lab", description: "Experiments on AI hardware, software, applications, and devices.", icon: Microscope },
   { id: "changelog", href: "/changelog", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: ScrollText },
 ];
+
+function colorFor(sectionId: string): SectionColor {
+  return sectionColors[sectionId] || sectionColors["getting-started"];
+}
 
 export default function HubClient({ agents, genericItems }: Props) {
   const [query, setQuery] = useState("");
@@ -157,7 +185,7 @@ export default function HubClient({ agents, genericItems }: Props) {
                   <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Agents</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {topAgents.map((a) => (
-                      <Link key={a.id} href={`/agents/${a.id}`} className="rounded-md border border-hairline bg-elevated px-3 py-1.5 text-sm text-foreground transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_16px_-6px_var(--accent-glow)]">
+                      <Link key={a.id} href={`/agents/${a.id}`} className="rounded-md border border-hairline bg-elevated px-3 py-1.5 text-sm text-foreground transition-all hover:border-cyan hover:text-cyan hover:shadow-[0_0_16px_-6px_var(--cyan-glow)]">
                         {a.name}
                       </Link>
                     ))}
@@ -168,14 +196,32 @@ export default function HubClient({ agents, genericItems }: Props) {
                 <div>
                   <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Sections</p>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                    {genericResults.map((i) => (
-                      <Link key={`${i.section}-${i.slug}`} href={i.href} className="flex items-center justify-between rounded-md border border-hairline bg-elevated px-3 py-2 text-sm text-foreground transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_16px_-6px_var(--accent-glow)]">
-                        <span className="truncate pr-2">{i.title}</span>
-                        <span className="shrink-0 rounded-full bg-hairline px-2 py-0.5 text-xs text-foreground-secondary capitalize font-mono">
-                          {getSectionTitle(i.section)}
-                        </span>
-                      </Link>
-                    ))}
+                    {genericResults.map((i) => {
+                      const c = colorFor(i.section);
+                      return (
+                        <Link
+                          key={`${i.section}-${i.slug}`}
+                          href={i.href}
+                          className="flex items-center justify-between rounded-md border border-hairline bg-elevated px-3 py-2 text-sm text-foreground transition-all hover:shadow-[0_0_16px_-6px_var(--cyan-glow)]"
+                          style={{ color: "var(--foreground)", borderColor: "var(--hairline)" }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = c.text;
+                            e.currentTarget.style.color = c.text;
+                            e.currentTarget.style.boxShadow = `0 0 16px -6px ${c.glow}`;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = "var(--hairline)";
+                            e.currentTarget.style.color = "var(--foreground)";
+                            e.currentTarget.style.boxShadow = "none";
+                          }}
+                        >
+                          <span className="truncate pr-2">{i.title}</span>
+                          <span className="shrink-0 rounded-full bg-hairline px-2 py-0.5 text-xs text-foreground-secondary capitalize font-mono">
+                            {getSectionTitle(i.section)}
+                          </span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -209,8 +255,10 @@ export default function HubClient({ agents, genericItems }: Props) {
       </section>
 
       {/* Directory grid */}
-      <section className="mx-auto w-full max-w-7xl px-6 py-16 md:py-20">
-        <div className="mb-8 flex items-center justify-between">
+      <section className="relative mx-auto w-full max-w-7xl px-6 py-16 md:py-20">
+        <div className="pointer-events-none absolute inset-0 card-rainbow-ambient opacity-30" />
+
+        <div className="relative mb-8 flex items-center justify-between">
           <div>
             <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Directory</p>
             <h2 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">Find your way in</h2>
@@ -218,24 +266,61 @@ export default function HubClient({ agents, genericItems }: Props) {
           <span className="text-sm text-foreground-tertiary font-mono">{filteredSections.length} sections</span>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredSections.map((s) => {
             const Icon = s.icon;
+            const color = colorFor(s.id);
+            const featured = s.featured;
+
             return (
               <Link
                 key={s.href}
                 href={s.href}
-                className={`group relative flex flex-col justify-between rounded-xl border border-hairline bg-panel p-5 transition-all duration-200 card-glow hover:border-accent/50 hover:bg-elevated hover:card-glow-hover ${s.featured ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                className={`group relative flex flex-col justify-between rounded-xl border border-hairline bg-panel p-5 transition-all duration-200 card-glow hover:bg-elevated ${featured ? "sm:col-span-2 lg:col-span-1" : ""}`}
+                style={{ color: color.text }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = color.text;
+                  e.currentTarget.style.boxShadow = `0 0 0 1px ${color.text}, 0 0 40px -12px ${color.glow}, 0 12px 32px -12px rgba(0,0,0,0.6)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--hairline)";
+                  e.currentTarget.style.boxShadow = "0 0 0 1px var(--hairline), 0 4px 24px -10px rgba(0, 0, 0, 0.5)";
+                }}
               >
-                <div className={`absolute inset-x-0 top-0 h-px ${s.featured ? "bg-gradient-to-r from-transparent via-accent to-transparent opacity-60" : "bg-gradient-to-r from-transparent via-hairline-strong to-transparent"}`} />
-                <div>
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-hairline bg-elevated text-foreground-secondary transition-all group-hover:border-accent/50 group-hover:text-accent group-hover:shadow-[0_0_16px_-6px_var(--accent-glow)]">
-                    <Icon className="h-5 w-5" />
+                <div
+                  className="absolute inset-x-0 top-0 h-px opacity-60"
+                  style={{ background: `linear-gradient(to right, transparent, ${color.text}, transparent)` }}
+                />
+
+                {featured && (
+                  <div
+                    className="absolute -inset-px rounded-xl opacity-0 transition-opacity group-hover:opacity-100"
+                    style={{ background: `radial-gradient(circle at 50% 0%, ${color.glow} 0%, transparent 60%)` }}
+                  />
+                )}
+
+                <div className="relative">
+                  <div
+                    className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-hairline bg-elevated text-foreground-secondary transition-all group-hover:border-opacity-50 group-hover:text-white"
+                    style={{
+                      borderColor: "var(--hairline)",
+                      background: color.muted,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = color.text;
+                      e.currentTarget.style.boxShadow = `0 0 20px -6px ${color.glow}`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "var(--hairline)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <Icon className="h-5 w-5" style={{ color: color.text }} />
                   </div>
-                  <h3 className="text-lg font-medium text-foreground transition-colors group-hover:text-accent">{s.title}</h3>
+                  <h3 className="text-lg font-medium text-foreground transition-colors group-hover:text-white">{s.title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-foreground-secondary">{s.description}</p>
                 </div>
-                <div className="mt-5 flex items-center text-sm font-medium text-accent">
+                <div className="relative mt-5 flex items-center text-sm font-medium" style={{ color: color.text }}>
                   Explore <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </Link>

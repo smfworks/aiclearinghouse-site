@@ -51,6 +51,38 @@
   --input: var(--hairline);
   --ring: var(--accent);
   --radius: 0.75rem;
+
+  /* Section color palette — each category gets its own flame */
+  --c-copper: #f5a623;
+  --c-copper-glow: rgba(245, 166, 35, 0.28);
+  --c-cyan: #22d3ee;
+  --c-cyan-glow: rgba(34, 211, 238, 0.22);
+  --c-violet: #a78bfa;
+  --c-violet-glow: rgba(167, 139, 250, 0.22);
+  --c-blue: #60a5fa;
+  --c-blue-glow: rgba(96, 165, 250, 0.22);
+  --c-emerald: #34d399;
+  --c-emerald-glow: rgba(52, 211, 153, 0.22);
+  --c-amber: #fbbf24;
+  --c-amber-glow: rgba(251, 191, 36, 0.22);
+  --c-lime: #a3e635;
+  --c-lime-glow: rgba(163, 230, 53, 0.22);
+  --c-rose: #fb7185;
+  --c-rose-glow: rgba(251, 113, 133, 0.22);
+  --c-green: #4ade80;
+  --c-green-glow: rgba(74, 222, 128, 0.22);
+  --c-tangerine: #fb923c;
+  --c-tangerine-glow: rgba(251, 146, 60, 0.22);
+  --c-magenta: #f472b6;
+  --c-magenta-glow: rgba(244, 114, 182, 0.22);
+  --c-gold: #facc15;
+  --c-gold-glow: rgba(250, 204, 21, 0.22);
+  --c-crimson: #ef4444;
+  --c-crimson-glow: rgba(239, 68, 68, 0.22);
+  --c-indigo: #818cf8;
+  --c-indigo-glow: rgba(129, 140, 248, 0.22);
+  --c-teal: #2dd4bf;
+  --c-teal-glow: rgba(45, 212, 191, 0.22);
 }
 
 @theme inline {
@@ -149,7 +181,7 @@
   }
 
   .card-glow-hover {
-    box-shadow: 0 0 0 1px var(--accent), 0 0 40px -12px var(--accent-glow), 0 12px 32px -12px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 0 1px currentColor, 0 0 40px -12px currentColor, 0 12px 32px -12px rgba(0, 0, 0, 0.6);
   }
 
   .text-gradient {
@@ -170,5 +202,12 @@
   @keyframes cyanPulse {
     0%, 100% { box-shadow: 0 0 0 0 var(--cyan-glow); }
     50% { box-shadow: 0 0 16px 2px var(--cyan-glow); }
+  }
+
+  .card-rainbow-ambient {
+    background:
+      radial-gradient(circle at 20% 0%, rgba(245, 166, 35, 0.08) 0%, transparent 35%),
+      radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.06) 0%, transparent 35%),
+      radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.06) 0%, transparent 40%);
   }
 }
