@@ -9,6 +9,7 @@ tags:
   - agents
   - guide
 last_verified: 2026-06-14
+order: 1
 ---
 
 # Getting Started with AI Agents

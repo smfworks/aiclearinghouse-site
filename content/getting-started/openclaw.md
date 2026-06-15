@@ -9,6 +9,7 @@ tags:
   - self-hosted
   - getting started
 last_verified: 2026-06-15
+order: 2
 ---
 
 # Getting Started with OpenClaw

@@ -11,6 +11,7 @@ tags:
   - skills
   - memory
 last_verified: 2026-06-15
+order: 3
 ---
 
 # Getting Started with Hermes Agent

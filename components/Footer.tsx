@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GitBranch } from "lucide-react";
+import { GitBranch, Sparkles } from "lucide-react";
 
 const links = [
   { href: "/agents", label: "Agents" },
@@ -20,13 +20,13 @@ export default function Footer() {
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
           <div className="max-w-sm">
             <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-              <span className="flex h-6 w-6 items-center justify-center rounded bg-accent text-[10px] font-bold text-accent-foreground">
-                SMF
+              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-accent to-accent-hover text-[10px] font-bold text-accent-foreground shadow-[0_0_14px_-4px_var(--accent-glow)]">
+                <Sparkles className="h-3 w-3" />
               </span>
-              <span>Clearinghouse</span>
+              <span>SMF Clearinghouse</span>
             </Link>
             <p className="mt-3 text-sm text-foreground-secondary">
-              Independent directory for autonomous AI agents, LLM pricing, services, and tested deployment recipes.
+              Independent guidance for AI builders. We test claims, compare costs, and publish the recipes that actually work.
             </p>
           </div>
 
@@ -44,7 +44,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-hairline pt-6 text-sm text-foreground-tertiary md:flex-row">
-          <p>© {new Date().getFullYear()} SMF Clearinghouse. Built for AI builders.</p>
+          <p>© {new Date().getFullYear()} SMF Clearinghouse. Built by SMF Works.</p>
           <a
             href="https://github.com/smfworks/aiclearinghouse-site"
             target="_blank"

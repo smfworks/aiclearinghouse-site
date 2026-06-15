@@ -1,11 +1,11 @@
 import { getAllItems, getSectionTitle } from "@/lib/marketplace/loader";
-import SectionDirectoryClient from "@/components/SectionDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import GettingStartedClient from "@/components/GettingStartedClient";
 
 export const metadata = {
-  title: getSectionTitle("getting-started") + " — SMF Clearinghouse",
-  description: "Browse getting-started on the SMF Clearinghouse.",
+  title: "Getting Started — SMF Clearinghouse",
+  description: "A six-step learning path from your first agent prompt to a working local setup.",
 };
 
 export default function Page() {
@@ -15,12 +15,7 @@ export default function Page() {
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <SectionDirectoryClient
-          items={items}
-          section="getting-started"
-          title={title}
-          description="Curated entries for getting-started from the SMF Clearinghouse."
-        />
+        <GettingStartedClient items={items} title={title} />
       </main>
       <Footer />
     </div>

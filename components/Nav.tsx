@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, Sparkles } from "lucide-react";
 
 const links = [
   { href: "/agents", label: "Agents" },
@@ -19,13 +19,13 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight text-foreground">
-          <span className="flex h-6 w-6 items-center justify-center rounded bg-accent text-[10px] font-bold text-accent-foreground">
-            SMF
+    <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
+        <Link href="/" className="group flex items-center gap-2.5 text-lg font-semibold tracking-tight text-foreground">
+          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-accent to-accent-hover text-[10px] font-bold text-accent-foreground shadow-[0_0_16px_-4px_var(--accent-glow)] transition-transform group-hover:scale-105">
+            <Sparkles className="h-3.5 w-3.5" />
           </span>
-          <span className="hidden sm:inline">Clearinghouse</span>
+          <span className="hidden sm:inline">SMF Clearinghouse</span>
         </Link>
 
         <nav className="hidden items-center gap-1 text-sm lg:flex">
@@ -40,10 +40,10 @@ export default function Nav() {
           ))}
           <Link
             href="/"
-            className="ml-2 rounded-full border border-hairline p-2 text-foreground-secondary transition-colors hover:border-hairline-strong hover:text-foreground"
+            className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border border-hairline text-foreground-secondary transition-colors hover:border-accent hover:text-accent"
             aria-label="Search"
           >
-            <Search className="h-4 w-4" />
+            <Search className="h-3.5 w-3.5" />
           </Link>
         </nav>
 
