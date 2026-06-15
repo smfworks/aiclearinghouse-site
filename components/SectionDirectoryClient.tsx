@@ -5,7 +5,37 @@ import Link from "next/link";
 import Image from "next/image";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, Layers, Server, Database, Shield, Zap, Bot, Wrench, Beaker, FileText, Terminal, Lightbulb } from "lucide-react";
+
+const categoryIcons: Record<string, React.ReactNode> = {
+  Hardware: <Server className="h-3 w-3" />,
+  OS: <Terminal className="h-3 w-3" />,
+  "GPU Setup": <Zap className="h-3 w-3" />,
+  Development: <Terminal className="h-3 w-3" />,
+  Operations: <Wrench className="h-3 w-3" />,
+  Research: <FileText className="h-3 w-3" />,
+  Design: <Beaker className="h-3 w-3" />,
+  Security: <Shield className="h-3 w-3" />,
+  "AI Chat": <Bot className="h-3 w-3" />,
+  "AI Coding": <Terminal className="h-3 w-3" />,
+  Editor: <Wrench className="h-3 w-3" />,
+  Assistant: <Bot className="h-3 w-3" />,
+  Infrastructure: <Server className="h-3 w-3" />,
+  Database: <Database className="h-3 w-3" />,
+  Tool: <Wrench className="h-3 w-3" />,
+  Checklist: <FileText className="h-3 w-3" />,
+  Threat: <Shield className="h-3 w-3" />,
+  "Prompt Injection": <Shield className="h-3 w-3" />,
+  Experiment: <Beaker className="h-3 w-3" />,
+  Project: <Terminal className="h-3 w-3" />,
+  Agent: <Bot className="h-3 w-3" />,
+  Model: <Zap className="h-3 w-3" />,
+  Platform: <Server className="h-3 w-3" />,
+  Guide: <FileText className="h-3 w-3" />,
+  Tip: <Lightbulb className="h-3 w-3" />,
+  Recipe: <Wrench className="h-3 w-3" />,
+  Service: <Server className="h-3 w-3" />,
+};
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
@@ -15,10 +45,137 @@ interface Props {
   description: string;
 }
 
+const categoryColors: Record<string, string> = {
+  // Self-hosting
+  Hardware: "text-cyan border-cyan/30 bg-cyan/5",
+  OS: "text-emerald border-emerald/30 bg-emerald/5",
+  "GPU Setup": "text-violet border-violet/30 bg-violet/5",
+  // Use cases
+  Development: "text-cyan border-cyan/30 bg-cyan/5",
+  Operations: "text-amber border-amber/30 bg-amber/5",
+  Research: "text-emerald border-emerald/30 bg-emerald/5",
+  Design: "text-rose border-rose/30 bg-rose/5",
+  Security: "text-rose border-rose/30 bg-rose/5",
+  // Alternatives
+  "AI Chat": "text-cyan border-cyan/30 bg-cyan/5",
+  "AI Coding": "text-violet border-violet/30 bg-violet/5",
+  Editor: "text-amber border-amber/30 bg-amber/5",
+  Assistant: "text-emerald border-emerald/30 bg-emerald/5",
+  // Deals
+  Infrastructure: "text-cyan border-cyan/30 bg-cyan/5",
+  Database: "text-emerald border-emerald/30 bg-emerald/5",
+  Tool: "text-amber border-amber/30 bg-amber/5",
+  // Safety
+  Checklist: "text-emerald border-emerald/30 bg-emerald/5",
+  Threat: "text-rose border-rose/30 bg-rose/5",
+  "Prompt Injection": "text-rose border-rose/30 bg-rose/5",
+  // Lab
+  Experiment: "text-accent border-accent/30 bg-accent/5",
+  Project: "text-violet border-violet/30 bg-violet/5",
+  // Changelog
+  Agent: "text-cyan border-cyan/30 bg-cyan/5",
+  Model: "text-violet border-violet/30 bg-violet/5",
+  Platform: "text-amber border-amber/30 bg-amber/5",
+  // Fallbacks
+  Guide: "text-accent border-accent/30 bg-accent/5",
+  Tip: "text-accent border-accent/30 bg-accent/5",
+  Recipe: "text-amber border-amber/30 bg-amber/5",
+  Service: "text-cyan border-cyan/30 bg-cyan/5",
+};
+
+const categoryTextColors: Record<string, string> = {
+  Hardware: "text-cyan",
+  OS: "text-emerald",
+  "GPU Setup": "text-violet",
+  Development: "text-cyan",
+  Operations: "text-amber",
+  Research: "text-emerald",
+  Design: "text-rose",
+  Security: "text-rose",
+  "AI Chat": "text-cyan",
+  "AI Coding": "text-violet",
+  Editor: "text-amber",
+  Assistant: "text-emerald",
+  Infrastructure: "text-cyan",
+  Database: "text-emerald",
+  Tool: "text-amber",
+  Checklist: "text-emerald",
+  Threat: "text-rose",
+  "Prompt Injection": "text-rose",
+  Experiment: "text-accent",
+  Project: "text-violet",
+  Agent: "text-cyan",
+  Model: "text-violet",
+  Platform: "text-amber",
+  Guide: "text-accent",
+  Tip: "text-accent",
+  Recipe: "text-amber",
+  Service: "text-cyan",
+};
+
+const categoryBorderColors: Record<string, string> = {
+  Hardware: "border-l-cyan",
+  OS: "border-l-emerald",
+  "GPU Setup": "border-l-violet",
+  Development: "border-l-cyan",
+  Operations: "border-l-amber",
+  Research: "border-l-emerald",
+  Design: "border-l-rose",
+  Security: "border-l-rose",
+  "AI Chat": "border-l-cyan",
+  "AI Coding": "border-l-violet",
+  Editor: "border-l-amber",
+  Assistant: "border-l-emerald",
+  Infrastructure: "border-l-cyan",
+  Database: "border-l-emerald",
+  Tool: "border-l-amber",
+  Checklist: "border-l-emerald",
+  Threat: "border-l-rose",
+  "Prompt Injection": "border-l-rose",
+  Experiment: "border-l-accent",
+  Project: "border-l-violet",
+  Agent: "border-l-cyan",
+  Model: "border-l-violet",
+  Platform: "border-l-amber",
+  Guide: "border-l-accent",
+  Tip: "border-l-accent",
+  Recipe: "border-l-amber",
+  Service: "border-l-cyan",
+};
+
+const sectionAccentColors: Record<string, string> = {
+  "self-hosting": "cyan",
+  "use-cases": "emerald",
+  alternatives: "violet",
+  deals: "amber",
+  safety: "rose",
+  lab: "accent",
+  changelog: "cyan",
+  tips: "accent",
+  services: "cyan",
+  guides: "accent",
+  "deployment-recipes": "amber",
+  tests: "cyan",
+};
+
+function getColorClass(category: string) {
+  return categoryColors[category] || "text-accent border-accent/30 bg-accent/5";
+}
+
+function getTextColor(category: string) {
+  return categoryTextColors[category] || "text-accent";
+}
+
+function getBorderColor(category: string) {
+  return categoryBorderColors[category] || "border-l-accent";
+}
+
 export default function SectionDirectoryClient({ items, section, title, description }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const categories = Array.from(new Set(items.map((i) => i.category))).sort();
+  const accentColor = sectionAccentColors[section] || "accent";
+
   const filtered = items.filter((i) => {
     const q = search.toLowerCase();
     const matchesSearch =
@@ -85,42 +242,52 @@ export default function SectionDirectoryClient({ items, section, title, descript
           Showing {filtered.length} of {items.length}
         </p>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/${section}/${item.slug}`}
-              className="group flex flex-col rounded-xl border border-hairline bg-panel p-5 transition-all hover:border-hairline-strong hover:bg-elevated"
-            >
-              {item.image && (
-                <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg border border-hairline">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((item) => {
+            const colorClass = getColorClass(item.category);
+            const textColor = getTextColor(item.category);
+            const leftBorder = getBorderColor(item.category);
+
+            return (
+              <Link
+                key={item.slug}
+                href={`/${section}/${item.slug}`}
+                className={`group flex flex-col rounded-xl border border-hairline bg-panel p-5 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+              >
+                {item.image && (
+                  <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg border border-hairline">
+                    <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
+                  </div>
+                )}
+                <span className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
+                  {categoryIcons[item.category] || <Layers className="h-3 w-3" />}
+                  {item.category}
+                </span>
+                <h2 className={`mt-3 text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
+                  {item.title}
+                </h2>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {item.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className={`rounded-full border border-hairline px-2 py-0.5 text-xs text-foreground-tertiary transition-colors group-hover:${textColor} group-hover:border-current/30`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              )}
-              <span className="text-xs font-medium uppercase tracking-wider text-accent font-mono">
-                {item.category}
-              </span>
-              <h2 className="mt-2 text-lg font-medium text-foreground transition-colors group-hover:text-accent">
-                {item.title}
-              </h2>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.tags.slice(0, 3).map((tag) => (
-                  <span key={tag} className="rounded-full border border-hairline px-2 py-0.5 text-xs text-foreground-tertiary">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              {item.last_verified && (
-                <div className="mt-3">
-                  <FreshnessBadge dateString={item.last_verified} />
+                {item.last_verified && (
+                  <div className="mt-3">
+                    <FreshnessBadge dateString={item.last_verified} />
+                  </div>
+                )}
+                <div className={`mt-4 flex items-center text-sm font-medium transition-colors ${textColor}`}>
+                  Read <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
-              )}
-              <div className="mt-4 flex items-center text-sm font-medium text-accent">
-                Read <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (
