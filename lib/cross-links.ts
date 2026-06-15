@@ -61,6 +61,56 @@ export const agentCrossLinks: Record<string, CrossLink[]> = {
     { label: "If you want privacy-first, try", targetId: "openclaw", targetName: "OpenClaw" },
     { label: "If you want IDE integration, try", targetId: "cursor", targetName: "Cursor" },
   ],
+  bolt: [
+    { label: "If you want an IDE, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want terminal-first, try", targetId: "claude-code", targetName: "Claude Code" },
+    { label: "If you want no-code design, try", targetId: "lovable", targetName: "Lovable" },
+  ],
+  cline: [
+    { label: "If you want an AI-native IDE, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want terminal-driven, try", targetId: "aider", targetName: "Aider" },
+    { label: "If you want open-source IDE, try", targetId: "zed", targetName: "Zed" },
+  ],
+  "microsoft-scout": [
+    { label: "If you want privacy-first, try", targetId: "openclaw", targetName: "OpenClaw" },
+    { label: "If you want IDE integration, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want terminal-first, try", targetId: "claude-code", targetName: "Claude Code" },
+  ],
+  "openai-codex": [
+    { label: "If you want an IDE, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want open-source, try", targetId: "aider", targetName: "Aider" },
+    { label: "If you want no-code, try", targetId: "lovable", targetName: "Lovable" },
+  ],
+  openhands: [
+    { label: "If you want IDE-based, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want terminal-based, try", targetId: "aider", targetName: "Aider" },
+    { label: "If you want cloud-based, try", targetId: "devin", targetName: "Devin" },
+  ],
+  "replit-agent": [
+    { label: "If you want an IDE, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want terminal-first, try", targetId: "claude-code", targetName: "Claude Code" },
+    { label: "If you want no-code, try", targetId: "lovable", targetName: "Lovable" },
+  ],
+  v0: [
+    { label: "If you want an IDE, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want full app builder, try", targetId: "bolt", targetName: "Bolt.new" },
+    { label: "If you want no-code design, try", targetId: "lovable", targetName: "Lovable" },
+  ],
+  windsurf: [
+    { label: "If you want open-source, try", targetId: "zed", targetName: "Zed" },
+    { label: "If you want terminal-first, try", targetId: "aider", targetName: "Aider" },
+    { label: "If you want no-code, try", targetId: "lovable", targetName: "Lovable" },
+  ],
+  zed: [
+    { label: "If you want open-source IDE, try", targetId: "windsurf", targetName: "Windsurf" },
+    { label: "If you want terminal-first, try", targetId: "aider", targetName: "Aider" },
+    { label: "If you want VS Code extension, try", targetId: "cline", targetName: "Cline" },
+  ],
+  lovable: [
+    { label: "If you want full stack, try", targetId: "bolt", targetName: "Bolt.new" },
+    { label: "If you want an IDE, try", targetId: "cursor", targetName: "Cursor" },
+    { label: "If you want terminal-first, try", targetId: "claude-code", targetName: "Claude Code" },
+  ],
 };
 
 export function getCrossLinks(agentId: string): CrossLink[] {
