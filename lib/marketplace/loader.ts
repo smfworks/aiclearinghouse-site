@@ -26,6 +26,9 @@ function loadItem(section: string, slug: string): MarketplaceItem | undefined {
   const raw = fs.readFileSync(filePath, "utf-8");
   const parsed = matter(raw);
 
+  const wordCount = parsed.content.trim().split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.max(1, Math.round(wordCount / 200));
+
   const item: MarketplaceItem = {
     slug: String(parsed.data.slug || slug),
     title: String(parsed.data.title || ""),
@@ -35,6 +38,8 @@ function loadItem(section: string, slug: string): MarketplaceItem | undefined {
     image: parsed.data.image ? String(parsed.data.image) : undefined,
     ...parsed.data,
     content: parsed.content.trimStart(),
+    wordCount,
+    readingTime,
   };
 
   if (parsed.data.last_verified) {

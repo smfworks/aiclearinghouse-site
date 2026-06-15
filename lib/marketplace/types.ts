@@ -9,6 +9,8 @@ export interface MarketplaceItem {
   tags: string[];
   image?: string;
   content: string;
+  wordCount?: number;
+  readingTime?: number;
   [key: string]: any;
 }
 
