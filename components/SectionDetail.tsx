@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import { markdownToHtml } from "@/lib/markdown";
 import { ArrowLeft } from "lucide-react";
+import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
   item: MarketplaceItem | null | undefined;
@@ -49,9 +50,9 @@ export default function SectionDetail({ item, section, sectionTitle, backHref }:
               ))}
             </div>
             {item.last_verified && (
-              <p className="mt-4 text-xs text-foreground-tertiary font-mono">
-                Last verified: {item.last_verified}
-              </p>
+              <div className="mt-4">
+                <FreshnessBadge dateString={item.last_verified} />
+              </div>
             )}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
 import { Globe } from "lucide-react";
+import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface AgentCardProps {
   agent: AgentProfile;
@@ -73,7 +74,13 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
           ))}
         </div>
 
-        <div className="mt-5 flex items-center gap-1.5 text-xs text-foreground-tertiary font-mono">
+          {agent.lastVerified && (
+            <div className="mt-4">
+              <FreshnessBadge dateString={agent.lastVerified} />
+            </div>
+          )}
+
+        <div className="mt-3 flex items-center gap-1.5 text-xs text-foreground-tertiary font-mono">
           <Globe className="h-3.5 w-3.5" />
           <span className="truncate">{agent.platforms.slice(0, 3).join(", ")}</span>
         </div>

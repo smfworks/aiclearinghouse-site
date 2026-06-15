@@ -6,6 +6,7 @@ import Image from "next/image";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
 import { ArrowRight, Search } from "lucide-react";
+import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
   items: MarketplaceItem[];
@@ -111,9 +112,11 @@ export default function SectionDirectoryClient({ items, section, title, descript
                 ))}
               </div>
               {item.last_verified && (
-                <p className="mt-4 text-xs text-foreground-tertiary font-mono">Verified {item.last_verified}</p>
+                <div className="mt-3">
+                  <FreshnessBadge dateString={item.last_verified} />
+                </div>
               )}
-              <div className="mt-5 flex items-center text-sm font-medium text-accent">
+              <div className="mt-4 flex items-center text-sm font-medium text-accent">
                 Read <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </div>
             </Link>

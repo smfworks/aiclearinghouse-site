@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
 import { ExternalLink, GitBranch, Check } from "lucide-react";
+import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
   agent: AgentProfile;
@@ -145,8 +146,9 @@ export default function AgentDetail({ agent }: Props) {
         </div>
 
         {agent.lastVerified && (
-          <div className="border-t border-hairline bg-elevated px-8 py-3 text-xs text-foreground-tertiary font-mono md:px-12">
-            Last verified: {agent.lastVerified}
+          <div className="border-t border-hairline bg-elevated px-8 py-4 flex items-center justify-between md:px-12">
+            <FreshnessBadge dateString={agent.lastVerified} />
+            <span className="text-xs text-foreground-tertiary font-mono">Last verified: {agent.lastVerified}</span>
           </div>
         )}
       </div>
