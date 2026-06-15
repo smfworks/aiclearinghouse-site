@@ -210,4 +210,23 @@
       radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.06) 0%, transparent 35%),
       radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.06) 0%, transparent 40%);
   }
+
+  /* Agent card name colors */
+  [data-agent-name="openclaw"] h3 { color: #22d3ee; }
+  [data-agent-name="claude-code"] h3 { color: #ff667f; }
+  [data-agent-name="cursor"] h3 { color: #a685ff; }
+  [data-agent-name="aider"] h3 { color: #00d294; }
+  [data-agent-name="cline"] h3 { color: #00d2ef; }
+  [data-agent-name="devin"] h3 { color: #fcbb00; }
+  [data-agent-name="github-copilot"] h3 { color: #ff6568; }
+  [data-agent-name="hermes-agent"] h3 { color: #f5a623; }
+  [data-agent-name="lovable"] h3 { color: #ec6cff; }
+  [data-agent-name="microsoft-scout"] h3 { color: #54a2ff; }
+  [data-agent-name="openai-codex"] h3 { color: #ff8b1a; }
+  [data-agent-name="openhands"] h3 { color: #9de500; }
+  [data-agent-name="replit-agent"] h3 { color: #7d87ff; }
+  [data-agent-name="bolt"] h3 { color: #00d3bd; }
+  [data-agent-name="v0"] h3 { color: #ffffff; }
+  [data-agent-name="windsurf"] h3 { color: #fac800; }
+  [data-agent-name="zed"] h3 { color: #00d2ef; }
 }

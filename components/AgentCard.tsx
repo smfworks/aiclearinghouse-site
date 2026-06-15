@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
 import { Globe } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
-import { agentNameColors } from "@/lib/agent-colors";
 
 interface AgentCardProps {
   agent: AgentProfile;
@@ -21,10 +20,12 @@ const runtimeColors: Record<string, string> = {
 
 export default function AgentCard({ agent, compare }: AgentCardProps) {
   const runtimeStyle = runtimeColors[agent.runtime] || runtimeColors.Hybrid;
-  const nameColor = agentNameColors[agent.name] || "text-cyan";
 
   return (
-    <article className="group relative h-full rounded-xl border border-hairline bg-panel p-5 transition-all duration-200 card-glow hover:border-cyan/50 hover:shadow-[0_0_30px_-10px_var(--cyan-glow)]">
+    <article
+      data-agent-name={agent.id}
+      className="group relative h-full rounded-xl border border-hairline bg-panel p-5 transition-all duration-200 card-glow hover:border-cyan/50 hover:shadow-[0_0_30px_-10px_var(--cyan-glow)]"
+    >
       {compare && (
         <label
           className="absolute right-3 top-3 z-10 flex cursor-pointer items-center gap-2 rounded-full border border-hairline bg-canvas px-2.5 py-1 text-xs text-foreground-secondary transition-colors hover:border-cyan hover:text-cyan"
@@ -48,7 +49,7 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
               {agent.name.charAt(0)}
             </div>
             <div className="min-w-0">
-              <h3 className={`truncate text-base font-medium transition-colors group-hover:text-cyan ${nameColor}`}>
+              <h3 className="truncate text-base font-medium text-foreground transition-colors group-hover:text-cyan">
                 {agent.name}
               </h3>
               <p className="truncate text-sm text-foreground-secondary">{agent.company}</p>

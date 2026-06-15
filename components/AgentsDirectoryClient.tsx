@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import AgentCard from "@/components/AgentCard";
@@ -18,7 +18,7 @@ interface Props {
 const GITHUB_ISSUE_URL = "https://github.com/smfworks/aiclearinghouse-site/issues/new";
 const MAX_COMPARE = 3;
 
-export default function AgentsDirectoryClient({ agents, categories, runtimes, pricings }: Props) {
+function AgentsDirectoryInner({ agents, categories, runtimes, pricings }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -259,5 +259,19 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
         </div>
       </section>
     </div>
+  );
+}
+
+export default function AgentsDirectoryClient(props: Props) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center text-foreground-secondary font-mono">
+          Loading agent directory...
+        </div>
+      }
+    >
+      <AgentsDirectoryInner {...props} />
+    </Suspense>
   );
 }
