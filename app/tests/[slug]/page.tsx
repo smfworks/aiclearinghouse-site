@@ -1,8 +1,9 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getAllItems, getItemBySlug, getSectionTitle } from "@/lib/marketplace/loader";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import SectionDetail from "@/components/SectionDetail";
+import TestDetail from "@/components/TestDetail";
 
 const section = "tests";
 
@@ -15,24 +16,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = getItemBySlug(section, slug);
   if (!item) return {};
   return {
-    title: item.title + " — " + getSectionTitle(section) + " | SMF Clearinghouse",
+    title: `${item.title} — ${getSectionTitle(section)} | SMF Clearinghouse`,
     description: item.excerpt,
   };
 }
 
-export default async function DetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function TestPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const item = getItemBySlug(section, slug);
+  if (!item) notFound();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <SectionDetail
-          item={item}
-          section={section}
-          sectionTitle={getSectionTitle(section)}
-          backHref={"/" + section}
-        />
+        <TestDetail item={item} />
       </main>
       <Footer />
     </div>

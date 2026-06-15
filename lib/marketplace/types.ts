@@ -1,6 +1,16 @@
 export type AgentPricing = "Free" | "Paid" | "Freemium" | "Open Source";
 export type AgentRuntime = "Local" | "Cloud" | "Hybrid";
 
+export interface TestResult {
+  agent: string;
+  score?: number;
+  time_minutes?: number;
+  tokens?: number;
+  cost_usd?: number;
+  pass?: boolean;
+  notes?: string;
+}
+
 export interface MarketplaceItem {
   slug: string;
   title: string;
@@ -13,6 +23,11 @@ export interface MarketplaceItem {
   readingTime?: number;
   difficulty?: string;
   estimated_time?: string;
+  agents?: string[];
+  llm?: string;
+  winner?: string;
+  date?: string;
+  results?: TestResult[];
   [key: string]: any;
 }
 
