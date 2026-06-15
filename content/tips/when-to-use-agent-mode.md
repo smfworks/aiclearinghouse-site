@@ -1,18 +1,21 @@
 ---
 slug: when-to-use-agent-mode
 title: When to Use Agent Mode vs. Chat
-excerpt: Agent mode is powerful but expensive and noisy. Know when to turn it on and when to stay in chat.
 category: Tip
+excerpt: Agent mode is powerful but expensive and noisy. Know when to turn it on and when to stay in chat.
 tags:
   - agent mode
   - chat
   - productivity
   - cost
   - workflow
-last_verified: 2026-06-14
+order: 10
+last_verified: 2026-06-15
 ---
 
 # When to Use Agent Mode vs. Chat
+
+## The principle
 
 Modern AI coding tools have two modes:
 
@@ -30,28 +33,29 @@ Agent mode is more powerful but also more expensive, slower, and harder to contr
 
 ## Use agent mode for
 
-- Multi-file refactors
-- Adding a feature that touches tests, docs, and config
-- Debugging that requires running commands and reading logs
-- Repetitive tasks you have already done manually once
+- Multi-file edits with a clear goal
+- Running tests and fixing failures iteratively
+- Refactoring with dependencies across the project
+- Tasks you can define precisely and review carefully
 
 ## Cost and speed
 
-Agent mode usually sends many more tokens than chat because it includes file context, tool results, and loop history. A single agent session can cost 10–50x more than a chat exchange.
+Agent mode usually costs 5–20x more per task than chat because it sends many messages, reads files repeatedly, and may invoke expensive models. It is also slower. Reserve it for work that justifies the overhead.
 
-| Mode | Tokens | Latency | Control |
-|------|--------|---------|---------|
-| Chat | Low | Seconds | High |
-| Agent mode | High | Minutes | Lower |
+## How to apply it
 
-## How to keep agent mode safe
+1. **Start in chat.** Understand the problem before handing over control.
+2. **Switch to agent mode only for execution.** Once you know what needs to change, let the agent do it.
+3. **Set boundaries.** Tell the agent which files it can touch and which it cannot.
+4. **Review before accepting.** Agent mode changes code; you are still responsible for it.
 
-1. Start with a narrow goal. "Add input validation to the signup form" is better than "fix the app."
-2. Review every diff before applying.
-3. Disable auto-approval for shell commands and file writes.
-4. Run tests and linters after the agent finishes.
-5. Keep a git checkpoint so you can revert.
+## Red flags
 
-## Verdict
+- You use agent mode for questions that don't require action.
+- The agent touches files you didn't mention.
+- Agent mode is your default for every task.
+- You are paying premium model prices for simple lookups.
 
-Default to chat. Escalate to agent mode only when the task genuinely spans multiple files or requires iteration. Your tokens and your sanity will last longer.
+## Quick win
+
+For your next task, ask the same question in chat first. If the answer includes a clear plan with specific files, then switch to agent mode to execute it.

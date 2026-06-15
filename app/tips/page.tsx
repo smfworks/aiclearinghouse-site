@@ -1,26 +1,20 @@
-import { getAllItems, getSectionTitle } from "@/lib/marketplace/loader";
-import SectionDirectoryClient from "@/components/SectionDirectoryClient";
+import { getAllItems } from "@/lib/marketplace/loader";
+import TipsDirectoryClient from "@/components/TipsDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: getSectionTitle("tips") + " — SMF Clearinghouse",
-  description: "Browse tips on the SMF Clearinghouse.",
+  title: "Tips & Tricks — SMF Clearinghouse",
+  description: "Practical habits that make AI agents safer, cheaper, and more useful.",
 };
 
-export default function Page() {
+export default function TipsPage() {
   const items = getAllItems("tips");
-  const title = getSectionTitle("tips");
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <SectionDirectoryClient
-          items={items}
-          section="tips"
-          title={title}
-          description="Curated entries for tips from the SMF Clearinghouse."
-        />
+        <TipsDirectoryClient items={items} />
       </main>
       <Footer />
     </div>

@@ -1,18 +1,21 @@
 ---
 slug: pick-a-local-model
 title: How to Pick a Local Model for Coding
-excerpt: Choose the right quantized model for your hardware, task, and quality bar.
 category: Tip
+excerpt: Choose the right quantized model for your hardware, task, and quality bar.
 tags:
   - local models
   - Ollama
   - quantization
   - hardware
   - coding
-last_verified: 2026-06-14
+order: 9
+last_verified: 2026-06-15
 ---
 
 # How to Pick a Local Model for Coding
+
+## The principle
 
 Local models trade capability for control. The right choice depends on your hardware and the task, not just the leaderboard.
 
@@ -29,37 +32,28 @@ Local models trade capability for control. The right choice depends on your hard
 
 | Task | Suggested models |
 |------|------------------|
-| Autocomplete / small edits | Qwen3.5:9b, Qwen2.5-Coder:7b |
-| Code generation / refactoring | Qwen3-Coder:32b, DeepSeek-V4 Pro |
-| Reasoning / debugging | Minimax-M3, Gemma 4 12B/27B |
-| General chat / planning | Qwen3.5:9b, Llama 4 8B |
+| Quick chat / planning | `qwen3.5:9b`, `llama3.2:3b` |
+| Code generation / refactoring | `qwen2.5-coder:14b`, `codellama:13b` |
+| Reasoning / debugging | `qwq:32b`, `deepseek-r1:14b` |
+| Tab completion | `qwen2.5-coder:1.5b`, `starcoder2:3b` |
 
-## Test before you trust
+## Why quantization matters
 
-Benchmark scores are misleading. Run your real prompts through the model:
+Quantization reduces model size by lowering numerical precision. Q4 is the sweet spot: small enough to fit on consumer GPUs, capable enough for coding. Lower than Q4 (Q3, Q2) saves memory but degrades quality noticeably. Unquantized is best if you have the VRAM.
 
-1. Pick 5 representative tasks from your codebase.
-2. Run each one with the same prompt across 2–3 models.
-3. Grade output for correctness, style, and safety.
-4. Measure latency and token cost if using an API gateway.
+## How to apply it
 
-## Quantization trade-offs
+1. **Benchmark on your hardware.** Latency matters as much as benchmark scores.
+2. **Start with a 9B model.** It runs on almost anything and gives you a baseline.
+3. **Upgrade for hard tasks.** Switch to 14B or 32B only when the smaller model fails.
+4. **Match model family to task.** Coder models for code, reasoning models for debugging, small models for speed.
 
-- **Q4_K_M**: good balance of quality and size. Start here.
-- **Q5_K_M**: slightly better quality, larger files.
-- **Q8_0**: near-unquantized quality, needs more VRAM.
-- **FP16**: best quality, requires the most memory.
+## Red flags
 
-Start with Q4 and only move up if you see quality loss on your specific tasks.
+- You are running a 70B model on a laptop and wondering why it is slow.
+- You picked a model because it topped a leaderboard, not because it fits your task.
+- Every task uses the same model regardless of complexity.
 
-## Common mistakes
+## Quick win
 
-- Downloading a 70B model on 16 GB VRAM. It will run on CPU and be unusably slow.
-- Trusting one benchmark. MMLU does not measure your codebase.
-- Ignoring context window. Some models drop long files silently.
-
-## Related
-
-- [Run Ollama on Ubuntu with NVIDIA CUDA](/deployment-recipes/ollama-ubuntu-cuda)
-- [Use Cline with a Local Model](/deployment-recipes/cline-local)
-- [Local Model Agents](/use-cases/local-models)
+Pull `qwen3.5:9b` and `qwen2.5-coder:14b` in Ollama. Try the same coding prompt with both. Pick the one that gives you acceptable output at acceptable speed.
