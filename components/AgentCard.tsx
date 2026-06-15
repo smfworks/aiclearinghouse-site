@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
-import { Globe } from "lucide-react";
+import { Cpu, Globe } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface AgentCardProps {
@@ -45,11 +45,13 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
       <Link href={`/agents/${agent.id}`} className="block">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-elevated to-panel text-base font-medium text-foreground border border-hairline group-hover:border-cyan/40 transition-colors">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-elevated to-panel text-lg font-semibold text-foreground border border-hairline group-hover:border-cyan/40 transition-colors"
+              style={{ color: agent.id ? undefined : undefined }}
+            >
               {agent.name.charAt(0)}
             </div>
             <div className="min-w-0">
-              <h3 className="truncate text-base font-medium text-foreground transition-colors group-hover:text-cyan">
+              <h3 className="truncate text-base font-semibold text-foreground transition-colors group-hover:text-cyan">
                 {agent.name}
               </h3>
               <p className="truncate text-sm text-foreground-secondary">{agent.company}</p>
@@ -57,7 +59,7 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
           </div>
 
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${
+            className={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
               agent.openSource
                 ? "bg-success-muted text-success"
                 : "bg-warning-muted text-warning"
@@ -67,14 +69,17 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
           </span>
         </div>
 
-        <p className="mt-4 line-clamp-2 text-sm text-foreground-secondary">{agent.tagline}</p>
+        <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-foreground-secondary">
+          {agent.tagline}
+        </p>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className={`rounded-md border px-2 py-0.5 text-xs font-mono ${runtimeStyle}`}>
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <span className={`rounded-md border px-2.5 py-1 text-xs font-mono ${runtimeStyle}`}>
             {agent.runtime}
           </span>
           {agent.model && (
-            <span className="rounded-md border border-hairline bg-canvas px-2 py-0.5 text-xs text-foreground-secondary font-mono truncate max-w-[140px]">
+            <span className="rounded-md border border-hairline bg-canvas px-2.5 py-1 text-xs text-foreground-tertiary font-mono truncate max-w-[150px] inline-flex items-center gap-1.5">
+              <Cpu className="h-3 w-3" />
               {agent.model}
             </span>
           )}
@@ -82,7 +87,7 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
 
         <div className="mt-4 flex flex-wrap gap-2">
           {agent.categories.slice(0, 3).map((cat) => (
-            <span key={cat} className="rounded-full border border-hairline px-2 py-0.5 text-xs text-foreground-tertiary">
+            <span key={cat} className="rounded-full border border-hairline px-2.5 py-0.5 text-xs text-foreground-tertiary">
               {cat}
             </span>
           ))}
