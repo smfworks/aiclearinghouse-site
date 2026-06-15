@@ -1,19 +1,23 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-
-export interface MarketplaceItem {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  tags: string[];
-  image?: string;
-  content: string;
-  [key: string]: any;
-}
+import {
+  AgentPricing,
+  AgentProfile,
+  AgentRuntime,
+  MarketplaceItem,
+} from "./types";
 
 const contentDir = path.join(process.cwd(), "content");
+
+export function getSections(): string[] {
+  if (!fs.existsSync(contentDir)) return [];
+  return fs
+    .readdirSync(contentDir, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && !d.name.startsWith(".") && d.name !== "agentmarketplace")
+    .map((d) => d.name)
+    .sort();
+}
 
 function loadItem(section: string, slug: string): MarketplaceItem | undefined {
   const filePath = path.join(contentDir, section, `${slug}.md`);
@@ -22,16 +26,22 @@ function loadItem(section: string, slug: string): MarketplaceItem | undefined {
   const raw = fs.readFileSync(filePath, "utf-8");
   const parsed = matter(raw);
 
-  return {
-    slug: parsed.data.slug || slug,
-    title: parsed.data.title || "",
-    excerpt: parsed.data.excerpt || "",
-    category: parsed.data.category || parsed.data.section || "General",
-    tags: parsed.data.tags || [],
-    image: parsed.data.image,
+  const item: MarketplaceItem = {
+    slug: String(parsed.data.slug || slug),
+    title: String(parsed.data.title || ""),
+    excerpt: String(parsed.data.excerpt || ""),
+    category: String(parsed.data.category || parsed.data.section || "General"),
+    tags: normalizeArray(parsed.data.tags),
+    image: parsed.data.image ? String(parsed.data.image) : undefined,
     ...parsed.data,
     content: parsed.content.trimStart(),
   };
+
+  if (parsed.data.last_verified) {
+    item.last_verified = String(parsed.data.last_verified);
+  }
+
+  return item;
 }
 
 export function getAllItems(section: string): MarketplaceItem[] {
@@ -58,32 +68,52 @@ export function getItemBySlug(section: string, slug: string): MarketplaceItem | 
   return loadItem(section, slug) || null;
 }
 
-export type AgentPricing = "Free" | "Paid" | "Freemium" | "Open Source";
-export type AgentRuntime = "Local" | "Cloud" | "Hybrid";
-
-export interface AgentProfile {
-  id: string;
-  name: string;
-  tagline: string;
-  description: string;
-  website: string;
-  repository?: string;
-  logo?: string;
-  categories: string[];
-  pricing: AgentPricing;
-  runtime: AgentRuntime;
-  openSource: boolean;
-  multiPlatform: boolean;
-  providerAgnostic: boolean;
-  model?: string;
-  platforms: string[];
-  features: string[];
-  releaseYear: number;
-  company: string;
-  lastVerified?: string;
+function normalizeArray(value: unknown): string[] {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.map(String).filter(Boolean);
+  if (typeof value === "string") return value.split(",").map((s) => s.trim()).filter(Boolean);
+  return [];
 }
 
-function toAgentProfile(item: MarketplaceItem): AgentProfile {
+function normalizePricing(value: unknown): AgentPricing {
+  const allowed: AgentPricing[] = ["Free", "Paid", "Freemium", "Open Source"];
+  const str = String(value || "").trim() as AgentPricing;
+  return allowed.includes(str) ? str : "Freemium";
+}
+
+function normalizeRuntime(value: unknown): AgentRuntime {
+  const allowed: AgentRuntime[] = ["Local", "Cloud", "Hybrid"];
+  const str = String(value || "").trim() as AgentRuntime;
+  return allowed.includes(str) ? str : "Cloud";
+}
+
+export function getAllAgents(): AgentProfile[] {
+  return getAllItems("agents").map((item) => ({
+    id: item.slug,
+    name: item.title,
+    tagline: item.excerpt,
+    description: item.content,
+    website: String(item.website || ""),
+    repository: item.repository ? String(item.repository) : undefined,
+    logo: item.image ? String(item.image) : undefined,
+    categories: normalizeArray(item.categories || item.tags),
+    pricing: normalizePricing(item.pricing),
+    runtime: normalizeRuntime(item.runtime),
+    openSource: Boolean(item.openSource),
+    multiPlatform: Boolean(item.multiPlatform),
+    providerAgnostic: Boolean(item.providerAgnostic),
+    model: item.model ? String(item.model) : undefined,
+    platforms: normalizeArray(item.platforms),
+    features: normalizeArray(item.features),
+    releaseYear: typeof item.releaseYear === "number" ? item.releaseYear : new Date().getFullYear(),
+    company: String(item.company || ""),
+    lastVerified: item.last_verified ? String(item.last_verified) : undefined,
+  }));
+}
+
+export function getAgentBySlug(slug: string): AgentProfile | null {
+  const item = getItemBySlug("agents", slug);
+  if (!item) return null;
   return {
     id: item.slug,
     name: item.title,
@@ -107,35 +137,6 @@ function toAgentProfile(item: MarketplaceItem): AgentProfile {
   };
 }
 
-function normalizeArray(value: unknown): string[] {
-  if (!value) return [];
-  if (Array.isArray(value)) return value.map(String).filter(Boolean);
-  if (typeof value === "string") return value.split(",").map((s) => s.trim()).filter(Boolean);
-  return [];
-}
-
-function normalizePricing(value: unknown): AgentPricing {
-  const allowed: AgentPricing[] = ["Free", "Paid", "Freemium", "Open Source"];
-  const str = String(value || "").trim() as AgentPricing;
-  return allowed.includes(str) ? str : "Freemium";
-}
-
-function normalizeRuntime(value: unknown): AgentRuntime {
-  const allowed: AgentRuntime[] = ["Local", "Cloud", "Hybrid"];
-  const str = String(value || "").trim() as AgentRuntime;
-  return allowed.includes(str) ? str : "Cloud";
-}
-
-export function getAllAgents(): AgentProfile[] {
-  return getAllItems("agents").map(toAgentProfile);
-}
-
-export function getAgentBySlug(slug: string): AgentProfile | null {
-  const item = getItemBySlug("agents", slug);
-  if (!item) return null;
-  return toAgentProfile(item);
-}
-
 export function getAgentCategories(): string[] {
   return Array.from(new Set(getAllAgents().flatMap((a) => a.categories))).sort();
 }
@@ -151,3 +152,6 @@ export function getAgentPricings(): AgentPricing[] {
 export function getAgentPlatforms(): string[] {
   return Array.from(new Set(getAllAgents().flatMap((a) => a.platforms))).sort();
 }
+
+export { getSectionTitle, sectionNames } from "./types";
+export type { AgentProfile, AgentPricing, AgentRuntime, MarketplaceItem } from "./types";
