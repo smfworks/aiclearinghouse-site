@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-06-14T02:01:47.306345+00:00",
+  "providers": [
+    {
+      "provider": "OpenAI",
+      "url": "https://openai.com/api/pricing/",
+      "fetch_ok": true,
+      "models": [
+        {
+          "model": "gpt-4o",
+          "model_id": "gpt-4o-2024-08-06",
+          "extracted_input_price": null,
+          "extracted_output_price": null,
+          "extracted_context": null,
+          "window_sample": "ns and charged per token. Text models price image tokens at standard text token rates, while GPT Image and gpt-realtime uses a separate image token rate. Models like gpt-4.1-mini, gpt-4.1-nano, and o4-mini convert images into tokens differently. Learn more in our docs ⁠ (opens in a new window) . Pricing calculator Set model gpt-5 gpt-5.1 gpt-5.2 gpt-5-mini gpt-5-nano gpt-5-chat-latest gpt-4.1 gpt-4.1-mini gpt-4.1-nano o3 o3-deep-research o3-pro-2025-06-10 o4-mini o4-mini-deep-research o1 o1-pro gpt-4o gpt-4o-2024-05-13 gpt-4o-mini computer-use-preview gpt-4.5-preview codex-mini-latest gpt-5-co"
+        },
+        {
+          "model": "gpt-4o-mini",
+          "model_id": "gpt-4o-mini-2024-07-18",
+          "extracted_input_price": 5.0,
+          "extracted_output_price": 5.0,
+          "extracted_context": null,
+          "window_sample": " Text models price image tokens at standard text token rates, while GPT Image and gpt-realtime uses a separate image token rate. Models like gpt-4.1-mini, gpt-4.1-nano, and o4-mini convert images into tokens differently. Learn more in our docs ⁠ (opens in a new window) . Pricing calculator Set model gpt-5 gpt-5.1 gpt-5.2 gpt-5-mini gpt-5-nano gpt-5-chat-latest gpt-4.1 gpt-4.1-mini gpt-4.1-nano o3 o3-deep-research o3-pro-2025-06-10 o4-mini o4-mini-deep-research o1 o1-pro gpt-4o gpt-4o-2024-05-13 gpt-4o-mini computer-use-preview gpt-4.5-preview codex-mini-latest gpt-5-codex Set width px by Set h"
+        },
+        {
+          "model": "o3",
+          "model_id": "o3-2025-04-16",
+          "extracted_input_price": null,
+          "extracted_output_price": null,
+          "extracted_context": null,
+          "window_sample": ""
+        }
+      ]
+    },
+    {
+      "provider": "Anthropic",
+      "url": "https://www.anthropic.com/pricing",
+      "fetch_ok": true,
+      "models": [
+        {
+          "model": "Claude 4 Sonnet",
+          "model_id": "claude-sonnet-4-20250514",
+          "extracted_input_price": null,
+          "extracted_output_price": null,
+          "extracted_context": null,
+          "window_sample": "Plans & Pricing | Claude by Anthropic Explore here Next Next Question 01 / 05 How big is your team? Under 50 people Startup or small business 50–500 people Growing company with several teams 500+ people Large organization with complex needs Next Next Next Question 02 / 05 How many people will use Claude? 5–20 people One team or small group 20–100 people Teams or a department 100+ people Across the company Back Back Back Next Next Next Question 03 / 05 What are your security and compliance needs? Standard SSO is e Plans & Pricing | Claude by Anthropic Explore here Next Next Question 01 / 05 How"
+        },
+        {
+          "model": "Claude 4 Opus",
+          "model_id": "claude-opus-4-20250514",
+          "extracted_input_price": null,
+          "extracted_output_price": null,
+          "extracted_context": null,
+          "window_sample": "Plans & Pricing | Claude by Anthropic Explore here Next Next Question 01 / 05 How big is your team? Under 50 people Startup or small business 50–500 people Growing company with several teams 500+ people Large organization with complex needs Next Next Next Question 02 / 05 How many people will use Claude? 5–20 people One team or small group 20–100 people Teams or a department 100+ people Across the company Back Back Back Next Next Next Question 03 / 05 What are your security and compliance needs? Standard SSO is e Plans & Pricing | Claude by Anthropic Explore here Next Next Question 01 / 05 How"
+        },
+        {
+          "model": "Claude 4 Haiku",
+          "model_id": "claude-haiku-4-20250514",
+          "extracted_input_price": null,
+          "extracted_output_price": null,
+          "extracted_context": null,
+          "window_sample": "Plans & Pricing | Claude by Anthropic Explore here Next Next Question 01 / 05 How big is your team? Under 50 people Startup or small business 50–500 people Growing company with several teams 500+ people Large organization with complex needs Next Next Next Question 02 / 05 How many people will use Claude? 5–20 people One team or small group 20–100 people Teams or a department 100+ people Across the company Back Back Back Next Next Next Question 03 / 05 What are your security and compliance needs? Standard SSO is e Plans & Pricing | Claude by Anthropic Explore here Next Next Question 01 / 05 How"
+        }
+      ]
+    },
+    {
+      "provider": "DeepSeek",
+      "url": "https://api.deepseek.com/pricing",
+      "fetch_ok": false,
+      "error": "[fetch_error] 401 Client Error: Unauthorized for url: https://api.deepseek.com/pricing",
+      "models": []
+    },
+    {
+      "provider": "Google",
+      "url": "https://ai.google.dev/pricing",
+      "fetch_ok": true,
+      "models": [
+        {
+          "model": "Gemini 2.5 Pro",
+          "model_id": "gemini-2.5-pro-preview-05-06",
+          "extracted_input_price": null,
+          "extracted_output_price": null,
+          "extracted_context": 200000,
+          "window_sample": "s Yes No * Image input is set at 560 tokens or $0.0011 per image. ** Image output is priced at $120 per 1,000,000 tokens. Output\nimages from 1024x1024px (1K) and up to 2048x2048px (2K) consume 1120 tokens and\nare equivalent to $0.134 per image. Output images up to 4096x4096px (4K) consume\n2000 tokens and are equivalent to $0.24 per image. *** A customer-submitted request to Gemini may result in one or more\nqueries to Google Search. You will be charged for each individual search query\nperformed. Gemini 2.5 Pro gemini-2.5-pro Try it in Google AI Studio Our state-of-the-art multipurpose model, wh"
+        }
+      ]
+    },
+    {
+      "provider": "xAI",
+      "url": "https://x.ai/api/pricing",
+      "fetch_ok": false,
+      "error": "[fetch_error] 404 Client Error: Not Found for url: https://x.ai/api/pricing",
+      "models": []
+    }
+  ]
+}
