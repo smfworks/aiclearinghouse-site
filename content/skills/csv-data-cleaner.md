@@ -1,31 +1,31 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
-category: Integrations
+slug: csv-data-cleaner
+title: CSV Data Cleaner
+excerpt: Fix formatting, deduplicate rows, and infer schemas from messy CSVs.
+category: Data
 tags:
   - hermes
-  - github
-  - pr
+  - csv
+  - cleaning
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install csv-data-cleaner
 dependencies:
 - Hermes Agent
-- GitHub token
-image: /images/skills/integrations.svg
+- CSV files
+image: /images/skills/data.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 50
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# CSV Data Cleaner
 
-Draft PR descriptions, request reviews, and summarize changes.
+Fix formatting, deduplicate rows, and infer schemas from messy CSVs.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle csv data cleaner tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +36,12 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
+- CSV files
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install csv-data-cleaner
 ```
 
 Or install through the Hermes Desktop skills hub.

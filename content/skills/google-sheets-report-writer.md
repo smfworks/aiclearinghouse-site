@@ -1,31 +1,31 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
+slug: google-sheets-report-writer
+title: Google Sheets Report Writer
+excerpt: Append data, build pivot tables, and format sheets from chat commands.
 category: Integrations
 tags:
   - hermes
-  - github
-  - pr
+  - google-sheets
+  - reporting
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install google-sheets-report-writer
 dependencies:
 - Hermes Agent
-- GitHub token
+- Google Sheets API credentials
 image: /images/skills/integrations.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 103
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# Google Sheets Report Writer
 
-Draft PR descriptions, request reviews, and summarize changes.
+Append data, build pivot tables, and format sheets from chat commands.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle google sheets report writer tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +36,12 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
+- Google Sheets API credentials
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install google-sheets-report-writer
 ```
 
 Or install through the Hermes Desktop skills hub.

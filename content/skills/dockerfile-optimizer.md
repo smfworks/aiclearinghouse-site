@@ -1,31 +1,31 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
-category: Integrations
+slug: dockerfile-optimizer
+title: Dockerfile Optimizer
+excerpt: Shrink images, improve layer caching, and harden Dockerfiles.
+category: DevOps
 tags:
   - hermes
-  - github
-  - pr
+  - docker
+  - optimization
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install dockerfile-optimizer
 dependencies:
 - Hermes Agent
-- GitHub token
-image: /images/skills/integrations.svg
+- Docker installed
+image: /images/skills/devops.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 60
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# Dockerfile Optimizer
 
-Draft PR descriptions, request reviews, and summarize changes.
+Shrink images, improve layer caching, and harden Dockerfiles.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle dockerfile optimizer tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +36,12 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
+- Docker installed
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install dockerfile-optimizer
 ```
 
 Or install through the Hermes Desktop skills hub.

@@ -58,6 +58,58 @@ export default function SectionDetail({ item, section, sectionTitle, backHref }:
         </div>
 
         <div className="prose prose-invert max-w-none px-8 py-10 md:px-12">
+          {(item.for || item.author || item.install || (item.dependencies && item.dependencies.length > 0) || item.source) && (
+            <div className="not-prose mb-10 rounded-xl border border-hairline bg-elevated p-6">
+              <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Skill details</h2>
+              <dl className="grid gap-4 text-sm sm:grid-cols-2">
+                {item.for && (
+                  <div>
+                    <dt className="text-foreground-tertiary">For</dt>
+                    <dd className="mt-1 font-medium text-foreground">{item.for}</dd>
+                  </div>
+                )}
+                {item.author && (
+                  <div>
+                    <dt className="text-foreground-tertiary">Author</dt>
+                    <dd className="mt-1 font-medium text-foreground">{item.author}</dd>
+                  </div>
+                )}
+                {item.install && (
+                  <div className="sm:col-span-2">
+                    <dt className="text-foreground-tertiary">Install</dt>
+                    <dd className="mt-1 rounded-lg border border-hairline bg-canvas px-3 py-2 font-mono text-foreground">{item.install}</dd>
+                  </div>
+                )}
+                {item.dependencies && item.dependencies.length > 0 && (
+                  <div className="sm:col-span-2">
+                    <dt className="text-foreground-tertiary">Dependencies</dt>
+                    <dd className="mt-1">
+                      <ul className="list-disc pl-4 text-foreground">
+                        {item.dependencies.map((dep: string) => (
+                          <li key={dep}>{dep}</li>
+                        ))}
+                      </ul>
+                    </dd>
+                  </div>
+                )}
+                {item.source && (
+                  <div className="sm:col-span-2">
+                    <dt className="text-foreground-tertiary">Source</dt>
+                    <dd className="mt-1">
+                      <Link
+                        href={item.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="break-all text-accent hover:underline"
+                      >
+                        {item.source}
+                      </Link>
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          )}
           <div dangerouslySetInnerHTML={{ __html: markdownToHtml(item.content) }} />
         </div>
       </article>

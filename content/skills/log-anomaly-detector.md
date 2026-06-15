@@ -1,31 +1,31 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
-category: Integrations
+slug: log-anomaly-detector
+title: Log Anomaly Detector
+excerpt: Summarize logs, detect spikes, and surface error patterns.
+category: DevOps
 tags:
   - hermes
-  - github
-  - pr
+  - logs
+  - monitoring
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install log-anomaly-detector
 dependencies:
 - Hermes Agent
-- GitHub token
-image: /images/skills/integrations.svg
+- Log stream or files
+image: /images/skills/devops.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 63
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# Log Anomaly Detector
 
-Draft PR descriptions, request reviews, and summarize changes.
+Summarize logs, detect spikes, and surface error patterns.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle log anomaly detector tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +36,12 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
+- Log stream or files
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install log-anomaly-detector
 ```
 
 Or install through the Hermes Desktop skills hub.

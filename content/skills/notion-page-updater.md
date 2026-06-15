@@ -1,31 +1,31 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
+slug: notion-page-updater
+title: Notion Page Updater
+excerpt: Create and update Notion pages from research or meeting notes.
 category: Integrations
 tags:
   - hermes
-  - github
-  - pr
+  - notion
+  - notes
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install notion-page-updater
 dependencies:
 - Hermes Agent
-- GitHub token
+- Notion integration token
 image: /images/skills/integrations.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 102
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# Notion Page Updater
 
-Draft PR descriptions, request reviews, and summarize changes.
+Create and update Notion pages from research or meeting notes.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle notion page updater tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +36,12 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
+- Notion integration token
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install notion-page-updater
 ```
 
 Or install through the Hermes Desktop skills hub.

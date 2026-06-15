@@ -1,31 +1,30 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
-category: Integrations
+slug: video-script-outline
+title: Video Script Outline
+excerpt: Turn a topic into a structured script with hooks, beats, and CTAs.
+category: Creative
 tags:
   - hermes
-  - github
-  - pr
+  - video
+  - script
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install video-script-outline
 dependencies:
 - Hermes Agent
-- GitHub token
-image: /images/skills/integrations.svg
+image: /images/skills/creative.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 73
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# Video Script Outline
 
-Draft PR descriptions, request reviews, and summarize changes.
+Turn a topic into a structured script with hooks, beats, and CTAs.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle video script outline tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +35,11 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install video-script-outline
 ```
 
 Or install through the Hermes Desktop skills hub.

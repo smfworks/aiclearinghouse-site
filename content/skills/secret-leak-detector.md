@@ -1,31 +1,31 @@
 ---
-slug: github-pr-workflow
-title: GitHub PR Workflow
-excerpt: Draft PR descriptions, request reviews, and summarize changes.
-category: Integrations
+slug: secret-leak-detector
+title: Secret Leak Detector
+excerpt: Scan commits and files for API keys, tokens, and passwords.
+category: Security
 tags:
   - hermes
-  - github
-  - pr
+  - secrets
+  - leak
 for: Hermes Agent
-author: SMF Works
-install: hermes skill install github-pr-workflow
+author: Community
+install: hermes skill install secret-leak-detector
 dependencies:
 - Hermes Agent
-- GitHub token
-image: /images/skills/integrations.svg
+- Git repository access
+image: /images/skills/security.svg
 source: https://github.com/NousResearch/hermes-agent/tree/main/skills
-order: 100
+order: 81
 last_verified: 2026-06-15
 ---
 
-# GitHub PR Workflow
+# Secret Leak Detector
 
-Draft PR descriptions, request reviews, and summarize changes.
+Scan commits and files for API keys, tokens, and passwords.
 
 ## What it is
 
-This skill gives your agent a structured way to handle github pr workflow tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
+This skill gives your agent a structured way to handle secret leak detector tasks. It wraps the necessary tools, prompts, and output formatting into a reusable command you can invoke from chat, cron, or a messaging gateway.
 
 ## Who it targets
 
@@ -36,12 +36,12 @@ This skill gives your agent a structured way to handle github pr workflow tasks.
 ## Dependencies
 
 - Hermes Agent
-- GitHub token
+- Git repository access
 
 ## How to install
 
 ```bash
-hermes skill install github-pr-workflow
+hermes skill install secret-leak-detector
 ```
 
 Or install through the Hermes Desktop skills hub.

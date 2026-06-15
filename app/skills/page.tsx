@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: getSectionTitle("skills") + " — SMF Clearinghouse",
-  description: "Browse skills on the SMF Clearinghouse.",
+  description: "50+ reusable skills, MCP servers, and agent add-ons for Hermes, OpenClaw, and compatible agents.",
 };
 
 export default function Page() {
@@ -19,7 +19,7 @@ export default function Page() {
           items={items}
           section="skills"
           title={title}
-          description="Curated entries for skills from the SMF Clearinghouse."
+          description="50+ reusable skills, MCP servers, and add-ons for Hermes Agent, OpenClaw, and compatible autonomous agents. Each card links to a detailed install guide with dependencies and source."
         />
       </main>
       <Footer />
