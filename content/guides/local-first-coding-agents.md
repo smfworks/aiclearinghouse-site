@@ -1,6 +1,6 @@
 ---
 slug: local-first-coding-agents
-title: Local-First Coding Agents: A Buyer's Guide
+title: "Local-First Coding Agents: A Buyer's Guide"
 excerpt: How to choose a coding agent when privacy, cost, or hardware constraints keep you off cloud-only tools.
 category: Guides
 tags:

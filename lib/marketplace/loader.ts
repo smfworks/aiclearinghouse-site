@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 
 export interface MarketplaceItem {
   slug: string;
@@ -14,120 +15,22 @@ export interface MarketplaceItem {
 
 const contentDir = path.join(process.cwd(), "content");
 
-function parseFrontmatter(raw: string): Record<string, string | number | boolean | string[]> {
-  const lines = raw.split("\n");
-  let inFm = false;
-  let fmContent = "";
-
-  for (const line of lines) {
-    if (line.trim() === "---") {
-      if (!inFm) {
-        inFm = true;
-        continue;
-      } else {
-        break;
-      }
-    }
-    if (inFm) fmContent += line + "\n";
-  }
-
-  const trimmed = fmContent.trim();
-  if (!trimmed) return {};
-
-  if (trimmed.startsWith("{")) {
-    try {
-      return JSON.parse(trimmed);
-    } catch {
-      return {};
-    }
-  }
-
-  const result: Record<string, string | number | boolean | string[]> = {};
-  let arrayBuffer: { key: string; value: string } | null = null;
-
-  for (const line of fmContent.split("\n")) {
-    const t = line.trimEnd();
-    if (!t || t.startsWith("#")) continue;
-
-    if (arrayBuffer) {
-      const val = t.replace(/^-\s*/, "").trim();
-      if (val) {
-        const current = (result[arrayBuffer.key] as string[]) || [];
-        current.push(stripQuotes(val));
-        result[arrayBuffer.key] = current;
-      }
-      if (!line.startsWith(" ") && !line.startsWith("-")) {
-        arrayBuffer = null;
-      }
-      continue;
-    }
-
-    const colonIndex = t.indexOf(":");
-    if (colonIndex === -1) continue;
-    const key = t.slice(0, colonIndex).trim();
-    let value = t.slice(colonIndex + 1).trim();
-
-    if (value === "") {
-      arrayBuffer = { key, value: "" };
-      result[key] = [];
-      continue;
-    }
-
-    result[key] = parseValue(value);
-  }
-
-  return result;
-}
-
-function stripQuotes(v: string): string {
-  if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
-    return v.slice(1, -1);
-  }
-  return v;
-}
-
-function parseValue(value: string): string | number | boolean | string[] {
-  value = value.trim();
-  const unquoted = stripQuotes(value);
-
-  if (unquoted.startsWith("[") && unquoted.endsWith("]")) {
-    return unquoted
-      .slice(1, -1)
-      .split(",")
-      .map((s) => stripQuotes(s.trim()))
-      .filter(Boolean);
-  }
-
-  if (unquoted === "true") return true;
-  if (unquoted === "false") return false;
-
-  if (!isNaN(Number(unquoted)) && unquoted !== "" && !unquoted.includes(" ")) {
-    return Number(unquoted);
-  }
-
-  return unquoted;
-}
-
 function loadItem(section: string, slug: string): MarketplaceItem | undefined {
   const filePath = path.join(contentDir, section, `${slug}.md`);
   if (!fs.existsSync(filePath)) return undefined;
 
   const raw = fs.readFileSync(filePath, "utf-8");
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
-  if (!match) return undefined;
-
-  const fm = parseFrontmatter(match[1]);
-  const content = match[2].trimStart();
+  const parsed = matter(raw);
 
   return {
-    slug: String(fm.slug || slug),
-    title: String(fm.title || ""),
-    excerpt: String(fm.excerpt || ""),
-    category: String(fm.category || "General"),
-    tags: (fm.tags as string[]) || [],
-    image: fm.image ? String(fm.image) : undefined,
-    ...fm,
-    content,
+    slug: parsed.data.slug || slug,
+    title: parsed.data.title || "",
+    excerpt: parsed.data.excerpt || "",
+    category: parsed.data.category || parsed.data.section || "General",
+    tags: parsed.data.tags || [],
+    image: parsed.data.image,
+    ...parsed.data,
+    content: parsed.content.trimStart(),
   };
 }
 
@@ -180,33 +83,7 @@ export interface AgentProfile {
   lastVerified?: string;
 }
 
-export function getAllAgents(): AgentProfile[] {
-  return getAllItems("agents").map((item) => ({
-    id: item.slug,
-    name: item.title,
-    tagline: item.excerpt,
-    description: item.content,
-    website: String(item.website || ""),
-    repository: item.repository ? String(item.repository) : undefined,
-    logo: item.image ? String(item.image) : undefined,
-    categories: (item.categories as string[]) || (item.tags as string[]) || [],
-    pricing: (item.pricing as AgentPricing) || "Freemium",
-    runtime: (item.runtime as AgentRuntime) || "Cloud",
-    openSource: Boolean(item.openSource),
-    multiPlatform: Boolean(item.multiPlatform),
-    providerAgnostic: Boolean(item.providerAgnostic),
-    model: item.model ? String(item.model) : undefined,
-    platforms: (item.platforms as string[]) || [],
-    features: (item.features as string[]) || [],
-    releaseYear: typeof item.releaseYear === "number" ? item.releaseYear : new Date().getFullYear(),
-    company: String(item.company || ""),
-    lastVerified: item.last_verified ? String(item.last_verified) : undefined,
-  }));
-}
-
-export function getAgentBySlug(slug: string): AgentProfile | null {
-  const item = getItemBySlug("agents", slug);
-  if (!item) return null;
+function toAgentProfile(item: MarketplaceItem): AgentProfile {
   return {
     id: item.slug,
     name: item.title,
@@ -215,19 +92,48 @@ export function getAgentBySlug(slug: string): AgentProfile | null {
     website: String(item.website || ""),
     repository: item.repository ? String(item.repository) : undefined,
     logo: item.image ? String(item.image) : undefined,
-    categories: (item.categories as string[]) || (item.tags as string[]) || [],
-    pricing: (item.pricing as AgentPricing) || "Freemium",
-    runtime: (item.runtime as AgentRuntime) || "Cloud",
+    categories: normalizeArray(item.categories || item.tags),
+    pricing: normalizePricing(item.pricing),
+    runtime: normalizeRuntime(item.runtime),
     openSource: Boolean(item.openSource),
     multiPlatform: Boolean(item.multiPlatform),
     providerAgnostic: Boolean(item.providerAgnostic),
     model: item.model ? String(item.model) : undefined,
-    platforms: (item.platforms as string[]) || [],
-    features: (item.features as string[]) || [],
+    platforms: normalizeArray(item.platforms),
+    features: normalizeArray(item.features),
     releaseYear: typeof item.releaseYear === "number" ? item.releaseYear : new Date().getFullYear(),
     company: String(item.company || ""),
     lastVerified: item.last_verified ? String(item.last_verified) : undefined,
   };
+}
+
+function normalizeArray(value: unknown): string[] {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.map(String).filter(Boolean);
+  if (typeof value === "string") return value.split(",").map((s) => s.trim()).filter(Boolean);
+  return [];
+}
+
+function normalizePricing(value: unknown): AgentPricing {
+  const allowed: AgentPricing[] = ["Free", "Paid", "Freemium", "Open Source"];
+  const str = String(value || "").trim() as AgentPricing;
+  return allowed.includes(str) ? str : "Freemium";
+}
+
+function normalizeRuntime(value: unknown): AgentRuntime {
+  const allowed: AgentRuntime[] = ["Local", "Cloud", "Hybrid"];
+  const str = String(value || "").trim() as AgentRuntime;
+  return allowed.includes(str) ? str : "Cloud";
+}
+
+export function getAllAgents(): AgentProfile[] {
+  return getAllItems("agents").map(toAgentProfile);
+}
+
+export function getAgentBySlug(slug: string): AgentProfile | null {
+  const item = getItemBySlug("agents", slug);
+  if (!item) return null;
+  return toAgentProfile(item);
 }
 
 export function getAgentCategories(): string[] {

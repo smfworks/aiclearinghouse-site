@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getAllItems, getItemBySlug } from "@/lib/marketplace/loader";
+import { markdownToHtml } from "@/lib/markdown";
 import Link from "next/link";
 
 export function generateStaticParams() {
@@ -42,21 +43,4 @@ export default async function RecipePage({ params }: { params: Promise<{ slug: s
       <Footer />
     </div>
   );
-}
-
-function markdownToHtml(md: string): string {
-  return md
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/^### (.*$)/gim, "<h3>$1</h3>")
-    .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-    .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/^\s*```(\w+)?\n([\s\S]*?)```\s*$/gim, "<pre><code>$2</code></pre>")
-    .replace(/^\- (.*$)/gim, "<li>$1</li>")
-    .replace(/(\n<li>.*?\n)(?!(\s*<li>|\s*<\/ul>))/g, "<ul>$1</ul>\n")
-    .replace(/\n/g, "<br />");
 }
