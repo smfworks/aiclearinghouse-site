@@ -1,0 +1,29 @@
+{
+  "source": "manual_snapshot",
+  "models": [
+    {
+      "provider": "DeepSeek",
+      "model": "DeepSeek-V4 Flash",
+      "model_id": "deepseek-v4-flash",
+      "input_price": 0.14,
+      "output_price": 0.28,
+      "cached_input_price": 0.0028,
+      "context_window": 1000000,
+      "max_output_tokens": 384000,
+      "notes": "DeepSeek V4 Flash replaces deepseek-chat. 1M context. Pricing per 1M tokens.",
+      "source_url": "https://api-docs.deepseek.com/quick_start/pricing"
+    },
+    {
+      "provider": "DeepSeek",
+      "model": "DeepSeek-V4 Pro",
+      "model_id": "deepseek-v4-pro",
+      "input_price": 0.435,
+      "output_price": 0.87,
+      "cached_input_price": 0.003625,
+      "context_window": 1000000,
+      "max_output_tokens": 384000,
+      "notes": "DeepSeek V4 Pro replaces deepseek-reasoner. 1M context. Pricing per 1M tokens.",
+      "source_url": "https://api-docs.deepseek.com/quick_start/pricing"
+    }
+  ]
+}
