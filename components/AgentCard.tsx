@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
-import { Globe } from "lucide-react";
+import { Globe, ExternalLink } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface AgentCardProps {
@@ -12,19 +12,28 @@ interface AgentCardProps {
   };
 }
 
+const runtimeColors: Record<string, string> = {
+  Local: "text-emerald bg-emerald/10 border-emerald/30",
+  Cloud: "text-cyan bg-cyan/10 border-cyan/30",
+  Hybrid: "text-amber bg-amber/10 border-amber/30",
+};
+
 export default function AgentCard({ agent, compare }: AgentCardProps) {
+  const runtimeStyle = runtimeColors[agent.runtime] || runtimeColors.Hybrid;
+
   return (
-    <article className="group relative h-full rounded-xl border border-hairline bg-panel p-5 transition-all hover:border-hairline-strong hover:bg-elevated">
+    <article className="group relative h-full rounded-xl border border-hairline bg-panel p-5 transition-all duration-200 card-glow hover:border-cyan/50 hover:shadow-[0_0_30px_-10px_var(--cyan-glow)]">
       {compare && (
-        <label className="absolute right-3 top-3 z-10 flex cursor-pointer items-center gap-2 rounded-full border border-hairline bg-canvas px-2.5 py-1 text-xs text-foreground-secondary transition-colors hover:border-accent hover:text-accent"
-        onClick={(e) => e.stopPropagation()}
+        <label
+          className="absolute right-3 top-3 z-10 flex cursor-pointer items-center gap-2 rounded-full border border-hairline bg-canvas px-2.5 py-1 text-xs text-foreground-secondary transition-colors hover:border-cyan hover:text-cyan"
+          onClick={(e) => e.stopPropagation()}
         >
           <input
             type="checkbox"
             checked={compare.selected}
             onChange={compare.onToggle}
             disabled={compare.disabled}
-            className="accent-accent"
+            className="accent-cyan"
           />
           Compare
         </label>
@@ -33,11 +42,11 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
       <Link href={`/agents/${agent.id}`} className="block">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-elevated text-base font-medium text-foreground">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-elevated to-panel text-base font-medium text-foreground border border-hairline group-hover:border-cyan/40 transition-colors">
               {agent.name.charAt(0)}
             </div>
             <div className="min-w-0">
-              <h3 className="truncate text-base font-medium text-foreground transition-colors group-hover:text-accent">
+              <h3 className="truncate text-base font-medium text-foreground transition-colors group-hover:text-cyan">
                 {agent.name}
               </h3>
               <p className="truncate text-sm text-foreground-secondary">{agent.company}</p>
@@ -57,10 +66,12 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
 
         <p className="mt-4 line-clamp-2 text-sm text-foreground-secondary">{agent.tagline}</p>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="rounded-md border border-hairline bg-canvas px-2 py-0.5 text-xs text-foreground-secondary font-mono">{agent.runtime}</span>
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className={`rounded-md border px-2 py-0.5 text-xs font-mono ${runtimeStyle}`}>
+            {agent.runtime}
+          </span>
           {agent.model && (
-            <span className="rounded-md border border-hairline bg-canvas px-2 py-0.5 text-xs text-foreground-secondary font-mono">
+            <span className="rounded-md border border-hairline bg-canvas px-2 py-0.5 text-xs text-foreground-secondary font-mono truncate max-w-[140px]">
               {agent.model}
             </span>
           )}
@@ -74,11 +85,11 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
           ))}
         </div>
 
-          {agent.lastVerified && (
-            <div className="mt-4">
-              <FreshnessBadge dateString={agent.lastVerified} />
-            </div>
-          )}
+        {agent.lastVerified && (
+          <div className="mt-4">
+            <FreshnessBadge dateString={agent.lastVerified} />
+          </div>
+        )}
 
         <div className="mt-3 flex items-center gap-1.5 text-xs text-foreground-tertiary font-mono">
           <Globe className="h-3.5 w-3.5" />
