@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense, useMemo } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import AgentCard from "@/components/AgentCard";
 import AgentComparison from "@/components/AgentComparison";
@@ -13,79 +12,62 @@ interface Props {
   categories: string[];
   runtimes: string[];
   pricings: string[];
-  initialCompare?: string;
 }
 
 const GITHUB_ISSUE_URL = "https://github.com/smfworks/aiclearinghouse-site/issues/new";
 const MAX_COMPARE = 3;
 
-function SearchParamsReader({
-  onParams,
-}: {
-  onParams: (compare: string | null) => void;
-}) {
-  const searchParams = useSearchParams();
-  const compare = searchParams.get("compare");
-  useEffect(() => {
-    onParams(compare);
-  }, [compare, onParams]);
-  return null;
-}
+function useHydratedCompare(agents: AgentProfile[]) {
+  const [compareParam, setCompareParam] = useState<string | null>(null);
 
-function useHydratedCompare(initialCompare: string | undefined, agents: AgentProfile[]) {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setCompareParam(params.get("compare"));
+  }, []);
+
   return useMemo(() => {
     return new Set(
-      initialCompare
-        ? initialCompare
+      compareParam
+        ? compareParam
             .split(",")
             .map((s) => s.trim())
             .filter((s) => agents.some((a) => a.id === s))
         : []
     );
-  }, [initialCompare, agents]);
+  }, [compareParam, agents]);
 }
 
-function AgentsDirectoryInner({
-  agents,
-  categories,
-  runtimes,
-  pricings,
-  initialCompare,
-}: Props) {
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const initialSelected = useHydratedCompare(initialCompare, agents);
+export default function AgentsDirectoryClient({ agents, categories, runtimes, pricings }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [runtime, setRuntime] = useState("All");
   const [pricing, setPricing] = useState("All");
   const [openSourceOnly, setOpenSourceOnly] = useState(false);
-  const [selected, setSelected] = useState<Set<string>>(initialSelected);
-  const [compareOpen, setCompareOpen] = useState(initialSelected.size > 0);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [compareOpen, setCompareOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+
+  // Hydrate compare state from URL on client
+  const initialSelected = useHydratedCompare(agents);
 
   useEffect(() => {
     setSelected(initialSelected);
     setCompareOpen(initialSelected.size > 0);
+    setIsClient(true);
   }, [initialSelected]);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
+  // Update URL when selection changes
   useEffect(() => {
     if (!isClient) return;
     const ids = Array.from(selected).join(",");
-    const params = new URLSearchParams(window.location.search);
+    const url = new URL(window.location.href);
     if (ids) {
-      params.set("compare", ids);
+      url.searchParams.set("compare", ids);
     } else {
-      params.delete("compare");
+      url.searchParams.delete("compare");
     }
-    const url = ids ? `${pathname}?${params.toString()}` : pathname;
-    router.replace(url, { scroll: false });
-  }, [selected, pathname, router, isClient]);
+    window.history.replaceState({}, "", url.toString());
+  }, [selected, isClient]);
 
   const filtered = agents.filter((agent) => {
     const q = search.toLowerCase();
@@ -155,9 +137,7 @@ function AgentsDirectoryInner({
         <div className="mb-8 rounded-xl border border-hairline bg-panel p-5 shadow-[0_0_30px_-12px_rgba(0,0,0,0.5)]">
           <div className="grid gap-4 md:grid-cols-5">
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
-                Search
-              </label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Search</label>
               <input
                 type="text"
                 value={search}
@@ -167,9 +147,7 @@ function AgentsDirectoryInner({
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
-                Category
-              </label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -177,16 +155,12 @@ function AgentsDirectoryInner({
               >
                 <option value="All">All categories</option>
                 {categories.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
+                  <option key={c} value={c}>{c}</option>
                 ))}
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
-                Runtime
-              </label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Runtime</label>
               <select
                 value={runtime}
                 onChange={(e) => setRuntime(e.target.value)}
@@ -194,16 +168,12 @@ function AgentsDirectoryInner({
               >
                 <option value="All">Any runtime</option>
                 {runtimes.map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
+                  <option key={r} value={r}>{r}</option>
                 ))}
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
-                Pricing
-              </label>
+              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Pricing</label>
               <select
                 value={pricing}
                 onChange={(e) => setPricing(e.target.value)}
@@ -211,9 +181,7 @@ function AgentsDirectoryInner({
               >
                 <option value="All">Any pricing</option>
                 {pricings.map((p) => (
-                  <option key={p} value={p}>
-                    {p}
-                  </option>
+                  <option key={p} value={p}>{p}</option>
                 ))}
               </select>
             </div>
@@ -232,9 +200,7 @@ function AgentsDirectoryInner({
         </div>
 
         <div className="mb-8 flex items-center justify-between">
-          <p className="text-sm text-foreground-secondary font-mono">
-            Showing {filtered.length} of {agents.length} agents
-          </p>
+          <p className="text-sm text-foreground-secondary font-mono">Showing {filtered.length} of {agents.length} agents</p>
           <div className="flex items-center gap-3">
             {selected.size > 1 && (
               <Link
@@ -296,40 +262,12 @@ function AgentsDirectoryInner({
 
         <div className="mt-16 rounded-xl border border-hairline bg-panel p-6">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Suggest an Agent</h2>
-          <p className="mt-2 text-foreground-secondary">
-            Missing your favorite autonomous AI tool? Submit it and we&apos;ll review the listing.
-          </p>
+          <p className="mt-2 text-foreground-secondary">Missing your favorite autonomous AI tool? Submit it and we&apos;ll review the listing.</p>
           <div className="mt-6">
             <SubmitAgentForm issueUrl={GITHUB_ISSUE_URL} />
           </div>
         </div>
       </section>
     </div>
-  );
-}
-
-function AgentDirectorySuspenseBoundary(props: Props) {
-  const [clientCompare, setClientCompare] = useState<string | undefined>(undefined);
-  const initialCompare = props.initialCompare ?? clientCompare;
-
-  return (
-    <>
-      <SearchParamsReader onParams={(compare) => setClientCompare(compare ?? undefined)} />
-      <AgentsDirectoryInner {...props} initialCompare={initialCompare} />
-    </>
-  );
-}
-
-export default function AgentsDirectoryClient(props: Props) {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-screen items-center justify-center text-foreground-secondary font-mono">
-          Loading agent directory...
-        </div>
-      }
-    >
-      <AgentDirectorySuspenseBoundary {...props} />
-    </Suspense>
   );
 }

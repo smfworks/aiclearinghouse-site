@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { getAllAgents, getAgentCategories, getAgentPricings, getAgentRuntimes } from "@/lib/marketplace/loader";
 import AgentsDirectoryClient from "@/components/AgentsDirectoryClient";
 import Nav from "@/components/Nav";
@@ -9,11 +8,7 @@ export const metadata = {
   description: "Compare autonomous AI agents side-by-side. Filter by category, runtime, and pricing.",
 };
 
-export default function AgentsDirectoryPage({
-  searchParams,
-}: {
-  searchParams?: { compare?: string };
-}) {
+export default function AgentsDirectoryPage() {
   const agents = getAllAgents();
   const categories = getAgentCategories();
   const runtimes = getAgentRuntimes();
@@ -23,21 +18,12 @@ export default function AgentsDirectoryPage({
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <Suspense
-          fallback={
-            <div className="flex min-h-screen items-center justify-center text-foreground-secondary font-mono">
-              Loading agent directory...
-            </div>
-          }
-        >
-          <AgentsDirectoryClient
-            agents={agents}
-            categories={categories}
-            runtimes={runtimes}
-            pricings={pricings}
-            initialCompare={searchParams?.compare}
-          />
-        </Suspense>
+        <AgentsDirectoryClient
+          agents={agents}
+          categories={categories}
+          runtimes={runtimes}
+          pricings={pricings}
+        />
       </main>
       <Footer />
     </div>
