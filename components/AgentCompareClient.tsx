@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
-import { Check, X, ArrowLeft, Scale, Sparkles } from "lucide-react";
+import { Check, ArrowLeft, Scale, Sparkles } from "lucide-react";
 
 interface Props {
   agents: AgentProfile[];
-  selected: AgentProfile[];
 }
 
 const MAX_COMPARE = 4;
@@ -25,14 +23,24 @@ const rows = [
   { key: "releaseYear", label: "Release year", format: (a: AgentProfile) => String(a.releaseYear) },
 ];
 
-export default function AgentCompareClient({ agents, selected }: Props) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(
-    new Set(selected.map((a) => a.id))
-  );
+export default function AgentCompareClient({ agents }: Props) {
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
+  const [isClient, setIsClient] = useState(false);
+
+  // Hydrate selected IDs from URL on client
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ids = params.get("ids");
+    if (ids) {
+      const validIds = ids
+        .split(",")
+        .map((s) => s.trim())
+        .filter((id) => agents.some((a) => a.id === id));
+      setSelectedIds(new Set(validIds));
+    }
+    setIsClient(true);
+  }, [agents]);
 
   const selectedAgents = useMemo(
     () => agents.filter((a) => selectedIds.has(a.id)),
@@ -58,14 +66,17 @@ export default function AgentCompareClient({ agents, selected }: Props) {
       next.add(id);
     }
     setSelectedIds(next);
-    const ids = Array.from(next).join(",");
-    const params = new URLSearchParams(searchParams.toString());
-    if (ids) {
-      params.set("ids", ids);
-    } else {
-      params.delete("ids");
+
+    if (isClient) {
+      const ids = Array.from(next).join(",");
+      const url = new URL(window.location.href);
+      if (ids) {
+        url.searchParams.set("ids", ids);
+      } else {
+        url.searchParams.delete("ids");
+      }
+      window.history.replaceState({}, "", url.toString());
     }
-    router.replace(`/agents/compare?${params.toString()}`, { scroll: false });
   }
 
   return (
