@@ -13,6 +13,7 @@ const links = [
   { href: "/tests", label: "Tests" },
   { href: "/deployment-recipes", label: "Recipes" },
   { href: "/guides", label: "Guides" },
+  { href: "/ai-news", label: "News" },
 ];
 
 export default function Nav() {

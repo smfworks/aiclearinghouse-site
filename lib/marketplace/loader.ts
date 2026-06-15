@@ -16,7 +16,10 @@ export function getSections(): string[] {
     .readdirSync(contentDir, { withFileTypes: true })
     .filter((d) => d.isDirectory() && !d.name.startsWith(".") && d.name !== "agentmarketplace")
     .map((d) => d.name)
-    .sort();
+    .sort((a, b) => {
+      // ai-news should appear early in UI but doesn't need to be first here
+      return a.localeCompare(b);
+    });
 }
 
 function loadItem(section: string, slug: string): MarketplaceItem | undefined {
@@ -44,6 +47,12 @@ function loadItem(section: string, slug: string): MarketplaceItem | undefined {
 
   if (parsed.data.last_verified) {
     item.last_verified = String(parsed.data.last_verified);
+  }
+  if (parsed.data.published_at) {
+    item.published_at = String(parsed.data.published_at);
+  }
+  if (parsed.data.url) {
+    item.url = String(parsed.data.url);
   }
 
   return item;
