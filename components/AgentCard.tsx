@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
-import { Globe, ExternalLink } from "lucide-react";
+import { Globe } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
+import { agentNameColors } from "@/lib/agent-colors";
 
 interface AgentCardProps {
   agent: AgentProfile;
@@ -20,6 +21,7 @@ const runtimeColors: Record<string, string> = {
 
 export default function AgentCard({ agent, compare }: AgentCardProps) {
   const runtimeStyle = runtimeColors[agent.runtime] || runtimeColors.Hybrid;
+  const nameColor = agentNameColors[agent.name] || "text-cyan";
 
   return (
     <article className="group relative h-full rounded-xl border border-hairline bg-panel p-5 transition-all duration-200 card-glow hover:border-cyan/50 hover:shadow-[0_0_30px_-10px_var(--cyan-glow)]">
@@ -46,7 +48,7 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
               {agent.name.charAt(0)}
             </div>
             <div className="min-w-0">
-              <h3 className="truncate text-base font-medium text-foreground transition-colors group-hover:text-cyan">
+              <h3 className={`truncate text-base font-medium transition-colors group-hover:text-cyan ${nameColor}`}>
                 {agent.name}
               </h3>
               <p className="truncate text-sm text-foreground-secondary">{agent.company}</p>
