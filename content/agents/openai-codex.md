@@ -1,7 +1,7 @@
 ---
 slug: openai-codex
 title: OpenAI Codex CLI
-excerpt: OpenAI's agentic coding assistant in your terminal.
+excerpt: OpenAI's terminal coding agent with strong sandboxed execution. Best for developers who trust OpenAI's models and want an agent that can run and verify code safely.
 category: Proprietary
 tags:
   - coding
@@ -32,4 +32,23 @@ company: OpenAI
 last_verified: 2026-06-14
 ---
 
-Codex CLI is OpenAI's command-line coding agent. It writes, edits, and debugs code from natural language prompts, with deep integration into the OpenAI model ecosystem.
+## When to choose OpenAI Codex CLI
+
+Use Codex CLI when you want a terminal agent from a major lab with strong execution safety. Its sandboxed runtime makes it the safest option for agents that need to run untrusted code.
+
+## What it does well
+
+- **Sandboxed execution.** Code runs in a restricted environment by default. This lowers the risk of an agent accidentally deleting files or exfiltrating data.
+- **Fast iteration loop.** Natural-language prompts turn into edits, tests, and verification steps quickly. The UX is tuned for getting to a working result.
+- **Git awareness.** Codex reads your repo state, proposes changes, and can run tests without mangling your working tree.
+- **OpenAI model access.** Gets first access to OpenAI's coding-specialized models, including `codex-1`.
+
+## Honest limitations
+
+- **Closed to OpenAI models only.** There is no BYO-key or local fallback. If OpenAI deprecates `codex-1` or changes pricing, you have no escape hatch.
+- **Less mature ecosystem.** Compared to Aider or Cline, the plugin and MCP ecosystem is smaller. Integration options are limited.
+- **Terminal-only.** No IDE integration yet. If you prefer visual tools, this is a constraint.
+
+## Best fit
+
+Developers who trust OpenAI's infrastructure, need a terminal-first agent, and value execution safety over deep customizability.
