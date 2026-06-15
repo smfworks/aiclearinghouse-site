@@ -4,7 +4,7 @@ import { getAllItems } from "@/lib/marketplace/loader";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Deployment Recipes — AI Clearinghouse",
+  title: "Deployment Recipes — SMF Clearinghouse",
   description: "Copy-paste recipes for running agents and LLMs locally or in the cloud.",
 };
 

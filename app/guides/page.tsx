@@ -4,7 +4,7 @@ import { getAllItems } from "@/lib/marketplace/loader";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Guides — AI Clearinghouse",
+  title: "Guides — SMF Clearinghouse",
   description: "Curated how-to guides for AI agents, local LLMs, and self-hosting.",
 };
 

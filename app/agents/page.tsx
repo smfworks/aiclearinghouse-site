@@ -4,7 +4,7 @@ import { getAllAgents, getAgentCategories, getAgentRuntimes, getAgentPricings } 
 import Link from "next/link";
 
 export const metadata = {
-  title: "Agent Directory — AI Clearinghouse",
+  title: "Agent Directory — SMF Clearinghouse",
   description: "Compare autonomous AI agents side-by-side by runtime, pricing, platform, and use case.",
 };
 

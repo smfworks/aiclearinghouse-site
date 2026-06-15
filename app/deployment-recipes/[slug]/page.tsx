@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = getItemBySlug("deployment-recipes", slug);
   if (!item) return {};
   return {
-    title: `${item.title} — AI Clearinghouse`,
+    title: `${item.title} — SMF Clearinghouse`,
     description: item.excerpt,
   };
 }

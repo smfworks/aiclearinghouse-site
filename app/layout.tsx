@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Clearinghouse — Find the Right AI Agent",
+  title: "SMF Clearinghouse — Find the Right AI Agent",
   description:
     "Compare autonomous AI agents, LLM pricing, open-source tools, and self-hosting recipes. Built for builders, enthusiasts, and small businesses.",
   keywords: [
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     "local LLMs",
   ],
   openGraph: {
-    title: "AI Clearinghouse",
+    title: "SMF Clearinghouse",
     description: "Compare autonomous AI agents, LLM pricing, and self-hosting recipes.",
-    url: "https://aiclearinghouse.com",
-    siteName: "AI Clearinghouse",
+    url: "https://smfclearinghouse.com",
+    siteName: "SMF Clearinghouse",
     type: "website",
   },
 };

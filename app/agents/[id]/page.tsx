@@ -14,14 +14,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const agent = getAgentBySlug(id);
   if (!agent) return {};
   return {
-    title: `${agent.name} — AI Clearinghouse`,
+    title: `${agent.name} — SMF Clearinghouse`,
     description: `${agent.tagline} Built by ${agent.company}. Pricing: ${agent.pricing}. Runtime: ${agent.runtime}.`,
     keywords: [agent.name, agent.company, "AI agent", ...agent.categories, agent.runtime, agent.pricing],
     openGraph: {
       title: `${agent.name} — Autonomous AI Agent`,
       description: agent.tagline,
-      url: `https://aiclearinghouse.com/agents/${agent.id}`,
-      siteName: "AI Clearinghouse",
+      url: `https://smfclearinghouse.com/agents/${agent.id}`,
+      siteName: "SMF Clearinghouse",
       type: "article",
     },
   };

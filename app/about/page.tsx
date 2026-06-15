@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "About — AI Clearinghouse",
+  title: "About — SMF Clearinghouse",
   description: "Independent guidance for choosing AI agents, models, and deployment options.",
 };
 
@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold md:text-4xl">About AI Clearinghouse</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            AI Clearinghouse is an independent directory for autonomous AI agents, LLM pricing,
+            SMF Clearinghouse is an independent directory for autonomous AI agents, LLM pricing,
             open-source tools, and self-hosting recipes. We focus on accuracy, tested setups, and
             clear comparisons — not vendor marketing copy.
           </p>

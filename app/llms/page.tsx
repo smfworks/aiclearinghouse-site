@@ -4,7 +4,7 @@ import { getLLMPricingData } from "@/lib/marketplace/llm-data";
 import { formatPrice, formatNumber } from "@/lib/marketplace/format";
 
 export const metadata = {
-  title: "LLM Pricing — AI Clearinghouse",
+  title: "LLM Pricing — SMF Clearinghouse",
   description: "Compare input/output pricing, context windows, and benchmark scores across leading models.",
 };
 

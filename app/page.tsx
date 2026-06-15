@@ -20,7 +20,7 @@ export default function Home() {
               Independent AI Directory
             </span>
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight md:text-6xl">
-              Find the right AI agent.
+              SMF Clearinghouse
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground md:text-xl">
               Compare autonomous agents, LLM pricing, open-source tools, and tested self-hosting recipes.

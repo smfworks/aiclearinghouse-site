@@ -5,7 +5,7 @@ export default function Nav() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="text-xl font-bold tracking-tight">
-          <span className="text-primary">AI</span>Clearinghouse
+          <span className="text-primary">SMF</span>Clearinghouse
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           <Link href="/agents" className="hover:text-primary transition-colors">Agents</Link>
