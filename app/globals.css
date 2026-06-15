@@ -211,6 +211,69 @@
       radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.06) 0%, transparent 40%);
   }
 
+  /* Prose / markdown content formatting */
+  .prose h1 { @apply text-4xl font-semibold tracking-tight mb-8 mt-0; }
+  .prose h2 { @apply text-2xl font-semibold tracking-tight mt-16 mb-6 pb-3 border-b border-hairline text-foreground; }
+  .prose h3 { @apply text-xl font-semibold tracking-tight mt-10 mb-4 text-foreground; }
+  .prose h4 { @apply text-lg font-semibold tracking-tight mt-6 mb-3 text-foreground-secondary; }
+
+  .prose p { @apply text-foreground-secondary leading-relaxed mb-5; }
+  .prose p + p { @apply mt-5; }
+
+  .prose ul { @apply my-6 space-y-3; }
+  .prose ol { @apply my-6 space-y-3; }
+  .prose li { @apply text-foreground-secondary leading-relaxed pl-2; }
+  .prose li::marker { @apply text-accent; }
+  .prose ul > li::marker { @apply text-accent; }
+  .prose ol > li::marker { @apply text-foreground-tertiary font-mono; }
+
+  .prose a { @apply text-cyan hover:text-cyan/80 underline underline-offset-4 transition-colors; }
+
+  .prose blockquote { @apply border-l-4 border-accent bg-elevated/50 rounded-r-lg px-5 py-4 my-8 text-foreground-secondary italic; }
+
+  .prose hr { @apply border-hairline my-12; }
+
+  .prose table { @apply w-full my-8 text-sm border-collapse overflow-hidden rounded-xl border border-hairline; }
+  .prose thead { @apply bg-elevated; }
+  .prose th { @apply px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono border-b border-hairline; }
+  .prose td { @apply px-4 py-3 text-foreground-secondary border-b border-hairline align-top; }
+  .prose tr:last-child td { @apply border-b-0; }
+  .prose tr:nth-child(even) { @apply bg-elevated/30; }
+
+  .prose code { @apply bg-elevated px-1.5 py-0.5 rounded text-sm font-mono text-accent before:content-none after:content-none; }
+  .prose pre { @apply bg-elevated border border-hairline rounded-xl p-5 my-6 overflow-x-auto; }
+  .prose pre code { @apply bg-transparent p-0 text-foreground-secondary; }
+
+  .prose strong { @apply text-foreground font-medium; }
+  .prose em { @apply text-foreground-secondary; }
+
+  /* Checklist styling in prose */
+  .prose li input[type="checkbox"] { @apply accent-accent mr-3 mt-1; }
+  .prose li:has(input[type="checkbox"]) { @apply list-none pl-0 flex items-start gap-2; }
+
+  /* Callout blocks */
+  .prose .callout {
+    @apply rounded-xl border border-hairline bg-elevated/50 p-5 my-8;
+  }
+  .prose .callout-warning {
+    @apply border-warning/30 bg-warning/5;
+  }
+  .prose .callout-info {
+    @apply border-cyan/30 bg-cyan/5;
+  }
+  .prose .callout-success {
+    @apply border-success/30 bg-success/5;
+  }
+
+  /* Section cards inside prose */
+  .prose .section-card {
+    @apply rounded-xl border border-hairline bg-elevated/30 p-6 my-8;
+  }
+  .prose .section-card h3:first-child,
+  .prose .section-card h4:first-child {
+    @apply mt-0;
+  }
+
   /* Agent card name colors */
   [data-agent-name="openclaw"] h3 { color: #22d3ee; }
   [data-agent-name="claude-code"] h3 { color: #ff667f; }
