@@ -12,6 +12,8 @@ tags:
   - coding-agent
 order: 3
 last_verified: 2026-06-15
+difficulty: Beginner
+estimated_time: 20 min
 ---
 
 # Use Cline with a Local Ollama Model

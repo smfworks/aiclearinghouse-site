@@ -12,6 +12,8 @@ tags:
   - gpu
 order: 5
 last_verified: 2026-06-15
+difficulty: Intermediate
+estimated_time: 30 min
 ---
 
 # Run Ollama on Ubuntu 24.04 with NVIDIA CUDA

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getAllItems, getItemBySlug, getSectionTitle } from "@/lib/marketplace/loader";
-import SectionDetail from "@/components/SectionDetail";
+import DeploymentRecipeDetail from "@/components/DeploymentRecipeDetail";
 
 const section = "deployment-recipes";
 
@@ -30,7 +30,7 @@ export default async function DeploymentRecipePage({ params }: { params: Promise
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <SectionDetail item={item} section={section} sectionTitle={getSectionTitle(section)} backHref="/deployment-recipes" />
+        <DeploymentRecipeDetail item={item} />
       </main>
       <Footer />
     </div>

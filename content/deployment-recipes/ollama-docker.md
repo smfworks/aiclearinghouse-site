@@ -12,6 +12,8 @@ tags:
   - container
 order: 7
 last_verified: 2026-06-15
+difficulty: Intermediate
+estimated_time: 25 min
 ---
 
 # Deploy Ollama with Docker

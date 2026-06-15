@@ -13,6 +13,8 @@ tags:
   - self-hosting
 order: 6
 last_verified: 2026-06-15
+difficulty: Intermediate
+estimated_time: 30 min
 ---
 
 # Self-Hosted pgvector for RAG Applications

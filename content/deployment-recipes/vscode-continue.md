@@ -12,6 +12,8 @@ tags:
   - autocomplete
 order: 2
 last_verified: 2026-06-15
+difficulty: Beginner
+estimated_time: 15 min
 ---
 
 # VS Code + Continue for Local AI Coding

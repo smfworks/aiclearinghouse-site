@@ -13,6 +13,8 @@ tags:
   - open-source
 order: 2
 last_verified: 2026-06-15
+difficulty: Intermediate
+estimated_time: 45 min
 ---
 
 # Deploy Hermes Agent

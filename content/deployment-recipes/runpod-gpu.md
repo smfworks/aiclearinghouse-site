@@ -12,6 +12,8 @@ tags:
   - cost-optimization
 order: 4
 last_verified: 2026-06-15
+difficulty: Beginner
+estimated_time: 20 min
 ---
 
 # Rent a Cloud GPU on RunPod

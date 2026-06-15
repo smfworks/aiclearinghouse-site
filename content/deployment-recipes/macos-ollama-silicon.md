@@ -14,6 +14,8 @@ tags:
   - m3
 order: 1
 last_verified: 2026-06-15
+difficulty: Beginner
+estimated_time: 15 min
 ---
 
 # Run Ollama on macOS with Apple Silicon

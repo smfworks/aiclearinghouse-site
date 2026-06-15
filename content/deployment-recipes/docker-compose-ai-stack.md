@@ -14,6 +14,8 @@ tags:
   - self-hosting
 order: 3
 last_verified: 2026-06-15
+difficulty: Advanced
+estimated_time: 60 min
 ---
 
 # Docker Compose Full AI Stack

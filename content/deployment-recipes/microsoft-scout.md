@@ -13,6 +13,8 @@ tags:
   - preview
 order: 4
 last_verified: 2026-06-15
+difficulty: Intermediate
+estimated_time: 60 min
 ---
 
 # Pilot Microsoft Scout

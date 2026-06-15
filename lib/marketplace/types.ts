@@ -11,6 +11,8 @@ export interface MarketplaceItem {
   content: string;
   wordCount?: number;
   readingTime?: number;
+  difficulty?: string;
+  estimated_time?: string;
   [key: string]: any;
 }
 
