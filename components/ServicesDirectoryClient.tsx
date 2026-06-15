@@ -26,6 +26,22 @@ const categoryColors: Record<string, string> = {
   "AI APIs": "text-amber border-amber/30 bg-amber/5",
 };
 
+const categoryTextColors: Record<string, string> = {
+  Infrastructure: "text-cyan",
+  Data: "text-emerald",
+  Security: "text-rose",
+  Operations: "text-violet",
+  "AI APIs": "text-amber",
+};
+
+const categoryBorderColors: Record<string, string> = {
+  Infrastructure: "border-l-cyan",
+  Data: "border-l-emerald",
+  Security: "border-l-rose",
+  Operations: "border-l-violet",
+  "AI APIs": "border-l-amber",
+};
+
 export default function ServicesDirectoryClient({ items }: Props) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -92,7 +108,7 @@ export default function ServicesDirectoryClient({ items }: Props) {
               onClick={() => setActiveCategory(cat)}
               className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all ${
                 activeCategory === cat
-                  ? categoryColors[cat] || "border-accent bg-accent/10"
+                  ? `${categoryColors[cat]} border-current`
                   : "border-hairline bg-panel hover:border-hairline-strong"
               }`}
             >
@@ -129,25 +145,23 @@ export default function ServicesDirectoryClient({ items }: Props) {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((item) => {
             const colorClass = categoryColors[item.category] || "border-hairline bg-panel";
+            const textColor = categoryTextColors[item.category] || "text-accent";
+            const leftBorder = categoryBorderColors[item.category] || "border-l-transparent";
             return (
               <Link
                 key={item.slug}
                 href={`/services/${item.slug}`}
-                className={`group flex flex-col rounded-xl border p-6 transition-all hover:-translate-y-0.5 ${
-                  activeCategory === item.category
-                    ? colorClass
-                    : "border-hairline bg-panel hover:border-hairline-strong"
-                }`}
+                className={`group flex flex-col rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:border-current hover:bg-elevated/50 border-l-4 ${leftBorder}`}
               >
                 <div className="mb-4 flex items-center justify-between">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
                     {categoryIcons[item.category] && <span className="h-3.5 w-3.5">{categoryIcons[item.category]}</span>}
                     {item.category}
                   </span>
-                  <span className="text-xs text-foreground-tertiary font-mono">{item.pricing_model || item.pricing || ""}</span>
+                  <span className={`text-xs font-mono ${textColor}`}>{item.pricing_model || item.pricing || ""}</span>
                 </div>
 
-                <h2 className="text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
+                <h2 className={`text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
                   {item.title}
                 </h2>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
@@ -163,14 +177,14 @@ export default function ServicesDirectoryClient({ items }: Props) {
                   {item.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-hairline px-2 py-0.5 text-xs text-foreground-tertiary"
+                      className={`rounded-full border border-hairline px-2 py-0.5 text-xs transition-colors group-hover:${textColor} group-hover:border-current/30`}
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="mt-5 flex items-center text-sm font-medium text-accent"
+                <div className={`mt-5 flex items-center text-sm font-medium transition-colors ${textColor}`}
                 >
                   Read review
                   <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />

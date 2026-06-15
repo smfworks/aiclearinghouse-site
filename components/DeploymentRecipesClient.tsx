@@ -117,44 +117,68 @@ export default function DeploymentRecipesClient({ items }: Props) {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/deployment-recipes/${item.slug}`}
-              className="group flex flex-col rounded-xl border border-hairline bg-panel p-5 card-glow transition-all hover:border-amber/60 hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.25)]"
-            >
-              {item.image && (
-                <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg border border-hairline">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
-                </div>
-              )}
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-medium uppercase tracking-wider text-amber font-mono">
-                  {item.category}
-                </span>
-              </div>
-              <h2 className="mt-2 text-lg font-medium text-foreground transition-colors group-hover:text-amber">
-                {item.title}
-              </h2>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">
-                {item.excerpt}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-hairline px-2 py-0.5 text-xs text-foreground-tertiary"
-                  >
-                    {tag}
+          {filtered.map((item) => {
+            const difficulty = String(item.difficulty || "Intermediate");
+            const difficultyColor =
+              difficulty === "Beginner" || difficulty === "Easy"
+                ? "text-emerald border-emerald/30 bg-emerald/5"
+                : difficulty === "Advanced"
+                ? "text-rose border-rose/30 bg-rose/5"
+                : "text-amber border-amber/30 bg-amber/5";
+            const textColor =
+              difficulty === "Beginner" || difficulty === "Easy"
+                ? "text-emerald"
+                : difficulty === "Advanced"
+                ? "text-rose"
+                : "text-amber";
+
+            return (
+              <Link
+                key={item.slug}
+                href={`/deployment-recipes/${item.slug}`}
+                className="group flex flex-col rounded-xl border border-hairline bg-panel p-5 card-glow transition-all hover:-translate-y-0.5 hover:border-amber/60 hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.25)]"
+              >
+                {item.image && (
+                  <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg border border-hairline">
+                    <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
+                  </div>
+                )}
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <span className="text-xs font-medium uppercase tracking-wider text-amber font-mono">
+                    {item.category}
                   </span>
-                ))}
-              </div>
-              <div className="mt-5 flex items-center text-sm font-medium text-amber">
-                Open recipe
-                <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </div>
-            </Link>
-          ))}
+                  <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${difficultyColor}`}>
+                    {difficulty}
+                  </span>
+                </div>
+                <h2 className="text-lg font-medium text-foreground transition-colors group-hover:text-amber">
+                  {item.title}
+                </h2>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">
+                  {item.excerpt}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {item.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className={`rounded-full border border-hairline px-2 py-0.5 text-xs transition-colors group-hover:border-amber/30 group-hover:text-amber`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className={`text-xs font-mono ${textColor}`}>
+                    {item.estimated_time || "30 min"}
+                  </span>
+                  <span className="flex items-center text-sm font-medium text-amber">
+                    Open recipe
+                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (
