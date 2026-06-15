@@ -9,6 +9,7 @@ export default function Nav() {
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           <Link href="/agents" className="hover:text-primary transition-colors">Agents</Link>
+          <Link href="/llms" className="hover:text-primary transition-colors">LLMs</Link>
           <Link href="/deployment-recipes" className="hover:text-primary transition-colors">Recipes</Link>
           <Link href="/guides" className="hover:text-primary transition-colors">Guides</Link>
           <Link href="/about" className="hover:text-primary transition-colors">About</Link>

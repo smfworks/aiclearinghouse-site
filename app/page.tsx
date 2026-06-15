@@ -34,10 +34,10 @@ export default function Home() {
                 Browse agents
               </Link>
               <Link
-                href="/deployment-recipes"
+                href="/llms"
                 className="inline-flex flex-1 items-center justify-center rounded-xl border border-border bg-card px-6 py-3 font-semibold transition-colors hover:border-primary hover:text-primary"
               >
-                Self-hosting recipes
+                LLM prices
               </Link>
             </div>
           </div>
