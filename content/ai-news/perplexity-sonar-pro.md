@@ -1,7 +1,7 @@
 ---
 slug: perplexity-sonar-pro
 title: "Perplexity ships Sonar Pro API for enterprise search"
-url: "https://www.perplexity.ai/hub/blog/sonar-pro-api"
+url: "https://www.perplexity.ai/hub/blog/"
 source: "Perplexity"
 published_at: "2026-06-15T06:20:00Z"
 category: "APIs"

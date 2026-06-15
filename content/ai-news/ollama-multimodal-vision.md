@@ -1,7 +1,7 @@
 ---
 slug: ollama-multimodal-vision
 title: "Ollama adds vision model support for local multimodal apps"
-url: "https://ollama.com/blog/vision-models"
+url: "https://ollama.com/blog/"
 source: "Ollama"
 published_at: "2026-06-15T05:00:00Z"
 category: "Open Source"
