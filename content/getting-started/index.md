@@ -1,45 +1,83 @@
 ---
-{
-  "slug": "index",
-  "title": "Getting Started with AI Agents",
-  "excerpt": "A learning path for choosing, trying, and deploying your first AI agent.",
-  "category": "Learning",
-  "tags": ["getting started", "learning path", "agents", "guide"]
-}
+slug: index
+title: Getting Started with AI Agents
+excerpt: A numbered learning path for choosing, trying, and deploying your first AI agent.
+category: Learning
+tags:
+  - getting started
+  - learning path
+  - agents
+  - guide
+last_verified: 2026-06-14
 ---
 
-## Step 1: Pick a task
+# Getting Started with AI Agents
 
-Start with one narrow, well-defined task. Good first tasks:
+This path takes you from zero to a working local agent in six steps. Each step has a concrete action and a link to the next.
+
+## Step 1: Pick one narrow task
+
+Start small. A good first task is:
 
 - Explain a function in your codebase
 - Generate unit tests for one module
 - Summarize a long document
+- Rewrite one small component
+
+The narrower the task, the easier it is to judge whether the agent helped.
 
 ## Step 2: Try a cloud agent
 
-Use a cloud-hosted agent so you can focus on the workflow rather than hardware:
+Use a cloud-hosted agent so you can learn the workflow before worrying about hardware.
 
-- [Claude Code](/agentmarketplace/claude-code) for terminal-driven coding
-- [GitHub Copilot](/agentmarketplace/github-copilot) for IDE autocomplete
-- [Cursor](/agentmarketplace/cursor) for editor-based agentic coding
+| If you want... | Try this |
+|----------------|----------|
+| Terminal-driven coding | [Claude Code](/agents/claude-code) |
+| IDE autocomplete + chat | [GitHub Copilot](/agents/github-copilot) |
+| AI-native code editor | [Cursor](/agents/cursor) |
+| Open-source, BYO-key IDE agent | [Cline](/agents/cline) |
 
 ## Step 3: Define done and guardrails
 
-Before prompting, write down what success looks like and what the agent must not touch.
+Before prompting, write down:
 
-## Step 4: Compare before committing
+- What does "done" look like?
+- Which files can the agent touch?
+- Which commands can it run?
+- What must a human approve?
 
-Use the [Agent Directory](/agentmarketplace/agents) comparison tool to evaluate 2–3 tools for your stack.
+This one habit separates useful agent workflows from chaotic ones.
 
-## Step 5: Go local if you need privacy
+## Step 4: Compare tools
 
-When data cannot leave your machine, move to local models and open-source agents. See:
+Once you know your task, compare 2–3 agents side-by-side.
 
-- [Local Model Agents](/agentmarketplace/use-cases/local-models)
-- [Self-Hosting](/agentmarketplace/self-hosting)
-- [Deployment Recipes](/agentmarketplace/deployment-recipes)
+- Use the [Agent Directory](/agents)
+- Use the [Compare Agents](/agents/compare) page
+- Match pricing, runtime, and platform to your stack
+
+## Step 5: Go local for privacy or cost control
+
+When data cannot leave your machine, move to local models and open-source agents.
+
+- [Run Ollama on Ubuntu with NVIDIA CUDA](/deployment-recipes/ollama-ubuntu-cuda)
+- [Deploy Open WebUI](/deployment-recipes/open-webui)
+- [Use Cline with a local model](/deployment-recipes/cline-local)
+- [Build your first OpenClaw agent](/deployment-recipes/openclaw-first-agent)
+- Read the [Local Model Agents](/use-cases/local-models) use case
 
 ## Step 6: Stay current
 
-Follow the [AI News](/agentmarketplace/news) page and check the [Agent Changelog](/agentmarketplace/changelog) for updates.
+Agents and models change fast. Bookmark these sections:
+
+- [Agent Changelog](/changelog) for release updates
+- [Tips](/tips) for practical shortcuts
+- [Tests](/tests) for benchmark results
+- [LLM Pricing](/llms) for cost comparisons
+
+## Common first mistakes
+
+- **Too broad a task.** Agents struggle with "fix the codebase." They excel at "add input validation to this form."
+- **No verification.** Always run tests, linters, and a human review before applying agent edits.
+- **Ignoring cost.** Cloud agents can burn tokens fast. Set a budget or use local models for experimentation.
+- **Trusting blindly.** Agents make mistakes. Treat their output as a first draft, not a final answer.
