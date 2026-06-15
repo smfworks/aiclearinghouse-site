@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
-import { ExternalLink, GitBranch, Check } from "lucide-react";
+import { ExternalLink, GitBranch, Check, ArrowRight } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 import { getAgentColor } from "@/lib/agent-colors";
+import { getCrossLinks } from "@/lib/cross-links";
 
 interface Props {
   agent: AgentProfile;
@@ -155,6 +156,34 @@ export default function AgentDetail({ agent }: Props) {
             </div>
           </section>
         </div>
+
+        {/* Cross-links */}
+        {(() => {
+          const links = getCrossLinks(agent.id);
+          if (links.length === 0) return null;
+          return (
+            <div className="border-t border-hairline px-8 py-6 md:px-12">
+              <h2 className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono mb-3">
+                Commonly compared with
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {links.map((link) => (
+                  <Link
+                    key={link.targetId}
+                    href={`/agents/${link.targetId}`}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-hairline bg-canvas px-3 py-2 text-sm text-foreground transition-all hover:border-cyan/50 hover:text-cyan"
+                  >
+                    {link.label}{" "}
+                    <span className="font-medium" style={{ color }}>
+                      {link.targetName}
+                    </span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
         {agent.lastVerified && (
           <div className="border-t border-hairline bg-elevated px-8 py-4 flex items-center justify-between md:px-12">

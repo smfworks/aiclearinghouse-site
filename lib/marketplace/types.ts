@@ -32,6 +32,7 @@ export interface AgentProfile {
   releaseYear: number;
   company: string;
   lastVerified?: string;
+  crossLinks?: { label: string; url: string }[];
 }
 
 export interface LLMModel {
