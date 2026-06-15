@@ -133,7 +133,7 @@ export default function AINewsClient({ items }: Props) {
                     {stories.map((story, idx) => (
                       <a
                         key={story.slug}
-                        href={story.url || "#"}
+                        href={String(story.url || "").replace(/^\//, "")}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`group flex items-start justify-between gap-4 px-5 py-4 transition-colors hover:bg-elevated/50 ${
@@ -183,7 +183,7 @@ export default function AINewsClient({ items }: Props) {
                   .map((story) => (
                     <a
                       key={story.slug}
-                      href={story.url || "#"}
+                      href={String(story.url || "").replace(/^\//, "")}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group block text-sm"
