@@ -1,8 +1,9 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getAllItems, getItemBySlug, getSectionTitle } from "@/lib/marketplace/loader";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import SectionDetail from "@/components/SectionDetail";
+import ServiceDetail from "@/components/ServiceDetail";
 
 const section = "services";
 
@@ -23,16 +24,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function DetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const item = getItemBySlug(section, slug);
+  if (!item) notFound();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <SectionDetail
-          item={item}
-          section={section}
-          sectionTitle={getSectionTitle(section)}
-          backHref={"/" + section}
-        />
+        <ServiceDetail item={item} />
       </main>
       <Footer />
     </div>
