@@ -21,6 +21,20 @@ export const metadata: Metadata = {
     url: "https://smfclearinghouse.com",
     siteName: "SMF Clearinghouse",
     type: "website",
+    images: [
+      {
+        url: "https://smfclearinghouse.com/images/clearinghouse-og.png",
+        width: 1200,
+        height: 630,
+        alt: "SMF Clearinghouse — AI tools directory",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SMF Clearinghouse",
+    description: "Compare autonomous AI agents, LLM pricing, and self-hosting recipes.",
+    images: ["https://smfclearinghouse.com/images/clearinghouse-og.png"],
   },
 };
 

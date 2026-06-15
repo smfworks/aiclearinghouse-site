@@ -1,7 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { AgentProfile } from "@/lib/marketplace/types";
 import { Cpu, Globe } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
+
+function avatarUrl(id: string): string {
+  return `/images/agents/${id}.svg`;
+}
 
 interface AgentCardProps {
   agent: AgentProfile;
@@ -45,10 +50,16 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
       <Link href={`/agents/${agent.id}`} className="block">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-elevated to-panel text-lg font-semibold text-foreground border border-hairline group-hover:border-cyan/40 transition-colors"
-              style={{ color: agent.id ? undefined : undefined }}
+            <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-hairline bg-gradient-to-br from-elevated to-panel group-hover:border-cyan/40 transition-colors"
             >
-              {agent.name.charAt(0)}
+              <Image
+                src={avatarUrl(agent.id)}
+                alt={`${agent.name} avatar`}
+                width={48}
+                height={48}
+                className="object-contain p-1"
+                unoptimized
+              />
             </div>
             <div className="min-w-0">
               <h3 className="truncate text-base font-semibold text-foreground transition-colors group-hover:text-cyan">

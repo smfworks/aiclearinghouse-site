@@ -23,6 +23,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       url: `https://smfclearinghouse.com/agents/${agent.id}`,
       siteName: "SMF Clearinghouse",
       type: "article",
+      images: [
+        {
+          url: `https://smfclearinghouse.com/images/agents/${agent.id}.svg`,
+          width: 128,
+          height: 128,
+          alt: `${agent.name} avatar`,
+        },
+      ],
     },
   };
 }

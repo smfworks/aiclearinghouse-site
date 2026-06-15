@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+  </defs>
+  <rect width="128" height="128" rx="24" fill="url(#g)" />
+  <polygon points="64,18 103,45 103,83 64,110 25,83 25,45" fill="#fb7185" opacity="0.25"/><polygon points="64,38 86,54 86,74 64,90 42,74 42,54" fill="#fb7185" opacity="0.5"/><circle cx="64" cy="64" r="9" fill="#e11d48"/>
+  <text x="64" y="122" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#e2e8f0" letter-spacing="0.5">L</text>
+</svg>

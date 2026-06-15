@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import HeroBackground from "@/components/HeroBackground";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import {
   Newspaper,
@@ -93,8 +95,13 @@ export default function AINewsClient({ items }: Props) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <section className="border-b border-hairline bg-elevated px-6 py-8">
-        <div className="mx-auto max-w-6xl">
+      <HeroBackground
+        src="/images/news-hero.png"
+        alt="AI news live feed"
+        className="border-b border-hairline bg-elevated"
+        overlayOpacity={0.82}
+      >
+        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
           <Link href="/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
             ← Home
           </Link>
@@ -111,7 +118,7 @@ export default function AINewsClient({ items }: Props) {
             {items.length} stories · updated {grouped[0]?.[1][0]?.published_at ? formatTimeAgo(String(grouped[0][1][0].published_at)) : "recently"}
           </div>
         </div>
-      </section>
+      </HeroBackground>
 
       <section className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
         <div className="grid gap-8 lg:grid-cols-3">

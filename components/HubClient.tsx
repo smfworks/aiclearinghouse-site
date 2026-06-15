@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
@@ -131,11 +132,20 @@ export default function HubClient({ agents, genericItems }: Props) {
     <div className="flex flex-1 flex-col">
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-hairline px-6 pt-20 pb-20 md:pt-28 md:pb-28">
-        <div className="bg-grid-glow absolute inset-0 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--accent-glow)_0%,_transparent_50%)] opacity-40 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-canvas/40 via-canvas/90 to-canvas pointer-events-none" />
-
-        <div className="relative mx-auto max-w-5xl text-center">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/clearinghouse-hero.png"
+            alt="Abstract network of connected AI nodes"
+            fill
+            className="object-cover object-center opacity-60"
+            priority
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-canvas/70 via-canvas/85 to-canvas" />
+          <div className="absolute inset-0 bg-gradient-to-r from-canvas/50 via-transparent to-canvas/50" />
+        </div>
+        <div className="bg-grid-glow absolute inset-0 pointer-events-none z-10" />
+        <div className="relative z-20 mx-auto max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-hairline-strong bg-panel/80 px-4 py-1.5 text-xs font-medium text-foreground-secondary shadow-[0_0_20px_-8px_var(--accent-glow)]">
             <Radio className="h-3.5 w-3.5 text-cyan cyan-pulse rounded-full" />
             Independent AI Directory

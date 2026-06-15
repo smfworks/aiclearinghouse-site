@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { AgentProfile } from "@/lib/marketplace/types";
 import { ExternalLink, GitBranch, Check, ArrowRight, Target, Sparkles, AlertTriangle, Users, Layers, Zap, Cpu, Globe, Calendar, DollarSign } from "lucide-react";
@@ -5,6 +6,10 @@ import FreshnessBadge from "@/components/FreshnessBadge";
 import { getAgentColor } from "@/lib/agent-colors";
 import { getCrossLinks } from "@/lib/cross-links";
 import { markdownToHtml } from "@/lib/markdown";
+
+function avatarUrl(id: string): string {
+  return `/images/agents/${id}.svg`;
+}
 
 interface Props {
   agent: AgentProfile;
@@ -80,10 +85,17 @@ export default function AgentDetail({ agent }: Props) {
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex items-center gap-5">
               <div
-                className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-canvas text-3xl font-medium border-2 border-hairline"
-                style={colorStyle}
+                className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-2 border-hairline bg-gradient-to-br from-elevated to-panel"
+                style={{ borderColor: color }}
               >
-                {agent.name.charAt(0)}
+                <Image
+                  src={avatarUrl(agent.id)}
+                  alt={`${agent.name} avatar`}
+                  width={80}
+                  height={80}
+                  className="object-contain p-1.5"
+                  unoptimized
+                />
               </div>
               <div>
                 <h1
