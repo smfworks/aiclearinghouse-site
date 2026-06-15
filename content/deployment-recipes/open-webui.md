@@ -1,25 +1,43 @@
 ---
 slug: open-webui
 title: Deploy Open WebUI with Ollama
+excerpt: Run a self-hosted ChatGPT-style interface that talks to your local Ollama models and any OpenAI-compatible API.
 category: Self-Hosting
 tags:
-  - Open WebUI
-  - Ollama
+  - open-webui
+  - ollama
   - self-hosting
   - chat
+  - docker
+order: 6
+last_verified: 2026-06-15
 ---
+
+# Deploy Open WebUI with Ollama
+
+## The promise
+
+Every powerful local model deserves a good interface. Open WebUI gives you a ChatGPT-style web app that runs on your own hardware, connects to Ollama, and can even bridge to cloud APIs for side-by-side comparison. It is the fastest way to turn a raw Ollama server into something the rest of your team will actually use.
+
+This recipe deploys Open WebUI with Docker, connects it to a local Ollama instance, and shows you how to add a cloud provider so you can compare local and frontier models in the same conversation.
 
 ## What you'll get
 
-A self-hosted ChatGPT-style web interface that talks to your local Ollama models and any OpenAI-compatible API. You can switch models, manage conversations, and expose the UI to your LAN if needed.
+- Open WebUI running in Docker on port `3000`
+- Connection to your local Ollama instance
+- One or more local models available in the dropdown
+- Optional cloud API bridge for comparison
 
 ## Prerequisites
 
 - Ollama running locally (see the [Ollama CUDA recipe](/deployment-recipes/ollama-ubuntu-cuda))
-- Docker or a local Python environment
-- At least 2 GB free disk space
+- Docker installed
+- At least 2 GB free disk space for the Open WebUI image
+- One pulled Ollama model, such as `qwen3.5:9b`
 
-## Option 1: Docker (recommended)
+## Step 1: Pull Open WebUI with Docker
+
+One command starts the container and persists its data:
 
 ```bash
 docker run -d -p 3000:8080 \
@@ -30,59 +48,46 @@ docker run -d -p 3000:8080 \
   ghcr.io/open-webui/open-webui:main
 ```
 
-Visit `http://localhost:3000`.
+Visit `http://localhost:3000`. The first user to sign up becomes the admin.
 
-If Ollama is also in Docker, connect to it using the same network. If Ollama is on the host, use `http://host.docker.internal:11434` as the Ollama API URL in Open WebUI settings.
+## Step 2: Connect Ollama
 
-## Option 2: Local Python install
-
-```bash
-# Requires Python 3.11+
-git clone https://github.com/open-webui/open-webui.git
-cd open-webui
-pip install -r requirements.txt -U
-bash start.sh
-```
-
-Visit `http://localhost:8080`.
-
-## Step 1: Connect Ollama
-
-The first time you open Open WebUI, it prompts for an Ollama endpoint:
+The first time you open Open WebUI, it asks for an Ollama API URL:
 
 ```
 http://host.docker.internal:11434
 ```
 
-If running Open WebUI directly on the host, use:
+Use that exact value if Ollama is running on the Docker host. If Ollama is also in Docker, put both containers on the same network and use the Ollama container name as the host.
 
-```
-http://localhost:11434
-```
+Click **Save**. The models you have pulled appear in the model selector.
 
-Click **Save**. The models you have pulled will appear in the model selector.
+## Step 3: Pull a model through the UI
 
-## Step 2: Pull models through the UI
+Open WebUI can pull Ollama models directly without touching the terminal:
 
-Open WebUI can pull Ollama models directly:
+1. Go to **Settings → Models**.
+2. Click **Pull a model**.
+3. Enter `qwen3.5:9b` and wait.
 
-```
-Settings → Models → Pull a model
-```
+You can also pull from the admin panel in bulk.
 
-Enter a model name such as `qwen3.5:9b` and wait for the download.
+## Step 4: Add a cloud API for comparison
 
-## Step 3: Add an OpenAI-compatible API key
-
-To compare local models against cloud models in the same interface:
+This is where Open WebUI becomes more than a local chat app:
 
 1. Go to **Settings → Connections**.
-2. Add an OpenAI API base URL and key, or an Anthropic/OpenRouter key.
-3. The new provider appears in the model dropdown.
+2. Add an OpenAI-compatible API base URL and key:
+   - OpenAI: `https://api.openai.com/v1`
+   - Anthropic: use the Anthropic connector
+   - OpenRouter: `https://openrouter.ai/api/v1`
+3. Save. The new provider appears in the model dropdown.
 
-## Step 4: LAN access (optional)
+Now you can ask the same question to a local model and a cloud model and compare the answers.
 
-To expose Open WebUI to other devices on your network:
+## Step 5: Enable LAN access (optional)
+
+To let other devices on your network reach Open WebUI:
 
 ```bash
 docker run -d -p 3000:8080 \
@@ -96,9 +101,9 @@ docker run -d -p 3000:8080 \
 
 Then access it at `http://your-lan-ip:3000`.
 
-> Do not expose Open WebUI to the public internet without authentication.
+> Do not expose Open WebUI to the public internet without authentication. The first signup becomes admin, and there is no rate limit by default.
 
-## Sanity check
+## Sanity checks
 
 | Check | Command / Action |
 |-------|------------------|
@@ -109,10 +114,13 @@ Then access it at `http://your-lan-ip:3000`.
 
 ## Common gotchas
 
-- **"Cannot connect to Ollama"** — If using Docker, verify `--add-host=host.docker.internal:host-gateway` is set and the Ollama endpoint is correct.
-- **No models listed** — Pull at least one model with `ollama pull qwen3.5:9b`.
-- **Slow first load** — Docker image download can take several minutes depending on connection speed.
+| Symptom | Fix |
+|---------|-----|
+| "Cannot connect to Ollama" | Verify `--add-host=host.docker.internal:host-gateway` and that the Ollama endpoint is `http://host.docker.internal:11434`. |
+| No models listed | Pull at least one model with `ollama pull qwen3.5:9b`. |
+| Slow first load | The Docker image is large. Allow several minutes for the initial pull. |
+| Admin lockout | The first user to sign up is admin. There is no password recovery without database access. |
 
 ## Next step
 
-Use Open WebUI as a chat playground to test prompts before using them with agents like Cline, Aider, or OpenClaw. Then move the best prompts into versioned prompt files for your agents.
+Use Open WebUI as a playground to test prompts before using them with agents like Cline, Aider, or OpenClaw. Then move the best prompts into versioned prompt files for your agents.
