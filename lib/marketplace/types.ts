@@ -34,6 +34,41 @@ export interface AgentProfile {
   lastVerified?: string;
 }
 
+export interface LLMModel {
+  model: string;
+  model_id: string;
+  input_price: number | null;
+  output_price: number | null;
+  cached_input_price?: number | null;
+  context_window: number | null;
+  max_output_tokens?: number | null;
+  mmlu?: number;
+  humaneval?: number;
+  chatbot_arena?: number;
+  category?: string;
+  description?: string;
+  release_date?: string;
+}
+
+export interface LLMProvider {
+  id: string;
+  name: string;
+  description: string;
+  website: string;
+  pricing_url: string;
+  icon: string;
+  type: "provider" | "platform";
+  models: LLMModel[];
+}
+
+export interface LLMPricingData {
+  generated_at: string;
+  updated_at: string;
+  source: string;
+  providers: LLMProvider[];
+  models: LLMModel[];
+}
+
 export const sectionNames: Record<string, string> = {
   services: "Services",
   skills: "Skills & Addons",
