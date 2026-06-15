@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import AgentCard from "@/components/AgentCard";
 import AgentComparison from "@/components/AgentComparison";
 import SubmitAgentForm from "@/components/SubmitAgentForm";
@@ -202,6 +203,14 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
             >
               Compare ({selected.size})
             </button>
+          )}
+          {selected.size > 1 && (
+            <Link
+              href={`/agents/compare?ids=${Array.from(selected).join(",")}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-hairline-strong"
+            >
+              Full comparison
+            </Link>
           )}
         </div>
 
