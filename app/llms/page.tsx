@@ -49,16 +49,22 @@ export default function LLMsPage() {
               Compare pricing, context windows, and benchmarks across <strong>{totalModels}</strong> models from{" "}
               <strong>{providerCount}</strong> providers and <strong>{platformCount}</strong> hosted platforms.
             </p>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm font-mono text-foreground-secondary">
-              <span className="rounded-full border border-hairline bg-panel px-3 py-1">
+            <div className="mt-6 flex flex-wrap gap-3 text-sm">
+              <span className="rounded-full border border-hairline bg-panel px-3 py-1 font-mono text-foreground-secondary">
                 {totalModels} models
               </span>
-              <span className="rounded-full border border-hairline bg-panel px-3 py-1">
+              <span className="rounded-full border border-hairline bg-panel px-3 py-1 font-mono text-foreground-secondary">
                 {freeModels} free / open-source
               </span>
-              <span className="rounded-full border border-hairline bg-panel px-3 py-1">
+              <span className="rounded-full border border-hairline bg-panel px-3 py-1 font-mono text-foreground-secondary">
                 Updated 2026-06-15
               </span>
+              <Link
+                href="/llms/compare"
+                className="rounded-full border border-accent bg-accent/10 px-3 py-1 font-mono text-accent transition-colors hover:bg-accent/20"
+              >
+                Compare models →
+              </Link>
             </div>
           </div>
         </section>

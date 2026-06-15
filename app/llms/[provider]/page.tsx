@@ -81,6 +81,12 @@ export default async function ProviderPage({ params }: { params: Promise<{ provi
                   <span className="rounded-full bg-blue-500/10 text-blue-400 px-3 py-1 font-mono">
                     {provider.models.length} models
                   </span>
+                  <Link
+                    href="/llms/compare"
+                    className="rounded-full border border-accent bg-accent/10 px-3 py-1 font-mono text-accent transition-colors hover:bg-accent/20"
+                  >
+                    Compare models →
+                  </Link>
                   <a
                     href={provider.website}
                     target="_blank"
