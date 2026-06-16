@@ -18,6 +18,14 @@ const categoryIcons: Record<string, React.ReactNode> = {
   "AI APIs": <Mic className="h-5 w-5" />,
 };
 
+const categoryBaseColors: Record<string, string> = {
+  Infrastructure: "cyan",
+  Data: "emerald",
+  Security: "rose",
+  Operations: "violet",
+  "AI APIs": "amber",
+};
+
 const categoryColors: Record<string, string> = {
   Infrastructure: "text-cyan border-cyan/30 bg-cyan/5",
   Data: "text-emerald border-emerald/30 bg-emerald/5",
@@ -40,6 +48,22 @@ const categoryBorderColors: Record<string, string> = {
   Security: "border-l-rose",
   Operations: "border-l-violet",
   "AI APIs": "border-l-amber",
+};
+
+const categoryGlowColors: Record<string, string> = {
+  Infrastructure: "rgba(34,211,238,0.18)",
+  Data: "rgba(16,185,129,0.18)",
+  Security: "rgba(244,63,94,0.18)",
+  Operations: "rgba(139,92,246,0.18)",
+  "AI APIs": "rgba(245,158,11,0.18)",
+};
+
+const categoryGradientColors: Record<string, string> = {
+  Infrastructure: "from-cyan/10 via-cyan/5 to-transparent",
+  Data: "from-emerald/10 via-emerald/5 to-transparent",
+  Security: "from-rose/10 via-rose/5 to-transparent",
+  Operations: "from-violet/10 via-violet/5 to-transparent",
+  "AI APIs": "from-amber/10 via-amber/5 to-transparent",
 };
 
 export default function ServicesDirectoryClient({ items }: Props) {
@@ -151,9 +175,22 @@ export default function ServicesDirectoryClient({ items }: Props) {
               <Link
                 key={item.slug}
                 href={`/services/${item.slug}`}
-                className={`group flex flex-col rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:border-current hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                className={`group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:border-current hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                style={{
+                  boxShadow: `0 0 0 0 transparent`,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 40px -12px ${categoryGlowColors[item.category] || "rgba(245,158,11,0.18)"}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 0 0 transparent`;
+                }}
               >
-                <div className="mb-4 flex items-center justify-between">
+                {/* subtle top gradient */}
+                <div
+                  className={`absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${categoryGradientColors[item.category] || "from-amber/10 via-amber/5 to-transparent"} opacity-60 pointer-events-none`}
+                />
+                <div className="relative mb-4 flex items-center justify-between">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
                     {categoryIcons[item.category] && <span className="h-3.5 w-3.5">{categoryIcons[item.category]}</span>}
                     {item.category}
@@ -161,19 +198,19 @@ export default function ServicesDirectoryClient({ items }: Props) {
                   <span className={`text-xs font-mono ${textColor}`}>{item.pricing_model || item.pricing || ""}</span>
                 </div>
 
-                <h2 className={`text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
+                <h2 className={`relative text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
                   {item.title}
                 </h2>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
+                <p className="relative mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
 
-                <div className="mt-5 flex flex-wrap items-center gap-3 text-xs text-foreground-tertiary">
+                <div className="relative mt-5 flex flex-wrap items-center gap-3 text-xs text-foreground-tertiary">
                   <span className="flex items-center gap-1.5 font-mono">
                     <Clock className="h-3.5 w-3.5" />
                     Verified {item.last_verified || "recently"}
                   </span>
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="relative mt-4 flex flex-wrap gap-2">
                   {item.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
@@ -184,7 +221,7 @@ export default function ServicesDirectoryClient({ items }: Props) {
                   ))}
                 </div>
 
-                <div className={`mt-5 flex items-center text-sm font-medium transition-colors ${textColor}`}
+                <div className={`relative mt-5 flex items-center text-sm font-medium transition-colors ${textColor}`}
                 >
                   Read review
                   <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
