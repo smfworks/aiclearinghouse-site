@@ -36,15 +36,27 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const categoryColors: Record<string, string> = {
-  Models: "text-cyan border-cyan/30 bg-cyan/5",
-  Agents: "text-violet border-violet/30 bg-violet/5",
-  "Product Launches": "text-emerald border-emerald/30 bg-emerald/5",
-  APIs: "text-amber border-amber/30 bg-amber/5",
-  "Open Source": "text-rose border-rose/30 bg-rose/5",
-  Regulation: "text-accent border-accent/30 bg-accent/5",
-  Security: "text-rose border-rose/30 bg-rose/5",
-  Deals: "text-emerald border-emerald/30 bg-emerald/5",
-  Hardware: "text-cyan border-cyan/30 bg-cyan/5",
+  Models: "text-cyan",
+  Agents: "text-violet",
+  "Product Launches": "text-emerald",
+  APIs: "text-amber",
+  "Open Source": "text-rose",
+  Regulation: "text-accent",
+  Security: "text-rose",
+  Deals: "text-emerald",
+  Hardware: "text-cyan",
+};
+
+const categoryAccent: Record<string, string> = {
+  Models: "#22d3ee",
+  Agents: "#a78bfa",
+  "Product Launches": "#34d399",
+  APIs: "#fbbf24",
+  "Open Source": "#fb7185",
+  Regulation: "var(--accent)",
+  Security: "#fb7185",
+  Deals: "#34d399",
+  Hardware: "#22d3ee",
 };
 
 function ShieldNews({ className }: { className?: string }) {
@@ -125,16 +137,16 @@ export default function AINewsClient({ items }: Props) {
           {/* Main headline feed */}
           <div className="lg:col-span-2 space-y-8">
             {grouped.map(([category, stories]) => {
-              const colorClass = categoryColors[category] || categoryColors["Models"];
+              const accentColor = categoryAccent[category] || categoryAccent["Models"];
               const icon = categoryIcons[category] || <Globe className="h-4 w-4" />;
               return (
                 <div key={category}>
                   <div className="mb-3 flex items-center gap-2">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${colorClass}`}>
-                      {icon}
-                      {category}
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-elevated px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground">
+                      <span style={{ color: accentColor }}>{icon}</span>
+                      <span style={{ color: accentColor }}>{category}</span>
                     </span>
-                    <span className="text-xs text-foreground-tertiary font-mono">{stories.length} stories</span>
+                    <span className="text-xs font-mono text-foreground-tertiary">{stories.length} stories</span>
                   </div>
                   <div className="rounded-xl border border-hairline bg-panel overflow-hidden">
                     {stories.map((story, idx) => (
