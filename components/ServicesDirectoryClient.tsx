@@ -114,37 +114,51 @@ export default function ServicesDirectoryClient({ items }: Props) {
         <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           <button
             onClick={() => setActiveCategory("All")}
-            className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all ${
+            className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-4 text-left transition-all ${
               activeCategory === "All"
                 ? "border-accent bg-accent/10"
                 : "border-hairline bg-panel hover:border-hairline-strong"
             }`}
           >
-            <Layers className={`h-5 w-5 ${activeCategory === "All" ? "text-accent" : "text-foreground-tertiary"}`} />
-            <div>
+            <div
+              className={`absolute inset-0 bg-gradient-to-br from-accent/10 via-accent/5 to-transparent transition-opacity ${
+                activeCategory === "All" ? "opacity-40" : "opacity-0 group-hover:opacity-20"
+              }`}
+            />
+            <Layers className={`relative h-5 w-5 ${activeCategory === "All" ? "text-accent" : "text-foreground-tertiary"}`} />
+            <div className="relative">
               <span className="block text-sm font-medium text-foreground">All services</span>
               <span className="text-xs text-foreground-secondary">{items.length} total</span>
             </div>
           </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all ${
-                activeCategory === cat
-                  ? `${categoryColors[cat]} border-current`
-                  : "border-hairline bg-panel hover:border-hairline-strong"
-              }`}
-            >
-              <span className={activeCategory === cat ? "text-inherit" : "text-foreground-tertiary"}>
-                {categoryIcons[cat] || <Layers className="h-5 w-5" />}
-              </span>
-              <div>
-                <span className="block text-sm font-medium text-foreground">{cat}</span>
-                <span className="text-xs text-foreground-secondary">{items.filter((i) => i.category === cat).length} services</span>
-              </div>
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const base = categoryBaseColors[cat] || "accent";
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-4 text-left transition-all ${
+                  activeCategory === cat
+                    ? `${categoryColors[cat]} border-current`
+                    : "border-hairline bg-panel hover:border-hairline-strong"
+                }`}
+              >
+                {/* subtle category gradient on hover / active */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${categoryGradientColors[cat] || "from-accent/10 via-accent/5 to-transparent"} opacity-0 transition-opacity ${
+                    activeCategory === cat ? "opacity-40" : "group-hover:opacity-20"
+                  }`}
+                />
+                <span className={`relative ${activeCategory === cat ? "text-inherit" : "text-foreground-tertiary"}`}>
+                  {categoryIcons[cat] || <Layers className="h-5 w-5" />}
+                </span>
+                <div className="relative">
+                  <span className="block text-sm font-medium text-foreground">{cat}</span>
+                  <span className="text-xs text-foreground-secondary">{items.filter((i) => i.category === cat).length} services</span>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* Search */}
