@@ -137,13 +137,13 @@ export default function HubClient({ agents, genericItems }: Props) {
             src="/images/clearinghouse-hero.png"
             alt="Abstract network of connected AI nodes"
             fill
-            className="object-cover object-center opacity-60"
+            className="object-cover object-center opacity-90"
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-canvas/45 via-canvas/70 to-canvas" />
-          <div className="absolute inset-0 bg-gradient-to-r from-canvas/30 via-transparent to-canvas/30" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--canvas)_75%)] opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-canvas/25 via-canvas/50 to-canvas/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-canvas/20 via-transparent to-canvas/20" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,var(--canvas)_90%)]" />
         </div>
         <div className="bg-grid-faint absolute inset-0 pointer-events-none z-10 opacity-50" />
         <div className="relative z-20 mx-auto max-w-5xl text-center">
