@@ -144,7 +144,7 @@ export default function HubClient({ agents, genericItems }: Props) {
           <div className="absolute inset-0 bg-gradient-to-b from-canvas/70 via-canvas/85 to-canvas" />
           <div className="absolute inset-0 bg-gradient-to-r from-canvas/50 via-transparent to-canvas/50" />
         </div>
-        <div className="bg-grid-glow absolute inset-0 pointer-events-none z-10" />
+        <div className="bg-grid-faint absolute inset-0 pointer-events-none z-10 opacity-50" />
         <div className="relative z-20 mx-auto max-w-5xl text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-hairline-strong bg-panel/80 px-4 py-1.5 text-xs font-medium text-foreground-secondary shadow-[0_0_20px_-8px_var(--accent-glow)]">
             <Radio className="h-3.5 w-3.5 text-cyan cyan-pulse rounded-full" />
