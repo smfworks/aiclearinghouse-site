@@ -46,6 +46,24 @@ const categoryBorderColors: Record<string, string> = {
   Tip: "border-l-accent",
 };
 
+const categoryGlowColors: Record<string, string> = {
+  Workflow: "rgba(34,211,238,0.35)",
+  Quality: "rgba(16,185,129,0.35)",
+  Safety: "rgba(244,63,94,0.35)",
+  Cost: "rgba(245,158,11,0.35)",
+  Hermes: "rgba(139,92,246,0.35)",
+  Tip: "rgba(var(--color-accent-rgb),0.35)",
+};
+
+const categoryGradientColors: Record<string, string> = {
+  Workflow: "from-cyan-500/25 via-cyan-500/10 to-transparent",
+  Quality: "from-emerald-500/25 via-emerald-500/10 to-transparent",
+  Safety: "from-rose-500/25 via-rose-500/10 to-transparent",
+  Cost: "from-amber-500/25 via-amber-500/10 to-transparent",
+  Hermes: "from-violet-500/25 via-violet-500/10 to-transparent",
+  Tip: "from-accent/25 via-accent/10 to-transparent",
+};
+
 export default function TipsDirectoryClient({ items }: Props) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -93,37 +111,51 @@ export default function TipsDirectoryClient({ items }: Props) {
         <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <button
             onClick={() => setActiveCategory("All")}
-            className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all ${
+            className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-4 text-left transition-all ${
               activeCategory === "All"
                 ? "border-accent bg-accent/10"
                 : "border-hairline bg-panel hover:border-hairline-strong"
             }`}
           >
-            <Lightbulb className={`h-5 w-5 ${activeCategory === "All" ? "text-accent" : "text-foreground-tertiary"}`} />
-            <div>
+            <div
+              className={`absolute inset-0 bg-gradient-to-br from-accent/10 via-accent/5 to-transparent transition-opacity ${
+                activeCategory === "All" ? "opacity-40" : "opacity-0 group-hover:opacity-20"
+              }`}
+            />
+            <Lightbulb className={`relative h-5 w-5 ${activeCategory === "All" ? "text-accent" : "text-foreground-tertiary"}`} />
+            <div className="relative">
               <span className="block text-sm font-medium text-foreground">All tips</span>
               <span className="text-xs text-foreground-secondary">{items.length} total</span>
             </div>
           </button>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all ${
-                activeCategory === cat
-                  ? `${categoryColors[cat]} border-current`
-                  : "border-hairline bg-panel hover:border-hairline-strong"
-              }`}
-            >
-              <span className={activeCategory === cat ? "text-inherit" : "text-foreground-tertiary"}>
-                {categoryIcons[cat] || <Lightbulb className="h-5 w-5" />}
-              </span>
-              <div>
-                <span className="block text-sm font-medium text-foreground">{cat}</span>
-                <span className="text-xs text-foreground-secondary">{items.filter((i) => i.category === cat).length} tips</span>
-              </div>
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const colorClass = categoryColors[cat] || categoryColors.Tip;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-4 text-left transition-all ${
+                  activeCategory === cat
+                    ? `${colorClass} border-current`
+                    : "border-hairline bg-panel hover:border-hairline-strong"
+                }`}
+              >
+                {/* subtle category gradient on hover / active */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${categoryGradientColors[cat] || categoryGradientColors.Tip} opacity-0 transition-opacity ${
+                    activeCategory === cat ? "opacity-40" : "group-hover:opacity-20"
+                  }`}
+                />
+                <span className={`relative ${activeCategory === cat ? "text-inherit" : "text-foreground-tertiary"}`}>
+                  {categoryIcons[cat] || <Lightbulb className="h-5 w-5" />}
+                </span>
+                <div className="relative">
+                  <span className="block text-sm font-medium text-foreground">{cat}</span>
+                  <span className="text-xs text-foreground-secondary">{items.filter((i) => i.category === cat).length} tips</span>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* Search */}
@@ -154,9 +186,20 @@ export default function TipsDirectoryClient({ items }: Props) {
               <Link
                 key={item.slug}
                 href={`/tips/${item.slug}`}
-                className={`group flex flex-col rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                className={`group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                style={{ boxShadow: "0 0 0 0 transparent" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 40px -12px ${categoryGlowColors[item.category] || categoryGlowColors.Tip}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
+                }}
               >
-                <div className="mb-4 flex items-center justify-between">
+                {/* strong top gradient */}
+                <div
+                  className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${categoryGradientColors[item.category] || categoryGradientColors.Tip} opacity-80 pointer-events-none`}
+                />
+                <div className="relative mb-4 flex items-center justify-between">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
                     {categoryIcons[item.category] && <span className="h-3.5 w-3.5">{categoryIcons[item.category]}</span>}
                     {item.category}
@@ -164,12 +207,12 @@ export default function TipsDirectoryClient({ items }: Props) {
                   {item.last_verified && <FreshnessBadge dateString={item.last_verified} />}
                 </div>
 
-                <h2 className={`text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
+                <h2 className={`relative text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
                   {item.title}
                 </h2>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
+                <p className="relative mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
 
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="relative mt-4 flex flex-wrap gap-2">
                   {item.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
@@ -180,7 +223,7 @@ export default function TipsDirectoryClient({ items }: Props) {
                   ))}
                 </div>
 
-                <div className={`mt-5 flex items-center text-sm font-medium transition-colors ${textColor}`}>
+                <div className={`relative mt-5 flex items-center text-sm font-medium transition-colors ${textColor}`}>
                   Read tip
                   <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
