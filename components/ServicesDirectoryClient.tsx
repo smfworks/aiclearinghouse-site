@@ -59,11 +59,11 @@ const categoryGlowColors: Record<string, string> = {
 };
 
 const categoryGradientColors: Record<string, string> = {
-  Infrastructure: "from-cyan/25 via-cyan/10 to-transparent",
-  Data: "from-emerald/25 via-emerald/10 to-transparent",
-  Security: "from-rose/25 via-rose/10 to-transparent",
-  Operations: "from-violet/25 via-violet/10 to-transparent",
-  "AI APIs": "from-amber/25 via-amber/10 to-transparent",
+  Infrastructure: "from-cyan-500/25 via-cyan-500/10 to-transparent",
+  Data: "from-emerald-500/25 via-emerald-500/10 to-transparent",
+  Security: "from-rose-500/25 via-rose-500/10 to-transparent",
+  Operations: "from-violet-500/25 via-violet-500/10 to-transparent",
+  "AI APIs": "from-amber-500/25 via-amber-500/10 to-transparent",
 };
 
 export default function ServicesDirectoryClient({ items }: Props) {
@@ -145,7 +145,7 @@ export default function ServicesDirectoryClient({ items }: Props) {
               >
                 {/* subtle category gradient on hover / active */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${categoryGradientColors[cat] || "from-accent/10 via-accent/5 to-transparent"} opacity-0 transition-opacity ${
+                  className={`absolute inset-0 bg-gradient-to-br ${categoryGradientColors[cat] || "from-amber-500/25 via-amber-500/10 to-transparent"} opacity-0 transition-opacity ${
                     activeCategory === cat ? "opacity-40" : "group-hover:opacity-20"
                   }`}
                 />
@@ -202,7 +202,7 @@ export default function ServicesDirectoryClient({ items }: Props) {
               >
                 {/* strong top gradient */}
                 <div
-                  className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${categoryGradientColors[item.category] || "from-amber/25 via-amber/10 to-transparent"} opacity-80 pointer-events-none`}
+                  className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${categoryGradientColors[item.category] || "from-amber-500/25 via-amber-500/10 to-transparent"} opacity-80 pointer-events-none`}
                 />
                 <div className="relative mb-4 flex items-center justify-between">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
