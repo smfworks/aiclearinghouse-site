@@ -159,6 +159,12 @@ const vendorColors: Record<string, { text: string; border: string; glow: string;
     glow: "rgba(184,115,51,0.35)",
     gradient: "from-[#B87333]/25 via-[#B87333]/10 to-transparent",
   },
+  linux: {
+    text: "text-[#E91E8C]",
+    border: "border-l-[#E91E8C]",
+    glow: "rgba(233,30,140,0.35)",
+    gradient: "from-[#E91E8C]/25 via-[#E91E8C]/10 to-transparent",
+  },
   microsoft: {
     text: "text-[#0078D4]",
     border: "border-l-[#0078D4]",
@@ -175,6 +181,9 @@ function getVendorStyle(section: string, item: MarketplaceItem) {
   }
   if (text.includes("amd") || text.includes("radeon") || text.includes("instinct") || text.includes("rocm")) {
     return vendorColors.amd;
+  }
+  if (text.includes("linux") || text.includes("ubuntu") || text.includes("debian") || text.includes("fedora")) {
+    return vendorColors.linux;
   }
   if (text.includes("microsoft") || text.includes("windows") || text.includes("azure")) {
     return vendorColors.microsoft;
