@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
+import XVideoEmbed from "@/components/XVideoEmbed";
 import { ArrowRight, Search, Layers, Server, Database, Shield, Zap, Bot, Wrench, Beaker, FileText, Terminal, Lightbulb } from "lucide-react";
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -43,6 +44,7 @@ interface Props {
   section: string;
   title: string;
   description: string;
+  videoTweetUrl?: string;
 }
 
 const categoryColors: Record<string, string> = {
@@ -170,7 +172,7 @@ function getBorderColor(category: string) {
   return categoryBorderColors[category] || "border-l-accent";
 }
 
-export default function SectionDirectoryClient({ items, section, title, description }: Props) {
+export default function SectionDirectoryClient({ items, section, title, description, videoTweetUrl }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const categories = Array.from(new Set(items.map((i) => i.category))).sort();
@@ -197,6 +199,12 @@ export default function SectionDirectoryClient({ items, section, title, descript
           </Link>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
           <p className="mt-4 max-w-2xl text-lg text-foreground-secondary">{description}</p>
+
+          {videoTweetUrl && (
+            <div className="mt-8 max-w-xl rounded-xl border border-hairline bg-panel p-3 shadow-[0_0_40px_-16px_rgba(0,0,0,0.5)]">
+              <XVideoEmbed tweetUrl={videoTweetUrl} className="min-h-[280px]" maxWidth={560} />
+            </div>
+          )}
         </div>
       </section>
 

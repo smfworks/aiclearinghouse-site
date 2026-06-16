@@ -8,6 +8,8 @@ export const metadata = {
   description: "Browse self-hosting on the SMF Clearinghouse.",
 };
 
+const VIDEO_TWEET_URL = "https://x.com/MichaelGannotti/status/2066926652773314798";
+
 export default function Page() {
   const items = getAllItems("self-hosting");
   const title = getSectionTitle("self-hosting");
@@ -20,6 +22,7 @@ export default function Page() {
           section="self-hosting"
           title={title}
           description="Curated entries for self-hosting from the SMF Clearinghouse."
+          videoTweetUrl={VIDEO_TWEET_URL}
         />
       </main>
       <Footer />

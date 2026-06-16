@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MarketplaceItem } from "@/lib/marketplace/types";
+import XVideoEmbed from "@/components/XVideoEmbed";
 import {
   ArrowRight,
   ArrowLeft,
@@ -20,6 +21,7 @@ import {
 
 interface Props {
   items: MarketplaceItem[];
+  videoTweetUrl?: string;
 }
 
 const quickFilters = [
@@ -29,7 +31,7 @@ const quickFilters = [
   { label: "VS Code", tag: "vscode" },
 ];
 
-export default function DeploymentRecipesClient({ items }: Props) {
+export default function DeploymentRecipesClient({ items, videoTweetUrl }: Props) {
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
@@ -64,6 +66,12 @@ export default function DeploymentRecipesClient({ items }: Props) {
           <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">
             Copy-paste setups that actually work. No marketing, no missing prerequisites, no "it should work on your machine." Just the commands, the expected output, and the fixes when something goes wrong.
           </p>
+
+          {videoTweetUrl && (
+            <div className="mx-auto mt-8 max-w-xl rounded-xl border border-hairline bg-panel p-3 shadow-[0_0_40px_-16px_rgba(0,0,0,0.5)]">
+              <XVideoEmbed tweetUrl={videoTweetUrl} className="min-h-[280px]" maxWidth={560} />
+            </div>
+          )}
         </div>
       </section>
 
