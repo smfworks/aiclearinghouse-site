@@ -1,62 +1,62 @@
 ---
 slug: langfuse-observability
-title: "Langfuse: AI Observability"
-excerpt: "Trace, evaluate, and monitor LLM calls, agent steps, and production workflows."
+title: "Langfuse: Observability for LLM Agents"
+excerpt: "Open-source tracing, evaluation, and cost monitoring for production LLM and agent workflows."
 category: Operations
 tags:
   - observability
   - tracing
-  - llm-ops
-  - monitoring
+  - evaluation
+  - cost-monitoring
 provider: Langfuse
-pricing_model: Freemium
-price: "Free self-hosted; Cloud from $49/mo"
+pricing_model: Open source + Cloud
+price: "Open source self-hosted; cloud free tier, paid from $25/mo"
 website: https://langfuse.com
 image: /images/agentmarketplace/services-hero.svg
-order: 6
-last_verified: 2026-06-15
+order: 12
+last_verified: 2026-06-16
 ---
 
-# Langfuse: AI Observability
+# Langfuse: Observability for LLM Agents
 
 ## What it is
 
-Langfuse is an open-source observability platform for LLM applications and agents. It traces every model call, tool invocation, and decision step so you can debug failures, measure quality, and control costs in production.
+Langfuse is open-source observability built for LLM applications and agents. It captures traces, spans, prompts, costs, latency, and evaluations so you can debug agent behavior, measure quality, and understand spend in production.
 
 ## When to use it
 
-- You have an agent running in production and no visibility into what it actually does.
-- Costs are unpredictable and you need per-request attribution.
-- You want to build evaluation datasets from real traces.
-- You prefer self-hosted infrastructure or need EU data residency.
+- Your agent runs multi-step workflows and you need to see what happened when it failed.
+- You want to track cost per user, per session, or per workflow across models.
+- You are iterating on prompts and need to compare versions against real traces.
+- You need human feedback or automated scoring loops to improve agent quality.
 
 ## What it does well
 
-- **Full trace view.** See the full agent execution tree: prompts, completions, tool calls, latencies, errors.
-- **Cost tracking.** Aggregate spend by model, user, session, or agent.
-- **Prompt versioning.** Track prompt changes and their impact on output quality.
-- **Evaluations.** Connect datasets, run automated evals, and score agent outputs.
-- **Open source + managed cloud.** Self-host for free or use the cloud managed service.
+- **End-to-end tracing.** See the full chain of thought, tool calls, retries, and model invocations.
+- **Cost and latency attribution.** Break down spend and latency by step, model, and user.
+- **Prompt management.** Version prompts and link them directly to traces.
+- **Evaluations and scores.** Attach manual or automated scores to traces and track quality over time.
+- **Self-hostable.** Run it locally or in your own cloud for full data control.
 
 ## Honest limitations
 
-- **Instrumentation required.** You have to add Langfuse SDK calls to your agent code.
-- **Data volume.** Heavy-traffic agents generate a lot of traces; retention and storage become real concerns.
-- **Learning curve.** The UI is powerful but dense. Teams need time to build useful dashboards.
-- **Alerting is basic.** You may still want PagerDuty or custom alerts for critical failures.
+- **Instrumentation required.** You need to add tracing calls to your agent code.
+- **Learning curve.** Powerful features take time to configure for complex workflows.
+- **Cloud vs. self-hosted tradeoff.** Managed cloud is easier but may be a compliance concern for sensitive data.
+- **Not a replacement for tests.** Traces help you find problems; they do not prevent them.
 
 ## Pricing reality
 
-- Self-hosted: free if you run the infrastructure.
-- Cloud: free tier for small projects; paid plans from $49/month.
-- Production teams usually pay $200–$1,000+/month depending on trace volume and retention.
+- Open-source self-hosted: free aside from infrastructure costs.
+- Cloud: generous free tier for small projects; paid plans from $25/month for teams.
+- Enterprise: higher volume, SSO, audit logs, and support.
 
 ## Best fit
 
-Teams running agents in production who need to answer "What happened?" and "How much did it cost?" Pair it with the [Local LLMs vs. API](/guides/local-llms-vs-api) guide for cost modeling context.
+Teams running agents in production who need visibility into the black box. Essential once your agent does more than single-turn Q&A — especially when tools, loops, or multiple models are involved.
 
 ## Common integrations
 
-- **OpenClaw / Hermes** agents via instrumentation hooks.
-- **LangChain / LlamaIndex** native integrations.
-- **Slack / PagerDuty** for alerting on top of Langfuse metrics.
+- **LangChain / LlamaIndex** native instrumentation.
+- **LiteLLM** for unified model routing and cost attribution.
+- **OpenClaw / Hermes** agents through manual or SDK-based tracing.
