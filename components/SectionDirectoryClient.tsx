@@ -145,6 +145,43 @@ const categoryBorderColors: Record<string, string> = {
   Service: "border-l-cyan",
 };
 
+// Vendor-specific colors for self-hosting hardware pages
+const vendorColors: Record<string, { text: string; border: string; glow: string; gradient: string }> = {
+  nvidia: {
+    text: "text-[#76B900]",
+    border: "border-l-[#76B900]",
+    glow: "rgba(118,185,0,0.35)",
+    gradient: "from-[#76B900]/25 via-[#76B900]/10 to-transparent",
+  },
+  amd: {
+    text: "text-[#B87333]",
+    border: "border-l-[#B87333]",
+    glow: "rgba(184,115,51,0.35)",
+    gradient: "from-[#B87333]/25 via-[#B87333]/10 to-transparent",
+  },
+  microsoft: {
+    text: "text-[#0078D4]",
+    border: "border-l-[#0078D4]",
+    glow: "rgba(0,120,212,0.35)",
+    gradient: "from-[#0078D4]/25 via-[#0078D4]/10 to-transparent",
+  },
+};
+
+function getVendorStyle(section: string, item: MarketplaceItem) {
+  if (section !== "self-hosting") return null;
+  const text = (item.title + " " + item.slug + " " + item.tags.join(" ")).toLowerCase();
+  if (text.includes("nvidia") || text.includes("rtx") || text.includes("dgx") || text.includes("cuda")) {
+    return vendorColors.nvidia;
+  }
+  if (text.includes("amd") || text.includes("radeon") || text.includes("instinct") || text.includes("rocm")) {
+    return vendorColors.amd;
+  }
+  if (text.includes("microsoft") || text.includes("windows") || text.includes("azure")) {
+    return vendorColors.microsoft;
+  }
+  return null;
+}
+
 const sectionAccentColors: Record<string, string> = {
   "self-hosting": "cyan",
   "use-cases": "emerald",
@@ -252,30 +289,47 @@ export default function SectionDirectoryClient({ items, section, title, descript
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filtered.map((item) => {
-            const colorClass = getColorClass(item.category);
-            const textColor = getTextColor(item.category);
-            const leftBorder = getBorderColor(item.category);
+            const vendorStyle = getVendorStyle(section, item);
+            const colorClass = vendorStyle ? `${vendorStyle.text} border-current bg-current/5` : getColorClass(item.category);
+            const textColor = vendorStyle ? vendorStyle.text : getTextColor(item.category);
+            const leftBorder = vendorStyle ? vendorStyle.border : getBorderColor(item.category);
+            const glowColor = vendorStyle ? vendorStyle.glow : undefined;
+            const gradientClass = vendorStyle ? vendorStyle.gradient : undefined;
 
             return (
               <Link
                 key={item.slug}
                 href={`/${section}/${item.slug}`}
-                className={`group flex flex-col rounded-xl border border-hairline bg-panel p-5 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                className={`group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel p-5 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                style={{ boxShadow: "0 0 0 0 transparent" }}
+                onMouseEnter={(e) => {
+                  if (glowColor) {
+                    e.currentTarget.style.boxShadow = `0 0 40px -12px ${glowColor}`;
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
+                }}
               >
+                {gradientClass && (
+                  <div
+                    className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${gradientClass} opacity-80 pointer-events-none`}
+                  />
+                )}
                 {item.image && (
                   <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-lg border border-hairline">
                     <Image src={item.image} alt={item.title} fill className="object-cover" unoptimized />
                   </div>
                 )}
-                <span className={`inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
+                <span className={`relative inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
                   {categoryIcons[item.category] || <Layers className="h-3 w-3" />}
                   {item.category}
                 </span>
-                <h2 className={`mt-3 text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
+                <h2 className={`relative mt-3 text-lg font-semibold text-foreground transition-colors group-hover:${textColor}`}>
                   {item.title}
                 </h2>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <p className="relative mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
+                <div className="relative mt-4 flex flex-wrap gap-2">
                   {item.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
@@ -286,11 +340,11 @@ export default function SectionDirectoryClient({ items, section, title, descript
                   ))}
                 </div>
                 {item.last_verified && (
-                  <div className="mt-3">
+                  <div className="relative mt-3">
                     <FreshnessBadge dateString={item.last_verified} />
                   </div>
                 )}
-                <div className={`mt-4 flex items-center text-sm font-medium transition-colors ${textColor}`}>
+                <div className={`relative mt-4 flex items-center text-sm font-medium transition-colors ${textColor}`}>
                   Read <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </Link>
