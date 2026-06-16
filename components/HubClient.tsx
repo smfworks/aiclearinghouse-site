@@ -30,11 +30,13 @@ import {
   Flame,
   Radio,
   Newspaper,
+  Clock,
 } from "lucide-react";
 
 interface Props {
   agents: AgentProfile[];
   genericItems: Record<string, MarketplaceItem[]>;
+  newsItems: MarketplaceItem[];
 }
 
 type SectionColor = {
@@ -83,11 +85,25 @@ const sections = [
   { id: "ai-news", href: "/ai-news", title: "AI News", description: "Curated AI headlines updated throughout the day.", icon: Newspaper, featured: true },
 ];
 
+function formatTimeAgo(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const seconds = Math.max(0, Math.floor((now.getTime() - date.getTime()) / 1000));
+  if (seconds < 60) return "just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days}d ago`;
+  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 function colorFor(sectionId: string): SectionColor {
   return sectionColors[sectionId] || sectionColors["getting-started"];
 }
 
-export default function HubClient({ agents, genericItems }: Props) {
+export default function HubClient({ agents, genericItems, newsItems }: Props) {
   const [query, setQuery] = useState("");
   const q = query.toLowerCase().trim();
 
@@ -164,6 +180,42 @@ export default function HubClient({ agents, genericItems }: Props) {
           <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">
             Compare autonomous agents, LLM pricing, open-source tools, vendor services, and tested self-hosting recipes — without wading through marketing copy.
           </p>
+
+          {/* Latest headlines mini-module */}
+          {newsItems.length > 0 && (
+            <div className="mx-auto mt-8 max-w-2xl">
+              <div className="rounded-xl border border-hairline bg-panel/80 p-4 text-left shadow-[0_0_40px_-16px_rgba(0,0,0,0.4)]">
+                <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-foreground-tertiary font-mono">
+                  <Newspaper className="h-3.5 w-3.5 text-cyan" />
+                  Latest AI News
+                </div>
+                <ul className="space-y-2.5">
+                  {newsItems.slice(0, 3).map((item) => (
+                    <li key={item.slug}>
+                      <Link
+                        href={`/ai-news/${item.slug}`}
+                        className="group flex items-start gap-3 text-sm text-foreground transition-colors hover:text-cyan"
+                      >
+                        <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+                        <span className="flex-1 leading-snug">
+                          <span className="font-medium">{item.title}</span>
+                          <span className="ml-2 text-xs text-foreground-tertiary">
+                            {formatTimeAgo(String(item.published_at || item.date || new Date().toISOString()))}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/ai-news"
+                  className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-cyan transition-colors hover:underline"
+                >
+                  See all headlines <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+            </div>
+          )}
 
           {/* Embedded X explainer */}
           <div className="mx-auto mt-10 max-w-xl rounded-xl border border-hairline bg-panel/90 p-3 shadow-[0_0_40px_-16px_rgba(0,0,0,0.5)]">
@@ -257,6 +309,43 @@ export default function HubClient({ agents, genericItems }: Props) {
           )}
         </div>
       </section>
+
+      {/* Live AI News marquee */}
+      {newsItems.length > 0 && (
+        <section className="border-y border-hairline bg-elevated px-6 py-3">
+          <div className="mx-auto flex max-w-7xl items-center gap-4">
+            <div className="flex shrink-0 items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-cyan font-mono">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan" />
+              </span>
+              Live AI News
+            </div>
+            <div className="min-w-0 flex-1 overflow-hidden">
+              <div className="flex items-center gap-6 whitespace-nowrap">
+                {newsItems.slice(0, 4).map((item) => (
+                  <Link
+                    key={item.slug}
+                    href={`/ai-news/${item.slug}`}
+                    className="group inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                  >
+                    <span className="truncate max-w-[280px] sm:max-w-[360px]">{item.title}</span>
+                    <span className="shrink-0 text-xs text-foreground-tertiary">
+                      {formatTimeAgo(String(item.published_at || item.date || new Date().toISOString()))}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <Link
+              href="/ai-news"
+              className="hidden shrink-0 items-center gap-1 text-xs font-medium text-cyan transition-colors hover:underline sm:inline-flex"
+            >
+              All news <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Featured spotlight */}
       <section className="mx-auto w-full max-w-7xl px-6 -mt-6 relative z-10">
