@@ -1,7 +1,7 @@
 ---
 slug: code-review
 title: Code Review Agents
-excerpt: Agents that review diffs, catch bugs, enforce style, and explain reasoning before merge.
+excerpt: "Agents that review diffs, catch bugs, enforce style, and explain reasoning before a human merges."
 category: Use Case
 tags:
   - code review
@@ -9,26 +9,37 @@ tags:
   - GitHub
   - GitLab
   - agents
-last_verified: 2026-06-14
+last_verified: 2026-06-16
 ---
 
 # Code Review Agents
 
+## What they do
+
 Code review agents read diffs, run tests, check style, and propose refactors before a human merges. They do not replace human review, but they cut noise and surface issues a tired reviewer might miss.
+
+## Common tasks
+
+- **Diff analysis.** Read PR diffs and identify logic errors, missing tests, and style issues.
+- **Test suggestions.** Propose tests for new or changed code.
+- **Security scanning.** Flag dangerous patterns, secrets, and unsafe dependencies.
+- **Style enforcement.** Check formatting and conventions against project rules.
+- **Refactor proposals.** Suggest cleaner implementations while preserving behavior.
+- **Review summaries.** Package findings for human reviewers.
 
 ## Top picks
 
 ### Claude Code
-Best for deep reasoning across large diffs and proposing architecture-level refactors. Works as a CLI and can be wired into CI.
+Best for deep reasoning across large diffs and architecture-level refactors.
 
 ### GitHub Copilot Code Review
-Tightest GitHub-native integration; inline comments on PRs with model-backed suggestions. Best for teams already paying for Copilot.
+Best for GitHub-native inline comments and model-backed suggestions.
 
 ### Cline
-Open-source VS Code extension that reads context, runs tests, and edits code iteratively. Good for local-first review loops with BYO keys.
+Best for local-first, open-source review loops with BYO keys.
 
 ### Cursor
-Fastest in-editor experience for reviewing and rewriting code inside a project. Best for day-to-day pair programming.
+Best for in-editor rewrite-as-you-review pair programming.
 
 ## How to choose
 
@@ -40,24 +51,28 @@ Fastest in-editor experience for reviewing and rewriting code inside a project. 
 | In-editor rewrite-as-you-review | Cursor |
 | Privacy-sensitive code | Aider or Cline with local Ollama |
 
-## Recommended workflow
+## Key design decisions
 
-1. Open a PR with a clear description.
-2. Run the agent against the diff or the whole branch.
-3. Let it flag issues and propose fixes.
-4. Human reviews agent output along with the code.
-5. Apply only fixes that make sense; reject the rest.
-6. Run CI (lint, tests, security scan) before merge.
+- **Noise control.** Configure ignored paths and severity thresholds.
+- **Security pass.** Never auto-merge agent suggestions on security-critical files.
+- **Test pairing.** Run a test pipeline alongside the agent to catch false positives.
+- **Human gate.** Agent output is advice; the human reviewer decides.
+- **Audit trail.** Track which suggestions were accepted, rejected, or modified.
 
-## Common gotchas
+## Honest limitations
 
-- Automated review can be noisy. Configure ignored paths and severity thresholds.
-- Never auto-merge agent suggestions on security-critical files without a human pass.
-- Pair review agents with a test runner and lint pipeline to catch false positives.
-- Agents hallucinate file paths and line numbers sometimes. Verify before clicking apply.
+- Agents can be noisy and produce false positives.
+- They may hallucinate file paths, line numbers, or behavior.
+- They do not understand full business context.
+- They cannot replace senior engineering judgment.
 
 ## Getting started
 
-1. [Install Cline with a local model](/deployment-recipes/cline-local) for a free, private review loop.
-2. [Install Claude Code](/agents/claude-code) if your diffs are large and reasoning-heavy.
-3. [Set up GitHub Copilot Code Review](https://github.com/features/copilot) if your team already uses GitHub.
+1. Install Cline with a local model for a free, private review loop.
+2. Try Claude Code if your diffs are large and reasoning-heavy.
+3. Set up GitHub Copilot Code Review if your team already uses GitHub.
+4. Tune the agent's scope and rules based on the first week of output.
+
+**Related:**
+- [Review Every Diff](/tips/review-every-diff)
+- [API Error Handling Benchmark](/tests/api-error-handling-benchmark)

@@ -1,7 +1,7 @@
 ---
 slug: ui-building
 title: UI Building Agents
-excerpt: Agents that turn prompts and designs into working frontend code, components, and full pages.
+excerpt: "Agents that turn prompts, screenshots, and designs into working frontend code, components, and full pages."
 category: Use Case
 tags:
   - UI
@@ -9,54 +9,70 @@ tags:
   - no-code
   - React
   - design
-last_verified: 2026-06-14
+last_verified: 2026-06-16
 ---
 
 # UI Building Agents
 
-UI building agents turn text prompts, screenshots, or Figma files into working frontend code. They are fastest when the goal is visual and the stack is standard (React, Tailwind, Vue, etc.).
+## What they do
+
+UI building agents turn text prompts, screenshots, or Figma files into working frontend code. They are fastest when the goal is visual and the stack is standard, such as React, Tailwind, or Vue.
+
+## Common tasks
+
+- **Component generation.** Build buttons, cards, forms, and layouts from descriptions.
+- **Screenshot-to-code.** Reproduce a UI from an image or mockup.
+- **Figma-to-code.** Convert design files into production-ready components.
+- **Design-system matching.** Generate code that uses existing tokens and components.
+- **Responsive tuning.** Adapt layouts for mobile, tablet, and desktop.
+- **Accessibility cleanup.** Add ARIA labels, keyboard navigation, and contrast fixes.
 
 ## Top picks
 
 ### v0
-Best for converting a text prompt or screenshot into a polished React/Tailwind component. Strong design-system awareness.
+Best for converting a text prompt or screenshot into a polished React/Tailwind component.
 
 ### Bolt.new
-Runs the full stack in the browser. Best for rapid prototyping with backend + frontend + deploy in one flow.
+Best for rapid prototyping with backend + frontend + deploy in one browser-based flow.
 
 ### Lovable
-Strong for Figma-to-code and iterative visual editing with AI-assisted revisions. Best when design fidelity matters.
+Best for Figma-to-code and iterative visual editing with AI-assisted revisions.
 
 ### Replit Agent
-Good for education and quick full-stack apps with built-in hosting. Best for learning and one-off experiments.
+Best for learning, education, and quick full-stack experiments with built-in hosting.
 
 ## How to choose
 
 | Situation | Best choice |
 |-----------|-------------|
-| Need clean React/Tailwind from a prompt | v0 |
-| Need a live deployable prototype in minutes | Bolt.new |
-| Starting from Figma or high design fidelity | Lovable |
+| Clean React/Tailwind from a prompt | v0 |
+| Live deployable prototype in minutes | Bolt.new |
+| Figma or high design fidelity | Lovable |
 | Teaching, learning, or quick experiments | Replit Agent |
-| Want local, private, open-source control | Cline or Bolt + local model |
+| Local, private, open-source control | Cline or Bolt + local model |
 
-## Recommended workflow
+## Key design decisions
 
-1. Define the component or page in plain language or with a screenshot.
-2. Prompt the agent with your stack, design tokens, and constraints.
-3. Review the generated code for accessibility, responsiveness, and dependencies.
-4. Extract reusable components and add them to your design system.
-5. Run tests and visual regression checks before shipping.
+- **Design system grounding.** Provide tokens, components, and constraints so output matches your app.
+- **Dependency control.** Pin versions and audit any packages the agent suggests.
+- **Accessibility.** Review generated UI for ARIA labels, keyboard navigation, and contrast.
+- **Component scope.** Break complex UIs into smaller prompts rather than one giant request.
+- **Human review.** Treat generated code as a first draft, not a finished product.
 
-## Common gotchas
+## Honest limitations
 
-- Generated UI often needs accessibility cleanup (ARIA labels, keyboard navigation, color contrast).
-- Do not let agents pick dependencies freely. Pin versions and audit bundles.
-- Split complex UIs into component prompts rather than one giant prompt.
-- Agents may generate placeholder images or mock data that must be replaced.
+- Generated code often needs refactoring for production.
+- Accessibility and performance are frequently overlooked.
+- Agents may use placeholder data or images.
+- Complex state management is still best done by a human.
 
 ## Getting started
 
-1. Try [v0](https://v0.dev) or [Bolt.new](https://bolt.new) for a quick proof of concept.
-2. For local, open-source control, use [Cline with a local model](/deployment-recipes/cline-local) and point it at your existing components.
+1. Try v0 or Bolt.new for a quick proof of concept.
+2. For local control, use Cline with a local model and your existing components.
 3. Move generated code into your repo and refactor before production.
+4. Add accessibility and visual regression tests.
+
+**Related:**
+- [Start Small](/tips/start-small)
+- [Define Done Before You Prompt](/tips/define-done-before-you-prompt)

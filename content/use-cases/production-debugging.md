@@ -1,7 +1,7 @@
 ---
 slug: production-debugging
 title: Production Debugging Agents
-excerpt: Agents that read logs, trace errors, query telemetry, and suggest fixes for live issues.
+excerpt: "Agents that read logs, trace errors, query telemetry, and suggest fixes for live issues under human supervision."
 category: Use Case
 tags:
   - debugging
@@ -9,55 +9,70 @@ tags:
   - logs
   - SRE
   - production
-last_verified: 2026-06-14
+last_verified: 2026-06-16
 ---
 
 # Production Debugging Agents
 
+## What they do
+
 Production debugging agents connect to logs, metrics, traces, and error trackers to summarize incidents and suggest root causes. They are force multipliers for on-call engineers, not replacements.
+
+## Common tasks
+
+- **Alert triage.** Read alert metadata and recent logs to summarize what failed.
+- **Error correlation.** Link errors across services and time windows.
+- **Trace analysis.** Walk through distributed traces to find latency or failure points.
+- **Log summarization.** Extract the signal from noisy logs during an incident.
+- **Runbook guidance.** Suggest next steps from documented procedures.
+- **Post-incident drafts.** Generate timelines and summaries for runbooks.
 
 ## Top picks
 
-### Datadog Bits (AI Assistant)
-Queries logs, metrics, and traces in natural language and surfaces root-cause candidates. Best if you already centralize telemetry in Datadog.
+### Datadog Bits
+Best for natural-language queries across logs, metrics, and traces in Datadog.
 
 ### Sentry Seer
-Explains error groups, proposes code fixes, and links errors back to commits. Strongest when errors are the starting point.
+Best for explaining error groups, proposing fixes, and linking errors to commits.
 
 ### New Relic AI
-Observability-aware assistant for incident summarization and runbook suggestions. Best for New Relic shops.
+Best for incident summarization and runbook suggestions in New Relic shops.
 
 ### OpenClaw + local logs
-For privacy-sensitive environments, pipe logs into a local agent with strict read-only permissions. Best when SaaS telemetry is off-limits.
+Best for privacy-sensitive environments where SaaS telemetry is off-limits.
 
 ## How to choose
 
 | Situation | Best choice |
 |-----------|-------------|
-| Datadog is your observability hub | Datadog Bits |
+| Datadog observability hub | Datadog Bits |
 | Error-centric debugging | Sentry Seer |
 | New Relic ecosystem | New Relic AI |
-| Logs contain PII or compliance constraints | OpenClaw with local models |
-| Need cross-tool correlation | OpenClaw agent with multiple tool integrations |
+| Logs contain PII or compliance constraints | OpenClaw local |
+| Cross-tool correlation | OpenClaw agent |
 
-## Recommended incident workflow
+## Key design decisions
 
-1. Alert fires. Agent reads the alert metadata and recent logs.
-2. Agent summarizes: what failed, when, and which services are involved.
-3. Agent queries related metrics/traces for the same time window.
-4. Agent proposes 2–3 plausible root causes with evidence.
-5. Human validates, drills down, and decides on a fix or rollback.
-6. Agent drafts a post-incident summary for the runbook.
+- **Read-only first.** Give the agent read access only. Destructive actions need approval.
+- **Correlation rules.** Define how the agent links alerts, logs, and traces.
+- **Evidence over anecdotes.** Require the agent to cite data, not just pattern-match.
+- **Human escalation.** Define when the agent must hand off to an engineer.
+- **DLP review.** Be careful sending production logs to cloud LLMs.
 
-## Common gotchas
+## Honest limitations
 
-- Give agents read-only access first. Destructive actions need explicit approval gates.
-- Correlate agent findings with human incident review before applying fixes.
-- Avoid sending full production logs to general-purpose cloud LLMs without a DLP review.
-- Agents can pattern-match previous incidents too aggressively. Ask for evidence, not anecdotes.
+- Agents can over-fit to previous incidents.
+- They may miss subtle business-context clues.
+- Automated fixes can make outages worse.
+- SaaS telemetry may violate data residency rules.
 
 ## Getting started
 
-1. Start with your existing observability vendor's AI feature if you have one.
-2. If privacy matters, [build your first OpenClaw agent](/deployment-recipes/openclaw-first-agent) and give it read-only log access.
-3. Add [Sentry](https://sentry.io) or [Datadog](https://datadoghq.com) integration tools to the agent loop.
+1. Start with your observability vendor's AI feature if you have one.
+2. If privacy matters, build an OpenClaw agent with read-only log access.
+3. Add Sentry or Datadog integrations to the agent loop.
+4. Run in shadow mode before enabling any remediation.
+
+**Related:**
+- [DevOps and SRE Agents](/use-cases/devops-and-sre)
+- [Agent Security Checklist](/guides/agent-security-checklist)
