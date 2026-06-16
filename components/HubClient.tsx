@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
+import XVideoEmbed from "@/components/XVideoEmbed";
 import {
   Bot,
   Wrench,
@@ -123,6 +124,8 @@ export default function HubClient({ agents, genericItems }: Props) {
 
   const hasResults = topAgents.length > 0 || genericResults.length > 0;
 
+  const tweetUrl = "https://x.com/MichaelGannotti/status/2066867220823556483";
+
   const filteredSections = useMemo(() => {
     if (!q) return sections;
     return sections.filter((s) => s.title.toLowerCase().includes(q) || s.description.toLowerCase().includes(q));
@@ -161,6 +164,11 @@ export default function HubClient({ agents, genericItems }: Props) {
           <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">
             Compare autonomous agents, LLM pricing, open-source tools, vendor services, and tested self-hosting recipes — without wading through marketing copy.
           </p>
+
+          {/* Embedded X explainer */}
+          <div className="mx-auto mt-10 max-w-xl rounded-xl border border-hairline bg-panel/90 p-3 shadow-[0_0_40px_-16px_rgba(0,0,0,0.5)]">
+            <XVideoEmbed tweetUrl={tweetUrl} className="min-h-[280px]" maxWidth={560} />
+          </div>
 
           {/* Search */}
           <div className="mx-auto mt-9 max-w-xl">

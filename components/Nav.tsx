@@ -14,6 +14,7 @@ const links = [
   { href: "/deployment-recipes", label: "Recipes" },
   { href: "/guides", label: "Guides" },
   { href: "/ai-news", label: "News" },
+  { href: "/what-is-the-clearinghouse", label: "What is this?" },
 ];
 
 export default function Nav() {
