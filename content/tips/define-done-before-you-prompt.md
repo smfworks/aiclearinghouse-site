@@ -1,42 +1,49 @@
 ---
 slug: define-done-before-you-prompt
-title: Define Done Before You Prompt
-category: Workflow
-excerpt: Agents iterate forever unless you give them a clear finish line.
+title: Define "Done" Before You Prompt
+category: Quality
+excerpt: "If you cannot describe success, the agent cannot deliver it. Define the outcome before you ask for the output."
 tags:
-  - agents
+  - quality
   - prompting
-  - workflow
-  - planning
-order: 5
-last_verified: 2026-06-15
+  - scoping
+order: 13
+last_verified: 2026-06-16
 ---
 
-# Define Done Before You Prompt
+# Define "Done" Before You Prompt
 
-## The principle
+## The gap
 
-Agents iterate forever unless you give them a clear finish line. Define what "done" looks like before you send the prompt.
+Many agent prompts describe the *activity* but not the *outcome*.
 
-## Why it matters
+- "Improve this function" — what does improved mean?
+- "Write a report" — what should the reader learn?
+- "Refactor the code" — to what standard?
 
-Vague goals produce vague results. An agent told to "refactor the auth module" might move files around indefinitely. An agent told to "extract password validation into `validatePassword.ts` and add three unit tests covering empty, short, and mismatch inputs" knows exactly when to stop.
+Without a definition of done, the agent stops when it runs out of tokens or when the output *looks* reasonable, not when the task is actually complete.
 
-## How to apply it
+## How to define done
 
-1. **State the deliverable.** One artifact, one file, one function.
-2. **List acceptance criteria.** Use "must" language. "The function must reject passwords shorter than 8 characters."
-3. **Provide examples.** Show input/output pairs or reference existing code.
-4. **Mention non-goals.** "Do not change the login UI." This prevents scope creep.
-5. **Ask for a plan first.** For complex tasks, have the agent outline steps before executing.
+Convert every prompt into an outcome statement:
 
-## Red flags
+| Vague | Defined |
+|-------|---------|
+| Improve this function | Reduce cyclomatic complexity to ≤10 and add error handling for null inputs |
+| Write a report | Produce a one-page summary with 3 takeaways and 1 recommended action |
+| Refactor the code | Split the component into 3 tested utilities with no regressions in existing tests |
+| Update the docs | Add a setup section that lets a new developer run the project in under 10 minutes |
 
-- The prompt ends with "make it better."
-- You cannot write a one-sentence definition of success.
-- The agent keeps asking clarifying questions.
-- The task description changes mid-run.
+## The acceptance test
+
+If possible, give the agent an acceptance test it can run to verify completion. This works for code, data extraction, and many structured tasks.
+
+> "Your output passes when `npm test` runs without failures and the new endpoint returns `{success: true}`."
+
+## Why it works
+
+Agents are goal-seeking pattern generators. When you give them a clear target, they align their output toward it. When the target is vague, they optimize for plausibility.
 
 ## Quick win
 
-Before your next prompt, write: "Done means..." and finish the sentence. If you can't, break the task down further.
+Add one sentence to your next prompt describing exactly what the output must satisfy. Then review whether the result met it.

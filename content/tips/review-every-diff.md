@@ -2,40 +2,52 @@
 slug: review-every-diff
 title: Review Every Diff
 category: Quality
-excerpt: Autonomous agents are fast, not infallible. Always review changes before merging.
+excerpt: "Agents are fast, not infallible. The 30 seconds you spend reviewing a diff saves hours of debugging later."
 tags:
   - code-review
-  - safety
   - quality
-order: 2
-last_verified: 2026-06-15
+  - safety
+order: 4
+last_verified: 2026-06-16
 ---
 
 # Review Every Diff
 
-## The principle
+## The rule
 
-An agent can generate a thousand lines of plausible code in minutes. Plausible is not correct. Every diff deserves human review, no matter how confident the agent sounded.
+Never commit agent output blindly. Even when the agent has been reliable, even when you are in a hurry, even when the change looks trivial — review the diff.
 
 ## Why it matters
 
-Agents excel at pattern matching and synthesis. They are weaker at implicit requirements, business logic, and long-term consequences. A diff that looks right can still break edge cases, delete error handling, or introduce subtle security issues.
+Agents optimize for plausible-looking output, not correctness. They will:
+- Rename variables to synonyms that subtly break logic
+- Remove comments you wanted to keep
+- Add dependencies you did not ask for
+- Change formatting in files outside the scope
+- Introduce off-by-one errors, race conditions, or security issues
 
-## How to apply it
+Your review is the safety net. Skip it once and you teach yourself bad habits.
 
-1. **Never auto-merge.** Require a human approval step for every agent branch.
-2. **Read the diff, not the summary.** Agent summaries often gloss over important details.
-3. **Check the tests.** Did the agent add tests? Did it remove any? Did existing tests still pass?
-4. **Look for scope creep.** Did the agent change files outside the requested task?
-5. **Run it locally.** CI is good; running the changed code yourself is better.
+## What to look for
 
-## Red flags
+1. **Scope creep.** Did the agent touch files it should not have?
+2. **Logic changes.** Is the behavior actually what you asked for?
+3. **Dependencies.** Did it add packages, imports, or services?
+4. **Tests.** Did it add, update, or remove tests? Are they meaningful?
+5. **Security.** Are secrets, permissions, or auth handled correctly?
+6. **Style.** Does the output match your team's conventions?
 
-- The diff is larger than you expected.
-- The agent renamed things you did not ask it to rename.
-- Tests were modified or deleted without explanation.
-- The summary says "no functional changes" but files outside the target area were touched.
+## How to make it fast
 
-## Quick win
+- Use small diffs. Small tasks produce small diffs that are quick to review.
+- Set up pre-commit hooks for formatting and linting.
+- Run tests before reviewing so you review against a known baseline.
+- Ask the agent to summarize its own diff in the response.
 
-Before approving any agent PR, ask: "What is the smallest thing that could break because of this change?" Find that thing and verify it.
+## The exception that is not an exception
+
+Some teams say, "I trust this agent for formatting only." But formatting-only prompts still produce diffs. Still review them. One bad formatter run can destroy a file you care about.
+
+## Build the habit
+
+Review the diff before you run tests, not after. Tests can pass on subtly wrong code. Your judgment is the final check.

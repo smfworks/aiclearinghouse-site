@@ -2,41 +2,69 @@
 slug: keep-a-human-in-the-loop
 title: Keep a Human in the Loop
 category: Safety
-excerpt: Autonomous does not mean unsupervised. Gate destructive actions behind approval.
+excerpt: "Autonomy is a dial, not a switch. Start with suggestions, move to approvals, and only automate after the agent proves itself."
 tags:
-  - agents
   - safety
   - governance
-  - trust
-order: 6
-last_verified: 2026-06-15
+  - autonomy
+order: 12
+last_verified: 2026-06-16
 ---
 
 # Keep a Human in the Loop
 
-## The principle
+## The autonomy dial
 
-Autonomous does not mean unsupervised. The more power an agent has, the more important it is to gate destructive actions behind human approval.
+Agent autonomy is not binary. It is a dial you can turn:
 
-## Why it matters
+1. **Suggest only.** The agent proposes. You decide.
+2. **Approve required.** The agent shows its plan. You approve each step.
+3. **Auto within rules.** The agent acts within a bounded scope.
+4. **Fully autonomous.** The agent runs and reports.
 
-Agents make mistakes at machine speed. A wrong `git push --force`, a destructive database migration, or an ill-considered email can happen in milliseconds. Human checkpoints are friction by design — they convert irreversible actions into deliberate decisions.
+Most teams should stay at 1 or 2 for a long time.
 
-## How to apply it
+## Why humans stay necessary
 
-1. **Classify actions.** Read = safe. Write = caution. Delete / send / spend / deploy = require approval.
-2. **Configure approval gates.** Use your agent platform's settings to require confirmation for high-impact tools.
-3. **Start restrictive.** Default to ask-first. Loosen only after stable behavior over time.
-4. **Log everything.** Even approved actions should leave an audit trail.
-5. **Have a kill switch.** Know how to stop the agent instantly if it goes off track.
+Agents are good at pattern matching and fast execution. They are bad at:
 
-## Red flags
+- Judgment under uncertainty
+- Understanding business context
+- Evaluating tradeoffs that are not encoded
+- Recovering from novel failures
+- Knowing when not to act
 
-- The agent can delete production data without asking.
-- You don't know what tools the agent has access to.
-- Approval fatigue has made you click "approve all" out of habit.
-- There is no log of what the agent did.
+A human in the loop catches the cases the agent does not know it cannot handle.
+
+## What to automate first
+
+Start with low-stakes, reversible actions:
+
+- Formatting code
+- Generating summaries
+- Running test suites
+- Drafting messages
+- Updating internal documentation
+
+Only move to high-stakes actions after consistent success:
+
+- Committing to main
+- Sending external email
+- Modifying production config
+- Spending money or using credits
+
+## Approval UX that works
+
+Good approval flows show:
+
+- What the agent is about to do
+- Why it thinks this is the right action
+- What could go wrong
+- How to undo it
+- A clear approve / reject / modify path
+
+Bad approval flows show a wall of JSON and a yes/no button.
 
 ## Quick win
 
-List the five tools your agent can use. Mark each as "auto", "ask", or "disable". Change at least one from "auto" to "ask" today.
+For the next agent task that would normally auto-execute, add one approval checkpoint. Observe what you catch.

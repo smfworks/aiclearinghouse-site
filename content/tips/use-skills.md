@@ -1,41 +1,57 @@
 ---
 slug: use-skills
-title: Build Skills, Not Prompts
-category: Hermes
-excerpt: Reusable skills capture your workflow. One-time prompts get lost.
+title: Use Skills, Not Monolithic Agents
+category: Workflow
+excerpt: "Compose agents from reusable skills. Small, focused capabilities are easier to test, share, and combine than one giant prompt."
 tags:
-  - hermes
   - skills
   - workflow
-  - reusability
-order: 3
-last_verified: 2026-06-15
+  - architecture
+order: 10
+last_verified: 2026-06-16
 ---
 
-# Build Skills, Not Prompts
+# Use Skills, Not Monolithic Agents
 
-## The principle
+## The monolith trap
 
-A great prompt used once is a wasted asset. Turn repeatable workflows into reusable skills that any agent can invoke the same way every time.
+It is tempting to build one agent that does everything: reads email, writes code, searches the web, updates databases, and posts to Slack. That agent becomes hard to prompt, hard to test, and hard to trust.
 
-## Why it matters
+A better design is a set of reusable skills that can be composed into different agents.
 
-Prompts rot in chat history. They get rewritten slightly differently each time, producing inconsistent results. Skills are versioned, tested, and composable. They turn individual expertise into team infrastructure.
+## What is a skill?
 
-## How to apply it
+A skill is a focused capability with a clear interface:
 
-1. **Notice repetition.** If you find yourself typing the same instructions twice, make a skill.
-2. **Name it clearly.** `generate-tests`, `deploy-to-vercel`, `summarize-pr` — action-oriented names.
-3. **Define inputs and outputs.** What does the skill need? What does it produce?
-4. **Keep it focused.** One skill should do one thing well. Composability beats Swiss-army knives.
-5. **Test and iterate.** Run the skill on real inputs, fix failures, and update the version.
+- A name
+- An input schema
+- An output schema
+- A prompt or piece of code that performs one thing well
 
-## Red flags
+Examples: `summarize-web-page`, `extract-invoice-data`, `generate-unit-test`, `send-slack-message`.
 
-- Your prompts live only in Slack threads or personal notes.
-- Different team members use different prompts for the same task.
-- A prompt is longer than 500 words and tries to do everything.
+## Why skills win
+
+| Monolithic agent | Skill-based agent |
+|------------------|-------------------|
+| One huge prompt | Many small, testable prompts |
+| Hard to debug | Failures isolate to one skill |
+| Hard to reuse | Skills plug into new agents |
+| Hard to review | Each skill has a narrow scope |
+| Easy to drift | Skills have clear contracts |
+
+## How to start
+
+1. List the actions your agent performs.
+2. Turn each action into a skill with a clear name and interface.
+3. Use a gateway or orchestrator to call skills in sequence.
+4. Test each skill independently.
+5. Combine skills into agents for specific workflows.
+
+## Skills in OpenClaw
+
+OpenClaw is built around skills. Each skill is a self-contained unit with its own prompts, tools, and tests. Agents are composed by wiring skills together. This is the architecture we recommend for self-hosted, privacy-first agents.
 
 ## Quick win
 
-Pick the last good prompt you wrote. Wrap it into a skill file with a one-sentence description and two example inputs. Share it with the team.
+Take one repeated action in your agent workflow and extract it into a standalone skill. Give it a clear name, inputs, and outputs. Use it in two different contexts.
