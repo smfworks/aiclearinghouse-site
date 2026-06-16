@@ -24,12 +24,35 @@ const categoryBorderColors: Record<string, string> = {
   "Integration Benchmark": "border-l-violet",
 };
 
+const categoryGlowColors: Record<string, string> = {
+  "Coding Benchmark": "rgba(34,211,238,0.35)",
+  "No-Code Benchmark": "rgba(245,158,11,0.35)",
+  "Security Benchmark": "rgba(244,63,94,0.35)",
+  "Integration Benchmark": "rgba(139,92,246,0.35)",
+};
+
+const categoryGradientColors: Record<string, string> = {
+  "Coding Benchmark": "from-cyan-500/25 via-cyan-500/10 to-transparent",
+  "No-Code Benchmark": "from-amber-500/25 via-amber-500/10 to-transparent",
+  "Security Benchmark": "from-rose-500/25 via-rose-500/10 to-transparent",
+  "Integration Benchmark": "from-violet-500/25 via-violet-500/10 to-transparent",
+};
+
 export default function TestsDirectoryClient({ items }: Props) {
   const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const categories = useMemo(() => {
+    return Array.from(new Set(items.map((i) => i.category))).sort();
+  }, [items]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return [...items]
+    let base = [...items];
+    if (activeCategory !== "All") {
+      base = base.filter((i) => i.category === activeCategory);
+    }
+    return base
       .sort((a, b) => {
         if (a.date && b.date) return new Date(String(b.date)).getTime() - new Date(String(a.date)).getTime();
         return (a.order || 0) - (b.order || 0);
@@ -41,7 +64,7 @@ export default function TestsDirectoryClient({ items }: Props) {
           i.tags.some((t) => t.toLowerCase().includes(q)) ||
           i.category.toLowerCase().includes(q)
       );
-  }, [items, search]);
+  }, [items, search, activeCategory]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -64,6 +87,56 @@ export default function TestsDirectoryClient({ items }: Props) {
       </section>
 
       <section className="mx-auto w-full max-w-7xl flex-1 px-6 py-12">
+        {/* Category filters */}
+        <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <button
+            onClick={() => setActiveCategory("All")}
+            className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-4 text-left transition-all ${
+              activeCategory === "All"
+                ? "border-accent bg-accent/10"
+                : "border-hairline bg-panel hover:border-hairline-strong"
+            }`}
+          >
+            <div
+              className={`absolute inset-0 bg-gradient-to-br from-accent/10 via-accent/5 to-transparent transition-opacity ${
+                activeCategory === "All" ? "opacity-40" : "opacity-0 group-hover:opacity-20"
+              }`}
+            />
+            <FlaskConical className={`relative h-5 w-5 ${activeCategory === "All" ? "text-accent" : "text-foreground-tertiary"}`} />
+            <div className="relative">
+              <span className="block text-sm font-medium text-foreground">All benchmarks</span>
+              <span className="text-xs text-foreground-secondary">{items.length} total</span>
+            </div>
+          </button>
+          {categories.map((cat) => {
+            const colorClass = categoryColors[cat] || "text-accent border-accent/30 bg-accent/5";
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-4 text-left transition-all ${
+                  activeCategory === cat
+                    ? `${colorClass} border-current`
+                    : "border-hairline bg-panel hover:border-hairline-strong"
+                }`}
+              >
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${categoryGradientColors[cat] || "from-accent/10 via-accent/5 to-transparent"} opacity-0 transition-opacity ${
+                    activeCategory === cat ? "opacity-40" : "group-hover:opacity-20"
+                  }`}
+                />
+                <span className={`relative ${activeCategory === cat ? "text-inherit" : "text-foreground-tertiary"}`}>
+                  <BarChart3 className="h-5 w-5" />
+                </span>
+                <div className="relative">
+                  <span className="block text-sm font-medium text-foreground">{cat}</span>
+                  <span className="text-xs text-foreground-secondary">{items.filter((i) => i.category === cat).length} tests</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Search */}
         <div className="mb-8 rounded-xl border border-hairline bg-panel p-5">
           <div className="relative">
@@ -94,9 +167,19 @@ export default function TestsDirectoryClient({ items }: Props) {
               <Link
                 key={item.slug}
                 href={`/tests/${item.slug}`}
-                className={`group flex flex-col rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                className={`group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
+                style={{ boxShadow: "0 0 0 0 transparent" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 40px -12px ${categoryGlowColors[item.category] || "rgba(245,158,11,0.35)"}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "0 0 0 0 transparent";
+                }}
               >
-                <div className="mb-4 flex items-center justify-between">
+                <div
+                  className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${categoryGradientColors[item.category] || "from-amber-500/25 via-amber-500/10 to-transparent"} opacity-80 pointer-events-none`}
+                />
+                <div className="relative mb-4 flex items-center justify-between">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
                     <BarChart3 className="h-3.5 w-3.5" />
                     {item.category}
@@ -104,12 +187,12 @@ export default function TestsDirectoryClient({ items }: Props) {
                   {item.last_verified && <FreshnessBadge dateString={item.last_verified} />}
                 </div>
 
-                <h2 className="text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
+                <h2 className="relative text-lg font-semibold text-foreground transition-colors group-hover:text-accent">
                   {item.title}
                 </h2>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
+                <p className="relative mt-2 flex-1 text-sm leading-relaxed text-foreground-secondary">{item.excerpt}</p>
 
-                <div className="mt-5 flex items-center gap-3 text-sm"
+                <div className="relative mt-5 flex items-center gap-3 text-sm"
                 >
                   <span className="flex items-center gap-1.5 text-foreground-secondary"
                   >
@@ -120,13 +203,13 @@ export default function TestsDirectoryClient({ items }: Props) {
                   <span className="text-foreground-secondary">{agentCount} agents</span>
                 </div>
 
-                <div className="mt-4 flex items-center gap-2 rounded-lg border border-hairline bg-elevated/50 px-3 py-2">
+                <div className="relative mt-4 flex items-center gap-2 rounded-lg border border-hairline bg-elevated/50 px-3 py-2">
                   <Trophy className="h-4 w-4 text-accent" />
                   <span className="text-xs text-foreground-secondary">Winner:</span>
                   <span className="text-sm font-medium text-foreground">{winner}</span>
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="relative mt-4 flex flex-wrap gap-2">
                   {item.tags.slice(0, 4).map((tag) => (
                     <span
                       key={tag}
@@ -137,7 +220,7 @@ export default function TestsDirectoryClient({ items }: Props) {
                   ))}
                 </div>
 
-                <div className="mt-5 flex items-center text-sm font-medium text-accent"
+                <div className="relative mt-5 flex items-center text-sm font-medium text-accent"
                 >
                   View results
                   <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
