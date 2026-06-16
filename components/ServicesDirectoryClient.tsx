@@ -51,19 +51,19 @@ const categoryBorderColors: Record<string, string> = {
 };
 
 const categoryGlowColors: Record<string, string> = {
-  Infrastructure: "rgba(34,211,238,0.18)",
-  Data: "rgba(16,185,129,0.18)",
-  Security: "rgba(244,63,94,0.18)",
-  Operations: "rgba(139,92,246,0.18)",
-  "AI APIs": "rgba(245,158,11,0.18)",
+  Infrastructure: "rgba(34,211,238,0.35)",
+  Data: "rgba(16,185,129,0.35)",
+  Security: "rgba(244,63,94,0.35)",
+  Operations: "rgba(139,92,246,0.35)",
+  "AI APIs": "rgba(245,158,11,0.35)",
 };
 
 const categoryGradientColors: Record<string, string> = {
-  Infrastructure: "from-cyan/10 via-cyan/5 to-transparent",
-  Data: "from-emerald/10 via-emerald/5 to-transparent",
-  Security: "from-rose/10 via-rose/5 to-transparent",
-  Operations: "from-violet/10 via-violet/5 to-transparent",
-  "AI APIs": "from-amber/10 via-amber/5 to-transparent",
+  Infrastructure: "from-cyan/25 via-cyan/10 to-transparent",
+  Data: "from-emerald/25 via-emerald/10 to-transparent",
+  Security: "from-rose/25 via-rose/10 to-transparent",
+  Operations: "from-violet/25 via-violet/10 to-transparent",
+  "AI APIs": "from-amber/25 via-amber/10 to-transparent",
 };
 
 export default function ServicesDirectoryClient({ items }: Props) {
@@ -200,9 +200,9 @@ export default function ServicesDirectoryClient({ items }: Props) {
                   e.currentTarget.style.boxShadow = `0 0 0 0 transparent`;
                 }}
               >
-                {/* subtle top gradient */}
+                {/* strong top gradient */}
                 <div
-                  className={`absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${categoryGradientColors[item.category] || "from-amber/10 via-amber/5 to-transparent"} opacity-60 pointer-events-none`}
+                  className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b ${categoryGradientColors[item.category] || "from-amber/25 via-amber/10 to-transparent"} opacity-80 pointer-events-none`}
                 />
                 <div className="relative mb-4 flex items-center justify-between">
                   <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${colorClass}`}>
