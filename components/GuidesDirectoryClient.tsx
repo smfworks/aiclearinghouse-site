@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { MarketplaceItem } from "@/lib/marketplace/types";
-import { Search, ArrowRight, Clock, BookOpen, Compass, Shield, Cpu } from "lucide-react";
+import { Search, ArrowRight, Clock, BookOpen, Compass, Shield, Cpu, BarChart3 } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
@@ -15,22 +15,45 @@ const paths: { id: string; label: string; icon: React.ReactNode; description: st
     id: "start",
     label: "Start here",
     icon: <Compass className="h-5 w-5" />,
-    description: "If you are new to agents, start with these two",
-    filter: (item) => item.slug === "choosing-your-first-agent" || item.slug === "evaluating-an-agent-for-your-stack",
+    description: "If you are new to agents, start with these",
+    filter: (item) =>
+      item.slug === "choosing-your-first-agent" ||
+      item.slug === "evaluating-an-agent-for-your-stack" ||
+      item.slug === "local-vs-cloud-agents",
   },
   {
     id: "build",
     label: "Build and deploy",
     icon: <Cpu className="h-5 w-5" />,
     description: "Get models running and agents connected",
-    filter: (item) => item.slug === "local-llms-vs-api" || item.slug === "running-local-models-for-agents" || item.slug === "setting-up-hermes-gateway",
+    filter: (item) =>
+      item.slug === "local-llms-vs-api" ||
+      item.slug === "running-local-models-for-agents" ||
+      item.slug === "setting-up-hermes-gateway" ||
+      item.slug === "building-your-first-rag-agent" ||
+      item.slug === "choosing-a-vector-database" ||
+      item.slug === "comparing-agent-frameworks",
   },
   {
     id: "secure",
     label: "Secure and scale",
     icon: <Shield className="h-5 w-5" />,
     description: "Lock down permissions before production",
-    filter: (item) => item.slug === "securing-agent-tool-permissions",
+    filter: (item) =>
+      item.slug === "securing-agent-tool-permissions" ||
+      item.slug === "agent-security-checklist" ||
+      item.slug === "tool-permissions-and-governance" ||
+      item.slug === "agent-cost-benchmarking",
+  },
+  {
+    id: "cost",
+    label: "Cost and governance",
+    icon: <BarChart3 className="h-5 w-5" />,
+    description: "Estimate spend and govern tool access",
+    filter: (item) =>
+      item.slug === "agent-cost-benchmarking" ||
+      item.slug === "tool-permissions-and-governance" ||
+      item.slug === "evaluating-an-agent-for-your-stack",
   },
 ];
 
@@ -131,7 +154,7 @@ export default function GuidesDirectoryClient({ items }: Props) {
         </div>
 
         {/* Path filters */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <button
             onClick={() => setActivePath("all")}
             className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all ${
