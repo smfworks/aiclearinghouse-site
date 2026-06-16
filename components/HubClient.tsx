@@ -141,8 +141,9 @@ export default function HubClient({ agents, genericItems }: Props) {
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-canvas/70 via-canvas/85 to-canvas" />
-          <div className="absolute inset-0 bg-gradient-to-r from-canvas/50 via-transparent to-canvas/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-canvas/45 via-canvas/70 to-canvas" />
+          <div className="absolute inset-0 bg-gradient-to-r from-canvas/30 via-transparent to-canvas/30" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--canvas)_75%)] opacity-40" />
         </div>
         <div className="bg-grid-faint absolute inset-0 pointer-events-none z-10 opacity-50" />
         <div className="relative z-20 mx-auto max-w-5xl text-center">
