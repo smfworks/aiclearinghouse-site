@@ -5,6 +5,7 @@ import Link from "next/link";
 import AgentCard from "@/components/AgentCard";
 import AgentComparison from "@/components/AgentComparison";
 import SubmitAgentForm from "@/components/SubmitAgentForm";
+import XVideoEmbed from "@/components/XVideoEmbed";
 import { AgentProfile } from "@/lib/marketplace/types";
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
   categories: string[];
   runtimes: string[];
   pricings: string[];
+  videoTweetUrl?: string;
 }
 
 const GITHUB_ISSUE_URL = "https://github.com/smfworks/aiclearinghouse-site/issues/new";
@@ -37,7 +39,7 @@ function useHydratedCompare(agents: AgentProfile[]) {
   }, [compareParam, agents]);
 }
 
-export default function AgentsDirectoryClient({ agents, categories, runtimes, pricings }: Props) {
+export default function AgentsDirectoryClient({ agents, categories, runtimes, pricings, videoTweetUrl }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [runtime, setRuntime] = useState("All");
@@ -124,6 +126,13 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
             Compare autonomous AI agents side by side. Find the right coding agent, orchestrator,
             no-code builder, or enterprise assistant.
           </p>
+
+          {videoTweetUrl && (
+            <div className="mx-auto mt-8 max-w-xl rounded-xl border border-hairline bg-panel p-3 shadow-[0_0_40px_-16px_rgba(0,0,0,0.5)]">
+              <XVideoEmbed tweetUrl={videoTweetUrl} className="min-h-[280px]" maxWidth={560} />
+            </div>
+          )}
+
           <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
             {statTile("Agents listed", stats.total, "text-cyan")}
             {statTile("Open source", stats.openSource, "text-success")}

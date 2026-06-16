@@ -23,6 +23,7 @@ export default function AgentsDirectoryPage() {
           categories={categories}
           runtimes={runtimes}
           pricings={pricings}
+          videoTweetUrl="https://x.com/MichaelGannotti/status/2066893302335451359"
         />
       </main>
       <Footer />

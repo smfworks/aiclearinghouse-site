@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { MarketplaceItem } from "@/lib/marketplace/types";
+import XVideoEmbed from "@/components/XVideoEmbed";
 import {
   ArrowRight,
   ArrowLeft,
@@ -20,6 +21,7 @@ import {
 interface Props {
   items: MarketplaceItem[];
   title: string;
+  videoTweetUrl?: string;
 }
 
 const steps = [
@@ -92,7 +94,7 @@ const mistakes = [
   },
 ];
 
-export default function GettingStartedClient({ items, title }: Props) {
+export default function GettingStartedClient({ items, title, videoTweetUrl }: Props) {
   return (
     <div className="flex flex-1 flex-col">
       {/* Hero */}
@@ -114,6 +116,12 @@ export default function GettingStartedClient({ items, title }: Props) {
           <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">
             A six-step path from your first agent prompt to a working local setup. No hype, no vendor lock-in, no skipped fundamentals.
           </p>
+
+          {videoTweetUrl && (
+            <div className="mx-auto mt-8 max-w-xl rounded-xl border border-hairline bg-panel p-3 shadow-[0_0_40px_-16px_rgba(0,0,0,0.5)]">
+              <XVideoEmbed tweetUrl={videoTweetUrl} className="min-h-[280px]" maxWidth={560} />
+            </div>
+          )}
         </div>
       </section>
 

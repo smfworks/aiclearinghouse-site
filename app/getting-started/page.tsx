@@ -15,7 +15,7 @@ export default function Page() {
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1">
-        <GettingStartedClient items={items} title={title} />
+        <GettingStartedClient items={items} title={title} videoTweetUrl="https://x.com/MichaelGannotti/status/2066893302335451359" />
       </main>
       <Footer />
     </div>
