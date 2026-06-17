@@ -44,7 +44,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-hairline pt-6 text-sm text-foreground-tertiary md:flex-row">
-          <p>© {new Date().getFullYear()} SMF Clearinghouse. Built by SMF Works.</p>
+          <p>© {new Date().getFullYear()} SMF Clearinghouse. Curated by Pamela Flannery. Built by SMF Works.</p>
           <a
             href="https://github.com/smfworks/aiclearinghouse-site"
             target="_blank"

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "SMF Clearinghouse — Find the Right AI Agent",
   description:
     "Compare autonomous AI agents, LLM pricing, open-source tools, and self-hosting recipes. Built for builders, enthusiasts, and small businesses.",
+  authors: [{ name: "Pamela Flannery", url: "https://smfworks.com/the-signal" }],
   keywords: [
     "AI agents",
     "autonomous agents",
