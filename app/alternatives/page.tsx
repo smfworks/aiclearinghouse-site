@@ -19,7 +19,7 @@ export default function Page() {
           items={items}
           section="alternatives"
           title={title}
-          description="Curated entries for alternatives from the SMF Clearinghouse."
+          description="Curated alternatives to the most popular AI chatbots, coding agents, editors, research tools, and local runtimes — with honest tradeoffs and migration paths."
         />
       </main>
       <Footer />
