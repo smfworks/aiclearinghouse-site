@@ -42,3 +42,4 @@ next-env.d.ts
 
 # static export
 dist/
+active_memory_plugin.log
