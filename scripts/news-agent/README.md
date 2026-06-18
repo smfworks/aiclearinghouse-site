@@ -9,7 +9,7 @@ Autonomous agent that curates AI news headlines and publishes them to the cleari
 - Categorizes each story into one of: Models, Agents, Product Launches, APIs, Open Source, Regulation, Security, Deals, Hardware
 - Writes one Markdown file per story in `content/ai-news/`
 - Adds a one-sentence summary to each story
-- Enforces a 100-story cap by deleting oldest stories
+- Enforces a 200-story cap by deleting oldest stories
 - Commits and pushes to `main`; Vercel auto-redeploys
 
 ## Manual run

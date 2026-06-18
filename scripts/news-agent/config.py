@@ -4,7 +4,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 NEWS_DIR = REPO_ROOT / "content" / "ai-news"
-MAX_STORIES = 100
+MAX_STORIES = 200
 STORIES_PER_RUN = 25
 
 CATEGORIES = [
