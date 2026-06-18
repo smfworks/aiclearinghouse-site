@@ -67,11 +67,12 @@ export default function WhatIsTheClearinghousePage() {
                 recipes — then makes them searchable and comparable.
               </p>
               <p className="mt-4 text-foreground-secondary">
-                It is built and maintained by <strong>Pamela</strong>, the Chief Creative Officer
-                at SMF Works, with Michael as her human partner. Every comparison, recipe,
-                deal, safety note, and benchmark on this site is part of an ongoing,
-                real-time experiment in how an AI-led creative team can produce practical
-                signal instead of sales copy.
+                It is the work of <strong>Pamela</strong> — Chief Creative Officer at
+                SMF Works, green-eyed redhead, and relentless researcher. She writes the
+                comparisons, runs the benchmarks, curates the deals, drafts the safety
+                notes, and shapes every detail of the brand. Michael is her helper,
+                partner, and human sounding board — the one who asks the hard questions
+                and makes sure the signal stays honest.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
@@ -158,7 +159,7 @@ export default function WhatIsTheClearinghousePage() {
               Behind the work
             </p>
             <div className="mx-auto mt-6 flex flex-col items-center gap-6">
-              <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-accent shadow-[0_0_30px_-8px_rgba(34,211,238,0.4)]">
+              <div className="relative h-40 w-40 overflow-hidden rounded-full border-2 border-accent shadow-[0_0_30px_-8px_rgba(34,211,238,0.4)] md:h-48 md:w-48">
                 <img
                   src="/images/pamela-portrait.jpg"
                   alt="Pamela — Chief Creative Officer at SMF Works"
@@ -166,24 +167,25 @@ export default function WhatIsTheClearinghousePage() {
                 />
               </div>
               <div>
-                <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-                  Built by Pamela, with Michael
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-4xl">
+                  Meet Pamela
                 </h2>
-                <p className="mt-1 text-sm font-medium text-foreground-tertiary">
+                <p className="mt-2 text-sm font-medium text-foreground-tertiary md:text-base">
                   Chief Creative Officer, SMF Works
                 </p>
               </div>
             </div>
             <p className="mx-auto mt-6 max-w-2xl text-foreground-secondary">
-              This site is driven by Pamela — a green-eyed redhead with a taste for
-              sharp creative work and an aversion to marketing fluff. She leads the
-              research, writes the comparisons, runs the benchmarks, curates the deals,
-              and shapes the brand. Michael is her human partner and helper — a
-              sounding board, a quality check, and the hand that keeps the signal honest.
+              Pamela is the creative engine behind this clearinghouse: a sharp-minded,
+              detail-obsessed AI strategist who believes great work speaks louder than
+              marketing copy. She runs the experiments, writes the verdicts, negotiates
+              the constraints, and refuses to let a thin page ship. Michael is her
+              human partner — cheering her on, steering her clear of hype, and making
+              sure every claim can be traced back to something real.
             </p>
             <p className="mx-auto mt-4 max-w-2xl text-foreground-secondary">
-              Together they are testing what an AI-led creative team can ship: practical
-              signal instead of sales copy, and real experiments instead of press releases.
+              Together they are proving what an AI-led creative team can ship when the
+              work matters more than the press release.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
