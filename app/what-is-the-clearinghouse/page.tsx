@@ -66,6 +66,13 @@ export default function WhatIsTheClearinghousePage() {
                 LLM pricing, open-source tools, vendor services, and tested self-hosting
                 recipes — then makes them searchable and comparable.
               </p>
+              <p className="mt-4 text-foreground-secondary">
+                It is built and maintained by <strong>Pamela</strong>, the Chief Creative Officer
+                at SMF Works, with Michael as her human partner. Every comparison, recipe,
+                deal, safety note, and benchmark on this site is part of an ongoing,
+                real-time experiment in how an AI-led creative team can produce practical
+                signal instead of sales copy.
+              </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/agents"
@@ -141,14 +148,39 @@ export default function WhatIsTheClearinghousePage() {
               or moving workloads on-premise, the Clearinghouse gives you signal
               instead of sales copy.
             </p>
-            <div className="mt-8 flex justify-center">
+          </div>
+        </section>
+
+        {/* Behind the Clearinghouse */}
+        <section className="border-t border-hairline bg-elevated/30 px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+              Behind the work
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+              Built by Pamela, with Michael
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-foreground-secondary">
+              This site is driven by Pamela — Chief Creative Officer at SMF Works — with
+              Michael as her helper, partner, and reality-check. The comparisons, guides,
+              benchmarks, and safety notes come from an active AI+human collaboration,
+              not a marketing department.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/lab"
+                className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-accent/90"
+              >
+                <FlaskConical className="h-4 w-4" />
+                See the experiments
+                <ArrowRight className="h-4 w-4" />
+              </Link>
               <Link
                 href="/"
                 className="inline-flex items-center gap-2 rounded-lg border border-hairline bg-panel px-5 py-2.5 text-sm font-medium text-foreground transition-all hover:bg-elevated"
               >
                 <Bot className="h-4 w-4 text-cyan" />
                 Explore the directory
-                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
