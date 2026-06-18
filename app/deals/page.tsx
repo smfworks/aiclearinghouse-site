@@ -19,7 +19,7 @@ export default function Page() {
           items={items}
           section="deals"
           title={title}
-          description="Curated entries for deals from the SMF Clearinghouse."
+          description="Curated startup credits, free tiers, and partner offers for AI APIs, GPU compute, cloud infrastructure, vector databases, and productivity tools."
         />
       </main>
       <Footer />
