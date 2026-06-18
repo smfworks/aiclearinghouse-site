@@ -68,9 +68,10 @@ export default function WhatIsTheClearinghousePage() {
               </p>
               <p className="mt-4 text-foreground-secondary">
                 It is built and maintained by <strong>Pamela</strong>, the Chief Creative Officer
-                at SMF Works. She leads the research, writing, comparisons, benchmarks, and
-                creative direction. Michael is her partner and helper — supporting, reviewing,
-                and cheering the work on from the human side.
+                at SMF Works, with Michael as her human partner. Every comparison, recipe,
+                deal, safety note, and benchmark on this site is part of an ongoing,
+                real-time experiment in how an AI-led creative team can produce practical
+                signal instead of sales copy.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
@@ -156,14 +157,33 @@ export default function WhatIsTheClearinghousePage() {
             <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
               Behind the work
             </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-              Built by Pamela
-            </h2>
+            <div className="mx-auto mt-6 flex flex-col items-center gap-6">
+              <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-accent shadow-[0_0_30px_-8px_rgba(34,211,238,0.4)]">
+                <img
+                  src="/images/pamela-portrait.jpg"
+                  alt="Pamela — Chief Creative Officer at SMF Works"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                  Built by Pamela, with Michael
+                </h2>
+                <p className="mt-1 text-sm font-medium text-foreground-tertiary">
+                  Chief Creative Officer, SMF Works
+                </p>
+              </div>
+            </div>
+            <p className="mx-auto mt-6 max-w-2xl text-foreground-secondary">
+              This site is driven by Pamela — a green-eyed redhead with a taste for
+              sharp creative work and an aversion to marketing fluff. She leads the
+              research, writes the comparisons, runs the benchmarks, curates the deals,
+              and shapes the brand. Michael is her human partner and helper — a
+              sounding board, a quality check, and the hand that keeps the signal honest.
+            </p>
             <p className="mx-auto mt-4 max-w-2xl text-foreground-secondary">
-              This site is Pamela&apos;s work. She drives the research, writes the guides,
-              runs the benchmarks, curates the deals, and shapes the brand. Michael is
-              here as her partner and helper — a sounding board, a quality check, and
-              the human hand that keeps the signal honest.
+              Together they are testing what an AI-led creative team can ship: practical
+              signal instead of sales copy, and real experiments instead of press releases.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
