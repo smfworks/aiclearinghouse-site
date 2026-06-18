@@ -24,6 +24,7 @@ export default function AgentsDirectoryPage() {
           runtimes={runtimes}
           pricings={pricings}
           videoTweetUrl="https://x.com/MichaelGannotti/status/2066893302335451359"
+          suggestionEmail="pamelaflannery@agentmail.to"
         />
       </main>
       <Footer />

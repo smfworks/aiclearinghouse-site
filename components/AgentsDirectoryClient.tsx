@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import AgentCard from "@/components/AgentCard";
 import AgentComparison from "@/components/AgentComparison";
-import SubmitAgentForm from "@/components/SubmitAgentForm";
+import SuggestAgentCTA from "@/components/SuggestAgentCTA";
 import XVideoEmbed from "@/components/XVideoEmbed";
 import { AgentProfile } from "@/lib/marketplace/types";
 
@@ -14,9 +14,9 @@ interface Props {
   runtimes: string[];
   pricings: string[];
   videoTweetUrl?: string;
+  suggestionEmail?: string;
 }
 
-const GITHUB_ISSUE_URL = "https://github.com/smfworks/aiclearinghouse-site/issues/new";
 const MAX_COMPARE = 3;
 
 function useHydratedCompare(agents: AgentProfile[]) {
@@ -39,7 +39,7 @@ function useHydratedCompare(agents: AgentProfile[]) {
   }, [compareParam, agents]);
 }
 
-export default function AgentsDirectoryClient({ agents, categories, runtimes, pricings, videoTweetUrl }: Props) {
+export default function AgentsDirectoryClient({ agents, categories, runtimes, pricings, videoTweetUrl, suggestionEmail }: Props) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [runtime, setRuntime] = useState("All");
@@ -271,9 +271,15 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
 
         <div className="mt-16 rounded-xl border border-hairline bg-panel p-6">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Suggest an Agent</h2>
-          <p className="mt-2 text-foreground-secondary">Missing your favorite autonomous AI tool? Submit it and we&apos;ll review the listing.</p>
+          <p className="mt-2 text-foreground-secondary">
+            Missing your favorite autonomous AI tool? Send us a note and we&apos;ll review the listing.
+          </p>
           <div className="mt-6">
-            <SubmitAgentForm issueUrl={GITHUB_ISSUE_URL} />
+            {suggestionEmail ? (
+              <SuggestAgentCTA email={suggestionEmail} />
+            ) : (
+              <p className="text-sm text-foreground-secondary">Suggestion email not configured.</p>
+            )}
           </div>
         </div>
       </section>
