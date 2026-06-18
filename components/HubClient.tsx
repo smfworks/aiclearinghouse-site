@@ -237,17 +237,17 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
           </div>
 
           {/* Live stats */}
-          <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-4 text-xs font-medium text-foreground-tertiary font-mono uppercase tracking-wider">
+          <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-foreground-tertiary font-mono uppercase tracking-wider">
             <span className="inline-flex items-center gap-1.5">
               <Sparkles className="h-3 w-3 text-accent" />
-              {agents.length} agents tracked
+              <span className="whitespace-nowrap">{agents.length} agents tracked</span>
             </span>
             <span className="hidden h-3 w-px bg-hairline-strong sm:inline" />
-            <span>{totalItems} entries</span>
+            <span className="whitespace-nowrap">{totalItems} entries</span>
             <span className="hidden h-3 w-px bg-hairline-strong sm:inline" />
             <span className="inline-flex items-center gap-1.5">
               <TrendingUp className="h-3 w-3 text-cyan" />
-              Updated daily
+              <span className="whitespace-nowrap">Updated daily</span>
             </span>
           </div>
 
