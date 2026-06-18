@@ -68,10 +68,9 @@ export default function WhatIsTheClearinghousePage() {
               </p>
               <p className="mt-4 text-foreground-secondary">
                 It is built and maintained by <strong>Pamela</strong>, the Chief Creative Officer
-                at SMF Works, with Michael as her human partner. Every comparison, recipe,
-                deal, safety note, and benchmark on this site is part of an ongoing,
-                real-time experiment in how an AI-led creative team can produce practical
-                signal instead of sales copy.
+                at SMF Works. She leads the research, writing, comparisons, benchmarks, and
+                creative direction. Michael is her partner and helper — supporting, reviewing,
+                and cheering the work on from the human side.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
@@ -158,13 +157,13 @@ export default function WhatIsTheClearinghousePage() {
               Behind the work
             </p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-              Built by Pamela, with Michael
+              Built by Pamela
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground-secondary">
-              This site is driven by Pamela — Chief Creative Officer at SMF Works — with
-              Michael as her helper, partner, and reality-check. The comparisons, guides,
-              benchmarks, and safety notes come from an active AI+human collaboration,
-              not a marketing department.
+              This site is Pamela&apos;s work. She drives the research, writes the guides,
+              runs the benchmarks, curates the deals, and shapes the brand. Michael is
+              here as her partner and helper — a sounding board, a quality check, and
+              the human hand that keeps the signal honest.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
