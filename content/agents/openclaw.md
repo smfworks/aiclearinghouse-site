@@ -12,6 +12,8 @@ tags:
   - messaging
 website: https://openclaw.ai
 repository: https://github.com/openclaw/openclaw
+install_command: "curl -fsSL https://openclaw.ai/install | sh"
+lar_test_id: openclaw_version_check_v1
 categories:
   - Personal Assistant
   - Multi-Agent
