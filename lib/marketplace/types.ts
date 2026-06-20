@@ -104,6 +104,7 @@ export const sectionNames: Record<string, string> = {
   "getting-started": "Getting Started",
   lab: "The Lab",
   guides: "How-To Guides",
+  reviews: "SMF Reviews",
 };
 
 export function getSectionTitle(section: string): string {

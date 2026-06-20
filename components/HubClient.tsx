@@ -31,6 +31,7 @@ import {
   Radio,
   Newspaper,
   Clock,
+  PenTool,
 } from "lucide-react";
 
 interface Props {
@@ -63,6 +64,7 @@ const sectionColors: Record<string, SectionColor> = {
   lab: { text: "#818cf8", glow: "rgba(129, 140, 248, 0.28)", muted: "rgba(129, 140, 248, 0.10)" },
   changelog: { text: "#2dd4bf", glow: "rgba(45, 212, 191, 0.28)", muted: "rgba(45, 212, 191, 0.10)" },
   "ai-news": { text: "#f5a623", glow: "rgba(245, 166, 35, 0.28)", muted: "rgba(245, 166, 35, 0.10)" },
+  reviews: { text: "#ec4899", glow: "rgba(236, 72, 153, 0.28)", muted: "rgba(236, 72, 153, 0.10)" },
 };
 
 const sections = [
@@ -82,6 +84,7 @@ const sections = [
   { id: "safety", href: "/safety", title: "AI Safety", description: "Permission models, prompt injection defenses, and trust checklists.", icon: Shield },
   { id: "lab", href: "/lab", title: "The Lab", description: "Experiments on AI hardware, software, applications, and devices.", icon: Microscope },
   { id: "changelog", href: "/changelog", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: ScrollText },
+  { id: "reviews", href: "/reviews", title: "SMF Reviews", description: "Hands-on reviews of AI agents, tools, services, and hardware.", icon: PenTool, featured: true },
   { id: "ai-news", href: "/ai-news", title: "AI News", description: "Curated AI headlines updated throughout the day.", icon: Newspaper, featured: true },
 ];
 
