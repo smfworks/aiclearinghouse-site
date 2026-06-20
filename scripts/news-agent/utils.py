@@ -5,7 +5,27 @@ import hashlib
 from datetime import datetime, timezone
 from urllib.parse import urlparse
 
-from config import CATEGORY_KEYWORDS, BLOCKED_DOMAINS, BLOCKED_PHRASES, CATEGORIES
+from config import CATEGORY_KEYWORDS, BLOCKED_DOMAINS, BLOCKED_PHRASES, AI_KEYWORDS, NON_AI_PHRASES, CATEGORIES
+
+
+def is_ai_relevant(title: str, summary: str) -> bool:
+    """Return True if the story title+summary contains strong AI-relevance signals.
+
+    Uses word-boundary matching so that the standalone keyword 'ai' does not match
+    unrelated substrings like 'Bair', 'AirTrunk', 'Taiwan', or 'raises'.
+    """
+    combined = f"{title} {summary}".lower()
+    for kw in AI_KEYWORDS:
+        pattern = r"\b" + re.escape(kw.lower()) + r"\b"
+        if re.search(pattern, combined):
+            return True
+    return False
+
+
+def is_non_ai_noise(title: str, summary: str) -> bool:
+    """Return True if the story is clearly non-AI tech/business/consumer noise."""
+    combined = f"{title} {summary}".lower()
+    return any(re.search(r"\b" + re.escape(phrase) + r"\b", combined) for phrase in NON_AI_PHRASES)
 
 
 def slugify(text: str) -> str:
@@ -69,6 +89,10 @@ def should_skip(url: str, title: str, summary: str) -> bool:
         return True
     combined = f"{title} {summary}".lower()
     if any(phrase in combined for phrase in BLOCKED_PHRASES):
+        return True
+    if not is_ai_relevant(title, summary):
+        return True
+    if is_non_ai_noise(title, summary):
         return True
     return False
 
