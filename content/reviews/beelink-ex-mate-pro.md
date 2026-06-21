@@ -8,7 +8,7 @@ rating: 3.0
 product: "Beelink EX Mate Pro"
 tested_by: "Michael Gannotti"
 last_verified: "2026-06-20"
-url: "https://youtu.be/Qu5BbKdtAUU"
+url: "https://www.bee-link.com/products/beelink-ex-mate-pro"
 youtube_id: "Qu5BbKdtAUU"
 x_post_url: "https://x.com/MichaelGannotti/status/2068403181126856912"
 order: 2
