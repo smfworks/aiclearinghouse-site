@@ -10,10 +10,12 @@ tested_by: "Michael Gannotti"
 last_verified: "2026-06-20"
 url: "https://youtu.be/Qu5BbKdtAUU"
 youtube_id: "Qu5BbKdtAUU"
+x_post_url: "https://x.com/MichaelGannotti/status/2068403181126856912"
 order: 2
 ---
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Qu5BbKdtAUU?si=uYV3Qoxs5OYXjyt8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">I have been waiting to get my hands on the <a href="https://x.com/Beelinkofficial?ref_src=twsrc%5Etfw">@Beelinkofficial</a> EX Mate Pro Laptop Companion and finally purchased one this past week. My primary reason for getting one was that it has four slots for SSD storage so I thought it would make for a great Backup storage unit for my AI… <a href="https://t.co/0LwjIrYeuX">pic.twitter.com/0LwjIrYeuX</a></p>&mdash; Mike Gannotti (@MichaelGannotti) <a href="https://x.com/MichaelGannotti/status/2068403181126856912?ref_src=twsrc%5Etfw">June 20, 2026</a></blockquote>
+<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
 
 ## What we tested
 
