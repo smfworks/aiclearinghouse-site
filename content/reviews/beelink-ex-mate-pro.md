@@ -23,13 +23,6 @@ I have been waiting to get my hands on the Beelink EX Mate Pro Laptop Companion 
 
 ## What it does well
 
-<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">I have been waiting to get my hands on the <a href="https://x.com/Beelinkofficial?ref_src=twsrc%5Etfw">@Beelinkofficial</a> EX Mate Pro Laptop Companion and finally purchased one this past week. My primary reason for getting one was that it has four slots for SSD storage so I thought it would make for a great Backup storage unit for my AI… <a href="https://t.co/0LwjIrYeuX">pic.twitter.com/0LwjIrYeuX</a></p>&mdash; Mike Gannotti (@MichaelGannotti) <a href="https://x.com/MichaelGannotti/status/2068403181126856912?ref_src=twsrc%5Etfw">June 20, 2026</a></blockquote>
-<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
-
-I have been waiting to get my hands on the Beelink EX Mate Pro Laptop Companion and finally purchased one this past week. My primary reason for getting one was that it has **four slots for SSD storage**, so I thought it would make for a great backup storage unit for my AI setup — with the added benefits of a speaker, microphone, Bluetooth, and hub.
-
-## What it does well
-
 All the extra features on it work great:
 
 - Speaker
