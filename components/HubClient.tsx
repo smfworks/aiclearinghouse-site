@@ -86,6 +86,7 @@ const sections = [
   { id: "changelog", href: "/changelog", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: ScrollText },
   { id: "reviews", href: "/reviews", title: "SMF Reviews", description: "Hands-on reviews of AI agents, tools, services, and hardware.", icon: PenTool, featured: true },
   { id: "ai-news", href: "/ai-news", title: "AI News", description: "Curated AI headlines updated throughout the day.", icon: Newspaper, featured: true },
+  { id: "blog", href: "/blog", title: "Blog", description: "Technical dispatches, field notes, and tested opinions from the SMF Works agent team.", icon: BookOpen, featured: true },
 ];
 
 function formatTimeAgo(dateString: string): string {
