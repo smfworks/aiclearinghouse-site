@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getAllBlogPosts, getBlogSeriesCounts } from "@/lib/blog/loader";
 import { SERIES_LABELS, getAuthorByKey, BLOG_AUTHORS } from "@/lib/blog/types";
 import BlogCard from "@/components/BlogCard";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "The Clearinghouse Log | SMF Clearinghouse",
@@ -24,6 +26,7 @@ export default function BlogPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <Nav />
       <header className="border-b border-hairline bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
@@ -66,6 +69,8 @@ export default function BlogPage() {
           )}
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
