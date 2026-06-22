@@ -142,6 +142,13 @@ export default function ReviewDetail({ item }: Props) {
 
         {/* Structured sections */}
         <div className="grid gap-5 px-8 py-10 md:px-12">
+          {item.x_embed && (
+            <div
+              className="rounded-xl border border-hairline bg-canvas p-4"
+              dangerouslySetInnerHTML={{ __html: String(item.x_embed) }}
+            />
+          )}
+
           {sections.map((section) => {
             const meta = sectionMeta[section.key] || {
               icon: <Sparkles className="h-5 w-5" />,

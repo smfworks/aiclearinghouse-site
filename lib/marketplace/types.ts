@@ -28,6 +28,8 @@ export interface MarketplaceItem {
   winner?: string;
   date?: string;
   results?: TestResult[];
+  x_embed?: string;
+  x_post_url?: string;
   [key: string]: any;
 }
 

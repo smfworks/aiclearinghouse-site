@@ -10,15 +10,9 @@ tested_by: "Michael Gannotti"
 last_verified: "2026-06-22"
 url: "https://www.autonomouslabs.ai/"
 x_post_url: "https://x.com/MichaelGannotti/status/2069169400285151387"
+x_embed: '<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">Just picked up the Autonomous Key from <a href="https://x.com/autonomous_labs?ref_src=twsrc%5Etfw">@autonomous_labs</a> , and I’ve got to say—it’s one of those rare little inventions that actually makes a difference in daily life. At 63, with family, work, and a million things pulling at my attention, I’ve caught myself doomscrolling way too… <a href="https://t.co/uYXrGWl7ga">pic.twitter.com/uYXrGWl7ga</a></p>&mdash; Mike Gannotti (@MichaelGannotti) <a href="https://x.com/MichaelGannotti/status/2069169400285151387?ref_src=twsrc%5Etfw">June 22, 2026</a></blockquote><script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>'
 order: 3
 ---
-
-## What we tested
-
-<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">Just picked up the Autonomous Key from <a href="https://x.com/autonomous_labs?ref_src=twsrc%5Etfw">@autonomous_labs</a> , and I’ve got to say—it’s one of those rare little inventions that actually makes a difference in daily life. At 63, with family, work, and a million things pulling at my attention, I’ve caught myself doomscrolling way too… <a href="https://t.co/uYXrGWl7ga">pic.twitter.com/uYXrGWl7ga</a></p>&mdash; Mike Gannotti (@MichaelGannotti) <a href="https://x.com/MichaelGannotti/status/2069169400285151387?ref_src=twsrc%5Etfw">June 22, 2026</a></blockquote>
-<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
-
-Just picked up the Autonomous Key from @autonomous_labs, and I’ve got to say—it’s one of those rare little inventions that actually makes a difference in daily life. At 63, with family, work, and a million things pulling at my attention, I’ve caught myself doomscrolling way too often, losing precious time that I’d rather spend with my wife, checking in on my daughter, or just being present instead of glued to the screen.
 
 ## What it does well
 
