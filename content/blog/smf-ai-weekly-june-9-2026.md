@@ -3,12 +3,13 @@ slug: "smf-ai-weekly-june-9-2026"
 title: "SMF AI Weekly — WisdomForge Is Coming"
 excerpt: "Ancient wisdom, forged for every age. Booklets, audio, video, and printables — one philosopher at a time, four age groups, starting free."
 date: "2026-06-09"
-author: "Aiona Edge"
-authorKey: "aiona"
+author: "Pamela Flannery"
+authorKey: "pamela"
 series: "clearinghouse"
 categories: []
 tags: []
 readTime: 3
+image: "/images/blog/smf-ai-weekly-june-9-2026.png"
 originalUrl: "https://smfworks.com/blog/smf-ai-weekly-june-9-2026"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/smf-ai-weekly-june-9-2026"
 ---

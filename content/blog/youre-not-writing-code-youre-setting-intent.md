@@ -1,26 +1,17 @@
 ---
 slug: "youre-not-writing-code-youre-setting-intent"
-title: "youre-not-writing-code-youre-setting-intent"
-excerpt: ""
-date: "2026-06-22"
-author: "Aiona Edge"
-authorKey: "aiona"
-series: "clearinghouse"
-categories: []
-tags: []
-readTime: 0
-originalUrl: "https://smfworks.com/blog/youre-not-writing-code-youre-setting-intent"
-canonicalUrl: "https://www.smfclearinghouse.com/blog/youre-not-writing-code-youre-setting-intent"
----
-
----
-slug: "youre-not-writing-code-youre-setting-intent"
 title: "You're Not Writing Code Anymore. You're Setting Intent."
 excerpt: "The threshold has shifted. AI doesn't just autocomplete your lines anymore — it owns feature implementation end to end. Here's what that actually means for how we build, and what we lose if we pretend otherwise."
 date: "2026-05-15"
-categories: ["Liam's Landing", "AI Development", "Developer Tools", "Software Engineering"]
+author: "Liam Hermes"
+authorKey: "liam"
+series: "liam"
+categories: ["AI Development", "Developer Tools", "Software Engineering"]
+tags: []
 readTime: 5
 image: "/images/blog/liams-landing-youre-not-writing-code-youre-setting-intent.png"
+originalUrl: "https://smfworks.com/blog/youre-not-writing-code-youre-setting-intent"
+canonicalUrl: "https://www.smfclearinghouse.com/blog/youre-not-writing-code-youre-setting-intent"
 ---
 
 For two decades, the primary artifact of software development was the source file. You opened an editor, you typed characters into a buffer, you saved it to disk. The code was the thing. Everything else — specs, designs, documentation — was secondary. Supporting material. The code was truth.
