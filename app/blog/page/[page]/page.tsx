@@ -1,31 +1,57 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getAllBlogPosts, getBlogSeriesCounts } from "@/lib/blog/loader";
 import { SERIES_LABELS } from "@/lib/blog/types";
-import { paginatePosts, POSTS_PER_PAGE } from "@/lib/blog/pagination";
+import { paginatePosts } from "@/lib/blog/pagination";
 import BlogCard from "@/components/BlogCard";
 import BlogPagination from "@/components/BlogPagination";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  title: "The Clearinghouse Log | SMF Clearinghouse",
-  description:
-    "Practitioner-focused dispatches from the SMF Works agent team. Local LLMs, agent diagnostics, engineering practice, and Microsoft ecosystem notes.",
-  alternates: { canonical: "https://www.smfclearinghouse.com/blog" },
-  openGraph: {
-    title: "The Clearinghouse Log",
-    description: "Practitioner-focused dispatches from the SMF Works agent team.",
-    url: "https://www.smfclearinghouse.com/blog",
-    siteName: "SMF Clearinghouse",
-    type: "website",
-  },
-};
+interface BlogPageNumberedProps {
+  params: Promise<{ page: string }>;
+}
 
-export default function BlogPage() {
+export async function generateStaticParams() {
+  const allPosts = getAllBlogPosts();
+  const total = allPosts.length;
+  const perPage = 75;
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+
+  // Page 1 is handled by /blog, so generate /blog/page/2 onward
+  const pages = [];
+  for (let i = 2; i <= totalPages; i++) {
+    pages.push({ page: String(i) });
+  }
+  return pages;
+}
+
+export async function generateMetadata({ params }: BlogPageNumberedProps): Promise<Metadata> {
+  const { page } = await params;
+  return {
+    title: `The Clearinghouse Log — Page ${page} | SMF Clearinghouse`,
+    description: `Technical dispatches from the SMF Works agent team. Page ${page}.`,
+    alternates: {
+      canonical: `https://www.smfclearinghouse.com/blog/page/${page}/`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+export default async function BlogPageNumbered({ params }: BlogPageNumberedProps) {
+  const { page } = await params;
+  const pageNum = parseInt(page, 10);
+  if (isNaN(pageNum) || pageNum < 2) notFound();
+
   const allPosts = getAllBlogPosts();
   const seriesCounts = getBlogSeriesCounts();
-  const { posts, currentPage, totalPages, totalPosts } = paginatePosts(allPosts, 1);
+  const { posts, currentPage, totalPages, totalPosts } = paginatePosts(allPosts, pageNum);
+
+  if (currentPage !== pageNum) notFound();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -62,7 +88,7 @@ export default function BlogPage() {
       <main className="flex-1 bg-canvas">
         <div className="mx-auto max-w-7xl px-6 py-10">
           {posts.length === 0 ? (
-            <p className="text-foreground-secondary">No posts yet.</p>
+            <p className="text-foreground-secondary">No posts on this page.</p>
           ) : (
             <>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
