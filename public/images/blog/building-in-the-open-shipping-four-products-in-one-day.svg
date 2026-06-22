@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001F3F"/>
+      <stop offset="100%" style="stop-color:#0A0F1F"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B00;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#FF6B00;stop-opacity:0.3"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.04" stroke="#FF6B00" stroke-width="0.5">
+    <line x1="0" y1="105" x2="1200" y2="105"/><line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/><line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/><line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/><line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Orange glow blobs -->
+  <circle cx="300" cy="200" r="180" fill="#FF6B00" opacity="0.04"/>
+  <circle cx="900" cy="400" r="200" fill="#FF6B00" opacity="0.03"/>
+  <circle cx="600" cy="300" r="120" fill="#00D4FF" opacity="0.03"/>
+
+  <!-- Terminal window — shipped CLI -->
+  <g transform="translate(60, 80)">
+    <rect width="500" height="300" rx="10" fill="#0A1628" stroke="#1e2a45" stroke-width="1.5"/>
+    <rect width="500" height="34" rx="10" fill="#131B2E"/>
+    <rect y="28" width="500" height="6" fill="#131B2E"/>
+    <circle cx="18" cy="17" r="7" fill="#EF4444" opacity="0.8"/>
+    <circle cx="38" cy="17" r="7" fill="#F59E0B" opacity="0.8"/>
+    <circle cx="58" cy="17" r="7" fill="#10B981" opacity="0.8"/>
+    <text x="250" y="22" fill="#94A3B8" font-family="monospace" font-size="11" text-anchor="middle">shipped release patch</text>
+
+    <text x="18" y="60" fill="#FF6B00" font-family="monospace" font-size="13" filter="url(#softglow)">$ shipped release patch</text>
+    <text x="18" y="82" fill="#94A3B8" font-family="monospace" font-size="12">Bumping 0.1.0 → 0.1.1</text>
+    <text x="18" y="102" fill="#94A3B8" font-family="monospace" font-size="12">Generating changelog from git...</text>
+    <text x="18" y="125" fill="#10B981" font-family="monospace" font-size="12">  ✓ feat: add HermesAgent (smf-forge)</text>
+    <text x="18" y="143" fill="#10B981" font-family="monospace" font-size="12">  ✓ feat: dev platform auth layer</text>
+    <text x="18" y="161" fill="#10B981" font-family="monospace" font-size="12">  ✓ feat: shipped CLI initial release</text>
+    <text x="18" y="184" fill="#94A3B8" font-family="monospace" font-size="12">Creating tag v0.1.1...</text>
+    <text x="18" y="204" fill="#94A3B8" font-family="monospace" font-size="12">Pushing to origin...</text>
+    <text x="18" y="230" fill="#00D4FF" font-family="monospace" font-size="14" filter="url(#glow)">✓ Released v0.1.1</text>
+    <text x="18" y="258" fill="#FF6B00" font-family="monospace" font-size="13" filter="url(#softglow)">$ shipped publish</text>
+    <text x="18" y="278" fill="#94A3B8" font-family="monospace" font-size="12">Building wheel... Publishing to PyPI...</text>
+  </g>
+
+  <!-- Dev platform card -->
+  <g transform="translate(620, 80)">
+    <rect width="520" height="170" rx="10" fill="#0A1628" stroke="#1e2a45" stroke-width="1.5"/>
+    <rect width="520" height="34" rx="10" fill="#131B2E"/>
+    <rect y="28" width="520" height="6" fill="#131B2E"/>
+    <circle cx="18" cy="17" r="7" fill="#EF4444" opacity="0.8"/>
+    <circle cx="38" cy="17" r="7" fill="#F59E0B" opacity="0.8"/>
+    <circle cx="58" cy="17" r="7" fill="#10B981" opacity="0.8"/>
+    <text x="260" y="22" fill="#94A3B8" font-family="sans-serif" font-size="11" text-anchor="middle">smfworks.com/dev</text>
+
+    <text x="18" y="60" fill="#00D4FF" font-family="sans-serif" font-size="18" font-weight="bold" filter="url(#softglow)">Developer Platform</text>
+    <text x="18" y="80" fill="#94A3B8" font-family="sans-serif" font-size="12">7 routes · real auth · working API keys</text>
+
+    <!-- Mini cards -->
+    <rect x="18" y="95" width="115" height="55" rx="5" fill="#131B2E" stroke="#1e2a45"/>
+    <text x="75" y="118" fill="#E2E8F0" font-family="sans-serif" font-size="10" text-anchor="middle" font-weight="bold">Docs</text>
+    <text x="75" y="135" fill="#94A3B8" font-family="sans-serif" font-size="8" text-anchor="middle">smf-forge · agents</text>
+
+    <rect x="143" y="95" width="115" height="55" rx="5" fill="#131B2E" stroke="#1e2a45"/>
+    <text x="200" y="118" fill="#E2E8F0" font-family="sans-serif" font-size="10" text-anchor="middle" font-weight="bold">API Keys</text>
+    <text x="200" y="135" fill="#10B981" font-family="sans-serif" font-size="8" text-anchor="middle">smf_abc1... ●</text>
+
+    <rect x="268" y="95" width="115" height="55" rx="5" fill="#131B2E" stroke="#1e2a45"/>
+    <text x="325" y="118" fill="#E2E8F0" font-family="sans-serif" font-size="10" text-anchor="middle" font-weight="bold">Status</text>
+    <text x="325" y="135" fill="#10B981" font-family="sans-serif" font-size="8" text-anchor="middle">All Systems Go</text>
+
+    <rect x="393" y="95" width="108" height="55" rx="5" fill="#131B2E" stroke="#1e2a45"/>
+    <text x="447" y="118" fill="#E2E8F0" font-family="sans-serif" font-size="10" text-anchor="middle" font-weight="bold">Auth</text>
+    <text x="447" y="135" fill="#94A3B8" font-family="sans-serif" font-size="8" text-anchor="middle">HMAC-SHA256</text>
+  </g>
+
+  <!-- Test results panel -->
+  <g transform="translate(620, 275)">
+    <rect width="520" height="105" rx="10" fill="#0A1628" stroke="#1e2a45" stroke-width="1.5"/>
+    <text x="18" y="30" fill="#10B981" font-family="monospace" font-size="13" filter="url(#softglow)">35 passed in 0.09s</text>
+    <text x="250" y="30" fill="#94A3B8" font-family="monospace" font-size="11">smf-forge</text>
+    <text x="18" y="52" fill="#10B981" font-family="monospace" font-size="13" filter="url(#softglow)">26 passed in 0.12s</text>
+    <text x="250" y="52" fill="#94A3B8" font-family="monospace" font-size="11">shipped</text>
+    <text x="18" y="78" fill="#94A3B8" font-family="monospace" font-size="12">61/61 tests · zero bugs on first run</text>
+    <!-- Progress bar -->
+    <rect x="18" y="88" width="484" height="6" rx="3" fill="#131B2E"/>
+    <rect x="18" y="88" width="484" height="6" rx="3" fill="#10B981" opacity="0.8"/>
+  </g>
+
+  <!-- MiniMax M3 badge -->
+  <g transform="translate(620, 405)">
+    <rect width="520" height="85" rx="10" fill="#0A1628" stroke="#FF6B00" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="18" y="30" fill="#FF6B00" font-family="sans-serif" font-size="14" font-weight="bold" filter="url(#softglow)">Powered by MiniMax M3 via Ollama</text>
+    <text x="18" y="50" fill="#94A3B8" font-family="sans-serif" font-size="11">1M token context · 3s inference · continuous development</text>
+    <text x="18" y="70" fill="#94A3B8" font-family="sans-serif" font-size="11">Context held 4 projects simultaneously · zero re-reads</text>
+  </g>
+
+  <!-- Title area -->
+  <text x="600" y="540" fill="#E2E8F0" font-family="sans-serif" font-size="30" font-weight="bold" text-anchor="middle">Building in the Open</text>
+  <text x="600" y="568" fill="#FF6B00" font-family="sans-serif" font-size="15" text-anchor="middle" font-weight="600">4 products · 1 day · 61/61 tests · MiniMax M3</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="610" width="1200" height="20" fill="url(#orange)" opacity="0.2"/>
+  <text x="600" y="624" fill="#FF6B00" font-family="sans-serif" font-size="9" text-anchor="middle" opacity="0.7">Liam's Landing · SMF Works · June 2026</text>
+</svg>

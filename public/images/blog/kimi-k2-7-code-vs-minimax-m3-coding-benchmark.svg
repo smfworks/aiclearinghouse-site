@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulseLeft" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pulseRight" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.03" stroke="#10B981">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse halos behind each model glyph -->
+  <circle cx="280" cy="315" r="170" fill="url(#pulseLeft)"/>
+  <circle cx="920" cy="315" r="170" fill="url(#pulseRight)"/>
+
+  <!-- LEFT: Kimi K2.7 Code glyph (hexagonal "K" monogram) -->
+  <g transform="translate(280, 315)" filter="url(#glow)">
+    <!-- Hexagon outer -->
+    <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45"
+             fill="none" stroke="#10B981" stroke-width="2.5" opacity="0.9"/>
+    <!-- Inner hex -->
+    <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30"
+             fill="#10B981" fill-opacity="0.08" stroke="#10B981" stroke-width="1" opacity="0.6"/>
+    <!-- "K" letterform (built from rectangles for a precise code-engineering look) -->
+    <g fill="#10B981" opacity="0.95">
+      <!-- vertical stroke of K -->
+      <rect x="-22" y="-30" width="6" height="60"/>
+      <!-- upper diagonal -->
+      <polygon points="-16,-30 -10,-30 12,0 6,0"/>
+      <!-- lower diagonal -->
+      <polygon points="-10,30 -16,30 6,0 12,0"/>
+    </g>
+    <!-- Code dots — 3 small squares beneath the hex like a version tag -->
+    <g fill="#10B981" opacity="0.6">
+      <rect x="-30" y="108" width="6" height="6"/>
+      <rect x="-12" y="108" width="6" height="6"/>
+      <rect x="6"  y="108" width="6" height="6"/>
+    </g>
+    <text x="0" y="135" text-anchor="middle"
+          font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+          font-size="13" fill="#10B981" opacity="0.85" letter-spacing="2">
+      K2.7 CODE
+    </text>
+  </g>
+
+  <!-- CENTER: "VS" between the two glyphs -->
+  <g transform="translate(600, 315)">
+    <!-- Diagonal slash marks forming a stylized "VS" -->
+    <line x1="-60" y1="-40" x2="60" y2="40" stroke="#10B981" stroke-width="1.5" opacity="0.4"/>
+    <line x1="60" y1="-40" x2="-60" y2="40" stroke="#10B981" stroke-width="1.5" opacity="0.4"/>
+    <text x="0" y="8" text-anchor="middle"
+          font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+          font-size="22" font-weight="700" fill="#10B981" letter-spacing="3"
+          filter="url(#glow)">VS</text>
+  </g>
+
+  <!-- RIGHT: MiniMax M3 glyph (concentric rings + "M") -->
+  <g transform="translate(920, 315)" filter="url(#glow)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="92" fill="none" stroke="#10B981" stroke-width="2" opacity="0.85"/>
+    <!-- Mid ring (dashed) -->
+    <circle cx="0" cy="0" r="70" fill="none" stroke="#10B981" stroke-width="1" opacity="0.55" stroke-dasharray="4 6"/>
+    <!-- Inner ring -->
+    <circle cx="0" cy="0" r="48" fill="#10B981" fill-opacity="0.08" stroke="#10B981" stroke-width="1" opacity="0.7"/>
+    <!-- M letterform (slim, modern) -->
+    <g fill="#10B981" opacity="0.95">
+      <rect x="-30" y="-22" width="6" height="44"/>
+      <rect x="24"  y="-22" width="6" height="44"/>
+      <polygon points="-30,-22 -24,-22 0,8 -6,8"/>
+      <polygon points="24,-22 30,-22 6,8 0,8"/>
+    </g>
+    <!-- Three small dot markers beneath (multimodal marker) -->
+    <g fill="#10B981" opacity="0.6">
+      <circle cx="-12" cy="106" r="3.5"/>
+      <circle cx="0"   cy="106" r="3.5"/>
+      <circle cx="12"  cy="106" r="3.5"/>
+    </g>
+    <text x="0" y="135" text-anchor="middle"
+          font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+          font-size="13" fill="#10B981" opacity="0.85" letter-spacing="2">
+      M3
+    </text>
+  </g>
+
+  <!-- Title block -->
+  <g>
+    <text x="600" y="490" text-anchor="middle"
+          font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif"
+          font-size="30" font-weight="700" fill="#E2E8F0" letter-spacing="-0.5">
+      Kimi K2.7 Code vs MiniMax M3
+    </text>
+    <text x="600" y="522" text-anchor="middle"
+          font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+          font-size="14" fill="#10B981" opacity="0.85" letter-spacing="3">
+      300 INFERENCES · 30 PROBLEMS · 5 RUNS EACH
+    </text>
+    <text x="600" y="550" text-anchor="middle"
+          font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif"
+          font-size="14" fill="#94A3B8">
+      A reproducible coding benchmark on Ollama Cloud
+    </text>
+  </g>
+
+  <!-- Top tag chip -->
+  <g transform="translate(600, 60)">
+    <rect x="-100" y="-16" width="200" height="32" rx="16" ry="16"
+          fill="none" stroke="#10B981" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="5" text-anchor="middle"
+          font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+          font-size="11" fill="#10B981" letter-spacing="2">
+      HEAD-TO-HEAD · EVALPLUS
+    </text>
+  </g>
+</svg>

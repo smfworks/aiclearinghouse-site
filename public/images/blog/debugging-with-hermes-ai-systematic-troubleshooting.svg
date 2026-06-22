@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#1A1F2E"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#FF6B00">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Debugging Icon: Bug/Magnifying glass with code brackets -->
+  
+  <!-- Bug body -->
+  <ellipse cx="220" cy="325" rx="35" ry="50" fill="none" stroke="#FF6B00" stroke-width="2.5" opacity="0.9"/>
+  
+  <!-- Bug head -->
+  <circle cx="220" cy="260" r="22" fill="none" stroke="#FF6B00" stroke-width="2.5" opacity="0.9"/>
+  
+  <!-- Antennae -->
+  <line x1="205" y1="245" x2="190" y2="225" stroke="#FF6B00" stroke-width="2" opacity="0.7"/>
+  <line x1="235" y1="245" x2="250" y2="225" stroke="#FF6B00" stroke-width="2" opacity="0.7"/>
+  <line x1="188" y1="223" x2="182" y2="218" stroke="#FF6B00" stroke-width="2" opacity="0.8"/>
+  <line x1="252" y1="223" x2="258" y2="218" stroke="#FF6B00" stroke-width="2" opacity="0.8"/>
+  
+  <!-- Legs (3 pairs) -->
+  <line x1="188" y1="290" x2="155" y2="275" stroke="#FF6B00" stroke-width="2" opacity="0.6"/>
+  <line x1="190" y1="310" x2="150" y2="305" stroke="#FF6B00" stroke-width="2" opacity="0.6"/>
+  <line x1="188" y1="330" x2="152" y2="335" stroke="#FF6B00" stroke-width="2" opacity="0.6"/>
+  
+  <line x1="252" y1="290" x2="285" y2="275" stroke="#FF6B00" stroke-width="2" opacity="0.6"/>
+  <line x1="250" y1="310" x2="290" y2="305" stroke="#FF6B00" stroke-width="2" opacity="0.6"/>
+  <line x1="252" y1="330" x2="288" y2="335" stroke="#FF6B00" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Magnifying glass overlay (top right of bug) -->
+  <circle cx="270" cy="260" r="35" fill="none" stroke="#FF6B00" stroke-width="3" opacity="0.9"/>
+  <line x1="298" y1="285" x2="330" y2="320" stroke="#FF6B00" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Code snippet inside magnifying glass -->
+  <text x="255" y="265" fill="#FF6B00" font-family="system-ui, monospace" font-size="8" opacity="0.8">{ }/</text>
+  
+  <!-- Code bracket decorations (background) -->
+  <text x="110" y="315" fill="#FF6B00" font-family="system-ui, monospace" font-size="36" font-weight="300" opacity="0.2" text-anchor="middle">{/</text>
+  <text x="330" y="315" fill="#FF6B00" font-family="system-ui, monospace" font-size="36" font-weight="300" opacity="0.2" text-anchor="middle">}/</text>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#FF6B00" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#FF6B00" opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#FF6B00" opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#FF6B00" opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="250" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" letter-spacing="-0.5">
+    Debugging with Hermes AI
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="298" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">
+    SYSTEMATIC TROUBLESHOOTING
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="320" x2="890" y2="320" stroke="#FF6B00" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="355" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">
+    Cut debugging time from hours to minutes with AI-assisted triage
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#FF6B00" opacity="0.4"/>
+</svg>

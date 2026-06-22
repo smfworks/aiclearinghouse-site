@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576" width="1024" height="576" role="img" aria-label="Dark forge aesthetic: a scheduled cron clock fused with circuit traces, navy and amber palette">
+  <defs>
+    <linearGradient id="navyBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1628"/>
+      <stop offset="0.55" stop-color="#0d1f3a"/>
+      <stop offset="1" stop-color="#07101f"/>
+    </linearGradient>
+    <radialGradient id="forgeGlow" cx="0.5" cy="0.55" r="0.55">
+      <stop offset="0" stop-color="#f5a623" stop-opacity="0.42"/>
+      <stop offset="0.35" stop-color="#d97706" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0a1628" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="amberLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5a623" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#f5a623" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#f5a623" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="amberEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5a623"/>
+      <stop offset="1" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="576" fill="url(#navyBg)"/>
+  <rect width="1024" height="576" fill="url(#forgeGlow)"/>
+
+  <!-- Circuit grid -->
+  <g stroke="#1b3a5e" stroke-width="1" opacity="0.55">
+    <path d="M0 96 H1024"/>
+    <path d="M0 192 H1024"/>
+    <path d="M0 288 H1024"/>
+    <path d="M0 384 H1024"/>
+    <path d="M0 480 H1024"/>
+    <path d="M128 0 V576"/>
+    <path d="M256 0 V576"/>
+    <path d="M384 0 V576"/>
+    <path d="M512 0 V576"/>
+    <path d="M640 0 V576"/>
+    <path d="M768 0 V576"/>
+    <path d="M896 0 V576"/>
+  </g>
+
+  <!-- Amber pulse traces -->
+  <g stroke-width="1.4" fill="none" opacity="0.9">
+    <path d="M0 192 H360 l40 -40 H620" stroke="url(#amberLine)"/>
+    <path d="M1024 384 H700 l-40 40 H420" stroke="url(#amberLine)"/>
+    <path d="M0 480 H240 l60 -60 H520" stroke="url(#amberLine)" opacity="0.6"/>
+  </g>
+
+  <!-- Circuit nodes -->
+  <g fill="#f5a623">
+    <circle cx="360" cy="192" r="3"/>
+    <circle cx="620" cy="152" r="3"/>
+    <circle cx="700" cy="384" r="3"/>
+    <circle cx="420" cy="424" r="3"/>
+    <circle cx="240" cy="480" r="2.5" opacity="0.7"/>
+    <circle cx="520" cy="420" r="2.5" opacity="0.7"/>
+  </g>
+
+  <!-- Forge glow halo behind clock -->
+  <circle cx="512" cy="300" r="150" fill="#d97706" opacity="0.10" filter="url(#softBlur)"/>
+  <circle cx="512" cy="300" r="110" fill="#f5a623" opacity="0.07" filter="url(#softBlur)"/>
+
+  <!-- Cron clock -->
+  <g transform="translate(512 300)">
+    <!-- Outer gear ring -->
+    <g fill="none" stroke="#1b3a5e" stroke-width="2">
+      <circle r="132"/>
+    </g>
+    <g fill="#13263f" stroke="#2a4d7a" stroke-width="1.5">
+      <!-- gear teeth -->
+      <g>
+        <rect x="-6" y="-148" width="12" height="16" rx="2"/>
+        <rect x="-6" y="132" width="12" height="16" rx="2"/>
+        <rect x="-148" y="-6" width="16" height="12" rx="2"/>
+        <rect x="132" y="-6" width="16" height="12" rx="2"/>
+        <g transform="rotate(45)"><rect x="-6" y="-148" width="12" height="16" rx="2"/><rect x="-6" y="132" width="12" height="16" rx="2"/><rect x="-148" y="-6" width="16" height="12" rx="2"/><rect x="132" y="-6" width="16" height="12" rx="2"/></g>
+        <g transform="rotate(22.5)"><rect x="-5" y="-148" width="10" height="14" rx="2" opacity="0.7"/><rect x="134" y="-5" width="14" height="10" rx="2" opacity="0.7"/></g>
+        <g transform="rotate(67.5)"><rect x="-5" y="-148" width="10" height="14" rx="2" opacity="0.7"/><rect x="134" y="-5" width="14" height="10" rx="2" opacity="0.7"/></g>
+      </g>
+    </g>
+
+    <!-- Clock face -->
+    <circle r="108" fill="#0a1628" stroke="url(#amberEdge)" stroke-width="3"/>
+
+    <!-- Hour ticks -->
+    <g stroke="#2a4d7a" stroke-width="2">
+      <line x1="0" y1="-92" x2="0" y2="-80"/>
+      <line x1="0" y1="92" x2="0" y2="80"/>
+      <line x1="-92" y1="0" x2="-80" y2="0"/>
+      <line x1="92" y1="0" x2="80" y2="0"/>
+      <g transform="rotate(30)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(60)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(120)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(150)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(210)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(240)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(300)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+      <g transform="rotate(330)"><line x1="0" y1="-92" x2="0" y2="-82" stroke-width="1.2"/></g>
+    </g>
+
+    <!-- Hour numerals 12 / 3 / 6 / 9 -->
+    <g fill="#5b7da6" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" text-anchor="middle">
+      <text y="-58">12</text>
+      <text x="62" y="6">3</text>
+      <text y="70">6</text>
+      <text x="-62" y="6">9</text>
+    </g>
+
+    <!-- Hands set to 3:00 (cron tick) -->
+    <line x1="0" y1="0" x2="0" y2="-58" stroke="#8aa6c8" stroke-width="4" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="64" y2="0" stroke="#f5a623" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="0" y2="22" stroke="#f5a623" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Center hub -->
+    <circle r="7" fill="#f5a623"/>
+    <circle r="3" fill="#0a1628"/>
+  </g>
+
+  <!-- Corner status chips -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#8aa6c8">
+    <g transform="translate(40 48)">
+      <rect x="-8" y="-16" width="150" height="26" rx="13" fill="#0d1f3a" stroke="#1b3a5e"/>
+      <circle cx="6" cy="-3" r="4" fill="#f5a623"/>
+      <text x="20" y="1">cron · 03:00</text>
+    </g>
+    <g transform="translate(836 48)">
+      <rect x="-8" y="-16" width="160" height="26" rx="13" fill="#0d1f3a" stroke="#1b3a5e"/>
+      <circle cx="6" cy="-3" r="4" fill="#f5a623"/>
+      <text x="20" y="1">status · shipped</text>
+    </g>
+    <g transform="translate(40 544)">
+      <rect x="-8" y="-16" width="170" height="26" rx="13" fill="#0d1f3a" stroke="#1b3a5e"/>
+      <text x="6" y="1">deliverable · defined</text>
+    </g>
+    <g transform="translate(820 544)">
+      <rect x="-8" y="-16" width="180" height="26" rx="13" fill="#0d1f3a" stroke="#1b3a5e"/>
+      <text x="6" y="1">guardrails · enforced</text>
+    </g>
+  </g>
+
+  <!-- Scanline vignette -->
+  <rect width="1024" height="576" fill="#0a1628" opacity="0.12"/>
+</svg>

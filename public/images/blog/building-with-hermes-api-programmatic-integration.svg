@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Dark gradient background -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    
+    <!-- Orange accent glow -->
+    <radialGradient id="orangeGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </radialGradient>
+    
+    <!-- Circuit pattern gradient -->
+    <linearGradient id="circuitFade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FF6B00" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle grid -->
+  <g opacity="0.03" stroke="#FF6B00">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  
+  <!-- API/Code decorative elements on right side -->
+  <g opacity="0.05" fill="none" stroke="#FF6B00" stroke-width="1.5">
+    <!-- Circuit traces -->
+    <path d="M 850 100 L 850 150 L 900 150 L 900 250"/>
+    <path d="M 950 80 L 950 200 L 1000 200 L 1000 280"/>
+    <path d="M 1050 120 L 1050 180 L 1100 180 L 1100 350"/>
+    <path d="M 900 400 L 900 450 L 950 450 L 950 550"/>
+    <path d="M 1000 420 L 1000 500 L 1050 500 L 1050 580"/>
+    <!-- Connection nodes -->
+    <circle cx="850" cy="100" r="4"/>
+    <circle cx="900" cy="250" r="4"/>
+    <circle cx="950" cy="80" r="4"/>
+    <circle cx="1000" cy="280" r="4"/>
+    <circle cx="1050" cy="120" r="4"/>
+    <circle cx="1100" cy="350" r="4"/>
+    <circle cx="900" cy="400" r="4"/>
+    <circle cx="950" cy="550" r="4"/>
+    <circle cx="1000" cy="420" r="4"/>
+    <circle cx="1050" cy="580" r="4"/>
+  </g>
+  
+  <!-- Code bracket decorations -->
+  <g opacity="0.04" fill="#FF6B00">
+    <text x="980" y="200" font-family="monospace" font-size="120" font-weight="bold">{ }</text>
+  </g>
+  
+  <!-- Main icon area - API/code symbol -->
+  <g transform="translate(220, 315)">
+    <!-- Glow behind icon -->
+    <circle cx="0" cy="0" r="160" fill="url(#orangeGlow)"/>
+    
+    <!-- Main icon: API/code integration symbol -->
+    <g transform="translate(-70, -60)">
+      <!-- Outer box - representing API/framework -->
+      <rect x="0" y="0" width="140" height="120" rx="8" 
+            fill="none" stroke="#FF6B00" stroke-width="3" opacity="0.9"/>
+      
+      <!-- Inner code brackets -->
+      <g fill="none" stroke="#E2E8F0" stroke-width="3" stroke-linecap="round">
+        <!-- Left bracket -->
+        <path d="M 35 85 L 20 60 L 35 35"/>
+        <!-- Right bracket -->
+        <path d="M 105 85 L 120 60 L 105 35"/>
+      </g>
+      
+      <!-- Connecting lines (representing API endpoints) -->
+      <g stroke="#FF6B00" stroke-width="2" opacity="0.8">
+        <line x1="70" y1="25" x2="70" y2="15"/>
+        <circle cx="70" cy="12" r="3" fill="#FF6B00"/>
+        
+        <!-- Horizontal data flow lines -->
+        <line x1="10" y1="60" x2="-20" y2="60"/>
+        <line x1="130" y1="60" x2="160" y2="60"/>
+        
+        <!-- Connection dots -->
+        <circle cx="-25" cy="60" r="3" fill="#FF6B00"/>
+        <circle cx="165" cy="60" r="3" fill="#FF6B00"/>
+      </g>
+      
+      <!-- Gear/cog icon representing tooling -->
+      <g transform="translate(55, 35)" fill="#FF6B00">
+        <circle cx="15" cy="15" r="8" fill="none" stroke="#E2E8F0" stroke-width="2"/>
+        <rect x="13" y="3" width="4" height="5" fill="#E2E8F0"/>
+        <rect x="13" y="22" width="4" height="5" fill="#E2E8F0"/>
+        <rect x="3" y="13" width="5" height="4" fill="#E2E8F0"/>
+        <rect x="22" y="13" width="5" height="4" fill="#E2E8F0"/>
+        <!-- Diagonal teeth -->
+        <rect x="6" y="6" width="4" height="4" fill="#E2E8F0" transform="rotate(45 8 8)"/>
+        <rect x="20" y="6" width="4" height="4" fill="#E2E8F0" transform="rotate(45 22 8)"/>
+        <rect x="6" y="20" width="4" height="4" fill="#E2E8F0" transform="rotate(45 8 22)"/>
+        <rect x="20" y="20" width="4" height="4" fill="#E2E8F0" transform="rotate(45 22 22)"/>
+        <!-- Center -->
+        <circle cx="15" cy="15" r="3" fill="#0A0F1F"/>
+      </g>
+    </g>
+    
+    <!-- Orbital dots -->
+    <circle cx="-90" cy="-80" r="4" fill="#FF6B00" opacity="0.5"/>
+    <circle cx="100" cy="-70" r="3" fill="#FF6B00" opacity="0.4"/>
+    <circle cx="-80" cy="90" r="3" fill="#FF6B00" opacity="0.4"/>
+    <circle cx="110" cy="80" r="4" fill="#FF6B00" opacity="0.5"/>
+    <circle cx="0" cy="-110" r="2" fill="#FF6B00" opacity="0.3"/>
+  </g>
+  
+  <!-- Text content -->
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <!-- Subtitle label -->
+    <text x="420" y="235" font-size="16" font-weight="600" fill="#FF6B00" 
+          letter-spacing="2" text-transform="uppercase">LIAM'S LANDING</text>
+    
+    <!-- Main title -->
+    <text x="420" y="295" font-size="44" font-weight="bold" fill="#E2E8F0">
+      Building with the Hermes API
+    </text>
+    <text x="420" y="345" font-size="44" font-weight="bold" fill="#E2E8F0">
+      Programmatic Integration
+    </text>
+    
+    <!-- Tagline -->
+    <text x="420" y="395" font-size="18" fill="#94A3B8">
+      Integrate AI agents into your applications with full tool access
+    </text>
+  </g>
+  
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#FF6B00" opacity="0.4"/>
+</svg>

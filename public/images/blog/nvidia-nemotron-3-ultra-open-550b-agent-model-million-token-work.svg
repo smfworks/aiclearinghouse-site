@@ -1,0 +1,115 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">NVIDIA Nemotron 3 Ultra Hero Image</title>
+  <desc id="desc">Futuristic enterprise AI infrastructure scene with cloud, data center, and desktop AI nodes connected to a glowing neural network core.</desc>
+  <defs>
+    <radialGradient id="coreGlow" cx="50%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#B8FF4D" stop-opacity="1"/>
+      <stop offset="18%" stop-color="#5CFF9A" stop-opacity="0.95"/>
+      <stop offset="42%" stop-color="#00D6FF" stop-opacity="0.45"/>
+      <stop offset="72%" stop-color="#163B7A" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#020712" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#020611"/>
+      <stop offset="42%" stop-color="#071A2F"/>
+      <stop offset="100%" stop-color="#02110A"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" x2="1">
+      <stop offset="0" stop-color="#00D6FF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#7DFF6A" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#00D6FF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blurGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" stroke="#1B7B8F" stroke-width="1" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.55"/>
+  <circle cx="800" cy="430" r="420" fill="url(#coreGlow)" filter="url(#soft)"/>
+
+  <!-- Long-context data streams -->
+  <g opacity="0.78" fill="none" stroke-linecap="round">
+    <path d="M70 180 C390 120 460 340 800 382 C1120 420 1220 160 1530 210" stroke="url(#line)" stroke-width="3"/>
+    <path d="M40 710 C345 608 500 690 792 530 C1090 365 1260 640 1560 548" stroke="url(#line)" stroke-width="3"/>
+    <path d="M110 455 C360 305 510 350 790 430 C1100 520 1260 390 1495 455" stroke="#00D6FF" stroke-width="2" opacity="0.45"/>
+  </g>
+
+  <!-- Central neural core -->
+  <g filter="url(#blurGlow)">
+    <circle cx="800" cy="440" r="88" fill="#04140F" stroke="#B8FF4D" stroke-width="3"/>
+    <circle cx="800" cy="440" r="54" fill="none" stroke="#00D6FF" stroke-width="2" opacity="0.9"/>
+    <circle cx="800" cy="440" r="22" fill="#B8FF4D" opacity="0.95"/>
+  </g>
+  <g stroke="#7DFF6A" stroke-width="2" opacity="0.9">
+    <line x1="800" y1="440" x2="684" y2="320"/>
+    <line x1="800" y1="440" x2="920" y2="302"/>
+    <line x1="800" y1="440" x2="1054" y2="452"/>
+    <line x1="800" y1="440" x2="930" y2="630"/>
+    <line x1="800" y1="440" x2="642" y2="610"/>
+    <line x1="800" y1="440" x2="546" y2="452"/>
+  </g>
+  <g fill="#00D6FF" stroke="#B8FF4D" stroke-width="2">
+    <circle cx="684" cy="320" r="15"/>
+    <circle cx="920" cy="302" r="15"/>
+    <circle cx="1054" cy="452" r="15"/>
+    <circle cx="930" cy="630" r="15"/>
+    <circle cx="642" cy="610" r="15"/>
+    <circle cx="546" cy="452" r="15"/>
+  </g>
+
+  <!-- Cloud inference tier -->
+  <g transform="translate(130 170)">
+    <rect x="0" y="0" width="305" height="170" rx="22" fill="#061B32" stroke="#00D6FF" stroke-width="2" opacity="0.92"/>
+    <path d="M75 98 h145 c34 0 53-40 27-66 -17-16-42-16-58 1 -13-38-70-39-86-4 -33-9-61 17-61 49 0 11 6 20 33 20z" fill="none" stroke="#7DFF6A" stroke-width="5" stroke-linejoin="round" opacity="0.95"/>
+    <circle cx="66" cy="132" r="5" fill="#B8FF4D"/><circle cx="92" cy="132" r="5" fill="#00D6FF"/><circle cx="118" cy="132" r="5" fill="#B8FF4D"/>
+  </g>
+
+  <!-- Data center tier -->
+  <g transform="translate(1185 184)">
+    <rect x="0" y="0" width="300" height="250" rx="22" fill="#071526" stroke="#7DFF6A" stroke-width="2" opacity="0.94"/>
+    <g transform="translate(40 32)">
+      <rect x="0" y="0" width="58" height="182" rx="8" fill="#0D2A44" stroke="#00D6FF"/>
+      <rect x="78" y="0" width="58" height="182" rx="8" fill="#0D2A44" stroke="#00D6FF"/>
+      <rect x="156" y="0" width="58" height="182" rx="8" fill="#0D2A44" stroke="#00D6FF"/>
+      <g fill="#B8FF4D">
+        <circle cx="18" cy="32" r="4"/><circle cx="18" cy="62" r="4"/><circle cx="18" cy="92" r="4"/><circle cx="18" cy="122" r="4"/>
+        <circle cx="96" cy="32" r="4"/><circle cx="96" cy="62" r="4"/><circle cx="96" cy="92" r="4"/><circle cx="96" cy="122" r="4"/>
+        <circle cx="174" cy="32" r="4"/><circle cx="174" cy="62" r="4"/><circle cx="174" cy="92" r="4"/><circle cx="174" cy="122" r="4"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Desktop AI node / Spark cluster tier -->
+  <g transform="translate(158 580)">
+    <rect x="0" y="0" width="326" height="174" rx="22" fill="#071526" stroke="#7DFF6A" stroke-width="2" opacity="0.94"/>
+    <g transform="translate(43 48)">
+      <rect x="0" y="0" width="62" height="70" rx="8" fill="#0D2A44" stroke="#00D6FF"/>
+      <rect x="88" y="0" width="62" height="70" rx="8" fill="#0D2A44" stroke="#00D6FF"/>
+      <rect x="176" y="0" width="62" height="70" rx="8" fill="#0D2A44" stroke="#00D6FF"/>
+      <path d="M62 35 H88 M150 35 H176" stroke="#B8FF4D" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="31" cy="35" r="10" fill="#B8FF4D"/><circle cx="119" cy="35" r="10" fill="#00D6FF"/><circle cx="207" cy="35" r="10" fill="#B8FF4D"/>
+    </g>
+  </g>
+
+  <!-- Technical motifs -->
+  <g opacity="0.35" font-family="Consolas, monospace" font-size="22" fill="#9DFEFF">
+    <text x="1110" y="685">1M CONTEXT</text>
+    <text x="1110" y="720">550B / 55B ACTIVE</text>
+    <text x="1110" y="755">MOE · MAMBA · FP4</text>
+  </g>
+  <g opacity="0.65" stroke="#00D6FF" stroke-width="2" fill="none">
+    <rect x="1088" y="646" width="326" height="132" rx="16"/>
+    <path d="M1112 700 h270 M1112 735 h232" opacity="0.45"/>
+  </g>
+
+  <!-- Vignette -->
+  <rect width="1600" height="900" fill="none" stroke="#000" stroke-width="60" opacity="0.22"/>
+</svg>

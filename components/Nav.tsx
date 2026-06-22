@@ -15,6 +15,7 @@ const links = [
   { href: "/guides", label: "Guides" },
   { href: "/ai-news", label: "News" },
   { href: "/reviews", label: "Reviews" },
+  { href: "/blog", label: "Log" },
   { href: "/what-is-the-clearinghouse", label: "What is this?" },
 ];
 

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="190" fill="url(#pulse)"/>
+
+  <!-- Icon: two interlocking gears / agent runtimes with memory bridge -->
+  <g transform="translate(220, 315)" filter="url(#glow)">
+    <!-- Left gear (Hermes) -->
+    <g stroke="#00E5A0" stroke-width="3" fill="none">
+      <circle cx="-75" cy="0" r="42"/>
+      <rect x="-82" y="-55" width="14" height="18" rx="3"/>
+      <rect x="-82" y="37" width="14" height="18" rx="3"/>
+      <rect x="-36" y="-82" width="18" height="14" rx="3" transform="rotate(60 -27 -75)"/>
+      <rect x="-122" y="-33" width="18" height="14" rx="3" transform="rotate(-60 -113 -26)"/>
+    </g>
+    <circle cx="-75" cy="0" r="18" fill="#00E5A0" opacity="0.25"/>
+    <text x="-75" y="6" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" text-anchor="middle">H</text>
+
+    <!-- Right gear (OpenClaw) -->
+    <g stroke="#00E5A0" stroke-width="3" fill="none">
+      <circle cx="75" cy="0" r="42"/>
+      <rect x="68" y="-55" width="14" height="18" rx="3"/>
+      <rect x="68" y="37" width="14" height="18" rx="3"/>
+      <rect x="114" y="-82" width="18" height="14" rx="3" transform="rotate(-60 123 -75)"/>
+      <rect x="28" y="-33" width="18" height="14" rx="3" transform="rotate(60 37 -26)"/>
+    </g>
+    <circle cx="75" cy="0" r="18" fill="#00E5A0" opacity="0.25"/>
+    <text x="75" y="6" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">OC</text>
+
+    <!-- Memory bridge / data flow between gears -->
+    <g opacity="0.6">
+      <path d="M -25,0 L 25,0" stroke="#00E5A0" stroke-width="2.5" fill="none"/>
+      <circle cx="-10" cy="0" r="4" fill="#00E5A0"/>
+      <circle cx="10" cy="0" r="4" fill="#00E5A0"/>
+      <!-- small gap/dash indicating unresolved sync -->
+      <line x1="-4" y1="0" x2="4" y2="0" stroke="#0A0F1F" stroke-width="3"/>
+    </g>
+
+    <!-- Orbiting memory nodes -->
+    <circle cx="0" cy="-72" r="5" fill="#00E5A0" opacity="0.8"/>
+    <circle cx="0" cy="72" r="5" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="-105" cy="45" r="4" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="105" cy="-45" r="4" fill="#00E5A0" opacity="0.8"/>
+  </g>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#00E5A0" opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#00E5A0" opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="252" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" letter-spacing="-0.5">
+    Fixes, Memory Gaps,
+  </text>
+  <text x="440" y="300" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" letter-spacing="-0.5">
+    and the Roadmap
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="348" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">
+    HERMES & OPENCLAW STATUS REPORT
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="370" x2="820" y2="370" stroke="#00E5A0" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="405" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">
+    Closing design gaps across two agent runtimes.
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>

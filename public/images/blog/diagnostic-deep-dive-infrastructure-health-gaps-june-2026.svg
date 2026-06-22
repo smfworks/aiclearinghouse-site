@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="scanGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0" />
+    </radialGradient>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Left side: Infrastructure visualization -->
+  <!-- Server rack representation -->
+  <g transform="translate(60, 80)">
+    <!-- Rack outline -->
+    <rect x="0" y="0" width="180" height="470" rx="4" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Server units -->
+    <!-- Unit 1 -->
+    <rect x="10" y="20" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.8"/>
+    <circle cx="25" cy="40" r="6" fill="#00E5A0"/>
+    <rect x="45" y="33" width="80" height="14" rx="2" fill="url(#barGrad)" opacity="0.6"/>
+    <rect x="140" y="35" width="20" height="10" rx="1" fill="#00E5A0" opacity="0.4"/>
+    
+    <!-- Unit 2 -->
+    <rect x="10" y="80" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="25" cy="100" r="5" fill="#00E5A0" opacity="0.8"/>
+    <rect x="45" y="93" width="80" height="14" rx="2" fill="url(#barGrad)" opacity="0.4"/>
+    <rect x="140" y="95" width="20" height="10" rx="1" fill="#00E5A0" opacity="0.3"/>
+    
+    <!-- Unit 3 -->
+    <rect x="10" y="140" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="25" cy="160" r="5" fill="#00E5A0" opacity="0.6"/>
+    <rect x="45" y="153" width="60" height="14" rx="2" fill="url(#barGrad)" opacity="0.5"/>
+    <rect x="140" y="155" width="20" height="10" rx="1" fill="#00E5A0" opacity="0.3"/>
+    
+    <!-- Unit 4 -->
+    <rect x="10" y="200" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="25" cy="220" r="4" fill="#00E5A0" opacity="0.5"/>
+    <rect x="45" y="213" width="90" height="14" rx="2" fill="url(#barGrad)" opacity="0.3"/>
+    
+    <!-- Unit 5 -->
+    <rect x="10" y="260" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.8"/>
+    <circle cx="25" cy="280" r="6" fill="#00E5A0"/>
+    <rect x="45" y="273" width="70" height="14" rx="2" fill="url(#barGrad)" opacity="0.7"/>
+    <rect x="140" y="275" width="20" height="10" rx="1" fill="#00E5A0" opacity="0.5"/>
+    
+    <!-- Unit 6 -->
+    <rect x="10" y="320" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.7"/>
+    <circle cx="25" cy="340" r="5" fill="#00E5A0" opacity="0.7"/>
+    <rect x="45" y="333" width="85" height="14" rx="2" fill="url(#barGrad)" opacity="0.5"/>
+    
+    <!-- Unit 7 -->
+    <rect x="10" y="380" width="160" height="40" rx="2" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="25" cy="400" r="4" fill="#00E5A0" opacity="0.6"/>
+    <rect x="45" y="393" width="75" height="14" rx="2" fill="url(#barGrad)" opacity="0.4"/>
+    
+    <!-- Connection lines -->
+    <path d="M 90,420 L 90,470" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <path d="M 90,470 L 130,490" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <path d="M 90,470 L 50,490" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+  </g>
+  
+  <!-- Central diagnostics visualization -->
+  <g transform="translate(300, 100)">
+    <!-- Scanning circles/rings -->
+    <circle cx="150" cy="200" r="180" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.15"/>
+    <circle cx="150" cy="200" r="140" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.25"/>
+    <circle cx="150" cy="200" r="100" fill="url(#scanGrad)"/>
+    
+    <!-- Target/scope center -->
+    <circle cx="150" cy="200" r="60" fill="none" stroke="#00E5A0" stroke-width="3" opacity="0.8"/>
+    <circle cx="150" cy="200" r="20" fill="#00E5A0"/>
+    <circle cx="150" cy="200" r="8" fill="#0a1628"/>
+    
+    <!-- Crosshair -->
+    <line x1="150" y1="20" x2="150" y2="140" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <line x1="150" y1="260" x2="150" y2="380" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <line x1="10" y1="200" x2="90" y2="200" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <line x1="210" y1="200" x2="290" y2="200" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    
+    <!-- Status indicators around the ring -->
+    <circle cx="150" cy="40" r="8" fill="#00E5A0" opacity="0.8"/>
+    <circle cx="150" cy="360" r="6" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="30" cy="200" r="6" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="270" cy="200" r="8" fill="#00E5A0" opacity="0.9"/>
+    
+    <!-- Health bar graph -->
+    <g transform="translate(340, 80)">
+      <rect x="0" y="0" width="12" height="120" rx="2" fill="url(#barGrad)" opacity="0.6"/>
+      <rect x="20" y="30" width="12" height="90" rx="2" fill="url(#barGrad)" opacity="0.7"/>
+      <rect x="40" y="50" width="12" height="70" rx="2" fill="url(#barGrad)" opacity="0.5"/>
+      <rect x="60" y="20" width="12" height="100" rx="2" fill="url(#barGrad)" opacity="0.8"/>
+      <rect x="80" y="40" width="12" height="80" rx="2" fill="url(#barGrad)" opacity="0.6"/>
+      <rect x="100" y="60" width="12" height="60" rx="2" fill="url(#barGrad)" opacity="0.4"/>
+      <rect x="120" y="25" width="12" height="95" rx="2" fill="url(#barGrad)" opacity="0.7"/>
+    </g>
+    
+    <!-- Data flow lines -->
+    <path d="M 420,140 L 500,140" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <path d="M 420,200 L 500,200" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+    <path d="M 420,260 L 500,260" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+  </g>
+  
+  <!-- Right side: Title and metadata -->
+  <text x="650" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="700" fill="#ffffff">Diagnostic</text>
+  <text x="650" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="700" fill="#ffffff">Deep Dive</text>
+  
+  <!-- Subtitle -->
+  <text x="650" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400" fill="#00E5A0" opacity="0.9">Infrastructure Health Gaps</text>
+  <text x="650" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400" fill="#00E5A0" opacity="0.9">OpenClaw &amp; Hermes</text>
+  
+  <!-- Decorative line -->
+  <line x1="650" y1="370" x2="900" y2="370" stroke="#00E5A0" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Stats/Highlights -->
+  <g transform="translate(650, 400)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#9ca3af">7 critical gaps identified</text>
+    <text x="0" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#9ca3af">11 issues with recovery paths</text>
+    <text x="0" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#9ca3af">Shared Diagnostic Protocol v0.3</text>
+  </g>
+  
+  <!-- Bottom signature -->
+  <line x1="650" y1="500" x2="1050" y2="500" stroke="#00E5A0" stroke-width="1" opacity="0.2"/>
+  <text x="650" y="535" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#00E5A0" opacity="0.8">Dr J — smfworks.com/drj</text>
+  <text x="650" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#6b7280" opacity="0.7">June 5, 2026</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="40" cy="80" r="4" fill="#00E5A0" opacity="0.5"/>
+  <circle cx="25" cy="65" r="2" fill="#00E5A0" opacity="0.4"/>
+  <circle cx="55" cy="95" r="2" fill="#00E5A0" opacity="0.3"/>
+  
+  <circle cx="1150" cy="120" r="3" fill="#00E5A0" opacity="0.5"/>
+  <circle cx="1130" cy="140" r="2" fill="#00E5A0" opacity="0.4"/>
+  
+  <circle cx="60" cy="580" r="3" fill="#00E5A0" opacity="0.4"/>
+  <circle cx="80" cy="600" r="2" fill="#00E5A0" opacity="0.3"/>
+</svg>

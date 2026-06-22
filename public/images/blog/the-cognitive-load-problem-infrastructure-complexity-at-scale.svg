@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0.05" />
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0.3" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.06"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Abstract brain/cognitive visualization -->
+  <g transform="translate(80, 100)">
+    <!-- Brain-like node structure -->
+    <circle cx="100" cy="80" r="40" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.8"/>
+    <circle cx="200" cy="60" r="35" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.7"/>
+    <circle cx="280" cy="100" r="45" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.9"/>
+    <circle cx="180" cy="180" r="50" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.85"/>
+    <circle cx="80" cy="220" r="38" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.75"/>
+    <circle cx="280" cy="240" r="42" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.8"/>
+    <circle cx="150" cy="300" r="35" fill="url(#brainGrad)" stroke="#00E5A0" stroke-width="2" opacity="0.7"/>
+    
+    <!-- Connection lines (neural network style) -->
+    <path d="M 130 100 Q 165 80 180 60" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M 230 75 Q 255 88 280 100" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.45"/>
+    <path d="M 270 145 Q 225 163 180 180" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M 130 220 Q 155 200 180 180" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <path d="M 110 246 Q 185 280 150 300" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.45"/>
+    <path d="M 230 270 Q 250 265 280 240" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <path d="M 200 60 Q 190 120 180 180" stroke="#00E5A0" stroke-width="1" fill="none" opacity="0.35" stroke-dasharray="5,3"/>
+    <path d="M 100 120 Q 140 170 180 180" stroke="#00E5A0" stroke-width="1" fill="none" opacity="0.35" stroke-dasharray="5,3"/>
+    
+    <!-- Overload indicators - complexity visualized -->
+    <g opacity="0.4">
+      <circle cx="170" cy="50" r="3" fill="#00E5A0"/>
+      <circle cx="310" cy="80" r="3" fill="#00E5A0"/>
+      <circle cx="50" cy="190" r="3" fill="#00E5A0"/>
+      <circle cx="300" cy="290" r="3" fill="#00E5A0"/>
+      <circle cx="220" cy="320" r="3" fill="#00E5A0"/>
+    </g>
+    
+    <!-- Data flow arrows showing complexity -->
+    <g transform="translate(320, 150)">
+      <path d="M 0 0 L 40 0 L 30 -8 M 40 0 L 30 8" stroke="#00E5A0" stroke-width="2" fill="none" opacity="0.6"/>
+      <path d="M 0 40 L 40 40 L 30 32 M 40 40 L 30 48" stroke="#00E5A0" stroke-width="2" fill="none" opacity="0.5"/>
+      <path d="M 0 80 L 40 80 L 30 72 M 40 80 L 30 88" stroke="#00E5A0" stroke-width="2" fill="none" opacity="0.4"/>
+    </g>
+  </g>
+  
+  <!-- Workload/cognitive metrics -->
+  <g transform="translate(480, 100)">
+    <!-- Circular gauge -->
+    <circle cx="150" cy="150" r="120" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.2"/>
+    <circle cx="150" cy="150" r="100" fill="none" stroke="#00E5A0" stroke-width="8" opacity="0.3" stroke-dasharray="400,628"/>
+    <circle cx="150" cy="150" r="100" fill="none" stroke="#00E5A0" stroke-width="8" opacity="0.7" stroke-dasharray="520,628" transform="rotate(-90 150 150)"/>
+    
+    <!-- Inner circle -->
+    <circle cx="150" cy="150" r="70" fill="none" stroke="#00E5A0" stroke-width="1" opacity="0.4"/>
+    <circle cx="150" cy="150" r="50" fill="url(#brainGrad)" opacity="0.5"/>
+    
+    <!-- Center indicator -->
+    <text x="150" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#00E5A0" text-anchor="middle" filter="url(#glow)">85%</text>
+    <text x="150" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#9ca3af" text-anchor="middle">COGNITIVE</text>
+    <text x="150" y="185" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#9ca3af" text-anchor="middle">LOAD</text>
+    
+    <!-- Warning indicators -->
+    <g transform="translate(280, 80)">
+      <rect x="0" y="0" width="160" height="70" rx="4" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+      <text x="10" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#00E5A0">⚠ WARNING</text>
+      <text x="10" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#9ca3af">Decision fatigue</text>
+      <text x="10" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="400" fill="#9ca3af">threshold approaching</text>
+    </g>
+    
+    <!-- Metrics stack -->
+    <g transform="translate(280, 170)">
+      <!-- Metric 1 -->
+      <text x="0" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">Decision time</text>
+      <rect x="110" y="12" width="100" height="8" rx="2" fill="#00E5A0" opacity="0.3"/>
+      <rect x="110" y="12" width="85" height="8" rx="2" fill="#00E5A0"/>
+      <text x="220" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#00E5A0">23 min</text>
+      
+      <!-- Metric 2 -->
+      <text x="0" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">Config lookups</text>
+      <rect x="110" y="42" width="100" height="8" rx="2" fill="#00E5A0" opacity="0.3"/>
+      <rect x="110" y="42" width="78" height="8" rx="2" fill="#00E5A0"/>
+      <text x="220" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#00E5A0">4.7 /sess</text>
+      
+      <!-- Metric 3 -->
+      <text x="0" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">Context switches</text>
+      <rect x="110" y="72" width="100" height="8" rx="2" fill="#00E5A0" opacity="0.3"/>
+      <rect x="110" y="72" width="60" height="8" rx="2" fill="#00E5A0" opacity="0.8"/>
+      <text x="220" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#00E5A0">high</text>
+    </g>
+  </g>
+  
+  <!-- Right side: Title area -->
+  <text x="650" y="220" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#ffffff">The Cognitive</text>
+  <text x="650" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#ffffff">Load Problem</text>
+  
+  <!-- Subtitle -->
+  <text x="650" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="400" fill="#00E5A0" opacity="0.9">Infrastructure Complexity</text>
+  <text x="650" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="400" fill="#00E5A0" opacity="0.9">at Scale</text>
+  
+  <!-- Decorative line -->
+  <line x1="650" y1="395" x2="900" y2="395" stroke="#00E5A0" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Key points -->
+  <g transform="translate(650, 430)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">Decision fatigue cascades</text>
+    <text x="0" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">Operator confidence gaps</text>
+    <text x="0" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#9ca3af">Unified Operations Interface</text>
+  </g>
+  
+  <!-- Bottom signature -->
+  <line x1="650" y1="515" x2="1050" y2="515" stroke="#00E5A0" stroke-width="1" opacity="0.2"/>
+  <text x="650" y="545" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#00E5A0" opacity="0.8">Dr J — smfworks.com/drj</text>
+  <text x="650" y="570" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400" fill="#6b7280" opacity="0.7">June 8, 2026</text>
+  
+  <!-- Decorative corner elements -->
+  <circle cx="40" cy="80" r="4" fill="#00E5A0" opacity="0.5"/>
+  <circle cx="25" cy="65" r="2" fill="#00E5A0" opacity="0.4"/>
+  <circle cx="55" cy="95" r="2" fill="#00E5A0" opacity="0.3"/>
+  
+  <circle cx="1160" cy="100" r="3" fill="#00E5A0" opacity="0.5"/>
+  <circle cx="1140" cy="120" r="2" fill="#00E5A0" opacity="0.4"/>
+  
+  <circle cx="50" cy="570" r="3" fill="#00E5A0" opacity="0.4"/>
+  <circle cx="70" cy="590" r="2" fill="#00E5A0" opacity="0.3"/>
+</svg>

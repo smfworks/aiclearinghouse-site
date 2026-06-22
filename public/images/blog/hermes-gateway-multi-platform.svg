@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628"/>
+      <stop offset="100%" style="stop-color:#1a2744"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4920b"/>
+      <stop offset="100%" style="stop-color:#f5b731"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f"/>
+      <stop offset="100%" style="stop-color:#2d5a8e"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1024" height="576" fill="url(#bg)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.08">
+    <line x1="0" y1="0" x2="0" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="64" y1="0" x2="64" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="128" y1="0" x2="128" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="192" y1="0" x2="192" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="256" y1="0" x2="256" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="320" y1="0" x2="320" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="384" y1="0" x2="384" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="448" y1="0" x2="448" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="512" y1="0" x2="512" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="576" y1="0" x2="576" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="640" y1="0" x2="640" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="704" y1="0" x2="704" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="768" y1="0" x2="768" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="832" y1="0" x2="832" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="896" y1="0" x2="896" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="960" y1="0" x2="960" y2="576" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="64" x2="1024" y2="64" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="128" x2="1024" y2="128" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="192" x2="1024" y2="192" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="256" x2="1024" y2="256" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="320" x2="1024" y2="320" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="384" x2="1024" y2="384" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="448" x2="1024" y2="448" stroke="#f5b731" stroke-width="0.5"/>
+    <line x1="0" y1="512" x2="1024" y2="512" stroke="#f5b731" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Central hub - Hermes core -->
+  <circle cx="512" cy="288" r="80" fill="url(#navy)" stroke="url(#amber)" stroke-width="3" filter="url(#glow)"/>
+  <text x="512" y="275" text-anchor="middle" fill="#f5b731" font-family="monospace" font-size="14" font-weight="bold">HERMES</text>
+  <text x="512" y="295" text-anchor="middle" fill="#8ab4f8" font-family="monospace" font-size="11">GATEWAY</text>
+  <text x="512" y="312" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">:8642</text>
+  
+  <!-- Connection lines from center to platforms -->
+  <!-- Telegram - top left -->
+  <line x1="440" y1="235" x2="220" y2="130" stroke="#f5b731" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  <!-- Discord - top right -->
+  <line x1="584" y1="235" x2="800" y2="130" stroke="#f5b731" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  <!-- Slack - left -->
+  <line x1="432" y1="288" x2="150" y2="288" stroke="#f5b731" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  <!-- WhatsApp - bottom left -->
+  <line x1="440" y1="341" x2="220" y2="450" stroke="#f5b731" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  <!-- API Server - right -->
+  <line x1="592" y1="288" x2="870" y2="288" stroke="#f5b731" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  <!-- Signal - bottom right -->
+  <line x1="584" y1="341" x2="800" y2="450" stroke="#f5b731" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
+  
+  <!-- Data flow dots on lines -->
+  <circle r="3" fill="#f5b731" filter="url(#glow)">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M440,235 L220,130"/>
+  </circle>
+  <circle r="3" fill="#f5b731" filter="url(#glow)">
+    <animateMotion dur="2.3s" repeatCount="indefinite" path="M584,235 L800,130"/>
+  </circle>
+  <circle r="3" fill="#f5b731" filter="url(#glow)">
+    <animateMotion dur="1.8s" repeatCount="indefinite" path="M432,288 L150,288"/>
+  </circle>
+  <circle r="3" fill="#f5b731" filter="url(#glow)">
+    <animateMotion dur="2.5s" repeatCount="indefinite" path="M592,288 L870,288"/>
+  </circle>
+  
+  <!-- Platform nodes -->
+  <!-- Telegram -->
+  <rect x="160" y="95" width="120" height="70" rx="10" fill="#0a1628" stroke="#2AABEE" stroke-width="2" filter="url(#glow)"/>
+  <text x="220" y="125" text-anchor="middle" fill="#2AABEE" font-family="monospace" font-size="12" font-weight="bold">TELEGRAM</text>
+  <text x="220" y="145" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">Bot API</text>
+  
+  <!-- Discord -->
+  <rect x="740" y="95" width="120" height="70" rx="10" fill="#0a1628" stroke="#5865F2" stroke-width="2" filter="url(#glow)"/>
+  <text x="800" y="125" text-anchor="middle" fill="#5865F2" font-family="monospace" font-size="12" font-weight="bold">DISCORD</text>
+  <text x="800" y="145" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">Gateway</text>
+  
+  <!-- Slack -->
+  <rect x="90" y="253" width="120" height="70" rx="10" fill="#0a1628" stroke="#E01E5A" stroke-width="2" filter="url(#glow)"/>
+  <text x="150" y="283" text-anchor="middle" fill="#E01E5A" font-family="monospace" font-size="12" font-weight="bold">SLACK</text>
+  <text x="150" y="303" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">Events API</text>
+  
+  <!-- API Server -->
+  <rect x="810" y="253" width="120" height="70" rx="10" fill="#0a1628" stroke="#4CAF50" stroke-width="2" filter="url(#glow)"/>
+  <text x="870" y="283" text-anchor="middle" fill="#4CAF50" font-family="monospace" font-size="12" font-weight="bold">API</text>
+  <text x="870" y="303" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">HTTP /v1/chat</text>
+  
+  <!-- WhatsApp -->
+  <rect x="160" y="415" width="120" height="70" rx="10" fill="#0a1628" stroke="#25D366" stroke-width="2" filter="url(#glow)"/>
+  <text x="220" y="445" text-anchor="middle" fill="#25D366" font-family="monospace" font-size="11" font-weight="bold">WHATSAPP</text>
+  <text x="220" y="465" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">Web API</text>
+  
+  <!-- Signal -->
+  <rect x="740" y="415" width="120" height="70" rx="10" fill="#0a1628" stroke="#3A76F0" stroke-width="2" filter="url(#glow)"/>
+  <text x="800" y="445" text-anchor="middle" fill="#3A76F0" font-family="monospace" font-size="12" font-weight="bold">SIGNAL</text>
+  <text x="800" y="465" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="9">cli</text>
+  
+  <!-- Tool access indicators -->
+  <g transform="translate(440, 400)">
+    <rect x="0" y="0" width="144" height="100" rx="8" fill="#0a1628" stroke="#1e3a5f" stroke-width="1.5" opacity="0.9"/>
+    <text x="72" y="20" text-anchor="middle" fill="#f5b731" font-family="monospace" font-size="9" font-weight="bold">TOOLS</text>
+    <text x="72" y="38" text-anchor="middle" fill="#8ab4f8" font-family="monospace" font-size="8">terminal</text>
+    <text x="72" y="52" text-anchor="middle" fill="#8ab4f8" font-family="monospace" font-size="8">file I/O</text>
+    <text x="72" y="66" text-anchor="middle" fill="#8ab4f8" font-family="monospace" font-size="8">web search</text>
+    <text x="72" y="80" text-anchor="middle" fill="#8ab4f8" font-family="monospace" font-size="8">code exec</text>
+    <text x="72" y="94" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="7">+15 more</text>
+  </g>
+  
+  <!-- Title overlay -->
+  <text x="512" y="545" text-anchor="middle" fill="#f5b731" font-family="monospace" font-size="20" font-weight="bold" filter="url(#softglow)">ONE AGENT · EVERY PLATFORM</text>
+  <text x="512" y="565" text-anchor="middle" fill="#6b8299" font-family="monospace" font-size="10">Hermes AI Gateway Multi-Platform Architecture</text>
+</svg>

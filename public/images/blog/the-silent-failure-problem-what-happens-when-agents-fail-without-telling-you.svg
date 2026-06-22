@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Silent Failure Icon: waveform dropping to zero + muted alert -->
+  <g transform="translate(220, 315)" filter="url(#glow)">
+    <!-- Monitor / dashboard frame -->
+    <rect x="-90" y="-70" width="180" height="130" rx="8" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+    <rect x="-85" y="-65" width="170" height="100" rx="4" fill="none" stroke="#00E5A0" stroke-width="1" opacity="0.25"/>
+    
+    <!-- Stand -->
+    <path d="M -20,60 L -20,80 L 20,80 L 20,60" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <line x1="-40" y1="80" x2="40" y2="80" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+
+    <!-- Waveform: alive then flatlining -->
+    <polyline points="-75,-20 -60,-30 -45,-10 -30,-35 -15,-15 0,-40 15,-20 30,-45 45,-25 60,-50 75,-50" fill="none" stroke="#00E5A0" stroke-width="2.5" opacity="0.9"/>
+    <line x1="75" y1="-50" x2="85" y2="-50" stroke="#00E5A0" stroke-width="2.5" opacity="0.4"/>
+
+    <!-- Silent alert dot (muted) -->
+    <circle cx="65" cy="-50" r="5" fill="#00E5A0" opacity="0.15"/>
+    <circle cx="65" cy="-50" r="2.5" fill="#00E5A0" opacity="0.6"/>
+
+    <!-- Crossed-out speaker / silence symbol -->
+    <g transform="translate(55, 45)" opacity="0.7">
+      <path d="M -8,-6 L 0,0 L -8,6" fill="none" stroke="#00E5A0" stroke-width="1.8"/>
+      <path d="M 0,-6 L 8,0 L 0,6" fill="none" stroke="#00E5A0" stroke-width="1.8"/>
+      <line x1="-12" y1="-10" x2="12" y2="10" stroke="#00E5A0" stroke-width="1.5" opacity="0.8"/>
+    </g>
+
+    <!-- Ghosted metric bars -->
+    <rect x="-78" y="55" width="8" height="0" fill="url(#barGrad)" opacity="0.3"/>
+    <rect x="-64" y="55" width="8" height="0" fill="url(#barGrad)" opacity="0.3"/>
+    <rect x="-50" y="55" width="8" height="0" fill="url(#barGrad)" opacity="0.3"/>
+    <rect x="-36" y="55" width="8" height="0" fill="url(#barGrad)" opacity="0.3"/>
+    <rect x="-22" y="55" width="8" height="0" fill="url(#barGrad)" opacity="0.3"/>
+  </g>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#00E5A0" opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#00E5A0" opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="250" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="38" font-weight="bold" letter-spacing="-0.5">
+    The Silent Failure Problem
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="298" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="400" letter-spacing="2">
+    WHEN AGENTS FAIL WITHOUT TELLING YOU
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="320" x2="790" y2="320" stroke="#00E5A0" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="355" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">
+    Detection, telemetry, and recovery in OpenClaw and Hermes infrastructure
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>

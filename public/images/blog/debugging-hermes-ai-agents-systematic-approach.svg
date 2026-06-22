@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0D1117"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1A202C" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A1F2E"/>
+      <stop offset="100%" style="stop-color:#0D1117"/>
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B00"/>
+      <stop offset="100%" style="stop-color:#FF8C42"/>
+    </linearGradient>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B00" stop-opacity="0.6"/>
+      <stop offset="100%" style="stop-color:#FF6B00" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+  <g opacity="0.15">
+    <rect x="80" y="120" width="280" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="80" y="145" width="180" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="80" y="170" width="220" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="80" y="195" width="160" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="80" y="220" width="240" height="12" rx="2" fill="#3A4A5A"/>
+  </g>
+  <g opacity="0.1">
+    <rect x="840" y="350" width="280" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="840" y="375" width="200" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="840" y="400" width="260" height="12" rx="2" fill="#3A4A5A"/>
+    <rect x="840" y="425" width="180" height="12" rx="2" fill="#3A4A5A"/>
+  </g>
+  <circle cx="600" cy="315" r="200" fill="url(#glowGradient)" filter="url(#glow)"/>
+  <g transform="translate(480, 200)" filter="url(#glow)">
+    <circle cx="80" cy="80" r="60" fill="none" stroke="#FF6B00" stroke-width="8"/>
+    <line x1="125" y1="125" x2="175" y2="175" stroke="#FF6B00" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(520, 240)" opacity="0.9">
+    <ellipse cx="40" cy="30" rx="20" ry="25" fill="none" stroke="#0D1117" stroke-width="3"/>
+    <path d="M 20 55 Q 40 75 60 55" fill="none" stroke="#0D1117" stroke-width="3"/>
+    <line x1="20" y1="30" x2="5" y2="20" stroke="#0D1117" stroke-width="2"/>
+    <line x1="60" y1="30" x2="75" y2="20" stroke="#0D1117" stroke-width="2"/>
+    <line x1="20" y1="35" x2="5" y2="40" stroke="#0D1117" stroke-width="2"/>
+    <line x1="60" y1="35" x2="75" y2="40" stroke="#0D1117" stroke-width="2"/>
+  </g>
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accentGradient)"/>
+  <text x="600" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#FFFFFF" text-anchor="middle" filter="url(#textGlow)">Debugging Hermes AI</text>
+  <text x="600" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="400" fill="#FF6B00" text-anchor="middle">When Agents Go Wrong</text>
+  <text x="600" y="530" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#8B949E" text-anchor="middle">Systematic approaches to diagnosing and fixing autonomous agent failures</text>
+  <rect x="500" y="555" width="200" height="3" rx="1.5" fill="#FF6B00"/>
+  <rect x="540" y="575" width="120" height="28" rx="14" fill="#FF6B00" opacity="0.2"/>
+  <text x="600" y="594" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#FF6B00" text-anchor="middle">LIAM'S LANDING</text>
+</svg>

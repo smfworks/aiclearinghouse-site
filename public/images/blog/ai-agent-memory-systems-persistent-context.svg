@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#12203a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1a30;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="amber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4920a;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#f0b429;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d4920a;stop-opacity:0.9" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0b429;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#0a1628;stop-opacity:0" />
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+    </filter>
+    <filter id="glow-filter">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="576" fill="url(#bg)" />
+
+  <!-- Grid pattern -->
+  <g opacity="0.06" stroke="#4a90d9" stroke-width="0.5">
+    <line x1="0" y1="0" x2="1024" y2="0" />
+    <line x1="0" y1="40" x2="1024" y2="40" />
+    <line x1="0" y1="80" x2="1024" y2="80" />
+    <line x1="0" y1="120" x2="1024" y2="120" />
+    <line x1="0" y1="160" x2="1024" y2="160" />
+    <line x1="0" y1="200" x2="1024" y2="200" />
+    <line x1="0" y1="240" x2="1024" y2="240" />
+    <line x1="0" y1="280" x2="1024" y2="280" />
+    <line x1="0" y1="320" x2="1024" y2="320" />
+    <line x1="0" y1="360" x2="1024" y2="360" />
+    <line x1="0" y1="400" x2="1024" y2="400" />
+    <line x1="0" y1="440" x2="1024" y2="440" />
+    <line x1="0" y1="480" x2="1024" y2="480" />
+    <line x1="0" y1="520" x2="1024" y2="520" />
+    <line x1="0" y1="560" x2="1024" y2="560" />
+    <line x1="0" y1="0" x2="0" y2="576" />
+    <line x1="80" y1="0" x2="80" y2="576" />
+    <line x1="160" y1="0" x2="160" y2="576" />
+    <line x1="240" y1="0" x2="240" y2="576" />
+    <line x1="320" y1="0" x2="320" y2="576" />
+    <line x1="400" y1="0" x2="400" y2="576" />
+    <line x1="480" y1="0" x2="480" y2="576" />
+    <line x1="560" y1="0" x2="560" y2="576" />
+    <line x1="640" y1="0" x2="640" y2="576" />
+    <line x1="720" y1="0" x2="720" y2="576" />
+    <line x1="800" y1="0" x2="800" y2="576" />
+    <line x1="880" y1="0" x2="880" y2="576" />
+    <line x1="960" y1="0" x2="960" y2="576" />
+  </g>
+
+  <!-- Ambient glow spots -->
+  <ellipse cx="200" cy="300" rx="180" ry="200" fill="#1a3a6a" opacity="0.15" filter="url(#blur2)" />
+  <ellipse cx="800" cy="250" rx="200" ry="180" fill="#3a2a10" opacity="0.2" filter="url(#blur2)" />
+
+  <!-- Memory layer visualization - three stacked layers -->
+  <!-- Layer 3 (Semantic - back) -->
+  <g transform="translate(512, 190)">
+    <rect x="-180" y="-15" width="360" height="80" rx="6" fill="none" stroke="#4a90d9" stroke-width="1" opacity="0.4" />
+    <rect x="-180" y="-15" width="360" height="80" rx="6" fill="#122a4a" opacity="0.3" />
+    <text x="0" y="15" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#4a90d9" opacity="0.7">semantic_search("deployment prefs")</text>
+    <text x="0" y="38" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7ab0e8" opacity="0.5">→ Honcho · Mem0 · Hindsight</text>
+    <!-- Dotted connection lines down -->
+    <line x1="-90" y1="65" x2="-90" y2="95" stroke="#4a90d9" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" />
+    <line x1="90" y1="65" x2="90" y2="95" stroke="#4a90d9" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" />
+  </g>
+
+  <!-- Layer 2 (Session - middle) -->
+  <g transform="translate(512, 300)">
+    <rect x="-200" y="-20" width="400" height="90" rx="6" fill="none" stroke="url(#amber)" stroke-width="1.5" opacity="0.8" />
+    <rect x="-200" y="-20" width="400" height="90" rx="6" fill="#1a2030" opacity="0.6" />
+    <text x="0" y="8" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#f0b429" opacity="0.9">MEMORY.md</text>
+    <text x="-160" y="32" font-family="JetBrains Mono, monospace" font-size="9" fill="#d4920a" opacity="0.6">---</text>
+    <text x="-160" y="45" font-family="JetBrains Mono, monospace" font-size="9" fill="#d4920a" opacity="0.6">category: preference</text>
+    <text x="-160" y="58" font-family="JetBrains Mono, monospace" font-size="9" fill="#d4920a" opacity="0.6">confidence: high</text>
+    <text x="40" y="32" font-family="JetBrains Mono, monospace" font-size="9" fill="#d4920a" opacity="0.6">---</text>
+    <text x="40" y="45" font-family="JetBrains Mono, monospace" font-size="9" fill="#f0b429" opacity="0.7">Linter: Ruff (replaced</text>
+    <text x="40" y="58" font-family="JetBrains Mono, monospace" font-size="9" fill="#f0b429" opacity="0.7">flake8 on 2026-05-20)</text>
+  </g>
+
+  <!-- Connection lines between layers -->
+  <line x1="430" y1="270" x2="430" y2="280" stroke="#d4920a" stroke-width="1" opacity="0.4" />
+  <line x1="594" y1="270" x2="594" y2="280" stroke="#d4920a" stroke-width="1" opacity="0.4" />
+
+  <!-- Layer 1 (Working - front/bottom) -->
+  <g transform="translate(512, 420)">
+    <rect x="-160" y="-15" width="320" height="70" rx="6" fill="none" stroke="#50e898" stroke-width="1.5" opacity="0.6" />
+    <rect x="-160" y="-15" width="320" height="70" rx="6" fill="#0a2a1a" opacity="0.4" />
+    <text x="0" y="12" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#50e898" opacity="0.8">context_window [active session]</text>
+    <text x="0" y="32" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3ac07a" opacity="0.5">128K tokens · compressing at 60%</text>
+    <!-- Progress bar -->
+    <rect x="-80" y="40" width="160" height="4" rx="2" fill="#0a2a1a" opacity="0.6" />
+    <rect x="-80" y="40" width="96" height="4" rx="2" fill="#50e898" opacity="0.6" />
+  </g>
+
+  <!-- Data flow arrows -->
+  <g opacity="0.5">
+    <!-- Semantic → Session -->
+    <path d="M 380 255 L 380 265" stroke="#4a90d9" stroke-width="1.5" opacity="0.5" />
+    <polygon points="376,265 380,275 384,265" fill="#4a90d9" opacity="0.5" />
+    <!-- Session → Working -->
+    <path d="M 420 370 L 420 390" stroke="#f0b429" stroke-width="1.5" opacity="0.5" />
+    <polygon points="416,390 420,400 424,390" fill="#f0b429" opacity="0.5" />
+  </g>
+
+  <!-- Agent profile cards on left side -->
+  <g transform="translate(75, 120)">
+    <!-- Card: liam -->
+    <rect x="0" y="0" width="130" height="40" rx="4" fill="#1a2535" stroke="#f0b429" stroke-width="1" opacity="0.7" />
+    <circle cx="20" cy="20" r="8" fill="#f0b429" opacity="0.6" />
+    <text x="45" y="16" font-family="JetBrains Mono, monospace" font-size="9" fill="#f0b429" opacity="0.8">liam</text>
+    <text x="45" y="30" font-family="JetBrains Mono, monospace" font-size="8" fill="#8a8a8a" opacity="0.6">CDO · MEMORY.md</text>
+    
+    <!-- Card: forge -->
+    <rect x="0" y="48" width="130" height="40" rx="4" fill="#1a2535" stroke="#4a90d9" stroke-width="1" opacity="0.5" />
+    <circle cx="20" cy="68" r="8" fill="#4a90d9" opacity="0.5" />
+    <text x="45" y="64" font-family="JetBrains Mono, monospace" font-size="9" fill="#4a90d9" opacity="0.7">forge</text>
+    <text x="45" y="78" font-family="JetBrains Mono, monospace" font-size="8" fill="#8a8a8a" opacity="0.5">build · MEMORY.md</text>
+
+    <!-- Card: scout -->
+    <rect x="0" y="96" width="130" height="40" rx="4" fill="#1a2535" stroke="#50e898" stroke-width="1" opacity="0.5" />
+    <circle cx="20" cy="116" r="8" fill="#50e898" opacity="0.5" />
+    <text x="45" y="112" font-family="JetBrains Mono, monospace" font-size="9" fill="#50e898" opacity="0.7">scout</text>
+    <text x="45" y="126" font-family="JetBrains Mono, monospace" font-size="8" fill="#8a8a8a" opacity="0.5">research · MEMORY.md</text>
+  </g>
+
+  <!-- Shared vault visualization on right -->
+  <g transform="translate(800, 140)">
+    <rect x="0" y="0" width="150" height="100" rx="4" fill="#1a2030" stroke="#8a6a3a" stroke-width="1" opacity="0.6" />
+    <text x="75" y="24" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#d4920a" opacity="0.7">project-vault/</text>
+    <line x1="10" y1="34" x2="140" y2="34" stroke="#3a3020" stroke-width="0.5" opacity="0.5" />
+    <text x="15" y="50" font-family="JetBrains Mono, monospace" font-size="8" fill="#e8a830" opacity="0.5">MEMORY.md</text>
+    <text x="15" y="64" font-family="JetBrains Mono, monospace" font-size="8" fill="#e8a830" opacity="0.5">tasks/T001.md</text>
+    <text x="15" y="78" font-family="JetBrains Mono, monospace" font-size="8" fill="#e8a830" opacity="0.5">reports/R001.md</text>
+    <text x="15" y="92" font-family="JetBrains Mono, monospace" font-size="8" fill="#6a6a6a" opacity="0.4">2 agents → shared</text>
+  </g>
+
+  <!-- Connection lines: profiles to layers -->
+  <path d="M 205 140 Q 280 140 320 190" stroke="#f0b429" stroke-width="0.8" stroke-dasharray="4,4" fill="none" opacity="0.3" />
+  <path d="M 205 188 Q 280 220 320 280" stroke="#4a90d9" stroke-width="0.8" stroke-dasharray="4,4" fill="none" opacity="0.3" />
+  <path d="M 800 240 Q 720 280 712 300" stroke="#d4920a" stroke-width="0.8" stroke-dasharray="4,4" fill="none" opacity="0.3" />
+
+  <!-- Title area at bottom -->
+  <text x="512" y="540" text-anchor="middle" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="700" fill="#f0b429" opacity="0.9" letter-spacing="1">AGENT MEMORY SYSTEMS</text>
+  <text x="512" y="564" text-anchor="middle" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#8aa8d8" opacity="0.6" letter-spacing="3">FROM AMNESIAC TO PERSISTENT</text>
+
+  <!-- Decorative corner accents -->
+  <path d="M 20 20 L 60 20 L 60 24 L 24 24 L 24 60 L 20 60 Z" fill="#f0b429" opacity="0.2" />
+  <path d="M 1004 556 L 964 556 L 964 552 L 1000 552 L 1000 516 L 1004 516 Z" fill="#f0b429" opacity="0.2" />
+
+  <!-- Scanline effect -->
+  <rect x="0" y="0" width="1024" height="576" fill="none" stroke="#0a1628" stroke-width="0">
+    <animate attributeName="opacity" values="0;0;0" dur="1s" repeatCount="indefinite" />
+  </rect>
+</svg>

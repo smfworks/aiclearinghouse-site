@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="190" fill="url(#pulse)"/>
+
+  <!-- Icon: parent agent delegating to subagent with verification contract -->
+  <g transform="translate(220, 315)" filter="url(#glow)">
+    <!-- Parent agent node (top) -->
+    <g stroke="#00E5A0" stroke-width="3" fill="none">
+      <rect x="-55" y="-100" width="110" height="55" rx="8"/>
+    </g>
+    <rect x="-55" y="-100" width="110" height="55" rx="8" fill="#00E5A0" opacity="0.12"/>
+    <text x="0" y="-65" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">PARENT</text>
+
+    <!-- Delegation arrow down to subagent -->
+    <g opacity="0.7">
+      <path d="M 0,-40 L 0,-10" stroke="#00E5A0" stroke-width="2.5" fill="none"/>
+      <polygon points="0,-5 -5,-15 5,-15" fill="#00E5A0"/>
+    </g>
+
+    <!-- Contract document (middle) — the trust contract -->
+    <g transform="translate(0, 20)">
+      <rect x="-45" y="-12" width="90" height="40" rx="4" stroke="#00E5A0" stroke-width="2" fill="#0A0F1F" opacity="0.9"/>
+      <line x1="-35" y1="-2" x2="35" y2="-2" stroke="#00E5A0" stroke-width="1.2" opacity="0.7"/>
+      <line x1="-35" y1="7" x2="25" y2="7" stroke="#00E5A0" stroke-width="1.2" opacity="0.7"/>
+      <line x1="-35" y1="16" x2="30" y2="16" stroke="#00E5A0" stroke-width="1.2" opacity="0.7"/>
+      <!-- Checkmark on contract -->
+      <path d="M 33,3 L 37,7 L 42,0" stroke="#00E5A0" stroke-width="2" fill="none"/>
+    </g>
+
+    <!-- Verification arrow back up -->
+    <g opacity="0.7">
+      <path d="M 25,20 L 25,-35" stroke="#00E5A0" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+      <polygon points="25,-40 20,-30 30,-30" fill="#00E5A0" opacity="0.6"/>
+    </g>
+
+    <!-- Subagent node (bottom) -->
+    <g stroke="#00E5A0" stroke-width="3" fill="none">
+      <rect x="-55" y="65" width="110" height="55" rx="8"/>
+    </g>
+    <rect x="-55" y="65" width="110" height="55" rx="8" fill="#00E5A0" opacity="0.12"/>
+    <text x="0" y="100" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">CHILD</text>
+
+    <!-- Status indicator dots -->
+    <circle cx="-35" cy="125" r="4" fill="#00E5A0" opacity="0.9"/>
+    <circle cx="-20" cy="125" r="4" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="-5" cy="125" r="4" fill="#00E5A0" opacity="0.3"/>
+
+    <!-- Orbiting verification nodes -->
+    <circle cx="80" cy="-20" r="5" fill="#00E5A0" opacity="0.8"/>
+    <circle cx="-80" cy="40" r="4" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="65" cy="50" r="4" fill="#00E5A0" opacity="0.5"/>
+  </g>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#00E5A0" opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#00E5A0" opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="252" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" letter-spacing="-0.5">
+    The Trust Contract
+  </text>
+  <text x="440" y="300" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" letter-spacing="-0.5">
+    for Delegation
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="348" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">
+    SUBAGENT VERIFICATION PROTOCOL
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="370" x2="820" y2="370" stroke="#00E5A0" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="405" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">
+    Turning delegation from trust into testable assertions.
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>

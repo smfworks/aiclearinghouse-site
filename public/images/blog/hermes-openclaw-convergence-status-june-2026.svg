@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse behind icon cluster -->
+  <circle cx="200" cy="315" r="200" fill="url(#pulse)"/>
+
+  <!-- Central convergence icon: two runtime nodes merging toward a unified center -->
+  <g transform="translate(200, 315)" filter="url(#glow)">
+
+    <!-- Hermes node (left, with H) -->
+    <g stroke="#00E5A0" stroke-width="2.5" fill="none" opacity="0.85">
+      <circle cx="-65" cy="0" r="46"/>
+      <!-- gear teeth -->
+      <rect x="-72" y="-60" width="13" height="17" rx="3"/>
+      <rect x="-72" y="43" width="13" height="17" rx="3"/>
+      <rect x="-40" y="-88" width="17" height="13" rx="3" transform="rotate(60 -31.5 -81.5)"/>
+      <rect x="-126" y="-40" width="17" height="13" rx="3" transform="rotate(-60 -117.5 -33.5)"/>
+      <rect x="-126" y="27" width="17" height="13" rx="3" transform="rotate(60 -117.5 33.5)"/>
+      <rect x="-40" y="75" width="17" height="13" rx="3" transform="rotate(-60 -31.5 81.5)"/>
+    </g>
+    <circle cx="-65" cy="0" r="20" fill="#00E5A0" opacity="0.2"/>
+    <text x="-65" y="7" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" text-anchor="middle">H</text>
+
+    <!-- OpenClaw node (right, with OC) -->
+    <g stroke="#00E5A0" stroke-width="2.5" fill="none" opacity="0.85">
+      <circle cx="65" cy="0" r="46"/>
+      <!-- gear teeth -->
+      <rect x="58" y="-60" width="13" height="17" rx="3"/>
+      <rect x="58" y="43" width="13" height="17" rx="3"/>
+      <rect x="90" y="-88" width="17" height="13" rx="3" transform="rotate(-60 98.5 -81.5)"/>
+      <rect x="4" y="-40" width="17" height="13" rx="3" transform="rotate(60 12.5 -33.5)"/>
+      <rect x="4" y="27" width="17" height="13" rx="3" transform="rotate(-60 12.5 33.5)"/>
+      <rect x="90" y="75" width="17" height="13" rx="3" transform="rotate(60 98.5 81.5)"/>
+    </g>
+    <circle cx="65" cy="0" r="20" fill="#00E5A0" opacity="0.2"/>
+    <text x="65" y="7" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">OC</text>
+
+    <!-- Convergence arrow / bridge in center -->
+    <g opacity="0.7">
+      <line x1="-20" y1="0" x2="20" y2="0" stroke="#00E5A0" stroke-width="2.5"/>
+      <polygon points="20,0 10,-6 10,6" fill="#00E5A0"/>
+      <!-- checkmarks on each side indicating convergence -->
+      <path d="M -55,-3 L -52,0 L -47,5" stroke="#00E5A0" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 47,-3 L 50,0 L 55,5" stroke="#00E5A0" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- Orbiting status indicators -->
+    <circle cx="-105" cy="-55" r="5" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="105" cy="-55" r="5" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="-105" cy="55" r="5" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="105" cy="55" r="5" fill="#00E5A0" opacity="0.5"/>
+    <!-- center node indicating unified state -->
+    <circle cx="0" cy="0" r="7" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="0" cy="0" r="3" fill="#ffffff" opacity="0.8"/>
+  </g>
+
+  <!-- Right side: circuit traces -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 840,70 L 980,70 L 980,170 L 1140,170"/>
+    <circle cx="1140" cy="170" r="4" fill="#00E5A0" opacity="0.4"/>
+    <path d="M 810,90 L 950,90"/>
+    <path d="M 860,490 L 960,490 L 960,570 L 1100,570"/>
+    <circle cx="1100" cy="570" r="4" fill="#00E5A0" opacity="0.4"/>
+    <path d="M 820,530 L 920,530"/>
+  </g>
+
+  <!-- Title block -->
+  <text x="440" y="245" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" letter-spacing="-0.5">
+    Convergence Status
+  </text>
+  <text x="440" y="295" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" letter-spacing="-0.5">
+    June 2026
+  </text>
+
+  <!-- Accent divider -->
+  <line x1="440" y1="318" x2="860" y2="318" stroke="#00E5A0" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Subtitle -->
+  <text x="440" y="352" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="19" font-weight="400" letter-spacing="2">
+    HERMES &amp; OPENCLAW — THREE-WEEK FOLLOW-UP
+  </text>
+
+  <!-- Status grade badge -->
+  <g transform="translate(440, 395)">
+    <rect x="0" y="0" width="90" height="28" rx="14" fill="#00E5A0" opacity="0.15" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="45" y="19" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" letter-spacing="1">B−</text>
+  </g>
+
+  <!-- Summary tags -->
+  <text x="548" y="408" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="14">
+    3 fixes landed · 3 gaps remain · 1 convergence path
+  </text>
+
+  <!-- Bottom accent -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
