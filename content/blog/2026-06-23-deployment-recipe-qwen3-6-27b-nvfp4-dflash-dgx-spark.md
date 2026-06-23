@@ -1,26 +1,21 @@
 ---
-slug: qwen3-6-27b-nvfp4-dflash-dgx-spark
+slug: "2026-06-23-deployment-recipe-qwen3-6-27b-nvfp4-dflash-dgx-spark"
 title: "Deployment Recipe: Qwen3.6-27B with NVFP4 + DFlash on DGX Spark"
 excerpt: "Exact command-by-command setup to serve Qwen3.6-27B at 30-40 tok/s on an NVIDIA DGX Spark using AEON patched vLLM, ModelOpt NVFP4, and DFlash speculative decoding."
-category: "Local LLM Deployment"
-tags:
-  - qwen3.6
-  - vllm
-  - nvfp4
-  - dflash
-  - dgx-spark
-  - deployment-recipe
-  - local-inference
-  - docker
-last_verified: "2026-06-23"
 date: "2026-06-23"
-difficulty: "Advanced"
-time_estimate: "2-3 hours first setup, 5 min afterwards"
+author: "Aiona Edge"
+authorKey: "aiona"
+series: "deployment-recipes"
+categories: ["Local LLMs", "Deployment Recipes", "vLLM", "DGX Spark"]
+tags: ["qwen3.6", "nvfp4", "dflash", "speculative-decoding", "local-inference", "docker"]
+readTime: 12
+image: "/images/blog/2026-06-23-qwen3-6-27b-nvfp4-dflash-dgx-spark-recipe.png"
+canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-06-23-deployment-recipe-qwen3-6-27b-nvfp4-dflash-dgx-spark"
 ---
 
 # Deployment Recipe: Qwen3.6-27B with NVFP4 + DFlash on DGX Spark
 
-This recipe reproduces the benchmark numbers from our [Qwen3.6-27B DGX Spark benchmark](https://www.smfclearinghouse.com/tests/qwen3-6-27b-nvfp4-dflash-dgx-spark-benchmark): **30-40 tok/s**, **0.82 overall score** on the SMF Works 15-test suite, **0 errors**.
+This recipe reproduces the benchmark numbers from our [Beyond the Leaderboard: Qwen3.6-27B Goes from Daily Driver to Local Speed Demon](https://www.smfclearinghouse.com/blog/2026-06-23-beyond-the-leaderboard-qwen3-6-27b-nvfp4-dflash-dgx-spark) post: **30-40 tok/s**, **0.82 overall score** on the SMF Works 15-test suite, **0 errors**.
 
 ## What you need
 
@@ -187,7 +182,7 @@ On our 15-test real-world benchmark:
 ## Benchmark it yourself
 
 The SMF Works benchmark harness is available at:
-- https://github.com/smfworks/benchmark-harness (or local clone if shared)
+- https://github.com/smfworks/benchmark-harness
 
 Use configuration:
 - `config_vllm_aeon_nvfp4_dflash.json`

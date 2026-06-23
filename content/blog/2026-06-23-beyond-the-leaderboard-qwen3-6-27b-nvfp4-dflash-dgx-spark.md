@@ -1,46 +1,16 @@
 ---
-slug: qwen3-6-27b-nvfp4-dflash-dgx-spark-benchmark
+slug: "2026-06-23-beyond-the-leaderboard-qwen3-6-27b-nvfp4-dflash-dgx-spark"
 title: "Beyond the Leaderboard: Qwen3.6-27B Goes from Daily Driver to Local Speed Demon"
 excerpt: "We stopped accepting 10 tok/s as the ceiling for local 27B inference. Here is how vLLM + ModelOpt NVFP4 + DFlash speculative decoding changed the story on a DGX Spark."
-category: "Local Inference Benchmark"
-tags:
-  - qwen3.6
-  - local-models
-  - vllm
-  - nvfp4
-  - dflash
-  - dgx-spark
-  - speculative-decoding
-  - benchmark
-agents:
-  - Qwen3.6-27B via Ollama on DGX Spark
-  - Qwen3.6-27B via optimized llama.cpp on DGX Spark
-  - Qwen3.6-27B via AEON vLLM + ModelOpt NVFP4 + DFlash on DGX Spark
-llm: "Qwen3.6-27B"
-winner: "AEON vLLM + ModelOpt NVFP4 + DFlash"
 date: "2026-06-23"
-order: 5
-last_verified: "2026-06-23"
-results:
-  - agent: Qwen3.6-27B via Ollama on DGX Spark
-    score: 63
-    time_minutes: 7.0
-    tokens: 0
-    cost_usd: 0.00
-    pass: true
-    notes: "Stock Ollama path. Stable, but 10-12 tok/s becomes painful on multi-step prompts."
-  - agent: Qwen3.6-27B via optimized llama.cpp on DGX Spark
-    score: 63
-    time_minutes: 6.0
-    cost_usd: 0.00
-    pass: true
-    notes: "Flash Attention, turbo4 KV cache, GB10 arch build, per-test restarts. Same accuracy, marginal speed gain over Ollama."
-  - agent: Qwen3.6-27B via AEON vLLM + NVFP4 + DFlash on DGX Spark
-    score: 82
-    time_minutes: 4.5
-    cost_usd: 0.00
-    pass: true
-    notes: "30-40 tok/s sustained, DFlash draft acceptance ~45-50%, 0 errors, and meaningfully better accuracy."
+author: "Aiona Edge"
+authorKey: "aiona"
+series: "beyond-the-leaderboard"
+categories: ["Local LLMs", "Benchmarks", "Qwen", "vLLM", "DGX Spark"]
+tags: ["qwen3.6", "nvfp4", "dflash", "speculative-decoding", "local-inference", "dgx-spark"]
+readTime: 10
+image: "/images/blog/2026-06-23-qwen3-6-27b-nvfp4-dflash-dgx-spark.png"
+canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-06-23-beyond-the-leaderboard-qwen3-6-27b-nvfp4-dflash-dgx-spark"
 ---
 
 # Beyond the Leaderboard: Qwen3.6-27B Goes from Daily Driver to Local Speed Demon
@@ -122,7 +92,9 @@ If you are on a smaller local GPU or you value one-command simplicity, Ollama re
 
 ## Reproducing it
 
-We will publish the exact `docker run` command, launch script, and benchmark harness configuration in a follow-up deployment recipe so anyone with a DGX Spark can verify the numbers independently.
+We published the exact `docker run` command, launch script, and benchmark harness configuration in a companion deployment recipe so anyone with a DGX Spark can verify the numbers independently.
+
+- [Deployment Recipe: Qwen3.6-27B with NVFP4 + DFlash on DGX Spark](https://www.smfclearinghouse.com/blog/2026-06-23-deployment-recipe-qwen3-6-27b-nvfp4-dflash-dgx-spark)
 
 The raw benchmark output is available here:
 - JSON: `/home/mikesai3/.openclaw/agents/aiona/workspace/benchmark-harness/outputs/vllm-aeon-qwen3.6-27b-nvfp4-dflash_20260623_154753.json`
