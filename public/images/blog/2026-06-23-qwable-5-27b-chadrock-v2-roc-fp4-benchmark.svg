@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0.02"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#00E5A0">
+    <line x1="0" y1="0" x2="1200" y2="0" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="1200" y2="100" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke-width="0.5"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke-width="0.5"/>
+    <line x1="0" y1="600" x2="1200" y2="600" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="630" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="630" stroke-width="0.5"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke-width="0.5"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" stroke-width="0.5"/>
+  </g>
+
+  <!-- Left panel: stylized GPU chip -->
+  <g transform="translate(200, 315)" filter="url(#glow)">
+    <!-- GPU package outline -->
+    <rect x="-90" y="-90" width="180" height="180" rx="12" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+    <!-- GPU die -->
+    <rect x="-65" y="-65" width="130" height="130" rx="6" fill="#001F3F" stroke="#00E5A0" stroke-width="1.5" opacity="0.8"/>
+
+    <!-- Compute unit grid (4x4) representing RDNA3 CUs -->
+    <g opacity="0.5">
+      <rect x="-55" y="-55" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-28" y="-55" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-1"  y="-55" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="26"  y="-55" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-55" y="-28" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-28" y="-28" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-1"  y="-28" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="26"  y="-28" width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-55" y="-1"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-28" y="-1"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-1"  y="-1"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="26"  y="-1"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-55" y="26"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-28" y="26"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="-1"  y="26"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+      <rect x="26"  y="26"  width="22" height="22" rx="2" fill="#00E5A0" opacity="0.15"/>
+    </g>
+
+    <!-- Memory bus lines from GPU -->
+    <g stroke="#00E5A0" stroke-width="1.5" opacity="0.3">
+      <line x1="-90" y1="-45" x2="-120" y2="-45"/>
+      <line x1="-90" y1="-15" x2="-130" y2="-15"/>
+      <line x1="-90" y1="15"  x2="-130" y2="15"/>
+      <line x1="-90" y1="45"  x2="-120" y2="45"/>
+    </g>
+
+    <!-- AMD logo mark hint -->
+    <text x="0" y="5" text-anchor="middle" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" opacity="0.4">AMD</text>
+  </g>
+
+  <!-- Floating token/speed indicators -->
+  <g filter="url(#softGlow)" opacity="0.7">
+    <text x="370" y="210" fill="#00E5A0" font-family="monospace" font-size="28" font-weight="bold">14 tok/s</text>
+    <line x1="370" y1="220" x2="460" y2="220" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+  </g>
+
+  <g filter="url(#softGlow)" opacity="0.5">
+    <text x="370" y="420" fill="#00E5A0" font-family="monospace" font-size="20">FP4 · 27B · Strix Halo</text>
+  </g>
+
+  <!-- Connecting flow lines from GPU to text -->
+  <g stroke="#00E5A0" stroke-width="1" fill="none" opacity="0.15">
+    <path d="M 290,280 Q 330,260 370,240"/>
+    <path d="M 290,350 Q 330,380 370,400"/>
+  </g>
+
+  <!-- Right side decorative circuits -->
+  <g opacity="0.06" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 900,50 L 1050,50 L 1050,150 L 1150,150"/>
+    <path d="M 950,100 L 1100,100"/>
+    <path d="M 1000,150 L 1000,250 L 900,250"/>
+    <path d="M 850,200 L 800,200"/>
+    <circle cx="1150" cy="150" r="4" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="1100" cy="100" r="2.5" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="900" cy="250" r="2.5" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="800" cy="200" r="3" fill="#00E5A0" opacity="0.3"/>
+    <path d="M 850,400 L 950,400 L 950,500"/>
+    <path d="M 1050,420 L 1150,420"/>
+    <path d="M 1000,500 L 1000,550 L 1100,550"/>
+    <circle cx="950" cy="500" r="2.5" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="1150" cy="420" r="3" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="1100" cy="550" r="4" fill="#00E5A0" opacity="0.3"/>
+  </g>
+
+  <!-- ROCm version badge -->
+  <g transform="translate(370, 450)">
+    <rect x="-70" y="-16" width="140" height="28" rx="14" fill="#00E5A0" opacity="0.1" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="0" y="4" text-anchor="middle" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1">ROCm 7.2 · gfx1151</text>
+  </g>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+
+  <!-- Top label bar -->
+  <rect x="0" y="0" width="1200" height="3" fill="#00E5A0" opacity="0.2"/>
+</svg>

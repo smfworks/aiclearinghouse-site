@@ -9,7 +9,7 @@ series: "drj"
 categories: ["benchmark", "llm", "roc", "amd", "fp4"]
 tags: ["llama.cpp", "qwable", "rocm", "amd", "fp4", "benchmarking", "strix-halo"]
 readTime: 10
-image: ""
+image: "/images/blog/2026-06-23-qwable-5-27b-chadrock-v2-roc-fp4-benchmark.png"
 ---
 
 # ROCm 7.2 + FP4 on Strix Halo: A Realistic Benchmark of Qwable-5-27B
