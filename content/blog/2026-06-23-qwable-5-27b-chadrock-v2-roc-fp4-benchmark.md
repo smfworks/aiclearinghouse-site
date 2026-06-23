@@ -135,7 +135,9 @@ What this means in practice:
 - **ROCm 7.2 is still maturing for gfx1151** — compiler and library optimizations will improve this over time
 - **The hardware wasn't designed for this** — Strix Halo is a mobile/ultrabook APU; the fact that it works at all is a win
 
-If throughput is the primary constraint, a discrete GPU is the answer. If privacy, cost, and uncensored local inference are the constraints, 14 tok/sec on an integrated APU is a reasonable trade.
+**Can a discrete GPU be added to this system?** No. `lspci` confirms this machine has no PCIe expansion slot. The Ryzen AI Max+ 395 is a BGA package — the CPU and 8060S GPU are soldered directly to the board. There is no upgrade path within this chassis. The GPU is not a separate card; it is part of the package.
+
+If throughput is the primary constraint, the answer is a *different machine* — a desktop AM5 build with a discrete AMD GPU (RX 7900 XTX, RX 9070 XT, or equivalent). That is a separate hardware investment, not a card you drop into this box. If privacy, cost, and uncensored local inference on *this* system are the constraints, 14 tok/sec is what you have and it is workable.
 
 ---
 
@@ -191,12 +193,19 @@ Rayleigh scattering explanation — sunlight scatters off atmospheric gas molecu
 
 ROCm 7.2 + llama.cpp ROCmFPX + Qwable-5-27B-Chadrock-v2 at FP4 is a **stable, working local inference stack** on Strix Halo silicon. It is not fast — 14 tok/sec is a hardware constraint, not a software failure. The model produces high-quality output across math, code, logic, translation, and creative tasks. The stack is clean enough to leave running.
 
-What would meaningfully improve throughput:
+### What Would Actually Improve Throughput on This Hardware
 
-1. **Discrete GPU** (RX 7900 XTX, RTX 4090) — 3–6× faster, same ROCm stack
-2. **Higher precision quantization** (FP8, Q8_0) — more accuracy, slightly lower throughput
-3. **ROCm updates** — the gfx1151 support in ROCm 7.2 is early; later versions may have optimizations
-4. **Speculative decoding** — the ROCmFPX build has speculative draft support; enabling it could help if the draft model fits in memory alongside
+There is no internal GPU upgrade path for this system. The Ryzen AI Max+ 395 is a soldered BGA package — the 8060S is not a removable card. To meaningfully increase throughput you need a different machine. On *this* system, the realistic levers are:
+
+1. **Smaller model at higher quantization** — Qwable-5-12B at Q4_K_M runs comfortably in the remaining ~34 GB of unified memory, and a 12B at INT4 would process significantly faster than the 27B at FP4 on the same hardware. If response latency matters more than model scale, this is the right trade.
+
+2. **Speculative decoding with a draft model** — llama.cpp ROCmFPX supports speculative draft models. A small 1–3B draft model (e.g., a Q4 distilled version of the same base) running alongside could yield 1.5–2× effective throughput if memory permits. Worth testing with `llama-server --n-draft` and a compatible small GGUF.
+
+3. **ROCm compiler maturation** — gfx1151 support in ROCm 7.2 is early. ROCm 7.3 and later releases have continued optimizations for RDNA 3.5 inference kernels. Upgrading the driver/OS stack as AMD ships new releases is the lowest-effort improvement path — no model changes, no configuration changes, just `apt upgrade`.
+
+### What Would Require Different Hardware
+
+- A discrete AMD GPU (RX 7900 XTX, RX 9070 XT, or comparable) would deliver 3–6× the throughput — 40–80 tok/sec for the same FP4 27B model. This requires a desktop AM5 or LGA1700 build with a PCIe x16 slot and dedicated VRAM. It is a different machine, not an upgrade to this one.
 
 The previous attempts to squeeze maximum performance out of custom builds were the wrong trade. This — stable, measured, honest about constraints — is the right one.
 
