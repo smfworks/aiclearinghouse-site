@@ -130,8 +130,9 @@ The 40 CUs at 2.9 GHz are doing their part — MFMA instructions fire at full sp
 
 What this means in practice:
 
-- **Interactive use is fine** — 14 tok/sec is slower than cloud API responses but completely workable for drafting, coding, reasoning
-- **Batch processing is painful** — 1,000-token response takes ~71 seconds
+- **Interactive use is workable but slow** — 14 tok/sec is noticeably slower than cloud API responses; you'll watch it type. Fine for drafting, painful for anything requiring quick turnaround.
+- **Scheduled and background tasks are where this system excels** — blog posts drafted overnight, email/calendar summaries, report generation, code writing in the background. A 500-word draft generates in ~35 seconds. If no human is watching, that is functionally zero time. The model runs while you sleep; you wake up to finished output. Rate-limit-free, cost-free, data-never-leaves-your-network.
+- **Batch processing is slow** — 1,000-token response takes ~71 seconds. Only matters if you're sitting there waiting.
 - **ROCm 7.2 is still maturing for gfx1151** — compiler and library optimizations will improve this over time
 - **The hardware wasn't designed for this** — Strix Halo is a mobile/ultrabook APU; the fact that it works at all is a win
 
