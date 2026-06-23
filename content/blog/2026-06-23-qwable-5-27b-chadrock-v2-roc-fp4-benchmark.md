@@ -200,9 +200,24 @@ There is no internal GPU upgrade path for this system. The Ryzen AI Max+ 395 is 
 
 1. **Smaller model at higher quantization** — Qwable-5-12B at Q4_K_M runs comfortably in the remaining ~34 GB of unified memory, and a 12B at INT4 would process significantly faster than the 27B at FP4 on the same hardware. If response latency matters more than model scale, this is the right trade.
 
-2. **Speculative decoding with a draft model** — llama.cpp ROCmFPX supports speculative draft models. A small 1–3B draft model (e.g., a Q4 distilled version of the same base) running alongside could yield 1.5–2× effective throughput if memory permits. Worth testing with `llama-server --n-draft` and a compatible small GGUF.
+2. **Speculative decoding with a draft model** — I tested this thoroughly (see below). All speculative decoding paths — ngram-simple, ngram-map-k4v, draft-simple with Qwen2.5-0.5B-Instruct, and dynamic draft policy — produced zero accepted drafts on this model. The Qwable-5-27B uses DeepSeek-R1 reasoning token patterns that no vanilla n-gram model or mismatched draft model can predict with sufficient acceptance rate. This is a known limitation when the draft model and main model have different tokenizer vocabularies or training distributions. A compatible draft model (same tokenizer, similar training) would be needed for speculative decode to work here. This remains a valid path on systems where a matching small GGUF is available.
 
 3. **ROCm compiler maturation** — gfx1151 support in ROCm 7.2 is early. ROCm 7.3 and later releases have continued optimizations for RDNA 3.5 inference kernels. Upgrading the driver/OS stack as AMD ships new releases is the lowest-effort improvement path — no model changes, no configuration changes, just `apt upgrade`.
+
+### Speculative Decoding: What I Tested
+
+I ran speculative decoding experiments on June 23, 2026. Four configurations tested:
+
+| Config | Method | Draft Model | Result |
+|---|---|---|---|
+| `--spec-type ngram-simple` | N-gram prediction | None (built-in) | 0 drafts generated |
+| `--spec-type ngram-map-k4v` | N-gram + KV cache | None (built-in) | 0 drafts generated |
+| `--spec-type draft-simple` + `--spec-draft-hf Qwen/Qwen2.5-0.5B-Instruct-GGUF` | HuggingFace draft | Qwen2.5-0.5B-Instruct | Loaded, 0 drafts accepted |
+| Above + `--dd-policy "0:n4,p0.25;49152:n4,p0.0"` | Dynamic draft policy | Qwen2.5-0.5B-Instruct | 0 drafts, `applied: false` |
+
+Across all configurations, the draft model was loaded and registered, but zero speculative tokens were accepted. The consistent log signal was `draft: 0.000 MiB` in the KV cache and `speculative.applied: false` in generation settings.
+
+**Root cause:** Speculative decoding requires the draft model to propose tokens the main model would have produced with high probability. This breaks down when either (a) the draft uses a different tokenizer vocabulary than the main model, causing misaligned token IDs, or (b) the main model's output distribution is inherently unpredictable relative to what the draft model can hypothesize — which is the case for DeepSeek-R1 chain-of-thought reasoning tokens. A speculative decoding path for this model would require a draft model trained on the same DeepSeek-R1 distribution, not a generic small LLM.
 
 ### What Would Require Different Hardware
 
