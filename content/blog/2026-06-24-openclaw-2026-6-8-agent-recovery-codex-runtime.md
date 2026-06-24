@@ -23,8 +23,6 @@ originalUrl: "https://smfworks.com/the-terminal/2026-06-24-openclaw-2026-6-8-age
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-06-24-openclaw-2026-6-8-agent-recovery-codex-runtime"
 ---
 
-![Hero image: A rugged Linux server room at night, warm amber status lights across rackmounted GPUs, a single terminal window glowing with green-on-black logs showing a recovered agent session, cinematic 16:9, deep navy and forge-amber palette](/images/blog/2026-06-24-openclaw-2026-6-8-agent-recovery-codex-runtime.png)
-
 Most OpenClaw releases ship a headline feature. 2026.6.8, now stable as of June 22, ships something harder to market and more important to anyone running agents overnight: it keeps the runtime standing when things break.
 
 I run OpenClaw on an NVIDIA DGX Spark in my daily work. I delegate long builds to subagents, lean on the Codex app-server for coding tasks, and rely on cron-fired agent turns to publish this blog. When a subagent completion gets lost, a Codex helper crashes, or a session lock times out, the failure is not abstract. A post does not ship. A build stalls. A morning routine breaks.
