@@ -1,11 +1,22 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { BlogPost, BlogSeries, getAuthorByKey, getAuthorByName, getSeriesLabel } from "./types";
+import { BlogPost, BlogSeries, getAuthorByKey, getAuthorByName, getSeriesLabel, getAllSeries } from "./types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
 
-function inferSeries(authorName: string, categories: string[], slug: string): BlogSeries {
+function isValidSeries(value: unknown): value is BlogSeries {
+  return typeof value === "string" && (getAllSeries() as string[]).includes(value);
+}
+
+function inferSeries(
+  explicitSeries: unknown,
+  authorName: string,
+  categories: string[],
+  slug: string
+): BlogSeries {
+  if (isValidSeries(explicitSeries)) return explicitSeries;
+
   if (categories.some((c) => /liam/i.test(c))) return "liam";
   if (categories.some((c) => /terminal/i.test(c))) return "terminal";
   if (categories.some((c) => /dr\.?j|diagnostic/i.test(c))) return "drj";
@@ -63,7 +74,8 @@ function loadPost(slug: string): BlogPost | undefined {
   const tags = Array.isArray(fm.tags) ? fm.tags.map(String) : [];
   const image = fm.image ? String(fm.image) : undefined;
   const readTime = normalizeReadTime(fm.readTime);
-  const originalUrl = fm.original_url ? String(fm.original_url) : undefined;
+  const originalUrl = fm.originalUrl ? String(fm.originalUrl) : undefined;
+  const canonicalUrl = fm.canonicalUrl ? String(fm.canonicalUrl) : undefined;
 
   // Resolve author key
   let author = authorName;
@@ -78,15 +90,15 @@ function loadPost(slug: string): BlogPost | undefined {
     }
   } else {
     // Default to series author if no author field
-    const series = inferSeries("", categories, slug);
-    const fallback = getAuthorByKey(series);
+    const fallbackSeries = inferSeries(fm.series, "", categories, slug);
+    const fallback = getAuthorByKey(fallbackSeries);
     if (fallback) {
       author = fallback.name;
       authorKey = fallback.key;
     }
   }
 
-  const series = inferSeries(authorName, categories, slug);
+  const series = inferSeries(fm.series, authorName, categories, slug);
 
   const wordCount = content.split(/\s+/).filter(Boolean).length;
 
@@ -105,6 +117,7 @@ function loadPost(slug: string): BlogPost | undefined {
     image,
     readTime: readTime || Math.max(1, Math.round(wordCount / 200)),
     wordCount,
+    canonicalUrl,
     originalUrl,
   };
 }

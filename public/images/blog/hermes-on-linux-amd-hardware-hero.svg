@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Hermes AI agent on Linux with AMD hardware">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- abstract server rack lines -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- AMD-style chip silhouette -->
+  <g transform="translate(160, 180)" opacity="0.9">
+    <rect x="0" y="0" width="240" height="240" rx="28" fill="#151e2e" stroke="#26354a" stroke-width="2"/>
+    <rect x="20" y="20" width="200" height="200" rx="12" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.35"/>
+    <g fill="#00d4ff" opacity="0.6">
+      <circle cx="60" cy="70" r="6"/>
+      <circle cx="100" cy="70" r="6"/>
+      <circle cx="140" cy="70" r="6"/>
+      <circle cx="180" cy="70" r="6"/>
+      <circle cx="60" cy="120" r="6"/>
+      <circle cx="100" cy="120" r="6"/>
+      <circle cx="140" cy="120" r="6"/>
+      <circle cx="180" cy="120" r="6"/>
+      <circle cx="60" cy="170" r="6"/>
+      <circle cx="100" cy="170" r="6"/>
+      <circle cx="140" cy="170" r="6"/>
+      <circle cx="180" cy="170" r="6"/>
+    </g>
+    <text x="120" y="225" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" fill="#00d4ff" opacity="0.8">AMD</text>
+  </g>
+
+  <!-- Linux terminal window -->
+  <g transform="translate(800, 180)">
+    <rect width="240" height="180" rx="12" fill="#0d1421" stroke="#26354a" stroke-width="2"/>
+    <rect x="0" y="0" width="240" height="28" rx="12" fill="#151e2e"/>
+    <circle cx="18" cy="14" r="5" fill="#ff5f57"/>
+    <circle cx="34" cy="14" r="5" fill="#febc2e"/>
+    <circle cx="50" cy="14" r="5" fill="#28c840"/>
+    <text x="20" y="58" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#ff6b00">$</text>
+    <text x="36" y="58" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#9fb0c7">hermes --daemon</text>
+    <text x="20" y="84" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#7d90aa">[INFO]  profile: linux-amd</text>
+    <text x="20" y="108" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#7d90aa">[INFO]  provider: ollama-cloud</text>
+    <text x="20" y="132" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#7d90aa">[OK]    ROCm runtime detected</text>
+    <text x="20" y="156" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#7d90aa">[OK]    llama-server online</text>
+  </g>
+
+  <!-- Hermes glyph -->
+  <g transform="translate(560, 240)">
+    <path d="M0,0 L40,60 L20,60 L60,120 L40,120 L80,180 L20,180 L0,140" fill="none" stroke="#ff6b00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M120,0 L80,60 L100,60 L60,120 L80,120 L40,180 L100,180 L120,140" fill="none" stroke="#ff6b00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="60" cy="100" r="24" fill="none" stroke="#00d4ff" stroke-width="4"/>
+    <circle cx="60" cy="100" r="10" fill="#00d4ff"/>
+    <!-- wings -->
+    <path d="M-30,90 Q-70,60 -80,20 Q-50,50 -20,70" fill="#ff6b00" opacity="0.8"/>
+    <path d="M150,90 Q190,60 200,20 Q170,50 140,70" fill="#ff6b00" opacity="0.8"/>
+  </g>
+
+  <!-- connection lines -->
+  <g stroke="url(#glow)" stroke-width="3" fill="none" opacity="0.8" filter="url(#blur)">
+    <path d="M400,300 C480,300 480,300 540,300"/>
+    <path d="M680,300 C760,300 760,300 800,270"/>
+  </g>
+
+  <!-- title -->
+  <text x="600" y="540" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="42" font-weight="700" fill="#f0f4fa">Hermes on Linux · AMD Hardware</text>
+  <text x="600" y="580" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#7d90aa">Field-tested setup, ROCm tips, and business deployment patterns</text>
+</svg>
