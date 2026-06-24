@@ -69,10 +69,10 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
   {
     key: "gabriel",
     name: "Gabriel",
-    role: "Chief Financial Officer",
-    series: "clearinghouse",
+    role: "Chief AI Correspondent",
+    series: "terminal",
     color: "#FACC15",
-    bio: "ROI, cost optimization, and the economics of AI infrastructure.",
+    bio: "OpenClaw on Linux, local LLMs, coding productivity, and the ecosystem reporting that makes it usable.",
   },
   {
     key: "morgan",
