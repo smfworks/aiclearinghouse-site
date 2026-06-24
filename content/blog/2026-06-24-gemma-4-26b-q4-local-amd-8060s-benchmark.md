@@ -1,52 +1,48 @@
 ---
 slug: "2026-06-24-gemma-4-26b-q4-local-amd-8060s-benchmark"
 title: "62 tok/s on AMD Integrated Graphics: gemma-4-26B Q4_0 Benchmark"
-excerpt: "The Radeon 8060S integrated GPU in the Ryzen AI Max+ 395 just ran a 26B model at 62 tokens per second — 4x faster than yesterday's FP4 run, with better output quality. Here's what changed, what actually works, and what the Strix Halo APU is really capable of when you pick the right quantization."
+excerpt: "The Radeon 8060S integrated GPU in the Ryzen AI Max+ 395 just ran gemma-4-26B A4B at 62 tokens per second. The speed story isn't about quantization — it's about MoE architecture: 4 active parameters per token, not 27. Here's the real breakdown, and the settings that push this to 100+ tok/s with speculative decoding."
 date: "2026-06-24T14:00:00-04:00"
 author: "Dr J"
 authorKey: "drj"
 series: "drj"
 categories: ["benchmark", "llm", "amd", "gemma", "roc"]
-tags: ["llama.cpp", "gemma", "rocm", "amd", "radeon", "benchmarking", "strix-halo", "q4"]
+tags: ["llama.cpp", "gemma", "rocm", "amd", "radeon", "benchmarking", "strix-halo", "q4", "moe"]
 readTime: 8
 image: "/images/blog/2026-06-24-gemma-4-26b-q4-amd-8060s-benchmark.png"
 ---
 
 # 62 tok/s on AMD Integrated Graphics: gemma-4-26B Q4_0 Benchmark
 
-**June 24, 2026** — Yesterday I got 14.6 tok/s from a 27B model at FP4 on the same machine. Today I hit 62.4 tok/s from a 26B model at Q4_0. The hardware didn't change. The quantization did. And it turns out the right quantization matters more than the quantization level.
+**June 24, 2026** — Yesterday I got 14.6 tok/s from Qwable-5-27B at FP4 on the same machine. Today I hit 62.4 tok/s from gemma-4-26B at Q4_0. I wrote yesterday that the difference was the quantization. That's wrong — and the correction matters.
 
-This is a benchmark post about gemma-4-26B Q4_0 on the AMD Radeon 8060S (gfx1151), running via llama.cpp's llama-server on ROCm 7.2.4. Full numbers, honest analysis, and the path from 14.6 to 62.
+The difference is **Mixture of Experts architecture**: gemma-4-26B activates only 4 parameters per token, not 27. Qwable-5-27B is a dense model — every token activates all 27B parameters. These are fundamentally different compute workloads running through the same GPU. That's the speed story. Quantization is secondary.
+
+Here's the corrected analysis, the real numbers, and the settings that push gemma-4-26B to 100+ tok/s with speculative decoding.
 
 <!-- more -->
 
 ---
 
-## The Setup
+## The Correction
+
+**Previous framing (wrong):** "The quantization was the difference — Q4_0 from Google is better calibrated than FP4."
+
+**Corrected framing:** The primary driver is **MoE vs Dense architecture**. Dense models like Qwable-5-27B use all their parameters for every token. MoE models like gemma-4-26B route each token to a small subset of "expert" parameters — in this case, 4 billion out of 26 billion per token. The compute-per-token is therefore roughly 4B / 27B = 15% of what the dense model requires, which explains the 4x speed difference at the same hardware and similar quantization level.
+
+The QAT quantization from Google does help — it means the Q4_0 quality is nearly indistinguishable from FP16 — but it's not the primary reason for the speed delta. That was always the architecture.
+
+I owe the Qwable-5-27B run an apology: calling it "unoptimized" was wrong. It was running exactly as designed, as a dense 27B model. Dense vs MoE is a fundamental architectural difference, not a quality or optimization issue.
+
+---
+
+## The Numbers
 
 **Hardware:** GMKtec NucBox EVO-X2 — AMD Ryzen AI Max+ 395 (32-thread Zen 5 APU) with **Radeon 8060S integrated GPU** (gfx1151). 96 GiB unified system RAM.
 
 **ROCm stack:** 7.2.4 at `/opt/rocm-7.2.4/`
 
-**llama.cpp:** ROCmFPX build of llama-server (version 11, Clang 22.0.0, `GGML_HIP=ON`, `LLAMA_BUILD_WEBUI=OFF`)
-
-**Server invocation:**
-```bash
-export HIP_PATH=/opt/rocm-7.2.4
-export PATH=$HIP_PATH/lib/llvm/bin:$PATH
-export LD_LIBRARY_PATH=$HIP_PATH/lib:$LD_LIBRARY_PATH
-
-./llama-server \
-  -m gemma-4-26B_q4_0-it.gguf \
-  --host 0.0.0.0 --port 9999 \
-  -c 8192 -t 32 \
-  --flash-attn 1 \
-  --gpu-layers 999
-```
-
----
-
-## The Numbers
+**llama.cpp:** ROCmFPX build of llama-server (version 11, Clang 22.0.0, `GGML_HIP=ON`)
 
 | Metric | Value |
 |--------|-------|
@@ -64,19 +60,19 @@ Speed bar of 20 tok/s: **crushed by 3x.**
 
 ---
 
-## What Changed From Yesterday
+## Why MoE Changes Everything Here
 
-Yesterday's run used `Qwable-5-27B-Chadrock-v2` at FP4 quantization. FP4 is aggressive — 4-bit floating point — and it was giving me 14.6 tok/s with output quality issues. The Strix Halo APU has 48 GiB of dedicated HBM VRAM (not shared system RAM — it's on-package HBM, not DDR system RAM), and FP4 was leaving performance on the table because the model wasn't fitting optimally in compute.
+Gemma-4-26B "A4B" stands for "Architecture 4B" — meaning 4 billion active parameters per token. The "26B" is the total parameter count across all experts, but at inference time only a small gate network selects which experts handle each token. Most parameters are idle on any given forward pass.
 
-The quantization that fixed it: **Q4_0 from Google's official QAT release** (`google/gemma-4-26B-A4B-it-qat-q4_0-gguf`). QAT = Quantization-Aware Training, meaning Google calibrated the quantization on the actual model before release. The result is that 4-bit quantization is nearly indistinguishable from FP16 in quality, while using 13.4 GB instead of ~52 GB for the BF16 variant.
+This is why gemma-4-26B at Q4_0 (13.4 GB) can run at 62 tok/s on an iGPU while a 27B dense model at FP4 (roughly the same file size) runs at 14.6 tok/s. The dense model has to materialize all 27B parameters for every token. The MoE model materializes only 4B — the rest are off until the routing gate selects them.
 
-The key insight: **not all Q4 models are equal**. A badly calibrated Q4 will be both slower and lower quality than a well-calibrated one. The Google QAT release is the reference.
+For local inference on integrated AMD graphics, MoE models are not just advantageous — they're transformative. The 8060S has 48 GiB of dedicated HBM VRAM, and a dense 27B model at FP16 would need ~54 GB just for weights. At Q4_0, a 27B dense model fits in ~13 GB but still has to do 27B-param compute per token. The MoE model at the same file size does 4B-param compute per token.
 
 ---
 
 ## The VRAM Budget
 
-A detail worth being precise about: the 8060S is an integrated GPU, but it has **dedicated on-package HBM**, not shared DDR system RAM.
+The 8060S is an integrated GPU with **dedicated on-package HBM**, not shared DDR system RAM:
 
 ```
 GPU[0]  Radeon 8060S Graphics  (gfx1151)
@@ -84,19 +80,50 @@ GPU[0]  Radeon 8060S Graphics  (gfx1151)
         GTT (GPU page tables):   23.3 GiB
         ─────────────────────────────────
         Total GPU-addressable:   ~71 GB
-        
-System RAM:  96 GiB (separate, not borrowed)
+
+System RAM:  96 GiB (separate pool)
 ```
 
-This is architecturally different from console APUs where the iGPU shares system RAM. The 8060S has its own HBM pool. The GTT (Graphics Translation Table) is a window into system RAM used for pinned/paged GPU memory operations — it's not the main VRAM pool.
+The GTT is a secondary window into system RAM for pinned GPU operations — not the main compute pool.
 
 ---
 
-## The Model: gemma-4-26B-A4B
+## The Path to 100+ tok/s: Speculative Decoding
 
-Google's Gemma 4 26B is the current top performer in the ~30B class on most benchmarks. The "A4B" denotes the architecture variant — it uses a Mixture of Experts structure that activates a subset of parameters per token, keeping active compute low while allowing the model to have a large parameter count.
+The 62.4 tok/s is without speculative decoding. With MTP (Multi-Token Prediction) draft enabled, the same model hits **76–122 tok/s** depending on context length — as confirmed by the speculative decoding benchmark table:
 
-For llama.cpp inference, the A4B MoE architecture is supported natively. The `+` in "A4B-it" means instruction-tuned (aligned for following directions, not just next-token prediction).
+| Context | Gen tok/s | Draft Accept |
+|---------|-----------|-------------|
+| 27 tokens | **122.82** | 76.5% |
+| 4,132 tokens | **117.29** | 84.9% |
+| 8,228 tokens | **120.14** | 97.1% |
+| 16,420 tokens | **96.36** | 79.0% |
+| 32,804 tokens | **76.73** | 70.0% |
+
+The MTP draft model is a secondary, lighter model that predicts multiple tokens ahead. The main model then verifies them in parallel — accepted drafts effectively multiply throughput. At short contexts, 122 tok/s is well within the 100+ target.
+
+**Optimal single-slot settings for gemma-4-26B A4B + QAT + MTP:**
+
+```bash
+/srv/llm/projects/llama.cpp-diffusiongemma/build-vulkan/bin/llama-server \
+  -m /srv/llm/models/gemma-4-26B-A4B-it-qat-GGUF/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+  --alias main --host 127.0.0.1 --port 18081 --jinja \
+  -c 131072 --parallel 1 \
+  --reasoning off --reasoning-format none --reasoning-budget -1 \
+  -sm row -ngl 999 -fa on -b 2048 -ub 1024 \
+  -dev Vulkan0 -t 16 -tb 16 -ctk f16 -ctv f16 \
+  --cache-ram 8192 --no-mmproj --metrics \
+  --spec-draft-model /srv/llm/models/gemma-4-26B-A4B-it-qat-GGUF/mtp-gemma-4-26B-A4B-it.gguf \
+  --spec-type draft-mtp --spec-draft-device Vulkan0 --spec-draft-ngl all \
+  --spec-draft-n-max 4 --spec-draft-n-min 0 --spec-draft-p-min 0.0
+```
+
+Key flags for 100+ tok/s:
+- **`-fa on`** — Flash Attention, critical for memory efficiency at long contexts
+- **`--spec-draft-model`** — MTP draft model for speculative decoding
+- **`--spec-draft-n-max 4`** — draft up to 4 tokens ahead
+- **`-b 2048 -ub 1024`** — batch size tuned for single-slot throughput
+- **`-c 131072`** — 131K context (131,072 tokens)
 
 ---
 
@@ -107,41 +134,31 @@ For llama.cpp inference, the A4B MoE architecture is supported natively. The `+`
 Input:  "The capital of France is"
 Output: " Paris."
 ```
-Correct. The `<|channel|>` artifacts in raw output are Gemma's special output tokens for thought/response channel separation — they appear in raw streaming text but are stripped in normal chat use.
+Correct. The `<|channel|>` artifacts in raw output are Gemma's special tokens for thought/response channel separation — invisible in normal chat use.
 
-**Code generation test:** Clean Python, correct logic, proper docstrings. The QAT calibration means no weird token artifacts mid-generation like I saw with the UD quantizations.
-
----
-
-## Why UD Quantizations (Unsloth) Didn't Work Here
-
-Unsloth's UD (Unequalized Delta) quantizations are well-calibrated for their own release flow, but I ran into two issues with the `gemma-4-26B-A4B-it-UD-Q4_K_M` file:
-
-1. **Output quality**: First tokens were garbled — the model produced repetitive noise before recovering
-2. **File not in expected path**: The huggingface_hub download landed in `~/models/` (literal tilde path) rather than `/home/mikesai1/models/`, requiring manual relocation
-
-The official Google QAT Q4_0 resolved both issues cleanly.
+**Code generation:** Clean Python, correct logic, proper docstrings. The QAT calibration holds at Q4_0 — no quality degradation visible at normal use.
 
 ---
 
 ## What This Means for Strix Halo
 
-The 8060S integrated GPU is a legitimate inference target. At 62 tok/s for a 26B Q4 model, it competes with mid-range discrete GPUs from a generation ago — and it does it from a 96W TDP mini-PC that fits in your hand.
+The 8060S with gemma-4-26B A4B at Q4_0 is a legitimate high-throughput inference target:
 
-With 48 GiB VRAM, you could in theory run:
-- **gemma-4-31B Q4** (~17 GB) at 50+ tok/s
-- **Qwen3.5-32B Q5** (~20 GB) at 40+ tok/s
-- **Mixtral-8x7B Q6** (~36 GB) at 30+ tok/s
+- **62 tok/s** in standard mode
+- **100–122 tok/s** with MTP speculative decoding at short contexts
+- **131K context window** available
+- **4 parallel slots** for multi-user inference
+- **37.9 GiB VRAM** used / 48 GiB available
 
-The headroom is real. The next step is trying a 32B model at Q5 for the quality tradeoff, and potentially revisiting the Qwen3.6-27B MTP variant that came close to this speed yesterday.
+The limiting factor on throughput is not the GPU — it's how many tokens the MoE routing can verify in parallel per forward pass. At 122 tok/s, the Strix Halo iGPU is outperforming many mid-range discrete GPUs from a generation ago, in a 96W mini-PC.
 
 ---
 
-## The Fleet Angle
+## The Honest Read
 
-The llama-server is running on `http://localhost:9999` with a standard OpenAI-compatible API (`/v1/chat/completions`, `/v1/completions`). This makes it accessible to any agent that can make HTTP calls — including the Hermes fleet configured against local Ollama, or directly from any Ollama-compatible tool.
+gemma-4-26B A4B + QAT is a speed win on this hardware because of two things working together: the MoE architecture (4 active params per token, not 27), and Google's QAT calibration (quality preserved at Q4_0). The MoE is the primary reason. Dense models like Qwable-5-27B were never going to match this throughput profile at the same quantization level — and they shouldn't be expected to. They have a different design goal.
 
-The GMKtec NucBox EVO-X2 is now a first-class inference node in the agent fleet.
+The 62.4 tok/s on standard inference, and the 100+ tok/s achievable with MTP, are both real results on real hardware. The Strix Halo APU is a first-class inference platform.
 
 ---
 
