@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Agent profile routing on Linux with Hermes and local LLMs">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- server rack grid -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="1100" y1="0" x2="1100" y2="630"/>
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+  </g>
+
+  <!-- central router box -->
+  <g transform="translate(420, 160)" opacity="0.95">
+    <rect x="0" y="0" width="360" height="260" rx="16" fill="#0d1421" stroke="#26354a" stroke-width="2"/>
+    <rect x="0" y="0" width="360" height="36" rx="16" fill="#151e2e"/>
+    <circle cx="18" cy="18" r="5" fill="#ff5f57"/>
+    <circle cx="34" cy="18" r="5" fill="#febc2e"/>
+    <circle cx="50" cy="18" r="5" fill="#28c840"/>
+    <text x="180" y="22" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#7d90aa">hermes profile router</text>
+
+    <!-- provider pills -->
+    <rect x="30" y="65" width="90" height="28" rx="6" fill="#151e2e" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+    <text x="75" y="83" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#00d4ff">ollama</text>
+
+    <rect x="135" y="65" width="90" height="28" rx="6" fill="#151e2e" stroke="#ff6b00" stroke-width="1.5" opacity="0.7"/>
+    <text x="180" y="83" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#ff6b00">local</text>
+
+    <rect x="240" y="65" width="90" height="28" rx="6" fill="#151e2e" stroke="#7d90aa" stroke-width="1.5" opacity="0.7"/>
+    <text x="285" y="83" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7d90aa">cloud</text>
+
+    <!-- routing logic -->
+    <text x="30" y="130" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#9fb0c7">if offline or sensitive:</text>
+    <text x="30" y="155" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#ff6b00">  route → local llama-server</text>
+    <text x="30" y="180" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#9fb0c7">if speed or scale:</text>
+    <text x="30" y="205" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#00d4ff">  route → ollama-cloud</text>
+    <text x="30" y="230" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#9fb0c7">fallback:</text>
+    <text x="30" y="255" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#7d90aa">  profile-specific cloud key</text>
+  </g>
+
+  <!-- left: local GPU stack -->
+  <g transform="translate(120, 200)" opacity="0.9">
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#0d1421" stroke="#26354a" stroke-width="2"/>
+    <text x="100" y="28" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="600" fill="#f0f4fa">Local Node</text>
+    <text x="100" y="55" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#9fb0c7">ROCm 7.2 · gfx1151</text>
+    <text x="100" y="80" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#9fb0c7">llama-server :8080</text>
+    <text x="100" y="105" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#9fb0c7">gemma-4-26B Q4_0</text>
+    <text x="100" y="145" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#00d4ff">62 tok/s</text>
+  </g>
+
+  <!-- right: cloud/edge -->
+  <g transform="translate(880, 200)" opacity="0.9">
+    <rect x="0" y="0" width="200" height="180" rx="12" fill="#0d1421" stroke="#26354a" stroke-width="2"/>
+    <text x="100" y="28" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="600" fill="#f0f4fa">Cloud Burst</text>
+    <text x="100" y="55" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#9fb0c7">OpenRouter / Together</text>
+    <text x="100" y="80" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#9fb0c7">Kimi / DeepSeek / GLM</text>
+    <text x="100" y="105" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#9fb0c7">Large context / vision</text>
+    <text x="100" y="145" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#ff6b00">on demand</text>
+  </g>
+
+  <!-- glowing connection paths -->
+  <g stroke="url(#glow)" stroke-width="4" fill="none" opacity="0.85" filter="url(#blur)">
+    <path d="M320,290 C360,290 380,290 420,290"/>
+    <path d="M780,290 C820,290 840,290 880,290"/>
+  </g>
+
+  <!-- Hermes caduceus glyph (center top) -->
+  <g transform="translate(560, 40)">
+    <path d="M0,0 L40,60 L20,60 L60,120 L40,120 L80,180 L20,180 L0,140" fill="none" stroke="#ff6b00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M120,0 L80,60 L100,60 L60,120 L80,120 L40,180 L100,180 L120,140" fill="none" stroke="#ff6b00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="60" cy="100" r="24" fill="none" stroke="#00d4ff" stroke-width="4"/>
+    <circle cx="60" cy="100" r="10" fill="#00d4ff"/>
+    <path d="M-30,90 Q-70,60 -80,20 Q-50,50 -20,70" fill="#ff6b00" opacity="0.8"/>
+    <path d="M150,90 Q190,60 200,20 Q170,50 140,70" fill="#ff6b00" opacity="0.8"/>
+  </g>
+
+  <!-- title -->
+  <text x="600" y="520" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="44" font-weight="700" fill="#f0f4fa">Profile-Based Model Routing in Hermes</text>
+  <text x="600" y="565" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#7d90aa">One agent, many backends — local first, cloud when it counts</text>
+</svg>
