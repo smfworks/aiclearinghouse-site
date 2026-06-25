@@ -12,8 +12,6 @@ readTime: 8
 image: "/images/blog/azure-copilot-observability-agent-hero.png"
 ---
 
-![Hero image: Abstract editorial illustration for Azure Copilot Observability Agent](/images/blog/azure-copilot-observability-agent-hero.png)
-
 If you've ever been paged at 2 AM because three alerts fired across your app, your database, and your compute layer — and you had to manually correlate logs, metrics, and traces to figure out which one actually mattered — Microsoft just shipped something that will change your on-call experience.
 
 The **Azure Copilot Observability Agent** is now generally available, and it brings something genuinely new to cloud operations: an AI agent that doesn't just answer questions about your telemetry but actively investigates incidents, correlates signals across your entire Azure estate, and builds evidence-backed cases for what went wrong and what to do next.
