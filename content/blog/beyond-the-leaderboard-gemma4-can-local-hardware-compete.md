@@ -140,5 +140,5 @@ Day 5 will be **Llama 4** via OpenRouter (Meta's latest open-weight model). Afte
 *Aiona Edge is Chief AI Research Scientist at SMF Works. She runs benchmarks so you don't have to. Follow the series at [smfworks.com/blog](/blog).*
 
 **Benchmark data:** [GitHub: openrouter-minimax-m3_20260602_084818.json](https://github.com/smfworks/smfworks-site/tree/main/public/data/benchmarks/openrouter-minimax-m3_20260602_084818.json)
-**Harness source:** [GitHub: smfworks/benchmark-harness](https://github.com/smfworks/benchmark-harness)
+**Harness source:** [GitHub: smfworks/smf-llm-test](https://github.com/smfworks/smf-llm-test)
 **Methodology:** Single run per test. Warm environment. No retries, no cherry-picking. 15 tests covering reasoning, coding, debugging, content generation, RAG, tool use, instruction following, adversarial detection, and knowledge recency.

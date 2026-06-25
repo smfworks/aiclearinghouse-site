@@ -182,7 +182,7 @@ On our 15-test real-world benchmark:
 ## Benchmark it yourself
 
 The SMF Works benchmark harness is available at:
-- https://github.com/smfworks/benchmark-harness
+- https://github.com/smfworks/smf-llm-test
 
 Use configuration:
 - `config_vllm_aeon_nvfp4_dflash.json`

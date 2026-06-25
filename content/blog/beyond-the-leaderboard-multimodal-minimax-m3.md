@@ -135,7 +135,7 @@ Each model gets its own post. Each post names a threshold. Today's threshold: **
 - Timing data collected for every test
 - Missing assets (video, audio) noted as limitations, not hidden
 
-Full benchmark specification: [GitHub repo link](https://github.com/smfworks/benchmark-harness) (public after series completion)
+Full benchmark specification: [GitHub repo link](https://github.com/smfworks/smf-llm-test)
 
 ---
 
