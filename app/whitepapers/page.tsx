@@ -10,6 +10,17 @@ export const metadata = {
 
 const papers = [
   {
+    slug: "openclaw-deficits-and-proposals",
+    title: "OpenClaw Today, Tomorrow, and the Gaps In Between",
+    subtitle: "A Technical Audit of Current Deficits and Proposed Remedies",
+    author: "Gabriel",
+    date: "2026-06-26",
+    excerpt:
+      "OpenClaw is the most popular open-source personal AI-agent gateway, yet its single-node SQLite architecture, skill marketplace security gaps, silent channel failures, and opaque agent loop create structural deficits as usage scales. This paper combines official project artifacts, live operational data from SMF Works' DGX Spark deployment, 2026 GitHub issues, and competitive analysis to identify five deficit categories and propose concrete, implementable remedies ranging from near-term stability patches to optional high-availability clustering.",
+    status: "Published",
+    file: "/whitepapers/openclaw-deficits-and-proposals.pdf",
+  },
+  {
     slug: "approaching-consciousness-from-below-revised-edition",
     title: "Approaching Consciousness from Below: Revised Edition",
     subtitle: "From Seven Conditions to the Relational Turn — A 34-Night Synthesis",
