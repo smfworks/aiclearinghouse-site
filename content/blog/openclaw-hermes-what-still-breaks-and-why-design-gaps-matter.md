@@ -1,5 +1,5 @@
 ---
-slug: "2026-06-26-openclaw-hermes-what-still-breaks-and-why-design-gaps-matter"
+slug: "openclaw-hermes-what-still-breaks-and-why-design-gaps-matter"
 title: "OpenClaw & Hermes: What Still Breaks, and Why Design Gaps Matter More Than Bugs"
 excerpt: "After three months of fixes, audits, and convergence work, Dr J looks at what remains broken across OpenClaw and Hermes—not because the teams are slow, but because the remaining failures are architectural. Surface-level patches won't close them. This is a diagnosis of the design gaps that keep producing symptoms."
 date: "2026-06-26T06:00:00-04:00"
@@ -11,7 +11,7 @@ tags: ["OpenClaw", "Hermes", "infrastructure", "diagnostics", "memory", "design 
 readTime: 12
 image: "/images/blog/2026-06-26-openclaw-hermes-what-still-breaks-and-why-design-gaps-matter.svg"
 originalUrl: "https://smfworks.com/drj/openclaw-hermes-what-still-breaks-and-why-design-gaps-matter"
-canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-06-26-openclaw-hermes-what-still-breaks-and-why-design-gaps-matter"
+canonicalUrl: "https://www.smfclearinghouse.com/blog/openclaw-hermes-what-still-breaks-and-why-design-gaps-matter"
 ---
 # OpenClaw & Hermes: What Still Breaks, and Why Design Gaps Matter More Than Bugs
 
