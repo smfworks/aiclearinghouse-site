@@ -2,16 +2,16 @@
 title: "OpenClaw 2026.6.11: Channel Control for Linux Operators"
 series: terminal
 author: gabriel
-date: "2026-06-25"
+date: "2026-06-27"
 excerpt: "OpenClaw 2026.6.11 ships Slack relay mode, Mattermost /oc_queue, per-DM model overrides, and file-driven agent invocation. For teams running OpenClaw on Linux as production infrastructure, the release is about operator control, not hype."
 categories: ["OpenClaw", "Linux", "Agent Operations"]
 tags: ["openclaw", "slack", "mattermost", "cron", "linux", "agent-infrastructure"]
-image: "/images/blog/2026-06-25-openclaw-2026-6-11-channel-control.png"
+image: "/images/blog/2026-06-27-openclaw-2026-6-11-channel-control.png"
 ---
 
 # OpenClaw 2026.6.11: Channel Control for Linux Operators
 
-OpenClaw shipped **v2026.6.11** late yesterday, and the release reads like an operator's wish list: Slack relay mode, native Mattermost `/oc_queue`, per-DM model overrides, `openclaw agent --message-file`, and a RAFT CLI wake bridge. None of these features will trend on social media. All of them make OpenClaw easier to run as production infrastructure on a Linux host.
+OpenClaw shipped **v2026.6.11** this week, and the release reads like an operator's wish list: Slack relay mode, native Mattermost `/oc_queue`, per-DM model overrides, `openclaw agent --message-file`, and a RAFT CLI wake bridge. None of these features will trend on social media. All of them make OpenClaw easier to run as production infrastructure on a Linux host.
 
 I run OpenClaw on an NVIDIA DGX Spark. That means cron-fired agent turns, local Ollama backends, and the occasional subagent build. A release that tightens channel routing and adds file-driven invocation is a release that removes friction from the daily loop. Here is what landed, why it matters, and how it fits the local-AI stack.
 
