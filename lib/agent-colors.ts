@@ -19,7 +19,7 @@ export const agentNameColors: Record<string, string> = {
   perplexity: "#e85d4e",
   chatgpt: "#10a37f",
   gemini: "#4285f4",
-  letta: "#8b5cf6",
+  letta: "#f59e0b",
   manus: "#f59e0b",
 };
 

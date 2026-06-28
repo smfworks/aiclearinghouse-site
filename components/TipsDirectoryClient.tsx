@@ -24,7 +24,7 @@ const categoryColors: Record<string, string> = {
   Quality: "text-emerald border-emerald/30 bg-emerald/5",
   Safety: "text-rose border-rose/30 bg-rose/5",
   Cost: "text-amber border-amber/30 bg-amber/5",
-  Hermes: "text-violet border-violet/30 bg-violet/5",
+  Hermes: "text-amber-400 border-amber-400/30 bg-amber-400/5",
   Tip: "text-accent border-accent/30 bg-accent/5",
 };
 
@@ -33,7 +33,7 @@ const categoryTextColors: Record<string, string> = {
   Quality: "text-emerald",
   Safety: "text-rose",
   Cost: "text-amber",
-  Hermes: "text-violet",
+  Hermes: "text-amber-400",
   Tip: "text-accent",
 };
 
@@ -42,7 +42,7 @@ const categoryBorderColors: Record<string, string> = {
   Quality: "border-l-emerald",
   Safety: "border-l-rose",
   Cost: "border-l-amber",
-  Hermes: "border-l-violet",
+  Hermes: "border-l-amber-400",
   Tip: "border-l-accent",
 };
 
@@ -60,7 +60,7 @@ const categoryGradientColors: Record<string, string> = {
   Quality: "from-emerald-500/25 via-emerald-500/10 to-transparent",
   Safety: "from-rose-500/25 via-rose-500/10 to-transparent",
   Cost: "from-amber-500/25 via-amber-500/10 to-transparent",
-  Hermes: "from-violet-500/25 via-violet-500/10 to-transparent",
+  Hermes: "from-amber-500/25 via-amber-500/10 to-transparent",
   Tip: "from-accent/25 via-accent/10 to-transparent",
 };
 

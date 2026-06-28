@@ -23,7 +23,7 @@ const categoryColors: Record<string, string> = {
   "Coding Benchmark": "text-cyan border-cyan/30 bg-cyan/5",
   "No-Code Benchmark": "text-amber border-amber/30 bg-amber/5",
   "Security Benchmark": "text-rose border-rose/30 bg-rose/5",
-  "Integration Benchmark": "text-violet border-violet/30 bg-violet/5",
+  "Integration Benchmark": "text-amber-400 border-amber-400/30 bg-amber-400/5",
 };
 
 const metricLabels: Record<string, string> = {

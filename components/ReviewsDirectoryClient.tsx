@@ -12,28 +12,28 @@ interface Props {
 
 const categoryBaseColors: Record<string, string> = {
   Agent: "cyan",
-  Service: "violet",
+  Service: "amber",
   Hardware: "amber",
   Tool: "emerald",
 };
 
 const categoryColors: Record<string, string> = {
   Agent: "text-cyan border-cyan/30 bg-cyan/5",
-  Service: "text-violet border-violet/30 bg-violet/5",
+  Service: "text-amber-400 border-amber-400/30 bg-amber-400/5",
   Hardware: "text-amber border-amber/30 bg-amber/5",
   Tool: "text-emerald border-emerald/30 bg-emerald/5",
 };
 
 const categoryTextColors: Record<string, string> = {
   Agent: "text-cyan",
-  Service: "text-violet",
+  Service: "text-amber-400",
   Hardware: "text-amber",
   Tool: "text-emerald",
 };
 
 const categoryBorderColors: Record<string, string> = {
   Agent: "border-l-cyan",
-  Service: "border-l-violet",
+  Service: "border-l-amber-400",
   Hardware: "border-l-amber",
   Tool: "border-l-emerald",
 };
@@ -47,7 +47,7 @@ const categoryGlowColors: Record<string, string> = {
 
 const categoryGradientColors: Record<string, string> = {
   Agent: "from-cyan-500/25 via-cyan-500/10 to-transparent",
-  Service: "from-violet-500/25 via-violet-500/10 to-transparent",
+  Service: "from-amber-500/25 via-amber-500/10 to-transparent",
   Hardware: "from-amber-500/25 via-amber-500/10 to-transparent",
   Tool: "from-emerald-500/25 via-emerald-500/10 to-transparent",
 };

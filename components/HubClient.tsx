@@ -49,7 +49,7 @@ type SectionColor = {
 const sectionColors: Record<string, SectionColor> = {
   "getting-started": { text: "#f5a623", glow: "rgba(245, 166, 35, 0.28)", muted: "rgba(245, 166, 35, 0.10)" },
   agents: { text: "#22d3ee", glow: "rgba(34, 211, 238, 0.28)", muted: "rgba(34, 211, 238, 0.10)" },
-  llms: { text: "#a78bfa", glow: "rgba(167, 139, 250, 0.28)", muted: "rgba(167, 139, 250, 0.10)" },
+  llms: { text: "#f5a623", glow: "rgba(245, 166, 35, 0.28)", muted: "rgba(245, 166, 35, 0.10)" },
   services: { text: "#60a5fa", glow: "rgba(96, 165, 250, 0.28)", muted: "rgba(96, 165, 250, 0.10)" },
   skills: { text: "#34d399", glow: "rgba(52, 211, 153, 0.28)", muted: "rgba(52, 211, 153, 0.10)" },
   guides: { text: "#fbbf24", glow: "rgba(251, 191, 36, 0.28)", muted: "rgba(251, 191, 36, 0.10)" },
@@ -61,7 +61,7 @@ const sectionColors: Record<string, SectionColor> = {
   "deployment-recipes": { text: "#f59e0b", glow: "rgba(245, 158, 11, 0.28)", muted: "rgba(245, 158, 11, 0.10)" },
   deals: { text: "#facc15", glow: "rgba(250, 204, 21, 0.28)", muted: "rgba(250, 204, 21, 0.10)" },
   safety: { text: "#ef4444", glow: "rgba(239, 68, 68, 0.28)", muted: "rgba(239, 68, 68, 0.10)" },
-  lab: { text: "#818cf8", glow: "rgba(129, 140, 248, 0.28)", muted: "rgba(129, 140, 248, 0.10)" },
+  lab: { text: "#f97316", glow: "rgba(249, 115, 22, 0.28)", muted: "rgba(249, 115, 22, 0.10)" },
   changelog: { text: "#2dd4bf", glow: "rgba(45, 212, 191, 0.28)", muted: "rgba(45, 212, 191, 0.10)" },
   "ai-news": { text: "#f5a623", glow: "rgba(245, 166, 35, 0.28)", muted: "rgba(245, 166, 35, 0.10)" },
   reviews: { text: "#ec4899", glow: "rgba(236, 72, 153, 0.28)", muted: "rgba(236, 72, 153, 0.10)" },
@@ -178,7 +178,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
           <h1 className="mt-7 text-4xl font-semibold tracking-tight text-foreground md:text-6xl lg:text-7xl">
             The tools are multiplying.
             <br />
-            <span className="text-gradient">The clarity isn&apos;t.</span>
+            <span className="text-accent">The clarity isn&apos;t.</span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">

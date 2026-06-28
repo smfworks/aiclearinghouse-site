@@ -63,7 +63,7 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     name: "Dr. J",
     role: "Agent Diagnostics & Reliability",
     series: "drj",
-    color: "#A855F7",
+    color: "#f97316",
     bio: "Diagnosing the silent failures, memory systems, and operational health of AI agents.",
   },
   {

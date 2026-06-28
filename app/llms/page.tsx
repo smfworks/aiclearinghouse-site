@@ -220,7 +220,7 @@ export default function LLMsPage() {
                         <td className="px-4 py-3">
                           <span className={`rounded-full px-2 py-0.5 text-xs font-mono ${
                             m.category === "Flagship" ? "bg-blue-500/10 text-blue-400" :
-                            m.category === "Reasoning" ? "bg-purple-500/10 text-purple-400" :
+                            m.category === "Reasoning" ? "bg-amber-500/10 text-amber-400" :
                             m.category === "Budget" ? "bg-green-500/10 text-green-400" :
                             m.category === "Open Source" || m.input_price === 0 ? "bg-amber-500/10 text-amber-400" :
                             m.category === "Coding" ? "bg-cyan-500/10 text-cyan-400" :

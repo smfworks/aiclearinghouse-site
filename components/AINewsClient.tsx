@@ -37,7 +37,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 
 const categoryColors: Record<string, string> = {
   Models: "text-cyan",
-  Agents: "text-violet",
+  Agents: "text-amber-400",
   "Product Launches": "text-emerald",
   APIs: "text-amber",
   "Open Source": "text-rose",
