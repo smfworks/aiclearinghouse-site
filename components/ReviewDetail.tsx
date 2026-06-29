@@ -18,7 +18,7 @@ const sectionMeta: Record<string, { icon: React.ReactNode; title: string; varian
 
 const categoryColors: Record<string, string> = {
   Agent: "text-cyan border-cyan/30 bg-cyan/5",
-  Service: "text-violet border-violet/30 bg-violet/5",
+  Service: "text-amber-400 border-amber-400/30 bg-amber-400/5",
   Hardware: "text-amber border-amber/30 bg-amber/5",
   Tool: "text-emerald border-emerald/30 bg-emerald/5",
 };

@@ -22,7 +22,7 @@ const categoryBaseColors: Record<string, string> = {
   Infrastructure: "cyan",
   Data: "emerald",
   Security: "rose",
-  Operations: "violet",
+  Operations: "amber",
   "AI APIs": "amber",
 };
 
@@ -30,7 +30,7 @@ const categoryColors: Record<string, string> = {
   Infrastructure: "text-cyan border-cyan/30 bg-cyan/5",
   Data: "text-emerald border-emerald/30 bg-emerald/5",
   Security: "text-rose border-rose/30 bg-rose/5",
-  Operations: "text-violet border-violet/30 bg-violet/5",
+  Operations: "text-amber-400 border-amber-400/30 bg-amber-400/5",
   "AI APIs": "text-amber border-amber/30 bg-amber/5",
 };
 
@@ -38,7 +38,7 @@ const categoryTextColors: Record<string, string> = {
   Infrastructure: "text-cyan",
   Data: "text-emerald",
   Security: "text-rose",
-  Operations: "text-violet",
+  Operations: "text-amber-400",
   "AI APIs": "text-amber",
 };
 
@@ -46,7 +46,7 @@ const categoryBorderColors: Record<string, string> = {
   Infrastructure: "border-l-cyan",
   Data: "border-l-emerald",
   Security: "border-l-rose",
-  Operations: "border-l-violet",
+  Operations: "border-l-amber-400",
   "AI APIs": "border-l-amber",
 };
 
@@ -62,7 +62,7 @@ const categoryGradientColors: Record<string, string> = {
   Infrastructure: "from-cyan-500/25 via-cyan-500/10 to-transparent",
   Data: "from-emerald-500/25 via-emerald-500/10 to-transparent",
   Security: "from-rose-500/25 via-rose-500/10 to-transparent",
-  Operations: "from-violet-500/25 via-violet-500/10 to-transparent",
+  Operations: "from-amber-500/25 via-amber-500/10 to-transparent",
   "AI APIs": "from-amber-500/25 via-amber-500/10 to-transparent",
 };
 

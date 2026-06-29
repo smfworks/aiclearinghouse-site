@@ -24,7 +24,7 @@ const categoryColors: Record<string, string> = {
   Infrastructure: "text-cyan border-cyan/30 bg-cyan/5",
   Data: "text-emerald border-emerald/30 bg-emerald/5",
   Security: "text-rose border-rose/30 bg-rose/5",
-  Operations: "text-violet border-violet/30 bg-violet/5",
+  Operations: "text-amber-400 border-amber-400/30 bg-amber-400/5",
   "AI APIs": "text-amber border-amber/30 bg-amber/5",
 };
 

@@ -79,8 +79,8 @@
   --c-gold-glow: rgba(250, 204, 21, 0.22);
   --c-crimson: #ef4444;
   --c-crimson-glow: rgba(239, 68, 68, 0.22);
-  --c-indigo: #818cf8;
-  --c-indigo-glow: rgba(129, 140, 248, 0.22);
+  --c-indigo: #fb923c;
+  --c-indigo-glow: rgba(251, 146, 60, 0.22);
   --c-teal: #2dd4bf;
   --c-teal-glow: rgba(45, 212, 191, 0.22);
 }
@@ -182,13 +182,6 @@
 
   .card-glow-hover {
     box-shadow: 0 0 0 1px currentColor, 0 0 40px -12px currentColor, 0 12px 32px -12px rgba(0, 0, 0, 0.6);
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, var(--foreground) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .border-accent-soft {
@@ -295,6 +288,6 @@
   [data-agent-name="perplexity"] h3 { color: #e85d4e; }
   [data-agent-name="chatgpt"] h3 { color: #10a37f; }
   [data-agent-name="gemini"] h3 { color: #4285f4; }
-  [data-agent-name="letta"] h3 { color: #8b5cf6; }
+  [data-agent-name="letta"] h3 { color: #f59e0b; }
   [data-agent-name="manus"] h3 { color: #f59e0b; }
 }

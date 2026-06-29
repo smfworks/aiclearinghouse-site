@@ -30,7 +30,7 @@ const pillars = [
     title: "Deploy",
     description:
       "Tested deployment recipes and self-hosting walkthroughs you can run today: Ollama, Open WebUI, Cline, and more.",
-    color: "#8b5cf6",
+    color: "#f97316",
   },
   {
     icon: CheckCircle,

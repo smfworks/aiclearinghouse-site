@@ -137,7 +137,7 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
             {statTile("Agents listed", stats.total, "text-cyan")}
             {statTile("Open source", stats.openSource, "text-success")}
             {statTile("Coding agents", stats.coding, "text-amber")}
-            {statTile("No-code builders", stats.noCode, "text-violet")}
+            {statTile("No-code builders", stats.noCode, "text-amber-400")}
           </div>
         </div>
       </section>

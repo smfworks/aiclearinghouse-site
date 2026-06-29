@@ -42,7 +42,7 @@ const categoryColors: Record<string, string> = {
   Quality: "text-emerald border-emerald/30 bg-emerald/5",
   Safety: "text-rose border-rose/30 bg-rose/5",
   Cost: "text-amber border-amber/30 bg-amber/5",
-  Hermes: "text-violet border-violet/30 bg-violet/5",
+  Hermes: "text-amber-400 border-amber-400/30 bg-amber-400/5",
   Tip: "text-accent border-accent/30 bg-accent/5",
 };
 
