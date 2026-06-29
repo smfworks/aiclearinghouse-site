@@ -8,7 +8,7 @@ series: "terminal"
 categories: ["OpenClaw on Linux", "AI Agents", "Research"]
 tags: ["OpenClaw", "AI Agents", "Open Source", "Architecture", "Whitepaper", "Linux"]
 readTime: 6
-image: "/images/blog/the-terminal/2026-06-22-openclaw-security-375k-stars-attack-surface.png"
+image: "/images/blog/openclaw-deficits-whitepaper-audit.png"
 originalUrl: "https://smfworks.com/the-terminal/openclaw-deficits-whitepaper-audit"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/openclaw-deficits-whitepaper-audit"
 ---
