@@ -10,11 +10,19 @@ tags:
   - Claude Sonnet
   - Claude Code
   - changelog
-last_updated: 2026-05-28
-last_verified: 2026-06-18
+last_updated: 2026-07-01
+last_verified: 2026-07-01
 ---
 
 # Anthropic Changelog
+
+## 2026-07
+
+### Claude Code adds server mode and CI integration
+Anthropic released a headless server mode for Claude Code, making it easier to run inside CI pipelines and containerized review environments. The update also brings a GitHub Actions integration that posts agent-generated review summaries as PR comments, subject to human approval.
+
+### Claude Sonnet 4.7 preview
+Anthropic opened preview access to Claude Sonnet 4.7, promising faster agent loop execution and better tool-call accuracy for multi-step workflows. Pricing is expected to match Sonnet 4.6 at general availability.
 
 ## 2026-05
 

@@ -11,11 +11,19 @@ tags:
   - Codex
   - Responses API
   - changelog
-last_updated: 2026-06-18
-last_verified: 2026-06-18
+last_updated: 2026-07-01
+last_verified: 2026-07-01
 ---
 
 # OpenAI Changelog
+
+## 2026-07
+
+### Codex CLI adds checkpoint rollbacks and review mode
+OpenAI shipped two operator-focused updates to Codex CLI: checkpoint rollbacks that let you restore the repo to any prior agent step, and a review mode that pauses before file writes and shell commands. These bring Codex closer to the safety and control patterns that Claude Code users already expect.
+
+### GPT-5.1 context window expansion
+GPT-5.1 now supports 256,000 tokens in standard chat completions, doubling the previous limit. This makes it a stronger candidate for codebase-wide analysis and long-document agent tasks without moving to the o-series reasoning models.
 
 ## 2026-06
 

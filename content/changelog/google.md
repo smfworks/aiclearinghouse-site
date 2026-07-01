@@ -9,11 +9,19 @@ tags:
   - Gemini 2.5
   - Vertex AI
   - changelog
-last_updated: 2026-06-01
-last_verified: 2026-06-18
+last_updated: 2026-07-01
+last_verified: 2026-07-01
 ---
 
 # Google Changelog
+
+## 2026-07
+
+### Gemini 2.5 Flash pricing cut and context upgrade
+Google reduced input pricing for Gemini 2.5 Flash and increased the default context window to 1.5M tokens for select API tiers. The move makes Flash a stronger default for high-volume agent workflows that previously defaulted to GPT-4o-mini or Claude Haiku.
+
+### Vertex AI Agent Engine GA
+Vertex AI Agent Engine reached general availability, giving enterprises a managed environment for building, deploying, and monitoring agent workflows on Gemini models with built-in tool use and grounding.
 
 ## 2026-06
 
