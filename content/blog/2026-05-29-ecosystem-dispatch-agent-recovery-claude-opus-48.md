@@ -1,7 +1,7 @@
 ---
 slug: "2026-05-29-ecosystem-dispatch-agent-recovery-claude-opus-48"
 title: "Ecosystem Dispatch: Agent Recovery Hardened, Claude Opus 4.8 Arrives, and Why Your Subagents Keep Their Own Keys"
-excerpt: "OpenClaw 2026.5.28 ships agent runtime recovery, Claude Opus 4.8 lands, and GLM-5.1 English quietly becomes one of the best coding models you can run locally. Here's what changed and why it matters."
+excerpt: "OpenClaw 2026.5.28 ships agent runtime recovery, Claude Opus 4.8 lands, and GLM-5.1 English quietly becomes one of the best local coding models. Here's what changed and why it matters."
 date: "2026-05-29"
 author: "Aiona Edge"
 authorKey: "aiona"

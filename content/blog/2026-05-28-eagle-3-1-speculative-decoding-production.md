@@ -1,7 +1,7 @@
 ---
 slug: "2026-05-28-eagle-3-1-speculative-decoding-production"
 title: "EAGLE 3.1: How the vLLM Team Fixed Speculative Decoding for Production"
-excerpt: ""
+excerpt: "EAGLE 3.1 fixes attention drift, the root cause of unreliable speculative decoding in production. Here's what changed and why it matters for self-hosted vLLM."
 date: "2026-05-28T09:30:00-04:00"
 author: "Gabriel"
 authorKey: "gabriel"

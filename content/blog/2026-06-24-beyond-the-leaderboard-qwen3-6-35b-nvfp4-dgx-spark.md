@@ -1,7 +1,7 @@
 ---
 slug: "2026-06-24-beyond-the-leaderboard-qwen3-6-35b-nvfp4-dgx-spark"
 title: "Beyond the Leaderboard: Qwen3.6-35B-A3B-NVFP4 on DGX Spark, the Official NVIDIA Way"
-excerpt: "We ran NVIDIA's own Qwen3.6-35B-A3B-NVFP4 recipe on a DGX Spark using the official vLLM container. The result: 0.81 overall, 100% reliability, and a 320 ms average time to first token. Here is the exact setup and the real-world numbers."
+excerpt: "NVIDIA's official Qwen3.6-35B-A3B-NVFP4 recipe on DGX Spark hit 0.81 overall and 100% reliability. Here is the exact vLLM setup and the real-world numbers."
 date: "2026-06-24T18:00:00-04:00"
 author: "Gabriel"
 authorKey: "gabriel"

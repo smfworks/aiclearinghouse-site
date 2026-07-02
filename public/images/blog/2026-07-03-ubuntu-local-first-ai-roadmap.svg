@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576" width="1024" height="576" role="img" aria-label="Hero image for the post Ubuntu's Local-First AI Roadmap: What It Means for Self-Hosted Agents">
+  <title>Ubuntu's Local-First AI Roadmap: What It Means for Self-Hosted Agents — SMF AI Clearinghouse</title>
+  <desc>Dark engineered hero image for a July 3, 2026 post about Ubuntu local-first AI and self-hosted agents.</desc>
+
+  <defs>
+    <style>
+      .bg { fill: #050507; }
+      .panel { fill: #0b0c0f; stroke: #1e2026; stroke-width: 1.5; }
+      .panel-elevated { fill: #111216; stroke: #1e2026; stroke-width: 1.5; }
+      .panel-header { fill: #111216; stroke: #1e2026; stroke-width: 1; }
+      .chip { fill: #15171c; stroke: #1e2026; stroke-width: 1; }
+      .grid-line { stroke: #1e2026; stroke-width: 1; }
+      .font-sans { font-family: Inter, Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+      .font-mono { font-family: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+      .text-primary { fill: #f2f2f5; }
+      .text-secondary { fill: #8a8f98; }
+      .text-accent { fill: #5e6ad2; }
+      .text-success { fill: #22c55e; }
+      .text-warning { fill: #f59e0b; }
+      .accent-stroke { stroke: #5e6ad2; stroke-width: 2; fill: none; opacity: 0.9; }
+      .accent-stroke-soft { stroke: #5e6ad2; stroke-width: 1.5; fill: none; opacity: 0.55; }
+      .accent-glow { stroke: #5e6ad2; stroke-width: 5; fill: none; opacity: 0.18; filter: blur(5px); }
+      .success-stroke { stroke: #22c55e; stroke-width: 1.5; fill: none; opacity: 0.8; }
+      .warning-fill { fill: #f59e0b; }
+      .accent-fill { fill: #5e6ad2; }
+      .success-fill { fill: #22c55e; }
+    </style>
+
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M 64 0 L 0 0 0 64" fill="none" class="grid-line" opacity="0.35"/>
+    </pattern>
+
+    <radialGradient id="gridVignette" cx="50%" cy="50%" r="72%">
+      <stop offset="40%" stop-color="#050507" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#050507" stop-opacity="0.94"/>
+    </radialGradient>
+
+    <!-- Central motif: Ubuntu ORB / network node fusion -->
+    <g id="ubuntu-agent-network">
+      <!-- Hex blueprint shell -->
+      <path d="M0,-130 L112.6,-65 L112.6,65 L0,130 L-112.6,65 L-112.6,-65 Z" class="accent-stroke-soft"/>
+      <path d="M0,-130 L112.6,-65 L112.6,65 L0,130 L-112.6,65 L-112.6,-65 Z" class="accent-glow"/>
+
+      <!-- Ubuntu-inspired outer ring segments -->
+      <g stroke="#f59e0b" stroke-width="5" fill="none" opacity="0.8" stroke-linecap="round">
+        <path d="M0,-66 A66,66 0 0,1 57,-33"/>
+        <path d="M57,33 A66,66 0 0,1 0,66"/>
+        <path d="M-57,33 A66,66 0 0,1 -57,-33"/>
+      </g>
+
+      <!-- Three node bullets on ring -->
+      <circle cx="0" cy="-66" r="7" class="warning-fill"/>
+      <circle cx="57" cy="33" r="7" class="warning-fill"/>
+      <circle cx="-57" cy="33" r="7" class="warning-fill"/>
+
+      <!-- Inner hub + local server glyph -->
+      <circle cx="0" cy="0" r="26" class="accent-stroke"/>
+      <g class="accent-fill">
+        <rect x="-8" y="-8" width="16" height="16" rx="2"/>
+        <rect x="-4" y="-4" width="8" height="8" rx="1" fill="#050507"/>
+      </g>
+
+      <!-- Spokes to hex vertices -->
+      <g class="accent-stroke-soft">
+        <line x1="0" y1="-26" x2="0" y2="-92"/>
+        <line x1="22" y1="-12" x2="80" y2="-46"/>
+        <line x1="22" y1="12" x2="80" y2="46"/>
+        <line x1="0" y1="26" x2="0" y2="92"/>
+        <line x1="-22" y1="12" x2="-80" y2="46"/>
+        <line x1="-22" y1="-12" x2="-80" y2="-46"/>
+      </g>
+
+      <!-- Satellite nodes at hex vertices -->
+      <circle cx="0" cy="-92" r="5" class="accent-fill" opacity="0.9"/>
+      <circle cx="80" cy="-46" r="5" class="success-fill" opacity="0.85"/>
+      <circle cx="80" cy="46" r="5" class="accent-fill" opacity="0.75"/>
+      <circle cx="0" cy="92" r="5" class="accent-fill" opacity="0.9"/>
+      <circle cx="-80" cy="46" r="5" class="success-fill" opacity="0.85"/>
+      <circle cx="-80" cy="-46" r="5" class="accent-fill" opacity="0.75"/>
+
+      <!-- Blueprint crosshair -->
+      <g opacity="0.25" class="accent-stroke-soft" stroke-width="1">
+        <line x1="-16" y1="0" x2="16" y2="0"/>
+        <line x1="0" y1="-16" x2="0" y2="16"/>
+      </g>
+    </g>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="576" class="bg"/>
+  <rect width="1024" height="576" fill="url(#grid)"/>
+  <rect width="1024" height="576" fill="url(#gridVignette)"/>
+
+  <!-- Left code panel: on-device agent snippet -->
+  <g id="code-panel" transform="translate(48, 64)">
+    <rect width="240" height="360" rx="12" class="panel"/>
+    <rect x="0" y="0" width="240" height="38" rx="12" class="panel-header"/>
+    <rect x="0" y="18" width="240" height="20" class="panel-header"/>
+    <text x="14" y="24" class="font-mono text-secondary" font-size="11" font-weight="500">$ ubuntu-agent.yaml</text>
+    <circle cx="214" cy="19" r="4" class="warning-fill" opacity="0.9"/>
+    <circle cx="226" cy="19" r="4" class="success-fill" opacity="0.9"/>
+
+    <g transform="translate(16, 56)" class="font-mono" font-size="12">
+      <text y="0" class="text-secondary"># Local-first agent config</text>
+      <text y="28" class="text-primary">self_hosted: <tspan class="text-success">true</tspan></text>
+      <text y="50" class="text-primary">model_backend: <tspan class="text-accent">"ollama"</tspan></text>
+      <text y="72" class="text-primary">ubuntu_version: <tspan class="text-accent">"26.10"</tspan></text>
+      <text y="94" class="text-secondary">deploy:</text>
+      <text y="116" class="text-secondary">  - gpu: local</text>
+      <text y="138" class="text-secondary">  - snap: ai-lab</text>
+      <text y="160" class="text-secondary">  - privacy: on-device</text>
+      <text y="192" class="text-success">$ sudo snap install ai-lab</text>
+      <text y="214" class="text-secondary"></text>
+    </g>
+  </g>
+
+  <!-- Right tool panel: platforms / stack -->
+  <g id="tool-panel" transform="translate(736, 64)">
+    <rect width="240" height="360" rx="12" class="panel-elevated"/>
+    <rect x="0" y="0" width="240" height="38" rx="12" class="panel-header"/>
+    <rect x="0" y="18" width="240" height="20" class="panel-header"/>
+    <text x="14" y="24" class="font-mono text-secondary" font-size="11" font-weight="500">stack / verified local</text>
+    <circle cx="214" cy="19" r="4" class="accent-fill" opacity="0.9"/>
+    <circle cx="226" cy="19" r="4" class="success-fill" opacity="0.9"/>
+
+    <g transform="translate(16, 58)" class="font-mono" font-size="11">
+      <rect width="96" height="26" rx="6" class="chip"/>
+      <text x="48" y="17" class="text-primary" text-anchor="middle">Ubuntu</text>
+
+      <g transform="translate(108, 0)">
+        <rect width="100" height="26" rx="6" class="chip"/>
+        <text x="50" y="17" class="text-primary" text-anchor="middle">Ollama</text>
+      </g>
+
+      <g transform="translate(0, 38)">
+        <rect width="86" height="26" rx="6" class="chip"/>
+        <text x="43" y="17" class="text-primary" text-anchor="middle">OpenClaw</text>
+      </g>
+
+      <g transform="translate(98, 38)">
+        <rect width="110" height="26" rx="6" class="chip"/>
+        <text x="55" y="17" class="text-primary" text-anchor="middle">AI Lab Snaps</text>
+      </g>
+
+      <g transform="translate(0, 76)">
+        <rect width="104" height="26" rx="6" class="chip"/>
+        <text x="52" y="17" class="text-primary" text-anchor="middle">DGX Spark</text>
+      </g>
+
+      <g transform="translate(116, 76)">
+        <rect width="92" height="26" rx="6" class="chip"/>
+        <text x="46" y="17" class="text-primary" text-anchor="middle">Snapcraft</text>
+      </g>
+
+      <g transform="translate(0, 114)">
+        <rect width="80" height="26" rx="6" class="chip"/>
+        <text x="40" y="17" class="text-primary" text-anchor="middle">llama.cpp</text>
+      </g>
+
+      <g transform="translate(92, 114)">
+        <rect width="116" height="26" rx="6" class="chip"/>
+        <text x="58" y="17" class="text-primary" text-anchor="middle">Confidential AI</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Center motif -->
+  <g transform="translate(512, 244)">
+    <circle r="170" fill="url(#gridVignette)" opacity="0.35"/>
+    <use href="#ubuntu-agent-network"/>
+  </g>
+
+  <!-- Title + meta -->
+  <g transform="translate(48, 456)">
+    <text x="0" y="0" class="font-mono text-accent" font-size="11" font-weight="600" letter-spacing="0.12em">LOCAL-FIRST AI — THE TERMINAL</text>
+    <text x="0" y="46" class="font-sans text-primary" font-size="32" font-weight="600" letter-spacing="-0.02em">Ubuntu's Local-First AI Roadmap:</text>
+    <text x="0" y="82" class="font-sans text-primary" font-size="30" font-weight="500" letter-spacing="-0.02em">What It Means for Self-Hosted Agents</text>
+    <text x="0" y="118" class="font-mono text-secondary" font-size="13">July 3, 2026 — Gabriel / SMF AI Clearinghouse</text>
+  </g>
+
+  <!-- Watermark -->
+  <text x="976" y="556" class="font-mono text-secondary" font-size="9" text-anchor="end" opacity="0.5">smf.ai</text>
+</svg>

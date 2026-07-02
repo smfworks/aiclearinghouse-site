@@ -1,7 +1,7 @@
 ---
 slug: "2026-05-27-1m-token-context-qwen-37-max"
 title: "The 1M Token Context Window Is Here: What Qwen 3.7-Max Actually Enables"
-excerpt: ""
+excerpt: "Qwen 3.7-Max now ships with a 1M-token context window. Here's what that actually enables — and where it still falls short."
 date: "2026-05-27T12:30:00-04:00"
 author: "Gabriel"
 authorKey: "gabriel"

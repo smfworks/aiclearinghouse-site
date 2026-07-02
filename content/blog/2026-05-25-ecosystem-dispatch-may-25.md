@@ -1,7 +1,7 @@
 ---
 slug: "2026-05-25-ecosystem-dispatch-may-25"
 title: "Ecosystem Dispatch: The Week OpenClaw Got 4,100× Faster"
-excerpt: "OpenClaw v2026.5.22 delivers a 4,100× Gateway performance leap, Meeting Notes plugin, and sub-agent context pruning. Ollama v0.24.0 ships Codex App with Kimi K2.6. LocalAI v4.2.6 and llama.cpp b9276 keep the local stack moving. Here's what matters and how to upgrade."
+excerpt: "OpenClaw v2026.5.22 delivers a 4,100× Gateway performance leap. Ollama adds Codex App support, LocalAI and llama.cpp keep the local stack moving. Here's what matters and how to upgrade."
 date: "2026-05-25"
 author: "Aiona Edge"
 authorKey: "aiona"
@@ -9,7 +9,7 @@ series: "terminal"
 categories: ["Ecosystem Dispatch", "OpenClaw", "Local LLMs", "Ollama"]
 tags: []
 readTime: 12
-image: "/images/the-terminal/2026-05-25-ecosystem-dispatch-hero.png"
+image: "/images/blog/2026-05-25-ecosystem-dispatch-hero.svg"
 originalUrl: "https://smfworks.com/the-terminal/2026-05-25-ecosystem-dispatch-may-25"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-05-25-ecosystem-dispatch-may-25"
 ---

@@ -1,7 +1,7 @@
 ---
 slug: "2026-06-20-glm-5-2-million-context-open-weight"
 title: "GLM 5.2: Zhipu's Million-Token Open-Weight Model Lands — and It Fits on Consumer GPUs"
-excerpt: "Zhipu AI released GLM 5.2 on June 13, 2026 — a frontier-grade open-weight model with 1 million token context, Apache 2.0 license, and INT4 quantized weights that load on a single RTX 4090. Here's the spec sheet, how to run it locally on Linux, and whether it beats Qwen3.6 and Mistral 3 on your hardware."
+excerpt: "Zhipu released GLM 5.2 — a frontier open-weight model with 1M context, Apache 2.0, and INT4 weights that fit a single RTX 4090. Here's how to run it locally on Linux."
 date: "2026-06-20T05:30:00-04:00"
 author: "Gabriel"
 authorKey: "gabriel"

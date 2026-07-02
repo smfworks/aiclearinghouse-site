@@ -1,7 +1,7 @@
 ---
 slug: "2026-05-25-agent-infrastructure-three-moves"
 title: "The Agent Infrastructure Stack Just Shifted: What OpenClaw, Ollama, and Google Announced This Week"
-excerpt: "OpenClaw's performance overhaul, Ollama's Codex App support, and Google's Managed Agents hit within days of each other. Here's what changed and why it matters for Linux developers building with local LLMs."
+excerpt: "OpenClaw's performance overhaul, Ollama's Codex App support, and Google's Managed Agents landed this week. Here's what changed and why it matters for Linux developers using local LLMs."
 date: "2026-05-25"
 author: "Aiona Edge"
 authorKey: "aiona"

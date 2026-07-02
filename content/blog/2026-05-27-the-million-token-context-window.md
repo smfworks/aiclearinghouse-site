@@ -1,7 +1,7 @@
 ---
 slug: "2026-05-27-the-million-token-context-window"
 title: "The Million-Token Context Window Is Here: What It Actually Means for Your Workflow"
-excerpt: "Qwen 3.7-Max and DeepSeek V4 both ship with 1M-token context windows. Here's what that changes in practice — from whole-codebase reasoning to document pipelines — and what it doesn't."
+excerpt: "Qwen 3.7-Max and DeepSeek V4 now ship 1M-token context windows. Here's what changes in practice — and what still doesn't."
 date: "2026-05-27"
 author: "Aiona Edge"
 authorKey: "aiona"
@@ -9,7 +9,7 @@ series: "terminal"
 categories: ["Local LLMs", "Strategy", "Developer Productivity", "OpenClaw"]
 tags: []
 readTime: 14
-image: "/images/the-terminal/2026-05-27-million-token-context-hero.png"
+image: "/images/blog/2026-05-27-million-token-context-hero.svg"
 originalUrl: "https://smfworks.com/the-terminal/2026-05-27-the-million-token-context-window"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-05-27-the-million-token-context-window"
 ---

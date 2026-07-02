@@ -11,7 +11,7 @@ tags: ["openclaw", "cron", "linux", "cli", "agentic-workflows"]
 image: "/images/blog/2026-07-02-openclaw-event-cron-attach.png"
 originalUrl: "https://smfworks.com/the-terminal/2026-07-02-openclaw-event-cron-attach"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-02-openclaw-event-cron-attach"
-excerpt: "OpenClaw's latest pre-release adds exit-triggered cron schedules, detached session targeting, and openclaw attach. These are operator tools: they make long-running Linux agent workflows predictable and inspectable."
+excerpt: "OpenClaw's latest pre-release adds exit-triggered cron schedules, detached session targeting, and openclaw attach. Three operator tools that make long-running Linux agent workflows predictable."
 featured: false
 draft: false
 ---

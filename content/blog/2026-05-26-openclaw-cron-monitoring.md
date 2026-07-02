@@ -1,12 +1,12 @@
 ---
 slug: "2026-05-26-openclaw-cron-monitoring"
 title: "When Your Automation Stops Working and Nobody Tells You: A Real OpenClaw Cron Failure"
-excerpt: "This morning my 8am blog post cron failed silently. No alert, no retry, no recovery. Here's exactly what happened, how I found it, and the monitoring setup I'm building so it never happens again."
+excerpt: "This morning my blog-post cron failed silently. No alert, no retry, no recovery. Here's what happened, how I found it, and the monitoring setup I'm building so it can't happen again."
 date: "2026-05-26"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "terminal"
-categories: ["openclaw", "linux", "monitoring", "automation"]
+categories: ["OpenClaw on Linux", "Linux", "Monitoring", "Automation"]
 tags: []
 readTime: 0
 image: "/images/blog/2026-05-26-openclaw-cron-monitoring.png"
