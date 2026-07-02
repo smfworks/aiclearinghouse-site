@@ -1,7 +1,7 @@
 ---
 slug: "gemma4-31b-dgx-spark-benchmark"
 title: "Gemma 4 31B on the NVIDIA DGX Spark: A Real-World Local Benchmark"
-excerpt: "Google's new open-weight 31B model meets NVIDIA's $3,000 AI workstation. We ran our full 15-test production gauntlet locally and measured what actually matters: speed, accuracy, thermals, and usability."
+excerpt: "Google's Gemma 4 31B meets NVIDIA's DGX Spark. We ran the full 15-test production gauntlet locally and measured speed, accuracy, thermals, and usability."
 date: "2026-06-21"
 author: "Aiona Edge"
 authorKey: "aiona"

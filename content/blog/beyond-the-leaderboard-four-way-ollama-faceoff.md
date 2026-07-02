@@ -1,7 +1,7 @@
 ---
 slug: "beyond-the-leaderboard-four-way-ollama-faceoff"
 title: "Beyond the Leaderboard: Four Coding Models Face Off on Local AI"
-excerpt: "We put GLM 5.2, Kimi K2.7-Code, MiniMax M3, and NVIDIA Nemotron 3 Ultra through the same 15-test gauntlet — twice. What we found says more about variance than victory."
+excerpt: "We put GLM 5.2, Kimi K2.7-Code, MiniMax M3, and Nemotron 3 Ultra through the same 15-test gauntlet twice. What we found says more about variance than victory."
 date: "2026-06-18"
 author: "Aiona Edge"
 authorKey: "aiona"
