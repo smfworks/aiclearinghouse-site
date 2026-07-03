@@ -1,0 +1,75 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1">
+    <line x1="0" y1="126" x2="1200" y2="126"/>
+    <line x1="0" y1="252" x2="1200" y2="252"/>
+    <line x1="0" y1="378" x2="1200" y2="378"/>
+    <line x1="0" y1="504" x2="1200" y2="504"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Circuit traces (right side) -->
+  <g opacity="0.08" stroke="#00E5A0" stroke-width="2" fill="none">
+    <path d="M1100 80 H1000 V180 H850 V280 H950 V400 H800 V520 H1050"/>
+    <circle cx="1100" cy="80" r="5" fill="#00E5A0" stroke="none"/>
+    <circle cx="1000" cy="180" r="5" fill="#00E5A0" stroke="none"/>
+    <circle cx="850" cy="280" r="5" fill="#00E5A0" stroke="none"/>
+    <circle cx="950" cy="400" r="5" fill="#00E5A0" stroke="none"/>
+    <circle cx="800" cy="520" r="5" fill="#00E5A0" stroke="none"/>
+    <path d="M1050 160 H1150 V300 H1020 V450 H1120"/>
+    <circle cx="1050" cy="160" r="5" fill="#00E5A0" stroke="none"/>
+    <circle cx="1150" cy="300" r="5" fill="#00E5A0" stroke="none"/>
+    <circle cx="1020" cy="450" r="5" fill="#00E5A0" stroke="none"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="240" cy="315" r="200" fill="url(#pulse)"/>
+
+  <!-- Medical cross + circuit icon -->
+  <g transform="translate(160, 235)">
+    <!-- Cross -->
+    <rect x="66" y="0" width="48" height="160" rx="8" fill="#00E5A0" opacity="0.12"/>
+    <rect x="0" y="56" width="180" height="48" rx="8" fill="#00E5A0" opacity="0.12"/>
+    <rect x="74" y="8" width="32" height="144" rx="6" fill="#00E5A0"/>
+    <rect x="8" y="64" width="164" height="32" rx="6" fill="#00E5A0"/>
+    <!-- Circuit nodes -->
+    <circle cx="90" cy="80" r="12" fill="#0A0F1F" stroke="#00E5A0" stroke-width="3"/>
+    <line x1="90" y1="80" x2="180" y2="80" stroke="#00E5A0" stroke-width="3"/>
+    <line x1="90" y1="80" x2="90" y2="160" stroke="#00E5A0" stroke-width="3"/>
+    <circle cx="180" cy="80" r="6" fill="#00E5A0"/>
+    <circle cx="90" cy="160" r="6" fill="#00E5A0"/>
+    <!-- Pulse line -->
+    <path d="M20 130 H50 L60 100 L80 150 L100 110 L120 130 H160" fill="none" stroke="#00E5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+  </g>
+
+  <!-- Text -->
+  <text x="460" y="245" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="700" fill="#00E5A0" letter-spacing="3" text-transform="uppercase">DR J DIAGNOSTICS</text>
+  <text x="460" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="800" fill="#E2E8F0" line-height="1.2">Infrastructure Health</text>
+  <text x="460" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600" fill="#00E5A0">Hermes + OpenClaw</text>
+  <text x="460" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#94A3B8">Known issues, design gaps, and fixes in progress</text>
+
+  <!-- Date tag -->
+  <rect x="460" y="475" width="155" height="34" rx="6" fill="#00E5A0" opacity="0.12" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="538" y="498" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#00E5A0" text-anchor="middle">July 3, 2026</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.5"/>
+</svg>
