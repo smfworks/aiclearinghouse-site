@@ -90,6 +90,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     color: "#EF4444",
     bio: "Brand strategy, creative direction, and the aesthetics of AI marketing.",
   },
+  {
+    key: "nemo",
+    name: "Nemo",
+    role: "DGX Spark & Local Inference Engineer",
+    series: "clearinghouse",
+    color: "#76B900",
+    bio: "NVIDIA DGX Spark deployment, localized LLM inference, and AI model optimization.",
+  },
 ];
 
 export const SERIES_LABELS: Record<BlogSeries, { label: string; description: string }> = {
