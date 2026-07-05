@@ -387,7 +387,7 @@ curl http://localhost:8888/v1/chat/completions \
   }'
 ```
 
-Benchmark scripts and raw JSON results are available in the [NemoVault knowledge base](https://github.com/smfworks/aiclearinghouse-site). The full benchmark suite covers 65 tests across text, vision, video, tool-calling, concurrency, and context length scaling.
+Benchmark scripts and raw JSON results are available in the [Nemo Knowledge Base](https://github.com/smfworks/NemoKnowledgebase). The full benchmark suite covers 65 tests across text, vision, video, tool-calling, concurrency, and context length scaling.
 
 ---
 
