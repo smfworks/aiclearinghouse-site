@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Central icon: two overlapping runtime hexagons bridged by a trust contract seal -->
+  <g transform="translate(220, 315)" filter="url(#glow)">
+    <!-- Left hexagon: OpenClaw -->
+    <path d="M -90,-20 L -60,-72 L 0,-92 L 60,-72 L 90,-20 L 60,32 L 0,52 L -60,32 Z" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.6"/>
+    <!-- Right hexagon: Hermes, offset -->
+    <path d="M -20,-30 L 10,-82 L 70,-102 L 130,-82 L 160,-30 L 130,22 L 70,42 L 10,22 Z" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.5"/>
+    <!-- Bridge/seam lines between hexagons -->
+    <line x1="45" y1="-42" x2="-10" y2="-55" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.5"/>
+    <line x1="45" y1="-5" x2="-10" y2="5" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.5"/>
+    <line x1="45" y1="32" x2="-10" y2="55" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.5"/>
+    <!-- Trust contract seal in overlap -->
+    <circle cx="35" cy="-5" r="24" fill="#00E5A0" fill-opacity="0.08" stroke="#00E5A0" stroke-width="2" stroke-opacity="0.8"/>
+    <path d="M 35,-17 L 40,-8 L 50,-8 L 42,-2 L 45,8 L 35,2 L 25,8 L 28,-2 L 20,-8 L 30,-8 Z" fill="#00E5A0" fill-opacity="0.9"/>
+  </g>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#00E5A0" fill-opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#00E5A0" fill-opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="260" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" letter-spacing="-0.5">
+    Runtime Seams
+  </text>
+  <text x="440" y="310" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" letter-spacing="-0.5">
+    Trust Contracts
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="355" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">
+    THE DIAGNOSTIC TURN
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="380" x2="800" y2="380" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="415" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">
+    When two runtimes meet, the contract is the diagnostic.
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
