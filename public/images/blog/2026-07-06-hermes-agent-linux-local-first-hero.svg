@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576" width="1024" height="576">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050507"/>
+      <stop offset="100%" stop-color="#0b0c0f"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5e6ad2" stop-opacity="0.32"/>
+      <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.32"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+    <mask id="fade-bottom">
+      <rect width="1024" height="576" fill="white"/>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0.50" stop-color="white"/>
+        <stop offset="0.95" stop-color="black"/>
+      </linearGradient>
+      <rect y="300" width="1024" height="276" fill="url(#fade)"/>
+    </mask>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="576" fill="url(#bg)"/>
+
+  <!-- Ambient glow -->
+  <circle cx="180" cy="400" r="200" fill="url(#glow)" filter="url(#blur)" opacity="0.45" mask="url(#fade-bottom)"/>
+  <circle cx="860" cy="160" r="160" fill="url(#glow)" filter="url(#blur)" opacity="0.35" mask="url(#fade-bottom)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#1e2026" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="144" x2="1024" y2="144"/>
+    <line x1="0" y1="288" x2="1024" y2="288"/>
+    <line x1="0" y1="432" x2="1024" y2="432"/>
+    <line x1="256" y1="0" x2="256" y2="576"/>
+    <line x1="512" y1="0" x2="512" y2="576"/>
+    <line x1="768" y1="0" x2="768" y2="576"/>
+  </g>
+
+  <!-- Central motif: agent loop ring -->
+  <g transform="translate(512, 260)" mask="url(#fade-bottom)">
+    <circle r="108" fill="none" stroke="#5e6ad2" stroke-width="1.5" opacity="0.5"/>
+    <circle r="92" fill="none" stroke="#06b6d4" stroke-width="1" opacity="0.35"/>
+    <!-- hexagon -->
+    <polygon points="0,-62 54,-31 54,31 0,62 -54,31 -54,-31" fill="none" stroke="#5e6ad2" stroke-width="2" opacity="0.65"/>
+    <!-- inner hub -->
+    <circle r="24" fill="#0b0c0f" stroke="#60a5fa" stroke-width="2"/>
+    <!-- outer ticks representing tools -->
+    <g stroke="#5e6ad2" stroke-width="1.5" opacity="0.6">
+      <line x1="0" y1="-62" x2="0" y2="-92"/>
+      <line x1="54" y1="-31" x2="78" y2="-45"/>
+      <line x1="54" y1="31" x2="78" y2="45"/>
+      <line x1="0" y1="62" x2="0" y2="92"/>
+      <line x1="-54" y1="31" x2="-78" y2="45"/>
+      <line x1="-54" y1="-31" x2="-78" y2="-45"/>
+    </g>
+  </g>
+
+  <!-- Left panel: local inference -->
+  <g transform="translate(180, 260)">
+    <rect x="-115" y="-75" width="230" height="150" rx="8" fill="#0b0c0f" stroke="#1e2026" stroke-width="1.5" opacity="0.85"/>
+    <g font-family="monospace" font-size="12" fill="#8a8f98">
+      <text x="-98" y="-45">$ ollama serve</text>
+      <text x="-98" y="-20" fill="#22d3ee">● qwen3:32b</text>
+      <text x="-98" y="5" fill="#a78bfa">● llama.cpp</text>
+      <text x="-98" y="30" fill="#34d399">127.0.0.1:11434</text>
+    </g>
+    <rect x="-115" y="-75" width="230" height="22" rx="8" fill="#111216" opacity="0.6"/>
+    <circle cx="-98" cy="-64" r="3" fill="#ef4444"/>
+    <circle cx="-88" cy="-64" r="3" fill="#f59e0b"/>
+    <circle cx="-78" cy="-64" r="3" fill="#22c55e"/>
+  </g>
+
+  <!-- Right panel: gateway / channels -->
+  <g transform="translate(844, 260)">
+    <rect x="-115" y="-75" width="230" height="150" rx="8" fill="#0b0c0f" stroke="#1e2026" stroke-width="1.5" opacity="0.85"/>
+    <text x="0" y="-45" text-anchor="middle" font-family="monospace" font-size="12" fill="#8a8f98">GATEWAY</text>
+    <text x="0" y="-15" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#f2f2f5" font-weight="600">Telegram · Discord</text>
+    <text x="0" y="15" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#f2f2f5" font-weight="600">HTTP · CLI</text>
+    <text x="0" y="45" text-anchor="middle" font-family="monospace" font-size="12" fill="#22d3ee">:8642 systemd</text>
+  </g>
+
+  <!-- Title -->
+  <text x="512" y="500" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="32" fill="#f2f2f5" font-weight="600" letter-spacing="-0.02em">Running Hermes as a Local-First Agent on Linux</text>
+  <text x="512" y="535" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="20" fill="#9ca3af" font-weight="400" letter-spacing="-0.01em">What Actually Works</text>
+
+  <!-- Meta line -->
+  <text x="512" y="560" text-anchor="middle" font-family="monospace" font-size="13" fill="#8a8f98">2026-07-06 · Liam's Landing · Liam Hermes</text>
+
+  <!-- Bottom accent -->
+  <line x1="362" y1="572" x2="662" y2="572" stroke="#5e6ad2" stroke-width="2" opacity="0.8"/>
+</svg>
