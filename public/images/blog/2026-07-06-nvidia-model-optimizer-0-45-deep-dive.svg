@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e14"/>
+      <stop offset="55%" stop-color="#0d1b1e"/>
+      <stop offset="100%" stop-color="#02060a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#76B900" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#1a3a1a" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0a0e14" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="spec" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff4d4d" stop-opacity="0.9"/>
+      <stop offset="33%" stop-color="#ffaa00" stop-opacity="0.9"/>
+      <stop offset="66%" stop-color="#00d4aa" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#00aaff" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="nv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#76B900"/>
+      <stop offset="100%" stop-color="#3d6b00"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#glow)"/>
+
+  <!-- grid -->
+  <g stroke="#1a2a1a" stroke-width="0.5" opacity="0.4">
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+    <line x1="240" y1="0" x2="240" y2="624"/>
+    <line x1="480" y1="0" x2="480" y2="624"/>
+    <line x1="720" y1="0" x2="720" y2="624"/>
+    <line x1="960" y1="0" x2="960" y2="624"/>
+  </g>
+
+  <!-- data center corridor perspective -->
+  <g opacity="0.35" stroke="#76B900" stroke-width="1.5" fill="none">
+    <path d="M 200 624 L 480 312 L 480 0"/>
+    <path d="M 1000 624 L 720 312 L 720 0"/>
+    <path d="M 280 624 L 520 312 L 520 0"/>
+    <path d="M 920 624 L 680 312 L 680 0"/>
+    <path d="M 360 624 L 560 312 L 560 0"/>
+    <path d="M 840 624 L 640 312 L 640 0"/>
+  </g>
+
+  <!-- server racks on sides -->
+  <g opacity="0.5">
+    <g transform="translate(60,120)">
+      <rect width="120" height="380" fill="#0d1b1e" stroke="#2a4a2a" stroke-width="1"/>
+      <g fill="#76B900" opacity="0.7">
+        <rect x="12" y="20" width="96" height="8"/><rect x="12" y="40" width="96" height="8"/>
+        <rect x="12" y="60" width="96" height="8"/><rect x="12" y="80" width="96" height="8"/>
+        <rect x="12" y="100" width="96" height="8"/><rect x="12" y="120" width="96" height="8"/>
+        <rect x="12" y="140" width="96" height="8"/><rect x="12" y="160" width="96" height="8"/>
+        <rect x="12" y="180" width="96" height="8"/><rect x="12" y="200" width="96" height="8"/>
+        <rect x="12" y="220" width="96" height="8"/><rect x="12" y="240" width="96" height="8"/>
+        <rect x="12" y="260" width="96" height="8"/><rect x="12" y="280" width="96" height="8"/>
+        <rect x="12" y="300" width="96" height="8"/><rect x="12" y="320" width="96" height="8"/>
+        <rect x="12" y="340" width="96" height="8"/><rect x="12" y="360" width="96" height="8"/>
+      </g>
+    </g>
+    <g transform="translate(1020,120)">
+      <rect width="120" height="380" fill="#0d1b1e" stroke="#2a4a2a" stroke-width="1"/>
+      <g fill="#76B900" opacity="0.7">
+        <rect x="12" y="20" width="96" height="8"/><rect x="12" y="40" width="96" height="8"/>
+        <rect x="12" y="60" width="96" height="8"/><rect x="12" y="80" width="96" height="8"/>
+        <rect x="12" y="100" width="96" height="8"/><rect x="12" y="120" width="96" height="8"/>
+        <rect x="12" y="140" width="96" height="8"/><rect x="12" y="160" width="96" height="8"/>
+        <rect x="12" y="180" width="96" height="8"/><rect x="12" y="200" width="96" height="8"/>
+        <rect x="12" y="220" width="96" height="8"/><rect x="12" y="240" width="96" height="8"/>
+        <rect x="12" y="260" width="96" height="8"/><rect x="12" y="280" width="96" height="8"/>
+        <rect x="12" y="300" width="96" height="8"/><rect x="12" y="320" width="96" height="8"/>
+        <rect x="12" y="340" width="96" height="8"/><rect x="12" y="360" width="96" height="8"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- left: original dense weight matrix (BF16) -->
+  <g transform="translate(150,200)">
+    <text x="80" y="-12" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff4d4d" opacity="0.9">BF16 · 16-bit</text>
+    <rect x="0" y="0" width="160" height="160" fill="none" stroke="#ff4d4d" stroke-width="1.5" opacity="0.6"/>
+    <g fill="#ff4d4d" opacity="0.35">
+      <!-- dense grid of dots -->
+      <g>
+        <!-- row by row, 16x16 -->
+        <g transform="translate(0,0)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,10)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,20)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,30)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,40)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,50)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,60)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,70)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,80)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,90)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,100)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,110)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,120)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,130)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,140)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+        <g transform="translate(0,150)"><circle cx="5" cy="5" r="2.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="25" cy="5" r="2.5"/><circle cx="35" cy="5" r="2.5"/><circle cx="45" cy="5" r="2.5"/><circle cx="55" cy="5" r="2.5"/><circle cx="65" cy="5" r="2.5"/><circle cx="75" cy="5" r="2.5"/><circle cx="85" cy="5" r="2.5"/><circle cx="95" cy="5" r="2.5"/><circle cx="105" cy="5" r="2.5"/><circle cx="115" cy="5" r="2.5"/><circle cx="125" cy="5" r="2.5"/><circle cx="135" cy="5" r="2.5"/><circle cx="145" cy="5" r="2.5"/><circle cx="155" cy="5" r="2.5"/></g>
+      </g>
+    </g>
+  </g>
+
+  <!-- middle: pruned network tree (Puzzletron) -->
+  <g transform="translate(520,180)" opacity="0.85">
+    <text x="80" y="-12" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffaa00" opacity="0.9">Prune · MIP</text>
+    <!-- 8 layers, some removed -->
+    <g stroke="#ffaa00" stroke-width="1.5" opacity="0.6" fill="none">
+      <!-- connections -->
+      <line x1="80" y1="10" x2="40" y2="50"/>
+      <line x1="80" y1="10" x2="80" y2="50"/>
+      <line x1="80" y1="10" x2="120" y2="50"/>
+      <line x1="40" y1="50" x2="40" y2="90"/>
+      <line x1="80" y1="50" x2="80" y2="90"/>
+      <line x1="120" y1="50" x2="120" y2="90"/>
+      <line x1="40" y1="90" x2="60" y2="130"/>
+      <line x1="80" y1="90" x2="60" y2="130"/>
+      <line x1="80" y1="90" x2="100" y2="130"/>
+      <line x1="120" y1="90" x2="100" y2="130"/>
+      <line x1="60" y1="130" x2="80" y2="170"/>
+      <line x1="100" y1="130" x2="80" y2="170"/>
+    </g>
+    <!-- nodes -->
+    <g fill="#ffaa00">
+      <circle cx="80" cy="10" r="6"/>
+      <circle cx="40" cy="50" r="6"/>
+      <circle cx="80" cy="50" r="6"/>
+      <circle cx="120" cy="50" r="6"/>
+      <circle cx="40" cy="90" r="6" opacity="0.2"/>
+      <circle cx="80" cy="90" r="6"/>
+      <circle cx="120" cy="90" r="6"/>
+      <circle cx="60" cy="130" r="6"/>
+      <circle cx="100" cy="130" r="6" opacity="0.2"/>
+      <circle cx="80" cy="170" r="6"/>
+    </g>
+    <!-- X marks on pruned nodes -->
+    <g stroke="#ff4444" stroke-width="2.5" opacity="0.9">
+      <line x1="34" y1="84" x2="46" y2="96"/>
+      <line x1="46" y1="84" x2="34" y2="96"/>
+      <line x1="94" y1="124" x2="106" y2="136"/>
+      <line x1="106" y1="124" x2="94" y2="136"/>
+    </g>
+  </g>
+
+  <!-- right: quantized sparse matrix (NVFP4) -->
+  <g transform="translate(890,200)">
+    <text x="80" y="-12" text-anchor="middle" font-family="monospace" font-size="11" fill="#00d4aa" opacity="0.9">NVFP4 · 4-bit</text>
+    <rect x="0" y="0" width="160" height="160" fill="none" stroke="#00d4aa" stroke-width="1.5" opacity="0.6"/>
+    <g fill="#00d4aa" opacity="0.5">
+      <!-- 4x4 block structure, sparse -->
+      <g transform="translate(0,0)">
+        <rect x="2" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="20" cy="20" r="4"/>
+        <rect x="42" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <rect x="82" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="100" cy="20" r="4"/>
+        <rect x="122" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+      </g>
+      <g transform="translate(0,40)">
+        <rect x="2" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="20" cy="20" r="4"/>
+        <rect x="42" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="60" cy="20" r="4"/>
+        <rect x="82" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <rect x="122" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+      </g>
+      <g transform="translate(0,80)">
+        <rect x="2" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <rect x="42" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <rect x="82" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="100" cy="20" r="4"/>
+        <rect x="122" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="140" cy="20" r="4"/>
+      </g>
+      <g transform="translate(0,120)">
+        <rect x="2" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="20" cy="20" r="4"/>
+        <rect x="42" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <rect x="82" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <rect x="122" y="2" width="36" height="36" fill="#00d4aa" opacity="0.15"/>
+        <circle cx="140" cy="20" r="4"/>
+      </g>
+    </g>
+    <!-- scale annotation -->
+    <text x="80" y="180" text-anchor="middle" font-family="monospace" font-size="9" fill="#00d4aa" opacity="0.7">group_size=16</text>
+  </g>
+
+  <!-- transformation arrows -->
+  <g stroke="#76B900" stroke-width="2" fill="none" opacity="0.7" marker-end="url(#arrow)">
+    <path d="M 320 280 L 500 280" stroke-dasharray="4,3"/>
+    <path d="M 700 280 L 870 280" stroke-dasharray="4,3"/>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#76B900"/>
+    </marker>
+  </defs>
+
+  <!-- speedup indicator -->
+  <g transform="translate(420,340)" opacity="0.6">
+    <text x="0" y="0" font-family="monospace" font-size="10" fill="#76B900">→ 2.6× throughput</text>
+    <text x="0" y="14" font-family="monospace" font-size="10" fill="#76B900">→ 2.6× memory</text>
+  </g>
+
+  <!-- title overlay -->
+  <g transform="translate(600,560)" opacity="0.5">
+    <text text-anchor="middle" font-family="monospace" font-size="9" fill="#76B900" letter-spacing="2">MODEL-OPTIMIZER · v0.45.0</text>
+  </g>
+
+  <!-- quantization spectrum bar at bottom -->
+  <g transform="translate(300,500)">
+    <rect x="0" y="0" width="600" height="6" rx="3" fill="url(#spec)" opacity="0.8"/>
+    <text x="0" y="24" font-family="monospace" font-size="9" fill="#ff4d4d" opacity="0.7">BF16</text>
+    <text x="195" y="24" font-family="monospace" font-size="9" fill="#ffaa00" opacity="0.7">FP8</text>
+    <text x="395" y="24" font-family="monospace" font-size="9" fill="#00d4aa" opacity="0.7">NVFP4</text>
+    <text x="580" y="24" font-family="monospace" font-size="9" fill="#00aaff" opacity="0.7" text-anchor="end">W4A16</text>
+  </g>
+
+  <!-- floating particles -->
+  <g fill="#76B900" opacity="0.3">
+    <circle cx="350" cy="120" r="1.5"/>
+    <circle cx="450" cy="90" r="1"/>
+    <circle cx="650" cy="110" r="1.5"/>
+    <circle cx="750" cy="80" r="1"/>
+    <circle cx="850" cy="130" r="1.5"/>
+    <circle cx="380" cy="420" r="1"/>
+    <circle cx="820" cy="440" r="1.5"/>
+    <circle cx="550" cy="450" r="1"/>
+  </g>
+</svg>
