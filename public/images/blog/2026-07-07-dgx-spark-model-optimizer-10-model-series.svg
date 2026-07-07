@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" fill="none">
+  <defs>
+    <!-- Background gradient -->
+    <radialGradient id="bg" cx="50%" cy="40%" r="80%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </radialGradient>
+    
+    <!-- NVFP4 green glow -->
+    <linearGradient id="greenGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ff88" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#00ff88" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00ff88" stop-opacity="0.1"/>
+    </linearGradient>
+    
+    <!-- Tier colors -->
+    <linearGradient id="tier1" x1="0%" y1="0%" x0="100%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="tier2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <linearGradient id="tier3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </linearGradient>
+    
+    <!-- Chip glow -->
+    <filter id="chipGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+  
+  <!-- Title -->
+  <text x="600" y="42" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="26" font-weight="bold" letter-spacing="1">
+    10 Models · 121 GB · NVIDIA Model Optimizer 0.45.0
+  </text>
+  <text x="600" y="68" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">
+    MAKING THE IMPOSSIBLE FIT ON A DGX SPARK
+  </text>
+  
+  <!-- DGX Spark chip representation (left side) -->
+  <g transform="translate(80, 180)">
+    <!-- Chip body -->
+    <rect x="0" y="0" width="120" height="120" rx="12" fill="#0f172a" stroke="#22d3ee" stroke-width="2" filter="url(#chipGlow)"/>
+    <text x="60" y="50" text-anchor="middle" fill="#22d3ee" font-family="Arial, sans-serif" font-size="11" font-weight="bold">GB10</text>
+    <text x="60" y="68" text-anchor="middle" fill="#22d3ee" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Grace</text>
+    <text x="60" y="86" text-anchor="middle" fill="#22d3ee" font-family="Arial, sans-serif" font-size="11" font-weight="bold">Blackwell</text>
+    
+    <!-- Memory bar -->
+    <rect x="-10" y="130" width="140" height="24" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <rect x="-8" y="132" width="136" height="20" rx="2" fill="#22d3ee" fill-opacity="0.15"/>
+    <text x="60" y="146" text-anchor="middle" fill="#22d3ee" font-family="Arial, sans-serif" font-size="10" font-weight="bold">121 GB Unified</text>
+    
+    <!-- NVFP4 badge -->
+    <rect x="10" y="160" width="100" height="22" rx="11" fill="#00ff88" fill-opacity="0.2" stroke="#00ff88" stroke-width="1.5"/>
+    <text x="60" y="175" text-anchor="middle" fill="#00ff88" font-family="Arial, sans-serif" font-size="11" font-weight="bold">NVFP4 ✓</text>
+  </g>
+  
+  <!-- Tier 1: Quantization Only -->
+  <g transform="translate(250, 100)">
+    <!-- Tier header -->
+    <rect x="0" y="0" width="280" height="32" rx="6" fill="#22c55e" fill-opacity="0.2" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="140" y="21" text-anchor="middle" fill="#22c55e" font-family="Arial, sans-serif" font-size="13" font-weight="bold">TIER 1: QUANTIZATION ONLY</text>
+    
+    <!-- Model cards -->
+    <g transform="translate(0, 48)">
+      <!-- W1: GPT-OSS-120B -->
+      <rect x="0" y="0" width="280" height="48" rx="6" fill="#0f172a" stroke="#22c55e" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="18" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W1 · GPT-OSS-120B</text>
+      <text x="12" y="34" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">65 GB MXFP4 → ~65 GB NVFP4</text>
+      <text x="268" y="18" text-anchor="end" fill="#22c55e" font-family="Arial, sans-serif" font-size="10" font-weight="bold">117B/5.1B</text>
+      <text x="268" y="34" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">4.3M ↓</text>
+      
+      <!-- W2: Mixtral-8x22B -->
+      <rect x="0" y="58" width="280" height="48" rx="6" fill="#0f172a" stroke="#22c55e" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="76" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W2 · Mixtral-8x22B ★</text>
+      <text x="12" y="92" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">281 GB BF16 → ~79 GB NVFP4</text>
+      <text x="268" y="76" text-anchor="end" fill="#22c55e" font-family="Arial, sans-serif" font-size="10" font-weight="bold">141B/39B</text>
+      <text x="268" y="92" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">71K ↓</text>
+      
+      <!-- W3: GLM-4.7-Flash -->
+      <rect x="0" y="116" width="280" height="48" rx="6" fill="#0f172a" stroke="#22c55e" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="134" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W3 · GLM-4.7-Flash ★</text>
+      <text x="12" y="150" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">62 GB BF16 → ~17.5 GB NVFP4</text>
+      <text x="268" y="134" text-anchor="end" fill="#22c55e" font-family="Arial, sans-serif" font-size="10" font-weight="bold">30B/3B</text>
+      <text x="268" y="150" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">2.7M ↓</text>
+      
+      <!-- W4: Mistral-Large-2411 -->
+      <rect x="0" y="174" width="280" height="48" rx="6" fill="#0f172a" stroke="#22c55e" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="192" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W4 · Mistral-Large-2411 ★</text>
+      <text x="12" y="208" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">490 GB FP32 → ~69 GB NVFP4</text>
+      <text x="268" y="192" text-anchor="end" fill="#22c55e" font-family="Arial, sans-serif" font-size="10" font-weight="bold">122.6B dense</text>
+      <text x="268" y="208" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">8K ↓</text>
+    </g>
+  </g>
+  
+  <!-- Tier 2: NVFP4 + Additional Technique -->
+  <g transform="translate(250, 350)">
+    <!-- Tier header -->
+    <rect x="0" y="0" width="280" height="32" rx="6" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="140" y="21" text-anchor="middle" fill="#f59e0b" font-family="Arial, sans-serif" font-size="13" font-weight="bold">TIER 2: NVFP4 + ONE TECHNIQUE</text>
+    
+    <!-- Model cards -->
+    <g transform="translate(0, 48)">
+      <!-- W5: Llama-4-Scout -->
+      <rect x="0" y="0" width="280" height="48" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="18" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W5 · Llama-4-Scout</text>
+      <text x="12" y="34" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">217 GB → 65 GB + multimodal</text>
+      <text x="268" y="18" text-anchor="end" fill="#f59e0b" font-family="Arial, sans-serif" font-size="10" font-weight="bold">109B/17B</text>
+      <text x="268" y="34" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">722K ↓</text>
+      
+      <!-- W6: Step-3.5-Flash -->
+      <rect x="0" y="58" width="280" height="48" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="76" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W6 · Step-3.5-Flash</text>
+      <text x="12" y="92" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">399 GB → ~112 GB + FP8 KV</text>
+      <text x="268" y="76" text-anchor="end" fill="#f59e0b" font-family="Arial, sans-serif" font-size="10" font-weight="bold">196B/11B</text>
+      <text x="268" y="92" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">175K ↓</text>
+      
+      <!-- W7: DeepSeek-V4-Flash -->
+      <rect x="0" y="116" width="280" height="48" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="134" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W7 · DeepSeek-V4-Flash</text>
+      <text x="12" y="150" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">160 GB → expert pruning 256→128</text>
+      <text x="268" y="134" text-anchor="end" fill="#f59e0b" font-family="Arial, sans-serif" font-size="10" font-weight="bold">~671B/6B</text>
+      <text x="268" y="150" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">2.4M ↓</text>
+      
+      <!-- W8: Qwen3-235B-A22B -->
+      <rect x="0" y="174" width="280" height="48" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="192" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W8 · Qwen3-235B-A22B</text>
+      <text x="12" y="208" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">470 GB → ~132 GB + FP8 KV + ctx</text>
+      <text x="268" y="192" text-anchor="end" fill="#f59e0b" font-family="Arial, sans-serif" font-size="10" font-weight="bold">235B/22B</text>
+      <text x="268" y="208" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">919K ↓</text>
+    </g>
+  </g>
+  
+  <!-- Tier 3: Prune + Distill + Quantize -->
+  <g transform="translate(580, 225)">
+    <!-- Tier header -->
+    <rect x="0" y="0" width="280" height="32" rx="6" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="140" y="21" text-anchor="middle" fill="#ef4444" font-family="Arial, sans-serif" font-size="12" font-weight="bold">TIER 3: PRUNE → DISTILL → QUANTIZE</text>
+    
+    <!-- Model cards -->
+    <g transform="translate(0, 48)">
+      <!-- W9: Llama-3.1-405B -->
+      <rect x="0" y="0" width="280" height="64" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="18" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W9 · Llama-3.1-405B</text>
+      <text x="12" y="34" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">812 GB → 234 GB (FP4) → ~56–67 GB</text>
+      <text x="12" y="50" fill="#94a3b8" font-family="Arial, sans-serif" font-size="9">Minitron prune → distill → NVFP4</text>
+      <text x="268" y="18" text-anchor="end" fill="#ef4444" font-family="Arial, sans-serif" font-size="10" font-weight="bold">405B dense</text>
+      <text x="268" y="34" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">212K ↓</text>
+      
+      <!-- W10: DeepSeek-R1 -->
+      <rect x="0" y="74" width="280" height="64" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1" stroke-opacity="0.4"/>
+      <text x="12" y="92" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="12" font-weight="bold">W10 · DeepSeek-R1 (FINALE)</text>
+      <text x="12" y="108" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10">689 GB → 424 GB (FP4) → ~112 GB</text>
+      <text x="12" y="124" fill="#94a3b8" font-family="Arial, sans-serif" font-size="9">Expert prune 256→64 → distill → NVFP4</text>
+      <text x="268" y="92" text-anchor="end" fill="#ef4444" font-family="Arial, sans-serif" font-size="10" font-weight="bold">671B/37B</text>
+      <text x="268" y="108" text-anchor="end" fill="#64748b" font-family="Arial, sans-serif" font-size="9">8.6M ↓</text>
+    </g>
+  </g>
+  
+  <!-- Right side: smf-bench summary -->
+  <g transform="translate(900, 100)">
+    <rect x="0" y="0" width="270" height="290" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="135" y="24" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="14" font-weight="bold">smf-bench · 181 Tests</text>
+    <text x="135" y="42" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="10">9 suites · 5 difficulty tiers</text>
+    
+    <!-- Baseline results -->
+    <text x="135" y="68" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10" font-weight="bold">ROUND 1 BASELINE</text>
+    
+    <!-- Bar 1: Gemma-4-26B -->
+    <text x="12" y="88" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">Gemma-4-26B</text>
+    <text x="258" y="88" text-anchor="end" fill="#22c55e" font-family="Arial, sans-serif" font-size="11" font-weight="bold">84.0%</text>
+    <rect x="12" y="92" width="246" height="8" rx="4" fill="#1e293b"/>
+    <rect x="12" y="92" width="207" height="8" rx="4" fill="#22c55e" fill-opacity="0.6"/>
+    
+    <!-- Bar 2: Qwen3.6-35B -->
+    <text x="12" y="112" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">Qwen3.6-35B</text>
+    <text x="258" y="112" text-anchor="end" fill="#3b82f6" font-family="Arial, sans-serif" font-size="11" font-weight="bold">71.3%</text>
+    <rect x="12" y="116" width="246" height="8" rx="4" fill="#1e293b"/>
+    <rect x="12" y="116" width="176" height="8" rx="4" fill="#3b82f6" fill-opacity="0.6"/>
+    
+    <!-- Bar 3: Nemotron-3-Super -->
+    <text x="12" y="136" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">Nemotron-3-Super-120B</text>
+    <text x="258" y="136" text-anchor="end" fill="#a855f7" font-family="Arial, sans-serif" font-size="11" font-weight="bold">69.6%</text>
+    <rect x="12" y="140" width="246" height="8" rx="4" fill="#1e293b"/>
+    <rect x="12" y="140" width="171" height="8" rx="4" fill="#a855f7" fill-opacity="0.6"/>
+    
+    <!-- Bar 4: Nemotron-3-Nano -->
+    <text x="12" y="160" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">Nemotron-3-Nano-30B</text>
+    <text x="258" y="160" text-anchor="end" fill="#f59e0b" font-family="Arial, sans-serif" font-size="11" font-weight="bold">54.7%</text>
+    <rect x="12" y="164" width="246" height="8" rx="4" fill="#1e293b"/>
+    <rect x="12" y="164" width="135" height="8" rx="4" fill="#f59e0b" fill-opacity="0.6"/>
+    
+    <!-- Divider -->
+    <line x1="12" y1="188" x2="258" y2="188" stroke="#334155" stroke-width="1"/>
+    <text x="135" y="206" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="10" font-weight="bold">3 ORIGINAL NVFP4 CONTRIBUTIONS</text>
+    
+    <!-- Stars -->
+    <text x="12" y="228" fill="#22c55e" font-family="Arial, sans-serif" font-size="12" font-weight="bold">★</text>
+    <text x="28" y="228" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">Mixtral-8x22B → ~79 GB</text>
+    
+    <text x="12" y="246" fill="#22c55e" font-family="Arial, sans-serif" font-size="12" font-weight="bold">★</text>
+    <text x="28" y="246" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">GLM-4.7-Flash → ~17.5 GB</text>
+    
+    <text x="12" y="264" fill="#22c55e" font-family="Arial, sans-serif" font-size="12" font-weight="bold">★</text>
+    <text x="28" y="264" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="10">Mistral-Large-2411 → ~69 GB</text>
+    
+    <text x="135" y="284" text-anchor="middle" fill="#64748b" font-family="Arial, sans-serif" font-size="9">No NVFP4 version exists anywhere</text>
+  </g>
+  
+  <!-- Connecting arrows: chip → tiers -->
+  <path d="M 200 240 Q 225 240 250 200" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4,4" fill="none" opacity="0.4"/>
+  <path d="M 200 260 Q 225 300 250 410" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4,4" fill="none" opacity="0.4"/>
+  <path d="M 530 210 Q 555 210 580 250" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" fill="none" opacity="0.4"/>
+  
+  <!-- Footer -->
+  <text x="600" y="640" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">
+    SMF Works · smfclearinghouse.com · spark-56bc · July 2026
+  </text>
+  <text x="600" y="658" text-anchor="middle" fill="#475569" font-family="Arial, sans-serif" font-size="9">
+    All data verified via HuggingFace API · July 7, 2026
+  </text>
+</svg>
