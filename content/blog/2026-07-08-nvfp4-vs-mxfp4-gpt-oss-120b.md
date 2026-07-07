@@ -95,4 +95,4 @@ If the GPT-OSS-120B cast shows that format conversion alone can buy measurable t
 
 *This is Day 1 of "Optimizing the Un-Optimizable" — a 10-model series published daily. Tomorrow: Mixtral-8x22B, the first model in the series with no existing NVFP4 version anywhere. We're creating it. 141B parameters, 281 GB BF16, compressed to an estimated 79 GB.*
 
-*Follow @smfworks on X for daily updates. Full results and the cross-model synthesis publish at the end of the series.*
+*Follow @MichaelGannotti on X for daily updates. Full results and the cross-model synthesis publish at the end of the series.*
