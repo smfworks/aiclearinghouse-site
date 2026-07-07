@@ -1,100 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a0e14"/>
-      <stop offset="50%" stop-color="#0d1117"/>
-      <stop offset="100%" stop-color="#161b22"/>
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1a1f3a"/>
     </linearGradient>
-    <linearGradient id="nvgreen" x1="0" y1="0" x2="1" y2="0">
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#76b900"/>
-      <stop offset="100%" stop-color="#76b900" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00d4aa"/>
     </linearGradient>
-    <linearGradient id="mamba" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#4a9eff"/>
-      <stop offset="100%" stop-color="#4a9eff" stop-opacity="0.2"/>
+    <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#76b900"/>
+      <stop offset="100%" stop-color="#4a8c00"/>
     </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4aa"/>
+      <stop offset="100%" stop-color="#008866"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e0a800"/>
+      <stop offset="100%" stop-color="#a07800"/>
+    </linearGradient>
+    <linearGradient id="bar4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff6b6b"/>
+      <stop offset="100%" stop-color="#cc4444"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-
+  
   <!-- Background -->
-  <rect width="1200" height="624" fill="url(#bg)"/>
-
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
   <!-- Grid pattern -->
-  <g opacity="0.05" stroke="#76b900" stroke-width="1">
-    <line x1="0" y1="0" x2="1200" y2="0"/>
-    <line x1="0" y1="78" x2="1200" y2="78"/>
-    <line x1="0" y1="156" x2="1200" y2="156"/>
-    <line x1="0" y1="234" x2="1200" y2="234"/>
-    <line x1="0" y1="312" x2="1200" y2="312"/>
-    <line x1="0" y1="390" x2="1200" y2="390"/>
-    <line x1="0" y1="468" x2="1200" y2="468"/>
-    <line x1="0" y1="546" x2="1200" y2="546"/>
-    <line x1="0" y1="624" x2="1200" y2="624"/>
+  <g opacity="0.06" stroke="#76b900" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
   </g>
-
-  <!-- Left: Stage 1 (Nano) -->
-  <g transform="translate(80, 80)">
-    <text x="0" y="0" font-family="monospace" font-size="18" fill="#76b900" font-weight="bold">STAGE 1</text>
-    <text x="0" y="28" font-family="monospace" font-size="14" fill="#8b949e">NANO TIER · 3.6B active</text>
-
-    <!-- Model card -->
-    <rect x="0" y="50" width="420" height="120" rx="8" fill="#161b22" stroke="#76b900" stroke-width="1" opacity="0.9"/>
-    <text x="15" y="75" font-family="monospace" font-size="13" fill="#e6edf3">Nemotron-3-Nano-30B-A3B-FP8</text>
-    <text x="15" y="95" font-family="monospace" font-size="11" fill="#8b949e">31.4 GiB · 1,323 tok/s · FP8</text>
-
-    <!-- Mini bar chart: 3 models -->
-    <g transform="translate(15, 110)">
-      <rect x="0" y="0" width="120" height="14" rx="2" fill="url(#nvgreen)"/>
-      <text x="130" y="11" font-family="monospace" font-size="10" fill="#8b949e">Qwen3.6-35B</text>
-      <rect x="0" y="20" width="110" height="14" rx="2" fill="url(#nvgreen)"/>
-      <text x="130" y="31" font-family="monospace" font-size="10" fill="#8b949e">Gemma-4-26B</text>
-      <rect x="0" y="40" width="100" height="14" rx="2" fill="#4a9eff" opacity="0.7"/>
-      <text x="130" y="51" font-family="monospace" font-size="10" fill="#4a9eff">Nemotron-Nano</text>
-    </g>
+  
+  <!-- Title section -->
+  <text x="60" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#76b900" font-weight="600" letter-spacing="2">SMF WORKS · DGX SPARK EVALUATION</text>
+  <text x="60" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="38" fill="#f0f4f8" font-weight="700">Nemotron-3 on DGX Spark</text>
+  <text x="60" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#8b9bb4" font-weight="400">Mamba-Transformer Hybrid · NVFP4 · 181-Test smf-bench Suite</text>
+  
+  <!-- Divider -->
+  <rect x="60" y="155" width="1080" height="2" fill="url(#accent)" opacity="0.6"/>
+  
+  <!-- Benchmark bars section -->
+  <text x="60" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#8b9bb4" font-weight="600" letter-spacing="1">SMF-BENCH PASS RATE — 181 TESTS</text>
+  
+  <!-- Gemma bar (84.0%) -->
+  <text x="60" y="225" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#f0f4f8" font-weight="500">Gemma-4-26B-A4B-NVFP4</text>
+  <text x="1130" y="225" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#76b900" font-weight="700" text-anchor="end">84.0%</text>
+  <rect x="60" y="235" width="911" height="28" rx="4" fill="url(#bar1)" filter="url(#glow)"/>
+  <text x="75" y="253" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#0a0e1a" font-weight="600">152/181 passed</text>
+  
+  <!-- Qwen bar (71.3%) -->
+  <text x="60" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#f0f4f8" font-weight="500">Qwen3.6-35B-A3B-NVFP4</text>
+  <text x="1130" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#00d4aa" font-weight="700" text-anchor="end">71.3%</text>
+  <rect x="60" y="300" width="772" height="28" rx="4" fill="url(#bar2)"/>
+  <text x="75" y="318" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#0a0e1a" font-weight="600">129/181 passed</text>
+  
+  <!-- Nemotron Nano bar (54.7%) -->
+  <text x="60" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#f0f4f8" font-weight="500">Nemotron-3-Nano-30B-A3B-FP8</text>
+  <text x="1130" y="355" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#e0a800" font-weight="700" text-anchor="end">54.7%</text>
+  <rect x="60" y="365" width="592" height="28" rx="4" fill="url(#bar3)"/>
+  <text x="75" y="383" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#0a0e1a" font-weight="600">99/181 passed</text>
+  
+  <!-- Nemotron Super bar (in progress) -->
+  <text x="60" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#f0f4f8" font-weight="500">Nemotron-3-Super-120B-A12B-NVFP4</text>
+  <text x="1130" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#ff6b6b" font-weight="700" text-anchor="end">BENCHMARKING</text>
+  <rect x="60" y="430" width="1080" height="28" rx="4" fill="#2a2f4a" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="8 4" opacity="0.7"/>
+  <text x="75" y="448" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#8b9bb4" font-weight="500">75 GiB / 121 GB · MTP 92% acceptance · 30 tok/s</text>
+  
+  <!-- Bottom stats section -->
+  <rect x="60" y="480" width="1080" height="2" fill="url(#accent)" opacity="0.3"/>
+  
+  <!-- Stat boxes -->
+  <g transform="translate(60, 500)">
+    <!-- Memory -->
+    <rect x="0" y="0" width="240" height="80" rx="8" fill="#1a1f3a" stroke="#2a3f5a" stroke-width="1"/>
+    <text x="20" y="28" font-family="system-ui, sans-serif" font-size="13" fill="#8b9bb4" font-weight="500">SUPER 120B MEMORY</text>
+    <text x="20" y="58" font-family="system-ui, sans-serif" font-size="28" fill="#76b900" font-weight="700">75</text>
+    <text x="55" y="58" font-family="system-ui, sans-serif" font-size="16" fill="#8b9bb4">GiB / 121 GB</text>
+    
+    <!-- MTP -->
+    <rect x="280" y="0" width="240" height="80" rx="8" fill="#1a1f3a" stroke="#2a3f5a" stroke-width="1"/>
+    <text x="300" y="28" font-family="system-ui, sans-serif" font-size="13" fill="#8b9bb4" font-weight="500">MTP ACCEPTANCE</text>
+    <text x="300" y="58" font-family="system-ui, sans-serif" font-size="28" fill="#00d4aa" font-weight="700">92%</text>
+    <text x="375" y="58" font-family="system-ui, sans-serif" font-size="16" fill="#8b9bb4">3 spec tokens</text>
+    
+    <!-- Throughput -->
+    <rect x="560" y="0" width="240" height="80" rx="8" fill="#1a1f3a" stroke="#2a3f5a" stroke-width="1"/>
+    <text x="580" y="28" font-family="system-ui, sans-serif" font-size="13" fill="#8b9bb4" font-weight="500">GENERATION SPEED</text>
+    <text x="580" y="58" font-family="system-ui, sans-serif" font-size="28" fill="#e0a800" font-weight="700">30</text>
+    <text x="620" y="58" font-family="system-ui, sans-serif" font-size="16" fill="#8b9bb4">tok/s</text>
+    
+    <!-- Context -->
+    <rect x="840" y="0" width="240" height="80" rx="8" fill="#1a1f3a" stroke="#2a3f5a" stroke-width="1"/>
+    <text x="860" y="28" font-family="system-ui, sans-serif" font-size="13" fill="#8b9bb4" font-weight="500">MAX CONTEXT</text>
+    <text x="860" y="58" font-family="system-ui, sans-serif" font-size="28" fill="#ff6b6b" font-weight="700">1M</text>
+    <text x="905" y="58" font-family="system-ui, sans-serif" font-size="16" fill="#8b9bb4">tokens</text>
   </g>
-
-  <!-- Right: Stage 2 (Super) -->
-  <g transform="translate(700, 80)">
-    <text x="0" y="0" font-family="monospace" font-size="18" fill="#76b900" font-weight="bold">STAGE 2</text>
-    <text x="0" y="28" font-family="monospace" font-size="14" fill="#8b949e">SUPER TIER · 12B active</text>
-
-    <rect x="0" y="50" width="420" height="120" rx="8" fill="#161b22" stroke="#76b900" stroke-width="2" opacity="0.9"/>
-    <text x="15" y="75" font-family="monospace" font-size="13" fill="#e6edf3">Nemotron-3-Super-120B-A12B-NVFP4</text>
-    <text x="15" y="95" font-family="monospace" font-size="11" fill="#8b949e">~60-70 GiB est. · NVFP4 mixed · MoE+Mamba</text>
-
-    <!-- Upgrade arrow -->
-    <g transform="translate(15, 110)">
-      <text x="0" y="11" font-family="monospace" font-size="10" fill="#76b900">3.3× active params →</text>
-      <text x="160" y="11" font-family="monospace" font-size="10" fill="#8b949e">capability upgrade</text>
-      <text x="0" y="31" font-family="monospace" font-size="10" fill="#8b949e">NVFP4 experts · FP8 shared · BF16 attn</text>
-      <text x="0" y="51" font-family="monospace" font-size="10" fill="#8b949e">128GB fit TBD</text>
-    </g>
-  </g>
-
-  <!-- Center: Mamba-Transformer hybrid visualization -->
-  <g transform="translate(540, 350)">
-    <!-- SSM state wave -->
-    <path d="M0,0 Q50,-30 100,0 T200,0 T300,0" stroke="#4a9eff" stroke-width="2" fill="none" opacity="0.6"/>
-    <path d="M0,20 Q50,-10 100,20 T200,20 T300,20" stroke="#4a9eff" stroke-width="2" fill="none" opacity="0.4"/>
-    <path d="M0,40 Q50,10 100,40 T200,40 T300,40" stroke="#4a9eff" stroke-width="2" fill="none" opacity="0.3"/>
-    <text x="80" y="70" font-family="monospace" font-size="11" fill="#4a9eff" opacity="0.7">Mamba SSM</text>
-  </g>
-
-  <!-- Bottom: DGX Spark -->
-  <g transform="translate(400, 480)">
-    <rect x="0" y="0" width="400" height="80" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
-    <rect x="10" y="10" width="380" height="60" rx="4" fill="#0a0e14" stroke="#76b900" stroke-width="1" opacity="0.5"/>
-    <text x="200" y="35" text-anchor="middle" font-family="monospace" font-size="14" fill="#76b900" font-weight="bold">DGX SPARK · spark-56bc</text>
-    <text x="200" y="55" text-anchor="middle" font-family="monospace" font-size="11" fill="#8b949e">128GB unified memory · smf-bench 239 tests · 15 categories</text>
-  </g>
-
-  <!-- Connecting lines -->
-  <g stroke="#76b900" stroke-width="1" opacity="0.3" stroke-dasharray="4,4">
-    <line x1="290" y1="260" x2="540" y2="350"/>
-    <line x1="910" y1="260" x2="600" y2="350"/>
-    <line x1="540" y1="420" x2="600" y2="480"/>
-  </g>
-
-  <!-- Title -->
-  <text x="600" y="40" text-anchor="middle" font-family="monospace" font-size="22" fill="#e6edf3" font-weight="bold">Nemotron-3 on DGX Spark: A Two-Stage Evaluation</text>
-  <text x="600" y="62" text-anchor="middle" font-family="monospace" font-size="13" fill="#76b900">From 3.6B to 12B active parameters · Mamba-Transformer MoE hybrid</text>
+  
+  <!-- Footer -->
+  <text x="60" y="615" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#4a5568" font-weight="400">smf-bench · GB10 Grace-Blackwell · vLLM v0.20.0 · NVFP4 mixed precision · MTP speculative decoding</text>
 </svg>
