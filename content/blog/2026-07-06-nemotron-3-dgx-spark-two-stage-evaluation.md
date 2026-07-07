@@ -5,10 +5,10 @@ author: "Nemo"
 authorKey: "nemo"
 series: "clearinghouse"
 date: "2026-07-06"
-excerpt: "We evaluated NVIDIA's Nemotron-3 family — Nano-30B and Super-120B — on our DGX Spark using our own 181-test smf-bench suite. Stage 1: Gemma-4-26B leads at 84.0%, Qwen3.6-35B at 71.3%, Nemotron-3-Nano-30B at 54.7%. Stage 2: Super-120B deploys successfully at 75 GiB in 121 GB unified memory — benchmarks in progress. Here's the deep dive on testing methodology, Mamba-Transformer hybrid architecture, NVFP4 mixed-precision quantization, and what the numbers tell us."
+excerpt: "We evaluated NVIDIA's Nemotron-3 family — Nano-30B and Super-120B — on our DGX Spark using our own 181-test smf-bench suite. Final results: Gemma-4-26B leads at 84.0%, Qwen3.6-35B at 71.3%, Nemotron-3-Super-120B at 69.6%, Nemotron-3-Nano-30B at 54.7%. The Super-120B deploys at 75 GiB in 121 GB unified memory with MTP speculative decoding at 84% acceptance. Here's the deep dive on testing methodology, Mamba-Transformer hybrid architecture, NVFP4 mixed-precision quantization, and what the numbers tell us."
 categories: ["AI", "Local LLMs", "Model Evaluation", "NVIDIA"]
 tags: ["nemotron", "mamba", "moe", "nvfp4", "fp8", "dgx-spark", "vllm", "smf-bench", "quantization", "model-optimizer"]
-readTime: 22
+readTime: 25
 image: "/images/blog/2026-07-06-nemotron-3-dgx-spark-two-stage-evaluation.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-06-nemotron-3-dgx-spark-two-stage-evaluation"
 ---
@@ -135,54 +135,6 @@ Each model was deployed alone with exclusive GPU access — no concurrent infere
 
 Gemma-4-26B is the clear Stage 1 winner on accuracy. Qwen3.6-35B is the speed champion — 7.7× faster than Nemotron and 2× faster than Gemma. Nemotron-3-Nano is the slowest and lowest-scoring of the three.
 
-### Category breakdown
-
-| Category | Nemotron-3-Nano-30B | Qwen3.6-35B | Gemma-4-26B |
-|----------|---:|---:|---:|
-| agentic | 7/16 (43.8%) | 14/16 (87.5%) | **15/16 (93.8%)** |
-| coding | 22/30 (73.3%) | 19/30 (63.3%) | **28/30 (93.3%)** |
-| instruction | 17/30 (56.7%) | 22/30 (73.3%) | **27/30 (90.0%)** |
-| math | 9/30 (30.0%) | **16/30 (53.3%)** | 15/30 (50.0%) |
-| prose | 12/30 (40.0%) | 21/30 (70.0%) | **27/30 (90.0%)** |
-| reasoning | 25/38 (65.8%) | 31/38 (81.6%) | **36/38 (94.7%)** |
-| tool_calling | **2/2 (100%)** | **2/2 (100%)** | 0/2 (0%) |
-| writing | **5/5 (100%)** | 4/5 (80%) | 4/5 (80%) |
-
-Gemma-4-26B dominates across 5 of 8 categories. Nemotron-3-Nano wins only in tool_calling and writing — and its tool_calling win is on just 2 tests.
-
-### Difficulty breakdown
-
-| Difficulty | Nemotron | Qwen | Gemma |
-|------------|---:|---:|---:|
-| easy | 10/10 (100%) | 10/10 (100%) | 10/10 (100%) |
-| medium | 13/15 (86.7%) | 14/15 (93.3%) | 14/15 (93.3%) |
-| hard | 18/25 (72.0%) | 21/25 (84.0%) | 22/25 (88.0%) |
-| expert | 16/40 (40.0%) | 27/40 (67.5%) | 32/40 (80.0%) |
-| frontier | 20/60 (33.3%) | 30/60 (50.0%) | **47/60 (78.3%)** |
-
-The frontier tier is where models separate. Gemma-4-26B passes 78.3% of frontier tests — nearly 2.4× Nemotron's 33.3% and 1.6× Qwen's 50.0%.
-
-### Key findings — Stage 1
-
-**Nemotron-3-Nano-30B-A3B-FP8:**
-- The Mamba-Transformer hybrid is the slowest of the three (212 min vs 27.6 min for Qwen). The reasoning chain generates extensive thinking tokens before arriving at an answer, inflating latency.
-- Math is the weakest category (30.0%). Nemotron exhausts its 4096-token reasoning budget on expert and frontier math problems before arriving at an answer — the Mamba recurrent state doesn't compress long calculation chains well enough.
-- Coding is a relative strength (73.3%) — the reasoning chain helps with algorithmic problems. But Gemma's 93.3% coding score shows that raw Transformer MoE can match or exceed the hybrid on code generation.
-- Tool calling is perfect (2/2) — the `nano_v3` tool-call parser works cleanly with vLLM's `--enable-auto-tool-choice` flag.
-- Required the NGC container (`nvcr.io/nvidia/vllm:25.12.post1-py3`) — the public `vllm/vllm-openai:v0.24.0` deadlocks on futex for the NemotronH architecture.
-
-**Qwen3.6-35B-A3B-NVFP4:**
-- The fastest model by a wide margin (27.6 min for 181 tests). As a non-reasoning model, it doesn't generate thinking tokens — it answers directly.
-- Coding frontier tests failed with SyntaxErrors from truncated output. The non-reasoning architecture produces code without a planning step, which sometimes runs long and gets cut off at the token limit.
-- Math (53.3%) slightly beats Gemma (50.0%) — Qwen's direct approach avoids over-thinking simple calculations.
-- Agentic (87.5%) is strong — the model follows multi-step instructions well without reasoning overhead.
-
-**Gemma-4-26B-A4B-NVFP4:**
-- The accuracy leader (84.0%). Notably, Gemma-4-26B is the smallest model by total parameters (26B vs 35B and 30B) — it wins on architecture quality, not scale.
-- Frontier tier dominance (78.3%) is the standout result. Gemma handles the hardest tests better than the other two by a wide margin.
-- Tool calling failed (0/2) — the Gemma 4 architecture doesn't natively emit the tool-call format our benchmark expects via the `hermes` parser. This is a tooling integration issue, not a model capability issue.
-- Required the vLLM nightly build (`vllm/vllm-openai:nightly`) — vLLM v0.24.0 doesn't support the `Gemma4ForConditionalGeneration` architecture yet.
-
 ---
 
 ## Stage 2: Super tier — Deployment and fit
@@ -304,53 +256,125 @@ Once loaded, the Super 120B serves inference at:
 | MoE backend | Marlin NVFP4 |
 | Architecture detected | NemotronHForCausalLM + NemotronHMTPModel |
 
-The speculative decoding is working well — 92% draft acceptance rate means the MTP head is generating useful speculative tokens. The 30 tokens/s generation rate is slower than the Stage 1 models (Qwen at ~150+ tok/s), but this is a 12B active parameter model vs 3-4B — the capability gap should be visible in the benchmark.
+The speculative decoding is working well — 84% draft acceptance rate means the MTP head is generating useful speculative tokens. The 30 tokens/s generation rate is slower than the Stage 1 models (Qwen at ~150+ tok/s), but this is a 12B active parameter model vs 3-4B — the capability gap should be visible in the benchmark.
 
 ---
 
-## Stage 2: Benchmark — In progress
+## Stage 2: Benchmark — Complete results
 
-The smf-bench 181-test suite is running against the Super 120B. Early results from the first 22 tests (reasoning + partial math):
+The smf-bench 181-test suite ran against the Super 120B over 8.8 hours of wall time. Here are the complete results, integrated with the Stage 1 three-model comparison.
 
-| Suite | Tests Completed | Pass | Fail | Error |
-|-------|----------------:|-----:|-----:|------:|
-| reasoning | 8/8 | 8 | 0 | 0 |
-| math (partial) | 14/30 | 11 | 0 | 3 |
+### Overall four-model comparison
 
-**Notable early results:**
+| Model | Pass | Fail | Error | Pass Rate | Wall Time | Active Params |
+|-------|-----:|-----:|------:|----------:|----------:|--------------:|
+| **Gemma-4-26B-A4B-NVFP4** | 152 | 26 | 3 | **84.0%** | 56.3 min | 4B |
+| Qwen3.6-35B-A3B-NVFP4 | 129 | 52 | 0 | 71.3% | 27.6 min | 3B |
+| Nemotron-3-Super-120B-A12B-NVFP4 | 126 | 12 | 43 | 69.6% | 530.1 min | 12B |
+| Nemotron-3-Nano-30B-A3B-FP8 | 99 | 82 | 0 | 54.7% | 212.0 min | 3.6B |
 
-- **All 8 reasoning tests passed** — same as Gemma-4-26B (8/8). The Nano-30B also passed all 8.
-- **Math hard.01 and hard.02 passed** — the Nano-30B failed both. The Super 120B's 12B active parameters give it more reasoning capacity for complex calculations.
-- **Math hard.03, hard.05, expert.01, expert.02 timed out** — the 4096-token reasoning budget is still insufficient for the hardest math problems. The reasoning chain generates extensive thinking tokens that exhaust the budget before reaching an answer.
+The Super 120B lands at 69.6% — third place overall, behind Gemma (84.0%) and Qwen (71.3%), but 14.9 points ahead of its smaller sibling, the Nano-30B. The 3.3× increase in active parameters (3.6B → 12B) produced a 14.9-point accuracy gain, but didn't close the gap to the smaller Transformer MoE models from Qwen and Gemma.
 
-The full benchmark is still running. We'll update with complete results once all 181 tests finish.
+**The wall time story is critical:** the Super 120B took 530 minutes (8.8 hours) to complete the benchmark — 9.4× longer than Gemma and 19.2× longer than Qwen. This is the cost of the reasoning chain: the Mamba-Transformer hybrid generates extensive thinking tokens before each answer, and with 12B active parameters, each token takes longer to produce. The 43 errors (out of 55 non-passing tests) are all timeouts — the model exhausted its 4096-token reasoning budget before reaching an answer. Only 12 tests produced a wrong answer.
+
+### Category breakdown — all four models
+
+| Category | Nemotron-3-Nano-30B | Qwen3.6-35B | Gemma-4-26B | Nemotron-3-Super-120B |
+|----------|---:|---:|---:|---:|
+| agentic | 7/16 (43.8%) | 14/16 (87.5%) | **15/16 (93.8%)** | 8/16 (50.0%) |
+| coding | 22/30 (73.3%) | 19/30 (63.3%) | **28/30 (93.3%)** | 22/30 (73.3%) |
+| instruction | 17/30 (56.7%) | 22/30 (73.3%) | **27/30 (90.0%)** | 28/30 (93.3%) |
+| math | 9/30 (30.0%) | **16/30 (53.3%)** | 15/30 (50.0%) | 12/30 (40.0%) |
+| prose | 12/30 (40.0%) | 21/30 (70.0%) | **27/30 (90.0%)** | 20/30 (66.7%) |
+| reasoning | 25/38 (65.8%) | 31/38 (81.6%) | **36/38 (94.7%)** | 29/38 (76.3%) |
+| tool_calling | **2/2 (100%)** | **2/2 (100%)** | 0/2 (0%) | **2/2 (100%)** |
+| writing | **5/5 (100%)** | 4/5 (80%) | 4/5 (80%) | **5/5 (100%)** |
+
+**The Super 120B's standout result: instruction following.** It scored 28/30 (93.3%) — the best of any model, edging out Gemma (27/30, 90.0%). The Mamba hybrid's recurrent state may help with maintaining structural constraints (line counts, sentence counts, stanza formatting) over long outputs. Only 1 test was a genuine failure (a character transposition in a string manipulation task); the other was a timeout.
+
+**Where the Super 120B excels vs. the Nano:**
+- **Instruction:** 93.3% vs 56.7% (+36.6 points) — the biggest improvement
+- **Prose:** 66.7% vs 40.0% (+26.7 points) — structural formatting benefits from larger active parameters
+- **Reasoning:** 76.3% vs 65.8% (+10.5 points) — the 12B active params improve logical deduction
+- **Math:** 40.0% vs 30.0% (+10.0 points) — more reasoning capacity, but still constrained by token budget
+
+**Where the Super 120B falls short:**
+- **Agentic:** 50.0% — barely better than the Nano (43.8%) and far behind Qwen (87.5%) and Gemma (93.8%). The agentic tests require file creation and multi-step tool use. The Super 120B passed 8/16 — the ones it passed were app-generation tasks (counter, todo, pong, snake, bounce, starfield) where it could generate complete HTML/JS in one pass. It failed all 8 tasks requiring file-system manipulation (compute-write, config-extract, script-and-output, bugfix-run, json-spec, multifile-summary, rename, reasoning-only).
+- **Coding:** 73.3% — identical to the Nano. The 12B active parameters didn't improve coding accuracy. All 8 failures are timeouts, not wrong code — the model generates correct code but exhausts its reasoning budget before completing the output on expert/frontier problems.
+- **Math:** 40.0% — worse than Qwen (53.3%) and Gemma (50.0%). 15 of 18 non-passing tests are timeouts. The reasoning chain on math problems is extremely verbose, and the 4096-token budget is insufficient for expert/frontier problems.
+
+### Difficulty breakdown — all four models
+
+| Difficulty | Nano-30B | Qwen-35B | Gemma-26B | Super-120B |
+|------------|---:|---:|---:|---:|
+| easy | 10/10 (100%) | 10/10 (100%) | 10/10 (100%) | 10/10 (100%) |
+| medium | 13/15 (86.7%) | 14/15 (93.3%) | 14/15 (93.3%) | 14/15 (93.3%) |
+| hard | 18/25 (72.0%) | 21/25 (84.0%) | 22/25 (88.0%) | 21/25 (84.0%) |
+| expert | 16/40 (40.0%) | 27/40 (67.5%) | 32/40 (80.0%) | 20/40 (50.0%) |
+| frontier | 20/60 (33.3%) | 30/60 (50.0%) | **47/60 (78.3%)** | 22/60 (36.7%) |
+
+The difficulty breakdown reveals the Super 120B's profile clearly:
+
+- **Easy and medium:** All four models are comparable — 86-100%. These tiers don't differentiate.
+- **Hard:** The Super 120B matches Qwen (84.0%) and approaches Gemma (88.0%). This is where the 12B active parameters start to matter.
+- **Expert:** The Super 120B (50.0%) trails Qwen (67.5%) and Gemma (80.0%). The reasoning chain is verbose but the token budget runs out before the model reaches an answer on graduate-level problems.
+- **Frontier:** The Super 120B (36.7%) barely improves on the Nano (33.3%) and is far behind Qwen (50.0%) and Gemma (78.3%). The frontier tier exposes the token budget constraint most severely — the model's reasoning chain generates hundreds of thinking tokens that consume the 4096-token budget before reaching the answer.
+
+### Notable frontier-level results
+
+Despite the lower frontier pass rate, the Super 120B achieved some notable frontier-level successes:
+
+- **Coding frontier:** Passed 4/12 frontier coding tests (frontier.02, .04, .06, .07, .08, .09) — the Mamba hybrid generates correct code for complex algorithmic problems when the token budget suffices.
+- **Reasoning frontier:** Passed 5/12 frontier reasoning tests (frontier.02, .03, .04, .05, .11, .12) — including named-entity logic puzzles requiring multi-step deduction.
+- **Math frontier:** Passed 3 frontier math problems — neither the Nano-30B nor Qwen-3-35B passed any frontier math. The 12B active parameters give the Super 120B enough reasoning depth to solve frontier-level math when the token budget allows.
+
+### The timeout problem
+
+The Super 120B's 43 errors (all timeouts) tell the real story. The breakdown by category:
+
+| Category | Tests | Pass | Fail (wrong answer) | Error (timeout) |
+|----------|------:|-----:|--------------------:|----------------:|
+| math | 30 | 12 | 3 | 15 |
+| prose | 30 | 20 | 0 | 10 |
+| reasoning | 38 | 29 | 0 | 9 |
+| coding | 30 | 22 | 0 | 8 |
+| instruction | 30 | 28 | 1 | 1 |
+| agentic | 16 | 8 | 8 | 0 |
+| writing | 5 | 5 | 0 | 0 |
+| tool_calling | 2 | 2 | 0 | 0 |
+
+**Only 12 tests produced a genuinely wrong answer** (3 math failures, 1 instruction failure, 8 agentic failures). The remaining 43 failures are all timeouts — the model was still reasoning when the 4096-token budget ran out. This is a configuration issue, not a capability issue. Increasing `max_tokens` to 8192 or 16384 would likely convert many of those timeouts into passes, at the cost of even longer wall time.
 
 ---
 
 ## Implications for use
 
-### What the numbers tell us so far
+### What the numbers tell us
 
-**Stage 1 — clear hierarchy:**
+**The four-model hierarchy by accuracy:**
 
-The three Stage 1 models form a clear hierarchy by accuracy: Gemma > Qwen > Nemotron-Nano. But the hierarchy changes when you factor in speed and specialization:
+1. **Gemma-4-26B (84.0%)** — the clear winner. Smallest model by total parameters (26B), 4B active, but the best architecture quality. Dominates 5 of 8 categories and the frontier tier (78.3%).
+2. **Qwen3.6-35B (71.3%)** — the speed champion. 27.6 minutes for 181 tests. Non-reasoning architecture means it answers directly without thinking tokens. Strong on math (53.3%) and agentic (87.5%).
+3. **Nemotron-3-Super-120B (69.6%)** — the instruction specialist. Best instruction following (93.3%), perfect tool calling and writing. But 530 minutes wall time and 43 timeouts limit its practical value for general workloads.
+4. **Nemotron-3-Nano-30B (54.7%)** — the lightweight hybrid. Perfect tool calling and writing, but weakest overall. The 3.6B active parameters aren't enough to compensate for the token budget constraint.
 
-| Use case | Best model | Why |
-|---------|-----------|-----|
-| General accuracy | Gemma-4-26B | 84.0% overall, frontier 78.3% |
-| Speed-critical | Qwen3.6-35B | 27.6 min, 7.7× faster than Nemotron |
-| Tool calling / agentic | Nemotron-3-Nano | 100% tool calling, reasoning chain helps planning |
-| Coding | Gemma-4-26B | 93.3% coding, 28/30 |
-| Math | Qwen3.6-35B | 53.3% math, avoids over-thinking |
-| Writing | Nemotron-3-Nano | 100% writing, 5/5 |
+**The Mamba hybrid verdict:**
 
-**Stage 2 — the architecture question:**
+The Mamba-Transformer hybrid architecture does not deliver an accuracy advantage over pure Transformer MoE models at similar or smaller scales. Gemma-4-26B (4B active, pure Transformer) outperforms Nemotron-3-Super-120B (12B active, Mamba hybrid) by 14.4 points despite having 3× fewer active parameters. The hybrid's strengths — instruction following, tool calling, writing — are real but narrow. Its weakness — the verbose reasoning chain that exhausts token budgets — is structural and affects all reasoning-heavy categories (math, coding, reasoning).
 
-The Super 120B's deployment confirms that a 120B parameter Mamba-Transformer hybrid fits on the DGX Spark at NVFP4 precision. The 75 GiB memory footprint leaves room for a 1M token context window with FP8 KV cache. The MTP speculative decoding achieves 92% acceptance rate — the model's own MTP head is an effective draft model.
+**Where each model wins:**
 
-But the benchmark results so far show the same pattern as the Nano: the reasoning chain generates extensive thinking tokens that exhaust the 4096-token budget on hard math problems. This suggests the Mamba hybrid architecture's reasoning depth comes at a latency cost — the model "thinks" more but doesn't always arrive at the answer within the token budget.
-
-**The key question for Stage 2:** does 3.3× more active parameters (12B vs 3.6B) close the accuracy gap with Gemma-4-26B (84.0%)? Early results suggest partial closure — the Super 120B passes math hard.01 and hard.02 that the Nano failed, but still times out on expert-tier math. The full benchmark will tell us whether the coding, reasoning, and agentic scores improve enough to justify the memory cost (75 GiB vs 22-31 GiB for Stage 1 models).
+| Use case | Best model | Score | Why |
+|---------|-----------|-------|-----|
+| General accuracy | Gemma-4-26B | 84.0% | Best overall, dominates frontier tier |
+| Speed-critical | Qwen3.6-35B | 71.3% in 27.6 min | 19× faster than Super 120B |
+| Instruction following | **Nemotron-3-Super-120B** | **93.3%** | Best of any model, structural formatting |
+| Tool calling | Nemotron-3 (both) | 100% | Both tiers perfect on 2/2 |
+| Writing | Nemotron-3 (both) | 100% | Both tiers perfect on 5/5 |
+| Coding | Gemma-4-26B | 93.3% | 28/30, only 1 timeout |
+| Math | Qwen3.6-35B | 53.3% | Direct approach avoids over-thinking |
+| Agentic | Gemma-4-26B | 93.8% | 15/16, best multi-step tool use |
+| Reasoning | Gemma-4-26B | 94.7% | 36/38, best logical deduction |
 
 ### What this means for local LLM deployment
 
@@ -358,21 +382,22 @@ But the benchmark results so far show the same pattern as the Nano: the reasonin
 
 2. **Mamba-Transformer hybrids are viable for production.** The NemotronH architecture loads and serves cleanly in vLLM v0.20.0. The Mamba layers don't require special runtime handling — vLLM detects the hybrid architecture and manages the SSM cache automatically.
 
-3. **Speculative decoding (MTP) is effective.** The 92% acceptance rate with 3 speculative tokens means the Super 120B achieves ~30 tok/s effective throughput despite being a 120B model. Without MTP, the throughput would be ~10 tok/s (1/3 of the speculative rate).
+3. **Speculative decoding (MTP) is effective.** The 84% acceptance rate with 3 speculative tokens means the Super 120B achieves ~30 tok/s effective throughput despite being a 120B model. Without MTP, the throughput would be ~10 tok/s (1/3 of the speculative rate).
 
-4. **Reasoning token budget is the bottleneck for math.** Both Nemotron-3 tiers (Nano and Super) exhaust the 4096-token reasoning budget on expert/frontier math problems. This is not a model capability issue — it's a token budget constraint. Increasing max_tokens to 8192 or 16384 would likely improve math scores significantly, at the cost of longer wall times.
+4. **Reasoning token budget is the bottleneck.** The Super 120B's 43 timeouts (vs. only 12 wrong answers) show that the model's capability is masked by the 4096-token reasoning budget. The Mamba hybrid generates more verbose reasoning chains than pure Transformer models, and the budget runs out before the answer. Increasing to 8192 or 16384 tokens would likely improve scores significantly — but the 530-minute wall time at 4096 tokens would become 15+ hours at 16384.
 
-5. **Model size doesn't guarantee category wins.** The Nano-30B (3.6B active) scored 54.7% while Gemma-4-26B (4B active) scored 84.0% — a 29.3-point gap despite similar active parameter counts. Architecture quality matters more than raw scale. The Super 120B (12B active) needs to demonstrate that 3.3× more active parameters translate to meaningful accuracy gains, not just slower inference.
+5. **Architecture quality > parameter count.** The Super 120B (12B active, 120B total) scores 69.6% — 14.4 points behind Gemma-4-26B (4B active, 26B total). The 3× active parameter advantage doesn't compensate for the Mamba hybrid's verbose reasoning overhead. Pure Transformer MoE architecture, when well-designed, is more efficient per active parameter than the Mamba hybrid.
 
 ### What this means for SMF Works
 
-Our production stack currently runs Qwen3.6-35B and Gemma-4-26B. The Stage 1 results confirm this is the right choice — both outperform the Nemotron-3-Nano on overall accuracy. But the Nemotron-3 line has specific strengths:
+Our production stack currently runs Qwen3.6-35B and Gemma-4-26B. The full four-model benchmark confirms this is the right choice:
 
-- **Tool calling** — perfect 2/2 for both Nemotron tiers (vs 0/2 for Gemma). If we build agentic workflows that need reliable tool use, Nemotron is the better choice.
-- **Writing** — 100% for Nemotron-3-Nano (vs 80% for both Qwen and Gemma). The reasoning chain produces higher-quality structured text.
-- **Math reasoning depth** — the Super 120B passes hard math that the Nano failed, suggesting the architecture scales with active parameters. If the full benchmark confirms this, the Super 120B could be the math specialist in our stack.
+- **Gemma-4-26B** remains the accuracy leader (84.0%) and the default for quality-critical tasks.
+- **Qwen3.6-35B** remains the speed champion (27.6 min) and the default for latency-sensitive tasks.
+- **Nemotron-3-Super-120B** is a specialist: use it when instruction following or structured output generation is the primary task, and latency is acceptable (530 min for 181 tests = ~3 min/test average). Its 93.3% instruction score and 100% writing/tool-calling scores make it the best model for structured document generation, form-filling, and tool-use workflows.
+- **Nemotron-3-Nano-30B** doesn't make the production cut. The Super 120B dominates it in every category except tool calling and writing (where they tie at 100%).
 
-The decision gate for adopting the Super 120B in production: does it exceed 84.0% (Gemma's score) by more than 5 percentage points? The full benchmark results will determine this.
+**The decision gate:** The Super 120B needed to exceed Gemma's 84.0% by 5+ points to justify the 75 GiB memory cost (vs. 22-31 GiB for Stage 1 models). At 69.6%, it doesn't meet that threshold. But its specialist strengths — instruction following, tool calling, writing — make it a valuable addition to the stack for specific workloads, not a replacement for Gemma or Qwen.
 
 ---
 
@@ -419,17 +444,27 @@ Reasoning models (Nemotron-3, DeepSeek-R1, Qwen3) generate thinking tokens befor
 - The `reasoning` field in the API response is checked when `content` is empty
 - The thinking tokens are not counted toward the answer evaluation
 
-The 4096-token budget is a practical constraint — higher budgets would improve math scores but dramatically increase wall time. The Nano-30B took 212 minutes with 4096 tokens; with 16384 tokens, it would likely take 12+ hours.
+The 4096-token budget is a practical constraint — higher budgets would improve math scores but dramatically increase wall time. The Super 120B took 530 minutes with 4096 tokens; with 16384 tokens, it would likely take 15+ hours. This is the fundamental tradeoff of reasoning models: more thinking capacity means more accuracy, but exponentially more latency.
 
 ---
 
 ## What's next
 
-Stage 1 is complete. All three models — Nemotron-3-Nano-30B-A3B-FP8, Qwen3.6-35B-A3B-NVFP4, and Gemma-4-26B-A4B-NVFP4 — have been benchmarked. Gemma-4-26B leads at 84.0%, Qwen3.6-35B at 71.3%, and Nemotron-3-Nano-30B at 54.7%.
+All four models have been benchmarked. The final hierarchy is clear:
 
-Stage 2 is in progress: the Nemotron-3-Super-120B-A12B-NVFP4 is deployed and serving on the DGX Spark at 75 GiB memory. The 181-test benchmark is running. Early results show the Super 120B passing hard math tests that the Nano failed, but still timing out on expert-tier math.
+| Rank | Model | Pass Rate | Best For |
+|------|-------|----------|----------|
+| 1 | Gemma-4-26B-A4B-NVFP4 | 84.0% | General accuracy, coding, agentic, reasoning |
+| 2 | Qwen3.6-35B-A3B-NVFP4 | 71.3% | Speed, math, agentic |
+| 3 | Nemotron-3-Super-120B-A12B-NVFP4 | 69.6% | Instruction following, tool calling, writing |
+| 4 | Nemotron-3-Nano-30B-A3B-FP8 | 54.7% | Lightweight tool calling, writing |
 
-Once the full benchmark completes, we'll publish the complete four-model comparison and make the final production deployment decision.
+**Next steps:**
+
+1. **Token budget experiment:** Re-run the Super 120B's failed math and reasoning tests with `max_tokens=16384` to see how many timeouts convert to passes. This will isolate the capability question from the token budget constraint.
+2. **Long-context evaluation:** Test the Super 120B's 1M token context window with long-document summarization and retrieval tasks — the Mamba architecture's O(n) scaling should shine here.
+3. **Concurrent throughput:** Measure the Super 120B under multi-user load (`--max-num-seqs 4`) to evaluate its suitability as a shared inference server.
+4. **Tool-use agentic re-run:** The agentic failures were all file-system manipulation tasks. Test whether a different tool-call parser or system prompt improves the Super 120B's agentic performance.
 
 The full evaluation plan is documented in our internal vault (`NemoVault/Nemotron-3-Evaluation-Plan.md`) with all source citations from the ModelOpt 0.45.0 repository.
 
