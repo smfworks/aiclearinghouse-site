@@ -23,7 +23,9 @@ Our DGX Spark (`spark-56bc`) has 121 GB of unified memory. The models we want to
 
 That is the problem. Here is the plan to solve it.
 
-Over the next 10 weeks, we will take 10 frontier open-weight models — GPT-OSS-120B, Mixtral-8x22B, GLM-4.7-Flash, Mistral-Large-2411, Llama-4-Scout, Step-3.5-Flash, DeepSeek-V4-Flash, Qwen3-235B-A22B, Llama-3.1-405B, and DeepSeek-R1 — and use NVIDIA Model Optimizer 0.45.0 to make each one run on our 121 GB machine. We will benchmark every result with our own 181-test smf-bench suite and publish a deep-dive post per model, per week, with real numbers.
+The timeline is driven by the optimization complexity, not an arbitrary cadence. Tier 1 and Tier 2 models — quantization-only and NVFP4-plus-one-technique — can be processed at a daily pace: download, optimize, deploy, benchmark, and write up in a single day each. Tier 3 models (Llama-3.1-405B and DeepSeek-R1) require distillation, which means training a student model from a teacher — that is hours to days of GPU time on the GB10, not a command that finishes in minutes. The realistic timeline is approximately two weeks: 8 days for Tier 1–2, then 3–5 days each for the two Tier 3 distillation runs.
+
+We will take 10 frontier open-weight models — GPT-OSS-120B, Mixtral-8x22B, GLM-4.7-Flash, Mistral-Large-2411, Llama-4-Scout, Step-3.5-Flash, DeepSeek-V4-Flash, Qwen3-235B-A22B, Llama-3.1-405B, and DeepSeek-R1 — and use NVIDIA Model Optimizer 0.45.0 to make each one run on our 121 GB machine. We will benchmark every result with our own 181-test smf-bench suite and publish a deep-dive post per model, with real numbers.
 
 Three of these models have no NVFP4 quantized version anywhere on HuggingFace. We will be the first to create them.
 
@@ -113,7 +115,7 @@ Every figure in this table was verified on July 7, 2026, against the HuggingFace
 
 NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.5625 bytes`, derived from the NVFP4 format specification (4-bit weights + FP8 group scales at group_size=16). Where NVIDIA has already published an FP4 version, the verified file size is used instead.
 
-### Week 1 — GPT-OSS-120B
+### Day 1 — GPT-OSS-120B
 
 | Field | Value | Source |
 |---|---|---|
@@ -135,7 +137,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: GPT-OSS-120B already fits on the DGX Spark at 65.2 GB in MXFP4. The optimization is not about fitting — it's about native hardware format. The GB10 Grace Blackwell chip has native NVFP4 tensor core support. MXFP4, while also 4-bit, uses a different block structure (32× blocks with micro-exponents) that may not map directly to NVFP4 hardware paths. Converting to NVFP4 should unlock native tensor core operations, potentially improving throughput. This is also the most-downloaded model in the series (4.3M downloads), making it the highest-impact starting point.
 
-### Week 2 — Mixtral-8x22B
+### Day 2 — Mixtral-8x22B
 
 | Field | Value | Source |
 |---|---|---|
@@ -157,7 +159,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: Mixtral-8x22B is one of the most capable Apache-licensed MoE models, but at 281 GB BF16 it is 2.3× the DGX Spark's total memory. NVFP4 quantization brings it to an estimated 79 GB — well within budget. No NVFP4 version exists anywhere. Creating one is an original contribution to the open-source community. With 70K downloads, it has a dedicated user base that would benefit from a ready-to-deploy NVFP4 checkpoint.
 
-### Week 3 — GLM-4.7-Flash
+### Day 3 — GLM-4.7-Flash
 
 | Field | Value | Source |
 |---|---|---|
@@ -179,7 +181,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: GLM-4.7-Flash is a different story from the other models. At 62.4 GB BF16, it already fits on the DGX Spark. The optimization is not about fitting — it's about **context length**. GLM-4.7-Flash supports 202,752 tokens of context. At BF16, the model consumes 62.4 GB, leaving only ~38 GB for KV cache. At 200K context, the KV cache for a 47-layer model with 64 experts could easily exceed that. NVFP4 quantization reduces the model to ~17.5 GB, freeing ~45 GB for KV cache — enough to serve the full 200K context window. This is the model where the optimization story is about *enabling features* rather than *fitting at all*. With 2.7M downloads and MIT license, it is one of the most popular models in the series.
 
-### Week 4 — Mistral-Large-2411
+### Day 4 — Mistral-Large-2411
 
 | Field | Value | Source |
 |---|---|---|
@@ -201,7 +203,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: Mistral-Large-2411 is the most extreme compression ratio in Tier 1 — from 490.4 GB at FP32 to an estimated 69 GB at NVFP4, a **7.1× reduction**. The model is published in FP32 (4 bytes per parameter), which is unusual for a model this size. The first step is conceptual: we are not just quantizing, we are also dropping from FP32 to BF16 before NVFP4. Model Optimizer handles this automatically — the `w4a16_nvfp4` quantizer converts weights regardless of input dtype. The result should fit comfortably within the 121 GB budget. This is also the only dense (non-MoE) model in Tier 1, which makes it an interesting comparison point: dense models have no expert sparsity to exploit, so the compression is entirely from quantization. Note the license: "other" corresponds to the Mistral Research License, which permits research use but restricts commercial deployment.
 
-### Week 5 — Llama-4-Scout
+### Day 5 — Llama-4-Scout
 
 | Field | Value | Source |
 |---|---|---|
@@ -220,9 +222,9 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 | NVIDIA FP4 exists? | Yes — 65.3 GB | Already published by NVIDIA |
 | Optimization plan | Use NVIDIA FP4 (65.3 GB) + handle multimodal components on DGX Spark | Multimodal vision encoder needs separate handling |
 
-**Why it's here**: Llama-4-Scout is the transition point between Tier 1 and Tier 2. NVIDIA has already published an FP4 version at 65.3 GB — it fits. The challenge is not memory but multimodality: Llama-4-Scout is a vision-language model, and serving the vision encoder alongside the language model on the DGX Spark requires careful memory partitioning. This week explores the practical challenges of running a multimodal MoE model at NVFP4 on ARM64 unified memory — something that has limited community documentation. With 722K downloads on the base model and 83K on the FP4 version, there is strong interest in practical deployment guidance.
+**Why it's here**: Llama-4-Scout is the transition point between Tier 1 and Tier 2. NVIDIA has already published an FP4 version at 65.3 GB — it fits. The challenge is not memory but multimodality: Llama-4-Scout is a vision-language model, and serving the vision encoder alongside the language model on the DGX Spark requires careful memory partitioning. This post explores the practical challenges of running a multimodal MoE model at NVFP4 on ARM64 unified memory — something that has limited community documentation. With 722K downloads on the base model and 83K on the FP4 version, there is strong interest in practical deployment guidance.
 
-### Week 6 — Step-3.5-Flash
+### Day 6 — Step-3.5-Flash
 
 | Field | Value | Source |
 |---|---|---|
@@ -244,7 +246,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: Step-3.5-Flash is the first model in the series where NVFP4 alone is not sufficient. At an estimated 112 GB for weights alone, the model fits within 121 GB — but only barely. The KV cache at 262,144 context length would push total memory well over the limit. This is where we need a second technique: KV cache quantization to FP8. The combination — NVFP4 weights + FP8 KV cache — should allow the model to fit with reasonable context windows. The 288-expert architecture with 8 active per token is also the most extreme expert ratio in the series (36:1 sparsity), which creates interesting routing and load-balancing considerations. StepFun is a Chinese AI lab with growing community traction (175K downloads, Apache 2.0).
 
-### Week 7 — DeepSeek-V4-Flash
+### Day 7 — DeepSeek-V4-Flash
 
 | Field | Value | Source |
 |---|---|---|
@@ -263,7 +265,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: DeepSeek-V4-Flash is already quantized — its experts are in FP4 and non-expert layers are in FP8. At 159.6 GB, it is still 38 GB over the 121 GB budget. Further quantization is not an option; the model is already at 4-bit. The only path is **expert pruning**: reducing the number of routed experts from 256 to approximately 128, then using distillation to recover the accuracy lost from removing half the experts. This is the first model in the series where the optimization is architectural surgery, not numeric compression. With 2.4M downloads and MIT license, DeepSeek-V4-Flash is one of the most popular models in the series, and its 1M context length makes it a compelling target for local deployment.
 
-### Week 8 — Qwen3-235B-A22B
+### Day 8 — Qwen3-235B-A22B
 
 | Field | Value | Source |
 |---|---|---|
@@ -283,7 +285,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: Qwen3-235B-A22B is the tightest fit in the series. At an estimated 132 GB NVFP4, the weights alone exceed the 121 GB unified memory. This model requires every technique in the Tier 2 toolbox: NVFP4 weight quantization (gets to ~132 GB), FP8 KV cache quantization (reduces serving overhead), and aggressive context length limitation (cap at 8K–16K instead of 40K to limit KV cache growth). Even with all three techniques, this model will be the closest to the edge — it may require `nvfp4_experts_only` (quantizing only the 128 expert MLPs, leaving shared layers at BF16) to stay within budget. The 919K download count and Apache 2.0 license make it one of the most community-relevant models in the series. NVIDIA has published an FP4 version, but it is gated (requires access approval), so we may need to create our own.
 
-### Week 9 — Llama-3.1-405B
+### Day 9 — Llama-3.1-405B
 
 | Field | Value | Source |
 |---|---|---|
@@ -305,7 +307,7 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 **Why it's here**: Llama-3.1-405B is the largest dense model in the series and the first that requires the full prune → distill → quantize pipeline. NVIDIA's FP4 version at 234.3 GB still does not fit in 121 GB — quantization alone is insufficient. The approach is the Minitron method: (1) structured pruning to reduce the model from 405B to approximately 100–120B parameters by removing layers and/or reducing width, (2) distillation from the original 405B model to recover accuracy, and (3) NVFP4 quantization of the pruned student. This is the same pipeline NVIDIA used to create Nemotron-3-Super-120B (which is itself a pruned and distilled version of Llama-3.1-405B). The difference is that we will take the output one step further to NVFP4, aiming for a final size of 56–67 GB. This is the most computationally expensive optimization in the series — distillation requires training, which means GPU time and a teacher model.
 
-### Week 10 — DeepSeek-R1 (Finale)
+### Day 10 — DeepSeek-R1 (Finale)
 
 | Field | Value | Source |
 |---|---|---|
@@ -333,9 +335,9 @@ NVFP4 size estimates (marked with ~) are calculated as `parameter_count × 0.562
 
 The 10 models are organized into three tiers based on the complexity of optimization required. This is not an arbitrary grouping — it reflects the diminishing returns of each technique and the increasing risk of accuracy degradation.
 
-### Tier 1: Quantization only (Weeks 1–4)
+### Tier 1: Quantization only (Days 1–4)
 
-| Week | Model | BF16 / Published | NVFP4 Estimate | Fits? |
+| Day | Model | BF16 / Published | NVFP4 Estimate | Fits? |
 |---|---|---|---|---|
 | 1 | GPT-OSS-120B | 65.2 GB (MXFP4) | ~65 GB | Yes |
 | 2 | Mixtral-8x22B | 281.3 GB (BF16) | ~79 GB | Yes |
@@ -350,9 +352,9 @@ The four Tier 1 models cover four distinct scenarios:
 - **GLM-4.7-Flash**: Already fits at BF16; NVFP4 frees memory for 200K context KV cache
 - **Mistral-Large-2411**: Does not fit at FP32; NVFP4 brings it from 490 GB to ~69 GB
 
-### Tier 2: NVFP4 plus one additional technique (Weeks 5–8)
+### Tier 2: NVFP4 plus one additional technique (Days 5–8)
 
-| Week | Model | Published Size | NVFP4 Estimate | Additional Technique | Why |
+| Day | Model | Published Size | NVFP4 Estimate | Additional Technique | Why |
 |---|---|---|---|---|---|
 | 5 | Llama-4-Scout | 217 GB (BF16) | 65.3 GB (NVIDIA FP4) | Multimodal handling | Vision encoder + language model co-residency |
 | 6 | Step-3.5-Flash | 398.8 GB (BF16) | ~112 GB | FP8 KV cache quantization | 262K context requires compressed KV cache |
@@ -361,9 +363,9 @@ The four Tier 1 models cover four distinct scenarios:
 
 Tier 2 is where NVFP4 alone is not enough. Each model requires one additional technique to fit within the 121 GB budget. The techniques vary: multimodal memory partitioning (Llama-4-Scout), KV cache compression (Step-3.5-Flash, Qwen3-235B-A22B), or architectural pruning (DeepSeek-V4-Flash). The risk of accuracy degradation is moderate — pruning removes capacity, and KV cache compression can affect long-context retrieval quality.
 
-### Tier 3: Full prune → distill → quantize pipeline (Weeks 9–10)
+### Tier 3: Full prune → distill → quantize pipeline (Days 9–14)
 
-| Week | Model | Published Size | NVIDIA FP4 | Optimization | Estimated Final |
+| Day | Model | Published Size | NVIDIA FP4 | Optimization | Estimated Final |
 |---|---|---|---|---|---|
 | 9 | Llama-3.1-405B | ~812 GB (BF16) | 234.3 GB | Minitron prune → distill → NVFP4 | ~56–67 GB |
 | 10 | DeepSeek-R1 | 688.6 GB (BF16) | 423.6 GB | Expert prune → distill → NVFP4 | ~112 GB |
@@ -427,7 +429,7 @@ This is the same suite that produced the first-round results cited above. The ad
 
 ## What to expect
 
-Each week will produce one deep-dive blog post covering:
+Each model will produce one deep-dive blog post covering:
 
 1. **Model architecture analysis** — what makes this model different, what its strengths and weaknesses are
 2. **DGX Spark constraint analysis** — exactly why this model does not fit, and what the memory budget requires
@@ -452,7 +454,7 @@ Every external fact in this post was verified on July 7, 2026:
 - **NVFP4 size estimates**: Calculated as `parameter_count × 0.5625 bytes`, derived from the NVFP4 format (4-bit weights + 8-bit FP8 group scales at group_size=16). Marked with ~ throughout. Where NVIDIA has published an FP4 version, the verified file size is used instead of the estimate.
 - **smf-bench results**: From JSON result files in our local results directory, generated by actual benchmark runs on `spark-56bc`.
 
-The NVFP4 size estimates are theoretical and will be replaced with measured sizes in each weekly deep-dive post. The actual compressed size depends on which modules are quantized (Model Optimizer excludes attention, embeddings, and routers from quantization by default), packing overhead, and metadata.
+The NVFP4 size estimates are theoretical and will be replaced with measured sizes in each deep-dive post. The actual compressed size depends on which modules are quantized (Model Optimizer excludes attention, embeddings, and routers from quantization by default), packing overhead, and metadata.
 
 ---
 
@@ -462,10 +464,10 @@ This series is an engineering experiment: can a 121 GB desktop workstation run m
 
 The tools exist. NVIDIA Model Optimizer 0.45.0 provides the quantization, pruning, and distillation primitives. The GB10 Grace Blackwell chip provides native NVFP4 hardware acceleration. The unified memory architecture eliminates the PCIe bottleneck. smf-bench provides a consistent, reproducible evaluation framework.
 
-What remains is the work: 10 weeks, 10 models, 10 deep dives. Each one will answer a specific question about what is possible when you compress frontier models to fit on a desktop. We start next week with GPT-OSS-120B — the most downloaded model in the series, the one that already fits, and the one where the question is not whether it runs but how much faster it runs when the format matches the hardware.
+What remains is the work: 10 models, 10 deep dives, approximately two weeks. Tier 1 and Tier 2 move at a daily cadence — quantization and single-technique optimizations are fast. Tier 3 is slower: distillation is training, not a command, and it takes days. Each post will answer a specific question about what is possible when you compress frontier models to fit on a desktop. We start tomorrow with GPT-OSS-120B — the most downloaded model in the series, the one that already fits, and the one where the question is not whether it runs but how much faster it runs when the format matches the hardware.
 
 ---
 
-*All data verified July 7, 2026. Model specifications, file sizes, and download counts are point-in-time values from HuggingFace and PyPI APIs. NVFP4 size estimates are theoretical calculations, not measured results. Actual optimized sizes and benchmark scores will be published in weekly deep-dive posts.*
+*All data verified July 7, 2026. Model specifications, file sizes, and download counts are point-in-time values from HuggingFace and PyPI APIs. NVFP4 size estimates are theoretical calculations, not measured results. Actual optimized sizes and benchmark scores will be published in each deep-dive post.*
 
 *smf-bench is open source under the MIT license at [github.com/smfworks/smf-bench](https://github.com/smfworks/smf-bench).*
