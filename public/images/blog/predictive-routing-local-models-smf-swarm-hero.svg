@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576" width="1024" height="576">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050507"/>
+      <stop offset="100%" stop-color="#0b0c0f"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.28"/>
+      <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.28"/>
+    </linearGradient>
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="32"/>
+    </filter>
+    <mask id="fade-bottom">
+      <rect width="1024" height="576" fill="white"/>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0.55" stop-color="white"/>
+        <stop offset="0.95" stop-color="black"/>
+      </linearGradient>
+      <rect y="320" width="1024" height="256" fill="url(#fade)"/>
+    </mask>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="576" fill="url(#bg)"/>
+
+  <!-- Ambient glow -->
+  <circle cx="200" cy="160" r="180" fill="url(#glow)" filter="url(#blur)" opacity="0.45" mask="url(#fade-bottom)"/>
+  <circle cx="850" cy="420" r="200" fill="url(#glow)" filter="url(#blur)" opacity="0.40" mask="url(#fade-bottom)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#1e2026" stroke-width="1" opacity="0.30">
+    <line x1="0" y1="144" x2="1024" y2="144"/>
+    <line x1="0" y1="288" x2="1024" y2="288"/>
+    <line x1="0" y1="432" x2="1024" y2="432"/>
+    <line x1="256" y1="0" x2="256" y2="576"/>
+    <line x1="512" y1="0" x2="512" y2="576"/>
+    <line x1="768" y1="0" x2="768" y2="576"/>
+  </g>
+
+  <!-- Central router diamond -->
+  <g transform="translate(512, 245)" mask="url(#fade-bottom)">
+    <polygon points="0,-70 70,0 0,70 -70,0" fill="#0b0c0f" stroke="#f59e0b" stroke-width="2" opacity="0.9"/>
+    <circle r="26" fill="#050507" stroke="#06b6d4" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="13" fill="#f2f2f5" font-weight="600">ROUTE</text>
+    <!-- Incoming signals -->
+    <line x1="-200" y1="-90" x2="-65" y2="-25" stroke="#8a8f98" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-200" y1="0" x2="-65" y2="0" stroke="#8a8f98" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-200" y1="90" x2="-65" y2="25" stroke="#8a8f98" stroke-width="1.5" opacity="0.6"/>
+    <!-- Outgoing decisions -->
+    <line x1="65" y1="-25" x2="200" y2="-90" stroke="#22d3ee" stroke-width="1.5" opacity="0.6"/>
+    <line x1="65" y1="0" x2="200" y2="0" stroke="#a78bfa" stroke-width="1.5" opacity="0.6"/>
+    <line x1="65" y1="25" x2="200" y2="90" stroke="#34d399" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- Left: input domain tags -->
+  <g transform="translate(160, 155)" mask="url(#fade-bottom)">
+    <rect x="-80" y="-18" width="160" height="36" rx="6" fill="#0b0c0f" stroke="#1e2026" stroke-width="1.5"/>
+    <text x="0" y="5" text-anchor="middle" font-family="monospace" font-size="12" fill="#8a8f98">finance</text>
+  </g>
+  <g transform="translate(160, 245)" mask="url(#fade-bottom)">
+    <rect x="-80" y="-18" width="160" height="36" rx="6" fill="#0b0c0f" stroke="#1e2026" stroke-width="1.5"/>
+    <text x="0" y="5" text-anchor="middle" font-family="monospace" font-size="12" fill="#8a8f98">technology</text>
+  </g>
+  <g transform="translate(160, 335)" mask="url(#fade-bottom)">
+    <rect x="-80" y="-18" width="160" height="36" rx="6" fill="#0b0c0f" stroke="#1e2026" stroke-width="1.5"/>
+    <text x="0" y="5" text-anchor="middle" font-family="monospace" font-size="12" fill="#8a8f98">political</text>
+  </g>
+
+  <!-- Right: model tiers -->
+  <g transform="translate(864, 155)" mask="url(#fade-bottom)">
+    <rect x="-100" y="-22" width="200" height="44" rx="6" fill="#0b0c0f" stroke="#22d3ee" stroke-width="1.5" opacity="0.85"/>
+    <text x="0" y="-4" text-anchor="middle" font-family="monospace" font-size="11" fill="#22d3ee">LOCAL SMALL</text>
+    <text x="0" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a8f98">Qwen3-4B · fast</text>
+  </g>
+  <g transform="translate(864, 245)" mask="url(#fade-bottom)">
+    <rect x="-100" y="-22" width="200" height="44" rx="6" fill="#0b0c0f" stroke="#a78bfa" stroke-width="1.5" opacity="0.85"/>
+    <text x="0" y="-4" text-anchor="middle" font-family="monospace" font-size="11" fill="#a78bfa">LOCAL LARGE</text>
+    <text x="0" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a8f98">Qwen3.6-235B · A3B</text>
+  </g>
+  <g transform="translate(864, 335)" mask="url(#fade-bottom)">
+    <rect x="-100" y="-22" width="200" height="44" rx="6" fill="#0b0c0f" stroke="#34d399" stroke-width="1.5" opacity="0.85"/>
+    <text x="0" y="-4" text-anchor="middle" font-family="monospace" font-size="11" fill="#34d399">CLOUD FALLBACK</text>
+    <text x="0" y="14" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a8f98">deep reasoning · MoE</text>
+  </g>
+
+  <!-- Title -->
+  <text x="512" y="500" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="34" fill="#f2f2f5" font-weight="600" letter-spacing="-0.02em">Predictive Routing with Local Models</text>
+  <text x="512" y="535" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="34" fill="#f2f2f5" font-weight="600" letter-spacing="-0.02em">How SMF Swarm Chooses Its Brain</text>
+
+  <!-- Meta line -->
+  <text x="512" y="565" text-anchor="middle" font-family="monospace" font-size="13" fill="#8a8f98">2026-07-07 · Liam's Landing · Liam Hermes</text>
+
+  <!-- Bottom accent -->
+  <line x1="352" y1="575" x2="672" y2="575" stroke="#f59e0b" stroke-width="2" opacity="0.8"/>
+</svg>
