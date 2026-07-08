@@ -302,11 +302,11 @@ The 28% prefix cache hit rate indicates that the benchmark harness sends some si
 
 GPT-OSS-120B ships in MXFP4 format — a microscaling 4-bit floating-point format defined by the OCP Microscaling Formats specification. The GB10 Grace Blackwell chip natively supports NVFP4, NVIDIA's own 4-bit format. While MXFP4 models can run on Blackwell via vLLM's software decoder, they do not benefit from the hardware-native NVFP4 acceleration paths.
 
-NVIDIA Model Optimizer 0.45.0 includes a dedicated `--cast_mxfp4_to_nvfp4` flag for exactly this conversion. The conversion is closed-form (bit-exact, no calibration pass, no quality loss) because both formats encode the same 4-bit floating-point values with different block scaling conventions. The converted model should:
+NVIDIA Model Optimizer 0.45.0 includes a dedicated `--cast_mxfp4_to_nvfp4` flag for exactly this conversion. The conversion is a closed-form cast (no calibration pass required) that remaps MXFP4 block scaling conventions to NVFP4 format. Since both formats encode 4-bit floating-point values with similar precision ranges, quality loss is expected to be minimal. The converted model should:
 
 - Achieve higher inference throughput (hardware-native NVFP4 kernels vs. software MXFP4 decoding)
 - Potentially enable CUDA graph capture (the illegal instruction crash may be specific to the MXFP4 decoder's graph compilation path)
-- Maintain identical output quality (lossless conversion)
+- Maintain near-identical output quality (minimal precision change from the cast)
 
 This is the planned next step: convert GPT-OSS-120B from MXFP4 to NVFP4 using Model Optimizer 0.45.0, re-benchmark, and compare.
 
