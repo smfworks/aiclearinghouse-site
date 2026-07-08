@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e27"/>
+      <stop offset="50%" stop-color="#1a1f3a"/>
+      <stop offset="100%" stop-color="#0d1129"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d9a3"/>
+      <stop offset="100%" stop-color="#00a3ff"/>
+    </linearGradient>
+    <linearGradient id="moe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d9a3"/>
+      <stop offset="100%" stop-color="#00a3ff" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="600"/>
+    <line x1="600" y1="0" x2="600" y2="600"/>
+    <line x1="800" y1="0" x2="800" y2="600"/>
+    <line x1="1000" y1="0" x2="1000" y2="600"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="60" y="70" font-family="monospace" font-size="28" font-weight="bold" fill="#e0e7ff">GPT-OSS-120B</text>
+  <text x="60" y="100" font-family="monospace" font-size="16" fill="#7a8bb5">MXFP4 Baseline on DGX Spark · 117B params · 5.1B active · 59.7% smf-bench</text>
+  
+  <!-- Left panel: Model architecture visualization -->
+  <g transform="translate(60, 140)">
+    <text x="0" y="20" font-family="monospace" font-size="12" fill="#7a8bb5">MoE ARCHITECTURE</text>
+    
+    <!-- 128 experts grid (represented as 16x8) -->
+    <g transform="translate(0, 35)">
+      <!-- Active experts (highlighted) -->
+      <rect x="0" y="0" width="35" height="35" rx="4" fill="url(#moe)" stroke="#10b981" stroke-width="1.5"/>
+      <rect x="42" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="84" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="126" y="0" width="35" height="35" rx="4" fill="url(#moe)" stroke="#10b981" stroke-width="1.5"/>
+      <rect x="168" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="210" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="252" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="294" y="0" width="35" height="35" rx="4" fill="url(#moe)" stroke="#10b981" stroke-width="1.5"/>
+      <rect x="336" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="378" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="420" y="0" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="462" y="0" width="35" height="35" rx="4" fill="url(#moe)" stroke="#10b981" stroke-width="1.5"/>
+      
+      <!-- Row 2 -->
+      <rect x="0" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="42" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="84" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="126" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="168" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="210" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="252" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="294" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="336" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="378" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="420" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <rect x="462" y="42" width="35" height="35" rx="4" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      
+      <!-- Row 3-8 compressed as rows -->
+      <rect x="0" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="42" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="84" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="126" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="168" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="210" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="252" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="294" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="336" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="378" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="420" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      <rect x="462" y="84" width="35" height="35" rx="4" fill="#161b35" stroke="#2a3458" stroke-width="0.5"/>
+      
+      <!-- "..." indicator -->
+      <text x="235" y="180" font-family="monospace" font-size="14" fill="#4a5680" text-anchor="middle">··· 128 experts ···</text>
+      
+      <!-- Active label -->
+      <rect x="0" y="210" width="14" height="14" rx="3" fill="url(#moe)" stroke="#10b981" stroke-width="1.5"/>
+      <text x="22" y="222" font-family="monospace" font-size="11" fill="#7a8bb5">4 active / token (5.1B params)</text>
+      <rect x="0" y="230" width="14" height="14" rx="3" fill="#1a2342" stroke="#2a3458" stroke-width="1"/>
+      <text x="22" y="242" font-family="monospace" font-size="11" fill="#7a8bb5">128 total experts (117B params)</text>
+    </g>
+  </g>
+  
+  <!-- Right panel: Benchmark results bar chart -->
+  <g transform="translate(620, 140)">
+    <text x="0" y="20" font-family="monospace" font-size="12" fill="#7a8bb5">SMF-BENCH RESULTS (181 tests)</text>
+    
+    <!-- Bars: reasoning, writing, agentic, prose, instruction, reasoning_t0, math, coding, tool_call -->
+    <g transform="translate(0, 40)">
+      <!-- reasoning 100% -->
+      <text x="0" y="14" font-family="monospace" font-size="11" fill="#c0cce0">reasoning</text>
+      <rect x="120" y="2" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="2" width="400" height="18" rx="3" fill="url(#bar)"/>
+      <text x="530" y="14" font-family="monospace" font-size="11" fill="#00d9a3" font-weight="bold">100%</text>
+      
+      <!-- writing 100% -->
+      <text x="0" y="38" font-family="monospace" font-size="11" fill="#c0cce0">writing</text>
+      <rect x="120" y="26" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="26" width="400" height="18" rx="3" fill="url(#bar)"/>
+      <text x="530" y="38" font-family="monospace" font-size="11" fill="#00d9a3" font-weight="bold">100%</text>
+      
+      <!-- agentic 93.8% -->
+      <text x="0" y="62" font-family="monospace" font-size="11" fill="#c0cce0">agentic</text>
+      <rect x="120" y="50" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="50" width="375" height="18" rx="3" fill="url(#bar)"/>
+      <text x="530" y="62" font-family="monospace" font-size="11" fill="#00d9a3" font-weight="bold">93.8%</text>
+      
+      <!-- prose 83.3% -->
+      <text x="0" y="86" font-family="monospace" font-size="11" fill="#c0cce0">prose</text>
+      <rect x="120" y="74" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="74" width="333" height="18" rx="3" fill="url(#bar)"/>
+      <text x="530" y="86" font-family="monospace" font-size="11" fill="#00d9a3">83.3%</text>
+      
+      <!-- instruction 76.7% -->
+      <text x="0" y="110" font-family="monospace" font-size="11" fill="#c0cce0">instruction</text>
+      <rect x="120" y="98" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="98" width="307" height="18" rx="3" fill="url(#bar)"/>
+      <text x="530" y="110" font-family="monospace" font-size="11" fill="#00d9a3">76.7%</text>
+      
+      <!-- reasoning_t0 70.0% -->
+      <text x="0" y="134" font-family="monospace" font-size="11" fill="#c0cce0">reasoning_t0</text>
+      <rect x="120" y="122" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="122" width="280" height="18" rx="3" fill="url(#bar)"/>
+      <text x="530" y="134" font-family="monospace" font-size="11" fill="#e8c547">70.0%</text>
+      
+      <!-- math 26.7% -->
+      <text x="0" y="158" font-family="monospace" font-size="11" fill="#c0cce0">math</text>
+      <rect x="120" y="146" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="146" width="107" height="18" rx="3" fill="#e8c547" opacity="0.7"/>
+      <text x="530" y="158" font-family="monospace" font-size="11" fill="#e8c547">26.7%</text>
+      
+      <!-- coding 10.0% -->
+      <text x="0" y="182" font-family="monospace" font-size="11" fill="#c0cce0">coding</text>
+      <rect x="120" y="170" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="170" width="40" height="18" rx="3" fill="#e74c3c" opacity="0.7"/>
+      <text x="530" y="182" font-family="monospace" font-size="11" fill="#e74c3c">10.0%</text>
+      
+      <!-- tool_calling 0% -->
+      <text x="0" y="206" font-family="monospace" font-size="11" fill="#c0cce0">tool_calling</text>
+      <rect x="120" y="194" width="400" height="18" rx="3" fill="#1a2342"/>
+      <text x="530" y="206" font-family="monospace" font-size="11" fill="#e74c3c">0.0%</text>
+      
+      <!-- Overall line -->
+      <line x1="0" y1="230" x2="520" y2="230" stroke="#2a3458" stroke-width="0.5"/>
+      <text x="0" y="252" font-family="monospace" font-size="13" fill="#e0e7ff" font-weight="bold">OVERALL</text>
+      <rect x="120" y="240" width="400" height="18" rx="3" fill="#1a2342"/>
+      <rect x="120" y="240" width="239" height="18" rx="3" fill="url(#accent)"/>
+      <text x="530" y="252" font-family="monospace" font-size="13" fill="#00d9a3" font-weight="bold">59.7%</text>
+    </g>
+  </g>
+  
+  <!-- Bottom info bar -->
+  <g transform="translate(60, 540)">
+    <rect x="0" y="0" width="1080" height="40" rx="6" fill="#111634" stroke="#2a3458" stroke-width="1"/>
+    <text x="20" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">65.25 GB MXFP4</text>
+    <text x="170" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">|</text>
+    <text x="185" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">121 GB Unified Memory</text>
+    <text x="370" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">|</text>
+    <text x="385" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">32.2 tok/s</text>
+    <text x="490" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">|</text>
+    <text x="505" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">0 errors</text>
+    <text x="590" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">|</text>
+    <text x="605" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">vLLM v0.24.0</text>
+    <text x="730" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">|</text>
+    <text x="745" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">GB10 Grace Blackwell</text>
+    <text x="920" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">|</text>
+    <text x="935" y="25" font-family="monospace" font-size="12" fill="#7a8bb5">Apache 2.0</text>
+  </g>
+</svg>
