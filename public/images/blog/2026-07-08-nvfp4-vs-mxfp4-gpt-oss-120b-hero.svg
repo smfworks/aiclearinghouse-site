@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#121829"/>
+    </linearGradient>
+    <linearGradient id="mxfp4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="nvfp4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="600" y="50" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="bold" fill="#e2e8f0" text-rendering="geometricPrecision">NVFP4 vs MXFP4</text>
+  <text x="600" y="88" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" fill="#94a3b8">4-bit quantization formats on Blackwell hardware</text>
+  
+  <!-- MXFP4 side (left) -->
+  <g transform="translate(50, 120)">
+    <rect width="500" height="350" rx="12" fill="#111827" stroke="#2563eb" stroke-width="2"/>
+    <text x="250" y="35" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="bold" fill="#60a5fa">MXFP4</text>
+    <text x="250" y="60" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#94a3b8">OCP Microscaling FP4 — 32-element blocks</text>
+    
+    <!-- Block visualization: 32 small squares -->
+    <g transform="translate(30, 90)">
+      <!-- Row 1: 16 squares -->
+      <rect x="0" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.9"/>
+      <rect x="30" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.85"/>
+      <rect x="60" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.8"/>
+      <rect x="90" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.75"/>
+      <rect x="120" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.7"/>
+      <rect x="150" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.65"/>
+      <rect x="180" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.6"/>
+      <rect x="210" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.55"/>
+      <rect x="240" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.5"/>
+      <rect x="270" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.45"/>
+      <rect x="300" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.4"/>
+      <rect x="330" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.35"/>
+      <rect x="360" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.3"/>
+      <rect x="390" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.25"/>
+      <rect x="420" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.2"/>
+      <rect x="450" y="0" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.15"/>
+      <!-- Row 2: 16 squares -->
+      <rect x="0" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.15"/>
+      <rect x="30" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.2"/>
+      <rect x="60" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.25"/>
+      <rect x="90" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.3"/>
+      <rect x="120" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.35"/>
+      <rect x="150" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.4"/>
+      <rect x="180" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.45"/>
+      <rect x="210" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.5"/>
+      <rect x="240" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.55"/>
+      <rect x="270" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.6"/>
+      <rect x="300" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.65"/>
+      <rect x="330" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.7"/>
+      <rect x="360" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.75"/>
+      <rect x="390" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.8"/>
+      <rect x="420" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.85"/>
+      <rect x="450" y="30" width="26" height="26" rx="3" fill="url(#mxfp4)" opacity="0.9"/>
+    </g>
+    
+    <!-- Shared exponent indicator -->
+    <rect x="30" y="160" width="476" height="24" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4 2"/>
+    <text x="268" y="177" text-anchor="middle" font-family="monospace" font-size="13" fill="#60a5fa">E8M0 shared micro-exponent (32 elements)</text>
+    
+    <!-- Specs -->
+    <text x="30" y="210" font-family="monospace" font-size="14" fill="#93c5fd">Block size: 32 elements</text>
+    <text x="30" y="234" font-family="monospace" font-size="14" fill="#93c5fd">Exponent: E8M0 shared</text>
+    <text x="30" y="258" font-family="monospace" font-size="14" fill="#93c5fd">Mantissa: E2M1 per element</text>
+    <text x="30" y="282" font-family="monospace" font-size="14" fill="#93c5fd">Used by: GPT-OSS (native)</text>
+    <text x="30" y="306" font-family="monospace" font-size="14" fill="#f59e0b">Hardware: emulation paths</text>
+    <text x="30" y="330" font-family="monospace" font-size="14" fill="#f59e0b">on Blackwell GB10</text>
+  </g>
+  
+  <!-- NVFP4 side (right) -->
+  <g transform="translate(650, 120)">
+    <rect width="500" height="350" rx="12" fill="#111827" stroke="#059669" stroke-width="2"/>
+    <text x="250" y="35" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="bold" fill="#34d399">NVFP4</text>
+    <text x="250" y="60" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#94a3b8">NVIDIA FP4 — 16-element blocks</text>
+    
+    <!-- Block visualization: 16 small squares -->
+    <g transform="translate(30, 90)">
+      <rect x="0" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.9"/>
+      <rect x="30" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.82"/>
+      <rect x="60" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.74"/>
+      <rect x="90" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.66"/>
+      <rect x="120" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.58"/>
+      <rect x="150" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.5"/>
+      <rect x="180" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.42"/>
+      <rect x="210" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.34"/>
+      <rect x="240" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.26"/>
+      <rect x="270" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.18"/>
+      <rect x="300" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.26"/>
+      <rect x="330" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.34"/>
+      <rect x="360" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.42"/>
+      <rect x="390" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.5"/>
+      <rect x="420" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.58"/>
+      <rect x="450" y="0" width="26" height="26" rx="3" fill="url(#nvfp4)" opacity="0.66"/>
+    </g>
+    
+    <!-- Shared scale indicator -->
+    <rect x="30" y="160" width="476" height="24" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" stroke-dasharray="4 2"/>
+    <text x="268" y="177" text-anchor="middle" font-family="monospace" font-size="13" fill="#34d399">E8M0 scale (16 elements)</text>
+    
+    <!-- Specs -->
+    <text x="30" y="210" font-family="monospace" font-size="14" fill="#6ee7b7">Block size: 16 elements</text>
+    <text x="30" y="234" font-family="monospace" font-size="14" fill="#6ee7b7">Exponent: E8M0 scale</text>
+    <text x="30" y="258" font-family="monospace" font-size="14" fill="#6ee7b7">Mantissa: E2M1 per element</text>
+    <text x="30" y="282" font-family="monospace" font-size="14" fill="#6ee7b7">Used by: NVIDIA models</text>
+    <text x="30" y="306" font-family="monospace" font-size="14" fill="#10b981">Hardware: native tensor core</text>
+    <text x="30" y="330" font-family="monospace" font-size="14" fill="#10b981">on Blackwell GB10 ✅</text>
+  </g>
+  
+  <!-- Center arrow -->
+  <g transform="translate(600, 295)">
+    <text text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#64748b">cast</text>
+    <path d="M -20 10 L 20 10 M 10 2 L 20 10 L 10 18" stroke="#64748b" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Bottom bar -->
+  <rect x="0" y="490" width="1200" height="140" fill="#0d1117"/>
+  <text x="600" y="530" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#64748b">GPT-OSS-120B · 117B params / 5.1B active · 65.2 GB → ~65 GB · DGX Spark GB10</text>
+  <text x="600" y="558" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#475569">SMF Works — Optimizing the Un-Optimizable · Day 1</text>
+  <text x="600" y="600" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#334155">NVIDIA Model Optimizer 0.45 · --cast_mxfp4_to_nvfp4</text>
+</svg>
