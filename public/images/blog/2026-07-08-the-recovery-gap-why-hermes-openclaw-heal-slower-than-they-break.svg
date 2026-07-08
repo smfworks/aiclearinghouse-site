@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="The Recovery Gap — Hermes and OpenClaw self-healing diagnostics">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="120%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <linearGradient id="gridFade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.045"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- grid -->
+  <g stroke="#00E5A0" stroke-width="1">
+    <g opacity="0.035">
+      <line x1="0" y1="126" x2="1200" y2="126"/>
+      <line x1="0" y1="252" x2="1200" y2="252"/>
+      <line x1="0" y1="378" x2="1200" y2="378"/>
+      <line x1="0" y1="504" x2="1200" y2="504"/>
+    </g>
+    <g opacity="0.02">
+      <line x1="150" y1="0" x2="150" y2="630"/>
+      <line x1="300" y1="0" x2="300" y2="630"/>
+      <line x1="450" y1="0" x2="450" y2="630"/>
+      <line x1="600" y1="0" x2="600" y2="630"/>
+      <line x1="750" y1="0" x2="750" y2="630"/>
+      <line x1="900" y1="0" x2="900" y2="630"/>
+      <line x1="1050" y1="0" x2="1050" y2="630"/>
+    </g>
+  </g>
+
+  <!-- right-side circuit traces -->
+  <g opacity="0.07" stroke="#00E5A0" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M980 120 h90 v60 h-60 v80 h40 v80 h-80 v100 h70 v80"/>
+    <path d="M1030 80 v60 h70 v100 h-50 v70 h60 v130 h-40 v120"/>
+    <path d="M900 180 h50 v-40 h80 v70 h-40 v60 h60 v90 h-30 v90 h50 v70"/>
+    <circle cx="980" cy="120" r="4" fill="#00E5A0" stroke="none"/>
+    <circle cx="1070" cy="180" r="4" fill="#00E5A0" stroke="none"/>
+    <circle cx="1010" cy="260" r="4" fill="#00E5A0" stroke="none"/>
+    <circle cx="1050" cy="340" r="4" fill="#00E5A0" stroke="none"/>
+    <circle cx="990" cy="440" r="4" fill="#00E5A0" stroke="none"/>
+    <circle cx="1060" cy="520" r="4" fill="#00E5A0" stroke="none"/>
+  </g>
+
+  <!-- central icon: broken ring rejoining into pulse / loop -->
+  <g transform="translate(220, 315)">
+    <circle cx="0" cy="0" r="170" fill="url(#pulse)"/>
+    <!-- outer ring -->
+    <circle cx="0" cy="0" r="90" fill="none" stroke="#00E5A0" stroke-width="4" stroke-opacity="0.25" stroke-dasharray="320 640" stroke-dashoffset="0"/>
+    <!-- broken gap -->
+    <path d="M 72,-52 A 90,90 0 0,1 -72,52" fill="none" stroke="#00E5A0" stroke-width="4" stroke-linecap="round"/>
+    <!-- recovery arc bridging gap -->
+    <path d="M -72,52 A 90,90 0 0,1 72,-52" fill="none" stroke="#00E5A0" stroke-width="6" stroke-linecap="round" stroke-dasharray="180 320" stroke-dashoffset="0">
+      <animate attributeName="stroke-dashoffset" values="0;-500" dur="6s" repeatCount="indefinite"/>
+    </path>
+    <!-- core nodes -->
+    <circle cx="-50" cy="-30" r="10" fill="#00E5A0" opacity="0.9"/>
+    <circle cx="55" cy="-25" r="10" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="0" cy="60" r="12" fill="#00E5A0" opacity="0.8"/>
+    <!-- cross / diagnostic mark -->
+    <g stroke="#E2E8F0" stroke-width="5" stroke-linecap="round" opacity="0.95">
+      <line x1="-18" y1="-18" x2="18" y2="18"/>
+      <line x1="18" y1="-18" x2="-18" y2="18"/>
+    </g>
+  </g>
+
+  <!-- text -->
+  <g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="420" y="255" font-size="15" font-weight="600" fill="#00E5A0" letter-spacing="2.5" text-transform="uppercase">DR J INFRASTRUCTURE REPORT</text>
+    <text x="420" y="315" font-size="48" font-weight="700" fill="#E2E8F0" letter-spacing="-0.5">The Recovery Gap</text>
+    <text x="420" y="370" font-size="23" font-weight="500" fill="#00E5A0">Why Hermes and OpenClaw heal slower than they break</text>
+    <text x="420" y="420" font-size="16" font-weight="400" fill="#94A3B8">Detection is fast. Contextualization, decision, and repair still need a human.</text>
+  </g>
+
+  <!-- bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
