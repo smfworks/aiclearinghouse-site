@@ -67,6 +67,19 @@ def main() -> None:
         return
 
     run_git_command(["commit", "-m", f"news: update AI news feed (+{len(written)} stories, -{len(deleted)} old)"])
+    # Pull remote changes before pushing to avoid non-fast-forward rejection
+    pull_result = subprocess.run(
+        ["git", "pull", "--rebase", "origin", "main"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if pull_result.returncode != 0:
+        logger.error(f"git pull --rebase failed: {pull_result.stderr}")
+        sys.exit(1)
+    if pull_result.stdout.strip():
+        logger.info(pull_result.stdout.strip())
     run_git_command(["push", "origin", "main"])
     logger.info("News feed updated and pushed.")
 
