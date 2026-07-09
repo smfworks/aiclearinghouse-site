@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero SVG for "Agent Tool Governance: Risk Classes and the Approval Gate Pattern"
+     Theme: four risk tiers (READ, DRAFT, SEND, DESTRUCTIVE) funneled through an approval gate.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Agent tool governance risk classes and approval gate">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="50%" stop-color="#0d1426"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+    <linearGradient id="gateGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff8a00" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#ff8a00" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#ff8a00" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff2d55" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#ff2d55" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#ff2d55" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#162236" stroke-width="1" opacity="0.40">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Ambient glows -->
+  <circle cx="160" cy="180" r="120" fill="#00d4ff" opacity="0.06" filter="url(#blur)"/>
+  <circle cx="1040" cy="460" r="140" fill="#ff8a00" opacity="0.05" filter="url(#blur)"/>
+
+  <!-- Risk tier bars (left side, stacked) -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <!-- READ -->
+    <rect x="90" y="120" width="220" height="56" rx="8" fill="#0f1f33" stroke="#00d4ff" stroke-width="1.5" opacity="0.92"/>
+    <text x="108" y="155" font-size="20" font-weight="700" fill="#7dd3fc">READ</text>
+    <text x="200" y="155" font-size="14" fill="#5b7090">autonomous</text>
+
+    <!-- DRAFT -->
+    <rect x="90" y="196" width="220" height="56" rx="8" fill="#0f1f33" stroke="#5e6ad2" stroke-width="1.5" opacity="0.92"/>
+    <text x="108" y="231" font-size="20" font-weight="700" fill="#a5b4fc">DRAFT</text>
+    <text x="210" y="231" font-size="14" fill="#5b7090">autonomous</text>
+
+    <!-- SEND -->
+    <rect x="90" y="272" width="220" height="56" rx="8" fill="#1f1408" stroke="#ff8a00" stroke-width="1.5" opacity="0.95"/>
+    <text x="108" y="307" font-size="20" font-weight="700" fill="#ffb84d">SEND</text>
+    <text x="180" y="307" font-size="14" fill="#8a6d3b">approve</text>
+
+    <!-- DESTRUCTIVE -->
+    <rect x="90" y="348" width="220" height="56" rx="8" fill="#1f0a0e" stroke="#ff2d55" stroke-width="1.5" opacity="0.95"/>
+    <text x="108" y="383" font-size="20" font-weight="700" fill="#ff7a96">DESTRUCTIVE</text>
+    <text x="300" y="383" font-size="14" fill="#8a4a55" text-anchor="end">approve</text>
+  </g>
+
+  <!-- Convergence lines from tiers to gate -->
+  <g stroke-width="2" fill="none" opacity="0.55">
+    <path d="M310,148 Q420,148 470,260" stroke="#00d4ff" stroke-dasharray="4 4"/>
+    <path d="M310,224 Q420,224 470,280" stroke="#5e6ad2" stroke-dasharray="4 4"/>
+    <path d="M310,300 Q420,300 470,320" stroke="#ff8a00"/>
+    <path d="M310,376 Q420,376 470,340" stroke="#ff2d55"/>
+  </g>
+
+  <!-- Approval gate (center) -->
+  <g>
+    <rect x="470" y="220" width="180" height="160" rx="12" fill="#0a1222" stroke="#00d4ff" stroke-width="2.5"/>
+    <rect x="470" y="220" width="180" height="6" rx="3" fill="url(#gateGlow)"/>
+    <rect x="470" y="394" width="180" height="6" rx="3" fill="url(#gateGlow)"/>
+    <!-- Gate lock glyph -->
+    <g transform="translate(560, 300)">
+      <rect x="-26" y="-8" width="52" height="40" rx="6" fill="none" stroke="#00d4ff" stroke-width="3"/>
+      <path d="M-16,-8 V-22 a16,16 0 0 1 32,0 V-8" fill="none" stroke="#00d4ff" stroke-width="3"/>
+      <circle cx="0" cy="12" r="5" fill="#00d4ff"/>
+      <rect x="-2" y="12" width="4" height="14" fill="#00d4ff"/>
+    </g>
+    <text x="560" y="240" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700" fill="#7dd3fc">BROKER</text>
+  </g>
+
+  <!-- Approved path (right) -->
+  <g>
+    <path d="M650,300 Q740,300 800,300" stroke="#00d4ff" stroke-width="2.5" fill="none"/>
+    <path d="M792,293 L804,300 L792,307" fill="none" stroke="#00d4ff" stroke-width="2.5"/>
+  </g>
+  <!-- Blocked path (right-down, red) -->
+  <g>
+    <path d="M650,330 Q740,360 800,400" stroke="#ff2d55" stroke-width="2.5" fill="none" stroke-dasharray="6 5"/>
+    <text x="730" y="392" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#ff7a96">DENIED</text>
+  </g>
+
+  <!-- Action targets (right) -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <rect x="800" y="250" width="260" height="62" rx="8" fill="#0f1f33" stroke="#2a3a52" stroke-width="1.5"/>
+    <text x="820" y="278" font-size="15" font-weight="700" fill="#9fb3cc">tool.run()</text>
+    <text x="820" y="298" font-size="12" fill="#5b7090">executed · logged · observable</text>
+
+    <rect x="800" y="330" width="260" height="62" rx="8" fill="#1a0d10" stroke="#3a1a22" stroke-width="1.5"/>
+    <text x="820" y="358" font-size="15" font-weight="700" fill="#ff7a96">waiting_approval</text>
+    <text x="820" y="378" font-size="12" fill="#7a4a55">paused · resume() on grant</text>
+  </g>
+
+  <!-- Side rail: amber/red glow strips indicating risk heat -->
+  <rect x="468" y="272" width="184" height="4" fill="url(#amber)" opacity="0.8"/>
+  <rect x="468" y="348" width="184" height="4" fill="url(#red)" opacity="0.85"/>
+
+  <!-- Title -->
+  <text x="600" y="490" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="38" font-weight="700" fill="#f0f4fa">Agent Tool Governance</text>
+  <text x="600" y="528" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17" fill="#7d90aa">Risk Classes &amp; the Approval Gate Pattern</text>
+
+  <!-- Footer marker -->
+  <text x="600" y="588" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#3d4d66">LIAM&#x2019;S LANDING · SMF CLEARINGHOUSE</text>
+</svg>
