@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <radialGradient id="cyanGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00CCFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00CCFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="amberGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8800" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FF8800" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="greenGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#76B900" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#76B900" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="expertActive" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#00CCFF" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#00CCFF" stop-opacity="0.05"/>
+    </radialGradient>
+    <radialGradient id="expertDim" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00CCFF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00CCFF" stop-opacity="0.03"/>
+    </radialGradient>
+    <radialGradient id="sharedExpert" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF8800" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FF8800" stop-opacity="0.05"/>
+    </radialGradient>
+    <linearGradient id="streamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#76B900" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00CCFF" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#00CCFF" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGrad)"/>
+
+  <!-- Floating binary -->
+  <g font-family="monospace" font-size="13" fill="#00CCFF" opacity="0.06">
+    <text x="50" y="80">E2M1 0101 0110</text>
+    <text x="200" y="120">1001 0011 FP8</text>
+    <text x="80" y="200">0011 NVFP4</text>
+    <text x="950" y="90">0110 MLA 512</text>
+    <text x="1000" y="180">NextN 4B</text>
+    <text x="850" y="250">200K ctx</text>
+    <text x="100" y="550">0101 64 experts</text>
+    <text x="900" y="500">MIT license</text>
+  </g>
+
+  <!-- Glow areas -->
+  <ellipse cx="250" cy="340" rx="180" ry="120" fill="url(#greenGlow)"/>
+  <ellipse cx="850" cy="300" rx="240" ry="160" fill="url(#cyanGlow)"/>
+  <ellipse cx="850" cy="420" rx="150" ry="80" fill="url(#amberGlow)"/>
+
+  <!-- DGX Spark (left side) -->
+  <g transform="translate(80, 230)">
+    <rect x="0" y="0" width="200" height="220" rx="8" fill="#111" stroke="#76B900" stroke-width="2" opacity="0.95"/>
+    <line x1="15" y1="20" x2="185" y2="20" stroke="#333" stroke-width="2"/>
+    <line x1="15" y1="30" x2="185" y2="30" stroke="#333" stroke-width="2"/>
+    <line x1="15" y1="40" x2="185" y2="40" stroke="#333" stroke-width="2"/>
+    <rect x="15" y="65" width="170" height="25" rx="3" fill="#76B900" opacity="0.15"/>
+    <text x="100" y="82" font-family="sans-serif" font-size="11" fill="#76B900" text-anchor="middle" font-weight="bold">NVIDIA DGX SPARK</text>
+    <circle cx="30" cy="110" r="4" fill="#76B900" opacity="1">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="45" cy="110" r="4" fill="#00CCFF" opacity="0.8"/>
+    <rect x="15" y="135" width="170" height="65" rx="4" fill="#0a0a0a" stroke="#333" stroke-width="1"/>
+    <text x="100" y="153" font-family="monospace" font-size="10" fill="#76B900" text-anchor="middle">121 GB UNIFIED MEMORY</text>
+    <rect x="25" y="162" width="150" height="8" rx="2" fill="#222"/>
+    <rect x="25" y="162" width="116" height="8" rx="2" fill="#76B900" opacity="0.7"/>
+    <text x="100" y="184" font-family="monospace" font-size="8" fill="#888" text-anchor="middle">62 GB BF16 • 48 GB KV CACHE</text>
+    <line x1="15" y1="210" x2="185" y2="210" stroke="#333" stroke-width="2"/>
+  </g>
+
+  <!-- Data streams -->
+  <path d="M 280 320 Q 450 270, 600 300" stroke="url(#streamGrad)" stroke-width="3" fill="none" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-30" dur="1.5s" repeatCount="indefinite"/>
+  </path>
+  <path d="M 280 360 Q 450 400, 600 360" stroke="url(#streamGrad)" stroke-width="2" fill="none" opacity="0.4">
+    <animate attributeName="stroke-dashoffset" values="0;30" dur="2s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- MoE Expert Grid (right side) — 64 experts in 8x8 grid, 4 active + 1 shared -->
+  <g transform="translate(620, 120)">
+    <!-- Grid of 64 experts (8x8), each 30px circle with 8px spacing -->
+    <!-- Active experts are highlighted: positions 3,17,34,52 (random active ones) -->
+    <g>
+      <!-- Row 1 -->
+      <circle cx="20" cy="20" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="20" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="20" r="12" fill="url(#expertActive)"/>
+      <circle cx="92" cy="20" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="20" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="20" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="20" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="20" r="12" fill="url(#expertDim)"/>
+      <!-- Row 2 -->
+      <circle cx="20" cy="44" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="44" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="44" r="12" fill="url(#expertDim)"/>
+      <circle cx="92" cy="44" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="44" r="12" fill="url(#expertActive)"/>
+      <circle cx="140" cy="44" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="44" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="44" r="12" fill="url(#expertDim)"/>
+      <!-- Row 3 -->
+      <circle cx="20" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="92" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="68" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="68" r="12" fill="url(#expertDim)"/>
+      <!-- Row 4 -->
+      <circle cx="20" cy="92" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="92" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="92" r="12" fill="url(#expertActive)"/>
+      <circle cx="92" cy="92" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="92" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="92" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="92" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="92" r="12" fill="url(#expertDim)"/>
+      <!-- Row 5 -->
+      <circle cx="20" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="92" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="116" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="116" r="12" fill="url(#expertDim)"/>
+      <!-- Row 6 -->
+      <circle cx="20" cy="140" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="140" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="140" r="12" fill="url(#expertDim)"/>
+      <circle cx="92" cy="140" r="12" fill="url(#expertActive)"/>
+      <circle cx="116" cy="140" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="140" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="140" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="140" r="12" fill="url(#expertDim)"/>
+      <!-- Row 7 -->
+      <circle cx="20" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="92" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="164" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="164" r="12" fill="url(#expertDim)"/>
+      <!-- Row 8 -->
+      <circle cx="20" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="44" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="68" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="92" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="116" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="140" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="164" cy="188" r="12" fill="url(#expertDim)"/>
+      <circle cx="188" cy="188" r="12" fill="url(#expertDim)"/>
+    </g>
+
+    <!-- Shared expert (separate, amber) -->
+    <circle cx="240" cy="104" r="20" fill="url(#sharedExpert)"/>
+    <circle cx="240" cy="104" r="14" fill="none" stroke="#FF8800" stroke-width="2" opacity="0.7"/>
+    <text x="240" y="108" font-family="sans-serif" font-size="10" fill="#FF8800" text-anchor="middle" font-weight="bold">SH</text>
+    <text x="240" y="140" font-family="monospace" font-size="8" fill="#FF8800" text-anchor="middle">SHARED</text>
+  </g>
+
+  <!-- Router label -->
+  <text x="470" y="310" font-family="sans-serif" font-size="11" fill="#00CCFF" text-anchor="middle" opacity="0.7">ROUTER</text>
+  <text x="470" y="325" font-family="monospace" font-size="9" fill="#888" text-anchor="middle">4/64 + 1 shared</text>
+
+  <!-- Stats panel (bottom left) -->
+  <g transform="translate(50, 490)">
+    <rect x="0" y="0" width="360" height="60" rx="6" fill="#0a0a0a" stroke="#333" stroke-width="1" opacity="0.8"/>
+    <text x="15" y="20" font-family="monospace" font-size="10" fill="#76B900">106B params • 4B active/token (3.8%)</text>
+    <text x="15" y="35" font-family="monospace" font-size="10" fill="#00CCFF">MLA attention • NextN multi-token prediction</text>
+    <text x="15" y="50" font-family="monospace" font-size="10" fill="#FF8800">62 GB BF16 → 18 GB NVFP4 (3.51×) • 200K context</text>
+  </g>
+
+  <!-- Benchmark results panel (bottom right) -->
+  <g transform="translate(820, 490)">
+    <rect x="0" y="0" width="330" height="60" rx="6" fill="#0a0a0a" stroke="#333" stroke-width="1" opacity="0.8"/>
+    <text x="15" y="20" font-family="monospace" font-size="10" fill="#76B900">AGENTIC: 100% (16/16) ✅</text>
+    <text x="15" y="35" font-family="monospace" font-size="10" fill="#00CCFF">REASONING: 73.7% • MATH: 36.7%</text>
+    <text x="15" y="50" font-family="monospace" font-size="10" fill="#FF8800">OVERALL: 34.8% (63/181) • BF16</text>
+  </g>
+
+  <!-- Title overlay -->
+  <rect x="0" y="580" width="1200" height="95" fill="#000" opacity="0.85"/>
+  <line x1="0" y1="580" x2="1200" y2="580" stroke="#00CCFF" stroke-width="1" opacity="0.3"/>
+  <text x="600" y="615" font-family="sans-serif" font-size="22" fill="#00CCFF" text-anchor="middle" font-weight="bold" letter-spacing="3">GLM-4.7-FLASH • BF16 • DGX SPARK</text>
+  <text x="600" y="642" font-family="sans-serif" font-size="12" fill="#888" text-anchor="middle" letter-spacing="1">4B Active Parameters, 200K Context — Plus the NVFP4 MARLIN Bug</text>
+  <text x="600" y="660" font-family="monospace" font-size="10" fill="#666" text-anchor="middle">SMF WORKS • smf-bench 181-test suite • Day 3 • Zhipu AI • MIT</text>
+</svg>
