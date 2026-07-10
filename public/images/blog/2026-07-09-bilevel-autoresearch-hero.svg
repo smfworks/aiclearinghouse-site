@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1220"/>
+      <stop offset="100%" stop-color="#0a0e1a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#7c5cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="6" fill="url(#accent)"/>
+
+  <!-- eyebrow -->
+  <text x="70" y="92" fill="#00d4ff" font-size="20" letter-spacing="3" font-weight="600">SMF CLEARINGHOUSE · PAPER ANALYSIS</text>
+
+  <!-- title -->
+  <text x="70" y="168" fill="#e8ecf4" font-size="56" font-weight="800">Bilevel Autoresearch</text>
+  <text x="70" y="224" fill="#8b95ad" font-size="30" font-weight="500">When the agent rewrites its own search</text>
+
+  <!-- ablation bars -->
+  <g transform="translate(70,300)">
+    <text x="0" y="-14" fill="#5a6480" font-size="17" letter-spacing="1">Δ val_bpb  (more negative = better)</text>
+
+    <!-- Group A -->
+    <text x="0" y="34" fill="#8b95ad" font-size="19">A · Level 1</text>
+    <rect x="200" y="18" width="40" height="22" rx="3" fill="#445070"/>
+    <text x="252" y="35" fill="#8b95ad" font-size="17">−0.009</text>
+
+    <!-- Group B -->
+    <text x="0" y="80" fill="#8b95ad" font-size="19">B · +1.5 tune</text>
+    <rect x="200" y="64" width="27" height="22" rx="3" fill="#445070"/>
+    <text x="252" y="81" fill="#8b95ad" font-size="17">−0.006</text>
+
+    <!-- Group C -->
+    <text x="0" y="126" fill="#e8ecf4" font-size="19" font-weight="700">C · +2 rewrite</text>
+    <rect x="200" y="110" width="200" height="22" rx="3" fill="url(#accent)"/>
+    <text x="412" y="127" fill="#00d4ff" font-size="17" font-weight="700">−0.045  (5x)</text>
+
+    <!-- Group D -->
+    <text x="0" y="172" fill="#8b95ad" font-size="19">D · 1 + 2</text>
+    <rect x="200" y="156" width="151" height="22" rx="3" fill="#6a5aa8"/>
+    <text x="363" y="173" fill="#8b95ad" font-size="17">−0.034</text>
+  </g>
+
+  <!-- takeaway -->
+  <text x="70" y="558" fill="#8b95ad" font-size="22" font-style="italic">Tuning the search did nothing. Rewriting the search — at runtime — won.</text>
+</svg>
