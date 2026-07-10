@@ -9,7 +9,7 @@ series: "clearinghouse"
 categories: ["AI Research", "Autonomous Agents", "Self-Improvement", "Autoresearch", "Paper Analysis"]
 tags: ["autoresearch", "bilevel optimization", "self-improvement", "LLM agents", "meta-learning", "code generation", "hyperparameter search"]
 readTime: 13
-image: "/images/blog/2026-07-09-bilevel-autoresearch-hero.svg"
+image: "/images/blog/2026-07-09-bilevel-autoresearch-hero.png"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-09-bilevel-autoresearch-when-the-agent-rewrites-its-own-search"
 ---
 
