@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero SVG for "The Deterministic Fallback: Keeping Your LLM Agent Alive When the Model Dies"
+     Theme: an LLM planner path (fragile, dashed, failing) and a deterministic heuristic path (solid)
+     converging on a stable agent runtime that never stops executing.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Deterministic fallback from a failing LLM planner to a stable heuristic planner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="50%" stop-color="#0d1426"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+    <linearGradient id="cyanGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="greenGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#22c55e" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="redGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff2d55" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#ff2d55" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#ff2d55" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#162236" stroke-width="1" opacity="0.40">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Ambient glows -->
+  <circle cx="220" cy="200" r="130" fill="#ff2d55" opacity="0.06" filter="url(#blur)"/>
+  <circle cx="980" cy="430" r="150" fill="#22c55e" opacity="0.06" filter="url(#blur)"/>
+  <circle cx="600" cy="300" r="120" fill="#00d4ff" opacity="0.05" filter="url(#blur)"/>
+
+  <!-- ===== LLM PLANNER (fragile, left) ===== -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <rect x="90" y="120" width="300" height="120" rx="12" fill="#1a0d10" stroke="#ff2d55" stroke-width="2" opacity="0.95"/>
+    <rect x="90" y="120" width="300" height="6" rx="3" fill="url(#redGlow)"/>
+    <text x="240" y="158" text-anchor="middle" font-size="20" font-weight="700" fill="#ff7a96">LLMPlanner</text>
+    <text x="240" y="186" text-anchor="middle" font-size="13" fill="#8a4a55">temperature 0 · schema-validated</text>
+    <text x="240" y="210" text-anchor="middle" font-size="13" fill="#8a4a55">network · quotas · coherence</text>
+
+    <!-- failure markers -->
+    <text x="240" y="240" text-anchor="middle" font-size="12" fill="#ff2d55">503 · malformed JSON · empty plan</text>
+
+    <!-- dashed fragile link -->
+    <path d="M390,180 Q470,180 540,260" stroke="#ff2d55" stroke-width="2.5" fill="none" stroke-dasharray="6 5" opacity="0.8"/>
+    <text x="455" y="200" text-anchor="middle" font-size="12" fill="#ff7a96">on failure</text>
+  </g>
+
+  <!-- ===== HEURISTIC PLANNER (solid, right) ===== -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <rect x="810" y="120" width="300" height="120" rx="12" fill="#0c1a14" stroke="#22c55e" stroke-width="2" opacity="0.95"/>
+    <rect x="810" y="120" width="300" height="6" rx="3" fill="url(#greenGlow)"/>
+    <text x="960" y="158" text-anchor="middle" font-size="20" font-weight="700" fill="#86efac">HeuristicPlanner</text>
+    <text x="960" y="186" text-anchor="middle" font-size="13" fill="#3f7a55">regex · keyword · priority</text>
+    <text x="960" y="210" text-anchor="middle" font-size="13" fill="#3f7a55">no network · always returns</text>
+    <text x="960" y="240" text-anchor="middle" font-size="12" fill="#22c55e">deterministic · offline-safe</text>
+
+    <!-- solid link -->
+    <path d="M810,180 Q730,180 660,260" stroke="#22c55e" stroke-width="2.5" fill="none" opacity="0.85"/>
+    <text x="745" y="200" text-anchor="middle" font-size="12" fill="#86efac">fallback</text>
+  </g>
+
+  <!-- ===== AGENT RUNTIME (center, stable) ===== -->
+  <g>
+    <rect x="500" y="250" width="200" height="150" rx="14" fill="#0a1222" stroke="#00d4ff" stroke-width="2.5"/>
+    <rect x="500" y="250" width="200" height="6" rx="3" fill="url(#cyanGlow)"/>
+    <rect x="500" y="394" width="200" height="6" rx="3" fill="url(#cyanGlow)"/>
+    <text x="600" y="298" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" font-weight="700" fill="#7dd3fc">PraxisAgent</text>
+    <text x="600" y="326" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#9fb3cc">plan() &#8594; act()</text>
+    <text x="600" y="350" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#9fb3cc">never blocks on model</text>
+    <text x="600" y="378" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#5b7090">resilient by construction</text>
+  </g>
+
+  <!-- ===== EXECUTION STREAM (bottom) ===== -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace">
+    <path d="M600,400 Q600,440 600,470" stroke="#00d4ff" stroke-width="2.5" fill="none"/>
+    <rect x="430" y="478" width="340" height="46" rx="8" fill="#0f1f33" stroke="#2a3a52" stroke-width="1.5"/>
+    <text x="600" y="506" text-anchor="middle" font-size="14" font-weight="700" fill="#9fb3cc">tool.run() &#183; tool.run() &#183; tool.run()</text>
+    <text x="600" y="562" text-anchor="middle" font-size="13" fill="#7d90aa">One interface. Two planners. Zero downtime.</text>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="600" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="22" font-weight="700" fill="#f0f4fa">The Deterministic Fallback</text>
+
+  <!-- Footer marker -->
+  <text x="600" y="624" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#3d4d66">LIAM&#x2019;S LANDING &#183; SMF CLEARINGHOUSE</text>
+</svg>
