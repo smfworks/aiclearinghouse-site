@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="The State Divergence Problem — when two agent runtimes disagree about what is true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="120%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="glowL" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowR" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#00E5A0" stroke-width="1" opacity="0.03">
+    <line x1="0" y1="126" x2="1200" y2="126"/>
+    <line x1="0" y1="252" x2="1200" y2="252"/>
+    <line x1="0" y1="378" x2="1200" y2="378"/>
+    <line x1="0" y1="504" x2="1200" y2="504"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- left runtime node (OpenClaw) -->
+  <g transform="translate(200, 315)">
+    <circle cx="0" cy="0" r="120" fill="url(#glowL)"/>
+    <!-- hexagon outline -->
+    <polygon points="0,-80 69,-40 69,40 0,80 -69,40 -69,-40" fill="none" stroke="#00E5A0" stroke-width="3" stroke-opacity="0.5"/>
+    <!-- inner nodes representing state -->
+    <circle cx="-25" cy="-20" r="8" fill="#00E5A0" opacity="0.9"/>
+    <circle cx="30" cy="-15" r="8" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="0" cy="25" r="8" fill="#00E5A0" opacity="0.7"/>
+    <!-- connections -->
+    <g stroke="#00E5A0" stroke-width="1.5" opacity="0.3" fill="none">
+      <line x1="-25" y1="-20" x2="30" y2="-15"/>
+      <line x1="30" y1="-15" x2="0" y2="25"/>
+      <line x1="0" y1="25" x2="-25" y2="-20"/>
+    </g>
+    <!-- label -->
+    <text x="0" y="110" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#00E5A0" text-anchor="middle" letter-spacing="1">OPENCLAW</text>
+  </g>
+
+  <!-- right runtime node (Hermes) -->
+  <g transform="translate(560, 315)">
+    <circle cx="0" cy="0" r="120" fill="url(#glowR)"/>
+    <!-- rounded rect outline -->
+    <rect x="-70" y="-70" width="140" height="140" rx="16" fill="none" stroke="#00E5A0" stroke-width="3" stroke-opacity="0.5"/>
+    <!-- inner nodes — deliberately offset from left to show divergence -->
+    <circle cx="-20" cy="-25" r="8" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="35" cy="-20" r="8" fill="#00E5A0" opacity="0.9"/>
+    <circle cx="5" cy="20" r="8" fill="#00E5A0" opacity="0.4"/>
+    <!-- connections -->
+    <g stroke="#00E5A0" stroke-width="1.5" opacity="0.3" fill="none">
+      <line x1="-20" y1="-25" x2="35" y2="-20"/>
+      <line x1="35" y1="-20" x2="5" y2="20"/>
+      <line x1="5" y1="20" x2="-20" y2="-25"/>
+    </g>
+    <!-- label -->
+    <text x="0" y="110" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#00E5A0" text-anchor="middle" letter-spacing="1">HERMES</text>
+  </g>
+
+  <!-- divergence indicator between the two nodes -->
+  <g transform="translate(380, 315)">
+    <!-- dashed connection showing the gap -->
+    <line x1="-100" y1="0" x2="100" y2="0" stroke="#00E5A0" stroke-width="2" stroke-dasharray="8 12" opacity="0.35"/>
+    <!-- warning diamond -->
+    <g transform="translate(0, 0)">
+      <polygon points="0,-28 24,0 0,28 -24,0" fill="#0A0F1F" stroke="#00E5A0" stroke-width="2.5"/>
+      <text x="0" y="6" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#00E5A0" text-anchor="middle">≠</text>
+    </g>
+    <!-- "DIVERGENCE" label -->
+    <text x="0" y="-50" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#00E5A0" text-anchor="middle" letter-spacing="2" opacity="0.7">DIVERGENCE</text>
+  </g>
+
+  <!-- right-side circuit traces -->
+  <g opacity="0.06" stroke="#00E5A0" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M920 100 h80 v50 h-60 v70 h50 v80 h-40 v90 h70 v60"/>
+    <path d="M1050 140 v50 h-60 v80 h50 v60 h-40 v100 h60 v70"/>
+    <circle cx="920" cy="100" r="3" fill="#00E5A0" stroke="none"/>
+    <circle cx="1000" cy="150" r="3" fill="#00E5A0" stroke="none"/>
+    <circle cx="940" cy="220" r="3" fill="#00E5A0" stroke="none"/>
+    <circle cx="990" cy="300" r="3" fill="#00E5A0" stroke="none"/>
+    <circle cx="950" cy="390" r="3" fill="#00E5A0" stroke="none"/>
+    <circle cx="1020" cy="450" r="3" fill="#00E5A0" stroke="none"/>
+    <circle cx="1080" cy="520" r="3" fill="#00E5A0" stroke="none"/>
+  </g>
+
+  <!-- text block -->
+  <g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="700" y="240" font-size="15" font-weight="600" fill="#00E5A0" letter-spacing="2.5">DR J INFRASTRUCTURE REPORT</text>
+    <text x="700" y="300" font-size="44" font-weight="700" fill="#E2E8F0" letter-spacing="-0.5">The State Divergence</text>
+    <text x="700" y="350" font-size="44" font-weight="700" fill="#E2E8F0" letter-spacing="-0.5">Problem</text>
+    <text x="700" y="395" font-size="20" font-weight="500" fill="#00E5A0">When two agent runtimes disagree about what is true</text>
+    <text x="700" y="435" font-size="15" font-weight="400" fill="#94A3B8">No health check fires. The system just makes worse decisions.</text>
+  </g>
+
+  <!-- bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
