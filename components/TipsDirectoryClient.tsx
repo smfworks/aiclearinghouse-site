@@ -74,7 +74,11 @@ export default function TipsDirectoryClient({ items }: Props) {
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    let base = [...items].sort((a, b) => (a.order || 0) - (b.order || 0));
+    let base = [...items].sort((a, b) => {
+      const aDate = a.last_verified ? new Date(String(a.last_verified)).getTime() : 0;
+      const bDate = b.last_verified ? new Date(String(b.last_verified)).getTime() : 0;
+      return bDate - aDate;
+    });
     if (activeCategory !== "All") {
       base = base.filter((i) => i.category === activeCategory);
     }
