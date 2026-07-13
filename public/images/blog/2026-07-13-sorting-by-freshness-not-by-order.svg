@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#C9A96E"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid lines -->
+  <g opacity="0.06" stroke="#ea580c" stroke-width="1">
+    <line x1="0" y1="78" x2="1200" y2="78"/>
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="236" x2="1200" y2="236"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="394" x2="1200" y2="394"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="0" y1="552" x2="1200" y2="552"/>
+  </g>
+  <!-- Title -->
+  <text x="80" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#ffffff" letter-spacing="-0.5">
+    <tspan x="80" dy="0">Sorting by Freshness,</tspan>
+    <tspan x="80" dy="52">Not by Order</tspan>
+  </text>
+  <!-- Subtitle -->
+  <text x="80" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#C9A96E" opacity="0.9">
+    Tips, Recipes &amp; Guides now surface most-recent content first
+  </text>
+  <!-- Date -->
+  <text x="80" y="380" font-family="monospace" font-size="16" fill="#6b7280">
+    SMF Works · July 13, 2026
+  </text>
+  <!-- Decorative sort indicator -->
+  <g transform="translate(820, 200)">
+    <rect x="0" y="0" width="280" height="56" rx="8" fill="#0a1628" stroke="#ea580c" stroke-width="1.5" opacity="0.9"/>
+    <circle cx="28" cy="28" r="8" fill="#ea580c"/>
+    <text x="50" y="33" font-family="monospace" font-size="14" fill="#ffffff">Verified today</text>
+    <rect x="0" y="68" width="280" height="56" rx="8" fill="#0a1628" stroke="#C9A96E" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="28" cy="96" r="8" fill="#C9A96E" opacity="0.7"/>
+    <text x="50" y="101" font-family="monospace" font-size="14" fill="#C9A96E" opacity="0.8">12 days ago</text>
+    <rect x="0" y="136" width="280" height="56" rx="8" fill="#0a1628" stroke="#6b7280" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="28" cy="164" r="8" fill="#6b7280" opacity="0.5"/>
+    <text x="50" y="169" font-family="monospace" font-size="14" fill="#6b7280" opacity="0.6">27 days ago</text>
+    <text x="320" y="28" font-family="monospace" font-size="14" fill="#ea580c">↑ newest</text>
+    <text x="320" y="96" font-family="monospace" font-size="14" fill="#C9A96E" opacity="0.7">↓ older</text>
+    <text x="320" y="164" font-family="monospace" font-size="14" fill="#6b7280" opacity="0.5">↓ oldest</text>
+  </g>
+  <!-- Bottom bar -->
+  <rect x="0" y="600" width="1200" height="30" fill="url(#accent)" opacity="0.8"/>
+</svg>
