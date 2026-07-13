@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero image for "The Context Window Is a Capacity Planning Problem" -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Context window capacity planning hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="barFill" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="barFill2" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#ffaa44"/>
+    </linearGradient>
+    <linearGradient id="barFill3" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="barFill4" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- decorative grid frame -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- Token budget stacked bar chart (capacity planning visual) -->
+  <g transform="translate(180, 130)">
+    <!-- container outline -->
+    <rect x="0" y="0" width="840" height="340" rx="8" fill="#0d1729" stroke="#1e2d4a" stroke-width="2"/>
+
+    <!-- total capacity label -->
+    <text x="420" y="-12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#7d90aa">CONTEXT WINDOW — 128K tokens</text>
+
+    <!-- system prompt segment -->
+    <rect x="12" y="16" width="180" height="308" rx="4" fill="url(#barFill)" opacity="0.92"/>
+    <text x="102" y="170" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="700" fill="#0b1220" transform="rotate(-90, 102, 170)">System Prompt</text>
+
+    <!-- tool schemas segment -->
+    <rect x="204" y="16" width="220" height="308" rx="4" fill="url(#barFill2)" opacity="0.92"/>
+    <text x="314" y="170" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="700" fill="#0b1220" transform="rotate(-90, 314, 170)">Tool Schemas</text>
+
+    <!-- conversation history segment -->
+    <rect x="436" y="16" width="280" height="308" rx="4" fill="url(#barFill3)" opacity="0.92"/>
+    <text x="576" y="170" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="700" fill="#0b1220" transform="rotate(-90, 576, 170)">Conversation History</text>
+
+    <!-- tool results segment -->
+    <rect x="728" y="16" width="100" height="308" rx="4" fill="url(#barFill4)" opacity="0.92"/>
+    <text x="778" y="170" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" font-weight="700" fill="#0b1220" transform="rotate(-90, 778, 170)">Tool Results</text>
+
+    <!-- overflow warning marker -->
+    <line x1="848" y1="8" x2="848" y2="332" stroke="#ef4444" stroke-width="3" stroke-dasharray="6 4" opacity="0.8"/>
+    <text x="854" y="20" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#ef4444">limit</text>
+  </g>
+
+  <!-- title -->
+  <text x="600" y="540" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="38" font-weight="700" fill="#f0f4fa">The Context Window Is a Capacity Problem</text>
+  <text x="600" y="582" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" fill="#7d90aa">Token budgeting for long-running agents</text>
+</svg>
