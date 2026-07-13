@@ -351,8 +351,8 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
         </section>
       )}
 
-      {/* Featured spotlight */}
-      <section className="mx-auto w-full max-w-7xl px-6 -mt-6 relative z-10">
+      {/* Featured spotlight — sit below Live AI News (no negative margin / z-index overlay) */}
+      <section className="mx-auto w-full max-w-7xl px-6 mt-8 md:mt-10">
         <Link href="/getting-started" className="group flex flex-col sm:flex-row items-center gap-5 rounded-xl border border-accent/30 bg-gradient-to-r from-panel via-elevated to-panel p-5 shadow-[0_0_40px_-16px_var(--accent-glow)] transition-all hover:border-accent/60 hover:shadow-[0_0_50px_-14px_var(--accent-glow)]">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent">
             <Flame className="h-6 w-6" />
