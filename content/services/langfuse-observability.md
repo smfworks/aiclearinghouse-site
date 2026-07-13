@@ -1,62 +1,48 @@
 ---
 slug: langfuse-observability
-title: "Langfuse: Observability for LLM Agents"
-excerpt: "Open-source tracing, evaluation, and cost monitoring for production LLM and agent workflows."
+title: "Langfuse: Open-Source LLM Observability"
+excerpt: "Trace LLM and agent runs, score outputs, manage prompts, and debug multi-step tool loops — self-host or cloud."
 category: Operations
 tags:
   - observability
   - tracing
   - evaluation
-  - cost-monitoring
+  - open-source
+  - agents
 provider: Langfuse
-pricing_model: Open source + Cloud
-price: "Open source self-hosted; cloud free tier, paid from $25/mo"
+pricing_model: Usage-based
+price: "OSS self-host free; cloud free tier + paid plans"
 website: https://langfuse.com
 image: /images/agentmarketplace/services-hero.svg
-order: 12
-last_verified: 2026-06-16
+order: 26
+last_verified: "2026-07-13"
 ---
 
-# Langfuse: Observability for LLM Agents
+# Langfuse: Open-Source LLM Observability
 
 ## What it is
 
-Langfuse is open-source observability built for LLM applications and agents. It captures traces, spans, prompts, costs, latency, and evaluations so you can debug agent behavior, measure quality, and understand spend in production.
+Langfuse is an open-source observability platform for LLM apps and agents. It captures traces (prompts, tool calls, latencies, costs), supports evaluations and scores, and helps teams version prompts without guessing what changed in production.
 
 ## When to use it
 
-- Your agent runs multi-step workflows and you need to see what happened when it failed.
-- You want to track cost per user, per session, or per workflow across models.
-- You are iterating on prompts and need to compare versions against real traces.
-- You need human feedback or automated scoring loops to improve agent quality.
+- Multi-step agents where you need step-level traces
+- Teams comparing model versions or prompt variants
+- Self-hosting requirements (data residency, air-gapped stacks)
 
 ## What it does well
 
-- **End-to-end tracing.** See the full chain of thought, tool calls, retries, and model invocations.
-- **Cost and latency attribution.** Break down spend and latency by step, model, and user.
-- **Prompt management.** Version prompts and link them directly to traces.
-- **Evaluations and scores.** Attach manual or automated scores to traces and track quality over time.
-- **Self-hostable.** Run it locally or in your own cloud for full data control.
+- Open-source core with a real self-host path
+- Trace trees that match agent tool loops
+- Prompt management and scoring hooks for evals
+- Works with many SDKs and OpenAI-compatible gateways
 
 ## Honest limitations
 
-- **Instrumentation required.** You need to add tracing calls to your agent code.
-- **Learning curve.** Powerful features take time to configure for complex workflows.
-- **Cloud vs. self-hosted tradeoff.** Managed cloud is easier but may be a compliance concern for sensitive data.
-- **Not a replacement for tests.** Traces help you find problems; they do not prevent them.
+- Traces alone do not fix bad prompts — you still need an evaluation policy
+- Self-host ops (Postgres, upgrades, backups) are real work
+- Cost attribution is only as good as your token reporting instrumentation
 
 ## Pricing reality
 
-- Open-source self-hosted: free aside from infrastructure costs.
-- Cloud: generous free tier for small projects; paid plans from $25/month for teams.
-- Enterprise: higher volume, SSO, audit logs, and support.
-
-## Best fit
-
-Teams running agents in production who need visibility into the black box. Essential once your agent does more than single-turn Q&A — especially when tools, loops, or multiple models are involved.
-
-## Common integrations
-
-- **LangChain / LlamaIndex** native instrumentation.
-- **LiteLLM** for unified model routing and cost attribution.
-- **OpenClaw / Hermes** agents through manual or SDK-based tracing.
+Self-host is free software with infrastructure cost. Cloud free tier is useful for experiments; paid plans scale with events and retention. Model token costs remain separate.
