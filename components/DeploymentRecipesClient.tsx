@@ -35,15 +35,21 @@ export default function DeploymentRecipesClient({ items, videoTweetUrl }: Props)
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
-  const filtered = items.filter((item) => {
-    const q = query.toLowerCase();
-    const matchesSearch =
-      item.title.toLowerCase().includes(q) ||
-      item.excerpt.toLowerCase().includes(q) ||
-      item.tags.some((t) => t.toLowerCase().includes(q));
-    const matchesTag = !activeTag || item.tags.some((t) => t.toLowerCase() === activeTag);
-    return matchesSearch && matchesTag;
-  });
+  const filtered = items
+    .filter((item) => {
+      const q = query.toLowerCase();
+      const matchesSearch =
+        item.title.toLowerCase().includes(q) ||
+        item.excerpt.toLowerCase().includes(q) ||
+        item.tags.some((t) => t.toLowerCase().includes(q));
+      const matchesTag = !activeTag || item.tags.some((t) => t.toLowerCase() === activeTag);
+      return matchesSearch && matchesTag;
+    })
+    .sort((a, b) => {
+      const aDate = a.last_verified ? new Date(String(a.last_verified)).getTime() : 0;
+      const bDate = b.last_verified ? new Date(String(b.last_verified)).getTime() : 0;
+      return bDate - aDate;
+    });
 
   return (
     <div className="flex flex-1 flex-col">

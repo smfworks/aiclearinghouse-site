@@ -62,7 +62,11 @@ export default function GuidesDirectoryClient({ items }: Props) {
   const [activePath, setActivePath] = useState<string>("all");
 
   const allSorted = useMemo(() => {
-    return [...items].sort((a, b) => (a.order || 0) - (b.order || 0));
+    return [...items].sort((a, b) => {
+      const aDate = a.last_verified ? new Date(String(a.last_verified)).getTime() : 0;
+      const bDate = b.last_verified ? new Date(String(b.last_verified)).getTime() : 0;
+      return bDate - aDate;
+    });
   }, [items]);
 
   const filteredItems = useMemo(() => {
