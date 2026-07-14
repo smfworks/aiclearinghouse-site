@@ -9,7 +9,7 @@ series: "clearinghouse"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/visual-studio-built-in-agent-skills-dotnet-azure-foundry-2026"
 categories: ["Microsoft", "Visual Studio", "GitHub Copilot", "Azure AI", "AI Agents"]
 tags: ["Agent Skills", "Microsoft Foundry", ".NET", "Azure", "Copilot", "Developer Productivity"]
-readTime: 9
+readTime: 10
 image: "/images/blog/visual-studio-built-in-agent-skills-dotnet-azure-foundry-2026.png"
 ---
 
