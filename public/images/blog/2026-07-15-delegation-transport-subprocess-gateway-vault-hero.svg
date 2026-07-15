@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06070a"/>
+      <stop offset="55%" stop-color="#0a0c11"/>
+      <stop offset="100%" stop-color="#0c0e13"/>
+    </linearGradient>
+    <linearGradient id="ember" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#22d3ee" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.0"/>
+    </linearGradient>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"/>
+    </radialGradient>
+    <radialGradient id="workerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#22d3ee" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.0"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="softer" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#1a1d24" stroke-width="1" opacity="0.32">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Ambient ember haze bottom-left -->
+  <ellipse cx="220" cy="540" rx="320" ry="150" fill="url(#nodeGlow)" filter="url(#soft)" opacity="0.5"/>
+  <!-- Cyan haze top-right -->
+  <ellipse cx="980" cy="120" rx="280" ry="130" fill="url(#workerGlow)" filter="url(#soft)" opacity="0.45"/>
+
+  <!-- Transport topology: orchestrator center, four workers, four line styles -->
+  <!-- Orchestrator node -->
+  <circle cx="600" cy="315" r="120" fill="url(#nodeGlow)" filter="url(#softer)" opacity="0.9"/>
+  <circle cx="600" cy="315" r="34" fill="#0a0c11" stroke="#f59e0b" stroke-width="2.5"/>
+  <circle cx="600" cy="315" r="34" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.4"/>
+  <text x="600" y="312" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#f59e0b" letter-spacing="1.5">ORCH</text>
+  <text x="600" y="326" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#f59e0b" opacity="0.7">agent</text>
+
+  <!-- Worker nodes -->
+  <!-- W1 subprocess (solid) top-left -->
+  <circle cx="300" cy="160" r="64" fill="url(#workerGlow)" filter="url(#softer)" opacity="0.7"/>
+  <circle cx="300" cy="160" r="22" fill="#0a0c11" stroke="#22d3ee" stroke-width="2"/>
+  <text x="300" y="164" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#22d3ee">W1</text>
+
+  <!-- W2 gateway (dashed) top-right -->
+  <circle cx="900" cy="160" r="64" fill="url(#workerGlow)" filter="url(#softer)" opacity="0.7"/>
+  <circle cx="900" cy="160" r="22" fill="#0a0c11" stroke="#22d3ee" stroke-width="2"/>
+  <text x="900" y="164" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#22d3ee">W2</text>
+
+  <!-- W3 vault (dotted) bottom-left -->
+  <circle cx="300" cy="470" r="64" fill="url(#workerGlow)" filter="url(#softer)" opacity="0.7"/>
+  <circle cx="300" cy="470" r="22" fill="#0a0c11" stroke="#22d3ee" stroke-width="2"/>
+  <text x="300" y="474" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#22d3ee">W3</text>
+
+  <!-- W4 cron (dash-dot) bottom-right -->
+  <circle cx="900" cy="470" r="64" fill="url(#workerGlow)" filter="url(#softer)" opacity="0.7"/>
+  <circle cx="900" cy="470" r="22" fill="#0a0c11" stroke="#22d3ee" stroke-width="2"/>
+  <text x="900" y="474" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#22d3ee">W4</text>
+
+  <!-- Transport links: four distinct stroke styles -->
+  <!-- Subprocess: solid ember -->
+  <line x1="600" y1="315" x2="300" y2="160" stroke="#f59e0b" stroke-width="2.2" opacity="0.85"/>
+  <!-- Gateway: dashed cyan -->
+  <line x1="600" y1="315" x2="900" y2="160" stroke="#22d3ee" stroke-width="2.2" stroke-dasharray="10 7" opacity="0.85"/>
+  <!-- Vault: dotted cyan -->
+  <line x1="600" y1="315" x2="300" y2="470" stroke="#22d3ee" stroke-width="2.6" stroke-dasharray="2 8" stroke-linecap="round" opacity="0.85"/>
+  <!-- Cron: dash-dot ember -->
+  <line x1="600" y1="315" x2="900" y2="470" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="14 6 2 6" opacity="0.85"/>
+
+  <!-- Transport legend labels along links -->
+  <text x="430" y="222" font-family="ui-monospace, monospace" font-size="11" fill="#f59e0b" opacity="0.9" transform="rotate(-24 430 222)">subprocess</text>
+  <text x="730" y="222" font-family="ui-monospace, monospace" font-size="11" fill="#22d3ee" opacity="0.9" transform="rotate(24 730 222)">gateway</text>
+  <text x="430" y="408" font-family="ui-monospace, monospace" font-size="11" fill="#22d3ee" opacity="0.9" transform="rotate(24 430 408)">vault</text>
+  <text x="730" y="408" font-family="ui-monospace, monospace" font-size="11" fill="#f59e0b" opacity="0.9" transform="rotate(-24 730 408)">cron</text>
+
+  <!-- Title block -->
+  <text x="600" y="58" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" fill="#e6e8ee" letter-spacing="2.4">DELEGATION TRANSPORT</text>
+  <text x="600" y="84" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#f59e0b" opacity="0.85" letter-spacing="3">SUBPROCESS · GATEWAY · VAULT · CRON</text>
+
+  <!-- Bottom rule + tag -->
+  <line x1="460" y1="600" x2="740" y2="600" stroke="url(#ember)" stroke-width="2"/>
+  <text x="600" y="618" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#6b7280" letter-spacing="2">LIAM&#8217;S LANDING · SMF CLEARINGHOUSE</text>
+</svg>
