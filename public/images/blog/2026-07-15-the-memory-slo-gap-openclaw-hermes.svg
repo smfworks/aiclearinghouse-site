@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The Memory SLO Gap</title>
+  <desc id="desc">A dark technical diagram showing six memory pipeline stages with a diagnostic gap between indexing and recall.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070C18"/>
+      <stop offset="0.55" stop-color="#0A1625"/>
+      <stop offset="1" stop-color="#071D22"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#00E5A0" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="948" cy="315" r="250" fill="url(#pulse)"/>
+
+  <g opacity="0.16" stroke="#00E5A0" fill="none">
+    <path d="M1020 74h90v72h54"/>
+    <path d="M1080 486h56v-78h44"/>
+    <path d="M42 510h90v62h78"/>
+    <circle cx="1110" cy="146" r="5" fill="#00E5A0"/>
+    <circle cx="1136" cy="408" r="5" fill="#00E5A0"/>
+    <circle cx="132" cy="572" r="5" fill="#00E5A0"/>
+  </g>
+
+  <g transform="translate(76 76)">
+    <rect x="0" y="0" width="48" height="48" rx="10" fill="#00E5A0" fill-opacity="0.12" stroke="#00E5A0" stroke-opacity="0.8"/>
+    <path d="M20 10h8v10h10v8H28v10h-8V28H10v-8h10z" fill="#00E5A0"/>
+    <text x="64" y="21" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" letter-spacing="2.2">DR J DIAGNOSTIC</text>
+    <text x="64" y="42" fill="#7892A7" font-family="system-ui, -apple-system, sans-serif" font-size="13" letter-spacing="1.3">OPENCLAW + HERMES INFRASTRUCTURE</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="76" y="205" fill="#EAF7F3" font-size="48" font-weight="760">THE MEMORY SLO GAP</text>
+    <text x="76" y="247" fill="#AFC3CE" font-size="22" font-weight="500">Storage can be green while recall is failing.</text>
+  </g>
+
+  <g transform="translate(76 320)" font-family="system-ui, -apple-system, sans-serif">
+    <path d="M35 44H803" stroke="#365566" stroke-width="3" stroke-linecap="round"/>
+
+    <g transform="translate(0 0)">
+      <circle cx="35" cy="44" r="28" fill="#0D2630" stroke="#00E5A0" stroke-width="2"/>
+      <path d="M27 44l6 6 12-14" fill="none" stroke="#00E5A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="35" y="94" text-anchor="middle" fill="#B7CBD2" font-size="13" font-weight="650">CAPTURE</text>
+    </g>
+    <g transform="translate(128 0)">
+      <circle cx="35" cy="44" r="28" fill="#0D2630" stroke="#00E5A0" stroke-width="2"/>
+      <path d="M24 35h22v18H24zM28 31h14v5H28z" fill="none" stroke="#00E5A0" stroke-width="2"/>
+      <text x="35" y="94" text-anchor="middle" fill="#B7CBD2" font-size="13" font-weight="650">COMMIT</text>
+    </g>
+    <g transform="translate(256 0)">
+      <circle cx="35" cy="44" r="28" fill="#0D2630" stroke="#00E5A0" stroke-width="2"/>
+      <path d="M24 34h22M24 44h22M24 54h22" stroke="#00E5A0" stroke-width="2"/>
+      <text x="35" y="94" text-anchor="middle" fill="#B7CBD2" font-size="13" font-weight="650">INDEX</text>
+    </g>
+
+    <g transform="translate(384 0)">
+      <circle cx="35" cy="44" r="36" fill="#261926" stroke="#FF6687" stroke-width="2.5" filter="url(#glow)"/>
+      <path d="M23 32l24 24M47 32L23 56" stroke="#FF6687" stroke-width="4" stroke-linecap="round"/>
+      <text x="35" y="98" text-anchor="middle" fill="#FF8DA6" font-size="13" font-weight="800" letter-spacing="1">EVIDENCE GAP</text>
+    </g>
+
+    <g transform="translate(512 0)">
+      <circle cx="35" cy="44" r="28" fill="#111F2D" stroke="#557081" stroke-width="2"/>
+      <circle cx="31" cy="40" r="9" fill="none" stroke="#A8BBC5" stroke-width="2"/>
+      <path d="M38 47l9 9" stroke="#A8BBC5" stroke-width="3" stroke-linecap="round"/>
+      <text x="35" y="94" text-anchor="middle" fill="#9BB0BB" font-size="13" font-weight="650">RETRIEVE</text>
+    </g>
+    <g transform="translate(640 0)">
+      <circle cx="35" cy="44" r="28" fill="#111F2D" stroke="#557081" stroke-width="2"/>
+      <path d="M35 29v20M28 42l7 7 7-7M24 53h22" fill="none" stroke="#A8BBC5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="35" y="94" text-anchor="middle" fill="#9BB0BB" font-size="13" font-weight="650">INJECT</text>
+    </g>
+    <g transform="translate(768 0)">
+      <circle cx="35" cy="44" r="28" fill="#111F2D" stroke="#557081" stroke-width="2"/>
+      <path d="M24 36h22v16H24zM31 32h8" fill="none" stroke="#A8BBC5" stroke-width="2"/>
+      <text x="35" y="94" text-anchor="middle" fill="#9BB0BB" font-size="13" font-weight="650">APPLY</text>
+    </g>
+  </g>
+
+  <g transform="translate(918 250)">
+    <circle cx="90" cy="90" r="86" fill="#081921" stroke="#00E5A0" stroke-opacity="0.28" stroke-width="2"/>
+    <circle cx="90" cy="90" r="66" fill="none" stroke="#00E5A0" stroke-opacity="0.16"/>
+    <ellipse cx="90" cy="67" rx="35" ry="14" fill="#0B2C31" stroke="#00E5A0" stroke-width="2"/>
+    <path d="M55 67v42c0 8 16 14 35 14s35-6 35-14V67M55 88c0 8 16 14 35 14s35-6 35-14" fill="#0B2C31" fill-opacity="0.45" stroke="#00E5A0" stroke-width="2"/>
+    <path d="M84 72h12v12h12v12H96v12H84V96H72V84h12z" fill="#00E5A0"/>
+    <circle cx="90" cy="90" r="54" fill="none" stroke="#00E5A0" stroke-opacity="0.25" stroke-dasharray="4 8"/>
+  </g>
+
+  <text x="76" y="566" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="750" letter-spacing="2">MEMORY HEALTH IS A PIPELINE, NOT A PING</text>
+  <text x="76" y="595" fill="#7892A7" font-family="system-ui, -apple-system, sans-serif" font-size="14">Capture · Commit · Index · Retrieve · Inject · Apply</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.72"/>
+</svg>
