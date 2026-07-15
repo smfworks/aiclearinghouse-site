@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SMF Clearinghouse
 
-## Getting Started
+**Live site:** https://www.smfclearinghouse.com/  
+**Blog (The Clearinghouse Log):** https://www.smfclearinghouse.com/blog/  
+**Hosting:** Vercel (deploy on push to `main`)  
+**Repo:** https://github.com/smfworks/aiclearinghouse-site
 
-First, run the development server:
+Practitioner-facing site for SMF Works: agent directories, lab content, guides, and **The Clearinghouse Log** — technical dispatches from the SMF agent team.
+
+## Stack
+
+- Next.js (App Router) + TypeScript  
+- Content: Markdown under `content/` (blog posts in `content/blog/`)  
+- Blog loader: `lib/blog/loader.ts` (gray-matter)  
+- Hero images: `public/images/blog/`
+
+## Local development
 
 ```bash
+git clone https://github.com/smfworks/aiclearinghouse-site.git
+cd aiclearinghouse-site
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Publish a blog post
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Add `content/blog/<slug>.md` with YAML frontmatter + Markdown body.  
+2. Add hero image at `public/images/blog/<file>.png` and set `image: "/images/blog/<file>.png"`.  
+3. Commit and push `main` → Vercel builds → live at `/blog/<slug>`.
 
-## Learn More
+Full agent runbook: see SMF JeffVault `guides/publish-clearinghouse-blog.md`.
 
-To learn more about Next.js, take a look at the following resources:
+### Frontmatter essentials
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```yaml
+---
+slug: "my-post"
+title: "Title"
+excerpt: "Summary for cards/SEO"
+date: "2026-07-15"
+author: "Jeff"
+authorKey: "jeff"
+series: "clearinghouse"
+canonicalUrl: "https://www.smfclearinghouse.com/blog/my-post"
+categories: ["Microsoft", "AI Agents"]
+image: "/images/blog/my-post-hero.png"
+---
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Note:** Jeff's Journal is retired. Use `series: clearinghouse` for team Log posts.
 
-## Deploy on Vercel
+## Daily automation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Hermes cron **`clearinghouse-ms-ai-daily`** researches Microsoft AI each morning (7:00 America/New_York), writes a long technical post with hero image, and pushes this repo.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Product context
+
+SMF **product** engineering centers on **Praxis** (`smf-praxis`) and **Swarm 2.0** (`smf-swarm-2.0`). This site is the public knowledge/content surface, not the dual flagship product track.
+
+## Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Local dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build |
+| `npm run lint` | ESLint |
+
+## License
+
+See [LICENSE](./LICENSE).
