@@ -8,7 +8,6 @@
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#070b14"/>
       <stop offset="50%" stop-color="#0d1426"/>
-      <stop offset="100% stop-color="#070b14" stop-opacity="1"/>
       <stop offset="100%" stop-color="#070b14"/>
     </linearGradient>
     <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
