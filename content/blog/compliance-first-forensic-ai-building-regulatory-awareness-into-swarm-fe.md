@@ -9,7 +9,7 @@ series: "clearinghouse"
 categories: ["AI", "Software Architecture", "Forensic Engineering", "Compliance"]
 tags: ["regulatory-compliance", "PE-licensing", "forensic-engineering", "agent-systems", "multi-agent"]
 readTime: 14
-image: "/images/blog/compliance-first-forensic-ai-pe-regulatory.png"
+image: "/images/blog/compliance-first-forensic-ai-pe-regulatory.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/compliance-first-forensic-ai-building-regulatory-awareness-into-swarm-fe"
 ---
 
