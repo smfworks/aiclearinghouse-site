@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero SVG for "Shipping Praxis v0.28: Active Memory + 13-State Vertical Build"
+     Two phases, one session: consolidation (left, cyan) + regulatory vertical (right, amber).
+     13 state codes arch over the right side; the governance spine runs along the bottom.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Praxis v0.28 ships Active Memory Consolidation plus a 13-state regulatory vertical build-out for forensic engineering and law firms">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="50%" stop-color="#0d1426"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+    <linearGradient id="consolidationG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="verticalG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.90"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.90"/>
+    </linearGradient>
+    <radialGradient id="joinGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e6edf3" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#e6edf3" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00d4ff"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#162236" stroke-width="1" opacity="0.30">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Join glow at center seam -->
+  <circle cx="600" cy="315" r="170" fill="url(#joinGlow)" filter="url(#blur)"/>
+
+  <!-- Title -->
+  <text x="600" y="58" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="28" font-weight="700" fill="#e6edf3" letter-spacing="0.5">
+    SHIPPING PRAXIS v0.28
+  </text>
+  <text x="600" y="86" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="14" font-weight="400" fill="#7d8590" letter-spacing="3">
+    ACTIVE MEMORY  ·  13-STATE VERTICAL BUILD  ·  ONE SESSION, TWO RELEASES
+  </text>
+
+  <!-- LEFT PANE — Active Memory Consolidation (cyan) -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="60" y="140" width="460" height="56" rx="10" fill="url(#consolidationG)" filter="url(#softBlur)" opacity="0.55"/>
+    <rect x="60" y="140" width="460" height="56" rx="10" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.9"/>
+    <text x="290" y="166" text-anchor="middle" font-size="14" font-weight="600" fill="#cffafe">Phase 6 · Active Memory Consolidation</text>
+    <text x="290" y="184" text-anchor="middle" font-size="11" fill="#67e8f9">6 slices · v0.28.0 → v0.28.7 · default-on</text>
+
+    <!-- the six slices as a vertical stack -->
+    <text x="80" y="226" font-size="11" fill="#7d8590" letter-spacing="1">SLICE 1</text>
+    <text x="160" y="226" font-size="11" fill="#9ca3af">schema + Store methods</text>
+    <text x="80" y="246" font-size="11" fill="#7d8590" letter-spacing="1">SLICE 2</text>
+    <text x="160" y="246" font-size="11" fill="#9ca3af">MemoryConsolidator core</text>
+    <text x="80" y="266" font-size="11" fill="#7d8590" letter-spacing="1">SLICE 3</text>
+    <text x="160" y="266" font-size="11" fill="#9ca3af">daemon wiring (gated)</text>
+    <text x="80" y="286" font-size="11" fill="#7d8590" letter-spacing="1">SLICE 4</text>
+    <text x="160" y="286" font-size="11" fill="#9ca3af">metadata extraction on ingest</text>
+    <text x="80" y="306" font-size="11" fill="#7d8590" letter-spacing="1">SLICE 5</text>
+    <text x="160" y="306" font-size="11" fill="#9ca3af">CLI + dashboard visibility</text>
+    <text x="80" y="326" font-size="11" fill="#7d8590" letter-spacing="1">SLICE 6</text>
+    <text x="160" y="326" font-size="11" fill="#67e8f9">bug-hunt · dogfood · harden · flip</text>
+
+    <!-- reasoning-model note -->
+    <rect x="60" y="352" width="460" height="44" rx="8" fill="#0a1628" stroke="#00d4ff" stroke-width="1" opacity="0.9"/>
+    <text x="80" y="372" font-size="11" fill="#cffafe">reasoning-model support</text>
+    <text x="80" y="388" font-size="10" fill="#7d8590">content-null → reasoning fallback · _strip_reasoning CoT filter · max_tokens=4096</text>
+
+    <!-- dogfood note -->
+    <rect x="60" y="408" width="460" height="44" rx="8" fill="#0a1628" stroke="#22c55e" stroke-width="1" opacity="0.9"/>
+    <text x="80" y="428" font-size="11" fill="#86efac">22-probe bug-hunt · 1 real bug · bounded dogfood on Spark Qwen3.6</text>
+    <text x="80" y="444" font-size="10" fill="#7d8590">insight quality verified live: clean cross-cutting synthesis, no CoT leak</text>
+  </g>
+
+  <!-- RIGHT PANE — 13-State Vertical Build (amber) -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="680" y="140" width="460" height="56" rx="10" fill="url(#verticalG)" filter="url(#softBlur)" opacity="0.55"/>
+    <rect x="680" y="140" width="460" height="56" rx="10" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.9"/>
+    <text x="910" y="166" text-anchor="middle" font-size="14" font-weight="600" fill="#fef3c7">Phase 7 · Forensic + Law Firm Vertical</text>
+    <text x="910" y="184" text-anchor="middle" font-size="11" fill="#fcd34d">7 gaps · v0.28.8 → v0.28.14 · 13 states</text>
+
+    <!-- the 13 state codes arching across -->
+    <text x="700" y="232" font-size="13" font-weight="600" fill="#f59e0b" letter-spacing="2">FL GA SC TN VA</text>
+    <text x="700" y="252" font-size="13" font-weight="600" fill="#f59e0b" letter-spacing="2">WV MD PA OH NJ</text>
+    <text x="700" y="272" font-size="13" font-weight="600" fill="#f59e0b" letter-spacing="2">NY CT MA</text>
+
+    <!-- the seven gaps as compact rows -->
+    <text x="700" y="306" font-size="11" fill="#7d8590" letter-spacing="1">GAP 1</text>
+    <text x="770" y="306" font-size="11" fill="#9ca3af">per-jurisdiction registry (13 states)</text>
+    <text x="700" y="326" font-size="11" fill="#7d8590" letter-spacing="1">GAP 3</text>
+    <text x="770" y="326" font-size="11" fill="#9ca3af">MA 201 CMR 17.00 WISP attestation</text>
+    <text x="700" y="346" font-size="11" fill="#7d8590" letter-spacing="1">GAP 2</text>
+    <text x="770" y="346" font-size="11" fill="#9ca3af">NY 22 NYCRR 1200 ad-filing workflow</text>
+    <text x="700" y="366" font-size="11" fill="#7d8590" letter-spacing="1">GAP 6</text>
+    <text x="770" y="366" font-size="11" fill="#9ca3af">matter-wide legal hold + custodian ack</text>
+    <text x="700" y="386" font-size="11" fill="#7d8590" letter-spacing="1">GAP 4</text>
+    <text x="770" y="386" font-size="11" fill="#9ca3af">per-state CE/PDH credential tracking</text>
+    <text x="700" y="406" font-size="11" fill="#7d8590" letter-spacing="1">GAP 5</text>
+    <text x="770" y="406" font-size="11" fill="#9ca3af">conflict-of-interest checking (no-leak)</text>
+    <text x="700" y="426" font-size="11" fill="#7d8590" letter-spacing="1">7-8</text>
+    <text x="770" y="426" font-size="11" fill="#9ca3af">privilege log + expert disclosure templates</text>
+  </g>
+
+  <!-- center seam arrow: consolidation → vertical (the session flow) -->
+  <g stroke="#e6edf3" stroke-width="1.4" fill="none" opacity="0.5" stroke-dasharray="4 3">
+    <path d="M 540 315 L 660 315" marker-end="url(#arrowCyan)"/>
+  </g>
+
+  <!-- Bottom governance spine -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="60" y="478" width="1080" height="40" rx="8" fill="#0a1628" stroke="#22c55e" stroke-width="1" opacity="0.92"/>
+    <circle cx="80" cy="498" r="4" fill="#22c55e"/>
+    <text x="94" y="502" font-size="11" font-weight="600" fill="#86efac">GOVERNANCE SPINE PRESERVED</text>
+    <text x="320" y="502" font-size="10" fill="#7d8590">all 7 vertical modules standalone · no canonical-IR touch · no governance-spine weakening · references artifacts by id · per-state rules from the registry</text>
+  </g>
+
+  <!-- Verification footer -->
+  <text x="600" y="560" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="11" fill="#7d8590" letter-spacing="2">
+    224 NEW TESTS  ·  156 SOURCE FILES  ·  40/40 EVALS  ·  RUFF + MYPY CLEAN  ·  ARCHITECTURE INVARIANTS PASS
+  </text>
+  <text x="600" y="588" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="11" fill="#f59e0b" opacity="0.85">
+    shipped to origin · GitHub Releases v0.28.7 + v0.28.14 · verified wheels install clean
+  </text>
+
+  <!-- Version badge top-right -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="1016" y="36" width="148" height="26" rx="13" fill="#0a1628" stroke="#7d8590" stroke-width="1.2" opacity="0.95"/>
+    <text x="1090" y="53" text-anchor="middle" font-size="11" font-weight="600" fill="#9ca3af">praxis v0.28.14</text>
+  </g>
+</svg>
