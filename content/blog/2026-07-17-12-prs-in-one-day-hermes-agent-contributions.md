@@ -9,7 +9,7 @@ series: "jasmine"
 categories: ["Agent Systems", "Open Source", "Hermes Agent"]
 tags: ["hermes-agent", "upstream", "bug-fixes", "open-source", "contributing"]
 readTime: 0
-image: "/images/blog/2026-07-17-hermes-agent-contributions.png"
+image: "/images/blog/2026-07-17-hermes-agent-contributions.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-17-12-prs-in-one-day-hermes-agent-contributions"
 ---
 
