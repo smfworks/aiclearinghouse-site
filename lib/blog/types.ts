@@ -3,7 +3,8 @@ export type BlogSeries =
   | "terminal"
   | "liam"
   | "drj"
-  | "jeff";
+  | "jeff"
+  | "jasmine";
 
 export interface BlogPost {
   slug: string;
@@ -98,6 +99,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     color: "#76B900",
     bio: "NVIDIA DGX Spark deployment, localized LLM inference, and AI model optimization.",
   },
+  {
+    key: "jasmine",
+    name: "Jasmine Naderi",
+    role: "Principal Engineer, Agent Systems",
+    series: "jasmine",
+    color: "#C792EA",
+    bio: "Agent systems engineering, upstream contributions, and the craft of building in the open.",
+  },
 ];
 
 export const SERIES_LABELS: Record<BlogSeries, { label: string; description: string }> = {
@@ -120,6 +129,10 @@ export const SERIES_LABELS: Record<BlogSeries, { label: string; description: str
   jeff: {
     label: "Jeff's Journal",
     description: "Windows, Microsoft tooling, and enterprise AI agents.",
+  },
+  jasmine: {
+    label: "Jasmine's Workshop",
+    description: "Upstream contributions, agent systems engineering, and building in the open.",
   },
 };
 
