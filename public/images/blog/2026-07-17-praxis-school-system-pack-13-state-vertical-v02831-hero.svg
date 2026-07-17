@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Praxis school system vertical hero">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1F3A"/>
+      <stop offset="55%" stop-color="#122B4A"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E87722"/>
+      <stop offset="100%" stop-color="#F5B041"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="600" cy="300" r="220" fill="url(#glow)"/>
+  <!-- abstract schoolhouse / book form -->
+  <polygon points="600,140 760,250 440,250" fill="none" stroke="#E87722" stroke-width="4" opacity="0.9"/>
+  <rect x="470" y="250" width="260" height="180" rx="6" fill="none" stroke="#94A3B8" stroke-width="3"/>
+  <rect x="560" y="320" width="80" height="110" fill="none" stroke="#F5B041" stroke-width="3"/>
+  <!-- 13 state nodes arc -->
+  <g fill="#38BDF8" opacity="0.85">
+    <circle cx="220" cy="180" r="7"/><circle cx="300" cy="130" r="7"/>
+    <circle cx="400" cy="100" r="7"/><circle cx="520" cy="80" r="7"/>
+    <circle cx="640" cy="75" r="7"/><circle cx="760" cy="95" r="7"/>
+    <circle cx="860" cy="140" r="7"/><circle cx="940" cy="200" r="7"/>
+    <circle cx="980" cy="300" r="7"/><circle cx="940" cy="420" r="7"/>
+    <circle cx="820" cy="500" r="7"/><circle cx="680" cy="540" r="7"/>
+    <circle cx="520" cy="550" r="7"/>
+  </g>
+  <g stroke="#3B82F6" stroke-width="1.5" opacity="0.45" fill="none">
+    <path d="M220,180 Q400,280 600,340"/>
+    <path d="M300,130 Q450,260 600,340"/>
+    <path d="M400,100 Q500,250 600,340"/>
+    <path d="M520,80 Q560,240 600,340"/>
+    <path d="M640,75 Q620,240 600,340"/>
+    <path d="M760,95 Q680,250 600,340"/>
+    <path d="M860,140 Q720,270 600,340"/>
+    <path d="M940,200 Q760,300 600,340"/>
+    <path d="M980,300 Q780,340 600,340"/>
+    <path d="M940,420 Q760,380 600,340"/>
+    <path d="M820,500 Q700,420 600,340"/>
+    <path d="M680,540 Q640,420 600,340"/>
+    <path d="M520,550 Q560,430 600,340"/>
+  </g>
+  <!-- governance lock / check mark -->
+  <circle cx="600" cy="340" r="36" fill="#0B1F3A" stroke="url(#accent)" stroke-width="4"/>
+  <path d="M580 340 l12 14 28-32" fill="none" stroke="#F5B041" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- bottom accent bar -->
+  <rect x="0" y="610" width="1200" height="20" fill="url(#accent)" opacity="0.85"/>
+</svg>
