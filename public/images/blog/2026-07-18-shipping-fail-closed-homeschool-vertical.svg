@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Concentric arcs: fail-closed gate metaphor -->
+  <g transform="translate(960,540)" fill="none" stroke-width="2">
+    <circle r="120" stroke="#C9A96E" stroke-opacity="0.15"/>
+    <circle r="200" stroke="#C9A96E" stroke-opacity="0.12"/>
+    <circle r="280" stroke="#C9A96E" stroke-opacity="0.09"/>
+    <circle r="360" stroke="#C9A96E" stroke-opacity="0.06"/>
+    <circle r="440" stroke="#C9A96E" stroke-opacity="0.04"/>
+  </g>
+
+  <!-- Inner closed gate: hexagon ring -->
+  <g transform="translate(960,540)" fill="none" stroke="#C9A96E" stroke-width="3" filter="url(#glow)">
+    <polygon points="0,-70 60.6,-35 60.6,35 0,70 -60.6,35 -60.6,-35"/>
+  </g>
+  <!-- Inner lock bar -->
+  <g transform="translate(960,540)">
+    <rect x="-40" y="-6" width="80" height="12" rx="6" fill="#ea580c" opacity="0.85"/>
+  </g>
+
+  <!-- Radial ticks: 13 states -->
+  <g transform="translate(960,540)" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.5">
+    <!-- 13 ticks arranged radially -->
+    <line x1="0" y1="-160" x2="0" y2="-180"/>
+    <line x1="112" y1="-112" x2="127" y2="-127" transform="rotate(0)"/>
+    <line x1="160" y1="0" x2="180" y2="0"/>
+    <line x1="112" y1="112" x2="127" y2="127"/>
+    <line x1="0" y1="160" x2="0" y2="180"/>
+    <line x1="-112" y1="112" x2="-127" y2="127"/>
+    <line x1="-160" y1="0" x2="-180" y2="0"/>
+    <line x1="-112" y1="-112" x2="-127" y2="-127"/>
+    <line x1="62" y1="-148" x2="70" y2="-167"/>
+    <line x1="148" y1="-62" x2="167" y2="-70"/>
+    <line x1="148" y1="62" x2="167" y2="70"/>
+    <line x1="62" y1="148" x2="70" y2="167"/>
+    <line x1="-62" y1="148" x2="-70" y2="167"/>
+    <line x1="-148" y1="62" x2="-167" y2="70"/>
+  </g>
+
+  <!-- Geometric grid: engineering precision -->
+  <g stroke="#C9A96E" stroke-opacity="0.08" stroke-width="1" fill="none">
+    <line x1="0" y1="270" x2="1920" y2="270"/>
+    <line x1="0" y1="810" x2="1920" y2="810"/>
+    <line x1="480" y1="0" x2="480" y2="1080"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080"/>
+  </g>
+
+  <!-- Diagonal accent lines -->
+  <g stroke-width="1" fill="none">
+    <line x1="0" y1="0" x2="400" y2="400" stroke="url(#gold)" stroke-opacity="0.3"/>
+    <line x1="1920" y1="1080" x2="1520" y2="680" stroke="url(#gold)" stroke-opacity="0.3"/>
+    <line x1="0" y1="1080" x2="400" y2="680" stroke="url(#orange)" stroke-opacity="0.25"/>
+    <line x1="1920" y1="0" x2="1520" y2="400" stroke="url(#orange)" stroke-opacity="0.25"/>
+  </g>
+
+  <!-- Dotted hash-chain trail -->
+  <g fill="#C9A96E" fill-opacity="0.6">
+    <circle cx="160" cy="540" r="4"/>
+    <circle cx="200" cy="540" r="4"/>
+    <circle cx="240" cy="540" r="4"/>
+    <circle cx="1680" cy="540" r="4"/>
+    <circle cx="1720" cy="540" r="4"/>
+    <circle cx="1760" cy="540" r="4"/>
+  </g>
+
+  <!-- Subtle hexagon pattern in corners -->
+  <g transform="translate(120,120)" fill="none" stroke="#C9A96E" stroke-opacity="0.12" stroke-width="1.5">
+    <polygon points="0,-24 20.8,-12 20.8,12 0,24 -20.8,12 -20.8,-12"/>
+    <polygon points="42,-12 62.8,0 62.8,24 42,36 21.2,24 21.2,0"/>
+    <polygon points="0,48 20.8,60 20.8,84 0,96 -20.8,84 -20.8,60"/>
+  </g>
+  <g transform="translate(1800,960)" fill="none" stroke="#ea580c" stroke-opacity="0.12" stroke-width="1.5">
+    <polygon points="0,-24 20.8,-12 20.8,12 0,24 -20.8,12 -20.8,-12"/>
+    <polygon points="42,-12 62.8,0 62.8,24 42,36 21.2,24 21.2,0"/>
+    <polygon points="0,48 20.8,60 20.8,84 0,96 -20.8,84 -20.8,60"/>
+  </g>
+
+  <!-- Central glow ring -->
+  <circle cx="960" cy="540" r="90" fill="none" stroke="#ea580c" stroke-opacity="0.2" stroke-width="1" filter="url(#glow)"/>
+</svg>
