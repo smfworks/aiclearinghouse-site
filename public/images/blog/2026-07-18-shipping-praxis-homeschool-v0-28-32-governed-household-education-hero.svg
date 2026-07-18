@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="75%">
+      <stop offset="0%" stop-color="#0a2a4a"/>
+      <stop offset="55%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#8a6d3b"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#b04200"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- subtle grid: notebook ruling -->
+  <g stroke="#C9A96E" stroke-opacity="0.07" stroke-width="1">
+    <line x1="0" y1="180" x2="1920" y2="180"/>
+    <line x1="0" y1="270" x2="1920" y2="270"/>
+    <line x1="0" y1="360" x2="1920" y2="360"/>
+    <line x1="0" y1="450" x2="1920" y2="450"/>
+    <line x1="0" y1="540" x2="1920" y2="540"/>
+    <line x1="0" y1="630" x2="1920" y2="630"/>
+    <line x1="0" y1="720" x2="1920" y2="720"/>
+    <line x1="0" y1="810" x2="1920" y2="810"/>
+    <line x1="0" y1="900" x2="1920" y2="900"/>
+  </g>
+
+  <!-- state ring: 13 dots around a home -->
+  <g transform="translate(960,540)">
+    <!-- home -->
+    <path d="M-70 30 L0 -40 L70 30 L70 90 L-70 90 Z" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M-25 90 L-25 50 L25 50 L25 90" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linejoin="round"/>
+    <!-- ring -->
+    <circle r="320" fill="none" stroke="#C9A96E" stroke-opacity="0.18" stroke-width="2"/>
+    <circle r="320" fill="none" stroke="url(#gold)" stroke-width="3" stroke-dasharray="2 26" stroke-opacity="0.6"/>
+  </g>
+
+  <!-- 13 jurisdiction nodes -->
+  <g fill="url(#orange)" stroke="#fff" stroke-opacity="0.0">
+    <circle cx="960" cy="220" r="16"/>
+    <circle cx="1126" cy="248" r="16"/>
+    <circle cx="1270" cy="328" r="16"/>
+    <circle cx="1370" cy="466" r="16"/>
+    <circle cx="1402" cy="628" r="16"/>
+    <circle cx="1362" cy="788" r="16"/>
+    <circle cx="1258" cy="916" r="16"/>
+    <circle cx="1106" cy="988" r="16"/>
+    <circle cx="960" cy="1014" r="16"/>
+    <circle cx="814" cy="988" r="16"/>
+    <circle cx="662" cy="916" r="16"/>
+    <circle cx="558" cy="788" r="16"/>
+    <circle cx="814" cy="248" r="16"/>
+  </g>
+  <g fill="none" stroke="url(#gold)" stroke-width="2" stroke-opacity="0.55">
+    <line x1="960" y1="540" x2="960" y2="220"/>
+    <line x1="960" y1="540" x2="1126" y2="248"/>
+    <line x1="960" y1="540" x2="1270" y2="328"/>
+    <line x1="960" y1="540" x2="1370" y2="466"/>
+    <line x1="960" y1="540" x2="1402" y2="628"/>
+    <line x1="960" y1="540" x2="1362" y2="788"/>
+    <line x1="960" y1="540" x2="1258" y2="916"/>
+    <line x1="960" y1="540" x2="1106" y2="988"/>
+    <line x1="960" y1="540" x2="960" y2="1014"/>
+    <line x1="960" y1="540" x2="814" y2="988"/>
+    <line x1="960" y1="540" x2="662" y2="916"/>
+    <line x1="960" y1="540" x2="558" y2="788"/>
+    <line x1="960" y1="540" x2="814" y2="248"/>
+  </g>
+
+  <!-- left: evidence ledger stack -->
+  <g transform="translate(220,520)" filter="url(#soft)">
+    <rect x="-60" y="-80" width="180" height="240" rx="10" fill="#00182f" stroke="url(#gold)" stroke-width="2"/>
+    <rect x="-48" y="-60" width="156" height="10" rx="4" fill="url(#orange)" opacity="0.7"/>
+    <rect x="-48" y="-42" width="120" height="6" rx="3" fill="#C9A96E" opacity="0.5"/>
+    <rect x="-48" y="-28" width="140" height="6" rx="3" fill="#C9A96E" opacity="0.4"/>
+    <rect x="-48" y="-14" width="96" height="6" rx="3" fill="#C9A96E" opacity="0.4"/>
+    <rect x="-48" y="0" width="130" height="6" rx="3" fill="#C9A96E" opacity="0.4"/>
+    <rect x="-48" y="14" width="110" height="6" rx="3" fill="#C9A96E" opacity="0.4"/>
+    <rect x="-48" y="40" width="156" height="6" rx="3" fill="#ea580c" opacity="0.8"/>
+    <rect x="-48" y="54" width="120" height="6" rx="3" fill="#C9A96E" opacity="0.4"/>
+  </g>
+
+  <!-- right: review gate (three lanes) -->
+  <g transform="translate(1700,520)">
+    <rect x="-90" y="-120" width="180" height="320" rx="14" fill="#00182f" stroke="url(#gold)" stroke-width="2"/>
+    <g>
+      <circle cx="-60" cy="-90" r="10" fill="#ea580c"/>
+      <line x1="-40" y1="-90" x2="70" y2="-90" stroke="url(#gold)" stroke-width="2" opacity="0.5"/>
+    </g>
+    <g>
+      <circle cx="-60" cy="-50" r="10" fill="#ea580c"/>
+      <line x1="-40" y1="-50" x2="70" y2="-50" stroke="url(#gold)" stroke-width="2" opacity="0.5"/>
+    </g>
+    <g>
+      <circle cx="-60" cy="-10" r="10" fill="#ea580c"/>
+      <line x1="-40" y1="-10" x2="70" y2="-10" stroke="url(#gold)" stroke-width="2" opacity="0.5"/>
+    </g>
+    <rect x="-70" y="30" width="140" height="44" rx="8" fill="url(#orange)" opacity="0.85"/>
+    <rect x="-70" y="84" width="140" height="44" rx="8" fill="none" stroke="url(#gold)" stroke-width="2"/>
+    <rect x="-70" y="138" width="140" height="44" rx="8" fill="none" stroke="url(#gold)" stroke-width="2"/>
+  </g>
+
+  <!-- bottom seal: release tag -->
+  <g transform="translate(960,960)">
+    <circle r="46" fill="#00182f" stroke="url(#gold)" stroke-width="3"/>
+    <path d="M-22 0 L-6 16 L24 -18" fill="none" stroke="url(#orange)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
