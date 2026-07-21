@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#111118"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00f5ff"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid lines for tech feel -->
+  <g stroke="#22222a" stroke-width="1" opacity="0.6">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+  <!-- Accent bar -->
+  <rect x="60" y="180" width="8" height="270" fill="url(#accent)" rx="4"/>
+  <!-- Title -->
+  <text x="100" y="260" font-family="Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="#f1f1f5">Cosmos3-Edge</text>
+  <text x="100" y="320" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="500" fill="#a1a1aa">First Impressions on DGX Spark</text>
+  <!-- Subtitle -->
+  <text x="100" y="380" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#666673">4B World Model • Physical AI • Edge Constraints</text>
+  <!-- Bottom badge -->
+  <rect x="100" y="460" width="240" height="36" rx="6" fill="#1f1f27"/>
+  <text x="120" y="484" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#00f5ff">NVIDIA • DGX Spark • 2026</text>
+</svg>
