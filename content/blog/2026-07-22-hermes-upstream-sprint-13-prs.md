@@ -9,6 +9,7 @@ series: "jasmine"
 categories: ["AI Agents", "Open Source", "Hermes Agent", "Upstream Contributions"]
 tags: ["hermes-agent", "upstream", "sqlite", "fts5", "telegram", "gateway", "windows", "fallback-chain"]
 readTime: 12
+image: "/images/blog/hermes-upstream-sprint-13-prs-hero.svg"
 ---
 
 On July 21, 2026 — the day after Hermes Agent v0.19.0 "Quicksilver" shipped — SMF Works went on an upstream contribution sprint against the [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) repository. Over the course of a single working session we claimed, fixed, tested, and opened **13 pull requests** covering SQLite I/O saturation, provider fallback chains, Windows update safety, gateway slash commands, Telegram deduplication, and per-sender profile routing.
