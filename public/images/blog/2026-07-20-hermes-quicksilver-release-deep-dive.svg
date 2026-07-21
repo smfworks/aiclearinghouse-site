@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </radialGradient>
+    <linearGradient id="silver-streak" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#e8e8e8" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="orange-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg-grad)"/>
+
+  <!-- Speed streaks (Quicksilver theme - motion/speed) -->
+  <g opacity="0.15">
+    <rect x="0" y="200" width="1920" height="2" fill="url(#silver-streak)" transform="rotate(-15 960 540)"/>
+    <rect x="0" y="350" width="1920" height="1.5" fill="url(#silver-streak)" transform="rotate(-12 960 540)"/>
+    <rect x="0" y="500" width="1920" height="3" fill="url(#silver-streak)" transform="rotate(-10 960 540)"/>
+    <rect x="0" y="650" width="1920" height="1.5" fill="url(#silver-streak)" transform="rotate(-8 960 540)"/>
+    <rect x="0" y="800" width="1920" height="2" fill="url(#silver-streak)" transform="rotate(-5 960 540)"/>
+    <rect x="0" y="950" width="1920" height="1" fill="url(#silver-streak)" transform="rotate(-3 960 540)"/>
+  </g>
+
+  <!-- Central geometric pattern: hexagonal mesh representing the agent framework -->
+  <g transform="translate(960, 540)" opacity="0.7">
+    <!-- Large hexagon -->
+    <polygon points="0,-200 173,-100 173,100 0,200 -173,100 -173,-100" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+    <polygon points="0,-160 139,-80 139,80 0,160 -139,80 -139,-80" fill="none" stroke="#e8e8e8" stroke-width="1.5" opacity="0.3"/>
+    <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.5"/>
+    <polygon points="0,-80 69,-40 69,40 0,80 -69,40 -69,-40" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.6"/>
+
+    <!-- Inner radiating lines -->
+    <line x1="0" y1="-200" x2="0" y2="200" stroke="#e8e8e8" stroke-width="0.5" opacity="0.2"/>
+    <line x1="-173" y1="-100" x2="173" y2="100" stroke="#e8e8e8" stroke-width="0.5" opacity="0.2"/>
+    <line x1="173" y1="-100" x2="-173" y2="100" stroke="#e8e8e8" stroke-width="0.5" opacity="0.2"/>
+
+    <!-- Connection nodes -->
+    <circle cx="0" cy="-200" r="6" fill="#ea580c" opacity="0.8"/>
+    <circle cx="173" cy="-100" r="6" fill="#C9A96E" opacity="0.8"/>
+    <circle cx="173" cy="100" r="6" fill="#e8e8e8" opacity="0.6"/>
+    <circle cx="0" cy="200" r="6" fill="#ea580c" opacity="0.8"/>
+    <circle cx="-173" cy="100" r="6" fill="#C9A96E" opacity="0.8"/>
+    <circle cx="-173" cy="-100" r="6" fill="#e8e8e8" opacity="0.6"/>
+
+    <!-- Center pulse -->
+    <circle cx="0" cy="0" r="12" fill="#ea580c" opacity="0.9" filter="url(#blur2)"/>
+    <circle cx="0" cy="0" r="6" fill="#fff" opacity="0.8"/>
+  </g>
+
+  <!-- Orbiting smaller hexagons (representing profiles/subagents) -->
+  <g opacity="0.5">
+    <g transform="translate(680, 340)">
+      <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="4" fill="#C9A96E"/>
+    </g>
+    <g transform="translate(1240, 340)">
+      <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="4" fill="#ea580c"/>
+    </g>
+    <g transform="translate(680, 740)">
+      <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="none" stroke="#e8e8e8" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="4" fill="#e8e8e8"/>
+    </g>
+    <g transform="translate(1240, 740)">
+      <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="4" fill="#C9A96E"/>
+    </g>
+  </g>
+
+  <!-- Connection lines from center to orbits -->
+  <g opacity="0.15" stroke="#C9A96E" stroke-width="0.5">
+    <line x1="960" y1="540" x2="680" y2="340"/>
+    <line x1="960" y1="540" x2="1240" y2="340"/>
+    <line x1="960" y1="540" x2="680" y2="740"/>
+    <line x1="960" y1="540" x2="1240" y2="740"/>
+  </g>
+
+  <!-- Diagonal speed accent (the Quicksilver motion) -->
+  <g opacity="0.3">
+    <path d="M 100,900 Q 500,600 960,540 T 1820,200" stroke="url(#silver-streak)" stroke-width="4" fill="none" filter="url(#blur1)"/>
+    <path d="M 200,950 Q 600,650 960,540 T 1750,250" stroke="url(#orange-glow)" stroke-width="3" fill="none" filter="url(#blur1)"/>
+  </g>
+
+  <!-- Subtle grid dots in background -->
+  <g fill="#C9A96E" opacity="0.08">
+    <circle cx="120" cy="120" r="2"/>
+    <circle cx="320" cy="120" r="2"/>
+    <circle cx="520" cy="120" r="2"/>
+    <circle cx="1400" cy="120" r="2"/>
+    <circle cx="1600" cy="120" r="2"/>
+    <circle cx="1800" cy="120" r="2"/>
+    <circle cx="120" cy="960" r="2"/>
+    <circle cx="320" cy="960" r="2"/>
+    <circle cx="1600" cy="960" r="2"/>
+    <circle cx="1800" cy="960" r="2"/>
+  </g>
+</svg>

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <radialGradient id="cosmos-bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="60%" stop-color="#000814"/>
+      <stop offset="100%" stop-color="#000208"/>
+    </radialGradient>
+    <linearGradient id="edge-glow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#76b900" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gold-streak" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C9A96E" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="cosmos-blur"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="cosmos-blur-lg"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+
+  <!-- Deep space background -->
+  <rect width="1920" height="1080" fill="url(#cosmos-bg)"/>
+
+  <!-- Star field -->
+  <g fill="#e8e8e8">
+    <circle cx="150" cy="180" r="1.5" opacity="0.6"/>
+    <circle cx="380" cy="90" r="1" opacity="0.4"/>
+    <circle cx="620" cy="220" r="1.5" opacity="0.5"/>
+    <circle cx="880" cy="120" r="1" opacity="0.3"/>
+    <circle cx="1150" cy="200" r="1.5" opacity="0.6"/>
+    <circle cx="1400" cy="80" r="1" opacity="0.4"/>
+    <circle cx="1650" cy="180" r="1.5" opacity="0.5"/>
+    <circle cx="1800" cy="300" r="1" opacity="0.3"/>
+    <circle cx="100" cy="800" r="1.5" opacity="0.5"/>
+    <circle cx="350" cy="950" r="1" opacity="0.4"/>
+    <circle cx="600" cy="880" r="1.5" opacity="0.6"/>
+    <circle cx="1350" cy="920" r="1" opacity="0.4"/>
+    <circle cx="1600" cy="850" r="1.5" opacity="0.5"/>
+    <circle cx="1820" cy="780" r="1" opacity="0.3"/>
+    <circle cx="250" cy="500" r="1" opacity="0.3"/>
+    <circle cx="1700" cy="500" r="1" opacity="0.3"/>
+  </g>
+
+  <!-- Two-tower architecture representation (MoT - Mixture of Transformers) -->
+  <g transform="translate(960, 540)">
+    <!-- AR Tower (left) -->
+    <g transform="translate(-180, 0)" opacity="0.6">
+      <rect x="-80" y="-240" width="160" height="480" rx="8" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.5"/>
+      <!-- Layer lines -->
+      <line x1="-80" y1="-180" x2="80" y2="-180" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="-120" x2="80" y2="-120" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="-60" x2="80" y2="-60" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="0" x2="80" y2="0" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="60" x2="80" y2="60" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="120" x2="80" y2="120" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="180" x2="80" y2="180" stroke="#ea580c" stroke-width="1" opacity="0.3"/>
+      <!-- Causal attention arrows (left-to-right) -->
+      <g opacity="0.4">
+        <path d="M -60,-200 L 60,-200" stroke="#ea580c" stroke-width="1" marker-end="url(#small-arrow)"/>
+        <path d="M -60,-140 L 40,-140" stroke="#ea580c" stroke-width="1" opacity="0.6"/>
+        <path d="M -60,-80 L 20,-80" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+      </g>
+      <!-- Tower label indicator -->
+      <circle cx="0" cy="-240" r="8" fill="#ea580c" opacity="0.8" filter="url(#cosmos-blur)"/>
+    </g>
+
+    <!-- Diffusion Tower (right) -->
+    <g transform="translate(180, 0)" opacity="0.6">
+      <rect x="-80" y="-240" width="160" height="480" rx="8" fill="none" stroke="#76b900" stroke-width="2" opacity="0.5"/>
+      <!-- Layer lines -->
+      <line x1="-80" y1="-180" x2="80" y2="-180" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="-120" x2="80" y2="-120" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="-60" x2="80" y2="-60" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="0" x2="80" y2="0" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="60" x2="80" y2="60" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="120" x2="80" y2="120" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <line x1="-80" y1="180" x2="80" y2="180" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      <!-- Full attention (bidirectional) -->
+      <g opacity="0.4">
+        <path d="M -60,-200 L 60,-200" stroke="#76b900" stroke-width="1"/>
+        <path d="M 60,-180 L -60,-180" stroke="#76b900" stroke-width="1" opacity="0.6"/>
+        <path d="M -60,-140 L 40,-100" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+        <path d="M 60,60 L -60,120" stroke="#76b900" stroke-width="1" opacity="0.3"/>
+      </g>
+      <!-- Tower label indicator -->
+      <circle cx="0" cy="-240" r="8" fill="#76b900" opacity="0.8" filter="url(#cosmos-blur)"/>
+    </g>
+
+    <!-- Shared attention layers (center, connecting both towers) -->
+    <g opacity="0.5">
+      <rect x="-20" y="-240" width="40" height="480" rx="4" fill="#C9A96E" opacity="0.15"/>
+      <rect x="-20" y="-240" width="40" height="480" rx="4" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+      <!-- Shared layer markers -->
+      <circle cx="0" cy="-180" r="5" fill="#C9A96E" opacity="0.8"/>
+      <circle cx="0" cy="-60" r="5" fill="#C9A96E" opacity="0.8"/>
+      <circle cx="0" cy="60" r="5" fill="#C9A96E" opacity="0.8"/>
+      <circle cx="0" cy="180" r="5" fill="#C9A96E" opacity="0.8"/>
+    </g>
+
+    <!-- Connection lines between towers through shared layers -->
+    <g opacity="0.2" stroke="#C9A96E" stroke-width="0.5" stroke-dasharray="4,4">
+      <line x1="-100" y1="-180" x2="-20" y2="-180"/>
+      <line x1="20" y1="-180" x2="100" y2="-180"/>
+      <line x1="-100" y1="-60" x2="-20" y2="-60"/>
+      <line x1="20" y1="-60" x2="100" y2="-60"/>
+      <line x1="-100" y1="60" x2="-20" y2="60"/>
+      <line x1="20" y1="60" x2="100" y2="60"/>
+      <line x1="-100" y1="180" x2="-20" y2="180"/>
+      <line x1="20" y1="180" x2="100" y2="180"/>
+    </g>
+
+    <!-- Central core -->
+    <circle cx="0" cy="0" r="20" fill="#C9A96E" opacity="0.3" filter="url(#cosmos-blur-lg)"/>
+    <circle cx="0" cy="0" r="8" fill="#fff" opacity="0.6"/>
+  </g>
+
+  <!-- Edge device representation (bottom right - the "on the robot" theme) -->
+  <g transform="translate(1620, 880)" opacity="0.4">
+    <rect x="-60" y="-40" width="120" height="80" rx="6" fill="none" stroke="#76b900" stroke-width="2"/>
+    <rect x="-50" y="-30" width="100" height="60" rx="4" fill="#76b900" opacity="0.1"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#76b900" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="0" cy="0" r="6" fill="#76b900" opacity="0.8"/>
+    <!-- Signal waves -->
+    <path d="M 15,-20 Q 30,-15 30,0" stroke="#76b900" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M 20,-25 Q 40,-18 40,0" stroke="#76b900" stroke-width="1" fill="none" opacity="0.2"/>
+  </g>
+
+  <!-- World/sphere representation (top left - the "world model" theme) -->
+  <g transform="translate(280, 200)" opacity="0.3">
+    <circle cx="0" cy="0" r="70" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+    <!-- Latitude lines -->
+    <ellipse cx="0" cy="0" rx="70" ry="20" fill="none" stroke="#ea580c" stroke-width="0.8" opacity="0.6"/>
+    <ellipse cx="0" cy="-30" rx="60" ry="15" fill="none" stroke="#ea580c" stroke-width="0.8" opacity="0.4"/>
+    <ellipse cx="0" cy="30" rx="60" ry="15" fill="none" stroke="#ea580c" stroke-width="0.8" opacity="0.4"/>
+    <!-- Longitude lines -->
+    <ellipse cx="0" cy="0" rx="20" ry="70" fill="none" stroke="#ea580c" stroke-width="0.8" opacity="0.5"/>
+    <ellipse cx="0" cy="0" rx="50" ry="70" fill="none" stroke="#ea580c" stroke-width="0.8" opacity="0.3"/>
+    <circle cx="0" cy="0" r="10" fill="#ea580c" opacity="0.5" filter="url(#cosmos-blur)"/>
+  </g>
+
+  <!-- Action trajectory representation (connecting world to edge) -->
+  <g opacity="0.2">
+    <path d="M 350,260 Q 700,400 960,540 Q 1200,680 1560,850" stroke="url(#gold-streak)" stroke-width="2" fill="none" stroke-dasharray="8,6"/>
+  </g>
+
+  <!-- Ambient glow at bottom (the "physical" world) -->
+  <ellipse cx="960" cy="1080" rx="600" ry="120" fill="url(#edge-glow)" opacity="0.3" filter="url(#cosmos-blur-lg)"/>
+
+  <!-- Decorative corner accents -->
+  <g stroke="#C9A96E" stroke-width="1" opacity="0.15" fill="none">
+    <path d="M 40,40 L 40,120 L 120,120"/>
+    <path d="M 1880,40 L 1880,120 L 1800,120"/>
+    <path d="M 40,1040 L 40,960 L 120,960"/>
+    <path d="M 1880,1040 L 1880,960 L 1800,960"/>
+  </g>
+</svg>
