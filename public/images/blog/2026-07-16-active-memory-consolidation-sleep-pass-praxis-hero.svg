@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero SVG for "Active Memory Consolidation: The Sleep Pass in Praxis"
+     Theme: three memory tiers (working/episodic/durable) feeding a consolidation
+     node that synthesizes connections + insights — the "brain during sleep" pass.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Active memory consolidation sleep pass architecture diagram">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="50%" stop-color="#0d1426"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#00d4ff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.0"/>
+    </radialGradient>
+    <linearGradient id="workingG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#1e40af" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="episodicG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="durableG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.90"/>
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.90"/>
+    </linearGradient>
+    <linearGradient id="insightG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#00d4ff"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Blueprint grid -->
+  <g stroke="#162236" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Core consolidation glow -->
+  <circle cx="600" cy="315" r="180" fill="url(#coreGlow)" filter="url(#blur)"/>
+
+  <!-- Title -->
+  <text x="600" y="58" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="30" font-weight="700" fill="#e6edf3" letter-spacing="0.5">
+    ACTIVE MEMORY CONSOLIDATION
+  </text>
+  <text x="600" y="86" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="15" font-weight="400" fill="#7d8590" letter-spacing="3">
+    THE  SLEEP  PASS  ·  perceive → plan → govern → act → reflect → consolidate
+  </text>
+
+  <!-- Left: three memory tiers -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <!-- Working tier -->
+    <rect x="60" y="150" width="220" height="56" rx="8" fill="url(#workingG)" filter="url(#softBlur)" opacity="0.55"/>
+    <rect x="60" y="150" width="220" height="56" rx="8" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.9"/>
+    <text x="170" y="176" text-anchor="middle" font-size="14" font-weight="600" fill="#dbeafe">working</text>
+    <text x="170" y="194" text-anchor="middle" font-size="11" fill="#93c5fd">in-process · cleared each cycle</text>
+
+    <!-- Episodic tier -->
+    <rect x="60" y="287" width="220" height="56" rx="8" fill="url(#episodicG)" filter="url(#softBlur)" opacity="0.55"/>
+    <rect x="60" y="287" width="220" height="56" rx="8" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.9"/>
+    <text x="170" y="313" text-anchor="middle" font-size="14" font-weight="600" fill="#f3e8ff">episodic</text>
+    <text x="170" y="331" text-anchor="middle" font-size="11" fill="#d8b4fe">summaries + provenance · decays</text>
+
+    <!-- Durable tier -->
+    <rect x="60" y="424" width="220" height="56" rx="8" fill="url(#durableG)" filter="url(#softBlur)" opacity="0.55"/>
+    <rect x="60" y="424" width="220" height="56" rx="8" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.9"/>
+    <text x="170" y="450" text-anchor="middle" font-size="14" font-weight="600" fill="#fef3c7">durable</text>
+    <text x="170" y="468" text-anchor="middle" font-size="11" fill="#fcd34d">facts · decisions · skills · insights</text>
+
+    <text x="170" y="510" text-anchor="middle" font-size="10" fill="#6b7280" letter-spacing="1.5">SUMMARIZE — NOT HOARD · 280 char cap</text>
+  </g>
+
+  <!-- Flow arrows: tiers → consolidator -->
+  <g stroke-width="2" fill="none" opacity="0.75">
+    <path d="M 280 178 C 400 178, 440 280, 540 305" stroke="#3b82f6" marker-end="url(#arrowCyan)"/>
+    <path d="M 280 315 L 540 315" stroke="#a855f7" marker-end="url(#arrowCyan)"/>
+    <path d="M 280 452 C 400 452, 440 350, 540 325" stroke="#f59e0b" marker-end="url(#arrowCyan)"/>
+  </g>
+
+  <!-- Center: consolidator node -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="540" y="260" width="120" height="110" rx="14" fill="#0a1628" stroke="#00d4ff" stroke-width="2"/>
+    <text x="600" y="292" text-anchor="middle" font-size="12" font-weight="700" fill="#00d4ff">CONSOLIDATE</text>
+    <line x1="556" y1="302" x2="644" y2="302" stroke="#00d4ff" stroke-width="0.6" opacity="0.4"/>
+    <text x="600" y="320" text-anchor="middle" font-size="10" fill="#7d8590">extract</text>
+    <text x="600" y="335" text-anchor="middle" font-size="10" fill="#7d8590">connect</text>
+    <text x="600" y="350" text-anchor="middle" font-size="10" fill="#7d8590">synthesize</text>
+    <text x="600" y="365" text-anchor="middle" font-size="10" fill="#7d8590">re-rate</text>
+  </g>
+
+  <!-- Right: outputs -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <!-- Insight output -->
+    <rect x="920" y="170" width="220" height="64" rx="8" fill="url(#insightG)" filter="url(#softBlur)" opacity="0.50"/>
+    <rect x="920" y="170" width="220" height="64" rx="8" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.9"/>
+    <text x="1030" y="196" text-anchor="middle" font-size="13" font-weight="600" fill="#cffafe">insight</text>
+    <text x="1030" y="214" text-anchor="middle" font-size="10" fill="#67e8f9">kind="insight" · salience 0.8</text>
+
+    <!-- Connections output -->
+    <rect x="920" y="283" width="220" height="64" rx="8" fill="#0a1628" stroke="#22d3ee" stroke-width="1.2" opacity="0.9"/>
+    <text x="1030" y="309" text-anchor="middle" font-size="13" font-weight="600" fill="#a5f3fc">connections</text>
+    <text x="1030" y="327" text-anchor="middle" font-size="10" fill="#67e8f9">memory_connections table</text>
+
+    <!-- Metadata output -->
+    <rect x="920" y="396" width="220" height="64" rx="8" fill="#0a1628" stroke="#22d3ee" stroke-width="1.2" opacity="0.9"/>
+    <text x="1030" y="422" text-anchor="middle" font-size="13" font-weight="600" fill="#a5f3fc">metadata</text>
+    <text x="1030" y="440" text-anchor="middle" font-size="10" fill="#67e8f9">entities · topics per item</text>
+  </g>
+
+  <!-- Flow arrows: consolidator → outputs -->
+  <g stroke-width="2" fill="none" opacity="0.75">
+    <path d="M 660 290 C 760 240, 820 200, 920 200" stroke="#00d4ff" marker-end="url(#arrowCyan)"/>
+    <path d="M 660 315 L 920 315" stroke="#22d3ee" marker-end="url(#arrowCyan)"/>
+    <path d="M 660 340 C 760 380, 820 428, 920 428" stroke="#22d3ee" marker-end="url(#arrowCyan)"/>
+  </g>
+
+  <!-- Recall loop back to durable (bottom) -->
+  <g stroke="#f59e0b" stroke-width="1.6" fill="none" opacity="0.6" stroke-dasharray="5 4">
+    <path d="M 1030 460 C 1030 560, 400 580, 170 480" marker-end="url(#arrowAmber)"/>
+  </g>
+  <text x="600" y="588" text-anchor="middle" font-family="'JetBrains Mono','Fira Code',monospace" font-size="11" fill="#f59e0b" opacity="0.85">
+    recall() · BM25 + salience + recency → context injection · no embeddings required
+  </text>
+
+  <!-- Governance badge (top-left corner) -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="36" y="36" width="148" height="26" rx="13" fill="#0a1628" stroke="#22c55e" stroke-width="1.2" opacity="0.95"/>
+    <circle cx="52" cy="49" r="4" fill="#22c55e"/>
+    <text x="66" y="53" font-size="11" font-weight="600" fill="#86efac">READ-risk · gated off</text>
+  </g>
+
+  <!-- Version badge (top-right corner) -->
+  <g font-family="'JetBrains Mono','Fira Code',monospace">
+    <rect x="1016" y="36" width="148" height="26" rx="13" fill="#0a1628" stroke="#7d8590" stroke-width="1.2" opacity="0.95"/>
+    <text x="1090" y="53" text-anchor="middle" font-size="11" font-weight="600" fill="#9ca3af">praxis v0.28.3</text>
+  </g>
+</svg>

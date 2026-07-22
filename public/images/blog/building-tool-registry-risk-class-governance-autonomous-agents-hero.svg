@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- No-text abstract hero for "Building a Tool Registry with Risk-Class Governance".
+     Brand palette: navy #0a1628/#1e3a8a, gold #f59e0b/#ff6b00, teal #0e7490/#00d4ff.
+     Concept: four risk-class lanes (READ, DRAFT, SEND, DESTRUCTIVE) flowing through
+     a central governance gate. Two lanes pass freely (teal, gold), one is gated
+     (orange barrier), one is locked (red barrier). No embedded title text.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Tool registry risk-class governance hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#102a4a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="laneTeal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#0e7490" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="laneGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#f59e0b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="laneOrange" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#ff6b00" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="laneRed" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#dc2626" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#dc2626" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.7"/>
+    </linearGradient>
+    <radialGradient id="gateGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#1e3a8a" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Gate glow at center -->
+  <rect x="450" y="0" width="300" height="630" fill="url(#gateGlow)"/>
+
+  <!-- Central governance gate (vertical bar) -->
+  <rect x="585" y="40" width="30" height="550" rx="4" fill="#1e3a8a" opacity="0.9"/>
+  <rect x="590" y="40" width="20" height="550" rx="3" fill="#00d4ff" opacity="0.25"/>
+
+  <!-- Lane 1: READ (teal) — flows freely through gate -->
+  <rect x="0" y="70" width="1200" height="80" fill="url(#laneTeal)" rx="2"/>
+  <circle cx="100" cy="110" r="8" fill="#00d4ff" opacity="0.9"/>
+  <circle cx="300" cy="110" r="6" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="900" cy="110" r="8" fill="#00d4ff" opacity="0.9"/>
+  <circle cx="1100" cy="110" r="6" fill="#00d4ff" opacity="0.7"/>
+
+  <!-- Lane 2: DRAFT (gold) — flows freely through gate -->
+  <rect x="0" y="190" width="1200" height="80" fill="url(#laneGold)" rx="2"/>
+  <circle cx="150" cy="230" r="7" fill="#fbbf24" opacity="0.85"/>
+  <circle cx="400" cy="230" r="5" fill="#fbbf24" opacity="0.65"/>
+  <circle cx="850" cy="230" r="7" fill="#fbbf24" opacity="0.85"/>
+  <circle cx="1050" cy="230" r="5" fill="#fbbf24" opacity="0.65"/>
+
+  <!-- Lane 3: SEND (orange) — gated, particles stop at gate -->
+  <rect x="0" y="310" width="1200" height="80" fill="url(#laneOrange)" rx="2"/>
+  <circle cx="120" cy="350" r="7" fill="#ff6b00" opacity="0.8"/>
+  <circle cx="350" cy="350" r="6" fill="#ff6b00" opacity="0.7"/>
+  <circle cx="520" cy="350" r="5" fill="#ff6b00" opacity="0.6"/>
+  <!-- Gate barrier for SEND -->
+  <rect x="570" y="315" width="60" height="70" rx="3" fill="#ff6b00" opacity="0.3"/>
+  <line x1="600" y1="315" x2="600" y2="385" stroke="#ff6b00" stroke-width="3" opacity="0.9"/>
+  <circle cx="600" cy="350" r="10" fill="none" stroke="#ff6b00" stroke-width="2.5" opacity="0.85"/>
+
+  <!-- Lane 4: DESTRUCTIVE (red) — locked, particles stop well before gate -->
+  <rect x="0" y="430" width="1200" height="80" fill="url(#laneRed)" rx="2"/>
+  <circle cx="100" cy="470" r="6" fill="#ef4444" opacity="0.7"/>
+  <circle cx="280" cy="470" r="5" fill="#ef4444" opacity="0.6"/>
+  <circle cx="450" cy="470" r="4" fill="#ef4444" opacity="0.5"/>
+  <!-- Lock barrier for DESTRUCTIVE -->
+  <rect x="540" y="435" width="120" height="70" rx="4" fill="#dc2626" opacity="0.25"/>
+  <rect x="570" y="455" width="60" height="35" rx="4" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.9"/>
+  <path d="M 585 455 L 585 445 Q 585 435 600 435 Q 615 435 615 445 L 615 455" fill="none" stroke="#ef4444" stroke-width="2.5" opacity="0.9"/>
+
+  <!-- Faint grid lines for architectural feel -->
+  <g stroke="#1e3a8a" stroke-width="0.5" opacity="0.3">
+    <line x1="0" y1="170" x2="1200" y2="170"/>
+    <line x1="0" y1="290" x2="1200" y2="290"/>
+    <line x1="0" y1="410" x2="1200" y2="410"/>
+    <line x1="0" y1="530" x2="1200" y2="530"/>
+  </g>
+
+  <!-- Subtle accent dots on gate -->
+  <circle cx="600" cy="110" r="4" fill="#00d4ff" opacity="0.95"/>
+  <circle cx="600" cy="230" r="4" fill="#fbbf24" opacity="0.9"/>
+  <circle cx="600" cy="350" r="4" fill="#ff6b00" opacity="0.95"/>
+  <circle cx="600" cy="470" r="4" fill="#ef4444" opacity="0.95"/>
+</svg>

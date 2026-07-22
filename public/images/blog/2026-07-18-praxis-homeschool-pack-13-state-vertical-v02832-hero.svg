@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- No-text abstract hero for Praxis Homeschool v0.28.32 build-in-the-open post.
+     Brand palette: navy #0a1628/#1e3a8a, gold #f59e0b/#ff6b00, teal #0e7490/#00d4ff.
+     Concept: a household roofline over a 13-state compliance grid, with a parent-confirmed
+     route gate at the center. No embedded title text — title lives in frontmatter/HTML.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Praxis Homeschool v0.28.32 build-in-the-open hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#102a4a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.75"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="gate" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.55"/>
+      <stop offset="70%" stop-color="#0e7490" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="260" width="1200" height="110" fill="url(#glow)"/>
+
+  <!-- 13-state compliance grid: 13 columns, faint navy lines -->
+  <g stroke="#1e3a8a" stroke-width="1.5" opacity="0.55">
+    <line x1="80"  y1="0" x2="80"   y2="630"/>
+    <line x1="160" y1="0" x2="160"  y2="630"/>
+    <line x1="240" y1="0" x2="240"  y2="630"/>
+    <line x1="320" y1="0" x2="320"  y2="630"/>
+    <line x1="400" y1="0" x2="400"  y2="630"/>
+    <line x1="480" y1="0" x2="480"  y2="630"/>
+    <line x1="560" y1="0" x2="560"  y2="630"/>
+    <line x1="640" y1="0" x2="640"  y2="630"/>
+    <line x1="720" y1="0" x2="720"  y2="630"/>
+    <line x1="800" y1="0" x2="800"  y2="630"/>
+    <line x1="880" y1="0" x2="880"  y2="630"/>
+    <line x1="960" y1="0" x2="960"  y2="630"/>
+    <line x1="1040" y1="0" x2="1040" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+  </g>
+  <g stroke="#1e3a8a" stroke-width="1.5" opacity="0.35">
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="220" x2="1200" y2="220"/>
+    <line x1="0" y1="410" x2="1200" y2="410"/>
+    <line x1="0" y1="510" x2="1200" y2="510"/>
+  </g>
+
+  <!-- 13 state cells: gold dots marking active jurisdictions -->
+  <g fill="#f59e0b" opacity="0.9">
+    <circle cx="120"  cy="170" r="5"/>
+    <circle cx="200"  cy="170" r="5"/>
+    <circle cx="280"  cy="170" r="5"/>
+    <circle cx="360"  cy="170" r="5"/>
+    <circle cx="440"  cy="170" r="5"/>
+    <circle cx="520"  cy="170" r="5"/>
+    <circle cx="600"  cy="170" r="5"/>
+    <circle cx="680"  cy="170" r="5"/>
+    <circle cx="760"  cy="170" r="5"/>
+    <circle cx="840"  cy="170" r="5"/>
+    <circle cx="920"  cy="170" r="5"/>
+    <circle cx="1000" cy="170" r="5"/>
+    <circle cx="1080" cy="170" r="5"/>
+  </g>
+
+  <!-- Household roofline -->
+  <g>
+    <polygon points="430,310 600,200 770,310" fill="url(#roof)" opacity="0.92"/>
+    <polygon points="430,310 600,200 770,310" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.95"/>
+    <rect x="455" y="310" width="290" height="120" fill="none" stroke="#1e3a8a" stroke-width="3" opacity="0.85"/>
+    <line x1="600" y1="310" x2="600" y2="430" stroke="#1e3a8a" stroke-width="2" opacity="0.7"/>
+    <line x1="455" y1="370" x2="745" y2="370" stroke="#1e3a8a" stroke-width="2" opacity="0.7"/>
+  </g>
+
+  <!-- Parent-confirmed route gate at center -->
+  <circle cx="600" cy="315" r="120" fill="url(#gate)"/>
+  <circle cx="600" cy="315" r="42" fill="none" stroke="#00d4ff" stroke-width="3.5" opacity="0.95"/>
+  <circle cx="600" cy="315" r="18" fill="#00d4ff" opacity="0.95"/>
+  <path d="M558 315 L590 315" stroke="#00d4ff" stroke-width="3" opacity="0.8"/>
+  <path d="M610 315 L642 315" stroke="#00d4ff" stroke-width="3" opacity="0.8"/>
+
+  <!-- Evidence ledger bars (append-only) -->
+  <g>
+    <rect x="120"  y="460" width="960" height="6" fill="#0e7490" opacity="0.85"/>
+    <rect x="120"  y="476" width="720" height="6" fill="#f59e0b" opacity="0.8"/>
+    <rect x="120"  y="492" width="840" height="6" fill="#1e3a8a" opacity="0.9"/>
+    <rect x="120"  y="508" width="540" height="6" fill="#ff6b00" opacity="0.75"/>
+  </g>
+
+  <!-- Approval gate chevrons (SEND/DESTRUCTIVE held) -->
+  <g fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.9">
+    <path d="M180 555 L210 540 L240 555 L210 570 Z"/>
+    <path d="M260 555 L290 540 L320 555 L290 570 Z"/>
+  </g>
+  <g fill="#f59e0b" opacity="0.9">
+    <circle cx="210" cy="555" r="4"/>
+    <circle cx="290" cy="555" r="4"/>
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="50%" stop-color="#12121a"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a2e" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#glow)"/>
+
+  <!-- Hexagonal node network representing agent architecture -->
+  <g stroke="#C9A96E" stroke-opacity="0.15" stroke-width="1" fill="none">
+    <!-- Connecting lines -->
+    <line x1="600" y1="120" x2="450" y2="220"/>
+    <line x1="600" y1="120" x2="750" y2="220"/>
+    <line x1="450" y1="220" x2="300" y2="312"/>
+    <line x1="750" y1="220" x2="900" y2="312"/>
+    <line x1="300" y1="312" x2="450" y2="420"/>
+    <line x1="900" y1="312" x2="750" y2="420"/>
+    <line x1="450" y1="420" x2="600" y2="504"/>
+    <line x1="750" y1="420" x2="600" y2="504"/>
+    <line x1="450" y1="220" x2="750" y2="220"/>
+    <line x1="300" y1="312" x2="900" y2="312"/>
+    <line x1="450" y1="420" x2="750" y2="420"/>
+  </g>
+
+  <!-- Hexagonal nodes -->
+  <g>
+    <!-- Top: Agent Runtime -->
+    <polygon points="600,90 630,105 630,135 600,150 570,135 570,105" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.6"/>
+    <circle cx="600" cy="120" r="4" fill="#C9A96E" fill-opacity="0.8"/>
+
+    <!-- Upper left: Subagents -->
+    <polygon points="450,190 480,205 480,235 450,250 420,235 420,205" fill="none" stroke="#ea580c" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="450" cy="220" r="4" fill="#ea580c" fill-opacity="0.7"/>
+
+    <!-- Upper right: Sandbox -->
+    <polygon points="750,190 780,205 780,235 750,250 720,235 720,205" fill="none" stroke="#ea580c" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="750" cy="220" r="4" fill="#ea580c" fill-opacity="0.7"/>
+
+    <!-- Left: Memory -->
+    <polygon points="300,282 330,297 330,327 300,342 270,327 270,297" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="300" cy="312" r="4" fill="#C9A96E" fill-opacity="0.7"/>
+
+    <!-- Right: Codebase Graph -->
+    <polygon points="900,282 930,297 930,327 900,342 870,327 870,297" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="900" cy="312" r="4" fill="#C9A96E" fill-opacity="0.7"/>
+
+    <!-- Lower left: Hooks -->
+    <polygon points="450,390 480,405 480,435 450,450 420,435 420,405" fill="none" stroke="#ea580c" stroke-width="2" stroke-opacity="0.3"/>
+    <circle cx="450" cy="420" r="3" fill="#ea580c" fill-opacity="0.5"/>
+
+    <!-- Lower right: ACP -->
+    <polygon points="750,390 780,405 780,435 750,450 720,435 720,405" fill="none" stroke="#ea580c" stroke-width="2" stroke-opacity="0.3"/>
+    <circle cx="750" cy="420" r="3" fill="#ea580c" fill-opacity="0.5"/>
+
+    <!-- Bottom: Skills/Plugins -->
+    <polygon points="600,474 630,489 630,519 600,534 570,519 570,489" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.4"/>
+    <circle cx="600" cy="504" r="3" fill="#C9A96E" fill-opacity="0.6"/>
+  </g>
+
+  <!-- Terminal cursor blink -->
+  <rect x="200" y="570" width="12" height="20" fill="#C9A96E" fill-opacity="0.6"/>
+  <text x="220" y="585" font-family="monospace" font-size="14" fill="#C9A96E" fill-opacity="0.4">grok build</text>
+
+  <!-- Corner accents -->
+  <line x1="0" y1="0" x2="80" y2="0" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.3"/>
+  <line x1="0" y1="0" x2="0" y2="80" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.3"/>
+  <line x1="1120" y1="624" x2="1200" y2="624" stroke="#ea580c" stroke-width="2" stroke-opacity="0.3"/>
+  <line x1="1200" y1="544" x2="1200" y2="624" stroke="#ea580c" stroke-width="2" stroke-opacity="0.3"/>
+</svg>

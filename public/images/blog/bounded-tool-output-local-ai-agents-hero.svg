@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- No-text abstract hero for bounded tool outputs in local AI agents.
+     Concept: a noisy, high-volume result stream crosses three reduction gates;
+     a compact context stream continues while the full artifact spills to storage.
+     Palette: SMF navy, blue, teal, gold, and orange. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Large tool output compressed through three gates into a bounded model context while full data is persisted">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="52%" stop-color="#102a4a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="stream" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.15"/>
+      <stop offset="42%" stop-color="#0e7490" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="spill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="contextGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.28"/>
+      <stop offset="68%" stop-color="#1e3a8a" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="smallGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Architectural grid -->
+  <g stroke="#1e3a8a" stroke-width="1" opacity="0.22">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="560" y1="0" x2="560" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="880" y1="0" x2="880" y2="630"/>
+    <line x1="1040" y1="0" x2="1040" y2="630"/>
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="330" x2="1200" y2="330"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="0" y1="570" x2="1200" y2="570"/>
+  </g>
+
+  <!-- Context destination glow -->
+  <ellipse cx="1020" cy="285" rx="170" ry="170" fill="url(#contextGlow)"/>
+
+  <!-- Raw noisy tool-output lanes on the left -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M40 150 C150 150 205 185 320 185" stroke="#1e3a8a" stroke-width="11" opacity="0.85"/>
+    <path d="M25 205 C145 205 210 215 320 215" stroke="#0e7490" stroke-width="8" opacity="0.78"/>
+    <path d="M55 258 C160 258 220 245 320 245" stroke="#f59e0b" stroke-width="12" opacity="0.82"/>
+    <path d="M30 315 C145 315 215 275 320 275" stroke="#ff6b00" stroke-width="7" opacity="0.75"/>
+    <path d="M65 365 C165 365 225 305 320 305" stroke="#22d3ee" stroke-width="10" opacity="0.7"/>
+    <path d="M38 420 C165 420 230 335 320 335" stroke="#1e3a8a" stroke-width="9" opacity="0.7"/>
+  </g>
+
+  <!-- Raw stream particles -->
+  <g opacity="0.85">
+    <circle cx="105" cy="150" r="7" fill="#3b82f6"/>
+    <circle cx="180" cy="202" r="5" fill="#22d3ee"/>
+    <circle cx="115" cy="258" r="8" fill="#f59e0b"/>
+    <circle cx="235" cy="312" r="5" fill="#ff6b00"/>
+    <circle cx="150" cy="368" r="6" fill="#22d3ee"/>
+    <circle cx="270" cy="392" r="7" fill="#1e3a8a"/>
+  </g>
+
+  <!-- Gate 1: source reduction / funnel -->
+  <path d="M320 120 L430 120 L400 260 L400 360 L350 360 L350 260 Z" fill="#102a4a" stroke="#0e7490" stroke-width="3" opacity="0.96"/>
+  <path d="M340 150 L410 150 L388 250 L388 335 L363 335 L363 250 Z" fill="url(#stream)" opacity="0.75"/>
+  <circle cx="375" cy="120" r="6" fill="#22d3ee"/>
+
+  <!-- Reduced stream between gates -->
+  <path d="M400 300 C470 300 500 285 545 285" fill="none" stroke="#0e7490" stroke-width="12" stroke-linecap="round"/>
+  <path d="M405 300 C470 300 500 285 545 285" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Gate 2: per-result spill -->
+  <rect x="545" y="175" width="54" height="220" rx="12" fill="#102a4a" stroke="#f59e0b" stroke-width="3"/>
+  <rect x="557" y="198" width="30" height="174" rx="8" fill="#f59e0b" opacity="0.22"/>
+  <circle cx="572" cy="285" r="9" fill="#f59e0b"/>
+
+  <!-- Full artifact spills downward -->
+  <path d="M572 395 C572 430 620 448 620 482" fill="none" stroke="url(#spill)" stroke-width="10" stroke-linecap="round"/>
+  <g transform="translate(620 510)">
+    <ellipse cx="0" cy="-22" rx="72" ry="22" fill="#f59e0b" opacity="0.72"/>
+    <rect x="-72" y="-22" width="144" height="62" fill="#ff6b00" opacity="0.36"/>
+    <ellipse cx="0" cy="40" rx="72" ry="22" fill="#ff6b00" opacity="0.55"/>
+    <ellipse cx="0" cy="-22" rx="72" ry="22" fill="none" stroke="#fbbf24" stroke-width="3"/>
+    <ellipse cx="0" cy="40" rx="72" ry="22" fill="none" stroke="#ff6b00" stroke-width="3"/>
+    <path d="M-72 -22 L-72 40 M72 -22 L72 40" stroke="#ff6b00" stroke-width="3"/>
+  </g>
+
+  <!-- Preview stream continues -->
+  <path d="M599 285 L745 285" fill="none" stroke="#0e7490" stroke-width="10" stroke-linecap="round"/>
+  <path d="M605 285 L745 285" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+  <circle cx="655" cy="285" r="6" fill="#22d3ee"/>
+  <circle cx="705" cy="285" r="4" fill="#22d3ee"/>
+
+  <!-- Gate 3: aggregate turn budget -->
+  <g transform="translate(770 285)">
+    <circle cx="0" cy="0" r="70" fill="#102a4a" stroke="#1e3a8a" stroke-width="5"/>
+    <circle cx="0" cy="0" r="52" fill="none" stroke="#0e7490" stroke-width="4" stroke-dasharray="7 8"/>
+    <path d="M-26 -12 L-7 9 L30 -31" fill="none" stroke="#22d3ee" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Final compact context stream -->
+  <path d="M840 285 C890 285 905 285 935 285" fill="none" stroke="#22d3ee" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="885" cy="285" r="5" fill="#f59e0b"/>
+
+  <!-- Bounded model context container -->
+  <g transform="translate(1015 285)">
+    <rect x="-84" y="-112" width="168" height="224" rx="24" fill="#0a1628" stroke="#22d3ee" stroke-width="4"/>
+    <rect x="-61" y="-78" width="122" height="18" rx="9" fill="#0e7490" opacity="0.9"/>
+    <rect x="-61" y="-43" width="92" height="14" rx="7" fill="#1e3a8a"/>
+    <rect x="-61" y="-13" width="114" height="14" rx="7" fill="#f59e0b" opacity="0.88"/>
+    <rect x="-61" y="17" width="76" height="14" rx="7" fill="#0e7490" opacity="0.78"/>
+    <rect x="-61" y="47" width="104" height="14" rx="7" fill="#1e3a8a"/>
+    <circle cx="56" cy="84" r="8" fill="#22d3ee" filter="url(#smallGlow)"/>
+  </g>
+
+  <!-- Outer frame -->
+  <rect x="24" y="24" width="1152" height="582" rx="20" fill="none" stroke="#1e3a8a" stroke-width="2" opacity="0.55"/>
+</svg>

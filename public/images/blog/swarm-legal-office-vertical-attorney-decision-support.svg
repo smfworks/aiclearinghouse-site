@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="50%" stop-color="#12121a"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <!-- Scales of justice abstract -->
+  <g transform="translate(600, 312)" stroke="#C9A96E" stroke-opacity="0.4" fill="none" stroke-width="1.5">
+    <!-- Central column -->
+    <line x1="0" y1="-120" x2="0" y2="120"/>
+    <!-- Base -->
+    <line x1="-40" y1="120" x2="40" y2="120"/>
+    <line x1="-25" y1="100" x2="25" y2="100"/>
+    <!-- Top -->
+    <circle cx="0" cy="-120" r="8" fill="#C9A96E" fill-opacity="0.3"/>
+    <!-- Crossbar -->
+    <line x1="-100" y1="-80" x2="100" y2="-80"/>
+    <!-- Left pan -->
+    <line x1="-100" y1="-80" x2="-100" y2="-40"/>
+    <path d="M -130 -40 Q -100 -10 -70 -40" stroke-width="2"/>
+    <!-- Right pan -->
+    <line x1="100" y1="-80" x2="100" y2="-40"/>
+    <path d="M 70 -40 Q 100 -10 130 -40" stroke-width="2"/>
+    <!-- Chains -->
+    <line x1="-100" y1="-80" x2="-130" y2="-40" stroke-opacity="0.2"/>
+    <line x1="-100" y1="-80" x2="-70" y2="-40" stroke-opacity="0.2"/>
+    <line x1="100" y1="-80" x2="70" y2="-40" stroke-opacity="0.2"/>
+    <line x1="100" y1="-80" x2="130" y2="-40" stroke-opacity="0.2"/>
+  </g>
+
+  <!-- State abbreviation markers -->
+  <g font-family="monospace" font-size="13" fill="#C9A96E" fill-opacity="0.3">
+    <text x="200" y="100">FL</text>
+    <text x="150" y="180">GA</text>
+    <text x="120" y="260">SC</text>
+    <text x="100" y="340">TN</text>
+    <text x="110" y="420">VA</text>
+    <text x="140" y="490">WV</text>
+    <text x="220" y="530">MD</text>
+    <text x="320" y="555">PA</text>
+    <text x="430" y="555">OH</text>
+    <text x="780" y="555">NJ</text>
+    <text x="880" y="530">NY</text>
+    <text x="960" y="490">CT</text>
+    <text x="1030" y="420">MA</text>
+  </g>
+
+  <!-- DRAFT watermark text -->
+  <text x="600" y="560" text-anchor="middle" font-family="monospace" font-size="16" fill="#ea580c" fill-opacity="0.15">DRAFT — ATTORNEY REVIEW REQUIRED</text>
+
+  <!-- Corner accents -->
+  <line x1="0" y1="0" x2="60" y2="0" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.3"/>
+  <line x1="0" y1="0" x2="0" y2="60" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.3"/>
+  <line x1="1140" y1="624" x2="1200" y2="624" stroke="#ea580c" stroke-width="2" stroke-opacity="0.3"/>
+  <line x1="1200" y1="564" x2="1200" y2="624" stroke="#ea580c" stroke-width="2" stroke-opacity="0.3"/>
+</svg>

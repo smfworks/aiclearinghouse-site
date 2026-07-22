@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero SVG for "Reasoning Models in Agent Loops: Three Failure Modes"
+     Three-panel composition: null-content (empty box), token black hole
+     (spiral consuming tokens), config mismatch (gear/lock). Dark navy
+     with amber and cyan accents, matching the clearinghouse aesthetic. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Reasoning models in agent loops — three failure modes and their fixes">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cyanGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#amberGlow)" opacity="0.6"/>
+
+  <!-- decorative grid lines -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- top label -->
+  <text x="600" y="52" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#7d90aa" letter-spacing="3">FAILURE MODE 1 · FAILURE MODE 2 · FAILURE MODE 3</text>
+
+  <!-- ============ PANEL 1: null-content (empty box) ============ -->
+  <g transform="translate(110, 130)">
+    <!-- frame -->
+    <rect x="0" y="0" width="280" height="180" rx="10" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+    <!-- code-like lines representing a response -->
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#4a6a8a">
+      <text x="20" y="40">"content": null,</text>
+      <text x="20" y="64">"reasoning": "Here's a</text>
+      <text x="20" y="84">  thinking process:..."</text>
+    </g>
+    <!-- empty content indicator -->
+    <rect x="20" y="100" width="240" height="28" rx="4" fill="#1a1a2e" stroke="#ff6b00" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.7"/>
+    <text x="140" y="119" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#ff6b00">content = ""</text>
+    <!-- warning icon -->
+    <g transform="translate(120, 142)">
+      <path d="M0,28 L16,0 L32,28 Z" fill="none" stroke="#ff6b00" stroke-width="2.5"/>
+      <line x1="16" y1="10" x2="16" y2="20" stroke="#ff6b00" stroke-width="2.5"/>
+      <circle cx="16" cy="24" r="1.5" fill="#ff6b00"/>
+    </g>
+    <!-- label -->
+    <text x="140" y="196" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600" fill="#e0e6f0">null-content</text>
+  </g>
+
+  <!-- ============ PANEL 2: token black hole (spiral) ============ -->
+  <g transform="translate(460, 130)">
+    <rect x="0" y="0" width="280" height="180" rx="10" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+    <!-- spiral path representing tokens being consumed -->
+    <path d="M140,90 m0,-55 a55,55 0 1,1 -0.1,0 m0.1,12 a43,43 0 1,0 0.1,0 m-0.1,10 a33,33 0 1,1 -0.1,0 m0.1,8 a25,25 0 1,0 0.1,0 m-0.1,6 a19,19 0 1,1 -0.1,0 m0.1,4 a15,15 0 1,0 0.1,0 m-0.1,3 a12,12 0 1,1 -0.1,0"
+          fill="none" stroke="#00d4ff" stroke-width="2.5" opacity="0.85"/>
+    <!-- center black hole -->
+    <circle cx="140" cy="90" r="8" fill="#0b1220" stroke="#00d4ff" stroke-width="2"/>
+    <circle cx="140" cy="90" r="3" fill="#00d4ff"/>
+    <!-- token dots being pulled in -->
+    <circle cx="90" cy="50" r="2.5" fill="#ff6b00" opacity="0.7"/>
+    <circle cx="195" cy="40" r="2" fill="#ff6b00" opacity="0.5"/>
+    <circle cx="210" cy="120" r="2.5" fill="#ff6b00" opacity="0.6"/>
+    <circle cx="80" cy="135" r="2" fill="#ff6b00" opacity="0.4"/>
+    <circle cx="100" cy="30" r="1.5" fill="#7d90aa" opacity="0.5"/>
+    <circle cx="220" cy="80" r="1.5" fill="#7d90aa" opacity="0.4"/>
+    <!-- budget exhausted indicator -->
+    <text x="140" y="168" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#ff6b00">done_reason: "length"</text>
+    <!-- label -->
+    <text x="140" y="196" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600" fill="#e0e6f0">token black hole</text>
+  </g>
+
+  <!-- ============ PANEL 3: config mismatch (gear + lock) ============ -->
+  <g transform="translate(810, 130)">
+    <rect x="0" y="0" width="280" height="180" rx="10" fill="none" stroke="#1e3a5f" stroke-width="2"/>
+    <!-- gear -->
+    <g transform="translate(95, 95)" stroke="#00d4ff" stroke-width="2.5" fill="none" opacity="0.8">
+      <circle cx="0" cy="0" r="28"/>
+      <circle cx="0" cy="0" r="14"/>
+      <line x1="0" y1="-38" x2="0" y2="-30"/>
+      <line x1="0" y1="30" x2="0" y2="38"/>
+      <line x1="-38" y1="0" x2="-30" y2="0"/>
+      <line x1="30" y1="0" x2="38" y2="0"/>
+      <line x1="-27" y1="-27" x2="-21" y2="-21"/>
+      <line x1="21" y1="21" x2="27" y2="27"/>
+      <line x1="27" y1="-27" x2="21" y2="-21"/>
+      <line x1="-21" y1="21" x2="-27" y2="27"/>
+    </g>
+    <!-- lock -->
+    <g transform="translate(180, 95)" stroke="#ff6b00" stroke-width="2.5" fill="none" opacity="0.85">
+      <rect x="-16" y="-4" width="32" height="26" rx="4"/>
+      <path d="M-10,-4 v-8 a10,10 0 0,1 20,0 v8"/>
+      <circle cx="0" cy="9" r="3" fill="#ff6b00"/>
+      <line x1="0" y1="12" x2="0" y2="16" stroke="#ff6b00" stroke-width="2"/>
+    </g>
+    <!-- mismatch arrow -->
+    <path d="M128,95 L148,95" stroke="#ff6b00" stroke-width="2" stroke-dasharray="4 3" opacity="0.7"/>
+    <polygon points="148,91 154,95 148,99" fill="#ff6b00" opacity="0.7"/>
+    <!-- config values -->
+    <text x="140" y="158" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#7d90aa">timeout=180 · max_tokens=128</text>
+    <!-- label -->
+    <text x="140" y="196" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600" fill="#e0e6f0">config mismatch</text>
+  </g>
+
+  <!-- divider line -->
+  <line x1="150" y1="360" x2="1050" y2="360" stroke="#1e3a5f" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- ============ Bottom: the unified diagnostic flow ============ -->
+  <g transform="translate(0, 390)">
+    <text x="600" y="0" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13" fill="#00d4ff" letter-spacing="2">→ THE UNIFIED DIAGNOSTIC</text>
+
+    <!-- step boxes -->
+    <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#c0cad8">
+      <!-- step 1 -->
+      <rect x="80" y="20" width="150" height="44" rx="6" fill="none" stroke="#2a4a6a" stroke-width="1.5"/>
+      <text x="155" y="40" text-anchor="middle">reasoning model?</text>
+      <text x="155" y="56" text-anchor="middle" font-size="10" fill="#7d90aa">check parser logs</text>
+
+      <!-- arrow -->
+      <line x1="232" y1="42" x2="268" y2="42" stroke="#3a5a7a" stroke-width="1.5"/>
+      <polygon points="268,38 274,42 268,46" fill="#3a5a7a"/>
+
+      <!-- step 2 -->
+      <rect x="276" y="20" width="150" height="44" rx="6" fill="none" stroke="#2a4a6a" stroke-width="1.5"/>
+      <text x="351" y="40" text-anchor="middle">read reasoning field</text>
+      <text x="351" y="56" text-anchor="middle" font-size="10" fill="#ff6b00">_extract_text()</text>
+
+      <!-- arrow -->
+      <line x1="428" y1="42" x2="464" y2="42" stroke="#3a5a7a" stroke-width="1.5"/>
+      <polygon points="464,38 470,42 464,46" fill="#3a5a7a"/>
+
+      <!-- step 3 -->
+      <rect x="472" y="20" width="150" height="44" rx="6" fill="none" stroke="#2a4a6a" stroke-width="1.5"/>
+      <text x="547" y="40" text-anchor="middle">raise token budget</text>
+      <text x="547" y="56" text-anchor="middle" font-size="10" fill="#ff6b00">max_tokens=4096</text>
+
+      <!-- arrow -->
+      <line x1="624" y1="42" x2="660" y2="42" stroke="#3a5a7a" stroke-width="1.5"/>
+      <polygon points="660,38 666,42 660,46" fill="#3a5a7a"/>
+
+      <!-- step 4 -->
+      <rect x="668" y="20" width="150" height="44" rx="6" fill="none" stroke="#2a4a6a" stroke-width="1.5"/>
+      <text x="743" y="40" text-anchor="middle">strip CoT preamble</text>
+      <text x="743" y="56" text-anchor="middle" font-size="10" fill="#ff6b00">_strip_reasoning()</text>
+
+      <!-- arrow -->
+      <line x1="820" y1="42" x2="856" y2="42" stroke="#3a5a7a" stroke-width="1.5"/>
+      <polygon points="856,38 862,42 856,46" fill="#3a5a7a"/>
+
+      <!-- step 5 -->
+      <rect x="870" y="20" width="150" height="44" rx="6" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+      <text x="945" y="40" text-anchor="middle" fill="#00d4ff">loop works</text>
+      <text x="945" y="56" text-anchor="middle" font-size="10" fill="#7d90aa">both response shapes</text>
+    </g>
+  </g>
+
+  <!-- title -->
+  <text x="600" y="540" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="36" font-weight="700" fill="#f0f4fa">Reasoning Models in Agent Loops</text>
+  <text x="600" y="578" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" fill="#7d90aa">three failure modes · three fixes · one diagnostic</text>
+</svg>

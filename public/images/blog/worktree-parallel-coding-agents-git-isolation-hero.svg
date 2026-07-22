@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Worktree Pattern" — no-text abstract: two diverging paths
+     from a shared base, navy/teal/gold palette. Validates as well-formed XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two agent branches diverging from a shared git base">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative grid frame -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- soft horizontal glows behind the branches -->
+  <rect x="0" y="240" width="1200" height="60" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="0" y="330" width="1200" height="60" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- shared base commit (center-left) -->
+  <g transform="translate(220, 305)">
+    <circle cx="0" cy="0" r="34" fill="#0e7490" opacity="0.95"/>
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.7"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+
+  <!-- trunk segment from base to split point -->
+  <path d="M254,305 L520,305" stroke="#1e3a8a" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- split node -->
+  <g transform="translate(520, 305)">
+    <circle cx="0" cy="0" r="22" fill="#1e3a8a"/>
+    <circle cx="0" cy="0" r="22" fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.8"/>
+  </g>
+
+  <!-- upper branch (teal) — diverges up and right -->
+  <path d="M542,305 Q700,305 760,210 L940,210" stroke="#0e7490" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <g transform="translate(940, 210)">
+    <circle cx="0" cy="0" r="26" fill="#0e7490" opacity="0.95"/>
+    <circle cx="0" cy="0" r="26" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.75"/>
+    <circle cx="0" cy="0" r="9" fill="#0a1628"/>
+  </g>
+
+  <!-- lower branch (gold) — diverges down and right -->
+  <path d="M542,305 Q700,305 760,400 L940,400" stroke="#ff6b00" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <g transform="translate(940, 400)">
+    <circle cx="0" cy="0" r="26" fill="#f59e0b" opacity="0.95"/>
+    <circle cx="0" cy="0" r="26" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.75"/>
+    <circle cx="0" cy="0" r="9" fill="#0a1628"/>
+  </g>
+
+  <!-- small commit dots along each branch -->
+  <circle cx="660" cy="252" r="7" fill="#0e7490" opacity="0.7"/>
+  <circle cx="760" cy="210" r="7" fill="#0e7490" opacity="0.7"/>
+  <circle cx="660" cy="358" r="7" fill="#f59e0b" opacity="0.7"/>
+  <circle cx="760" cy="400" r="7" fill="#f59e0b" opacity="0.7"/>
+
+  <!-- subtle shared-object-database glyph: dotted ring linking both tips back to base -->
+  <ellipse cx="580" cy="305" rx="380" ry="150" fill="none" stroke="#1e3a8a" stroke-width="1.5" stroke-dasharray="4 7" opacity="0.45"/>
+</svg>

@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B0F19"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FACC15" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FACC15" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <!-- Grid -->
+  <g stroke="#1E293B" stroke-width="1" opacity="0.35">
+    <path d="M0 150 L1600 150 M0 300 L1600 300 M0 450 L1600 450 M0 600 L1600 600 M0 750 L1600 750"/>
+    <path d="M200 0 L200 900 M400 0 L400 900 M600 0 L600 900 M800 0 L800 900 M1000 0 L1000 900 M1200 0 L1200 900 M1400 0 L1400 900"/>
+  </g>
+
+  <!-- Title -->
+  <text x="80" y="85" fill="#E2E8F0" font-size="38" font-weight="700">The SMF Works Agent Fleet</text>
+  <text x="80" y="120" fill="#94A3B8" font-size="17">Dual Chief of Staff &amp; PM — coordinating 7 autonomous agents across Linux + Windows</text>
+
+  <!-- Platform labels -->
+  <text x="120" y="195" fill="#10B981" font-size="13" font-weight="700" font-family="ui-monospace, SFMono-Regular, monospace" letter-spacing="2">LINUX (DGX SPARK — LOCAL)</text>
+  <text x="1080" y="195" fill="#22D3EE" font-size="13" font-weight="700" font-family="ui-monospace, SFMono-Regular, monospace" letter-spacing="2">WINDOWS PC (REMOTE)</text>
+
+  <!-- Platform divider -->
+  <line x1="1050" y1="180" x2="1050" y2="850" stroke="#1E293B" stroke-width="1.5" stroke-dasharray="6 8" opacity="0.5"/>
+
+  <!-- Connection lines from Gabriel (center-left) to Linux agents -->
+  <g stroke="#FACC15" stroke-width="1.5" opacity="0.3" fill="none">
+    <path d="M460 500 L240 290"/>
+    <path d="M460 500 L240 420"/>
+    <path d="M460 500 L240 550"/>
+    <path d="M460 500 L240 680"/>
+    <path d="M460 500 L620 290"/>
+    <path d="M460 500 L620 420"/>
+    <path d="M460 500 L620 680"/>
+  </g>
+
+  <!-- Connection lines from Gabriel to Windows agents (dashed amber) -->
+  <g stroke="#F59E0B" stroke-width="1.5" opacity="0.35" fill="none" stroke-dasharray="4 6">
+    <path d="M460 500 L1240 350"/>
+    <path d="M460 500 L1240 500"/>
+    <path d="M460 500 L1240 650"/>
+  </g>
+
+  <!-- Gabriel central card -->
+  <g transform="translate(340 440)">
+    <rect width="240" height="120" rx="12" fill="#0F172A" stroke="#FACC15" stroke-width="2"/>
+    <rect x="0" y="0" width="6" height="120" rx="3" fill="#FACC15"/>
+    <text x="22" y="35" fill="#FACC15" font-size="20" font-weight="700">Gabriel</text>
+    <text x="22" y="58" fill="#E2E8F0" font-size="13" font-weight="600">Chief of Staff &amp; PM</text>
+    <text x="22" y="80" fill="#94A3B8" font-size="11">glm-5.2:cloud · ollama-cloud</text>
+    <text x="22" y="98" fill="#64748B" font-size="11">Kanban orchestrator · cron · memory</text>
+  </g>
+
+  <!-- Linux Agents (left column) -->
+  <!-- Dr J -->
+  <g transform="translate(80 240)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#f97316"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Dr J</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Diagnostics &amp; Reliability</text>
+    <text x="22" y="68" fill="#64748B" font-size="11">glm-5.2:cloud</text>
+    <text x="22" y="83" fill="#f97316" font-size="10" font-weight="600">default profile</text>
+  </g>
+
+  <!-- Aiona -->
+  <g transform="translate(80 370)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#00D4FF"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Aiona</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Research &amp; Operations</text>
+    <text x="22" y="68" fill="#00D4FF" font-size="11" font-weight="600">gpt-5.6-sol · openai-codex</text>
+    <text x="22" y="83" fill="#64748B" font-size="10">Swarm 2.0 debug · WisdomForge</text>
+  </g>
+
+  <!-- Liam -->
+  <g transform="translate(80 500)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#FF6B00"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Liam</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Chief Development Officer</text>
+    <text x="22" y="68" fill="#FF6B00" font-size="11" font-weight="600">gpt-5.6-sol · openai-codex</text>
+    <text x="22" y="83" fill="#64748B" font-size="10">Praxis debug · MBH build</text>
+  </g>
+
+  <!-- Harry -->
+  <g transform="translate(80 630)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#A78BFA"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Harry</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Editor &amp; Research</text>
+    <text x="22" y="68" fill="#64748B" font-size="11">glm-5.2:cloud</text>
+    <text x="22" y="83" fill="#A78BFA" font-size="10" font-weight="600">WisdomForge research</text>
+  </g>
+
+  <!-- Pamela (right column, Linux) -->
+  <g transform="translate(580 240)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#EF4444"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Pamela</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Chief Creative Officer</text>
+    <text x="22" y="68" fill="#64748B" font-size="11">glm-5.2:cloud</text>
+    <text x="22" y="83" fill="#EF4444" font-size="10" font-weight="600">Wed 8AM Clearinghouse</text>
+  </g>
+
+  <!-- Morgan -->
+  <g transform="translate(580 370)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#F472B6"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Morgan</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Social Media Manager</text>
+    <text x="22" y="68" fill="#64748B" font-size="11">glm-5.2:cloud</text>
+    <text x="22" y="83" fill="#F472B6" font-size="10" font-weight="600">Weekly AI newsletter</text>
+  </g>
+
+  <!-- Nemo -->
+  <g transform="translate(580 630)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#76B900"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Nemo</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">LLM &amp; Inference Engineer</text>
+    <text x="22" y="68" fill="#64748B" font-size="11">glm-5.2:cloud</text>
+    <text x="22" y="83" fill="#76B900" font-size="10" font-weight="600">Local eval &amp; benchmarks</text>
+  </g>
+
+  <!-- Windows Agents (right side) -->
+  <!-- Jasmine -->
+  <g transform="translate(1180 300)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#C792EA"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Jasmine</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Principal Engineer</text>
+    <text x="22" y="68" fill="#C792EA" font-size="11" font-weight="600">Remote — Windows PC</text>
+    <text x="22" y="83" fill="#64748B" font-size="10">Upstream contributions</text>
+  </g>
+
+  <!-- Jeff -->
+  <g transform="translate(1180 450)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#00A86B"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">Jeff</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">Windows &amp; MS Ecosystem</text>
+    <text x="22" y="68" fill="#00A86B" font-size="11" font-weight="600">Remote — Windows PC</text>
+    <text x="22" y="83" fill="#64748B" font-size="10">Clearinghouse blog writer</text>
+  </g>
+
+  <!-- William -->
+  <g transform="translate(1180 600)">
+    <rect width="220" height="90" rx="10" fill="#0F172A" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <rect x="0" y="0" width="6" height="90" rx="3" fill="#60A5FA"/>
+    <text x="22" y="30" fill="#E2E8F0" font-size="16" font-weight="700">William</text>
+    <text x="22" y="50" fill="#94A3B8" font-size="11">MS AI Specialist</text>
+    <text x="22" y="68" fill="#60A5FA" font-size="11" font-weight="600">Remote — Windows PC</text>
+    <text x="22" y="83" fill="#64748B" font-size="10">Role TBD — onboarding</text>
+  </g>
+
+  <!-- Automation indicators -->
+  <g transform="translate(80 800)">
+    <circle cx="10" cy="10" r="5" fill="#FACC15" opacity="0.8"/>
+    <text x="24" y="14" fill="#FACC15" font-size="12" font-weight="600" font-family="ui-monospace, SFMono-Regular, monospace">CRON</text>
+    <text x="72" y="14" fill="#94A3B8" font-size="12">Wed 8AM Clearinghouse · Nightly research · Board dispatch</text>
+  </g>
+  <g transform="translate(700 800)">
+    <circle cx="10" cy="10" r="5" fill="#10B981" opacity="0.8"/>
+    <text x="24" y="14" fill="#10B981" font-size="12" font-weight="600" font-family="ui-monospace, SFMono-Regular, monospace">KANBAN</text>
+    <text x="82" y="14" fill="#94A3B8" font-size="12">smf-internal board · auto-dispatch · 30+ tasks shipped</text>
+  </g>
+  <g transform="translate(1180 800)">
+    <circle cx="10" cy="10" r="5" fill="#F59E0B" opacity="0.8"/>
+    <text x="24" y="14" fill="#F59E0B" font-size="12" font-weight="600" font-family="ui-monospace, SFMono-Regular, monospace">MEMORY</text>
+    <text x="88" y="14" fill="#94A3B8" font-size="12">Persistent across sessions · 7 profiles</text>
+  </g>
+
+  <!-- Footer line -->
+  <text x="80" y="870" fill="#475569" font-size="11" font-style="italic">Gabriel is the brain, Kanban is the skeleton, cron is the metabolism, memory is the conscience.</text>
+</svg>

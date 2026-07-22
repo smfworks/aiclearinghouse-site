@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="50%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <!-- Engineering grid -->
+  <g stroke="#C9A96E" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="78" x2="1200" y2="78"/>
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="234" x2="1200" y2="234"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="390" x2="1200" y2="390"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+    <line x1="0" y1="546" x2="1200" y2="546"/>
+    <line x1="100" y1="0" x2="100" y2="624"/>
+    <line x1="200" y1="0" x2="200" y2="624"/>
+    <line x1="300" y1="0" x2="300" y2="624"/>
+    <line x1="400" y1="0" x2="400" y2="624"/>
+    <line x1="500" y1="0" x2="500" y2="624"/>
+    <line x1="600" y1="0" x2="600" y2="624"/>
+    <line x1="700" y1="0" x2="700" y2="624"/>
+    <line x1="800" y1="0" x2="800" y2="624"/>
+    <line x1="900" y1="0" x2="900" y2="624"/>
+    <line x1="1000" y1="0" x2="1000" y2="624"/>
+    <line x1="1100" y1="0" x2="1100" y2="624"/>
+  </g>
+
+  <!-- Central compass/engineering symbol -->
+  <g transform="translate(600, 312)">
+    <!-- Outer ring -->
+    <circle cx="0" cy="0" r="160" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.5"/>
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#C9A96E" stroke-width="1" stroke-opacity="0.3"/>
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#ea580c" stroke-width="1" stroke-opacity="0.2"/>
+
+    <!-- Compass arms -->
+    <line x1="0" y1="-160" x2="0" y2="160" stroke="#C9A96E" stroke-width="1.5" stroke-opacity="0.4"/>
+    <line x1="-160" y1="0" x2="160" y2="0" stroke="#C9A96E" stroke-width="1.5" stroke-opacity="0.4"/>
+    <line x1="-113" y1="-113" x2="113" y2="113" stroke="#C9A96E" stroke-width="1" stroke-opacity="0.2"/>
+    <line x1="113" y1="-113" x2="-113" y2="113" stroke="#C9A96E" stroke-width="1" stroke-opacity="0.2"/>
+
+    <!-- Shield shape (compliance) -->
+    <path d="M -70 -50 L 70 -50 L 70 20 L 0 70 L -70 20 Z"
+          fill="none" stroke="#ea580c" stroke-width="2.5" stroke-opacity="0.7"/>
+    <path d="M -55 -38 L 55 -38 L 55 12 L 0 52 L -55 12 Z"
+          fill="none" stroke="#C9A96E" stroke-width="1.5" stroke-opacity="0.5"/>
+
+    <!-- Checkmark inside shield -->
+    <path d="M -22 -8 L -6 10 L 24 -20"
+          fill="none" stroke="#C9A96E" stroke-width="3" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="4" fill="#C9A96E" fill-opacity="0.6"/>
+  </g>
+
+  <!-- State abbreviation markers arranged in arc -->
+  <g font-family="monospace" font-size="14" fill="#C9A96E" fill-opacity="0.4">
+    <text x="350" y="140" text-anchor="middle">FL</text>
+    <text x="280" y="200" text-anchor="middle">GA</text>
+    <text x="220" y="270" text-anchor="middle">SC</text>
+    <text x="180" y="350" text-anchor="middle">TN</text>
+    <text x="170" y="430" text-anchor="middle">VA</text>
+    <text x="190" y="500" text-anchor="middle">WV</text>
+    <text x="260" y="540" text-anchor="middle">MD</text>
+    <text x="360" y="560" text-anchor="middle">PA</text>
+    <text x="470" y="555" text-anchor="middle">OH</text>
+    <text x="730" y="555" text-anchor="middle">NJ</text>
+    <text x="830" y="540" text-anchor="middle">NY</text>
+    <text x="920" y="510" text-anchor="middle">CT</text>
+    <text x="990" y="460" text-anchor="middle">MA</text>
+  </g>
+
+  <!-- Diagonal accent lines -->
+  <line x1="0" y1="0" x2="400" y2="624" stroke="url(#orange)" stroke-width="2"/>
+  <line x1="800" y1="0" x2="1200" y2="624" stroke="url(#gold)" stroke-width="2"/>
+
+  <!-- Subtle connecting lines from states to center -->
+  <g stroke="#C9A96E" stroke-opacity="0.08" stroke-width="1">
+    <line x1="350" y1="140" x2="600" y2="312"/>
+    <line x1="280" y1="200" x2="600" y2="312"/>
+    <line x1="220" y1="270" x2="600" y2="312"/>
+    <line x1="180" y1="350" x2="600" y2="312"/>
+    <line x1="170" y1="430" x2="600" y2="312"/>
+    <line x1="260" y1="540" x2="600" y2="312"/>
+    <line x1="470" y1="555" x2="600" y2="312"/>
+    <line x1="730" y1="555" x2="600" y2="312"/>
+    <line x1="920" y1="510" x2="600" y2="312"/>
+    <line x1="990" y1="460" x2="600" y2="312"/>
+  </g>
+</svg>
