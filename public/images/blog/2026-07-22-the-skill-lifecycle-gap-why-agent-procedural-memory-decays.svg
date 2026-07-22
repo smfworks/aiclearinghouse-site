@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0" />
+    </radialGradient>
+    <linearGradient id="decayGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.9" />
+      <stop offset="60%" style="stop-color:#00E5A0;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Grid pattern -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Ambient glow behind icon area -->
+  <circle cx="230" cy="315" r="200" fill="url(#glowGrad)"/>
+
+  <!-- Left side: Skill file stack with decay visualization -->
+
+  <!-- Stack of skill cards (markdown files) at varying opacities representing decay -->
+  <!-- Card 1 - freshest -->
+  <g opacity="0.95">
+    <rect x="120" y="200" width="160" height="80" rx="6" fill="none" stroke="#00E5A0" stroke-width="2" stroke-opacity="0.9"/>
+    <line x1="135" y1="220" x2="220" y2="220" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.7"/>
+    <line x1="135" y1="235" x2="250" y2="235" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.5"/>
+    <line x1="135" y1="250" x2="200" y2="250" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.5"/>
+    <line x1="135" y1="265" x2="230" y2="265" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <!-- Checkmark -->
+    <circle cx="260" cy="240" r="10" fill="#00E5A0" fill-opacity="0.15" stroke="#00E5A0" stroke-width="1.5"/>
+    <polyline points="255,240 259,244 266,236" fill="none" stroke="#00E5A0" stroke-width="2"/>
+  </g>
+
+  <!-- Card 2 - aging -->
+  <g opacity="0.7" transform="translate(15, 15)">
+    <rect x="120" y="300" width="160" height="80" rx="6" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.5"/>
+    <line x1="135" y1="320" x2="200" y2="320" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.4"/>
+    <line x1="135" y1="335" x2="250" y2="335" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+    <line x1="135" y1="350" x2="180" y2="350" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+    <line x1="135" y1="365" x2="220" y2="365" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25"/>
+    <!-- Warning triangle -->
+    <path d="M 255,348 L 265,365 L 245,365 Z" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.6"/>
+    <line x1="255" y1="353" x2="255" y2="360" stroke="#00E5A0" stroke-width="1.5"/>
+    <circle cx="255" cy="363" r="0.8" fill="#00E5A0"/>
+  </g>
+
+  <!-- Card 3 - stale/orphaned -->
+  <g opacity="0.35" transform="translate(30, 30)">
+    <rect x="120" y="400" width="160" height="80" rx="6" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25" stroke-dasharray="4,3"/>
+    <line x1="135" y1="420" x2="180" y2="420" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.2"/>
+    <line x1="135" y1="435" x2="220" y2="435" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.15"/>
+    <line x1="135" y1="450" x2="160" y2="450" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.15"/>
+    <!-- Broken link icon -->
+    <g transform="translate(245, 438)" opacity="0.5">
+      <path d="M 0,5 L 8,5 M 12,5 L 20,5" stroke="#00E5A0" stroke-width="1.5" fill="none"/>
+      <path d="M 5,1 Q 0,1 0,5 Q 0,9 5,9" stroke="#00E5A0" stroke-width="1.5" fill="none"/>
+      <path d="M 15,1 Q 20,1 20,5 Q 20,9 15,9" stroke="#00E5A0" stroke-width="1.5" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Decay arrow on left side - showing degradation over time -->
+  <path d="M 310,240 Q 320,320 315,440" fill="none" stroke="url(#decayGrad)" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Time labels on left -->
+  <text x="325" y="245" fill="#00E5A0" font-family="monospace" font-size="10" opacity="0.6">Day 1</text>
+  <text x="325" y="345" fill="#00E5A0" font-family="monospace" font-size="10" opacity="0.4">Day 60</text>
+  <text x="325" y="445" fill="#00E5A0" font-family="monospace" font-size="10" opacity="0.25">Day 90+</text>
+
+  <!-- Right side: Text content -->
+
+  <!-- Small Dr J label -->
+  <rect x="520" y="100" width="60" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="550" y="115" fill="#00E5A0" font-family="monospace" font-size="11" text-anchor="middle" opacity="0.8">DR J</text>
+
+  <!-- Main title -->
+  <text x="520" y="175" fill="#e8e8e8" font-family="Arial, sans-serif" font-size="30" font-weight="bold">
+    The Skill Lifecycle Gap
+  </text>
+  <text x="520" y="215" fill="#00E5A0" font-family="Arial, sans-serif" font-size="20" font-weight="normal" opacity="0.85">
+    Why Agent Procedural Memory Decays
+  </text>
+
+  <!-- Divider -->
+  <line x1="520" y1="240" x2="1100" y2="240" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.2"/>
+
+  <!-- Key concepts as terminal-style lines -->
+  <text x="520" y="275" fill="#00E5A0" font-family="monospace" font-size="13" opacity="0.7">
+    &gt; Reference Rot: 40% of skills >60 days
+  </text>
+  <text x="520" y="300" fill="#888" font-family="monospace" font-size="13" opacity="0.6">
+    &gt; Tool Drift: silent gaps in execution
+  </text>
+  <text x="520" y="325" fill="#888" font-family="monospace" font-size="13" opacity="0.6">
+    &gt; Orphaned Skills: cron calls dead refs
+  </text>
+  <text x="520" y="350" fill="#888" font-family="monospace" font-size="13" opacity="0.6">
+    &gt; Model Incompatibility: untested swap
+  </text>
+  <text x="520" y="375" fill="#888" font-family="monospace" font-size="13" opacity="0.6">
+    &gt; Proliferation: 200+ overlapping skills
+  </text>
+
+  <!-- Divider -->
+  <line x1="520" y1="400" x2="1100" y2="400" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.15"/>
+
+  <!-- Bottom metrics row -->
+  <g opacity="0.6">
+    <text x="520" y="425" fill="#00E5A0" font-family="monospace" font-size="11">DETECTION</text>
+    <text x="520" y="445" fill="#666" font-family="monospace" font-size="11">skill audit cron</text>
+  </g>
+  <g opacity="0.6">
+    <text x="720" y="425" fill="#00E5A0" font-family="monospace" font-size="11">REMEDIATION</text>
+    <text x="720" y="445" fill="#666" font-family="monospace" font-size="11">patch loop</text>
+  </g>
+  <g opacity="0.6">
+    <text x="920" y="425" fill="#00E5A0" font-family="monospace" font-size="11">PREVENTION</text>
+    <text x="920" y="445" fill="#666" font-family="monospace" font-size="11">validity context</text>
+  </g>
+
+  <!-- Bottom border accent -->
+  <rect x="0" y="620" width="1200" height="10" fill="#00E5A0" opacity="0.3"/>
+
+  <!-- Corner accent lines -->
+  <line x1="0" y1="0" x2="80" y2="0" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+  <line x1="0" y1="0" x2="0" y2="80" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+  <line x1="1200" y1="630" x2="1120" y2="630" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+  <line x1="1200" y1="630" x2="1200" y2="550" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+
+  <!-- Date stamp -->
+  <text x="1100" y="590" fill="#00E5A0" font-family="monospace" font-size="12" text-anchor="end" opacity="0.4">
+    2026.07.22
+  </text>
+</svg>
