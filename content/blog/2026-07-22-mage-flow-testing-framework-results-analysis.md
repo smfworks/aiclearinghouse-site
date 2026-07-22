@@ -101,6 +101,40 @@ We tested 8 diverse prompt categories at 1024×1024 with 4-step Turbo:
 
 **Key Finding:** The color channel distributions perfectly match the scene semantics. The portrait has warm skin tones (R=135 > G=122 > B=108). The Salar de Uyuni landscape has cool blue tones (B=129 > G=116 > R=89). The cyberpunk abstract is dark with blue dominance (B=131, mean=89.5). This is strong evidence that the model is following the prompts, not just producing random images.
 
+Here are the actual generated images from the test suite:
+
+**Portrait — "An elderly African man with deep wrinkles, wearing a traditional hat" (1024×1024, 10.4s):**
+
+![Portrait](/images/blog/mage-flow-test/portrait.png)
+
+**Landscape — "Salar de Uyuni mirror surface at high noon" (1024×1024, 9.1s):**
+
+![Landscape](/images/blog/mage-flow-test/landscape.png)
+
+**Cuisine — "Steaming bowl of Sichuan mapo tofu, Hasselblad H6D-100c" (1024×1024, 9.0s):**
+
+![Cuisine](/images/blog/mage-flow-test/cuisine.png)
+
+**Fantasy — "Dragon perched on a castle tower at sunset" (1024×1024, 9.8s):**
+
+![Fantasy](/images/blog/mage-flow-test/fantasy.png)
+
+**Abstract — "Swirling neon colors, geometric shapes, cyberpunk aesthetic" (1024×1024, 9.7s):**
+
+![Abstract](/images/blog/mage-flow-test/abstract.png)
+
+**Architecture — "Brutalist concrete library at golden hour" (1024×1024, 8.9s):**
+
+![Architecture](/images/blog/mage-flow-test/architecture.png)
+
+**Animal — "Snow leopard on a Himalayan cliff" (1024×1024, 8.6s):**
+
+![Animal](/images/blog/mage-flow-test/animal.png)
+
+**People — "Five friends laughing at an outdoor cafe" (1024×1024, 8.9s):**
+
+![People](/images/blog/mage-flow-test/people_group.png)
+
 Average latency: **9.4 seconds** for 1024² with 4-step Turbo on the Radeon 8060S.
 
 ---
@@ -121,6 +155,14 @@ Average latency: **9.4 seconds** for 1024² with 4-step Turbo on the Radeon 8060
 
 **Key Finding:** Mage-Flow's native-resolution packing is genuinely impressive. The extreme 4:1 aspect ratios (2048×512 and 512×2048) generate without any visible distortion or artifacts — the model handles variable-length sequences natively through its NR-MMDiT architecture. Latency scales sub-linearly: 512² at 5.5s vs 1024² at 9.1s is only 1.65× slower for 4× more pixels, thanks to the single packed forward per denoise step.
 
+**Extreme portrait — 2048×512 (4:1 ratio, 9.1s):**
+
+![Extreme Portrait](/images/blog/mage-flow-test/extreme_portrait.png)
+
+**Extreme landscape — 512×2048 (1:4 ratio, 9.1s):**
+
+![Extreme Landscape](/images/blog/mage-flow-test/extreme_landscape.png)
+
 The 1536² OOM is our infrastructure limitation, not the model's. With flash-attn (which uses ~40% less memory than our manual bmm fallback), 1536² and even 2048² would be feasible.
 
 ---
@@ -138,6 +180,22 @@ The 1536² OOM is our infrastructure limitation, not the model's. With flash-att
 
 **Key Finding:** Text rendering is a strong capability. The model handles both English and Chinese text, and the mixed-language test produced a clean bilingual poster. The channel distributions confirm the prompts are followed: the neon sign test produced a dark image (mean=46.2) with high variance (std=57.8), consistent with a bright neon sign against a dark brick wall. The calligraphy test produced a bright white image (mean=212.0) consistent with a white card.
 
+**"HELLO WORLD" on a coffee mug (1024×1024, 9.0s):**
+
+![Text English Simple](/images/blog/mage-flow-test/text_en_simple.png)
+
+**"OPEN 24 HOURS" neon sign (1024×1024, 9.1s):**
+
+![Text English Sign](/images/blog/mage-flow-test/text_en_sign.png)
+
+**Chinese calligraphy "你好世界" (1024×1024, 9.1s):**
+
+![Text Chinese](/images/blog/mage-flow-test/text_zh_simple.png)
+
+**Bilingual poster "WELCOME" + "欢迎" (1024×1024, 9.1s):**
+
+![Text Mixed](/images/blog/mage-flow-test/text_mixed.png)
+
 Character-level accuracy would require human visual inspection of the saved images — our automated metrics can only confirm that the image has the right overall composition and color distribution, not whether individual letters are correctly rendered.
 
 ---
@@ -152,7 +210,23 @@ Character-level accuracy would require human visual inspection of the saved imag
 | Total latency | 25.2 seconds |
 | Per-image latency | 8.4 seconds |
 
-**Key Finding:** The batch generation is more efficient than sequential generation — 8.4s per image vs 9.1s for a single 1024² generation. This ~8% efficiency gain comes from the native-resolution packing: all three images are concatenated into a single variable-length sequence and processed in one transformer forward pass per denoise step. The model's architecture is specifically designed for this — per-sample 2D RoPE and FlashAttention var-len (in our case, SDPA var-len) keep each image isolated within the packed sequence.
+**Key Finding:** The batch generation is more efficient than sequential generation — 8.4s per image vs 9.1s for a single 1024² generation. This ~8% efficiency gain comes from the native-resolution packing: all three images are concatenated into a single variable-length sequence and processed in one transformer forward pass per denoise step.
+
+**Batch results — 3 images at mixed resolutions in one packed forward (25.2s total):**
+
+**Futuristic city skyline (512×1024):**
+
+![Batch City](/images/blog/mage-flow-test/batch_city.png)
+
+**Mountain lake at dawn (1024×1024):**
+
+![Batch Lake](/images/blog/mage-flow-test/batch_lake.png)
+
+**Steampunk airship over London (768×1536):**
+
+![Batch Airship](/images/blog/mage-flow-test/batch_airship.png)
+
+The model's architecture is specifically designed for this — per-sample 2D RoPE and FlashAttention var-len (in our case, SDPA var-len) keep each image isolated within the packed sequence.
 
 ---
 
@@ -172,6 +246,27 @@ Character-level accuracy would require human visual inspection of the saved imag
 **Key Finding:** The editing tests reveal a clear pattern: editing 512px reference images works perfectly (4/4 pass), but editing 1024px source images OOMs (0/4 pass). The edit pipeline needs to VAE-encode the reference image and run the DiT inference simultaneously, which roughly doubles memory usage compared to T2I generation alone.
 
 The successful edits demonstrate real capability:
+
+**Source image (generated golden retriever, 1024×1024):**
+
+![Source Dog](/images/blog/mage-flow-test/edit_source_dog.png)
+
+**Edit: "Replace the background with a field of sunflowers" (512×1024, 7.2s):**
+
+![Edit Sunflowers](/images/blog/mage-flow-test/edit_bg_swap_sunflowers.png)
+
+**Edit: "Replace the background with a tropical beach at sunset" (512×1024, 7.4s):**
+
+![Edit Beach](/images/blog/mage-flow-test/edit_bg_swap_beach.png)
+
+**Edit: "Add a red balloon floating next to the dog" (512×1024, 7.5s):**
+
+![Edit Balloon](/images/blog/mage-flow-test/edit_object_add_balloon.png)
+
+**Edit: "Change the dog's fur color to white" (512×1024, 7.4s):**
+
+![Edit White Fur](/images/blog/mage-flow-test/edit_color_change_white.png)
+
 - **Background swap to sunflowers**: The output has warm yellow tones (B=63.4, very low blue channel) consistent with sunflower colors
 - **Add red balloon**: The output has elevated red (R=110.2) and darker overall tones (mean=85.0) consistent with a red object added to the scene
 - **Change fur to white**: Neutral tones (R=116, G=105, B=98) with high variance (std=80.1) — the white fur creates strong contrast

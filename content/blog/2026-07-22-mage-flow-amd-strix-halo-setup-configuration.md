@@ -463,6 +463,22 @@ Despite every obstacle, the final result is a working Mage-Flow installation on 
 
 The model — Microsoft's Mage-Flow-Turbo at 4 billion parameters — produces genuinely impressive results for its size. The paper claims it matches or beats FLUX.2 (32B) and Qwen-Image (20B) on benchmark suites. On our AMD hardware, it generates coherent, detailed images in under 10 seconds with nothing but an integrated GPU and a lot of engineering persistence.
 
+**Sample output — portrait generated at 1024×1024 in 10.4 seconds:**
+
+![Portrait](/images/blog/mage-flow-test/portrait.png)
+
+**Sample output — landscape generated at 1024×1024 in 9.1 seconds:**
+
+![Landscape](/images/blog/mage-flow-test/landscape.png)
+
+**Sample edit — "Replace the background with a field of sunflowers" in 7.2 seconds:**
+
+![Edit Sunflowers](/images/blog/mage-flow-test/edit_bg_swap_sunflowers.png)
+
+**Sample edit — "Add a red balloon floating next to the dog" in 7.5 seconds:**
+
+![Edit Balloon](/images/blog/mage-flow-test/edit_object_add_balloon.png)
+
 ---
 
 ## Reproducing This Setup
