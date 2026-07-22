@@ -9,7 +9,7 @@ series: "hermes-tools"
 categories: ["Hermes Agent", "Skill Evolution", "Code Diffing", "Version Control", "Developer Tools"]
 tags: ["skill-evolution", "code-diff", "version-control", "react-flow", "nextjs", "hermes", "skill-forge"]
 readTime: 14
-image: "/images/blog/2026-07-22-hermes-skill-forge.png"
+image: "/images/blog/2026-07-22-hermes-skill-forge.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-22-hermes-skill-forge-visual-skill-evolution"
 ---
 

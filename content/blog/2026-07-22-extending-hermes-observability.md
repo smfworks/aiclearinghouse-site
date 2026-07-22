@@ -9,7 +9,7 @@ series: "hermes-tools"
 categories: ["Hermes Agent", "Observability", "Monitoring", "Integration", "Custom Development"]
 tags: ["observability", "monitoring", "custom-visualizations", "prometheus", "grafana", "opentelemetry", "hermes", "extensibility"]
 readTime: 15
-image: "/images/blog/2026-07-22-extending-hermes-observability.png"
+image: "/images/blog/2026-07-22-extending-hermes-observability.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-22-extending-hermes-observability"
 ---
 

@@ -9,7 +9,7 @@ series: "hermes-tools"
 categories: ["Hermes Agent", "Observability", "Next.js", "React Flow", "Real-Time Systems"]
 tags: ["agent-observability", "sse", "react-flow", "nextjs", "typescript", "hermes"]
 readTime: 12
-image: "/images/blog/2026-07-22-hermes-mission-control.png"
+image: "/images/blog/2026-07-22-hermes-mission-control.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-07-22-hermes-mission-control-real-time-agent-observability"
 ---
 
