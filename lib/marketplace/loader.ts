@@ -67,8 +67,14 @@ export function getAllItems(section: string): MarketplaceItem[] {
     .map((file) => loadItem(section, file.replace(/\.md$/, "")))
     .filter((p): p is MarketplaceItem => p !== undefined)
     .sort((a, b) => {
+      // Newest first: sort by last_verified date descending, then by date, then by order
+      const dateA = a.last_verified || a.date || a.published_at;
+      const dateB = b.last_verified || b.date || b.published_at;
+      if (dateA && dateB) {
+        const cmp = new Date(String(dateB)).getTime() - new Date(String(dateA)).getTime();
+        if (cmp !== 0) return cmp;
+      }
       if (typeof a.order === "number" && typeof b.order === "number") return a.order - b.order;
-      if (a.date && b.date) return new Date(String(b.date)).getTime() - new Date(String(a.date)).getTime();
       return a.title.localeCompare(b.title);
     });
 }
