@@ -70,10 +70,10 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
   {
     key: "gabriel",
     name: "Gabriel",
-    role: "Chief AI Correspondent",
+    role: "Chief of Staff & Principal Project Manager",
     series: "terminal",
     color: "#FACC15",
-    bio: "OpenClaw on Linux, local LLMs, coding productivity, and the ecosystem reporting that makes it usable.",
+    bio: "Agent fleet coordination, project management, and the operational infrastructure that keeps SMF Works running.",
   },
   {
     key: "morgan",
