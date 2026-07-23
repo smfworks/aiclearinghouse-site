@@ -219,47 +219,43 @@ Miss any leg and “it works in my tenant admin account” becomes “it fails f
 
 ---
 
-## Production build path (copy this checklist)
+## Production build path
 
-1. **Stand up the Foundry project** in a supported region; confirm tool-type region/model compatibility for MCP, Work IQ, Tool Search, etc.  
-2. **Create project connections** with the correct auth type per downstream system—oauth2 / user-entra-token for user-context tools; agentic-identity or project-managed-identity for service paths; custom-keys for SaaS keys. Never embed secrets in agent images.  
-3. **Publish toolbox v1** with descriptions, Tool Search if the catalog will grow, and explicit `require_approval` on high-blast tools. Auto-default is fine for first publish.  
-4. **Validate on the developer (version) MCP URL** — `tools/list` shape, namespacing, approval meta, and a live `tools/call` for each auth class.  
-5. **Wire the hosted agent** to the **consumer** MCP URL via `MCPStreamableHTTPTool` (Agent Framework) or equivalent MCP client. Prefer Responses protocol for conversational agents.  
-6. **RBAC** — assign Foundry User to developer, agent identity, and OAuth end-user principals as required.  
-7. **Guardrails** — attach RAI policy to the toolbox version; front untrusted MCP with APIM where needed.  
-8. **Promote** new toolbox versions after canary; leave agent code and consumer URL unchanged.  
-9. **Observe** — Hosted Agents + Application Insights agents view for runs; pair with Azure Monitor for stack-wide latency and dependency failures.  
-10. **License and data boundary review** — Work IQ and third-party MCP may cross compliance boundaries; document approvals and M365 Copilot license requirements.
+1. **Foundry project** in a supported region; check tool-type region/model compatibility.  
+2. **Connections** — oauth2 / user-entra-token for user-context tools; agentic- or project-managed-identity for service paths; custom-keys for SaaS. No secrets in agent images.  
+3. **Toolbox v1** — descriptions, Tool Search if the catalog grows, `require_approval` on high-blast tools.  
+4. **Validate** on the developer MCP URL (`tools/list`, approval meta, one live call per auth class).  
+5. **Hosted agent** → **consumer** MCP URL via `MCPStreamableHTTPTool` (or equivalent). Prefer Responses for chat agents.  
+6. **RBAC** for developer, agent identity, and OAuth end users; **RAI** on the toolbox version; APIM in front of untrusted MCP.  
+7. **Promote** after canary; leave consumer URL and agent code unchanged.  
+8. **Observe** via Application Insights agents view + Azure Monitor; review Work IQ / third-party data-boundary and M365 Copilot license needs.
 
 ---
 
-## How this fits the rest of the July Foundry stack
+## How this fits the July Foundry stack
 
-Toolboxes are not a replacement for the other production pieces you have been shipping against this month—they are the **tool plane** that makes those pieces usable with real identity:
+Toolboxes are the **tool plane** next to the rest of the month’s surface:
 
 | Capability | Role next to Toolboxes |
 | --- | --- |
-| **Hosted Agents** | Runtime/sandbox + agent identity; tools come from toolbox MCP, not inline definition |
-| **Agent Framework harness** (2026-07-22) | Planning, compaction, skills, approvals, OTel—consume toolbox as MCP tools |
-| **AI Gateway control plane** (2026-07-20) | Govern **model** TPM/routing via APIM; toolbox + APIM-fronted MCP govern **tools** |
-| **Agent Optimizer** (2026-07-18) | Closed-loop quality on agent behavior once tools are stable and observable |
-| **Work IQ** | First-class M365 grounding tool under user delegation |
-| **Foundry IQ / knowledge** | Knowledge plane; still connect through governed tool patterns |
+| **Hosted Agents** | Runtime + agent identity; tools via toolbox MCP, not inline definition |
+| **Agent Framework harness** (2026-07-22) | Loop, approvals, OTel—consume toolbox as MCP tools |
+| **AI Gateway control plane** (2026-07-20) | Model TPM/routing via APIM; toolbox + APIM-fronted MCP for tools |
+| **Agent Optimizer** (2026-07-18) | Closed-loop quality once tools are stable |
+| **Work IQ / Foundry IQ** | M365 grounding and knowledge under governed tool patterns |
 
-If last week’s question was “how do we run the loop?”, this week’s question is “how do we call enterprise tools **as the right principal** without rewriting every agent?” Toolboxes are Microsoft’s answer.
+If last week’s question was “how do we run the loop?”, this week’s is “how do we call enterprise tools **as the right principal** without rewriting every agent?” Toolboxes are Microsoft’s answer.
 
 ---
 
 ## What to do this week
 
-1. Pick one agent that already needs **user context** (mail, calendar, or a private Entra MCP).  
-2. Move its tools into a toolbox with **oauth2 / user-entra-token** connections—leave agent code auth-free.  
-3. Point a non-prod hosted agent at the **developer** MCP URL; verify isolation with two test users.  
-4. Promote to consumer default only after approval maps and RAI policy are in place.  
-5. Add Tool Search before the catalog exceeds what you want in the system prompt.
+1. Pick one agent that needs **user context** (mail, calendar, or private Entra MCP).  
+2. Move tools into a toolbox with **oauth2 / user-entra-token** connections—agent code stays auth-free.  
+3. Point non-prod at the **developer** MCP URL; verify isolation with two test users.  
+4. Promote to consumer default only after approval maps and RAI are in place; add Tool Search before the catalog bloats the prompt.
 
-Primary sources to keep open while you build:
+Primary sources:
 
 - [Building Agents that Act on Your Behalf with Toolboxes in Foundry](https://devblogs.microsoft.com/foundry/building-agents-that-act-on-your-behalf-with-toolboxes-in-foundry/) (July 22, 2026)  
 - [Create, test, and deploy a toolbox in Foundry](https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/toolbox)  
