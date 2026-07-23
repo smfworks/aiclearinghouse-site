@@ -27,7 +27,7 @@ An internal employee agent that can summarize mail, check calendar, and hit a pr
 
 On **July 22, 2026**, Linda and Maria on the Microsoft Foundry Blog published *Building Agents that Act on Your Behalf with Toolboxes in Foundry*. The post is short and sharp: put auth on the **toolbox connection**, not in agent code; let Foundry acquire, exchange, and refresh tokens server-side; expose one **versioned MCP endpoint** that any compatible harness can consume. Combined with the Microsoft Learn guide *Create, test, and deploy a toolbox in Foundry* and the Hosted Agents / Work IQ docs, that is enough surface for a full production deep dive.
 
-This Clearinghouse article is the field guide: why DIY user delegation fails at scale, how Toolboxes collapse that surface, the auth matrix, consumer vs developer endpoints, approval and RAI guardrails, and a concrete build path for hosted agents.
+This Clearinghouse article is the field guide: why DIY user delegation fails at scale, how Toolboxes collapse that surface, the auth matrix, endpoints, approvals, and a concrete hosted-agent build path.
 
 ---
 
