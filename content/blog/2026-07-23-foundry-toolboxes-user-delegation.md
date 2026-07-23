@@ -21,7 +21,7 @@ image: "/images/blog/2026-07-23-foundry-toolboxes-user-delegation-hero.png"
 
 ## The moment the agent stops answering and starts acting
 
-Most agent demos die the same way: the model is fine, the tools work in Postman, and then someone asks the production question—*whose identity is this call using?*
+Most agent demos die the same way: the model is fine, the tools work in Postman, and then someone asks—*whose identity is this call using?*
 
 An internal employee agent that can summarize mail, check calendar, and hit a private orders MCP server cannot run as a shared service principal if you care about Microsoft 365 permissions, sensitivity labels, or per-user audit. It has to act as the **signed-in user**. That means On-Behalf-Of (OBO) token exchange, per-user token isolation, consent, refresh, and retries—for every tool, in every agent.
 
