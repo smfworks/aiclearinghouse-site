@@ -31,17 +31,17 @@ This Clearinghouse article is the field guide: why DIY user delegation fails at 
 
 ---
 
-## Why DIY user delegation burns weeks before business logic
+## Why DIY user delegation burns weeks
 
-The July 22 post walks a realistic employee-agent scenario: private Entra-protected MCP for orders **plus** Microsoft’s managed **Work IQ** surface for Microsoft 365 context. Both require **user delegation**. If you implement that yourself, you typically rebuild three classes of infrastructure before the first line of domain logic lands:
+The July 22 post walks a realistic employee-agent scenario: private Entra-protected MCP for orders **plus** Microsoft’s managed **Work IQ** surface for Microsoft 365 context. Both require **user delegation**. Building that yourself usually means three infrastructure classes before domain logic:
 
 | Failure mode | What goes wrong in practice |
 | --- | --- |
 | **Token isolation** | Cache keys must partition by user and tenant. A wrong key silently leases User A’s downstream access to User B. |
-| **Consent and refresh** | Every API has its own consent failure shape, refresh path, and retry semantics. Agents that “sometimes work after login” are usually broken here. |
+| **Consent and refresh** | Every API has its own consent failure shape, refresh path, and retry semantics. |
 | **Duplication across agents** | Each new tool adds scopes, exchange paths, headers, and brokers. Hundreds of tools × many agents becomes a second product. |
 
-That is not a model-quality problem. It is an **identity and tool lifecycle** problem. Enterprises already own gateways, vaults, and policy engines. What was missing was a developer experience that packages those controls into something **reusable, discoverable, and governed by default**.
+That is an **identity and tool lifecycle** problem. Enterprises already own gateways, vaults, and policy engines. What was missing was a developer experience that packages those controls into something **reusable, discoverable, and governed by default**.
 
 ---
 
@@ -56,14 +56,14 @@ Per Microsoft Learn, a toolbox is a **curated, centrally managed set of tools** 
 | **Build** | Available | Select tools, configure authentication centrally, publish a reusable toolbox. |
 | **Consume** | Available | Any MCP-compatible agent runtime, IDE, or custom client discovers and invokes tools through one endpoint. |
 
-Important operational properties:
+Operational properties that matter in production:
 
 - **Single stable consumer URL** — agents keep one endpoint; tools behind it can change.
-- **Versioning** — create and test a new version, then **promote** it to `default_version`. Agents on the consumer endpoint pick up the promotion without redeploy.
-- **Open consumption surface** — Microsoft Agent Framework, LangGraph, Copilot SDK, hosted agents, and custom MCP clients all work against the same contract.
-- **Hosted-agent guidance** — Learn’s Hosted Agents concept page is explicit: adding tools directly on the hosted agent definition is **not** supported; use toolboxes and connect via MCP client libraries.
+- **Versioning** — create and test a new version, then **promote** it to `default_version` without redeploying agents.
+- **Open consumption** — Microsoft Agent Framework, LangGraph, Copilot SDK, hosted agents, and custom MCP clients share the contract.
+- **Hosted-agent guidance** — Learn’s Hosted Agents page is explicit: do **not** add tools directly on the hosted agent definition; use toolboxes via MCP clients.
 
-That last point matters for production architecture. Hosted agents bring your container, Entra **agent identity**, sandbox, and protocols (Responses, Invocations, A2A). Toolboxes bring the **tool plane**. Keep those planes separate.
+Hosted agents bring your container, Entra **agent identity**, sandbox, and protocols (Responses, Invocations, A2A). Toolboxes bring the **tool plane**. Keep those planes separate.
 
 ---
 
