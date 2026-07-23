@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-06-24T12:00:00.000Z",
-  "updated_at": "2026-06-24T12:00:00.000Z",
+  "generated_at": "2026-07-23T12:59:39.000Z",
+  "updated_at": "2026-07-23T12:59:39.000Z",
   "source": "comprehensive_manual",
   "providers": [
     {
       "id": "openai",
       "name": "OpenAI",
-      "description": "Leading AI lab and API provider. Creators of GPT, o-series reasoning models, and DALL\u00b7E.",
+      "description": "Leading AI lab and API provider. Creators of GPT, o-series reasoning models, and DALL·E.",
       "website": "https://openai.com",
       "pricing_url": "https://openai.com/api/pricing/",
       "icon": "/images/llms/openai.svg",
@@ -25,6 +25,20 @@
           "category": "Flagship",
           "description": "OpenAI's widely available 2026 coding and reasoning workhorse for ChatGPT, Codex, and the API. Strong tool use with large context.",
           "release_date": "2026-03"
+        },
+        {
+          "model": "GPT-5.6",
+          "model_id": "gpt-5-6",
+          "input_price": 5.0,
+          "output_price": 30.0,
+          "cached_input_price": 1.25,
+          "context_window": 1000000,
+          "max_output_tokens": 65536,
+          "mmlu": 91.0,
+          "humaneval": 93.0,
+          "category": "Flagship",
+          "description": "OpenAI's July 2026 three-tier family (Sol / Terra / Luna) with programmatic tool calling in the Responses API. Sol is the frontier tier for coding, reasoning, and agent workflows.",
+          "release_date": "2026-07"
         },
         {
           "model": "GPT-4.1",
@@ -283,7 +297,7 @@
           "release_date": "2025-02"
         },
         {
-          "model": "DALL\u00b7E 3",
+          "model": "DALL·E 3",
           "model_id": "dall-e-3",
           "input_price": 0.04,
           "output_price": 0.04,
@@ -1290,6 +1304,20 @@
           "max_output_tokens": 8192,
           "category": "Mid-range",
           "description": "Dense 27B model for coding, reasoning, and agent workloads.",
+          "release_date": "2026-06"
+        },
+        {
+          "model": "Qwen-AgentWorld-35B-A3B",
+          "model_id": "qwen-agentworld-35b-a3b",
+          "input_price": 0.3,
+          "output_price": 1.2,
+          "cached_input_price": null,
+          "context_window": 262144,
+          "max_output_tokens": 32768,
+          "mmlu": 85.0,
+          "humaneval": 82.0,
+          "category": "Agentic",
+          "description": "Qwen's language world model that simulates agent environments across MCP, search, terminal, SWE, Android, web, and OS in a single 35B MoE (3B active). Apache 2.0.",
           "release_date": "2026-06"
         }
       ]
