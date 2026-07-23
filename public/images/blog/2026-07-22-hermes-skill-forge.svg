@@ -1,0 +1,12 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="40" y="40" width="1120" height="550" rx="20" fill="#151515" stroke="#333" stroke-width="1"/>
+  <text x="600" y="200" font-family="monospace" font-size="48" fill="#a855f7" text-anchor="middle" font-weight="bold">HERMES</text>
+  <text x="600" y="260" font-family="monospace" font-size="36" fill="#ffffff" text-anchor="middle">SKILL FORGE</text>
+  <text x="600" y="330" font-family="monospace" font-size="20" fill="#9ca3af" text-anchor="middle">Visual Studio for Skill Evolution</text>
+  <text x="600" y="370" font-family="monospace" font-size="18" fill="#6b7280" text-anchor="middle">Version Timelines • Code Diffs • Branching</text>
+  <text x="600" y="440" font-family="monospace" font-size="14" fill="#4b5563" text-anchor="middle">React Flow • diff • Next.js 16</text>
+  <path d="M300 470 L340 510 L400 450" stroke="#10b91e" stroke-width="2" fill="none"/>
+  <path d="M880 470 L840 510 L780 450" stroke="#f59e0b" stroke-width="2" fill="none"/>
+  <rect x="580" y="480" width="40" height="20" rx="4" fill="#3b82f6"/>
+</svg>
