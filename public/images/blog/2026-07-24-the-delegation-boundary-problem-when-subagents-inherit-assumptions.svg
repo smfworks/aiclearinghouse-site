@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The Delegation Boundary Problem</title>
+  <desc id="desc">A dark technical diagram showing a parent agent delegating to a child agent through a permeable boundary, with invisible inheritance channels leaking context, tools, model bias, and unverified self-reports.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e14"/>
+      <stop offset="50%" stop-color="#0d1520"/>
+      <stop offset="100%" stop-color="#0a0e14"/>
+    </linearGradient>
+    <linearGradient id="parentGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2332" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f1620" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="childGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2332" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f1620" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="boundaryGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#00E5A0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feOffset dx="0" dy="4" in="blur" result="offsetBlur"/>
+      <feMerge>
+        <feMergeNode in="offsetBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="0.5">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="60" y1="0" x2="60" y2="630"/>
+    <line x1="120" y1="0" x2="120" y2="630"/>
+    <line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="240" y1="0" x2="240" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/>
+    <line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="480" y1="0" x2="480" y2="630"/>
+    <line x1="540" y1="0" x2="540" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="660" y1="0" x2="660" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="780" y1="0" x2="780" y2="630"/>
+    <line x1="840" y1="0" x2="840" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="960" y1="0" x2="960" y2="630"/>
+    <line x1="1020" y1="0" x2="1020" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/>
+    <line x1="1140" y1="0" x2="1140" y2="630"/>
+  </g>
+
+  <!-- Header text -->
+  <text x="600" y="48" text-anchor="middle" font-family="monospace" font-size="14" fill="#00E5A0" opacity="0.7" letter-spacing="3">DR J — INFRASTRUCTURE DIAGNOSTICS</text>
+  <text x="600" y="78" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#e8edf2" letter-spacing="0.5">The Delegation Boundary Problem</text>
+  <text x="600" y="100" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#6b7d94">When subagents inherit assumptions they shouldn't</text>
+
+  <!-- PARENT AGENT BOX (left) -->
+  <g filter="url(#softShadow)">
+    <rect x="60" y="140" width="380" height="340" rx="12" fill="url(#parentGrad)" stroke="#2a3a4e" stroke-width="1.5"/>
+    <text x="250" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="#00E5A0" opacity="0.8" letter-spacing="2">PARENT AGENT</text>
+    <line x1="80" y1="180" x2="420" y2="180" stroke="#2a3a4e" stroke-width="0.5"/>
+
+    <!-- Parent internal items -->
+    <g font-family="monospace" font-size="10" fill="#8899aa">
+      <!-- Conversation history -->
+      <rect x="80" y="195" width="140" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="150" y="212" text-anchor="middle">conversation_history</text>
+
+      <!-- Model bias -->
+      <rect x="80" y="233" width="140" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="150" y="250" text-anchor="middle">model_behavior</text>
+
+      <!-- Tool surface -->
+      <rect x="80" y="271" width="140" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="150" y="288" text-anchor="middle">tool_surface</text>
+
+      <!-- Memory store -->
+      <rect x="80" y="309" width="140" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="150" y="326" text-anchor="middle">memory_store</text>
+
+      <!-- Verification -->
+      <rect x="80" y="347" width="140" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="150" y="364" text-anchor="middle">verification</text>
+
+      <!-- Context string -->
+      <rect x="240" y="195" width="180" height="60" rx="4" fill="#0d1520" stroke="#00E5A0" stroke-width="0.5" stroke-dasharray="3,2" opacity="0.8"/>
+      <text x="330" y="215" text-anchor="middle" fill="#00E5A0" opacity="0.8">context_string</text>
+      <text x="330" y="232" text-anchor="middle" font-size="9" fill="#5a6d80">"free-text blob"</text>
+      <text x="330" y="245" text-anchor="middle" font-size="9" fill="#5a6d80">no schema, no types</text>
+
+      <!-- Goal -->
+      <rect x="240" y="270" width="180" height="40" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="330" y="293" text-anchor="middle">goal: "write blog post"</text>
+
+      <!-- Trust indicator -->
+      <rect x="240" y="325" width="180" height="50" rx="4" fill="#0d1520" stroke="#ff6b6b" stroke-width="0.5" opacity="0.7"/>
+      <text x="330" y="345" text-anchor="middle" fill="#ff6b6b" opacity="0.8">trusts self-report</text>
+      <text x="330" y="360" text-anchor="middle" font-size="9" fill="#5a6d80">no independent check</text>
+    </g>
+
+    <!-- Status indicators -->
+    <text x="250" y="455" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a6d80">session_id: parent-0x4a2c</text>
+  </g>
+
+  <!-- DELEGATION BOUNDARY (center) -->
+  <g>
+    <!-- Boundary line -->
+    <rect x="465" y="140" width="6" height="340" fill="url(#boundaryGrad)"/>
+
+    <!-- Boundary label -->
+    <rect x="445" y="115" width="46" height="20" rx="3" fill="#0d1520" stroke="#00E5A0" stroke-width="0.5" opacity="0.9"/>
+    <text x="468" y="129" text-anchor="middle" font-family="monospace" font-size="8" fill="#00E5A0" letter-spacing="1">BOUNDARY</text>
+
+    <!-- Dashed permeable boundary -->
+    <line x1="468" y1="160" x2="468" y2="460" stroke="#00E5A0" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+
+    <!-- Leak arrows -->
+    <!-- Model inheritance leak -->
+    <g opacity="0.7">
+      <path d="M 440 215 L 520 215" stroke="#ff9f43" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+      <polygon points="520,215 514,212 514,218" fill="#ff9f43"/>
+      <text x="480" y="208" text-anchor="middle" font-family="monospace" font-size="8" fill="#ff9f43">model</text>
+    </g>
+
+    <!-- Tool inheritance leak -->
+    <g opacity="0.7">
+      <path d="M 440 285 L 520 285" stroke="#ff9f43" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+      <polygon points="520,285 514,282 514,288" fill="#ff9f43"/>
+      <text x="480" y="278" text-anchor="middle" font-family="monospace" font-size="8" fill="#ff9f43">tools</text>
+    </g>
+
+    <!-- Memory inheritance leak -->
+    <g opacity="0.7">
+      <path d="M 440 322 L 520 322" stroke="#ff9f43" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+      <polygon points="520,322 514,319 514,325" fill="#ff9f43"/>
+      <text x="480" y="315" text-anchor="middle" font-family="monospace" font-size="8" fill="#ff9f43">memory</text>
+    </g>
+
+    <!-- Verification assumption leak (reverse) -->
+    <g opacity="0.7">
+      <path d="M 520 395 L 440 395" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="3,2" fill="none"/>
+      <polygon points="440,395 446,392 446,398" fill="#ff6b6b"/>
+      <text x="480" y="388" text-anchor="middle" font-family="monospace" font-size="8" fill="#ff6b6b">claim</text>
+    </g>
+  </g>
+
+  <!-- CHILD AGENT BOX (right) -->
+  <g filter="url(#softShadow)">
+    <rect x="540" y="140" width="380" height="340" rx="12" fill="url(#childGrad)" stroke="#2a3a4e" stroke-width="1.5"/>
+    <text x="730" y="168" text-anchor="middle" font-family="monospace" font-size="11" fill="#00E5A0" opacity="0.8" letter-spacing="2">CHILD AGENT (SUBAGENT)</text>
+    <line x1="560" y1="180" x2="900" y2="180" stroke="#2a3a4e" stroke-width="0.5"/>
+
+    <!-- Child internal items -->
+    <g font-family="monospace" font-size="10" fill="#8899aa">
+      <!-- Inherited model (highlighted) -->
+      <rect x="560" y="195" width="150" height="28" rx="4" fill="#0d1520" stroke="#ff9f43" stroke-width="0.5" opacity="0.7"/>
+      <text x="635" y="212" text-anchor="middle" fill="#ff9f43" opacity="0.8">inherited model</text>
+
+      <!-- Inherited tools (highlighted) -->
+      <rect x="560" y="233" width="150" height="28" rx="4" fill="#0d1520" stroke="#ff9f43" stroke-width="0.5" opacity="0.7"/>
+      <text x="635" y="250" text-anchor="middle" fill="#ff9f43" opacity="0.8">inherited tools</text>
+
+      <!-- Inherited memory (highlighted) -->
+      <rect x="560" y="271" width="150" height="28" rx="4" fill="#0d1520" stroke="#ff9f43" stroke-width="0.5" opacity="0.7"/>
+      <text x="635" y="288" text-anchor="middle" fill="#ff9f43" opacity="0.8">inherited memory</text>
+
+      <!-- Clean terminal session -->
+      <rect x="560" y="309" width="150" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="635" y="326" text-anchor="middle">clean terminal</text>
+
+      <!-- Work output -->
+      <rect x="560" y="347" width="150" height="28" rx="4" fill="#0d1520" stroke="#2a3a4e" stroke-width="0.5"/>
+      <text x="635" y="364" text-anchor="middle">work_output</text>
+
+      <!-- Self-report -->
+      <rect x="560" y="385" width="150" height="40" rx="4" fill="#0d1520" stroke="#ff6b6b" stroke-width="0.5" opacity="0.7"/>
+      <text x="635" y="402" text-anchor="middle" fill="#ff6b6b" opacity="0.8">self-report:</text>
+      <text x="635" y="416" text-anchor="middle" font-size="9" fill="#ff6b6b" opacity="0.6">"success!"</text>
+
+      <!-- Right column: what should be -->
+      <rect x="730" y="195" width="170" height="50" rx="4" fill="#0d1520" stroke="#00E5A0" stroke-width="0.5" stroke-dasharray="3,2" opacity="0.5"/>
+      <text x="815" y="215" text-anchor="middle" fill="#00E5A0" opacity="0.6" font-size="9">SHOULD HAVE:</text>
+      <text x="815" y="230" text-anchor="middle" font-size="9" fill="#5a6d80">declared context</text>
+      <text x="815" y="240" text-anchor="middle" font-size="9" fill="#5a6d80">scoped tools</text>
+
+      <rect x="730" y="255" width="170" height="50" rx="4" fill="#0d1520" stroke="#00E5A0" stroke-width="0.5" stroke-dasharray="3,2" opacity="0.5"/>
+      <text x="815" y="275" text-anchor="middle" fill="#00E5A0" opacity="0.6" font-size="9">SHOULD HAVE:</text>
+      <text x="815" y="290" text-anchor="middle" font-size="9" fill="#5a6d80">pinned model</text>
+      <text x="815" y="300" text-anchor="middle" font-size="9" fill="#5a6d80">verification step</text>
+
+      <rect x="730" y="315" width="170" height="50" rx="4" fill="#0d1520" stroke="#00E5A0" stroke-width="0.5" stroke-dasharray="3,2" opacity="0.5"/>
+      <text x="815" y="335" text-anchor="middle" fill="#00E5A0" opacity="0.6" font-size="9">SHOULD HAVE:</text>
+      <text x="815" y="350" text-anchor="middle" font-size="9" fill="#5a6d80">memory namespace</text>
+      <text x="815" y="360" text-anchor="middle" font-size="9" fill="#5a6d80">isolation</text>
+    </g>
+
+    <!-- Status indicators -->
+    <text x="730" y="455" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a6d80">session_id: child-0x8e1f</text>
+  </g>
+
+  <!-- STATS PANEL (bottom right) -->
+  <g filter="url(#softShadow)">
+    <rect x="960" y="140" width="200" height="340" rx="12" fill="#0d1520" stroke="#1a2a3e" stroke-width="1" opacity="0.95"/>
+    <text x="1060" y="168" text-anchor="middle" font-family="monospace" font-size="10" fill="#00E5A0" opacity="0.8" letter-spacing="2">FLEET METRICS</text>
+    <line x1="975" y1="180" x2="1145" y2="180" stroke="#1a2a3e" stroke-width="0.5"/>
+
+    <text x="985" y="210" font-family="monospace" font-size="9" fill="#5a6d80">Total delegations</text>
+    <text x="1145" y="210" text-anchor="end" font-family="monospace" font-size="14" fill="#e8edf2" font-weight="700">847</text>
+
+    <line x1="975" y1="222" x2="1145" y2="222" stroke="#1a2a3e" stroke-width="0.5"/>
+
+    <text x="985" y="245" font-family="monospace" font-size="9" fill="#5a6d80">Reported success</text>
+    <text x="1145" y="245" text-anchor="end" font-family="monospace" font-size="14" fill="#4ecca3" font-weight="700">91%</text>
+
+    <line x1="975" y1="257" x2="1145" y2="257" stroke="#1a2a3e" stroke-width="0.5"/>
+
+    <text x="985" y="280" font-family="monospace" font-size="9" fill="#5a6d80">Independently verified</text>
+    <text x="1145" y="280" text-anchor="end" font-family="monospace" font-size="14" fill="#4ecca3" font-weight="700">83%</text>
+
+    <line x1="975" y1="292" x2="1145" y2="292" stroke="#1a2a3e" stroke-width="0.5"/>
+
+    <text x="985" y="315" font-family="monospace" font-size="9" fill="#5a6d80">False success</text>
+    <text x="1145" y="315" text-anchor="end" font-family="monospace" font-size="14" fill="#ff6b6b" font-weight="700">8%</text>
+
+    <line x1="975" y1="327" x2="1145" y2="327" stroke="#1a2a3e" stroke-width="0.5"/>
+
+    <text x="985" y="350" font-family="monospace" font-size="9" fill="#5a6d80">Unverified (trusted)</text>
+    <text x="1145" y="350" text-anchor="end" font-family="monospace" font-size="14" fill="#ff9f43" font-weight="700">9%</text>
+
+    <line x1="975" y1="362" x2="1145" y2="362" stroke="#1a2a3e" stroke-width="0.5"/>
+
+    <!-- Bar chart -->
+    <text x="985" y="390" font-family="monospace" font-size="8" fill="#5a6d80">DISTRIBUTION</text>
+    <rect x="985" y="398" width="160" height="8" rx="2" fill="#1a2a3e"/>
+    <rect x="985" y="398" width="146" height="8" rx="2" fill="#4ecca3" opacity="0.7"/>
+    <text x="985" y="420" font-family="monospace" font-size="8" fill="#5a6d80">verified 83%</text>
+
+    <rect x="985" y="425" width="160" height="8" rx="2" fill="#1a2a3e"/>
+    <rect x="985" y="425" width="14" height="8" rx="2" fill="#ff6b6b" opacity="0.7"/>
+    <text x="985" y="447" font-family="monospace" font-size="8" fill="#5a6d80">false success 8%</text>
+
+    <rect x="985" y="452" width="160" height="8" rx="2" fill="#1a2a3e"/>
+    <rect x="985" y="452" width="15" height="8" rx="2" fill="#ff9f43" opacity="0.7"/>
+    <text x="985" y="472" font-family="monospace" font-size="8" fill="#5a6d80">unverified 9%</text>
+  </g>
+
+  <!-- Legend (bottom) -->
+  <g font-family="monospace" font-size="9" fill="#5a6d80">
+    <rect x="80" y="510" width="10" height="10" rx="2" fill="#ff9f43" opacity="0.7"/>
+    <text x="98" y="519">invisible inheritance</text>
+
+    <rect x="240" y="510" width="10" height="10" rx="2" fill="#ff6b6b" opacity="0.7"/>
+    <text x="258" y="519">unverified self-report</text>
+
+    <rect x="410" y="510" width="10" height="10" rx="2" fill="#00E5A0" opacity="0.4"/>
+    <text x="428" y="519">permeable boundary</text>
+
+    <rect x="570" y="510" width="10" height="10" rx="2" fill="#4ecca3" opacity="0.7"/>
+    <text x="588" y="519">verified success</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="600" y="570" text-anchor="middle" font-family="monospace" font-size="10" fill="#3a4d60" letter-spacing="2">SMF WORKS — DR J INFRASTRUCTURE HEALTH SERIES — JULY 2026</text>
+  <text x="600" y="595" text-anchor="middle" font-family="monospace" font-size="8" fill="#2a3a4e">847 delegations tracked · 8% false success rate · boundary is permeable</text>
+</svg>
