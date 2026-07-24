@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="centerGlow" x1="0.5" y1="0.5" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <ellipse cx="800" cy="520" rx="680" ry="300" fill="url(#centerGlow)"/>
+
+  <g stroke="#1e293b" stroke-width="1" opacity="0.3">
+    <path d="M0 180 L1600 180 M0 360 L1600 360 M0 540 L1600 540 M0 720 L1600 720"/>
+    <path d="M200 0 L200 900 M400 0 L400 900 M600 0 L600 900 M800 0 L800 900 M1000 0 L1000 900 M1200 0 L1200 900 M1400 0 L1400 900"/>
+  </g>
+
+  <g>
+    <text x="80" y="90" fill="#e2e8f0" font-size="38" font-weight="700">Hermes Agent on AMD ROCm</text>
+    <text x="80" y="124" fill="#94a3b8" font-size="16" font-weight="400">Local LLM inference, ROCm drivers, and Ollama GPU routing</text>
+    <line x1="80" y1="148" x2="300" y2="148" stroke="#ff6b00" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(120, 220)">
+    <rect x="0" y="0" width="320" height="180" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="320" height="48" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="30" fill="#e2e8f0" font-size="14" font-weight="600">ROCm Driver Stack</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="12">rocm-smi | rocminfo | libdrm</text>
+    <text x="20" y="86" fill="#94a3b8" font-size="12">GPU: gfx1151 detected</text>
+    <text x="20" y="104" fill="#22c55e" font-size="11">status: online</text>
+    <text x="20" y="130" fill="#94a3b8" font-size="11">VRAM: 24GB | CU: 96</text>
+    <text x="20" y="148" fill="#94a3b8" font-size="11">Power: 320W | Temp: 68C</text>
+  </g>
+
+  <g transform="translate(480, 220)">
+    <rect x="0" y="0" width="320" height="180" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="320" height="48" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="30" fill="#e2e8f0" font-size="14" font-weight="600">Ollama GPU Routing</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="12">OLLAMA_MODELS=/models</text>
+    <text x="20" y="86" fill="#94a3b8" font-size="12">HSA_OVERRIDE_GFX_VERSION=11.5.1</text>
+    <text x="20" y="104" fill="#22c55e" font-size="11">GPU offload: enabled</text>
+    <text x="20" y="130" fill="#94a3b8" font-size="11">model: deepseek-v4-pro:cloud</text>
+    <text x="20" y="148" fill="#94a3b8" font-size="11">layers: 35/35 offloaded</text>
+  </g>
+
+  <g transform="translate(840, 220)">
+    <rect x="0" y="0" width="320" height="180" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="320" height="48" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="30" fill="#e2e8f0" font-size="14" font-weight="600">Hermes Agent Profile</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="12">profile: liam</text>
+    <text x="20" y="86" fill="#94a3b8" font-size="12">model: deepseek-v4-pro:cloud</text>
+    <text x="20" y="104" fill="#22c55e" font-size="11">provider: ollama-cloud</text>
+    <text x="20" y="130" fill="#94a3b8" font-size="11">API: port 8642</text>
+    <text x="20" y="148" fill="#94a3b8" font-size="11">skills: 132 installed</text>
+  </g>
+
+  <g transform="translate(120, 460)">
+    <rect x="0" y="0" width="1000" height="200" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="1000" height="48" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="30" fill="#e2e8f0" font-size="14" font-weight="600">Architecture: Profile-to-GPU Flow</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="12">1. Hermes profile (liam) sets model=deepseek-v4-pro:cloud</text>
+    <text x="20" y="86" fill="#94a3b8" font-size="12">2. Ollama-cloud routes to local GPU via OLLAMA_HOST</text>
+    <text x="20" y="104" fill="#94a3b8" font-size="12">3. ROCm drivers expose GPU to Ollama via HSA runtime</text>
+    <text x="20" y="122" fill="#94a3b8" font-size="12">4. Model weights offloaded to VRAM (24GB available)</text>
+    <text x="20" y="140" fill="#94a3b8" font-size="12">5. Inference returns to Hermes API on port 8642</text>
+    <text x="20" y="160" fill="#94a3b8" font-size="12">6. CLI / gateway / cron all use the same profile</text>
+    <text x="20" y="180" fill="#94a3b8" font-size="12">7. Skills persist across sessions in ~/.hermes/profiles/liam/</text>
+  </g>
+
+  <g transform="translate(120, 700)">
+    <rect x="0" y="0" width="320" height="100" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="320" height="32" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="20" fill="#e2e8f0" font-size="12" font-weight="600">AMD Radeon RX 7900 XTX</text>
+    <text x="20" y="50" fill="#94a3b8" font-size="11">gfx1151 | 24GB GDDR6 | 96 CUs</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="11">ROCm 6.2.0 | Ollama 0.24.0</text>
+  </g>
+
+  <g transform="translate(480, 700)">
+    <rect x="0" y="0" width="320" height="100" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="320" height="32" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="20" fill="#e2e8f0" font-size="12" font-weight="600">DGX Spark (gfx1151)</text>
+    <text x="20" y="50" fill="#94a3b8" font-size="11">NVFP4 | 128GB | dual GPU</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="11">ROCm 6.3.0 | Ollama 0.25.1</text>
+  </g>
+
+  <g transform="translate(840, 700)">
+    <rect x="0" y="0" width="320" height="100" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <rect x="0" y="0" width="320" height="32" fill="#1e293b" opacity="0.5"/>
+    <text x="20" y="20" fill="#e2e8f0" font-size="12" font-weight="600">NVIDIA RTX 4090</text>
+    <text x="20" y="50" fill="#94a3b8" font-size="11">CUDA | 24GB GDDR6X | 16384 CUDA</text>
+    <text x="20" y="68" fill="#94a3b8" font-size="11">ROCm 6.2.0 | Ollama 0.24.0</text>
+  </g>
+</svg>
