@@ -1,0 +1,287 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B0F19"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="leftGlow" x1="0.25" y1="0.5" x2="0.25" y2="1">
+      <stop offset="0%" stop-color="#312E81" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#0B0F19" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rightGlow" x1="0.75" y1="0.5" x2="0.75" y2="1">
+      <stop offset="0%" stop-color="#B45309" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#0B0F19" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="conn" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#22D3EE" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7F1D1D" stop-opacity="0.0"/>
+      <stop offset="50%" stop-color="#EF4444" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#7F1D1D" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <ellipse cx="400" cy="520" rx="380" ry="320" fill="url(#leftGlow)"/>
+  <ellipse cx="1200" cy="520" rx="380" ry="320" fill="url(#rightGlow)"/>
+
+  <!-- Grid -->
+  <g stroke="#1E293B" stroke-width="1" opacity="0.35">
+    <path d="M0 200 L1600 200 M0 400 L1600 400 M0 600 L1600 600 M0 800 L1600 800"/>
+    <path d="M200 0 L200 900 M400 0 L400 900 M600 0 L600 900 M800 0 L800 900 M1000 0 L1000 900 M1200 0 L1200 900 M1400 0 L1400 900"/>
+  </g>
+
+  <!-- The Wall (center) -->
+  <g>
+    <rect x="760" y="120" width="80" height="660" fill="url(#wallGrad)"/>
+    <line x1="800" y1="120" x2="800" y2="780" stroke="#EF4444" stroke-width="2" stroke-dasharray="6 6" opacity="0.7"/>
+    <g transform="translate(800 450)">
+      <rect x="-60" y="-60" width="120" height="120" rx="10" fill="#0F172A" stroke="#EF4444" stroke-width="1.5" opacity="0.95"/>
+      <!-- broken chip icon -->
+      <rect x="-32" y="-32" width="64" height="64" rx="6" fill="none" stroke="#EF4444" stroke-width="2"/>
+      <line x1="-32" y1="-32" x2="32" y2="32" stroke="#EF4444" stroke-width="2"/>
+      <line x1="32" y1="-32" x2="-32" y2="32" stroke="#EF4444" stroke-width="2"/>
+      <circle cx="0" cy="0" r="6" fill="#EF4444"/>
+    </g>
+  </g>
+
+  <!-- LEFT: External Suite (8 app chips) -->
+  <g font-size="13">
+    <!-- ScriptBreak -->
+    <g transform="translate(60 150)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#22D3EE"/>
+      <circle cx="24" cy="32" r="9" fill="none" stroke="#22D3EE" stroke-width="2"/>
+      <line x1="24" y1="23" x2="24" y2="41" stroke="#22D3EE" stroke-width="2"/>
+    </g>
+    <!-- Cork Board -->
+    <g transform="translate(60 230)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#A78BFA"/>
+      <rect x="20" y="20" width="22" height="24" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <rect x="48" y="16" width="22" height="24" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <rect x="76" y="22" width="22" height="24" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+    </g>
+    <!-- Master Canvas -->
+    <g transform="translate(60 310)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#A78BFA"/>
+      <rect x="20" y="18" width="40" height="28" rx="3" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <circle cx="40" cy="32" r="5" fill="#A78BFA"/>
+      <line x1="65" y1="32" x2="90" y2="32" stroke="#A78BFA" stroke-width="2"/>
+    </g>
+    <!-- Blockout -->
+    <g transform="translate(60 390)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#A78BFA"/>
+      <rect x="20" y="20" width="24" height="24" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <line x1="32" y1="32" x2="60" y2="20" stroke="#A78BFA" stroke-width="2"/>
+      <polygon points="58,16 66,20 60,24" fill="#A78BFA"/>
+    </g>
+    <!-- Motion Previs -->
+    <g transform="translate(60 470)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#A78BFA"/>
+      <circle cx="32" cy="32" r="10" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <circle cx="32" cy="32" r="3" fill="#A78BFA"/>
+      <path d="M48 32 L70 32 M70 32 L66 28 M70 32 L66 36" stroke="#A78BFA" stroke-width="2" fill="none"/>
+    </g>
+    <!-- Storyboard Ref -->
+    <g transform="translate(60 550)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#A78BFA"/>
+      <rect x="18" y="18" width="20" height="14" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <rect x="44" y="18" width="20" height="14" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <rect x="18" y="36" width="20" height="14" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <rect x="44" y="36" width="20" height="14" rx="2" fill="none" stroke="#A78BFA" stroke-width="2"/>
+    </g>
+    <!-- Stem Studio -->
+    <g transform="translate(60 630)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#312E81" stroke-width="1.5"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#A78BFA"/>
+      <line x1="20" y1="40" x2="20" y2="24" stroke="#A78BFA" stroke-width="2"/>
+      <line x1="32" y1="40" x2="32" y2="20" stroke="#A78BFA" stroke-width="2"/>
+      <line x1="44" y1="40" x2="44" y2="28" stroke="#A78BFA" stroke-width="2"/>
+      <line x1="56" y1="40" x2="56" y2="16" stroke="#A78BFA" stroke-width="2"/>
+      <line x1="18" y1="44" x2="70" y2="44" stroke="#A78BFA" stroke-width="1.5"/>
+    </g>
+    <!-- DaVinci MCP (highlighted — runs) -->
+    <g transform="translate(60 710)">
+      <rect width="280" height="64" rx="8" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
+      <rect x="0" y="0" width="5" height="64" rx="2.5" fill="#F59E0B"/>
+      <circle cx="32" cy="32" r="11" fill="none" stroke="#F59E0B" stroke-width="2"/>
+      <circle cx="32" cy="32" r="4" fill="#F59E0B"/>
+      <path d="M48 32 L72 32" stroke="#F59E0B" stroke-width="2"/>
+      <circle cx="32" cy="32" r="14" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.5"/>
+    </g>
+  </g>
+
+  <!-- Connection lines from DaVinci MCP (the runner) through the wall -->
+  <g stroke="#22D3EE" stroke-width="1.5" opacity="0.4" fill="none">
+    <path d="M340 742 L760 742"/>
+  </g>
+  <g stroke="#EF4444" stroke-width="2" opacity="0.5" fill="none" stroke-dasharray="5 5">
+    <path d="M760 742 L760 510"/>
+  </g>
+
+  <!-- RIGHT: In-house stack (3 layers) -->
+  <g font-size="13">
+    <!-- Layer 1: Generation (ComfyUI) -->
+    <g transform="translate(900 180)">
+      <rect width="580" height="150" rx="12" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+      <rect x="0" y="0" width="6" height="150" rx="3" fill="#F59E0B"/>
+      <!-- GPU chip -->
+      <g transform="translate(40 40)">
+        <rect width="80" height="70" rx="6" fill="none" stroke="#F59E0B" stroke-width="2"/>
+        <rect x="10" y="10" width="60" height="50" rx="3" fill="#F59E0B" opacity="0.15"/>
+        <line x1="20" y1="20" x2="60" y2="20" stroke="#F59E0B" stroke-width="1.5"/>
+        <line x1="20" y1="30" x2="60" y2="30" stroke="#F59E0B" stroke-width="1.5"/>
+        <line x1="20" y1="40" x2="60" y2="40" stroke="#F59E0B" stroke-width="1.5"/>
+        <line x1="20" y1="50" x2="60" y2="50" stroke="#F59E0B" stroke-width="1.5"/>
+      </g>
+      <!-- diffusion dots -->
+      <g transform="translate(160 50)">
+        <circle cx="0" cy="0" r="8" fill="none" stroke="#F59E0B" stroke-width="2"/>
+        <circle cx="0" cy="0" r="2.5" fill="#F59E0B"/>
+        <circle cx="30" cy="15" r="6" fill="none" stroke="#22D3EE" stroke-width="2"/>
+        <circle cx="30" cy="15" r="2" fill="#22D3EE"/>
+        <circle cx="60" cy="5" r="10" fill="none" stroke="#A78BFA" stroke-width="2"/>
+        <circle cx="60" cy="5" r="3" fill="#A78BFA"/>
+        <line x1="10" y1="2" x2="22" y2="13" stroke="#475569" stroke-width="1.5"/>
+        <line x1="38" y1="15" x2="52" y2="7" stroke="#475569" stroke-width="1.5"/>
+      </g>
+      <!-- frames strip -->
+      <g transform="translate(40 110)">
+        <rect width="40" height="24" rx="2" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+        <rect x="50" width="40" height="24" rx="2" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+        <rect x="100" width="40" height="24" rx="2" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+        <rect x="150" width="40" height="24" rx="2" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+        <path d="M195 12 L215 12 M215 12 L210 8 M215 12 L210 16" stroke="#F59E0B" stroke-width="1.5" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Layer 2: Post (DaVinci MCP + ffmpeg) -->
+    <g transform="translate(900 370)">
+      <rect width="580" height="150" rx="12" fill="#0F172A" stroke="#22D3EE" stroke-width="1.5"/>
+      <rect x="0" y="0" width="6" height="150" rx="3" fill="#22D3EE"/>
+      <!-- LUT cube -->
+      <g transform="translate(40 35)">
+        <rect width="70" height="70" rx="4" fill="none" stroke="#22D3EE" stroke-width="2"/>
+        <line x1="0" y1="0" x2="70" y2="70" stroke="#22D3EE" stroke-width="1" opacity="0.5"/>
+        <line x1="70" y1="0" x2="0" y2="70" stroke="#22D3EE" stroke-width="1" opacity="0.5"/>
+        <rect x="0" y="0" width="70" height="70" rx="4" fill="#22D3EE" opacity="0.08"/>
+      </g>
+      <!-- waveform -->
+      <g transform="translate(140 55)">
+        <line x1="0" y1="35" x2="180" y2="35" stroke="#475569" stroke-width="1"/>
+        <rect x="0" y="20" width="3" height="15" fill="#22D3EE"/>
+        <rect x="8" y="10" width="3" height="25" fill="#22D3EE"/>
+        <rect x="16" y="5" width="3" height="30" fill="#22D3EE"/>
+        <rect x="24" y="15" width="3" height="20" fill="#22D3EE"/>
+        <rect x="32" y="25" width="3" height="10" fill="#22D3EE"/>
+        <rect x="40" y="12" width="3" height="23" fill="#22D3EE"/>
+        <rect x="48" y="3" width="3" height="32" fill="#22D3EE"/>
+        <rect x="56" y="18" width="3" height="17" fill="#22D3EE"/>
+        <rect x="64" y="22" width="3" height="13" fill="#22D3EE"/>
+        <rect x="72" y="8" width="3" height="27" fill="#22D3EE"/>
+        <rect x="80" y="14" width="3" height="21" fill="#22D3EE"/>
+        <rect x="88" y="20" width="3" height="15" fill="#22D3EE"/>
+        <rect x="96" y="6" width="3" height="29" fill="#22D3EE"/>
+        <rect x="104" y="16" width="3" height="19" fill="#22D3EE"/>
+        <rect x="112" y="24" width="3" height="11" fill="#22D3EE"/>
+        <rect x="120" y="11" width="3" height="24" fill="#22D3EE"/>
+        <rect x="128" y="19" width="3" height="16" fill="#22D3EE"/>
+        <rect x="136" y="5" width="3" height="30" fill="#22D3EE"/>
+        <rect x="144" y="17" width="3" height="18" fill="#22D3EE"/>
+        <rect x="152" y="23" width="3" height="12" fill="#22D3EE"/>
+        <rect x="160" y="9" width="3" height="26" fill="#22D3EE"/>
+        <rect x="168" y="15" width="3" height="20" fill="#22D3EE"/>
+        <rect x="176" y="21" width="3" height="14" fill="#22D3EE"/>
+      </g>
+      <!-- ffmpeg arrow -->
+      <g transform="translate(490 60)">
+        <path d="M0 10 L60 10 M60 10 L52 4 M60 10 L52 16" stroke="#22D3EE" stroke-width="2.5" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Layer 3: Script/structure (external bookends) -->
+    <g transform="translate(900 560)">
+      <rect width="580" height="120" rx="12" fill="#0F172A" stroke="#312E81" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <rect x="0" y="0" width="6" height="120" rx="3" fill="#A78BFA"/>
+      <!-- index cards -->
+      <g transform="translate(40 30)">
+        <rect width="28" height="34" rx="2" fill="none" stroke="#A78BFA" stroke-width="1.5" transform="rotate(-6)"/>
+        <rect x="36" width="28" height="34" rx="2" fill="none" stroke="#A78BFA" stroke-width="1.5"/>
+        <rect x="72" width="28" height="34" rx="2" fill="none" stroke="#A78BFA" stroke-width="1.5" transform="rotate(5)"/>
+      </g>
+      <!-- storyboard frame -->
+      <g transform="translate(180 30)">
+        <rect width="40" height="28" rx="2" fill="none" stroke="#A78BFA" stroke-width="1.5"/>
+        <line x1="0" y1="0" x2="40" y2="28" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+        <line x1="40" y1="0" x2="0" y2="28" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+      </g>
+      <!-- script lines -->
+      <g transform="translate(260 32)" stroke="#A78BFA" stroke-width="1.5" opacity="0.7">
+        <line x1="0" y1="0" x2="120" y2="0"/>
+        <line x1="0" y1="10" x2="100" y2="10"/>
+        <line x1="0" y1="20" x2="110" y2="20"/>
+        <line x1="0" y1="30" x2="80" y2="30"/>
+        <line x1="0" y1="40" x2="115" y2="40"/>
+        <line x1="0" y1="50" x2="95" y2="50"/>
+      </g>
+    </g>
+
+    <!-- EVO-X3 node (bottom right) -->
+    <g transform="translate(900 720)">
+      <rect width="580" height="80" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="1" opacity="0.9"/>
+      <rect x="0" y="0" width="6" height="80" rx="3" fill="#F59E0B"/>
+      <!-- mini box -->
+      <g transform="translate(40 18)">
+        <rect width="56" height="44" rx="4" fill="none" stroke="#F59E0B" stroke-width="2"/>
+        <circle cx="14" cy="14" r="3" fill="#F59E0B"/>
+        <circle cx="28" cy="14" r="3" fill="#22D3EE"/>
+        <circle cx="42" cy="14" r="3" fill="#A78BFA"/>
+        <line x1="14" y1="30" x2="42" y2="30" stroke="#F59E0B" stroke-width="1.5"/>
+      </g>
+      <!-- OCuLink cable to GPU -->
+      <g transform="translate(120 32)">
+        <path d="M0 8 L80 8" stroke="#F59E0B" stroke-width="2.5" fill="none"/>
+        <path d="M80 8 L100 8" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="4 3" fill="none"/>
+        <rect x="100" y="-2" width="60" height="20" rx="3" fill="none" stroke="#22D3EE" stroke-width="2"/>
+        <rect x="108" y="2" width="44" height="12" rx="2" fill="#22D3EE" opacity="0.2"/>
+      </g>
+      <!-- memory bars -->
+      <g transform="translate(330 20)" fill="#F59E0B" opacity="0.6">
+        <rect width="8" height="40" rx="1"/>
+        <rect x="14" width="8" height="40" rx="1"/>
+        <rect x="28" width="8" height="40" rx="1"/>
+        <rect x="42" width="8" height="40" rx="1"/>
+        <rect x="56" width="8" height="40" rx="1"/>
+        <rect x="70" width="8" height="40" rx="1"/>
+        <rect x="84" width="8" height="40" rx="1"/>
+        <rect x="98" width="8" height="40" rx="1"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Flow arrows from right layers down -->
+  <g stroke="#22D3EE" stroke-width="1.5" opacity="0.4" fill="none">
+    <path d="M1190 330 L1190 370"/>
+    <path d="M1190 520 L1190 560"/>
+    <path d="M1190 680 L1190 720"/>
+  </g>
+
+  <!-- Footer accent line -->
+  <g>
+    <line x1="80" y1="840" x2="1520" y2="840" stroke="#1E293B" stroke-width="1"/>
+    <line x1="80" y1="840" x2="280" y2="840" stroke="#F59E0B" stroke-width="2"/>
+    <line x1="1320" y1="840" x2="1520" y2="840" stroke="#22D3EE" stroke-width="2"/>
+  </g>
+</svg>
