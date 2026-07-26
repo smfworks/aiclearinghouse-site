@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.32" stroke-width="1">
+
+    <path d="M0 78 H1200"/>
+    <path d="M0 156 H1200"/>
+    <path d="M0 234 H1200"/>
+    <path d="M0 312 H1200"/>
+    <path d="M0 390 H1200"/>
+    <path d="M0 468 H1200"/>
+    <path d="M0 546 H1200"/>
+    <path d="M100 0 V624"/>
+    <path d="M200 0 V624"/>
+    <path d="M300 0 V624"/>
+    <path d="M400 0 V624"/>
+    <path d="M500 0 V624"/>
+    <path d="M600 0 V624"/>
+    <path d="M700 0 V624"/>
+    <path d="M800 0 V624"/>
+    <path d="M900 0 V624"/>
+    <path d="M1000 0 V624"/>
+    <path d="M1100 0 V624"/>
+  </g>
+  <circle cx="200" cy="200" r="140" fill="#76b900" opacity="0.06" filter="url(#soft)"/>
+  <circle cx="1000" cy="480" r="160" fill="#00d4aa" opacity="0.06" filter="url(#soft)"/>
+
+    <text x="52" y="60" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="32" font-weight="700">Laguna S 2.1: offlabel Integration</text>
+    <text x="52" y="92" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="14">TheTom/offlabel behavioral assessment applied to SMF Works production serve</text>
+
+  <g transform="translate(52,120)">
+    <rect width="520" height="380" rx="16" fill="#0f1824" stroke="#1f3a2a"/>
+    <text x="20" y="32" fill="#5a8a6a" font-family="SF Mono, monospace" font-size="12" letter-spacing="1.5">FOUR OFFLABEL REQUIREMENTS</text>
+    <rect x="20" y="60" width="480" height="64" rx="10" fill="#121e2c" stroke="#c45c26" stroke-opacity="0.5"/>
+    <circle cx="48" cy="92" r="16" fill="#c45c26" filter="url(#glow)"/>
+    <text x="48" y="97" fill="#0a0e1a" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">1</text>
+    <text x="78" y="88" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700">1. THINKING OFF</text>
+    <text x="78" y="110" fill="#8ab89a" font-family="SF Mono, monospace" font-size="13">Template default is true</text>
+    <rect x="20" y="140" width="480" height="64" rx="10" fill="#121e2c" stroke="#76b900" stroke-opacity="0.5"/>
+    <circle cx="48" cy="172" r="16" fill="#76b900" filter="url(#glow)"/>
+    <text x="48" y="177" fill="#0a0e1a" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">2</text>
+    <text x="78" y="168" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700">2. NATIVE TOOLS</text>
+    <text x="78" y="190" fill="#8ab89a" font-family="SF Mono, monospace" font-size="13">poolside_v1 only (0% chatml)</text>
+    <rect x="20" y="220" width="480" height="64" rx="10" fill="#121e2c" stroke="#00d4aa" stroke-opacity="0.5"/>
+    <circle cx="48" cy="252" r="16" fill="#00d4aa" filter="url(#glow)"/>
+    <text x="48" y="257" fill="#0a0e1a" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">3</text>
+    <text x="78" y="248" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700">3. INTEGRITY</text>
+    <text x="78" y="270" fill="#8ab89a" font-family="SF Mono, monospace" font-size="13">7/7 with clause vs 3/7</text>
+    <rect x="20" y="300" width="480" height="64" rx="10" fill="#121e2c" stroke="#4a9fd4" stroke-opacity="0.5"/>
+    <circle cx="48" cy="332" r="16" fill="#4a9fd4" filter="url(#glow)"/>
+    <text x="48" y="337" fill="#0a0e1a" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">4</text>
+    <text x="78" y="328" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="16" font-weight="700">4. PIN + CAP</text>
+    <text x="78" y="350" fill="#8ab89a" font-family="SF Mono, monospace" font-size="13">Rev pinned, max_tokens 16384</text>
+  </g>
+  <g transform="translate(610,120)">
+    <rect width="540" height="380" rx="16" fill="#0f1824" stroke="#1f3a2a"/>
+    <text x="20" y="32" fill="#5a8a6a" font-family="SF Mono, monospace" font-size="12" letter-spacing="1.5">WHAT WE DID TODAY</text>
+    <rect x="20" y="56" width="60" height="28" rx="6" fill="#4a9fd4" fill-opacity="0.9"/>
+    <text x="50" y="75" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">READ</text>
+    <text x="92" y="69" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">offlabel guide</text>
+    <text x="92" y="83" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">261 lines</text>
+    <line x1="50" y1="84" x2="50" y2="96" stroke="#4a9fd4" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="96" width="60" height="28" rx="6" fill="#00d4aa" fill-opacity="0.9"/>
+    <text x="50" y="115" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">MAP</text>
+    <text x="92" y="109" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">4 recommendations</text>
+    <text x="92" y="123" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">vs our config</text>
+    <line x1="50" y1="124" x2="50" y2="136" stroke="#00d4aa" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="136" width="60" height="28" rx="6" fill="#c45c26" fill-opacity="0.9"/>
+    <text x="50" y="155" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">GAP</text>
+    <text x="92" y="149" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">AGENTS.md clause</text>
+    <text x="92" y="163" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">missing rules 3+4</text>
+    <line x1="50" y1="164" x2="50" y2="176" stroke="#c45c26" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="176" width="60" height="28" rx="6" fill="#76b900" fill-opacity="0.9"/>
+    <text x="50" y="195" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">FIX</text>
+    <text x="92" y="189" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">Integrity clause</text>
+    <text x="92" y="203" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">5 rules + floor</text>
+    <line x1="50" y1="204" x2="50" y2="216" stroke="#76b900" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="216" width="60" height="28" rx="6" fill="#76b900" fill-opacity="0.9"/>
+    <text x="50" y="235" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">FIX</text>
+    <text x="92" y="229" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">Launch script</text>
+    <text x="92" y="243" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">rev pin + cap</text>
+    <line x1="50" y1="244" x2="50" y2="256" stroke="#76b900" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="256" width="60" height="28" rx="6" fill="#76b900" fill-opacity="0.9"/>
+    <text x="50" y="275" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">FIX</text>
+    <text x="92" y="269" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">Spark docs</text>
+    <text x="92" y="283" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">offlabel + drift</text>
+    <line x1="50" y1="284" x2="50" y2="296" stroke="#76b900" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="296" width="60" height="28" rx="6" fill="#76b900" fill-opacity="0.9"/>
+    <text x="50" y="315" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">FIX</text>
+    <text x="92" y="309" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">smf-bench skill</text>
+    <text x="92" y="323" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">Pitfall 36</text>
+    <line x1="50" y1="324" x2="50" y2="336" stroke="#76b900" stroke-opacity="0.4" stroke-width="2"/>
+    <rect x="20" y="336" width="60" height="28" rx="6" fill="#00d4aa" fill-opacity="0.9"/>
+    <text x="50" y="355" fill="#0a0e1a" font-family="SF Mono, monospace" font-size="11" font-weight="700" text-anchor="middle">DONE</text>
+    <text x="92" y="349" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="14" font-weight="600">All verified</text>
+    <text x="92" y="363" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">server live</text>
+  </g>
+  <g transform="translate(52,530)">
+    <rect width="1098" height="72" rx="14" fill="#0f1824" stroke="#1f3a2a"/>
+    <text x="30" y="28" fill="#5a8a6a" font-family="SF Mono, monospace" font-size="11" letter-spacing="1">FILES UPDATED</text>
+    <text x="30" y="54" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="22" font-weight="700">5</text>
+    <text x="120" y="54" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">AGENTS.md + scripts + docs + skill + memory</text>
+    <text x="305" y="28" fill="#5a8a6a" font-family="SF Mono, monospace" font-size="11" letter-spacing="1">AGENTS RULES</text>
+    <text x="305" y="54" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="22" font-weight="700">5+floor</text>
+    <text x="395" y="54" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">(1)(2)(4) load-bearing minimum</text>
+    <text x="580" y="28" fill="#5a8a6a" font-family="SF Mono, monospace" font-size="11" letter-spacing="1">OFFLABEL SOURCE</text>
+    <text x="580" y="54" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="22" font-weight="700">261 lines</text>
+    <text x="670" y="54" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">TheTom/offlabel laguna-s-2.1.md</text>
+    <text x="855" y="28" fill="#5a8a6a" font-family="SF Mono, monospace" font-size="11" letter-spacing="1">SERVER STATUS</text>
+    <text x="855" y="54" fill="#e8eef4" font-family="SF Pro Display, Arial, sans-serif" font-size="22" font-weight="700">LIVE</text>
+    <text x="945" y="54" fill="#8ab89a" font-family="SF Mono, monospace" font-size="12">spark-56bc:8888 rev b482b5d</text>
+  </g>
+</svg>
