@@ -58,6 +58,10 @@ That work had already solved the ugly substrate problems:
 - basic Hermes tool integration;
 - a testing framework that measured more than “did a file appear?”
 
+There is an important chronology detail here because two earlier reports can look contradictory if the wheel source is omitted. The July 25 media-pivot report tested the **official** `torch 2.9.1+rocm6.4` wheels. Those wheels did not contain `gfx1151` kernel images, and the first real GPU operation failed. That finding remains correct. The July 22 Mage recipe documented a different path: a pre-release TheRock `torch 2.12.0+rocm7.15` build paired with the `amd-torch-device-gfx1151` package. That nightly path supplied native `gfx1151` kernels and made Mage execution possible.
+
+SMF did not add `gfx1151` support to PyTorch; the TheRock packages did. Our work in this report is the production system built on top of that working kernel path. It also remains a deliberate compatibility exception rather than a clean upstream install: Mage-Flow was installed without dependency resolution against the compatible 2.12 nightly because its project metadata expected a newer Torch version for which no suitable ROCm build was available. That moving nightly dependency is part of the system's operational risk.
+
 We also already had the native Hermes pieces:
 
 - a maintained image-generation toolset;
@@ -171,7 +175,7 @@ That distinction matters. A test should prove plumbing at the cheapest layer tha
 
 The original local API could generate images. The hardened version had to manage a finite-memory production service.
 
-The host is an AMD Ryzen AI MAX+ 395 system with Radeon 8060S graphics (`gfx1151`) and approximately 51.5 GB visible in the GPU heap. That is substantial for an integrated GPU, but it is not infinite. The system is sharing memory, and image pipelines can retain allocator state after Python references disappear.
+The host is an AMD Ryzen AI MAX+ 395 system with Radeon 8060S graphics (`gfx1151`). During these tests, `torch.cuda.mem_get_info()` reported approximately 51.5 GB as the total GPU-visible heap. That runtime figure is the basis for this article's memory discussion; it is not a claim about a fixed physical-memory SKU or directly interchangeable with earlier UMA configuration figures. The available heap is substantial for an integrated GPU, but it is not infinite. The system is sharing memory, and image pipelines can retain allocator state after Python references disappear.
 
 I pulled model lifecycle behavior into a dedicated `SingleModelManager`.
 
