@@ -43,6 +43,7 @@ export default function BlogCard({ post }: BlogCardProps) {
               year: "numeric",
               month: "short",
               day: "numeric",
+              timeZone: "UTC",
             })}
           </time>
         </div>

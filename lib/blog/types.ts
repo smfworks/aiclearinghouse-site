@@ -86,7 +86,7 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
   {
     key: "pamela",
     name: "Pamela Flannery",
-    role: "Chief Creative Officer",
+    role: "Chief Marketing Officer",
     series: "clearinghouse",
     color: "#EF4444",
     bio: "Brand strategy, creative direction, and the aesthetics of AI marketing.",
