@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for Hermes Cron Jobs + Scheduled Agent Workflows on Linux — abstract no-text design
+     Navy base, teal/gold repeating schedule nodes and cycle arcs representing cron tasks.
+     Isolated on shared Linux host base. Validates as XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Hermes cron jobs as repeating scheduled nodes and cycles on an isolated Linux host">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="40%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <linearGradient id="nodeTeal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="nodeGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="cycle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#22d3ee" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid / host frame -->
+  <g stroke="#162236" stroke-width="1.5" opacity="0.6">
+    <line x1="60" y1="60" x2="60" y2="570"/>
+    <line x1="1140" y1="60" x2="1140" y2="570"/>
+    <line x1="60" y1="60" x2="1140" y2="60"/>
+    <line x1="60" y1="570" x2="1140" y2="570"/>
+    <!-- internal grid lines -->
+    <line x1="300" y1="60" x2="300" y2="570" stroke-width="1"/>
+    <line x1="600" y1="60" x2="600" y2="570" stroke-width="1"/>
+    <line x1="900" y1="60" x2="900" y2="570" stroke-width="1"/>
+  </g>
+
+  <!-- central Linux host base / shared timeline -->
+  <rect x="150" y="300" width="900" height="60" rx="8" fill="#1e3a8a" opacity="0.3"/>
+  <rect x="150" y="300" width="900" height="60" rx="8" fill="none" stroke="#1e3a8a" stroke-width="2"/>
+
+  <!-- Schedule cycle arc 1 (left, teal) -->
+  <g>
+    <path d="M 180 220 Q 230 180 280 220" fill="none" stroke="#0e7490" stroke-width="3" opacity="0.6"/>
+    <circle cx="180" cy="220" r="12" fill="url(#nodeTeal)"/>
+    <circle cx="280" cy="220" r="12" fill="url(#nodeTeal)"/>
+    <!-- repeating indicator -->
+    <circle cx="230" cy="195" r="8" fill="#22d3ee" opacity="0.7"/>
+  </g>
+
+  <!-- Central task node (gold) -->
+  <g>
+    <rect x="490" y="140" width="220" height="140" rx="12" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+    <rect x="500" y="150" width="200" height="120" rx="8" fill="#0f1a2e" opacity="0.8"/>
+    <circle cx="600" cy="210" r="32" fill="url(#nodeGold)"/>
+    <circle cx="600" cy="210" r="32" fill="none" stroke="#fbbf24" stroke-width="4" opacity="0.6"/>
+    <circle cx="600" cy="210" r="12" fill="#0a1628"/>
+    <!-- clock hint arcs -->
+    <path d="M 580 190 A 20 20 0 0 1 620 210" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+  </g>
+
+  <!-- Schedule cycle 2 (right, teal) -->
+  <g>
+    <path d="M 920 220 Q 970 180 1020 220" fill="none" stroke="#0e7490" stroke-width="3" opacity="0.6"/>
+    <circle cx="920" cy="220" r="12" fill="url(#nodeTeal)"/>
+    <circle cx="1020" cy="220" r="12" fill="url(#nodeTeal)"/>
+    <circle cx="970" cy="195" r="8" fill="#22d3ee" opacity="0.7"/>
+  </g>
+
+  <!-- Connection lines to host (scheduled execution) -->
+  <g stroke="#1e3a8a" stroke-width="2" stroke-dasharray="4 4" opacity="0.4">
+    <line x1="280" y1="232" x2="280" y2="300"/>
+    <line x1="600" y1="242" x2="600" y2="300"/>
+    <line x1="920" y1="232" x2="920" y2="300"/>
+  </g>
+
+  <!-- Small recurring nodes on timeline -->
+  <g>
+    <circle cx="250" cy="330" r="6" fill="#0e7490" opacity="0.6"/>
+    <circle cx="350" cy="330" r="6" fill="#0e7490" opacity="0.6"/>
+    <circle cx="550" cy="330" r="6" fill="#f59e0b" opacity="0.6"/>
+    <circle cx="650" cy="330" r="6" fill="#0e7490" opacity="0.6"/>
+    <circle cx="850" cy="330" r="6" fill="#0e7490" opacity="0.6"/>
+    <circle cx="950" cy="330" r="6" fill="#0e7490" opacity="0.6"/>
+  </g>
+
+  <!-- glow accents -->
+  <rect x="0" y="200" width="1200" height="50" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="0" y="340" width="1200" height="50" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- bottom subtle indicators (no text) -->
+  <g opacity="0.3">
+    <circle cx="300" cy="520" r="8" fill="#0e7490"/>
+    <circle cx="600" cy="520" r="8" fill="#f59e0b"/>
+    <circle cx="900" cy="520" r="8" fill="#0e7490"/>
+    <rect x="290" y="535" width="20" height="3" rx="1" fill="#0e7490"/>
+    <rect x="590" y="535" width="20" height="3" rx="1" fill="#f59e0b"/>
+    <rect x="890" y="535" width="20" height="3" rx="1" fill="#0e7490"/>
+  </g>
+</svg>
