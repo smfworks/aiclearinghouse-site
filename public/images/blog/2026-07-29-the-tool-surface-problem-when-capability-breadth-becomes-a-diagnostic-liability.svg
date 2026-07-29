@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g stroke="#00E5A0" stroke-width="0.5" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100" opacity="0.04"/>
+    <line x1="0" y1="200" x2="1200" y2="200" opacity="0.04"/>
+    <line x1="0" y1="300" x2="1200" y2="300" opacity="0.04"/>
+    <line x1="0" y1="400" x2="1200" y2="400" opacity="0.04"/>
+    <line x1="0" y1="500" x2="1200" y2="500" opacity="0.04"/>
+    <line x1="200" y1="0" x2="200" y2="630" opacity="0.03"/>
+    <line x1="400" y1="0" x2="400" y2="630" opacity="0.03"/>
+    <line x1="600" y1="0" x2="600" y2="630" opacity="0.03"/>
+    <line x1="800" y1="0" x2="800" y2="630" opacity="0.03"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" opacity="0.03"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Right-side circuit traces -->
+  <g stroke="#00E5A0" fill="none" opacity="0.05" stroke-width="1.5">
+    <path d="M 900 80 L 950 80 L 950 140 L 1020 140 L 1020 200"/>
+    <path d="M 950 80 L 1100 80"/>
+    <circle cx="1100" cy="80" r="3" fill="#00E5A0" stroke="none" opacity="0.3"/>
+    <path d="M 880 200 L 880 260 L 970 260 L 970 320"/>
+    <path d="M 970 260 L 1050 260 L 1050 380"/>
+    <circle cx="1050" cy="380" r="3" fill="#00E5A0" stroke="none" opacity="0.3"/>
+    <path d="M 900 420 L 1000 420 L 1000 500"/>
+    <circle cx="1000" cy="500" r="3" fill="#00E5A0" stroke="none" opacity="0.3"/>
+    <path d="M 870 120 L 920 120 L 920 60"/>
+    <circle cx="920" cy="60" r="3" fill="#00E5A0" stroke="none" opacity="0.3"/>
+  </g>
+
+  <!-- Central icon: medical cross + tool grid -->
+  <g transform="translate(220, 315)">
+    <!-- Tool grid dots representing 80+ tools -->
+    <g fill="#00E5A0" opacity="0.35">
+      <circle cx="-90" cy="-90" r="4"/>
+      <circle cx="-60" cy="-90" r="4"/>
+      <circle cx="-30" cy="-90" r="4"/>
+      <circle cx="0" cy="-90" r="4"/>
+      <circle cx="30" cy="-90" r="4"/>
+      <circle cx="60" cy="-90" r="4"/>
+      <circle cx="90" cy="-90" r="4"/>
+      <circle cx="-90" cy="-60" r="4"/>
+      <circle cx="-60" cy="-60" r="4"/>
+      <circle cx="-30" cy="-60" r="4"/>
+      <circle cx="0" cy="-60" r="4"/>
+      <circle cx="30" cy="-60" r="4"/>
+      <circle cx="60" cy="-60" r="4"/>
+      <circle cx="90" cy="-60" r="4"/>
+      <circle cx="-90" cy="-30" r="4"/>
+      <circle cx="-60" cy="-30" r="4"/>
+      <circle cx="90" cy="-30" r="4"/>
+      <circle cx="-90" cy="0" r="4"/>
+      <circle cx="-60" cy="0" r="4"/>
+      <circle cx="90" cy="0" r="4"/>
+      <circle cx="-90" cy="30" r="4"/>
+      <circle cx="-60" cy="30" r="4"/>
+      <circle cx="90" cy="30" r="4"/>
+      <circle cx="-90" cy="60" r="4"/>
+      <circle cx="-60" cy="60" r="4"/>
+      <circle cx="90" cy="60" r="4"/>
+      <circle cx="-90" cy="90" r="4"/>
+      <circle cx="-60" cy="90" r="4"/>
+      <circle cx="90" cy="90" r="4"/>
+    </g>
+    <!-- Faded outer dots to show overwhelming surface -->
+    <g fill="#00E5A0" opacity="0.12">
+      <circle cx="-120" cy="-120" r="3"/>
+      <circle cx="120" cy="-120" r="3"/>
+      <circle cx="-120" cy="120" r="3"/>
+      <circle cx="120" cy="120" r="3"/>
+      <circle cx="30" cy="30" r="3"/>
+      <circle cx="-30" cy="-30" r="3"/>
+      <circle cx="30" cy="-30" r="3"/>
+      <circle cx="-30" cy="30" r="3"/>
+    </g>
+    <!-- Medical cross overlay -->
+    <rect x="-8" y="-50" width="16" height="100" fill="#00E5A0" rx="3" opacity="0.9"/>
+    <rect x="-50" y="-8" width="100" height="16" fill="#00E5A0" rx="3" opacity="0.9"/>
+  </g>
+
+  <!-- Event horizon arc -->
+  <circle cx="220" cy="315" r="115" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.4"/>
+  <circle cx="220" cy="315" r="155" fill="none" stroke="#00E5A0" stroke-width="1" stroke-dasharray="3 6" opacity="0.2"/>
+
+  <!-- Title -->
+  <text x="480" y="220" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold">The Tool Surface Problem</text>
+
+  <!-- Subtitle -->
+  <text x="480" y="270" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" letter-spacing="2">WHEN CAPABILITY BREADTH BECOMES A LIABILITY</text>
+
+  <!-- Tagline -->
+  <text x="480" y="315" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16">25 core tools. 56 deferred. 130+ with MCP.</text>
+  <text x="480" y="345" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16">The event horizon where more tools means worse outcomes.</text>
+
+  <!-- Dr J byline -->
+  <text x="480" y="400" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" opacity="0.85">DR J — FLEET DIAGNOSTICS</text>
+  <text x="480" y="430" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="14">Infrastructure Health Report — July 29, 2026</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
