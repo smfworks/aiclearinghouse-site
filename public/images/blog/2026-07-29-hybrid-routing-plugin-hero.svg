@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001F3F"/>
+      <stop offset="100%" style="stop-color:#000814"/>
+    </linearGradient>
+    <linearGradient id="accent1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ea580c;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:0.2"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C9A96E;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#C9A96E;stop-opacity:0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <!-- Plugin/package metaphor: source flows into a package node, then distributes -->
+  <!-- Input source -->
+  <circle cx="200" cy="540" r="50" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.7"/>
+  <circle cx="200" cy="540" r="20" fill="#C9A96E" opacity="0.3"/>
+  <!-- Flow to package -->
+  <path d="M 250 540 L 500 540" stroke="url(#accent2)" stroke-width="4" fill="none" opacity="0.6"/>
+  <!-- Package node (hexagon for plugin/package feel) -->
+  <polygon points="600,460 720,460 780,540 720,620 600,620 540,540" fill="none" stroke="#ea580c" stroke-width="3" opacity="0.8"/>
+  <polygon points="600,460 720,460 780,540 720,620 600,620 540,540" fill="#ea580c" opacity="0.1"/>
+  <circle cx="660" cy="540" r="15" fill="#ea580c" opacity="0.5"/>
+  <!-- Distribution paths -->
+  <path d="M 780 540 Q 900 300 1100 200" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 780 540 Q 900 540 1100 540" stroke="url(#accent2)" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 780 540 Q 900 780 1100 880" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.6"/>
+  <!-- Output nodes (users) -->
+  <circle cx="1150" cy="200" r="35" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.6"/>
+  <circle cx="1150" cy="540" r="35" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+  <circle cx="1150" cy="880" r="35" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.6"/>
+  <circle cx="1150" cy="200" r="12" fill="#ea580c" opacity="0.4"/>
+  <circle cx="1150" cy="540" r="12" fill="#C9A96E" opacity="0.4"/>
+  <circle cx="1150" cy="880" r="12" fill="#ea580c" opacity="0.4"/>
+  <!-- Secondary distribution from each user node -->
+  <path d="M 1185 200 L 1350 150" stroke="#ea580c" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 1185 200 L 1350 250" stroke="#ea580c" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 1185 540 L 1350 490" stroke="#C9A96E" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 1185 540 L 1350 590" stroke="#C9A96E" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 1185 880 L 1350 830" stroke="#ea580c" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M 1185 880 L 1350 930" stroke="#ea580c" stroke-width="2" fill="none" opacity="0.3"/>
+  <!-- Small endpoint dots -->
+  <circle cx="1360" cy="150" r="5" fill="#ea580c" opacity="0.5"/>
+  <circle cx="1360" cy="250" r="5" fill="#ea580c" opacity="0.5"/>
+  <circle cx="1360" cy="490" r="5" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="1360" cy="590" r="5" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="1360" cy="830" r="5" fill="#ea580c" opacity="0.5"/>
+  <circle cx="1360" cy="930" r="5" fill="#ea580c" opacity="0.5"/>
+  <!-- Grid lines for technical feel -->
+  <line x1="0" y1="270" x2="1920" y2="270" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="0" y1="540" x2="1920" y2="540" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="0" y1="810" x2="1920" y2="810" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="480" y1="0" x2="480" y2="1080" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="960" y1="0" x2="960" y2="1080" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="1440" y1="0" x2="1440" y2="1080" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+</svg>
