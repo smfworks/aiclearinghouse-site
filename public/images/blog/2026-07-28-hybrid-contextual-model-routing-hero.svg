@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001F3F"/>
+      <stop offset="100%" style="stop-color:#000814"/>
+    </linearGradient>
+    <linearGradient id="accent1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ea580c;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#ea580c;stop-opacity:0.2"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C9A96E;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#C9A96E;stop-opacity:0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <!-- Three routing paths converging -->
+  <path d="M 100 200 Q 400 300 700 540" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.7"/>
+  <path d="M 100 540 Q 400 540 700 540" stroke="url(#accent2)" stroke-width="4" fill="none" opacity="0.7"/>
+  <path d="M 100 880 Q 400 780 700 540" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.7"/>
+  <!-- Central node -->
+  <circle cx="700" cy="540" r="60" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.8"/>
+  <circle cx="700" cy="540" r="30" fill="#ea580c" opacity="0.3"/>
+  <!-- Output paths diverging -->
+  <path d="M 760 540 Q 1000 300 1300 200" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 760 540 Q 1000 540 1300 540" stroke="url(#accent2)" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 760 540 Q 1000 780 1300 880" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.6"/>
+  <!-- Output nodes -->
+  <circle cx="1300" cy="200" r="40" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.6"/>
+  <circle cx="1300" cy="540" r="40" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+  <circle cx="1300" cy="880" r="40" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.6"/>
+  <!-- Inner detail circles -->
+  <circle cx="1300" cy="200" r="15" fill="#ea580c" opacity="0.4"/>
+  <circle cx="1300" cy="540" r="15" fill="#C9A96E" opacity="0.4"/>
+  <circle cx="1300" cy="880" r="15" fill="#ea580c" opacity="0.4"/>
+  <!-- Grid lines for technical feel -->
+  <line x1="0" y1="270" x2="1920" y2="270" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="0" y1="540" x2="1920" y2="540" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="0" y1="810" x2="1920" y2="810" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="480" y1="0" x2="480" y2="1080" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="960" y1="0" x2="960" y2="1080" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="1440" y1="0" x2="1440" y2="1080" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <!-- Decorative dots -->
+  <circle cx="200" cy="200" r="4" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="200" cy="540" r="4" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="200" cy="880" r="4" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="1600" cy="200" r="4" fill="#ea580c" opacity="0.5"/>
+  <circle cx="1600" cy="540" r="4" fill="#ea580c" opacity="0.5"/>
+  <circle cx="1600" cy="880" r="4" fill="#ea580c" opacity="0.5"/>
+</svg>
