@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Hermes on AMD ROCm: Local Agent Inference on Ryzen AI MAX+" — no-text abstract:
+     Central AMD GPU / ROCm inference node connected to Hermes agent instances.
+     Navy background, teal/gold/amber accents, stylized compute elements. Validates XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Hermes agents running on AMD ROCm GPU inference hardware">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="amdAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative grid -->
+  <g stroke="#162236" stroke-width="2" opacity="0.5">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- soft glows -->
+  <rect x="0" y="220" width="1200" height="50" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="0" y="360" width="1200" height="50" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- Central AMD ROCm GPU node -->
+  <g transform="translate(600, 315)">
+    <!-- GPU die / chip shape -->
+    <rect x="-70" y="-55" width="140" height="110" rx="8" fill="#1e3a8a" stroke="#22d3ee" stroke-width="3" opacity="0.95"/>
+    <!-- ROCm / compute units abstract -->
+    <g>
+      <rect x="-50" y="-35" width="20" height="20" rx="2" fill="#0e7490"/>
+      <rect x="-20" y="-35" width="20" height="20" rx="2" fill="#0e7490"/>
+      <rect x="10" y="-35" width="20" height="20" rx="2" fill="#0e7490"/>
+      <rect x="-50" y="5" width="20" height="20" rx="2" fill="#f59e0b"/>
+      <rect x="-20" y="5" width="20" height="20" rx="2" fill="#f59e0b"/>
+      <rect x="10" y="5" width="20" height="20" rx="2" fill="#f59e0b"/>
+    </g>
+    <circle cx="0" cy="0" r="18" fill="#0a1628"/>
+    <text x="0" y="5" text-anchor="middle" font-size="10" fill="#22d3ee" font-family="monospace" opacity="0.6">HIP</text>
+  </g>
+
+  <!-- Hermes agent left -->
+  <g transform="translate(220, 200)">
+    <circle cx="0" cy="0" r="32" fill="#0e7490" opacity="0.85"/>
+    <circle cx="0" cy="0" r="32" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.7"/>
+    <circle cx="0" cy="0" r="12" fill="#0a1628"/>
+    <!-- agent icon lines -->
+    <line x1="-8" y1="-8" x2="8" y2="8" stroke="#1e3a8a" stroke-width="2"/>
+    <line x1="8" y1="-8" x2="-8" y2="8" stroke="#1e3a8a" stroke-width="2"/>
+  </g>
+
+  <!-- Hermes agent right -->
+  <g transform="translate(980, 200)">
+    <circle cx="0" cy="0" r="32" fill="#f59e0b" opacity="0.85"/>
+    <circle cx="0" cy="0" r="32" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.7"/>
+    <circle cx="0" cy="0" r="12" fill="#0a1628"/>
+    <line x1="-8" y1="-8" x2="8" y2="8" stroke="#1e3a8a" stroke-width="2"/>
+    <line x1="8" y1="-8" x2="-8" y2="8" stroke="#1e3a8a" stroke-width="2"/>
+  </g>
+
+  <!-- Agent lower or another -->
+  <g transform="translate(220, 430)">
+    <circle cx="0" cy="0" r="28" fill="#0e7490" opacity="0.8"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.6"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+
+  <g transform="translate(980, 430)">
+    <circle cx="0" cy="0" r="28" fill="#f59e0b" opacity="0.8"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.6"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+
+  <!-- Connection lines (agent to inference) -->
+  <path d="M252,200 Q420,260 530,290" stroke="#0e7490" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M948,200 Q780,260 670,290" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M252,430 Q420,370 530,340" stroke="#0e7490" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M948,430 Q780,370 670,340" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Small compute dots / activity indicators -->
+  <circle cx="350" cy="240" r="5" fill="#22d3ee" opacity="0.8"/>
+  <circle cx="450" cy="280" r="4" fill="#ff6b00" opacity="0.7"/>
+  <circle cx="350" cy="390" r="4" fill="#22d3ee" opacity="0.7"/>
+  <circle cx="850" cy="240" r="5" fill="#22d3ee" opacity="0.8"/>
+  <circle cx="750" cy="280" r="4" fill="#ff6b00" opacity="0.7"/>
+  <circle cx="850" cy="390" r="4" fill="#22d3ee" opacity="0.7"/>
+
+  <!-- Subtle shared memory / weights ellipse -->
+  <ellipse cx="600" cy="315" rx="380" ry="160" fill="none" stroke="#1e3a8a" stroke-width="1.5" stroke-dasharray="5 8" opacity="0.4"/>
+</svg>
