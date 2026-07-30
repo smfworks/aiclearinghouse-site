@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Hardware-Aware Adaptive Scaling for Local AI Agents on Linux" — no-text abstract:
+     Hardware detector node with resource tiers (RAM/GPU bars), connected to agent profiles.
+     Navy background, teal/gold/amber accents, geometric compute and scaling elements.
+     Validates with xml.etree.ElementTree. Brand colors: #0a1628 navy, #1e3a8a, #f59e0b gold, #0e7490 teal, #ff6b00. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Hardware-aware scaling for local AI agents: RAM, GPU detection feeding profile tiers">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="scaleGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative grid -->
+  <g stroke="#162236" stroke-width="2" opacity="0.5">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+  </g>
+
+  <!-- soft glows -->
+  <rect x="0" y="180" width="1200" height="40" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="0" y="380" width="1200" height="40" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- Central hardware detector node -->
+  <g transform="translate(600, 315)">
+    <!-- Main chassis / detector box -->
+    <rect x="-90" y="-70" width="180" height="140" rx="10" fill="#1e3a8a" stroke="#22d3ee" stroke-width="3" opacity="0.95"/>
+    <!-- Inner compute grid -->
+    <g>
+      <!-- RAM bar -->
+      <rect x="-70" y="-50" width="140" height="18" rx="3" fill="#162236"/>
+      <rect x="-70" y="-50" width="95" height="18" rx="3" fill="url(#scaleGradient)"/>
+      <!-- GPU bar -->
+      <rect x="-70" y="-25" width="140" height="18" rx="3" fill="#162236"/>
+      <rect x="-70" y="-25" width="70" height="18" rx="3" fill="#f59e0b"/>
+      <!-- CPU indicators -->
+      <circle cx="-50" cy="10" r="8" fill="#0e7490"/>
+      <circle cx="0" cy="10" r="8" fill="#0e7490"/>
+      <circle cx="50" cy="10" r="8" fill="#0e7490"/>
+      <!-- Scale arrows / adaptive -->
+      <polygon points="-30,35 30,35 0,55" fill="#ff6b00" opacity="0.8"/>
+    </g>
+    <circle cx="0" cy="-5" r="12" fill="#0a1628"/>
+  </g>
+
+  <!-- Left tier: low / standard profile -->
+  <g transform="translate(180, 220)">
+    <rect x="-45" y="-35" width="90" height="70" rx="6" fill="#0e7490" opacity="0.7"/>
+    <rect x="-35" y="-25" width="70" height="12" rx="2" fill="#162236"/>
+    <rect x="-35" y="-25" width="45" height="12" rx="2" fill="#22d3ee"/>
+    <rect x="-35" y="-5" width="70" height="12" rx="2" fill="#162236"/>
+    <rect x="-35" y="-5" width="30" height="12" rx="2" fill="#0e7490"/>
+    <text x="0" y="40" text-anchor="middle" font-size="9" fill="#1e3a8a" font-family="monospace" opacity="0.5">TIER 1</text>
+  </g>
+
+  <!-- Right tier: heavy profile -->
+  <g transform="translate(1020, 220)">
+    <rect x="-45" y="-35" width="90" height="70" rx="6" fill="#f59e0b" opacity="0.7"/>
+    <rect x="-35" y="-25" width="70" height="12" rx="2" fill="#162236"/>
+    <rect x="-35" y="-25" width="65" height="12" rx="2" fill="#ff6b00"/>
+    <rect x="-35" y="-5" width="70" height="12" rx="2" fill="#162236"/>
+    <rect x="-35" y="-5" width="55" height="12" rx="2" fill="#f59e0b"/>
+    <text x="0" y="40" text-anchor="middle" font-size="9" fill="#1e3a8a" font-family="monospace" opacity="0.5">TIER 3</text>
+  </g>
+
+  <!-- Bottom tiers / agents -->
+  <g transform="translate(300, 450)">
+    <circle cx="0" cy="0" r="28" fill="#0e7490" opacity="0.8"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.6"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+  <g transform="translate(600, 450)">
+    <circle cx="0" cy="0" r="28" fill="#1e3a8a" opacity="0.8"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#f59e0b" stroke-width="3" opacity="0.6"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+  <g transform="translate(900, 450)">
+    <circle cx="0" cy="0" r="28" fill="#f59e0b" opacity="0.8"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.6"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+
+  <!-- Connection lines -->
+  <path d="M260,220 Q400,280 510,290" stroke="#0e7490" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M690,290 Q820,280 975,220" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M600,385 Q600,420 600,422" stroke="#22d3ee" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M300,385 Q450,420 572,422" stroke="#0e7490" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M900,385 Q750,420 628,422" stroke="#f59e0b" stroke-width="2" fill="none" opacity="0.4"/>
+</svg>
