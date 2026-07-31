@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#14b8a6;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00E5A0" stroke-width="0.4" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Central glow -->
+  <circle cx="600" cy="315" r="220" fill="url(#glowGrad)"/>
+
+  <!-- Central bridge hub -->
+  <g transform="translate(600, 315)">
+    <!-- Hub core -->
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#00E5A0" stroke-width="3"/>
+    <circle cx="0" cy="0" r="12" fill="#00E5A0" opacity="0.9"/>
+    
+    <!-- Inner nodes -->
+    <circle cx="-60" cy="-40" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="60" cy="-40" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="0" cy="55" r="8" fill="none" stroke="#14b8a6" stroke-width="1.5"/>
+    
+    <!-- Connection lines from hub -->
+    <line x1="0" y1="0" x2="-60" y2="-40" stroke="#00E5A0" stroke-width="1.2" opacity="0.7"/>
+    <line x1="0" y1="0" x2="60" y2="-40" stroke="#00E5A0" stroke-width="1.2" opacity="0.7"/>
+    <line x1="0" y1="0" x2="0" y2="55" stroke="#00E5A0" stroke-width="1.2" opacity="0.7"/>
+  </g>
+
+  <!-- Platform nodes around the bridge -->
+  <!-- CLI / Terminal node (left) -->
+  <g transform="translate(280, 220)">
+    <rect x="-28" y="-18" width="56" height="36" rx="4" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="-18" y="-8" width="36" height="4" fill="#f59e0b" opacity="0.8"/>
+    <rect x="-18" y="2" width="24" height="4" fill="#f59e0b" opacity="0.6"/>
+    <line x1="28" y1="0" x2="80" y2="95" stroke="#00E5A0" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+  </g>
+
+  <!-- Web / Browser node (upper right) -->
+  <g transform="translate(920, 180)">
+    <circle cx="0" cy="0" r="26" fill="none" stroke="#14b8a6" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#14b8a6" opacity="0.7"/>
+    <line x1="-10" y1="-10" x2="10" y2="10" stroke="#14b8a6" stroke-width="1.5" opacity="0.6"/>
+    <line x1="10" y1="-10" x2="-10" y2="10" stroke="#14b8a6" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-80" y1="135" x2="0" y2="0" stroke="#00E5A0" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+  </g>
+
+  <!-- Messaging / Chat node (right lower) -->
+  <g transform="translate(880, 420)">
+    <rect x="-22" y="-16" width="44" height="32" rx="6" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="-8" cy="0" r="3" fill="#f59e0b" opacity="0.8"/>
+    <circle cx="8" cy="0" r="3" fill="#f59e0b" opacity="0.8"/>
+    <line x1="-22" y1="0" x2="-160" y2="-105" stroke="#00E5A0" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+  </g>
+
+  <!-- Gateway / Hub connection (bottom center) -->
+  <g transform="translate(600, 480)">
+    <rect x="-20" y="-12" width="40" height="24" rx="3" fill="none" stroke="#14b8a6" stroke-width="2"/>
+    <line x1="0" y1="-12" x2="0" y2="-165" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- Subtle outer rings for depth -->
+  <circle cx="600" cy="315" r="300" fill="none" stroke="#00E5A0" stroke-width="0.5" opacity="0.08"/>
+  <circle cx="600" cy="315" r="340" fill="none" stroke="#f59e0b" stroke-width="0.3" opacity="0.06"/>
+</svg>
