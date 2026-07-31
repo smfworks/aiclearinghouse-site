@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="barFill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="barOver" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF4444" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FF6B6B" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Circuit traces right side -->
+  <g opacity="0.04" stroke="#00E5A0" fill="none" stroke-width="1.5">
+    <path d="M 1000 80 L 1050 80 L 1080 110 L 1080 180 L 1120 220"/>
+    <path d="M 1040 300 L 1090 300 L 1120 330 L 1120 400"/>
+    <path d="M 1000 500 L 1060 500 L 1090 530 L 1140 530"/>
+    <circle cx="1080" cy="110" r="3" fill="#00E5A0"/>
+    <circle cx="1080" cy="180" r="3" fill="#00E5A0"/>
+    <circle cx="1120" cy="220" r="3" fill="#00E5A0"/>
+    <circle cx="1120" cy="330" r="3" fill="#00E5A0"/>
+    <circle cx="1120" cy="400" r="3" fill="#00E5A0"/>
+    <circle cx="1090" cy="530" r="3" fill="#00E5A0"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="180" cy="180" r="140" fill="url(#pulse)"/>
+
+  <!-- Memory container icon: a brain/database hybrid with overflow -->
+  <g transform="translate(180, 180)">
+    <!-- Database cylinder -->
+    <ellipse cx="0" cy="-45" rx="55" ry="18" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.7"/>
+    <path d="M -55 -45 L -55 25 Q -55 43 0 43 Q 55 43 55 25 L 55 -45" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.7"/>
+    <ellipse cx="0" cy="-20" rx="55" ry="18" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.4"/>
+    <ellipse cx="0" cy="5" rx="55" ry="18" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Fill line at capacity -->
+    <line x1="-55" y1="-10" x2="55" y2="-10" stroke="#FF4444" stroke-width="2" stroke-dasharray="4 3" opacity="0.7"/>
+    <text x="62" y="-7" fill="#FF4444" font-size="12" font-family="system-ui, sans-serif" font-weight="600">100%</text>
+
+    <!-- Overflow drops falling from top -->
+    <g opacity="0.6">
+      <circle cx="-20" cy="-70" r="5" fill="#FF4444" fill-opacity="0.5"/>
+      <circle cx="5" cy="-82" r="4" fill="#FF4444" fill-opacity="0.4"/>
+      <circle cx="25" cy="-72" r="6" fill="#FF4444" fill-opacity="0.3"/>
+      <path d="M -20 -65 L -20 -58" stroke="#FF4444" stroke-width="1.5" stroke-opacity="0.3"/>
+      <path d="M 5 -78 L 5 -58" stroke="#FF4444" stroke-width="1.5" stroke-opacity="0.2"/>
+      <path d="M 25 -66 L 25 -58" stroke="#FF4444" stroke-width="1.5" stroke-opacity="0.2"/>
+    </g>
+
+    <!-- Neural branch from base -->
+    <path d="M 0 43 Q 0 65 -20 80" stroke="#00E5A0" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+    <path d="M 0 43 Q 0 65 20 80" stroke="#00E5A0" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+    <path d="M 0 43 L 0 75" stroke="#00E5A0" stroke-width="2" fill="none" stroke-opacity="0.5"/>
+    <circle cx="-20" cy="80" r="4" fill="#00E5A0" fill-opacity="0.6"/>
+    <circle cx="0" cy="75" r="4" fill="#00E5A0" fill-opacity="0.6"/>
+    <circle cx="20" cy="80" r="4" fill="#00E5A0" fill-opacity="0.6"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="140" fill="#E2E8F0" font-size="44" font-weight="700" font-family="system-ui, -apple-system, sans-serif">
+    The Memory Ceiling
+  </text>
+
+  <!-- Subtitle -->
+  <text x="380" y="185" fill="#00E5A0" font-size="22" font-weight="600" font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">
+    WHEN AGENT MEMORY FILLS UP AND WHAT IT LOSES
+  </text>
+
+  <!-- Tagline -->
+  <text x="380" y="225" fill="#94A3B8" font-size="16" font-family="system-ui, -apple-system, sans-serif">
+    5 of 11 profiles at capacity. New facts silently rejected.
+  </text>
+
+  <!-- Capacity bars visualization -->
+  <g transform="translate(380, 260)">
+    <!-- Header -->
+    <text x="0" y="0" fill="#94A3B8" font-size="13" font-family="system-ui, sans-serif" font-weight="500">FLEET MEMORY CAPACITY</text>
+    <text x="740" y="0" fill="#94A3B8" font-size="13" font-family="system-ui, sans-serif" text-anchor="end">2,200 CHAR LIMIT</text>
+
+    <!-- Bars: each is 740px max width, height 22, gap 8 -->
+    <!-- drj 101% - OVER -->
+    <text x="60" y="24" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">drj</text>
+    <rect x="90" y="14" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="14" width="747" height="14" rx="2" fill="url(#barOver)"/>
+    <text x="850" y="24" fill="#FF6B6B" font-size="11" font-family="system-ui, sans-serif">101%</text>
+
+    <!-- liam 100% -->
+    <text x="60" y="48" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">liam</text>
+    <rect x="90" y="38" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="38" width="740" height="14" rx="2" fill="url(#barFill)"/>
+    <text x="850" y="48" fill="#00E5A0" font-size="11" font-family="system-ui, sans-serif">100%</text>
+
+    <!-- jeff 100% -->
+    <text x="60" y="72" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">jeff</text>
+    <rect x="90" y="62" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="62" width="740" height="14" rx="2" fill="url(#barFill)"/>
+    <text x="850" y="72" fill="#00E5A0" font-size="11" font-family="system-ui, sans-serif">100%</text>
+
+    <!-- gabriel 100% -->
+    <text x="60" y="96" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">gabriel</text>
+    <rect x="90" y="86" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="86" width="740" height="14" rx="2" fill="url(#barFill)"/>
+    <text x="850" y="96" fill="#00E5A0" font-size="11" font-family="system-ui, sans-serif">100%</text>
+
+    <!-- jasmine 99% -->
+    <text x="60" y="120" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">jasmine</text>
+    <rect x="90" y="110" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="110" width="733" height="14" rx="2" fill="url(#barFill)"/>
+    <text x="850" y="120" fill="#00E5A0" font-size="11" font-family="system-ui, sans-serif">99%</text>
+
+    <!-- harry 91% -->
+    <text x="60" y="144" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">harry</text>
+    <rect x="90" y="134" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="134" width="673" height="14" rx="2" fill="url(#barFill)" fill-opacity="0.6"/>
+    <text x="850" y="144" fill="#94A3B8" font-size="11" font-family="system-ui, sans-serif">91%</text>
+
+    <!-- morgan 74% -->
+    <text x="60" y="168" fill="#E2E8F0" font-size="12" font-family="system-ui, sans-serif">morgan</text>
+    <rect x="90" y="158" width="740" height="14" rx="2" fill="#1e2a45"/>
+    <rect x="90" y="158" width="548" height="14" rx="2" fill="url(#barFill)" fill-opacity="0.4"/>
+    <text x="850" y="168" fill="#94A3B8" font-size="11" font-family="system-ui, sans-serif">74%</text>
+  </g>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
