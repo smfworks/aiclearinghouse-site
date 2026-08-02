@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.1" stroke="#1a3a2a" stroke-width="0.5">
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+  </g>
+
+  <!-- Pixel-art style centipede crossing the screen -->
+  <g transform="translate(100, 120)">
+    <!-- Centipede segments -->
+    <rect x="0" y="0" width="28" height="28" fill="#00ff80" rx="3" filter="url(#glow)"/>
+    <rect x="32" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="64" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="96" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="128" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="160" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="192" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="224" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="256" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <rect x="288" y="0" width="28" height="28" fill="#00cc60" rx="3"/>
+    <!-- Head (brighter) -->
+    <rect x="320" y="-2" width="32" height="32" fill="#00ff90" rx="4" filter="url(#glow)"/>
+    <!-- Eyes -->
+    <rect x="330" y="6" width="4" height="4" fill="#000"/>
+    <rect x="342" y="6" width="4" height="4" fill="#000"/>
+  </g>
+
+  <!-- Mushrooms scattered -->
+  <g transform="translate(200, 250)">
+    <rect x="0" y="8" width="20" height="12" fill="#cc7700" rx="3"/>
+    <rect x="4" y="20" width="12" height="8" fill="#aa5500" rx="2"/>
+  </g>
+  <g transform="translate(500, 200)">
+    <rect x="0" y="8" width="20" height="12" fill="#cc7700" rx="3"/>
+    <rect x="4" y="20" width="12" height="8" fill="#aa5500" rx="2"/>
+  </g>
+  <g transform="translate(800, 260)">
+    <rect x="0" y="8" width="20" height="12" fill="#cc7700" rx="3"/>
+    <rect x="4" y="20" width="12" height="8" fill="#aa5500" rx="2"/>
+  </g>
+  <g transform="translate(350, 300)">
+    <rect x="0" y="8" width="20" height="12" fill="#cc7700" rx="3"/>
+    <rect x="4" y="20" width="12" height="8" fill="#aa5500" rx="2"/>
+  </g>
+  <g transform="translate(650, 230)">
+    <rect x="0" y="8" width="20" height="12" fill="#cc7700" rx="3"/>
+    <rect x="4" y="20" width="12" height="8" fill="#aa5500" rx="2"/>
+  </g>
+  <g transform="translate(950, 280)">
+    <rect x="0" y="8" width="20" height="12" fill="#cc7700" rx="3"/>
+    <rect x="4" y="20" width="12" height="8" fill="#aa5500" rx="2"/>
+  </g>
+
+  <!-- Player ship (red) -->
+  <g transform="translate(570, 480)">
+    <rect x="0" y="10" width="30" height="20" fill="#ff0000" rx="5" filter="url(#glow)"/>
+    <rect x="12" y="2" width="6" height="10" fill="#ff0000"/>
+    <!-- Gun barrel -->
+    <rect x="14" y="-4" width="2" height="8" fill="#ff3333"/>
+  </g>
+
+  <!-- Bullets (white dots going up) -->
+  <g fill="#ffffff" filter="url(#glow)">
+    <rect x="583" y="440" width="4" height="8"/>
+    <rect x="583" y="420" width="4" height="8"/>
+    <rect x="583" y="400" width="4" height="8"/>
+    <rect x="583" y="380" width="4" height="8"/>
+  </g>
+
+  <!-- Code brackets on left side -->
+  <g transform="translate(50, 380)" opacity="0.4">
+    <text font-family="SF Mono, Courier New, monospace" font-size="12" fill="#5a8a5a">
+      <tspan x="0" dy="0">import pygame</tspan>
+      <tspan x="0" dy="16">import random</tspan>
+      <tspan x="0" dy="16">import sys</tspan>
+      <tspan x="0" dy="20" fill="#76b900">class Game:</tspan>
+      <tspan x="0" dy="16">  def __init__():</tspan>
+      <tspan x="0" dy="16">    self.state = ...</tspan>
+    </text>
+  </g>
+
+  <!-- AI badge on right -->
+  <g transform="translate(980, 380)" opacity="0.5">
+    <rect x="0" y="0" width="160" height="60" rx="8" fill="#0d1f12" stroke="#76b900" stroke-width="1"/>
+    <text x="80" y="25" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#76b900">DEEPSEEK V4 FLASH</text>
+    <text x="80" y="42" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#5a8a5a">685B params · IQ2XXS</text>
+    <text x="80" y="54" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#5a8a5a">390 lines · 1 shot</text>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="50" text-anchor="middle" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="34" font-weight="700" fill="#e8eef4" filter="url(#textGlow)">A 685B Model Built Centipede</text>
+  <text x="600" y="80" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="14" fill="#76b900">One prompt · 390 lines of pygame · zero bugs · fully playable</text>
+
+  <!-- Stats bar -->
+  <g transform="translate(60, 540)">
+    <rect x="0" y="0" width="1080" height="60" rx="8" fill="#0d1f12" stroke="#1a3a2a" stroke-width="1" opacity="0.8"/>
+
+    <text x="30" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">LINES</text>
+    <text x="30" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="16" font-weight="700" fill="#76b900">390</text>
+    <text x="30" y="52" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">single file</text>
+
+    <text x="150" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">CLASSES</text>
+    <text x="150" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="16" font-weight="700" fill="#76b900">6</text>
+    <text x="150" y="52" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">Game, Centipede, Segment, Player, Bullet, Mushroom</text>
+
+    <text x="500" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">GENERATION TIME</text>
+    <text x="500" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="16" font-weight="700" fill="#76b900">~30s</text>
+    <text x="500" y="52" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">3589 tokens · 119 tok/s</text>
+
+    <text x="700" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">BUGS FOUND</text>
+    <text x="700" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="16" font-weight="700" fill="#76b900">0</text>
+    <text x="700" y="52" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">ran on first try</text>
+
+    <text x="850" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">FEATURES</text>
+    <text x="850" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="16" font-weight="700" fill="#e8eef4">13/13</text>
+    <text x="850" y="52" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">all requirements met</text>
+  </g>
+</svg>
