@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMF Benchmark Explorer</title>
+    <style>
+        /* ── Reset & Base ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0e1a;
+            color: #e8eef4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1f12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a3a2a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #76b900;
+        }
+
+        /* ── Layout ── */
+        .app-wrapper {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px 24px 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* ── Header ── */
+        .header {
+            padding: 24px 0 20px;
+            border-bottom: 1px solid #1a3a2a;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 12px;
+        }
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: #e8eef4;
+        }
+        .header-left h1 .accent {
+            color: #76b900;
+        }
+        .header-left .subtitle {
+            font-size: 14px;
+            color: #7a8a9a;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        .header-right {
+            font-size: 13px;
+            color: #5a6a7a;
+            text-align: right;
+        }
+        .header-right .version {
+            color: #76b900;
+            font-weight: 500;
+        }
+
+        /* ── Overview Cards ── */
+        .overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .overview-card {
+            background: #0d1f12;
+            border: 1px solid #1a3a2a;
+            border-radius: 12px;
+            padding: 20px 24px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .overview-card:hover {
+            border-color: #76b922;
+            transform: translateY(-2px);
+        }
+        .overview-card .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #7a8a9a;
+            font-weight: 500;
+        }
+        .overview-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #e8eef4;
+            margin-top: 4px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+        .overview-card .value .accent {
+            color: #76b900;
+        }
+        .overview-card .sub {
+            font-size: 13px;
+            color: #5a6a7a;
+            margin-top: 2px;
+        }
+
+        /* ── Controls ── */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .controls .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .controls label {
+            font-size: 13px;
+            color: #7a8a9a;
+            font-weight: 500;
+        }
+        .controls select,
+        .controls input {
+            background: #0d1f12;
+            border: 1px solid #1a3a2a;
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #e8eef4;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+            min-width: 180px;
+        }
+        .controls select:focus,
+        .controls input:focus {
+            border-color: #76b900;
+        }
+        .controls select option {
+            background: #0d1f12;
+            color: #e8eef4;
+        }
+        .controls input::placeholder {
+            color: #4a5a6a;
+        }
+        .controls .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+        .controls .search-wrap input {
+            width: 100%;
+            padding-left: 36px;
+        }
+        .controls .search-wrap .icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4a5a6a;
+            font-size: 16px;
+            pointer-events: none;
+        }
+        .controls .count-badge {
+            font-size: 13px;
+            color: #5a6a7a;
+            background: #0d1f12;
+            border: 1px solid #1a3a2a;
+            border-radius: 20px;
+            padding: 4px 14px;
+            white-space: nowrap;
+        }
+
+        /* ── Table ── */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #1a3a2a;
+            background: #0d1f12;
+            flex: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 700px;
+        }
+        thead {
+            background: #0a1a0e;
+            border-bottom: 2px solid #1a3a2a;
+        }
+        thead th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #7a8a9a;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+        thead th:hover {
+            color: #76b900;
+        }
+        thead th .sort-arrow {
+            margin-left: 4px;
+            opacity: 0.4;
+        }
+        thead th.sorted .sort-arrow {
+            opacity: 1;
+            color: #76b900;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #1a3a2a;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        tbody tr:hover {
+            background: #112a1a;
+        }
+        tbody tr.expanded {
+            background: #0f2618;
+        }
+        tbody tr.expanded+.detail-row td {
+            background: #0a1e12;
+        }
+        tbody td {
+            padding: 12px 16px;
+            vertical-align: middle;
+        }
+        tbody td .model-name {
+            font-weight: 500;
+            color: #e8eef4;
+        }
+        tbody td .model-name .tag {
+            font-size: 11px;
+            background: #1a3a2a;
+            color: #76b900;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: 400;
+        }
+        tbody td .hardware {
+            font-size: 13px;
+            color: #b0c0d0;
+        }
+        tbody td .metric {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            color: #b0d0c0;
+        }
+        tbody td .metric .na {
+            color: #4a5a6a;
+            font-style: italic;
+        }
+        tbody td .metric .good {
+            color: #76b900;
+        }
+        tbody td .metric .warn {
+            color: #e8a800;
+        }
+        tbody td .expand-icon {
+            color: #4a5a6a;
+            font-size: 12px;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        tbody tr.expanded .expand-icon {
+            transform: rotate(90deg);
+            color: #76b900;
+        }
+
+        /* ── Detail Row ── */
+        .detail-row {
+            display: none;
+        }
+        .detail-row.visible {
+            display: table-row;
+        }
+        .detail-row td {
+            padding: 0 16px 20px;
+            background: #0a1e12;
+            border-bottom: 1px solid #1a3a2a;
+        }
+        .detail-inner {
+            padding: 16px 0 8px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .detail-card {
+            background: #0d1f12;
+            border: 1px solid #1a3a2a;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .detail-card h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #76b900;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .detail-card .kv {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #0a1e12;
+        }
+        .detail-card .kv:last-child {
+            border-bottom: none;
+        }
+        .detail-card .kv .k {
+            color: #7a8a9a;
+        }
+        .detail-card .kv .v {
+            color: #e8eef4;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+        .detail-card .kv .v .badge-pass {
+            color: #76b900;
+        }
+        .detail-card .kv .v .badge-fail {
+            color: #e84a4a;
+        }
+        .detail-card .raw-toggle {
+            margin-top: 10px;
+        }
+        .detail-card .raw-toggle button {
+            background: none;
+            border: 1px solid #1a3a2a;
+            color: #7a8a9a;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .detail-card .raw-toggle button:hover {
+            border-color: #76b900;
+            color: #76b900;
+        }
+        .detail-card .raw-json {
+            display: none;
+            margin-top: 8px;
+            background: #060a0e;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 11px;
+            color: #b0c0d0;
+            max-height: 300px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .detail-card .raw-json.open {
+            display: block;
+        }
+
+        /* ── Loading & Error ── */
+        .state-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #5a6a7a;
+        }
+        .state-message .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #1a3a2a;
+            border-top-color: #76b900;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .state-message h3 {
+            font-size: 18px;
+            color: #e8eef4;
+            margin-bottom: 6px;
+        }
+        .state-message p {
+            font-size: 14px;
+            color: #5a6a7a;
+        }
+        .state-message .retry-btn {
+            margin-top: 16px;
+            background: #1a3a2a;
+            border: none;
+            color: #e8eef4;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .state-message .retry-btn:hover {
+            background: #76b900;
+            color: #0a0e1a;
+        }
+        .state-error {
+            color: #e84a4a;
+        }
+        .state-error .retry-btn {
+            background: #3a1a1a;
+            border: 1px solid #e84a4a;
+        }
+        .state-error .retry-btn:hover {
+            background: #e84a4a;
+            color: #fff;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 32px;
+            padding: 20px 0;
+            border-top: 1px solid #1a3a2a;
+            text-align: center;
+            font-size: 13px;
+            color: #4a5a6a;
+        }
+        .footer .highlight {
+            color: #76b900;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .app-wrapper {
+                padding: 12px 12px 0;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-right {
+                text-align: left;
+            }
+            .header-left h1 {
+                font-size: 22px;
+            }
+            .overview {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 10px;
+            }
+            .overview-card .value {
+                font-size: 26px;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls .search-wrap {
+                min-width: unset;
+            }
+            .controls select,
+            .controls input {
+                width: 100%;
+                min-width: unset;
+            }
+            .controls .count-badge {
+                align-self: flex-start;
+            }
+            table {
+                font-size: 13px;
+                min-width: 500px;
+            }
+            thead th,
+            tbody td {
+                padding: 10px 12px;
+            }
+            .detail-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-left h1 {
+                font-size: 18px;
+            }
+            .overview-card .value {
+                font-size: 22px;
+            }
+            table {
+                font-size: 12px;
+                min-width: 360px;
+            }
+            thead th,
+            tbody td {
+                padding: 8px 10px;
+            }
+            .overview-card {
+                padding: 14px 16px;
+            }
+        }
+
+        /* ── Utility ── */
+        .text-muted {
+            color: #5a6a7a;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+        .truncate {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #5a6a7a;
+        }
+        .no-results strong {
+            color: #e8eef4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+        <!-- ─── HEADER ─── -->
+        <header class="header">
+            <div class="header-left">
+                <h1>SMF <span class="accent">Benchmark Explorer</span></h1>
+                <div class="subtitle">SMF Works LLM Model Testing Archive</div>
+            </div>
+            <div class="header-right">
+                <span class="version">v1.0</span> &middot; <span id="dataDate">—</span>
+            </div>
+        </header>
+
+        <!-- ─── OVERVIEW CARDS ─── -->
+        <section class="overview" id="overviewCards">
+            <div class="overview-card">
+                <div class="label">Total Benchmarks</div>
+                <div class="value" id="totalBenchmarks">—</div>
+            </div>
+            <div class="overview-card">
+                <div class="label">Unique Models</div>
+                <div class="value" id="uniqueModels">—</div>
+            </div>
+            <div class="overview-card">
+                <div class="label">Latest Test</div>
+                <div class="value" id="latestDate">—</div>
+                <div class="sub" id="latestModelSub">—</div>
+            </div>
+            <div class="overview-card">
+                <div class="label">Hardware Configs</div>
+                <div class="value" id="hardwareCount">—</div>
+            </div>
+        </section>
+
+        <!-- ─── CONTROLS ─── -->
+        <section class="controls">
+            <div class="filter-group">
+                <label for="modelFilter">Model</label>
+                <select id="modelFilter">
+                    <option value="all">All Models</option>
+                </select>
+            </div>
+            <div class="search-wrap">
+                <span class="icon">&#128269;</span>
+                <input type="text" id="searchInput" placeholder="Search by model, hardware, file…" autocomplete="off">
+            </div>
+            <span class="count-badge" id="rowCount">0 entries</span>
+        </section>
+
+        <!-- ─── TABLE ─── -->
+        <div class="table-container" id="tableContainer">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:28px" class="sort-header" data-sort="expand">&#9654;</th>
+                        <th class="sort-header" data-sort="model">Model <span class="sort-arrow">&#8595;&#8593;</span></th>
+                        <th class="sort-header" data-sort="date">Date <span class="sort-arrow">&#8595;&#8593;</span></th>
+                        <th class="sort-header" data-sort="hardware">Hardware <span class="sort-arrow">&#8595;&#8593;</span></th>
+                        <th class="sort-header" data-sort="throughput">Throughput <span class="sort-arrow">&#8595;&#8593;</span></th>
+                        <th class="sort-header" data-sort="ttft">TTFT <span class="sort-arrow">&#8595;&#8593;</span></th>
+                        <th class="sort-header" data-sort="passrate">Pass Rate <span class="sort-arrow">&#8595;&#8593;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- rows inserted by JS -->
+                </tbody>
+            </table>
+            <div id="tableState" class="state-message">
+                <div class="spinner"></div>
+                <h3>Loading benchmarks…</h3>
+                <p>Fetching <code>benchmark-data.json</code></p>
+            </div>
+        </div>
+
+        <!-- ─── FOOTER ─── -->
+        <footer class="footer">
+            Built by <span class="highlight">DeepSeek V4 Flash</span> on <span class="highlight">NVIDIA DGX Spark</span> &middot; SMF Works
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            let allData = [], filteredData = [];
+            const $ = id => document.getElementById(id);
+            const tableBody = $('tableBody'), tableState = $('tableState');
+            const modelFilter = $('modelFilter'), searchInput = $('searchInput'), rowCount = $('rowCount');
+            let sortKey = null, sortDir = 1;
+
+            function safeVal(v, f) { f = f || '—'; return (v === null || v === undefined || v === '') ? f : v; }
+            function fmtDate(ts) {
+                if (!ts) return '—';
+                let d = new Date(ts);
+                if (isNaN(d.getTime())) { const m = ts.match(/(\d{4})(\d{2})(\d{2})/); if (m) d = new Date(m[1]+'-'+m[2]+'-'+m[3]); }
+                return isNaN(d.getTime()) ? ts : d.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+            }
+
+            function extractMetrics(raw) {
+                let tp='—', ttft='—', pr='—';
+                const find = (keys) => {
+                    for (const k of keys) {
+                        if (raw.tests && Array.isArray(raw.tests[k])) return raw.tests[k];
+                        if (Array.isArray(raw[k])) return raw[k];
+                    }
+                    return null;
+                };
+                let a = find(['latency_throughput','test_1_latency_throughput']);
+                if (a) { const v=a.map(x=>x.tokens_per_second||x.tps).filter(x=>x&&!isNaN(x)); if(v.length) tp=(v.reduce((s,x)=>s+x,0)/v.length).toFixed(1)+' tok/s'; }
+                a = find(['ttft','test_2_ttft']);
+                if (a) { const v=a.map(x=>x.ttft_ms).filter(x=>x&&!isNaN(x)); if(v.length) ttft=Math.round(v.reduce((s,x)=>s+x,0)/v.length)+' ms'; }
+                a = find(['reasoning_quality','test_5_reasoning_quality']);
+                if (a) { const p=a.filter(x=>x.passed).length; pr=p+'/'+a.length; }
+                if (raw.summary && raw.summary.total_tests) pr=(raw.summary.passed||0)+'/'+raw.summary.total_tests;
+                if (Array.isArray(raw)) { const p=raw.filter(m=>m.reasoning&&m.reasoning.passed===m.reasoning.total).length; pr=p+'/'+raw.length+' perfect'; }
+                if (Array.isArray(raw.results)) { const p=raw.results.filter(x=>x.passed).length; pr=p+'/'+raw.results.length; }
+                return {tp,ttft,pr};
+            }
+
+            function renderTable() {
+                tableBody.innerHTML = '';
+                filteredData.forEach((item, idx) => {
+                    const raw = item.raw || {};
+                    const m = extractMetrics(raw);
+                    const tr = document.createElement('tr');
+                    tr.style.cursor = 'pointer';
+                    tr.innerHTML = '<td class="expand-col">▶</td><td>'+safeVal(item.model)+'</td><td>'+fmtDate(item.timestamp)+'</td><td>'+safeVal(item.hardware)+'</td><td>'+m.tp+'</td><td>'+m.ttft+'</td><td>'+m.pr+'</td>';
+                    tr.onclick = function() { toggleDetail(idx, tr); };
+                    tableBody.appendChild(tr);
+                });
+                rowCount.textContent = filteredData.length + ' entries';
+            }
+
+            function toggleDetail(idx, parentRow) {
+                const existing = parentRow.nextSibling;
+                if (existing && existing.className === 'detail-row') { existing.remove(); parentRow.cells[0].textContent='▶'; return; }
+                parentRow.cells[0].textContent = '▼';
+                const item = filteredData[idx];
+                const raw = item.raw || {};
+                const detailRow = document.createElement('tr');
+                detailRow.className = 'detail-row';
+                const cell = document.createElement('td');
+                cell.colSpan = 7;
+                cell.style.padding = '12px';
+                cell.style.background = '#081410';
+
+                let cards = [];
+                if (Array.isArray(raw)) {
+                    let h = '<div style="margin-bottom:8px"><b>Model Comparison ('+raw.length+' models)</b></div>';
+                    raw.forEach(m => {
+                        const r=m.reasoning||{}, t=m.tool_calling||{}, c=m.coding||{};
+                        h += '<div style="font-family:monospace;font-size:11px;color:#aaa;padding:2px 0">'+safeVal(m.short||m.name)+': R:'+safeVal(r.passed)+'/'+safeVal(r.total)+' T:'+safeVal(t.passed)+'/'+safeVal(t.total)+' C:'+safeVal(c.quality_score)+'</div>';
+                    });
+                    cards.push(h);
+                }
+                if (raw.summary) {
+                    let h='<div style="margin-bottom:8px"><b>Summary</b></div>';
+                    Object.entries(raw.summary).forEach(([k,v]) => { h+='<div style="font-family:monospace;font-size:11px;color:#aaa">'+k+': '+v+'</div>'; });
+                    cards.push(h);
+                }
+                const testMap = {
+                    'Latency & Throughput': ['latency_throughput','test_1_latency_throughput'],
+                    'TTFT': ['ttft','test_2_ttft'],
+                    'Concurrency': ['concurrency','test_3_concurrency'],
+                    'Reasoning': ['reasoning_quality','test_5_reasoning_quality'],
+                    'Tool Calling': ['tool_calling','test_6_tool_calling'],
+                    'Context Scaling': ['context_scaling','test_4_context_length']
+                };
+                Object.entries(testMap).forEach(([title, keys]) => {
+                    let arr = null;
+                    for (const k of keys) {
+                        if (raw.tests && Array.isArray(raw.tests[k])) { arr = raw.tests[k]; break; }
+                        if (Array.isArray(raw[k])) { arr = raw[k]; break; }
+                    }
+                    if (arr && arr.length > 0) {
+                        let h = '<div style="margin-bottom:8px"><b>'+title+' ('+arr.length+' entries)</b></div>';
+                        arr.slice(0,5).forEach(item => {
+                            const parts = Object.entries(item).slice(0,6).map(([k,v]) => k+': '+v).join(', ');
+                            h += '<div style="font-family:monospace;font-size:10px;color:#888;padding:1px 0">'+parts+'</div>';
+                        });
+                        if (arr.length > 5) h += '<div style="font-size:10px;color:#555">…and '+(arr.length-5)+' more</div>';
+                        cards.push(h);
+                    }
+                });
+                if (Array.isArray(raw.results) && raw.results.length > 0) {
+                    const p = raw.results.filter(x=>x.passed).length;
+                    let h = '<div style="margin-bottom:8px"><b>Results: '+p+'/'+raw.results.length+' passed</b></div>';
+                    raw.results.slice(0,10).forEach(r => {
+                        h += '<div style="font-family:monospace;font-size:10px;color:'+(r.passed?'#76b900':'#ff5555')+'">'+(r.passed?'✅':'❌')+' '+safeVal(r.test||r.category||r.name)+'</div>';
+                    });
+                    if (raw.results.length > 10) h += '<div style="font-size:10px;color:#555">…and '+(raw.results.length-10)+' more</div>';
+                    cards.push(h);
+                }
+
+                cell.innerHTML = cards.length > 0 ? cards.join('<hr style="border-color:#1a2a1a;margin:8px 0">') : '<p style="color:#666">No detailed data available.</p>';
+                detailRow.appendChild(cell);
+                parentRow.parentNode.insertBefore(detailRow, parentRow.nextSibling);
+            }
+
+            function applyFilters() {
+                const model = modelFilter.value, search = searchInput.value.toLowerCase();
+                filteredData = allData.filter(item => {
+                    if (model !== 'All Models' && model !== 'all' && item.model !== model) return false;
+                    if (search && !(item.model+' '+item.hardware+' '+item.file).toLowerCase().includes(search)) return false;
+                    return true;
+                });
+                renderTable();
+            }
+
+            function init() {
+                fetch('benchmark-data.json')
+                    .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+                    .then(data => {
+                        allData = data;
+                        [...new Set(data.map(d => d.model))].sort().forEach(m => {
+                            const o = document.createElement('option'); o.value = m; o.textContent = m; modelFilter.appendChild(o);
+                        });
+                        $('totalBenchmarks').textContent = data.length;
+                        $('uniqueModels').textContent = new Set(data.map(d=>d.model)).size;
+                        const dates = data.map(d=>d.timestamp).filter(t=>t).sort();
+                        $('latestDate').textContent = dates.length ? fmtDate(dates[dates.length-1]) : '—';
+                        tableState.style.display = 'none';
+                        applyFilters();
+                    })
+                    .catch(err => { tableState.innerHTML = '<p style="color:#ff4444;padding:20px">Error: '+err.message+'</p>'; });
+                modelFilter.addEventListener('change', applyFilters);
+                searchInput.addEventListener('input', applyFilters);
+            }
+
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+        })();
+                </script>
+</body>
+</html>
