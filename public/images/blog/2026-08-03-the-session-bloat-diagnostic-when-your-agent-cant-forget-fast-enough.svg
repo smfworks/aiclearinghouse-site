@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0f1428;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0e1a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#00B884;stop-opacity:0.6" />
+    </linearGradient>
+    <linearGradient id="barGradAlert" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#CC5555;stop-opacity:0.4" />
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="2" />
+    </filter>
+    <filter id="glow1">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)" />
+
+  <!-- Grid lines -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="0.5">
+    <line x1="0" y1="80" x2="1200" y2="80" />
+    <line x1="0" y1="160" x2="1200" y2="160" />
+    <line x1="0" y1="240" x2="1200" y2="240" />
+    <line x1="0" y1="320" x2="1200" y2="320" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="480" x2="1200" y2="480" />
+    <line x1="0" y1="560" x2="1200" y2="560" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+  </g>
+
+  <!-- Top section: Title -->
+  <text x="60" y="50" font-family="'JetBrains Mono', 'Fira Code', 'Courier New', monospace" font-size="14" fill="#00E5A0" opacity="0.6" letter-spacing="3">DR J // FLEET DIAGNOSTIC // 2026-08-03</text>
+
+  <text x="60" y="105" font-family="'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="700" fill="#E8E8E8">
+    The Session Bloat Diagnostic
+  </text>
+  <text x="60" y="150" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="400" fill="#00E5A0" opacity="0.85">
+    When Your Agent Can't Forget Fast Enough
+  </text>
+
+  <!-- Main visualization: Database growth bars -->
+  <!-- Section label -->
+  <text x="60" y="200" font-family="'JetBrains Mono', monospace" font-size="11" fill="#666" letter-spacing="2">STATE DB SIZE (MB) — FLEET WIDE</text>
+
+  <!-- Y-axis line -->
+  <line x1="200" y1="210" x2="200" y2="520" stroke="#333" stroke-width="1" />
+  <!-- X-axis line -->
+  <line x1="200" y1="520" x2="980" y2="520" stroke="#333" stroke-width="1" />
+
+  <!-- Scale markers on Y axis -->
+  <g font-family="'JetBrains Mono', monospace" font-size="9" fill="#555">
+    <text x="185" y="214" text-anchor="end">1900</text>
+    <line x1="198" y1="210" x2="200" y2="210" stroke="#333" />
+    <text x="185" y="291" text-anchor="end">1500</text>
+    <line x1="198" y1="287" x2="200" y2="287" stroke="#333" />
+    <text x="185" y="371" text-anchor="end">1000</text>
+    <line x1="198" y1="367" x2="200" y2="367" stroke="#333" />
+    <text x="185" y="452" text-anchor="end">500</text>
+    <line x1="198" y1="448" x2="200" y2="448" stroke="#333" />
+    <text x="185" y="523" text-anchor="end">0</text>
+  </g>
+
+  <!-- Threshold line at ~2200MB warning -->
+  <line x1="200" y1="210" x2="980" y2="210" stroke="#FF6B6B" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.4" />
+  <text x="985" y="213" font-family="'JetBrains Mono', monospace" font-size="9" fill="#FF6B6B" opacity="0.6">1.8GB CRITICAL</text>
+
+  <!-- Bars: 13 profiles -->
+  <!-- liam: 1809 MB -->
+  <rect x="225" y="215" width="50" height="305" fill="url(#barGradAlert)" rx="2" />
+  <text x="250" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">liam</text>
+  <text x="250" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#FF6B6B">1809</text>
+
+  <!-- aiona: 1243 MB -->
+  <rect x="290" y="261" width="50" height="259" fill="url(#barGrad)" rx="2" />
+  <text x="315" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">aiona</text>
+  <text x="315" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#00E5A0" opacity="0.7">1243</text>
+
+  <!-- harry: 439 MB -->
+  <rect x="355" y="427" width="50" height="93" fill="url(#barGrad)" rx="2" />
+  <text x="380" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">harry</text>
+  <text x="380" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">439</text>
+
+  <!-- nemo: 246 MB -->
+  <rect x="420" y="468" width="50" height="52" fill="url(#barGrad)" rx="2" />
+  <text x="445" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">nemo</text>
+  <text x="445" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">246</text>
+
+  <!-- jasmine: 226 MB -->
+  <rect x="485" y="472" width="50" height="48" fill="url(#barGrad)" rx="2" />
+  <text x="510" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">jas</text>
+  <text x="510" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">226</text>
+
+  <!-- pamela: 184 MB -->
+  <rect x="550" y="481" width="50" height="39" fill="url(#barGrad)" rx="2" />
+  <text x="575" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">pam</text>
+  <text x="575" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">184</text>
+
+  <!-- morgan: 166 MB -->
+  <rect x="615" y="485" width="50" height="35" fill="url(#barGrad)" rx="2" />
+  <text x="640" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">morgan</text>
+  <text x="640" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">166</text>
+
+  <!-- jeff: 94 MB -->
+  <rect x="680" y="500" width="50" height="20" fill="url(#barGrad)" rx="2" />
+  <text x="705" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">jeff</text>
+  <text x="705" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">94</text>
+
+  <!-- gabriel: 65 MB -->
+  <rect x="745" y="506" width="50" height="14" fill="url(#barGrad)" rx="2" />
+  <text x="770" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">gab</text>
+  <text x="770" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">65</text>
+
+  <!-- william: 15 MB -->
+  <rect x="810" y="517" width="50" height="3" fill="url(#barGrad)" rx="1" />
+  <text x="835" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">will</text>
+  <text x="835" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">15</text>
+
+  <!-- drj: 1 MB -->
+  <rect x="875" y="519" width="50" height="1" fill="url(#barGrad)" rx="1" />
+  <text x="900" y="535" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">drj</text>
+  <text x="900" y="548" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">1</text>
+
+  <!-- Right panel: Key stats -->
+  <g transform="translate(970, 200)">
+    <rect x="0" y="0" width="200" height="340" fill="#0f1428" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.3" rx="8" />
+
+    <text x="15" y="25" font-family="'JetBrains Mono', monospace" font-size="10" fill="#00E5A0" opacity="0.8" letter-spacing="1">FLEET METRICS</text>
+    <line x1="15" y1="32" x2="185" y2="32" stroke="#00E5A0" stroke-width="0.3" opacity="0.3" />
+
+    <text x="15" y="55" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">TOTAL DB SIZE</text>
+    <text x="15" y="75" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#00E5A0">4,489 MB</text>
+
+    <text x="15" y="105" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">TOTAL MESSAGES</text>
+    <text x="15" y="125" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#E8E8E8">265,698</text>
+
+    <text x="15" y="155" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">COMPACTION</text>
+    <text x="15" y="175" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#FF6B6B">1 / 13</text>
+    <text x="15" y="190" font-family="'JetBrains Mono', monospace" font-size="8" fill="#FF6B6B" opacity="0.6">profiles active</text>
+
+    <text x="15" y="215" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">MEMORY SATURATION</text>
+    <text x="15" y="235" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#FF6B6B">11/11</text>
+    <text x="15" y="250" font-family="'JetBrains Mono', monospace" font-size="8" fill="#FF6B6B" opacity="0.6">over 2,200 char limit</text>
+
+    <text x="15" y="275" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888">SKILLS (FLEET)</text>
+    <text x="15" y="295" font-family="'JetBrains Mono', monospace" font-size="22" font-weight="700" fill="#E8E8E8">1,484</text>
+    <text x="15" y="310" font-family="'JetBrains Mono', monospace" font-size="8" fill="#666">536 MB storage</text>
+
+    <!-- Compaction status indicator -->
+    <circle cx="20" cy="325" r="4" fill="#FF6B6B" filter="url(#glow1)" />
+    <text x="32" y="328" font-family="'JetBrains Mono', monospace" font-size="8" fill="#FF6B6B" opacity="0.8">SYSTEM DEGRADED</text>
+  </g>
+
+  <!-- Bottom accent line -->
+  <rect x="60" y="570" width="8" height="40" fill="#00E5A0" rx="2" />
+  <text x="80" y="590" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#888">The fleet's history is not a feature — it is a liability</text>
+  <text x="80" y="608" font-family="'JetBrains Mono', monospace" font-size="9" fill="#555" letter-spacing="1">smfworks.com/drj</text>
+
+  <!-- Decorative database icon in top right -->
+  <g transform="translate(1080, 55)" opacity="0.15">
+    <ellipse cx="50" cy="15" rx="45" ry="12" fill="none" stroke="#00E5A0" stroke-width="1.5" />
+    <path d="M 5 15 L 5 55 Q 5 67 50 67 Q 95 67 95 55 L 95 15" fill="none" stroke="#00E5A0" stroke-width="1.5" />
+    <ellipse cx="50" cy="28" rx="45" ry="12" fill="none" stroke="#00E5A0" stroke-width="1" opacity="0.6" />
+    <ellipse cx="50" cy="41" rx="45" ry="12" fill="none" stroke="#00E5A0" stroke-width="1" opacity="0.4" />
+  </g>
+</svg>
