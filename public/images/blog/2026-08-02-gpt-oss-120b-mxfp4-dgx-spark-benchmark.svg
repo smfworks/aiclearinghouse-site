@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1f4e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#76b900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4aa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <!-- Grid pattern -->
+  <g opacity="0.1" stroke="#76b900" stroke-width="1">
+    <line x1="0" y1="157" x2="1200" y2="157" />
+    <line x1="0" y1="315" x2="1200" y2="315" />
+    <line x1="0" y1="472" x2="1200" y2="472" />
+    <line x1="300" y1="0" x2="300" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="900" y1="0" x2="900" y2="630" />
+  </g>
+  <!-- Expert sparsity bars -->
+  <g transform="translate(60, 80)">
+    <text x="0" y="0" fill="#76b900" font-family="monospace" font-size="14" opacity="0.7">EXPERT SPARSITY: 32:1</text>
+    <g transform="translate(0, 20)">
+      <!-- 128 expert slots, 4 active (green), 124 inactive (dim) -->
+      <g>
+        <!-- Row 1: 32 experts -->
+        <rect x="0" y="0" width="8" height="20" fill="#76b900" rx="1"/>
+        <rect x="11" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="22" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="33" y="0" width="8" height="20" fill="#76b900" rx="1"/>
+        <rect x="44" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="55" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="66" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="77" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="88" y="0" width="8" height="20" fill="#76b900" rx="1"/>
+        <rect x="99" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="110" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="121" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="132" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="143" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="154" y="0" width="8" height="20" fill="#76b900" rx="1"/>
+        <rect x="165" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="176" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="187" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="198" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="209" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="220" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="231" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="242" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="253" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="264" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="275" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="286" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="297" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="308" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="319" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="330" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+        <rect x="341" y="0" width="8" height="20" fill="#2a3055" rx="1"/>
+      </g>
+    </g>
+  </g>
+  <!-- Title -->
+  <text x="60" y="200" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="bold">GPT-OSS-120B</text>
+  <text x="60" y="248" fill="#00d4aa" font-family="Arial, sans-serif" font-size="28" font-weight="normal">MXFP4 on DGX Spark — Per-Capability Deep Dive</text>
+  <!-- Stats -->
+  <g transform="translate(60, 320)">
+    <!-- Agentic -->
+    <text x="0" y="0" fill="#76b900" font-family="monospace" font-size="36" font-weight="bold">94%</text>
+    <text x="0" y="22" fill="#888" font-family="Arial, sans-serif" font-size="14">Agentic</text>
+    <!-- Coding -->
+    <text x="180" y="0" fill="#ff4444" font-family="monospace" font-size="36" font-weight="bold">10%</text>
+    <text x="180" y="22" fill="#888" font-family="Arial, sans-serif" font-size="14">Coding</text>
+    <!-- Errors -->
+    <text x="360" y="0" fill="#00d4aa" font-family="monospace" font-size="36" font-weight="bold">0</text>
+    <text x="360" y="22" fill="#888" font-family="Arial, sans-serif" font-size="14">Errors / 181</text>
+    <!-- Overall -->
+    <text x="540" y="0" fill="#ffffff" font-family="monospace" font-size="36" font-weight="bold">59.7%</text>
+    <text x="540" y="22" fill="#888" font-family="Arial, sans-serif" font-size="14">Overall Pass</text>
+  </g>
+  <!-- Capability bars -->
+  <g transform="translate(60, 400)">
+    <text x="0" y="0" fill="#888" font-family="monospace" font-size="11">CAPABILITY PROFILE</text>
+    <g transform="translate(0, 15)">
+      <text x="0" y="12" fill="#aaa" font-family="Arial, sans-serif" font-size="12">Agentic</text>
+      <rect x="100" y="2" width="300" height="12" fill="#1a1f4e" rx="2"/>
+      <rect x="100" y="2" width="282" height="12" fill="#76b900" rx="2"/>
+      <text x="410" y="12" fill="#76b900" font-family="monospace" font-size="12">94%</text>
+    </g>
+    <g transform="translate(0, 32)">
+      <text x="0" y="12" fill="#aaa" font-family="Arial, sans-serif" font-size="12">Prose</text>
+      <rect x="100" y="2" width="300" height="12" fill="#1a1f4e" rx="2"/>
+      <rect x="100" y="2" width="250" height="12" fill="#76b900" rx="2"/>
+      <text x="410" y="12" fill="#76b900" font-family="monospace" font-size="12">83%</text>
+    </g>
+    <g transform="translate(0, 49)">
+      <text x="0" y="12" fill="#aaa" font-family="Arial, sans-serif" font-size="12">Reasoning</text>
+      <rect x="100" y="2" width="300" height="12" fill="#1a1f4e" rx="2"/>
+      <rect x="100" y="2" width="229" height="12" fill="#76b900" rx="2"/>
+      <text x="410" y="12" fill="#76b900" font-family="monospace" font-size="12">76%</text>
+    </g>
+    <g transform="translate(0, 66)">
+      <text x="0" y="12" fill="#aaa" font-family="Arial, sans-serif" font-size="12">Math</text>
+      <rect x="100" y="2" width="300" height="12" fill="#1a1f4e" rx="2"/>
+      <rect x="100" y="2" width="80" height="12" fill="#ff8844" rx="2"/>
+      <text x="410" y="12" fill="#ff8844" font-family="monospace" font-size="12">27%</text>
+    </g>
+    <g transform="translate(0, 83)">
+      <text x="0" y="12" fill="#aaa" font-family="Arial, sans-serif" font-size="12">Coding</text>
+      <rect x="100" y="2" width="300" height="12" fill="#1a1f4e" rx="2"/>
+      <rect x="100" y="2" width="30" height="12" fill="#ff4444" rx="2"/>
+      <text x="410" y="12" fill="#ff4444" font-family="monospace" font-size="12">10%</text>
+    </g>
+  </g>
+  <!-- Footer -->
+  <text x="60" y="600" fill="#555" font-family="monospace" font-size="11">SMF Works · SMF-Bench · DGX Spark (128GB Blackwell GB10) · NVFP4/MXFP4 Optimization Study</text>
+</svg>
