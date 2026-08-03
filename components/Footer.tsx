@@ -11,6 +11,7 @@ const links = [
   { href: "/deployment-recipes", label: "Recipes" },
   { href: "/guides", label: "Guides" },
   { href: "/blog", label: "Blog" },
+  { href: "/explorer", label: "SMF Benchmarks" },
   { href: "/about", label: "About" },
 ];
 

@@ -17,6 +17,7 @@ const links = [
   { href: "/reviews", label: "Reviews" },
   { href: "/whitepapers", label: "White Papers" },
   { href: "/blog", label: "Blog" },
+  { href: "/explorer", label: "SMF Benchmarks" },
   { href: "/what-is-the-clearinghouse", label: "What is this?" },
 ];
 
