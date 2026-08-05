@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Hermes Cron Jobs on Linux" — no-text abstract: recurring time circles,
+     terminal command nodes, schedule lines in navy/gold/teal palette.
+     Validates as well-formed XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract scheduled agent cron jobs: time circles, command lines, and agent nodes">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <linearGradient id="nodeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative grid frame -->
+  <g stroke="#162236" stroke-width="1.5" opacity="0.6">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+    <!-- inner grid -->
+    <line x1="200" y1="0" x2="200" y2="630" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" stroke-width="1"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke-width="1"/>
+    <line x1="0" y1="430" x2="1200" y2="430" stroke-width="1"/>
+  </g>
+
+  <!-- soft horizontal glows -->
+  <rect x="0" y="180" width="1200" height="50" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="0" y="380" width="1200" height="50" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- Central cron clock circle (large) -->
+  <g transform="translate(600, 315)">
+    <!-- outer ring -->
+    <circle cx="0" cy="0" r="95" fill="none" stroke="#1e3a8a" stroke-width="8" opacity="0.8"/>
+    <circle cx="0" cy="0" r="95" fill="none" stroke="#0e7490" stroke-width="3" opacity="0.5"/>
+    <!-- inner fill -->
+    <circle cx="0" cy="0" r="70" fill="#0a1628" stroke="#22d3ee" stroke-width="2" opacity="0.9"/>
+    <!-- cron marks (abstract ticks) -->
+    <g stroke="#f59e0b" stroke-width="3" stroke-linecap="round">
+      <line x1="0" y1="-60" x2="0" y2="-75"/>
+      <line x1="42" y1="-42" x2="52" y2="-52"/>
+      <line x1="60" y1="0" x2="75" y2="0"/>
+      <line x1="42" y1="42" x2="52" y2="52"/>
+      <line x1="0" y1="60" x2="0" y2="75"/>
+      <line x1="-42" y1="42" x2="-52" y2="52"/>
+      <line x1="-60" y1="0" x2="-75" y2="0"/>
+      <line x1="-42" y1="-42" x2="-52" y2="-52"/>
+    </g>
+    <!-- center dot -->
+    <circle cx="0" cy="0" r="12" fill="#ff6b00"/>
+    <circle cx="0" cy="0" r="6" fill="#0a1628"/>
+  </g>
+
+  <!-- Schedule lines radiating (cron patterns) -->
+  <g stroke="#0e7490" stroke-width="2.5" opacity="0.7" stroke-linecap="round">
+    <!-- top left -->
+    <path d="M 420 180 Q 480 220 520 260" fill="none"/>
+    <!-- top right -->
+    <path d="M 780 180 Q 720 220 680 260" fill="none"/>
+    <!-- bottom left -->
+    <path d="M 420 450 Q 480 410 520 370" fill="none"/>
+    <!-- bottom right -->
+    <path d="M 780 450 Q 720 410 680 370" fill="none"/>
+    <!-- left -->
+    <path d="M 300 315 Q 380 315 460 315" fill="none"/>
+    <!-- right -->
+    <path d="M 900 315 Q 820 315 740 315" fill="none"/>
+  </g>
+
+  <!-- Terminal / command node 1 (left) -->
+  <g transform="translate(280, 220)">
+    <rect x="-55" y="-35" width="110" height="70" rx="6" fill="#0f1a2e" stroke="#1e3a8a" stroke-width="2"/>
+    <rect x="-45" y="-25" width="90" height="8" rx="2" fill="#0e7490" opacity="0.6"/>
+    <rect x="-45" y="-12" width="70" height="6" rx="1" fill="#f59e0b" opacity="0.5"/>
+    <rect x="-45" y="2" width="80" height="6" rx="1" fill="#22d3ee" opacity="0.4"/>
+    <circle cx="-38" cy="-29" r="4" fill="#ff6b00"/>
+    <circle cx="-26" cy="-29" r="4" fill="#f59e0b"/>
+    <circle cx="-14" cy="-29" r="4" fill="#0e7490"/>
+  </g>
+
+  <!-- Terminal / command node 2 (right) -->
+  <g transform="translate(920, 220)">
+    <rect x="-55" y="-35" width="110" height="70" rx="6" fill="#0f1a2e" stroke="#1e3a8a" stroke-width="2"/>
+    <rect x="-45" y="-25" width="90" height="8" rx="2" fill="#0e7490" opacity="0.6"/>
+    <rect x="-45" y="-12" width="70" height="6" rx="1" fill="#f59e0b" opacity="0.5"/>
+    <rect x="-45" y="2" width="80" height="6" rx="1" fill="#22d3ee" opacity="0.4"/>
+    <circle cx="-38" cy="-29" r="4" fill="#ff6b00"/>
+    <circle cx="-26" cy="-29" r="4" fill="#f59e0b"/>
+    <circle cx="-14" cy="-29" r="4" fill="#0e7490"/>
+  </g>
+
+  <!-- Agent node bottom left -->
+  <g transform="translate(320, 420)">
+    <circle cx="0" cy="0" r="28" fill="url(#nodeGrad)" stroke="#0e7490" stroke-width="3"/>
+    <circle cx="0" cy="0" r="14" fill="#0a1628"/>
+    <circle cx="-8" cy="-6" r="4" fill="#f59e0b"/>
+    <circle cx="8" cy="-6" r="4" fill="#f59e0b"/>
+    <circle cx="0" cy="8" r="4" fill="#22d3ee"/>
+  </g>
+
+  <!-- Agent node bottom right -->
+  <g transform="translate(880, 420)">
+    <circle cx="0" cy="0" r="28" fill="url(#nodeGrad)" stroke="#0e7490" stroke-width="3"/>
+    <circle cx="0" cy="0" r="14" fill="#0a1628"/>
+    <circle cx="-8" cy="-6" r="4" fill="#f59e0b"/>
+    <circle cx="8" cy="-6" r="4" fill="#f59e0b"/>
+    <circle cx="0" cy="8" r="4" fill="#22d3ee"/>
+  </g>
+
+  <!-- Connecting workflow lines -->
+  <g stroke="#1e3a8a" stroke-width="3" opacity="0.6" stroke-linecap="round" fill="none">
+    <path d="M 335 255 Q 400 290 440 340"/>
+    <path d="M 865 255 Q 800 290 760 340"/>
+    <path d="M 600 220 Q 600 280 600 340"/>
+  </g>
+
+  <!-- Small recurring indicator dots (cron repeats) -->
+  <g fill="#f59e0b" opacity="0.8">
+    <circle cx="520" cy="150" r="5"/>
+    <circle cx="560" cy="150" r="5"/>
+    <circle cx="600" cy="150" r="5"/>
+    <circle cx="640" cy="150" r="5"/>
+    <circle cx="680" cy="150" r="5"/>
+  </g>
+</svg>
