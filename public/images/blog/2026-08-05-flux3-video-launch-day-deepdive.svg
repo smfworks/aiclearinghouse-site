@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.08" stroke="#1a3a2a" stroke-width="0.5">
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="24" font-weight="700" fill="#e8eef4" filter="url(#textGlow)">FLUX.3 Video Launch Day Deep-Dive</text>
+  <text x="600" y="62" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="12" fill="#00d4aa">Moderation map · Resolution scaling · Duration scaling · 15 videos · $17.80</text>
+
+  <!-- Moderation spectrum (left) -->
+  <g transform="translate(40, 85)">
+    <text x="260" y="-5" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="11" fill="#5a8a5a">MODERATION SPECTRUM (FLUX.3 VIDEO)</text>
+
+    <!-- Gradient bar -->
+    <defs>
+      <linearGradient id="modBar" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#76b900" stop-opacity="0.6"/>
+        <stop offset="60%" stop-color="#76b900" stop-opacity="0.4"/>
+        <stop offset="61%" stop-color="#ff4444" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#ff4444" stop-opacity="0.8"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="5" width="520" height="20" rx="3" fill="url(#modBar)"/>
+
+    <!-- Tick marks -->
+    <g font-family="SF Mono, Courier New, monospace" font-size="8" fill="#888">
+      <line x1="0" y1="25" x2="0" y2="32" stroke="#76b900" stroke-width="1"/>
+      <text x="0" y="42" text-anchor="middle">Nature</text>
+      <line x1="130" y1="25" x2="130" y2="32" stroke="#76b900" stroke-width="1"/>
+      <text x="130" y="42" text-anchor="middle">Sports</text>
+      <line x1="260" y1="25" x2="260" y2="32" stroke="#76b900" stroke-width="1"/>
+      <text x="260" y="42" text-anchor="middle">Drill</text>
+      <line x1="325" y1="25" x2="325" y2="32" stroke="#76b900" stroke-width="1"/>
+      <text x="325" y="42" text-anchor="middle">March</text>
+      <line x1="370" y1="25" x2="370" y2="32" stroke="#76b900" stroke-width="1"/>
+      <text x="370" y="42" text-anchor="middle">Buildup</text>
+      <line x1="415" y1="25" x2="415" y2="32" stroke="#76b900" stroke-width="1"/>
+      <text x="415" y="42" text-anchor="middle">Charge</text>
+      <line x1="460" y1="25" x2="460" y2="32" stroke="#ff4444" stroke-width="1.5"/>
+      <text x="460" y="42" text-anchor="middle" fill="#ff4444">Melee</text>
+      <line x1="490" y1="25" x2="490" y2="32" stroke="#ff4444" stroke-width="1"/>
+      <text x="490" y="42" text-anchor="middle" fill="#ff4444">Injury</text>
+      <line x1="520" y1="25" x2="520" y2="32" stroke="#ff4444" stroke-width="1"/>
+      <text x="520" y="42" text-anchor="middle" fill="#ff4444">Gore</text>
+    </g>
+
+    <!-- Boundary marker -->
+    <line x1="437" y1="0" x2="437" y2="55" stroke="#ff9500" stroke-width="2" stroke-dasharray="4,2"/>
+    <text x="437" y="58" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#ff9500" font-weight="700">BOUNDARY</text>
+
+    <!-- Legend -->
+    <rect x="0" y="70" width="10" height="10" fill="#76b900" opacity="0.6" rx="1"/>
+    <text x="15" y="79" font-family="SF Mono, Courier New, monospace" font-size="9" fill="#76b900">Accepted</text>
+    <rect x="90" y="70" width="10" height="10" fill="#ff4444" opacity="0.6" rx="1"/>
+    <text x="105" y="79" font-family="SF Mono, Courier New, monospace" font-size="9" fill="#ff4444">Blocked: Violence</text>
+
+    <!-- Finding text -->
+    <text x="0" y="110" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="11" fill="#e8eef4" font-weight="600">The line: "charging with bayonets" ✅ → "close combat" ❌</text>
+    <text x="0" y="128" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="10" fill="#5a8a5a">Impending violence accepted. Depicted violence blocked.</text>
+  </g>
+
+  <!-- Resolution scaling (right) -->
+  <g transform="translate(640, 85)">
+    <text x="260" y="-5" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="11" fill="#5a8a5a">RESOLUTION × DURATION SCALING</text>
+
+    <!-- Bar chart -->
+    <g transform="translate(0, 10)">
+      <!-- Y axis -->
+      <line x1="0" y1="0" x2="0" y2="180" stroke="#1a3a2a" stroke-width="1"/>
+      <line x1="0" y1="180" x2="520" y2="180" stroke="#1a3a2a" stroke-width="1"/>
+
+      <!-- Gridlines -->
+      <line x1="0" y1="45" x2="520" y2="45" stroke="#1a2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <line x1="0" y1="90" x2="520" y2="90" stroke="#1a2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <line x1="0" y1="135" x2="520" y2="135" stroke="#1a2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <text x="-5" y="48" text-anchor="end" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#4a6a4a">300s</text>
+      <text x="-5" y="93" text-anchor="end" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#4a6a4a">200s</text>
+      <text x="-5" y="138" text-anchor="end" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#4a6a4a">100s</text>
+
+      <!-- 720p 5s: 127s -->
+      <rect x="20" y="107" width="60" height="73" fill="#00d4aa" opacity="0.6" stroke="#00d4aa" stroke-width="1" rx="3"/>
+      <text x="50" y="103" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#00d4aa">127s</text>
+      <text x="50" y="195" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">720p</text>
+      <text x="50" y="205" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">5s · $0.85</text>
+
+      <!-- 720p 10s: 183s -->
+      <rect x="100" y="75" width="60" height="105" fill="#00d4aa" opacity="0.6" stroke="#00d4aa" stroke-width="1" rx="3"/>
+      <text x="130" y="71" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#00d4aa">183s</text>
+      <text x="130" y="195" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">720p</text>
+      <text x="130" y="205" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">10s · $1.70</text>
+
+      <!-- 720p 15s: 272s -->
+      <rect x="180" y="24" width="60" height="156" fill="#00d4aa" opacity="0.6" stroke="#00d4aa" stroke-width="1" rx="3"/>
+      <text x="210" y="20" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#00d4aa">272s</text>
+      <text x="210" y="195" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">720p</text>
+      <text x="210" y="205" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">15s · $2.55</text>
+
+      <!-- 1080p 5s: 246s -->
+      <rect x="300" y="39" width="60" height="141" fill="#76b900" opacity="0.6" stroke="#76b900" stroke-width="1" rx="3"/>
+      <text x="330" y="35" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#76b900">246s</text>
+      <text x="330" y="195" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">1080p</text>
+      <text x="330" y="205" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">5s · $1.45</text>
+
+      <!-- 1080p 10s: ~420s -->
+      <rect x="380" y="0" width="60" height="180" fill="#76b900" opacity="0.6" stroke="#76b900" stroke-width="1" rx="3"/>
+      <text x="410" y="-4" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#76b900">420s</text>
+      <text x="410" y="195" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">1080p</text>
+      <text x="410" y="205" text-anchor="middle" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#5a8a5a">10s · $2.90</text>
+
+      <!-- Legend -->
+      <rect x="460" y="0" width="10" height="8" fill="#00d4aa" opacity="0.6" rx="1"/>
+      <text x="475" y="8" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#00d4aa">720p</text>
+      <rect x="460" y="14" width="10" height="8" fill="#76b900" opacity="0.6" rx="1"/>
+      <text x="475" y="22" font-family="SF Mono, Courier New, monospace" font-size="7" fill="#76b900">1080p</text>
+    </g>
+  </g>
+
+  <!-- Key metrics bar (bottom) -->
+  <g transform="translate(60, 370)">
+    <rect x="0" y="0" width="1080" height="55" rx="8" fill="#0d1f12" stroke="#1a3a2a" stroke-width="1" opacity="0.8"/>
+    <text x="30" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">VIDEOS GENERATED</text>
+    <text x="30" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="14" font-weight="700" fill="#00d4aa">15 successful</text>
+
+    <text x="200" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">TOTAL COST</text>
+    <text x="200" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="14" font-weight="700" fill="#76b900">$17.80</text>
+
+    <text x="350" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">MODERATION BOUNDARY</text>
+    <text x="350" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="14" font-weight="700" fill="#ff9500">Charge ✅ → Melee ❌</text>
+
+    <text x="650" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">MAX TESTED</text>
+    <text x="650" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="14" font-weight="700" fill="#e8eef4">1080p · 15s · 361 frames</text>
+
+    <text x="920" y="18" font-family="SF Mono, Courier New, monospace" font-size="8" fill="#666">RELEASED</text>
+    <text x="920" y="38" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="14" font-weight="700" fill="#00d4aa">Aug 4, 2026</text>
+  </g>
+
+  <!-- Model comparison summary -->
+  <g transform="translate(60, 440)">
+    <rect x="0" y="0" width="520" height="130" rx="8" fill="#0d1f12" stroke="#1a3a2a" stroke-width="0.5" opacity="0.8"/>
+    <text x="260" y="22" text-anchor="middle" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="13" font-weight="700" fill="#00d4aa" filter="url(#textGlow)">FLUX.3 Video</text>
+    <text x="20" y="45" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Resolutions: 720p, 1080p</text>
+    <text x="20" y="62" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Durations: 5–20 seconds</text>
+    <text x="20" y="79" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Cost: $0.17/s (720p) · $0.29/s (1080p)</text>
+    <text x="20" y="96" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Moderation: Blocks depicted violence</text>
+    <text x="20" y="113" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Gen speed: 92–272s (720p) · 246–420s (1080p)</text>
+  </g>
+
+  <g transform="translate(620, 440)">
+    <rect x="0" y="0" width="520" height="130" rx="8" fill="#0d1f12" stroke="#1a3a2a" stroke-width="0.5" opacity="0.8"/>
+    <text x="260" y="22" text-anchor="middle" font-family="SF Pro Display, Helvetica Neue, Arial" font-size="13" font-weight="700" fill="#76b900" filter="url(#textGlow)">MiniMax H3 (FL2VA)</text>
+    <text x="20" y="45" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Resolutions: 2K (2560×1440)</text>
+    <text x="20" y="62" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Durations: 5–15 seconds</text>
+    <text x="20" y="79" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Cost: $0.13/s (flat)</text>
+    <text x="20" y="96" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Moderation: None observed</text>
+    <text x="20" y="113" font-family="SF Mono, Courier New, monospace" font-size="10" fill="#e8eef4">Gen speed: 242–272s (all 2K)</text>
+  </g>
+</svg>
