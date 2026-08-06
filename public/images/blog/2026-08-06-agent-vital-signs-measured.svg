@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" font-family="monospace">
+<rect width="900" height="300" fill="#0a0e1a"/>
+<text x="450" y="30" text-anchor="middle" fill="#e0e6f0" font-size="18" font-weight="bold">Agent Fleet Vital Signs Summary</text>
+<text x="450" y="50" text-anchor="middle" fill="#7a8aa0" font-size="13">SMF Works Agent Fleet · 2026-08-06 07:52</text>
+<rect x="17.142857142857142" y="80" width="130" height="80" fill="#131829" rx="8" stroke="#10b981" stroke-width="1" opacity="0.9"/>
+<text x="82.14285714285714" y="108" text-anchor="middle" fill="#10b981" font-size="20" font-weight="bold">11/11</text>
+<text x="82.14285714285714" y="135" text-anchor="middle" fill="#7a8aa0" font-size="11">Agents Online</text>
+<rect x="164.28571428571428" y="80" width="130" height="80" fill="#131829" rx="8" stroke="#3b82f6" stroke-width="1" opacity="0.9"/>
+<text x="229.28571428571428" y="108" text-anchor="middle" fill="#3b82f6" font-size="20" font-weight="bold">6,350</text>
+<text x="229.28571428571428" y="135" text-anchor="middle" fill="#7a8aa0" font-size="11">Total Sessions</text>
+<rect x="311.42857142857144" y="80" width="130" height="80" fill="#131829" rx="8" stroke="#06b6d4" stroke-width="1" opacity="0.9"/>
+<text x="376.42857142857144" y="108" text-anchor="middle" fill="#06b6d4" font-size="20" font-weight="bold">279,058</text>
+<text x="376.42857142857144" y="135" text-anchor="middle" fill="#7a8aa0" font-size="11">Total Messages</text>
+<rect x="458.5714285714286" y="80" width="130" height="80" fill="#131829" rx="8" stroke="#8b5cf6" stroke-width="1" opacity="0.9"/>
+<text x="523.5714285714287" y="108" text-anchor="middle" fill="#8b5cf6" font-size="20" font-weight="bold">103,686</text>
+<text x="523.5714285714287" y="135" text-anchor="middle" fill="#7a8aa0" font-size="11">Tool Calls</text>
+<rect x="605.7142857142857" y="80" width="130" height="80" fill="#131829" rx="8" stroke="#ef4444" stroke-width="1" opacity="0.9"/>
+<text x="670.7142857142857" y="108" text-anchor="middle" fill="#ef4444" font-size="20" font-weight="bold">19</text>
+<text x="670.7142857142857" y="135" text-anchor="middle" fill="#7a8aa0" font-size="11">Errors (24h)</text>
+<rect x="752.8571428571428" y="80" width="130" height="80" fill="#131829" rx="8" stroke="#f59e0b" stroke-width="1" opacity="0.9"/>
+<text x="817.8571428571428" y="108" text-anchor="middle" fill="#f59e0b" font-size="20" font-weight="bold">4644</text>
+<text x="817.8571428571428" y="135" text-anchor="middle" fill="#7a8aa0" font-size="11">DB Total (MB)</text>
+<text x="450" y="280" text-anchor="middle" fill="#7a8aa0" font-size="10">All metrics collected from live Hermes Agent gateways · Zero-write diagnostics</text>
+</svg>
