@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="chipGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a3a4a"/>
+      <stop offset="50%" stop-color="#0d2535"/>
+      <stop offset="100%" stop-color="#0a1a2a"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ED1C24"/>
+      <stop offset="100%" stop-color="#8B0000"/>
+    </linearGradient>
+    <linearGradient id="barGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#CC4400"/>
+    </linearGradient>
+    <linearGradient id="barGrad3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00D4AA"/>
+      <stop offset="100%" stop-color="#008866"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="redGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="624" fill="url(#bgGrad)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.15">
+    <line x1="0" y1="0" x2="1200" y2="0" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="78" x2="1200" y2="78" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="156" x2="1200" y2="156" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="234" x2="1200" y2="234" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="312" x2="1200" y2="312" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="390" x2="1200" y2="390" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="468" x2="1200" y2="468" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="546" x2="1200" y2="546" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="624" x2="1200" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="100" y1="0" x2="100" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="500" y1="0" x2="500" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="700" y1="0" x2="700" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="900" y1="0" x2="900" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="1000" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="1100" y1="0" x2="1100" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+  </g>
+  
+  <!-- AMD Chip representation (left side) -->
+  <g transform="translate(80, 120)">
+    <!-- Chip body -->
+    <rect x="0" y="0" width="200" height="200" rx="12" fill="url(#chipGrad)" stroke="#ED1C24" stroke-width="2" filter="url(#redGlow)"/>
+    <!-- AMD logo area -->
+    <rect x="20" y="20" width="160" height="40" rx="4" fill="#0a0e1a" stroke="#333" stroke-width="1"/>
+    <text x="100" y="48" text-anchor="middle" fill="#ED1C24" font-family="'SF Mono', 'Courier New', monospace" font-size="20" font-weight="bold">AMD</text>
+    <!-- Chip label -->
+    <text x="100" y="90" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="600">RYZEN AI MAX+ 395</text>
+    <text x="100" y="112" text-anchor="middle" fill="#888" font-family="'SF Mono', 'Courier New', monospace" font-size="11">Radeon 8060S</text>
+    <text x="100" y="130" text-anchor="middle" fill="#666" font-family="'SF Mono', 'Courier New', monospace" font-size="10">gfx1151</text>
+    <!-- VRAM indicator -->
+    <rect x="30" y="145" width="140" height="6" rx="3" fill="#1a2a3a"/>
+    <rect x="30" y="145" width="140" height="6" rx="3" fill="url(#barGrad)" opacity="0.8"/>
+    <text x="100" y="170" text-anchor="middle" fill="#aaa" font-family="'SF Mono', monospace" font-size="10">48 GB UMA</text>
+    <!-- Pins -->
+    <g fill="#444">
+      <rect x="-8" y="40" width="8" height="4"/><rect x="-8" y="55" width="8" height="4"/><rect x="-8" y="70" width="8" height="4"/><rect x="-8" y="85" width="8" height="4"/><rect x="-8" y="100" width="8" height="4"/><rect x="-8" y="115" width="8" height="4"/><rect x="-8" y="130" width="8" height="4"/><rect x="-8" y="145" width="8" height="4"/><rect x="-8" y="160" width="8" height="4"/><rect x="-8" y="175" width="8" height="4"/>
+      <rect x="200" y="40" width="8" height="4"/><rect x="200" y="55" width="8" height="4"/><rect x="200" y="70" width="8" height="4"/><rect x="200" y="85" width="8" height="4"/><rect x="200" y="100" width="8" height="4"/><rect x="200" y="115" width="8" height="4"/><rect x="200" y="130" width="8" height="4"/><rect x="200" y="145" width="8" height="4"/><rect x="200" y="160" width="8" height="4"/><rect x="200" y="175" width="8" height="4"/>
+    </g>
+  </g>
+  
+  <!-- Performance bars (right side) -->
+  <g transform="translate(380, 120)">
+    <text x="0" y="0" fill="#e8eef4" font-family="'SF Pro Display', sans-serif" font-size="16" font-weight="600">Token Throughput (tok/s)</text>
+    
+    <!-- nemotron-3-nano:4b -->
+    <g transform="translate(0, 25)">
+      <text x="0" y="18" fill="#aaa" font-family="'SF Mono', monospace" font-size="11">Nemotron Nano 4B</text>
+      <rect x="170" y="6" width="280" height="20" rx="3" fill="#1a2a3a"/>
+      <rect x="170" y="6" width="280" height="20" rx="3" fill="url(#barGrad3)" opacity="0.9"/>
+      <text x="458" y="21" fill="#00D4AA" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">67.3</text>
+    </g>
+    
+    <!-- gemma4:e4b -->
+    <g transform="translate(0, 60)">
+      <text x="0" y="18" fill="#aaa" font-family="'SF Mono', monospace" font-size="11">Gemma 4 E4B</text>
+      <rect x="170" y="6" width="237" height="20" rx="3" fill="#1a2a3a"/>
+      <rect x="170" y="6" width="237" height="20" rx="3" fill="url(#barGrad2)" opacity="0.9"/>
+      <text x="415" y="21" fill="#FF6B35" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">56.9</text>
+    </g>
+    
+    <!-- gpt-oss:20b -->
+    <g transform="translate(0, 95)">
+      <text x="0" y="18" fill="#aaa" font-family="'SF Mono', monospace" font-size="11">GPT-OSS 20B</text>
+      <rect x="170" y="6" width="214" height="20" rx="3" fill="#1a2a3a"/>
+      <rect x="170" y="6" width="214" height="20" rx="3" fill="url(#barGrad)" opacity="0.9"/>
+      <text x="392" y="21" fill="#ED1C24" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">51.4</text>
+    </g>
+    
+    <!-- Divider -->
+    <line x1="0" y1="140" x2="500" y2="140" stroke="#1a2a3a" stroke-width="1"/>
+    
+    <!-- Concurrency section -->
+    <text x="0" y="165" fill="#e8eef4" font-family="'SF Pro Display', sans-serif" font-size="14" font-weight="600">Concurrency (GPT-OSS 20B, aggregate tok/s)</text>
+    
+    <g transform="translate(0, 180)">
+      <text x="0" y="14" fill="#888" font-family="'SF Mono', monospace" font-size="10">N=1</text>
+      <rect x="50" y="4" width="105" height="16" rx="2" fill="url(#barGrad)" opacity="0.7"/>
+      <text x="162" y="16" fill="#aaa" font-family="'SF Mono', monospace" font-size="10">25.4</text>
+    </g>
+    <g transform="translate(140, 180)">
+      <text x="0" y="14" fill="#888" font-family="'SF Mono', monospace" font-size="10">N=2</text>
+      <rect x="50" y="4" width="188" height="16" rx="2" fill="url(#barGrad)" opacity="0.8"/>
+      <text x="245" y="16" fill="#aaa" font-family="'SF Mono', monospace" font-size="10">45.4</text>
+    </g>
+    <g transform="translate(0, 205)">
+      <text x="0" y="14" fill="#888" font-family="'SF Mono', monospace" font-size="10">N=4</text>
+      <rect x="50" y="4" width="184" height="16" rx="2" fill="url(#barGrad)" opacity="0.85"/>
+      <text x="242" y="16" fill="#aaa" font-family="'SF Mono', monospace" font-size="10">44.4</text>
+    </g>
+    <g transform="translate(140, 205)">
+      <text x="0" y="14" fill="#888" font-family="'SF Mono', monospace" font-size="10">N=8</text>
+      <rect x="50" y="4" width="183" height="16" rx="2" fill="url(#barGrad)" opacity="0.9"/>
+      <text x="241" y="16" fill="#aaa" font-family="'SF Mono', monospace" font-size="10">44.1</text>
+    </g>
+  </g>
+  
+  <!-- Thermal indicator (right side) -->
+  <g transform="translate(950, 120)">
+    <text x="0" y="0" fill="#e8eef4" font-family="'SF Pro Display', sans-serif" font-size="14" font-weight="600">Thermal</text>
+    <!-- Thermal bar -->
+    <rect x="0" y="15" width="40" height="280" rx="6" fill="#1a2a3a" stroke="#333"/>
+    <rect x="0" y="15" width="40" height="280" rx="6" fill="url(#barGrad)" opacity="0.15"/>
+    <!-- Thermal zones -->
+    <rect x="0" y="15" width="40" height="50" fill="#00D4AA" opacity="0.3"/>
+    <rect x="0" y="65" width="40" height="80" fill="#FF6B35" opacity="0.4"/>
+    <rect x="0" y="145" width="40" height="150" fill="#ED1C24" opacity="0.4"/>
+    <!-- Labels -->
+    <text x="52" y="25" fill="#888" font-family="'SF Mono', monospace" font-size="10">Idle</text>
+    <text x="52" y="45" fill="#888" font-family="'SF Mono', monospace" font-size="10">40°C</text>
+    <text x="52" y="80" fill="#888" font-family="'SF Mono', monospace" font-size="10">Load</text>
+    <text x="52" y="100" fill="#FF6B35" font-family="'SF Mono', monospace" font-size="10">73°C</text>
+    <text x="52" y="120" fill="#888" font-family="'SF Mono', monospace" font-size="10">Peak</text>
+    <text x="52" y="140" fill="#ED1C24" font-family="'SF Mono', monospace" font-size="10">85°C</text>
+    <!-- Sustained marker -->
+    <line x1="-5" y1="180" x2="45" y2="180" stroke="#00D4AA" stroke-width="2" filter="url(#glow)"/>
+    <text x="52" y="184" fill="#00D4AA" font-family="'SF Mono', monospace" font-size="10">Δ3°C</text>
+    <text x="52" y="198" fill="#666" font-family="'SF Mono', monospace" font-size="9">5 min</text>
+    <text x="52" y="210" fill="#666" font-family="'SF Mono', monospace" font-size="9">sustained</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="470" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="32" font-weight="700">Can AMD Strix Halo Actually Serve LLMs?</text>
+  <text x="600" y="500" text-anchor="middle" fill="#888" font-family="'SF Mono', 'Courier New', monospace" font-size="14">Real Workloads · Real Numbers · Radeon 8060S · ROCm 7.2.4 · Ollama</text>
+  
+  <!-- Stats bar at bottom -->
+  <g transform="translate(0, 530)">
+    <rect x="0" y="0" width="1200" height="94" fill="#0a0e1a" opacity="0.8"/>
+    <g transform="translate(60, 15)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">HARDWARE</text>
+      <text x="0" y="36" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">16C/32T</text>
+      <text x="0" y="52" fill="#888" font-family="'SF Mono', monospace" font-size="10">Zen 5 + 8060S</text>
+    </g>
+    <g transform="translate(260, 15)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">VRAM</text>
+      <text x="0" y="36" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">48 GB</text>
+      <text x="0" y="52" fill="#888" font-family="'SF Mono', monospace" font-size="10">UMA shared</text>
+    </g>
+    <g transform="translate(460, 15)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">BEST THROUGHPUT</text>
+      <text x="0" y="36" fill="#00D4AA" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">67.3 tok/s</text>
+      <text x="0" y="52" fill="#888" font-family="'SF Mono', monospace" font-size="10">Nemotron Nano 4B</text>
+    </g>
+    <g transform="translate(660, 15)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">LARGEST MODEL</text>
+      <text x="0" y="36" fill="#FF6B35" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">20.9B</text>
+      <text x="0" y="52" fill="#888" font-family="'SF Mono', monospace" font-size="10">GPT-OSS MXFP4</text>
+    </g>
+    <g transform="translate(860, 15)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">CONCURRENCY</text>
+      <text x="0" y="36" fill="#ED1C24" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">8/8 OK</text>
+      <text x="0" y="52" fill="#888" font-family="'SF Mono', monospace" font-size="10">Zero failures</text>
+    </g>
+    <g transform="translate(1060, 15)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">THERMAL Δ</text>
+      <text x="0" y="36" fill="#00D4AA" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">+3°C</text>
+      <text x="0" y="52" fill="#888" font-family="'SF Mono', monospace" font-size="10">5 min sustained</text>
+    </g>
+  </g>
+</svg>
