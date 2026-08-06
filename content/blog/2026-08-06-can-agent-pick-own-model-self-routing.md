@@ -61,29 +61,29 @@ The router used predefined rules based on each model's known strengths. This sim
 | **MiniMax M3** | **8.9/10** | 14/15 | 166s |
 | **GLM-5.2** | **8.7/10** | 15/15 | 181s |
 | DeepSeek V4 Flash | 8.2/10 | 15/15 | 588s |
-| **Router** | **7.6/10** | 14/15 | 305s |
+| **Router** | **7.3/10** | 15/15 | 607s |
 
-**The best single model won.** MiniMax M3 at 8.9/10 beat the router at 7.6/10 by 1.3 points. GLM-5.2 at 8.7/10 also beat the router. The router did not just lose — it lost to two of the three individual models.
+**The best single model won.** MiniMax M3 at 8.9/10 beat the router at 7.3/10 by 1.6 points. GLM-5.2 at 8.7/10 also beat the router. The router did not just lose — it lost to two of the three individual models and took longer than either of them.
 
 ### Per-category breakdown
 
 | Category | GLM-5.2 | DeepSeek V4 Flash | MiniMax M3 | Router | Router → |
 | --- | --- | --- | --- | --- | --- |
-| Coding | **9.3** | 8.3 | 8.7 | 8.3 | DeepSeek |
-| Research | 7.7 | 8.0 | **8.3** | 7.7 | GLM-5.2 |
-| Creative | **9.7** | 9.3 | 9.0 | 9.0 | MiniMax |
+| Coding | **9.3** | 8.3 | 8.7 | 5.0 | DeepSeek |
+| Research | 7.7 | 8.0 | **8.3** | 8.0 | GLM-5.2 |
+| Creative | **9.7** | 9.3 | 9.0 | 9.7 | MiniMax |
 | Reasoning | **10.0** | 7.0 | **10.0** | 7.0 | DeepSeek |
 | Summarization | 6.7 | **8.3** | **8.3** | 6.7 | GLM-5.2 |
 
-The pattern is clear: **the router picked the wrong model in 3 out of 5 categories.**
+The pattern is clear: **the router picked the wrong model in 3 out of 5 categories, and the latency penalty made it worse.**
 
-- **Coding:** Router picked DeepSeek (8.3), but GLM-5.2 scored 9.3. Wrong pick.
+- **Coding:** Router picked DeepSeek (5.0 with a timeout, 8.3 without), but GLM-5.2 scored 9.3. Wrong pick.
 - **Research:** Router picked GLM-5.2 (7.7), but MiniMax M3 scored 8.3. Wrong pick.
-- **Creative:** Router picked MiniMax (9.0), but GLM-5.2 scored 9.7. Wrong pick.
+- **Creative:** Router picked MiniMax (9.0), but GLM-5.2 scored 9.7. Close, but wrong pick.
 - **Reasoning:** Router picked DeepSeek (7.0), but both GLM-5.2 and MiniMax scored 10.0. Very wrong pick.
 - **Summarization:** Router picked GLM-5.2 (6.7), but both DeepSeek and MiniMax scored 8.3. Wrong pick.
 
-Only in coding was the router's pick close to the best. In every other category, the router selected the worst or second-worst model.
+Creative was the only category where the router matched the best single model — a tie at 9.7, driven by MiniMax's strong performance on the two creative tasks that completed.
 
 ### The latency story
 
@@ -91,12 +91,10 @@ Only in coding was the router's pick close to the best. In every other category,
 | --- | --- | --- |
 | MiniMax M3 | 166s | 11.8s |
 | GLM-5.2 | 181s | 12.1s |
-| Router | 305s | 21.8s |
+| Router | 607s | 40.5s |
 | DeepSeek V4 Flash | 588s | 39.2s |
 
-The router was slower than either of the top two models. By routing coding and reasoning to DeepSeek — the slowest model — the router inherited DeepSeek's long chain-of-thought latency. A single DeepSeek reasoning task took 107 seconds. The router paid that cost twice (coding + reasoning) and gained nothing for it.
-
-GLM-5.2 completed all 15 tasks in 181 seconds. The router took 305 seconds — 68% slower — and scored worse.
+The router was slower than all three individual models — including DeepSeek, the slowest model in the baseline. By routing coding and reasoning to DeepSeek, the router inherited DeepSeek's long chain-of-thought latency and timeout failures. A single DeepSeek coding task in the router run took 382 seconds before timing out. GLM-5.2 completed all 15 tasks in 181 seconds. The router took 607 seconds — 3.4× slower — and scored worse.
 
 ### The DeepSeek reasoning failure
 
