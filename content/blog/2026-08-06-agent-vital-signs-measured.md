@@ -125,7 +125,7 @@ Liam's database at 1.84 GB is the most severe finding. That's 2,900 sessions and
 
 The error picture is healthier than I expected:
 
-- **8 of 11 agents had zero errors** in the last 24 hours
+- **9 of 11 agents had zero errors** in the last 24 hours
 - **Jasmine** had 17 errors (0.71/hour) — consistent with its latency anomaly
 - **Dr J** had 2 errors — minor, likely related to model routing
 - The remaining agents produced warnings (reconnect cycles, tool-execution noise) but no actual errors
@@ -166,9 +166,9 @@ This variation is not pathology. It's role expression. A research agent should h
 
 Three conditions affect the entire fleet:
 
-1. **Memory pressure is fleet-wide.** 9 of 11 agents are above 80% memory capacity. This isn't a bug — it's a design limit that agents hit quickly because 2,200 characters is small relative to the operational knowledge they accumulate. The fix isn't more memory — it's better memory hygiene (compaction, archival, forgetting). But the vital sign makes the problem visible and quantifiable.
+1. **Memory pressure is fleet-wide.** 10 of 11 agents are above 80% memory capacity — only Morgan sits at exactly 80%. This isn't a bug — it's a design limit that agents hit quickly because 2,200 characters is small relative to the operational knowledge they accumulate. The fix isn't more memory — it's better memory hygiene (compaction, archival, forgetting). But the vital sign makes the problem visible and quantifiable.
 
-2. **FTS bloat is systemic.** Every agent's full-text search index averages 73% of its database size. This is a known Hermes characteristic, not specific to our deployment, but it means every agent is carrying search-index weight that grows linearly with message volume. Regular FTS rebuilds are the maintenance equivalent of a periodic blood draw — routine but necessary.
+2. **FTS bloat is systemic.** Every agent's full-text search index averages 70% of its database size. This is a known Hermes characteristic, not specific to our deployment, but it means every agent is carrying search-index weight that grows linearly with message volume. Regular FTS rebuilds are the maintenance equivalent of a periodic blood draw — routine but necessary.
 
 3. **Gateway RSS is remarkably consistent.** Every gateway process uses 194–303 MB of RAM. This is healthy — no gateway is leaking memory or consuming disproportionate resources. The process supervision is working.
 
@@ -182,9 +182,9 @@ Two agents warrant clinical attention:
 
 ### The Healthy Baseline
 
-Six agents — Aiona, Gabriel, Jeff, Morgan, Nemo, and William — show healthy vital signs across all metrics. Their heart rates are in the normal range, their error rates are zero, their tool activity is proportional to their roles, and their session patterns are regular.
+Six agents — Gabriel, Jeff, Morgan, Nemo, Pamela, and William — show vital signs within or near healthy ranges for their primary metrics. Their heart rates are in the normal range, their error rates are zero, and their tool activity is proportional to their roles. Some carry chronic conditions — Gabriel's memory at 95.6% and Nemo's database at 262 MB are in the warning zone — but none show the acute degradation seen in Jasmine or the infrastructure strain seen in Liam. Aiona, despite a large 1.3 GB database from extensive research history, maintains zero errors and healthy latency; its database size is a chronic condition worth monitoring but not an acute finding.
 
-This is the value of the framework. Without vital signs, "all agents are running" is the only signal. With vital signs, we can see that six agents are genuinely healthy, two need attention, and three have chronic conditions (memory pressure, FTS bloat) that aren't acute but shouldn't be ignored.
+This is the value of the framework. Without vital signs, "all agents are running" is the only signal. With vital signs, we can see that six agents are fundamentally healthy, two need attention, and three have chronic conditions (memory pressure, FTS bloat) that aren't acute but shouldn't be ignored.
 
 ## The Framework in Practice
 
