@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+  <!-- Medical cross + circuit nodes -->
+  <g transform="translate(220, 315)">
+    <rect x="-25" y="-55" width="50" height="110" rx="8" fill="none" stroke="#00E5A0" stroke-width="3"/>
+    <rect x="-55" y="-25" width="110" height="50" rx="8" fill="none" stroke="#00E5A0" stroke-width="3"/>
+    <circle cx="-55" cy="-25" r="5" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="55" cy="-25" r="5" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="-55" cy="25" r="5" fill="#00E5A0" opacity="0.6"/>
+    <circle cx="55" cy="25" r="5" fill="#00E5A0" opacity="0.6"/>
+    <line x1="-80" y1="-25" x2="-55" y2="-25" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <line x1="80" y1="-25" x2="55" y2="-25" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <line x1="-80" y1="25" x2="-55" y2="25" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <line x1="80" y1="25" x2="55" y2="25" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+  </g>
+  <!-- 8 model indicators -->
+  <g transform="translate(450, 180)" font-family="monospace" font-size="13" fill="#00E5A0" opacity="0.7">
+    <text x="0" y="0">[1] GLM-5.2 ........ 190/200</text>
+    <text x="0" y="30">[2] Kimi K2.7 ..... 175/200</text>
+    <text x="0" y="60">[3] MiniMax M3 ... 200/200 ✓</text>
+    <text x="0" y="90">[4] Nemotron 3 ... 200/200 ✓</text>
+    <text x="0" y="120">[5] DS V4 Flash .. 200/200 ✓</text>
+    <text x="0" y="150">[6] DS V4 Pro .... 193/200</text>
+    <text x="0" y="180">[7] Gemma 4 31B .. 190/200</text>
+    <text x="0" y="210">[8] Kimi K3 ...... HTTP 402 ✗</text>
+  </g>
+  <text x="450" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" fill="#E2E8F0">Fleet Battle</text>
+  <text x="450" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#00E5A0" letter-spacing="2">8 MODELS / 1 TASK / 2 ROUNDS</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
