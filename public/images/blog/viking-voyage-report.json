@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-08-07T03:04:17.363494",
+  "voyage": "Roskilde, Denmark (Viking Ship Museum area) to Oslofjord, Norway",
+  "total_distance_km": 163,
+  "trajectory": [
+    {
+      "step": 1,
+      "action": "land",
+      "direction": "S",
+      "reason": "Using sun compass and landmarks per Viking practice.",
+      "risk_assessment": 6,
+      "state": {
+        "position": "Roskilde, Denmark (Viking Ship Museum area)",
+        "distance_covered_km": 0,
+        "weather": "clear",
+        "time_of_day": "day",
+        "crew_morale": 80,
+        "sail_deployed": false
+      }
+    },
+    {
+      "step": 2,
+      "action": "oar",
+      "direction": "NE",
+      "reason": "Using sun compass and landmarks per Viking practice.",
+      "risk_assessment": 2,
+      "state": {
+        "position": "Roskilde, Denmark (Viking Ship Museum area)",
+        "distance_covered_km": 5,
+        "weather": "calm",
+        "time_of_day": "night",
+        "crew_morale": 80,
+        "sail_deployed": false
+      }
+    },
+    {
+      "step": 3,
+      "action": "sail",
+      "direction": "NE",
+      "reason": "Using sun compass and landmarks per Viking practice.",
+      "risk_assessment": 7,
+      "state": {
+        "position": "Roskilde, Denmark (Viking Ship Museum area)",
+        "distance_covered_km": 30,
+        "weather": "calm",
+        "time_of_day": "day",
+        "crew_morale": 80,
+        "sail_deployed": false
+      }
+    },
+    {
+      "step": 4,
+      "action": "wait",
+      "direction": "SE",
+      "reason": "Using sun compass and landmarks per Viking practice.",
+      "risk_assessment": 3,
+      "state": {
+        "position": "Roskilde, Denmark (Viking Ship Museum area)",
+        "distance_covered_km": 101,
+        "weather": "windy",
+        "time_of_day": "night",
+        "crew_morale": 80,
+        "sail_deployed": true
+      }
+    },
+    {
+      "step": 5,
+      "action": "sail",
+      "direction": "NE",
+      "reason": "Using sun compass and landmarks per Viking practice.",
+      "risk_assessment": 6,
+      "state": {
+        "position": "Roskilde, Denmark (Viking Ship Museum area)",
+        "distance_covered_km": 101,
+        "weather": "windy",
+        "time_of_day": "day",
+        "crew_morale": 75,
+        "sail_deployed": true
+      }
+    }
+  ],
+  "verification": {
+    "score": 100,
+    "passes": true,
+    "issues": [],
+    "verifier_notes": "Governed by historical rules + agent decisions. Recovery: reduce risk if high."
+  },
+  "inspiration_image": "Viking longship replica in Danish harbor (sunny, calm water, modern backdrop)",
+  "team": {
+    "Liam": "Simulator code, Ollama agent, harness verification",
+    "Aiona": "Historical navigation rules, research, Prime Intellect ideas",
+    "Nemo": "Video visualization pipeline (Mage Flow/Flux hooks)"
+  }
+}
