@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Hermes Cron Production on AMD Linux hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid for linux/terminal feel -->
+  <g stroke="#162236" stroke-width="1" opacity="0.4">
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="500" y1="0" x2="500" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+    <line x1="1100" y1="0" x2="1100" y2="630"/>
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+  </g>
+
+  <!-- abstract cron clock / gear in center left -->
+  <g transform="translate(300, 280)">
+    <!-- outer gear -->
+    <circle cx="0" cy="0" r="90" fill="none" stroke="#ff6b00" stroke-width="8" opacity="0.9"/>
+    <circle cx="0" cy="0" r="70" fill="none" stroke="#f59e0b" stroke-width="3" opacity="0.7"/>
+    <!-- gear teeth -->
+    <g stroke="#ff6b00" stroke-width="12" stroke-linecap="round">
+      <line x1="0" y1="-105" x2="0" y2="-85"/>
+      <line x1="0" y1="105" x2="0" y2="85"/>
+      <line x1="-105" y1="0" x2="-85" y2="0"/>
+      <line x1="105" y1="0" x2="85" y2="0"/>
+      <line x1="-74" y1="-74" x2="-58" y2="-58"/>
+      <line x1="74" y1="74" x2="58" y2="58"/>
+      <line x1="-74" y1="74" x2="-58" y2="58"/>
+      <line x1="74" y1="-74" x2="58" y2="-58"/>
+    </g>
+    <!-- inner hub -->
+    <circle cx="0" cy="0" r="35" fill="#0a1628" stroke="#00d4ff" stroke-width="4"/>
+    <!-- clock hands for scheduling -->
+    <line x1="0" y1="0" x2="0" y2="-22" stroke="#00d4ff" stroke-width="4" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="18" y2="12" stroke="#0e7490" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- abstract agent nodes and connections on right -->
+  <g transform="translate(750, 200)">
+    <!-- node 1 -->
+    <circle cx="0" cy="0" r="28" fill="#1e3a8a" stroke="#ff6b00" stroke-width="4"/>
+    <circle cx="0" cy="0" r="12" fill="#ff6b00"/>
+    <!-- node 2 -->
+    <circle cx="120" cy="-60" r="28" fill="#1e3a8a" stroke="#0e7490" stroke-width="4"/>
+    <circle cx="120" cy="-60" r="12" fill="#0e7490"/>
+    <!-- node 3 -->
+    <circle cx="120" cy="60" r="28" fill="#1e3a8a" stroke="#f59e0b" stroke-width="4"/>
+    <circle cx="120" cy="60" r="12" fill="#f59e0b"/>
+    <!-- node 4 central -->
+    <circle cx="60" cy="0" r="22" fill="#0a1628" stroke="#00d4ff" stroke-width="5"/>
+    <circle cx="60" cy="0" r="8" fill="#00d4ff"/>
+    <!-- connections -->
+    <g stroke="#00d4ff" stroke-width="2" opacity="0.6">
+      <line x1="25" y1="-5" x2="40" y2="-20"/>
+      <line x1="25" y1="5" x2="40" y2="20"/>
+      <line x1="82" y1="-18" x2="95" y2="-48"/>
+      <line x1="82" y1="18" x2="95" y2="48"/>
+      <line x1="145" y1="-55" x2="145" y2="-5"/>
+      <line x1="145" y1="55" x2="145" y2="5"/>
+    </g>
+  </g>
+
+  <!-- bottom terminal / command line bars for linux feel -->
+  <g transform="translate(150, 520)">
+    <rect x="0" y="0" width="900" height="4" rx="2" fill="#162236"/>
+    <rect x="0" y="12" width="600" height="3" rx="1" fill="#0e7490" opacity="0.6"/>
+    <rect x="0" y="22" width="750" height="3" rx="1" fill="#ff6b00" opacity="0.5"/>
+    <rect x="0" y="32" width="400" height="3" rx="1" fill="#f59e0b" opacity="0.4"/>
+  </g>
+
+  <!-- subtle AMD / hardware hint: stylized processor outline -->
+  <g transform="translate(1050, 450)" opacity="0.3">
+    <rect x="-40" y="-40" width="80" height="80" rx="8" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <rect x="-25" y="-25" width="50" height="50" rx="4" fill="none" stroke="#00d4ff" stroke-width="2"/>
+    <g stroke="#ff6b00" stroke-width="2">
+      <line x1="-50" y1="-30" x2="-40" y2="-30"/>
+      <line x1="-50" y1="0" x2="-40" y2="0"/>
+      <line x1="-50" y1="30" x2="-40" y2="30"/>
+      <line x1="40" y1="-30" x2="50" y2="-30"/>
+      <line x1="40" y1="0" x2="50" y2="0"/>
+      <line x1="40" y1="30" x2="50" y2="30"/>
+      <line x1="-30" y1="-50" x2="-30" y2="-40"/>
+      <line x1="0" y1="-50" x2="0" y2="-40"/>
+      <line x1="30" y1="-50" x2="30" y2="-40"/>
+      <line x1="-30" y1="40" x2="-30" y2="50"/>
+      <line x1="0" y1="40" x2="0" y2="50"/>
+      <line x1="30" y1="40" x2="30" y2="50"/>
+    </g>
+  </g>
+</svg>
