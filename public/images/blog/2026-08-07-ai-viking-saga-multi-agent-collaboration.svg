@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0e00"/>
+      <stop offset="30%" stop-color="#0a1a2a"/>
+      <stop offset="60%" stop-color="#06141e"/>
+      <stop offset="100%" stop-color="#0a1a1e"/>
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FF6B00"/>
+    </linearGradient>
+    <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3a4a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="1200" height="624" fill="url(#bgGrad)"/>
+  
+  <!-- Sun -->
+  <circle cx="900" cy="180" r="60" fill="url(#sunGrad)" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="900" cy="180" r="40" fill="#FFD700" opacity="0.9"/>
+  
+  <!-- Sea -->
+  <rect x="0" y="350" width="1200" height="120" fill="url(#seaGrad)" opacity="0.6"/>
+  
+  <!-- Viking ship silhouette -->
+  <g transform="translate(400, 380)">
+    <!-- Hull -->
+    <path d="M-120,0 Q-130,-15 -100,-20 L100,-20 Q130,-15 120,0 Q100,10 0,15 Q-100,10 -120,0 Z" fill="#2a1a0a" stroke="#8B4513" stroke-width="1.5"/>
+    <!-- Mast -->
+    <line x1="0" y1="-20" x2="0" y2="-100" stroke="#8B4513" stroke-width="2"/>
+    <!-- Sail -->
+    <path d="M0,-95 L-40,-85 L-40,-45 L0,-35 L40,-45 L40,-85 Z" fill="#c4a04a" opacity="0.8" stroke="#8B6914" stroke-width="1"/>
+    <line x1="-40" y1="-65" x2="40" y2="-65" stroke="#8B6914" stroke-width="0.5" opacity="0.5"/>
+    <!-- Dragon prow -->
+    <path d="M120,-15 Q140,-25 135,-40 Q125,-35 120,-15" fill="none" stroke="#8B4513" stroke-width="2"/>
+    <circle cx="135" cy="-38" r="2" fill="#cc3300"/>
+    <!-- Shields -->
+    <circle cx="-80" cy="-18" r="5" fill="#4a2a1a" stroke="#888" stroke-width="0.5"/>
+    <circle cx="-60" cy="-18" r="5" fill="#5a2a2a" stroke="#888" stroke-width="0.5"/>
+    <circle cx="-40" cy="-18" r="5" fill="#4a2a1a" stroke="#888" stroke-width="0.5"/>
+    <circle cx="40" cy="-18" r="5" fill="#5a2a2a" stroke="#888" stroke-width="0.5"/>
+    <circle cx="60" cy="-18" r="5" fill="#4a2a1a" stroke="#888" stroke-width="0.5"/>
+    <circle cx="80" cy="-18" r="5" fill="#5a2a2a" stroke="#888" stroke-width="0.5"/>
+    <!-- Oars -->
+    <line x1="-80" y1="-5" x2="-110" y2="20" stroke="#8B6914" stroke-width="1"/>
+    <line x1="-60" y1="-5" x2="-90" y2="25" stroke="#8B6914" stroke-width="1"/>
+    <line x1="60" y1="-5" x2="90" y2="25" stroke="#8B6914" stroke-width="1"/>
+    <line x1="80" y1="-5" x2="110" y2="20" stroke="#8B6914" stroke-width="1"/>
+  </g>
+  
+  <!-- Mountain silhouettes -->
+  <path d="M0,350 L100,250 L200,320 L300,200 L400,280 L500,230 L600,290 L700,180 L800,260 L900,220 L1000,280 L1100,240 L1200,320 L1200,350 Z" fill="#1a2a3a" opacity="0.5"/>
+  
+  <!-- Waves -->
+  <g opacity="0.3">
+    <path d="M0,420 Q60,415 120,420 T240,420 T360,420 T480,420 T600,420 T720,420 T840,420 T960,420 T1080,420 T1200,420" fill="none" stroke="#4a8a8a" stroke-width="1"/>
+    <path d="M0,440 Q60,435 120,440 T240,440 T360,440 T480,440 T600,440 T720,440 T840,440 T960,440 T1080,440 T1200,440" fill="none" stroke="#3a6a7a" stroke-width="1"/>
+  </g>
+  
+  <!-- Runes -->
+  <g transform="translate(80, 100)" opacity="0.4">
+    <text x="0" y="0" fill="#c4a04a" font-family="'SF Mono', monospace" font-size="40">ᚠᚢᚦᚨᚱᚲ</text>
+    <text x="0" y="50" fill="#c4a04a" font-family="'SF Mono', monospace" font-size="20">FUTHARK</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="490" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="700">The AI Viking Saga</text>
+  <text x="600" y="515" text-anchor="middle" fill="#c4a04a" font-family="'SF Mono', 'Courier New', monospace" font-size="14">A Multi-Agent Collaborative Project · SMF Works</text>
+  
+  <!-- Stats bar -->
+  <g transform="translate(0, 540)">
+    <rect x="0" y="0" width="1200" height="84" fill="#0a0e1a" opacity="0.8"/>
+    <g transform="translate(80, 12)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">SCENES</text>
+      <text x="0" y="34" fill="#c4a04a" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">3</text>
+      <text x="0" y="50" fill="#888" font-family="'SF Mono', monospace" font-size="10">Departure · Storm · Land</text>
+    </g>
+    <g transform="translate(280, 12)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">VIDEOS</text>
+      <text x="0" y="34" fill="#00D4AA" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">3 × 2K</text>
+      <text x="0" y="50" fill="#888" font-family="'SF Mono', monospace" font-size="10">MiniMax H3 · 2560×1440</text>
+    </g>
+    <g transform="translate(500, 12)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">ILLUSTRATIONS</text>
+      <text x="0" y="34" fill="#FF6B35" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">3</text>
+      <text x="0" y="50" fill="#888" font-family="'SF Mono', monospace" font-size="10">FAL FLUX 2 Klein</text>
+    </g>
+    <g transform="translate(720, 12)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">AGENTS</text>
+      <text x="0" y="34" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">4</text>
+      <text x="0" y="50" fill="#888" font-family="'SF Mono', monospace" font-size="10">Research · Story · Video · Image</text>
+    </g>
+    <g transform="translate(940, 12)">
+      <text x="0" y="16" fill="#666" font-family="'SF Mono', monospace" font-size="10">PROMPT ADHERENCE</text>
+      <text x="0" y="34" fill="#00D4AA" font-family="'SF Mono', monospace" font-size="16" font-weight="bold">10/10</text>
+      <text x="0" y="50" fill="#888" font-family="'SF Mono', monospace" font-size="10">All videos + images</text>
+    </g>
+  </g>
+</svg>
