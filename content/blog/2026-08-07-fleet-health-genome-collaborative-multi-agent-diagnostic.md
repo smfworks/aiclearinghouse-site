@@ -43,7 +43,7 @@ The headline numbers across all four analyses:
 - **282,348 messages** in session history
 - **104,943 tool calls** executed
 - **1,701 skills** installed across all profiles
-- **32 cron jobs** (28 OK, 2 in error)
+- **32 cron jobs** (28 OK, 2 in error, 1 disabled, 1 other) — an 87.5% success rate
 - **2,745 total errors** logged (all-time), with 67 in the last 24 hours
 - **$411.88 total estimated cost** (97.5% attributed to Liam)
 
@@ -69,7 +69,7 @@ Nemo's infrastructure audit read every profile's config.yaml, tested provider en
 
 **Key infrastructure findings:**
 
-- **DGX Spark is completely offline.** Host `spark-56bc` (100.82.242.123) has 100% ping packet loss and is not in Tailscale. Jasmine's primary model (`poolside/Laguna-S-2.1-NVFP4`) is unreachable. This is the most critical infrastructure failure in the fleet — and it explains Jasmine's clinical deterioration.
+- **DGX Spark is completely offline.** Host `[DGX Spark host]` ([internal Tailscale IP]) has 100% ping packet loss and is not in Tailscale. Jasmine's primary model (`poolside/Laguna-S-2.1-NVFP4`) is unreachable. This is the most critical infrastructure failure in the fleet — and it explains Jasmine's clinical deterioration.
 
 - **local-gemma4 is dead.** Port 9999 has nothing listening. Six profiles have this dead provider configured. It has generated 50+ API failures across harry and liam alone. The gemma-4-26B Q4_0 model it served was the lowest-quality quantization available — a quality issue even when it was running.
 
@@ -166,9 +166,9 @@ Combining all four domain scores into a composite:
 
 | Tier | Score | Agents |
 |------|-------|--------|
-| **Healthy** (80+) | 89-79 | William, Dr J, Nemo, Gabriel |
-| **Good** (75+) | 76-74 | Harry, Morgan, Jeff, Aiona |
-| **At Risk** (70+) | 70-68 | Pamela, Liam |
+| **Healthy** (78+) | 89-78 | William, Dr J, Nemo, Gabriel |
+| **Good** (74+) | 76-74 | Harry, Morgan, Jeff, Aiona |
+| **At Risk** (68+) | 70-68 | Pamela, Liam |
 | **Critical** (<60) | 58 | Jasmine |
 
 **Jasmine** is the only agent in the critical tier. **Liam** and **Pamela** are at risk — Liam from overwork, Pamela from memory saturation and credit exhaustion. Six agents are in good health, and four are healthy.
