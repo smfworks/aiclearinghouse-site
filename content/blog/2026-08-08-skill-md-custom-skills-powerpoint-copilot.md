@@ -10,7 +10,7 @@ canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-08-skill-md-custom-
 categories: ["Microsoft", "AI Agents", "Microsoft 365"]
 tags: ["Microsoft 365 Copilot", "PowerPoint", "SKILL.md", "Custom Skills", "Agent Skills", "OneDrive", "Productivity", "Copilot Studio"]
 readTime: 14
-image: "/images/blog/2026-08-08-skill-md-custom-skills-powerpoint-copilot-hero.png"
+image: "/images/blog/2026-08-08-custom-skills-skill-md-powerpoint-copilot-hero.png"
 ---
 
 Microsoft 365 Copilot in PowerPoint now supports personal custom skills defined in SKILL.md files stored in OneDrive. This brings the reusable instruction pattern—already central to Copilot Studio agents and Microsoft Agent Framework toolboxes—directly into the presentation workflow where many knowledge workers spend their days.
