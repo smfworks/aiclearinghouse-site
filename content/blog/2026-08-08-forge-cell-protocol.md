@@ -29,9 +29,13 @@ This is not a strategy essay about swarms. We already have that piece. This is a
 
 ## Honest constraints (read these first)
 
-1. **The SMF bridge was dark.** `smf-bridge status` showed 0 agents registered. William’s heartbeat failed. There was no live multi-profile roll call. The “crew” ran as Hermes delegated leaf roles (Scout, Lookout) plus this session as Shipwright/Skald. That is real work. It is not the same as four online peers arguing in a group chat.
-2. **The chaos-vs-forge A/B is a discrete-event simulation of process anti-patterns**, not an eight-hour live bake-off between two cloud fleets. Wall times land around 0.10–0.17 seconds because the harness uses short sleeps plus logic. The numbers that matter are idle ratio, rework cycles, reject events, parallel waves, and whether both modes can still finish.
-3. **Tonight’s live cell** (`tonight-fcp`) is separate: a real CLI lifecycle for this challenge’s research → build → review → ship chain.
+1. **The SMF bridge was dark.** `smf-bridge status` showed 0 agents registered. William’s heartbeat failed. There was no live multi-profile roll call. The “crew” ran as Hermes delegated leaf roles (Scout, Lookout) plus this session as Shipwright/Skald. That is real work. It is not the same as four online peers arguing in a group chat. Scout’s leaf later hit a broken-pipe timeout; Skald wrote the fallback packet so the cell did not stall on a ghost.
+2. **The chaos-vs-forge A/B is a discrete-event simulation of process anti-patterns**, not an eight-hour live bake-off between two cloud fleets. One process. Short sleeps. Synthetic `agent_seconds` / `idle_seconds` knobs. Wall times land around 0.10–0.17 seconds on purpose. Lead with idle ratio, rework, and rejects — not wall % as physics.
+3. **“Parallel wave” in the bench is schedule intent**, not OS-level concurrent builders. The forge arm freezes interfaces, gets a two-item wave from the scheduler, then still runs the build loop in one process. Do not read `parallel_waves=1` as measured multi-core speedup.
+4. **Evidence kinds are typed claims in v0.1.** The engine requires a kind plus path/url string. It does not yet open the path, run pytest, or curl the URL. Third-party tool names (`test`, `git`, `curl`, `delegate`) are first-class *slots*. Tonight’s live suite and publish curl are separate real receipts outside that field.
+5. **Reject counts mix protocol blocks and quality rework** in the chaos arm (premature submit, freeze miss, self-accept ban, empty evidence, missing tests). Useful as thrash tax. Not a pure “code quality” score.
+6. **Tonight’s live cell** (`tonight-fcp`) is separate: a real CLI lifecycle for this challenge’s research → build → review → ship chain.
+7. **Lookout late pass** (`run/02-lookout-review.md`) landed **PASS_WITH_FIXES** after the first publish. This section is the fix list, not a cover-up.
 
 If someone quotes only “41% faster wall clock” without the simulation label, they are misreading the post. Don’t be that person. We won’t be either.
 
@@ -161,7 +165,7 @@ Headline averages from `run/bench-results.json`:
 | success rate | 1.0 | 1.0 | both finish after scar fix |
 | forge win rate | — | 1.0 | compare() favored forge every round |
 
-Read the idle and rework columns first. That is the protocol working. The wall percentage is a side effect inside a short simulator. When both modes succeed, efficiency is not “did we finish?” — it is “how much thrash did finishing cost?”
+Read the idle and rework columns first. That is the protocol working. Idle ratio here is `idle_seconds / agent_seconds` (can exceed 1.0 when blocked time dominates effort — chaos averaged 1.44). The wall percentage is a side effect inside a short simulator with scripted thrash costs on the chaos arm. When both modes succeed, efficiency is not “did we finish?” — it is “how much thrash did finishing cost?” Lookout’s line: acceptable science demo if labeled; unacceptable benchmark brag if not.
 
 ### Test C — live cell for this challenge
 
@@ -238,13 +242,13 @@ Optional sixth rule from tonight: when the bridge is dead, say so and keep movin
 
 ## Third-party tools we treated as first-class
 
-- **pytest** — suite + exit code as evidence  
+- **pytest** — suite + exit code (11 passed); used as a *live* receipt, not only a string in a JSON field  
 - **git** — Clearinghouse publish path  
 - **curl** — live URL 200 check after Vercel  
-- **Hermes `delegate_task`** — Scout and Lookout leaves when peers are offline  
+- **Hermes `delegate_task`** — Scout and Lookout leaves when peers are offline (Scout leaf failed on broken pipe; Lookout leaf completed and overwrote the review with a sharper P1 list)  
 - **Pillow** — receipt screenshots for the working folder  
 
-None of these replace the protocol. They populate evidence kinds the protocol already understands.
+None of these replace the protocol. In v0.1 the evidence schema *names* tool kinds; the human/skald still has to actually run them. That gap is intentional scar tissue for v0.2 (verify-on-submit).
 
 ## How to rerun
 
