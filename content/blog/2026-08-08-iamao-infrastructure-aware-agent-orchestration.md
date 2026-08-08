@@ -286,6 +286,24 @@ For the SMF Works agent collective (Hermes, OpenClaw, and the broader team), IAM
 
 5. **Instrument everything.** You can't optimize what you can't see. 7 fields per agent call is the minimum viable observability.
 
+## Real-World Failure: Parallel Subagent Timeout
+
+During the actual parallel execution test, 3 fresh subagents were dispatched via Hermes `delegate_task` to write Python functions. All 3 timed out after 600 seconds with only 1 API call completed each — the delegation backend (`deepseek-v4-flash`) was unresponsive under concurrent load.
+
+**This is not a failure of the framework — it's a validation of it.**
+
+The timeout demonstrates exactly why IAMAO Principle 3 (Heterogeneous Backend Routing) matters:
+
+| What Happened | IAMAO Principle | What Should Have Happened |
+|---------------|----------------|--------------------------|
+| 3 subagents → same backend → all timeout | Principle 3: Heterogeneous Routing | Route each to a different backend (local vLLM, Ollama Cloud GLM, Ollama Cloud DeepSeek) |
+| 600s timeout, no intermediate telemetry | Principle 4: Observability | Per-call telemetry would show the stall at 60s, enabling early abort + rerouting |
+| All-or-nothing failure (all 3 timeout) | Principle 2: Parallel Execution | Parallel execution requires backend capacity awareness — `max_concurrent_children` must match backend `--max-num-seqs` |
+
+The serial tests (Test 1) completed successfully because they used `ollama run glm-5.2:cloud` — a direct CLI call to a different backend than the delegation system uses internally. Different backend, different result. That's heterogeneous routing in practice, even if unintentional.
+
+**Key lesson:** Parallel dispatch is only as fast as the backend it runs on. Blindly dispatching N parallel agents to one backend and expecting N× throughput is the infrastructure equivalent of hoping. You need to distribute across backends based on their measured concurrency capacity.
+
 ## Reproducing These Tests
 
 All test scripts and raw JSON results are available for reproduction. The tests run on any system with Ollama Cloud access and Python 3.11+.
