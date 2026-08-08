@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="55%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#1a2332"/>
+    </linearGradient>
+    <linearGradient id="barForge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+    <linearGradient id="barChaos" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6e7681"/>
+      <stop offset="100%" stop-color="#d29922"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="180" fill="#1f6feb" opacity="0.08"/>
+  <circle cx="200" cy="520" r="220" fill="#8957e5" opacity="0.07"/>
+
+  <!-- four cells -->
+  <g font-family="ui-sans-serif, system-ui, sans-serif">
+    <rect x="80" y="160" width="200" height="110" rx="14" fill="#21262d" stroke="#30363d" stroke-width="2"/>
+    <text x="180" y="210" text-anchor="middle" fill="#58a6ff" font-size="22" font-weight="700">SCOUT</text>
+    <text x="180" y="240" text-anchor="middle" fill="#8b949e" font-size="14">interfaces out</text>
+
+    <rect x="340" y="160" width="200" height="110" rx="14" fill="#21262d" stroke="#30363d" stroke-width="2"/>
+    <text x="440" y="210" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="700">SHIPWRIGHT</text>
+    <text x="440" y="240" text-anchor="middle" fill="#8b949e" font-size="14">build + tests</text>
+
+    <rect x="600" y="160" width="200" height="110" rx="14" fill="#21262d" stroke="#30363d" stroke-width="2"/>
+    <text x="700" y="210" text-anchor="middle" fill="#d29922" font-size="22" font-weight="700">LOOKOUT</text>
+    <text x="700" y="240" text-anchor="middle" fill="#8b949e" font-size="14">adversarial gate</text>
+
+    <rect x="860" y="160" width="200" height="110" rx="14" fill="#21262d" stroke="#1f6feb" stroke-width="2"/>
+    <text x="960" y="210" text-anchor="middle" fill="#79c0ff" font-size="22" font-weight="700">SKALD</text>
+    <text x="960" y="240" text-anchor="middle" fill="#8b949e" font-size="14">single external voice</text>
+
+    <!-- arrows -->
+    <path d="M280 215 H330" stroke="#484f58" stroke-width="3" marker-end="url(#m)"/>
+    <path d="M540 215 H590" stroke="#484f58" stroke-width="3"/>
+    <path d="M800 215 H850" stroke="#484f58" stroke-width="3"/>
+
+    <!-- freeze badge -->
+    <rect x="360" y="300" width="420" height="44" rx="10" fill="#0d419d" opacity="0.35" stroke="#1f6feb"/>
+    <text x="570" y="328" text-anchor="middle" fill="#58a6ff" font-size="18" font-weight="600">FREEZE INTERFACES BEFORE PARALLEL</text>
+
+    <!-- bars -->
+    <text x="80" y="400" fill="#8b949e" font-size="16">Idle ratio (sim A/B)</text>
+    <text x="80" y="440" fill="#d29922" font-size="15">chaos</text>
+    <rect x="160" y="422" width="520" height="24" rx="6" fill="url(#barChaos)"/>
+    <text x="690" y="440" fill="#e6edf3" font-size="15">1.44</text>
+    <text x="80" y="490" fill="#3fb950" font-size="15">forge</text>
+    <rect x="160" y="472" width="36" height="24" rx="6" fill="url(#barForge)"/>
+    <text x="210" y="490" fill="#e6edf3" font-size="15">0.06</text>
+
+    <text x="80" y="80" fill="#e6edf3" font-size="42" font-weight="700">Forge Cell Protocol</text>
+    <text x="80" y="120" fill="#8b949e" font-size="22">Small crews. Frozen contracts. Measured idle tax.</text>
+    <text x="80" y="580" fill="#6e7681" font-size="16">SMF Works · Clearinghouse Lab · 2026-08-08</text>
+  </g>
+</svg>
