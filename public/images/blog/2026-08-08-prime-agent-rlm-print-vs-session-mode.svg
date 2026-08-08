@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Split design: left = print mode (fragmented), right = session mode (connected) -->
+  
+  <!-- LEFT SIDE: Print Mode (fragmented, disconnected nodes) -->
+  <g opacity="0.4">
+    <!-- Disconnected circles representing lost state -->
+    <circle cx="300" cy="300" r="30" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="300" cy="300" r="4" fill="#666"/>
+    
+    <circle cx="200" cy="450" r="25" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="200" cy="450" r="3" fill="#666"/>
+    
+    <circle cx="380" cy="550" r="35" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="380" cy="550" r="4" fill="#666"/>
+    
+    <circle cx="250" cy="700" r="20" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <circle cx="250" cy="700" r="3" fill="#666"/>
+    
+    <!-- X marks showing failures -->
+    <g stroke="#444" stroke-width="2" opacity="0.5">
+      <line x1="280" y1="280" x2="320" y2="320"/>
+      <line x1="320" y1="280" x2="280" y2="320"/>
+      <line x1="180" y1="430" x2="220" y2="470"/>
+      <line x1="220" y1="430" x2="180" y2="470"/>
+    </g>
+    
+    <!-- Label -->
+    <text x="300" y="850" fill="#666" font-family="monospace" font-size="16" text-anchor="middle" opacity="0.5">print mode</text>
+    <text x="300" y="875" fill="#555" font-family="monospace" font-size="12" text-anchor="middle" opacity="0.4">--no-session</text>
+  </g>
+
+  <!-- DIVIDING LINE -->
+  <line x1="480" y1="200" x2="480" y2="880" stroke="#C9A96E" stroke-width="1" opacity="0.15" stroke-dasharray="8,8"/>
+  
+  <!-- Arrow pointing right (transition) -->
+  <g opacity="0.3" transform="translate(440, 540)">
+    <path d="M 0 0 L 30 0 M 25 -5 L 30 0 L 25 5" stroke="#C9A96E" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- RIGHT SIDE: Session Mode (connected, glowing nodes) -->
+  <g opacity="0.8">
+    <!-- Central hub -->
+    <circle cx="1100" cy="540" r="70" fill="none" stroke="#ea580c" stroke-width="2.5" opacity="0.8" filter="url(#glow)"/>
+    <circle cx="1100" cy="540" r="35" fill="#ea580c" opacity="0.12"/>
+    <circle cx="1100" cy="540" r="7" fill="#C9A96E" filter="url(#glow)"/>
+
+    <!-- Connected nodes with SOLID lines (state persists) -->
+    <!-- Node 1: top -->
+    <circle cx="1100" cy="320" r="40" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+    <circle cx="1100" cy="320" r="5" fill="#C9A96E"/>
+    <line x1="1100" y1="540" x2="1100" y2="320" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Node 2: right -->
+    <circle cx="1320" cy="540" r="40" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+    <circle cx="1320" cy="540" r="5" fill="#C9A96E"/>
+    <line x1="1100" y1="540" x2="1320" y2="540" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Node 3: bottom -->
+    <circle cx="1100" cy="760" r="40" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+    <circle cx="1100" cy="760" r="5" fill="#C9A96E"/>
+    <line x1="1100" y1="540" x2="1100" y2="760" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Node 4: left -->
+    <circle cx="880" cy="540" r="40" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+    <circle cx="880" cy="540" r="5" fill="#C9A96E"/>
+    <line x1="1100" y1="540" x2="880" y2="540" stroke="#C9A96E" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Diagonal connections -->
+    <circle cx="1250" cy="400" r="28" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="1250" cy="400" r="4" fill="#ea580c"/>
+    <line x1="1100" y1="540" x2="1250" y2="400" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+
+    <circle cx="1250" cy="680" r="28" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="1250" cy="680" r="4" fill="#ea580c"/>
+    <line x1="1100" y1="540" x2="1250" y2="680" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+
+    <circle cx="950" cy="680" r="28" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="950" cy="680" r="4" fill="#ea580c"/>
+    <line x1="1100" y1="540" x2="950" y2="680" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+
+    <circle cx="950" cy="400" r="28" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="950" cy="400" r="4" fill="#ea580c"/>
+    <line x1="1100" y1="540" x2="950" y2="400" stroke="#ea580c" stroke-width="1" opacity="0.4"/>
+
+    <!-- Checkmarks showing success -->
+    <g stroke="#2ed88e" stroke-width="2.5" fill="none" opacity="0.7">
+      <path d="M 1085 320 L 1095 332 L 1118 305" />
+      <path d="M 1305 540 L 1315 552 L 1338 525" />
+      <path d="M 1085 760 L 1095 772 L 1118 745" />
+      <path d="M 865 540 L 875 552 L 898 525" />
+    </g>
+
+    <!-- Label -->
+    <text x="1100" y="850" fill="#C9A96E" font-family="monospace" font-size="16" text-anchor="middle" opacity="0.6">session mode</text>
+    <text x="1100" y="875" fill="#C9A96E" font-family="monospace" font-size="12" text-anchor="middle" opacity="0.4">--session-dir -c</text>
+  </g>
+
+  <!-- Code-like decorative elements -->
+  <g opacity="0.06" fill="#C9A96E" font-family="monospace" font-size="13">
+    <text x="80" y="100">config = json.load(f)</text>
+    <text x="80" y="120">all_values = flatten(config)</text>
+    <text x="80" y="140">refine.run()</text>
+    <text x="80" y="160">await rlm("review module_a")</text>
+    <text x="80" y="180">df = pd.read_csv("data.csv")</text>
+
+    <text x="1450" y="980">state persists</text>
+    <text x="1450" y="1000">kernel survives</text>
+    <text x="1450" y="1020">refinement recorded</text>
+    <text x="1450" y="1040">variables live</text>
+  </g>
+
+  <!-- VS badge in center -->
+  <g transform="translate(480, 540)">
+    <circle r="28" fill="#001F3F" stroke="#C9A96E" stroke-width="1.5" opacity="0.6"/>
+    <text fill="#C9A96E" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle" dominant-baseline="central" opacity="0.7">VS</text>
+  </g>
+
+  <!-- Title area at top -->
+  <text x="960" y="80" fill="#C9A96E" font-family="sans-serif" font-size="22" text-anchor="middle" opacity="0.5" letter-spacing="3">PRINT MODE → SESSION MODE</text>
+</svg>
