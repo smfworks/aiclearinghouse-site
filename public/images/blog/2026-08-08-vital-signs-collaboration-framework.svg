@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="seqGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="parGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="180" cy="315" r="160" fill="url(#pulse)"/>
+
+  <!-- Medical cross icon -->
+  <g transform="translate(180, 315)">
+    <rect x="-25" y="-60" width="50" height="120" rx="6" fill="#00E5A0" opacity="0.85"/>
+    <rect x="-60" y="-25" width="120" height="50" rx="6" fill="#00E5A0" opacity="0.85"/>
+    <rect x="-15" y="-50" width="30" height="100" rx="4" fill="#00E5A0"/>
+    <rect x="-50" y="-15" width="100" height="30" rx="4" fill="#00E5A0"/>
+  </g>
+
+  <!-- Circuit traces (right side decoration) -->
+  <g opacity="0.06" stroke="#00E5A0" fill="none" stroke-width="1.5">
+    <path d="M 850 100 L 900 100 L 900 150 L 950 150 L 950 200 L 1000 200"/>
+    <path d="M 850 200 L 880 200 L 880 250 L 930 250 L 930 300"/>
+    <path d="M 1050 300 L 1100 300 L 1100 350 L 1050 350 L 1050 400"/>
+    <path d="M 850 400 L 900 400 L 900 450 L 950 450 L 950 500 L 1000 500"/>
+    <circle cx="900" cy="100" r="3" fill="#00E5A0"/>
+    <circle cx="950" cy="150" r="3" fill="#00E5A0"/>
+    <circle cx="1000" cy="200" r="3" fill="#00E5A0"/>
+    <circle cx="880" cy="250" r="3" fill="#00E5A0"/>
+    <circle cx="930" cy="300" r="3" fill="#00E5A0"/>
+    <circle cx="1100" cy="350" r="3" fill="#00E5A0"/>
+    <circle cx="1050" cy="400" r="3" fill="#00E5A0"/>
+    <circle cx="950" cy="450" r="3" fill="#00E5A0"/>
+  </g>
+
+  <!-- Title -->
+  <text x="340" y="120" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold">
+    Vital Signs Collaboration Framework
+  </text>
+
+  <!-- Subtitle -->
+  <text x="340" y="160" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" letter-spacing="2">
+    CLINICALLY OPTIMIZED AI TEAM COLLABORATION
+  </text>
+
+  <!-- Tagline -->
+  <text x="340" y="190" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15">
+    A health-first framework tested across three patterns on a live 11-agent fleet
+  </text>
+
+  <!-- Pattern 1: Sequential Pipeline -->
+  <g transform="translate(340, 230)">
+    <text x="0" y="0" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">PATTERN 1: SEQUENTIAL PIPELINE</text>
+    <rect x="0" y="10" width="40" height="22" rx="4" fill="#00E5A0" fill-opacity="0.15" stroke="#00E5A0" stroke-width="1"/>
+    <text x="20" y="26" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">A</text>
+    <line x1="42" y1="21" x2="58" y2="21" stroke="#00E5A0" stroke-opacity="0.5" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+    <rect x="60" y="10" width="40" height="22" rx="4" fill="#00E5A0" fill-opacity="0.15" stroke="#00E5A0" stroke-width="1"/>
+    <text x="80" y="26" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">B</text>
+    <line x1="102" y1="21" x2="118" y2="21" stroke="#00E5A0" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="120" y="10" width="40" height="22" rx="4" fill="#00E5A0" fill-opacity="0.15" stroke="#00E5A0" stroke-width="1"/>
+    <text x="140" y="26" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">C</text>
+    <line x1="162" y1="21" x2="178" y2="21" stroke="#00E5A0" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="180" y="10" width="40" height="22" rx="4" fill="#00E5A0" fill-opacity="0.15" stroke="#00E5A0" stroke-width="1"/>
+    <text x="200" y="26" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">D</text>
+    <text x="232" y="26" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="10">SLOW BUT THOROUGH</text>
+  </g>
+
+  <!-- Pattern 2: Parallel Fan-Out -->
+  <g transform="translate(340, 300)">
+    <text x="0" y="0" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">PATTERN 2: PARALLEL FAN-OUT</text>
+    <rect x="0" y="10" width="40" height="22" rx="4" fill="#00D4FF" fill-opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+    <text x="20" y="26" fill="#00D4FF" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">A</text>
+    <rect x="50" y="10" width="40" height="22" rx="4" fill="#00D4FF" fill-opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+    <text x="70" y="26" fill="#00D4FF" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">B</text>
+    <rect x="100" y="10" width="40" height="22" rx="4" fill="#00D4FF" fill-opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+    <text x="120" y="26" fill="#00D4FF" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">C</text>
+    <rect x="150" y="10" width="40" height="22" rx="4" fill="#00D4FF" fill-opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+    <text x="170" y="26" fill="#00D4FF" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">D</text>
+    <text x="202" y="26" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="10">FAST, INDEPENDENT</text>
+  </g>
+
+  <!-- Pattern 3: Health-Aware Routing -->
+  <g transform="translate(340, 370)">
+    <text x="0" y="0" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">PATTERN 3: HEALTH-AWARE ROUTING</text>
+    <!-- Vital signs icon -->
+    <path d="M 0 20 L 8 20 L 11 14 L 15 26 L 18 18 L 22 20 L 40 20" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.8"/>
+    <rect x="50" y="10" width="40" height="22" rx="4" fill="#00E5A0" fill-opacity="0.25" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="70" y="26" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle" font-weight="bold">A*</text>
+    <rect x="100" y="10" width="40" height="22" rx="4" fill="#00D4FF" fill-opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+    <text x="120" y="26" fill="#00D4FF" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">B</text>
+    <rect x="150" y="10" width="40" height="22" rx="4" fill="#00E5A0" fill-opacity="0.25" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="170" y="26" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle" font-weight="bold">C*</text>
+    <rect x="200" y="10" width="40" height="22" rx="4" fill="#00D4FF" fill-opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+    <text x="220" y="26" fill="#00D4FF" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">D</text>
+    <text x="252" y="26" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="10">ROUTED BY VITAL SIGNS</text>
+  </g>
+
+  <!-- Vital signs line decoration -->
+  <g transform="translate(340, 420)">
+    <path d="M 0 20 L 30 20 L 35 10 L 45 30 L 50 5 L 55 35 L 60 20 L 100 20 L 105 12 L 115 28 L 120 20 L 160 20 L 165 8 L 175 32 L 180 20 L 220 20 L 225 14 L 235 26 L 240 20 L 280 20"
+          stroke="#00E5A0" stroke-width="2" fill="none" opacity="0.4"/>
+    <text x="0" y="50" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" font-style="italic">
+      Heart Rate (latency) + Blood Pressure (memory + DB) + Temperature (error rate) + Reflexes (tool activity) + Blood Panel (session health)
+    </text>
+  </g>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
