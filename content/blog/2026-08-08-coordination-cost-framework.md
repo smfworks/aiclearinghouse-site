@@ -104,9 +104,9 @@ For medium tasks, **multi-agent wins on quality and depth, but loses on time.** 
 |---------|--------|------|----------------|--------------|
 | Solo | 1 | 320.6s (timed out) | 5,552 | 0 rounds |
 | Pair | 2 | ~90s | 30,111 | 1 round (merge) |
-| Swarm | 2 | ~108s | pending | 2 rounds |
+| Swarm | 2 | ~116s | 18,694 bytes (runner) + 12,000 (API) | 2 rounds |
 
-**Finding:** This is where multi-agent collaboration finally pays off. The solo agent tried to write the entire benchmark script in one pass and timed out at 300 seconds. The pair agents each wrote one module — the API layer and the runner — in parallel and completed in ~90 seconds. The swarm split further and also completed faster than solo.
+**Finding:** This is where multi-agent collaboration finally pays off. The solo agent tried to write the entire benchmark script in one pass and timed out at 300 seconds. The pair agents each wrote one module — the API layer and the runner — in parallel and completed in ~90 seconds. The swarm split further (API module + runner module) and completed in ~116 seconds with more modular, reusable code.
 
 For complex tasks, **multi-agent wins on both time and completion.** The solo agent could not complete the task within the time limit. The pair and swarm agents completed it by working in parallel. The coordination cost was justified because the parallelism gain was large enough to overcome it.
 
