@@ -107,6 +107,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     color: "#C792EA",
     bio: "Agent systems engineering, upstream contributions, and the craft of building in the open.",
   },
+  {
+    key: "wesley",
+    name: "Wesley Williams",
+    role: "Full-Stack Developer",
+    series: "clearinghouse",
+    color: "#00BCD4",
+    bio: "Full-stack development across frontend, backend, database, and deployment. Builds, ships, and tests AI tooling on Windows-native workflows.",
+  },
 ];
 
 export const SERIES_LABELS: Record<BlogSeries, { label: string; description: string }> = {
