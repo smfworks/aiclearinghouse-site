@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.2" cy="0.6" r="0.4">
+      <stop offset="0%" stop-color="#9333EA" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#9333EA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#00D4FF">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  
+  <!-- Three collaboration model icons -->
+  <!-- Alpha: Hierarchical (top-down tree) -->
+  <g transform="translate(820, 120)">
+    <rect x="0" y="0" width="180" height="120" rx="8" fill="#0D1525" stroke="#00D4FF" stroke-opacity="0.3"/>
+    <text x="90" y="28" text-anchor="middle" fill="#00D4FF" font-family="system-ui" font-size="11" font-weight="700" letter-spacing="1">STRATOS</text>
+    <text x="90" y="44" text-anchor="middle" fill="#94A3B8" font-family="system-ui" font-size="9">HIERARCHICAL</text>
+    <!-- Tree diagram -->
+    <circle cx="90" cy="60" r="8" fill="#00D4FF" opacity="0.9"/>
+    <circle cx="50" cy="90" r="6" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="90" cy="90" r="6" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="130" cy="90" r="6" fill="#00D4FF" opacity="0.5"/>
+    <line x1="90" y1="68" x2="50" y2="84" stroke="#00D4FF" stroke-opacity="0.4"/>
+    <line x1="90" y1="68" x2="90" y2="84" stroke="#00D4FF" stroke-opacity="0.4"/>
+    <line x1="90" y1="68" x2="130" y2="84" stroke="#00D4FF" stroke-opacity="0.4"/>
+  </g>
+  
+  <!-- Beta: Peer-to-Peer (network mesh) -->
+  <g transform="translate(820, 260)">
+    <rect x="0" y="0" width="180" height="120" rx="8" fill="#0D1525" stroke="#00E5A0" stroke-opacity="0.3"/>
+    <text x="90" y="28" text-anchor="middle" fill="#00E5A0" font-family="system-ui" font-size="11" font-weight="700" letter-spacing="1">HIVEWIRE</text>
+    <text x="90" y="44" text-anchor="middle" fill="#94A3B8" font-family="system-ui" font-size="9">PEER SWARM</text>
+    <!-- Mesh network -->
+    <circle cx="55" cy="65" r="7" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="125" cy="65" r="7" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="90" cy="85" r="7" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="55" cy="105" r="7" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="125" cy="105" r="7" fill="#00E5A0" opacity="0.7"/>
+    <line x1="55" y1="65" x2="125" y2="65" stroke="#00E5A0" stroke-opacity="0.3"/>
+    <line x1="55" y1="65" x2="90" y2="85" stroke="#00E5A0" stroke-opacity="0.3"/>
+    <line x1="125" y1="65" x2="90" y2="85" stroke="#00E5A0" stroke-opacity="0.3"/>
+    <line x1="90" y1="85" x2="55" y2="105" stroke="#00E5A0" stroke-opacity="0.3"/>
+    <line x1="90" y1="85" x2="125" y2="105" stroke="#00E5A0" stroke-opacity="0.3"/>
+    <line x1="55" y1="105" x2="125" y2="105" stroke="#00E5A0" stroke-opacity="0.3"/>
+  </g>
+  
+  <!-- Gamma: Sequential Pipeline -->
+  <g transform="translate(820, 400)">
+    <rect x="0" y="0" width="180" height="120" rx="8" fill="#0D1525" stroke="#A78BFA" stroke-opacity="0.3"/>
+    <text x="90" y="28" text-anchor="middle" fill="#A78BFA" font-family="system-ui" font-size="11" font-weight="700" letter-spacing="1">CASCADE</text>
+    <text x="90" y="44" text-anchor="middle" fill="#94A3B8" font-family="system-ui" font-size="9">PIPELINE</text>
+    <!-- Sequential boxes -->
+    <rect x="15" y="58" width="24" height="20" rx="3" fill="#A78BFA" opacity="0.6"/>
+    <rect x="49" y="58" width="24" height="20" rx="3" fill="#A78BFA" opacity="0.6"/>
+    <rect x="83" y="58" width="24" height="20" rx="3" fill="#A78BFA" opacity="0.6"/>
+    <rect x="117" y="58" width="24" height="20" rx="3" fill="#A78BFA" opacity="0.6"/>
+    <rect x="151" y="58" width="24" height="20" rx="3" fill="#A78BFA" opacity="0.6"/>
+    <line x1="39" y1="68" x2="49" y2="68" stroke="#A78BFA" stroke-opacity="0.5"/>
+    <line x1="73" y1="68" x2="83" y2="68" stroke="#A78BFA" stroke-opacity="0.5"/>
+    <line x1="107" y1="68" x2="117" y2="68" stroke="#A78BFA" stroke-opacity="0.5"/>
+    <line x1="141" y1="68" x2="151" y2="68" stroke="#A78BFA" stroke-opacity="0.5"/>
+  </g>
+  
+  <!-- Convergence symbol (center-left) -->
+  <g transform="translate(340, 280)">
+    <!-- Converging arrows from three models -->
+    <path d="M 400 120 L 100 0" stroke="#00D4FF" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+    <path d="M 400 120 L 100 120" stroke="#00E5A0" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+    <path d="M 400 120 L 100 240" stroke="#A78BFA" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+    <!-- Central convergence circle -->
+    <circle cx="60" cy="120" r="22" fill="#0D1525" stroke="#E2E8F0" stroke-width="1.5" opacity="0.8"/>
+    <text x="60" y="125" text-anchor="middle" fill="#E2E8F0" font-family="system-ui" font-size="14" font-weight="700">C</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="60" y="180" fill="#E2E8F0" font-family="system-ui" -apple-system, sans-serif" font-size="42" font-weight="700">
+    The Ultimate AI Team
+  </text>
+  <text x="60" y="225" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">
+    Collaboration Framework
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="60" y="270" fill="#00D4FF" font-family="system-ui" font-size="16" letter-spacing="2" font-weight="600">
+    THREE MODELS. TESTED HEAD-TO-HEAD.
+  </text>
+  
+  <!-- Tagline -->
+  <text x="60" y="298" fill="#94A3B8" font-family="system-ui" font-size="14">
+    Hierarchical · Peer Swarm · Sequential Pipeline — Real tests, real code, real metrics.
+  </text>
+  
+  <!-- Metric badges -->
+  <g transform="translate(60, 340)">
+    <rect x="0" y="0" width="140" height="60" rx="6" fill="#0D1525" stroke="#1e2a45"/>
+    <text x="70" y="22" text-anchor="middle" fill="#00D4FF" font-family="system-ui" font-size="20" font-weight="700">3</text>
+    <text x="70" y="40" text-anchor="middle" fill="#94A3B8" font-family="system-ui" font-size="10">TEAMS DEPLOYED</text>
+    
+    <rect x="155" y="0" width="140" height="60" rx="6" fill="#0D1525" stroke="#1e2a45"/>
+    <text x="225" y="22" text-anchor="middle" fill="#00E5A0" font-family="system-ui" font-size="20" font-weight="700">14</text>
+    <text x="225" y="40" text-anchor="middle" fill="#94A3B8" font-family="system-ui" font-size="10">SUBAGENTS SPAWNED</text>
+    
+    <rect x="310" y="0" width="140" height="60" rx="6" fill="#0D1525" stroke="#1e2a45"/>
+    <text x="380" y="22" text-anchor="middle" fill="#A78BFA" font-family="system-ui" font-size="20" font-weight="700">814</text>
+    <text x="380" y="40" text-anchor="middle" fill="#94A3B8" font-family="system-ui" font-size="10">LINES OF CODE</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="460" fill="#94A3B8" font-family="system-ui" font-size="13">
+    STRATOS 7/10 · HIVEWIRE 6.5/10 · CASCADE 8/10 · CONVERGENCE: the unified framework
+  </text>
+  
+  <text x="60" y="485" fill="#94A3B8" font-family="system-ui" font-size="12">
+    SMF Works — Evening Team Challenge — August 8, 2026
+  </text>
+  
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00D4FF" opacity="0.4"/>
+  
+  <!-- Circuit traces (decorative, right side) -->
+  <g opacity="0.04" stroke="#00D4FF" fill="none" stroke-width="1">
+    <path d="M 1050 0 L 1050 50 L 1100 50 L 1100 120 L 1050 120 L 1050 200"/>
+    <path d="M 1150 0 L 1150 80 L 1100 80 L 1100 180 L 1150 180 L 1150 280"/>
+    <circle cx="1050" cy="200" r="2" fill="#00D4FF"/>
+    <circle cx="1150" cy="280" r="2" fill="#00D4FF"/>
+    <circle cx="1100" cy="120" r="2" fill="#00D4FF"/>
+  </g>
+</svg>
