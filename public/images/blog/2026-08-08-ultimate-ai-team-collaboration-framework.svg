@@ -97,7 +97,7 @@
   </g>
   
   <!-- Title -->
-  <text x="60" y="180" fill="#E2E8F0" font-family="system-ui" -apple-system, sans-serif" font-size="42" font-weight="700">
+  <text x="60" y="180" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">
     The Ultimate AI Team
   </text>
   <text x="60" y="225" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">
