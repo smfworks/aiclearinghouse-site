@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#76b900" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#76b900" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#00d4aa" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#00d4aa" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#ff9500" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ff9500" stop-opacity="0.3"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  
+  <!-- Grid -->
+  <g opacity="0.08" stroke="#1a2a3a" stroke-width="1">
+    <line x1="0" y1="78" x2="1200" y2="78"/>
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="234" x2="1200" y2="234"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="390" x2="1200" y2="390"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+    <line x1="150" y1="0" x2="150" y2="624"/>
+    <line x1="300" y1="0" x2="300" y2="624"/>
+    <line x1="450" y1="0" x2="450" y2="624"/>
+    <line x1="600" y1="0" x2="600" y2="624"/>
+    <line x1="750" y1="0" x2="750" y2="624"/>
+    <line x1="900" y1="0" x2="900" y2="624"/>
+    <line x1="1050" y1="0" x2="1050" y2="624"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="45" text-anchor="middle" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="28" font-weight="bold" fill="#e8eef4">SMF-Bench Cloud Showdown</text>
+  <text x="600" y="72" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#5a8a6a">157 tests · Official A · thinking off · temp=0</text>
+  
+  <!-- Bar chart: Overall scores -->
+  <!-- Grok 4.5: 96.8% -->
+  <g>
+    <rect x="120" y="110" width="6" height="8" fill="#76b900" opacity="0.5"/>
+    <rect x="120" y="110" width="848" height="65" rx="4" fill="url(#bar1)" filter="url(#glow)"/>
+    <text x="140" y="145" font-family="'SF Pro Display',Arial,sans-serif" font-size="20" font-weight="bold" fill="#0a0e1a">Grok 4.5</text>
+    <text x="950" y="145" font-family="'SF Mono',monospace" font-size="18" font-weight="bold" fill="#76b900">152/157 · 96.8%</text>
+  </g>
+  
+  <!-- Qwen3.8-Max: 79.6% -->
+  <g>
+    <rect x="120" y="195" width="700" height="65" rx="4" fill="url(#bar2)" filter="url(#glow)"/>
+    <text x="140" y="230" font-family="'SF Pro Display',Arial,sans-serif" font-size="20" font-weight="bold" fill="#0a0e1a">Qwen3.8-Max</text>
+    <text x="802" y="230" font-family="'SF Mono',monospace" font-size="18" font-weight="bold" fill="#00d4aa">125/157 · 79.6%</text>
+  </g>
+  
+  <!-- GLM-5.2: 77.1% -->
+  <g>
+    <rect x="120" y="280" width="678" height="65" rx="4" fill="url(#bar3)" filter="url(#glow)"/>
+    <text x="140" y="315" font-family="'SF Pro Display',Arial,sans-serif" font-size="20" font-weight="bold" fill="#0a0e1a">GLM-5.2</text>
+    <text x="780" y="315" font-family="'SF Mono',monospace" font-size="18" font-weight="bold" fill="#ff9500">121/157 · 77.1%</text>
+  </g>
+  
+  <!-- Category breakdown mini-bars -->
+  <g transform="translate(120, 380)">
+    <text x="0" y="0" font-family="'SF Mono',monospace" font-size="13" font-weight="bold" fill="#666">BY CATEGORY</text>
+    
+    <!-- Headers -->
+    <text x="180" y="20" font-family="'SF Mono',monospace" font-size="11" fill="#76b900">Grok 4.5</text>
+    <text x="280" y="20" font-family="'SF Mono',monospace" font-size="11" fill="#00d4aa">Qwen3.8</text>
+    <text x="380" y="20" font-family="'SF Mono',monospace" font-size="11" fill="#ff9500">GLM-5.2</text>
+    
+    <!-- Math -->
+    <text x="0" y="45" font-family="'SF Mono',monospace" font-size="12" fill="#888">Math</text>
+    <rect x="180" y="33" width="90" height="14" rx="2" fill="#76b900" opacity="0.85"/>
+    <text x="275" y="44" font-family="'SF Mono',monospace" font-size="11" fill="#76b900">90%</text>
+    <rect x="280" y="33" width="70" height="14" rx="2" fill="#00d4aa" opacity="0.85"/>
+    <text x="355" y="44" font-family="'SF Mono',monospace" font-size="11" fill="#00d4aa">70%</text>
+    <rect x="380" y="33" width="57" height="14" rx="2" fill="#ff9500" opacity="0.85"/>
+    <text x="440" y="44" font-family="'SF Mono',monospace" font-size="11" fill="#ff9500">57%</text>
+    
+    <!-- Coding -->
+    <text x="0" y="70" font-family="'SF Mono',monospace" font-size="12" fill="#888">Coding</text>
+    <rect x="180" y="58" width="100" height="14" rx="2" fill="#76b900" opacity="0.85"/>
+    <text x="285" y="69" font-family="'SF Mono',monospace" font-size="11" fill="#76b900">100%</text>
+    <rect x="280" y="58" width="40" height="14" rx="2" fill="#00d4aa" opacity="0.85"/>
+    <text x="325" y="69" font-family="'SF Mono',monospace" font-size="11" fill="#00d4aa">40%</text>
+    <rect x="380" y="58" width="47" height="14" rx="2" fill="#ff9500" opacity="0.85"/>
+    <text x="432" y="69" font-family="'SF Mono',monospace" font-size="11" fill="#ff9500">47%</text>
+    
+    <!-- Reasoning -->
+    <text x="0" y="95" font-family="'SF Mono',monospace" font-size="12" fill="#888">Reasoning</text>
+    <rect x="180" y="83" width="100" height="14" rx="2" fill="#76b900" opacity="0.85"/>
+    <text x="285" y="94" font-family="'SF Mono',monospace" font-size="11" fill="#76b900">100%</text>
+    <rect x="280" y="83" width="97" height="14" rx="2" fill="#00d4aa" opacity="0.85"/>
+    <text x="382" y="94" font-family="'SF Mono',monospace" font-size="11" fill="#00d4aa">97%</text>
+    <rect x="380" y="83" width="93" height="14" rx="2" fill="#ff9500" opacity="0.85"/>
+    <text x="478" y="94" font-family="'SF Mono',monospace" font-size="11" fill="#ff9500">93%</text>
+    
+    <!-- Instruction -->
+    <text x="0" y="120" font-family="'SF Mono',monospace" font-size="12" fill="#888">Instruction</text>
+    <rect x="180" y="108" width="100" height="14" rx="2" fill="#76b900" opacity="0.85"/>
+    <text x="285" y="119" font-family="'SF Mono',monospace" font-size="11" fill="#76b900">100%</text>
+    <rect x="280" y="108" width="100" height="14" rx="2" fill="#00d4aa" opacity="0.85"/>
+    <text x="385" y="119" font-family="'SF Mono',monospace" font-size="11" fill="#00d4aa">100%</text>
+    <rect x="380" y="108" width="93" height="14" rx="2" fill="#ff9500" opacity="0.85"/>
+    <text x="478" y="119" font-family="'SF Mono',monospace" font-size="11" fill="#ff9500">93%</text>
+    
+    <!-- Prose -->
+    <text x="0" y="145" font-family="'SF Mono',monospace" font-size="12" fill="#888">Prose</text>
+    <rect x="180" y="133" width="93" height="14" rx="2" fill="#76b900" opacity="0.85"/>
+    <text x="278" y="144" font-family="'SF Mono',monospace" font-size="11" fill="#76b900">93%</text>
+    <rect x="280" y="133" width="87" height="14" rx="2" fill="#00d4aa" opacity="0.85"/>
+    <text x="372" y="144" font-family="'SF Mono',monospace" font-size="11" fill="#00d4aa">87%</text>
+    <rect x="380" y="133" width="90" height="14" rx="2" fill="#ff9500" opacity="0.85"/>
+    <text x="475" y="144" font-family="'SF Mono',monospace" font-size="11" fill="#ff9500">90%</text>
+  </g>
+  
+  <!-- Stats bar at bottom -->
+  <rect x="0" y="575" width="1200" height="49" fill="#0a0e1a" opacity="0.9"/>
+  <line x1="0" y1="575" x2="1200" y2="575" stroke="#1a2a3a" stroke-width="1"/>
+  <g font-family="'SF Mono',monospace" font-size="13" fill="#666">
+    <text x="40" y="605" font-size="10" fill="#444">FRAMEWORK</text>
+    <text x="40" y="620" fill="#e8eef4" font-size="14">smf-bench v0.1.1</text>
+    
+    <text x="280" y="605" font-size="10" fill="#444">PROVIDERS</text>
+    <text x="280" y="620" fill="#e8eef4" font-size="14">OpenRouter · Ollama Cloud</text>
+    
+    <text x="580" y="605" font-size="10" fill="#444">WALL TIME</text>
+    <text x="580" y="620" fill="#e8eef4" font-size="14">53–112 min</text>
+    
+    <text x="800" y="605" font-size="10" fill="#444">KEY FINDING</text>
+    <text x="800" y="620" fill="#76b900" font-size="14" font-weight="bold">Grok 4.5: 0 SyntaxErrors</text>
+    
+    <text x="1080" y="605" font-size="10" fill="#444">DATE</text>
+    <text x="1080" y="620" fill="#e8eef4" font-size="14">2026-08-10</text>
+  </g>
+</svg>
