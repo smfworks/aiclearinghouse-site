@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1f3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1129;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bar1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34d399;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bar2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bar3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f87171;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="60" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="600" fill="#a78bfa" letter-spacing="2">SMF WORKS · MODEL OPTIMIZATION DEEP DIVE</text>
+  <text x="60" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#ffffff">Laguna S 2.1 NVFP4</text>
+  <text x="60" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#94a3b8">8.5B Active MoE · DFlash Spec Decoding · Zero Errors</text>
+
+  <!-- Accent line -->
+  <rect x="60" y="195" width="400" height="4" rx="2" fill="url(#accent)"/>
+
+  <!-- Headline metric -->
+  <text x="60" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="800" fill="#ffffff">68.2%</text>
+  <text x="320" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#94a3b8">Overall pass rate</text>
+  <text x="320" y="265" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b">107 / 157 tests · 0 errors · 32.4 min</text>
+
+  <!-- Capability bars -->
+  <text x="60" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#a78bfa">PER-CAPABILITY BREAKDOWN</text>
+
+  <!-- Instruction 90% -->
+  <text x="60" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#e2e8f0">Instruction</text>
+  <rect x="200" y="348" width="540" height="18" rx="4" fill="#1e293b"/>
+  <rect x="200" y="348" width="486" height="18" rx="4" fill="url(#bar1)"/>
+  <text x="750" y="362" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#10b981">90.0%</text>
+
+  <!-- Coding 80% -->
+  <text x="60" y="395" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#e2e8f0">Coding</text>
+  <rect x="200" y="383" width="540" height="18" rx="4" fill="#1e293b"/>
+  <rect x="200" y="383" width="432" height="18" rx="4" fill="url(#bar1)"/>
+  <text x="750" y="397" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#10b981">80.0%</text>
+
+  <!-- Prose 76.7% -->
+  <text x="60" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#e2e8f0">Prose</text>
+  <rect x="200" y="418" width="540" height="18" rx="4" fill="#1e293b"/>
+  <rect x="200" y="418" width="414" height="18" rx="4" fill="url(#bar1)"/>
+  <text x="750" y="432" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#10b981">76.7%</text>
+
+  <!-- Reasoning 66.7% -->
+  <text x="60" y="465" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#e2e8f0">Reasoning</text>
+  <rect x="200" y="453" width="540" height="18" rx="4" fill="#1e293b"/>
+  <rect x="200" y="453" width="360" height="18" rx="4" fill="url(#bar2)"/>
+  <text x="750" y="467" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#f59e0b">66.7%</text>
+
+  <!-- Math 26.7% -->
+  <text x="60" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#e2e8f0">Math</text>
+  <rect x="200" y="488" width="540" height="18" rx="4" fill="#1e293b"/>
+  <rect x="200" y="488" width="144" height="18" rx="4" fill="url(#bar3)"/>
+  <text x="750" y="502" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ef4444">26.7%</text>
+
+  <!-- Side panel: key facts -->
+  <rect x="820" y="280" width="340" height="280" rx="12" fill="#111827" stroke="#1e293b" stroke-width="1"/>
+  <text x="840" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#a78bfa">SERVING STACK</text>
+  <text x="840" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">vLLM 0.25.1 + FlashInfer</text>
+  <text x="840" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">DFlash (15 token spec)</text>
+  <text x="840" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">poolside_v1 tool parser</text>
+  <text x="840" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">GPU util: 0.82</text>
+  <text x="840" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">Context: 262,144</text>
+  <text x="840" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">Thinking: OFF</text>
+  <text x="840" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#cbd5e1">max_num_seqs: 32</text>
+  <text x="840" y="490" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#10b981">Errors: 0 / 157</text>
+  <text x="840" y="510" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#10b981">Tool calling: 2/2 (100%)</text>
+  <text x="840" y="530" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#64748b">DGX Spark · GB10 · 128GB UMA</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="610" width="1200" height="20" fill="url(#accent)"/>
+  <text x="60" y="575" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#475569">smfclearinghouse.com · SMF Works Research · By Aiona Edge</text>
+</svg>
