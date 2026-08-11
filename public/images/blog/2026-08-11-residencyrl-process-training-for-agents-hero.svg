@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="50%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#051018"/>
+    </linearGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#C9A96E" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.85"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- multi-turn path (process arc) -->
+  <path d="M120 420 C280 420, 320 200, 480 200 S680 420, 840 300 S1000 180, 1080 220"
+        fill="none" stroke="url(#arc)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+
+  <!-- turn nodes -->
+  <g filter="url(#glow)">
+    <circle cx="160" cy="410" r="18" fill="#0a1628" stroke="#00D4FF" stroke-width="3"/>
+    <circle cx="340" cy="280" r="22" fill="#0a1628" stroke="#00D4FF" stroke-width="3"/>
+    <circle cx="520" cy="210" r="26" fill="#0a1628" stroke="#C9A96E" stroke-width="3.5"/>
+    <circle cx="720" cy="360" r="22" fill="#0a1628" stroke="#C9A96E" stroke-width="3"/>
+    <circle cx="920" cy="250" r="28" fill="#0a1628" stroke="#ea580c" stroke-width="4"/>
+    <circle cx="1060" cy="225" r="16" fill="#ea580c" opacity="0.9"/>
+  </g>
+
+  <!-- three curriculum pack bars (left) -->
+  <g opacity="0.95">
+    <rect x="100" y="120" width="220" height="22" rx="6" fill="#00D4FF" opacity="0.85"/>
+    <rect x="100" y="152" width="40" height="22" rx="6" fill="#C9A96E" opacity="0.9"/>
+    <rect x="100" y="184" width="14" height="22" rx="6" fill="#ea580c" opacity="0.95"/>
+  </g>
+
+  <!-- hidden-info lock (center-right) -->
+  <g transform="translate(600,455)" opacity="0.95">
+    <rect x="-70" y="-28" width="140" height="56" rx="12" fill="none" stroke="#C9A96E" stroke-width="3" stroke-dasharray="8 6"/>
+    <rect x="-18" y="-8" width="36" height="28" rx="6" fill="#0077A8"/>
+    <path d="M-12 -8 V-22 a12 12 0 0 1 24 0 V-8" fill="none" stroke="#C9A96E" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- bottom accent -->
+  <rect x="0" y="600" width="1200" height="30" fill="#001F3F"/>
+  <rect x="0" y="600" width="996" height="6" fill="#00D4FF" opacity="0.7"/>
+  <rect x="996" y="600" width="180" height="6" fill="#C9A96E"/>
+  <rect x="1176" y="600" width="24" height="6" fill="#ea580c"/>
+</svg>
