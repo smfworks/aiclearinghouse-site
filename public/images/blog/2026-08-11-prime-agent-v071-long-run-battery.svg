@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#001428"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.65"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#001F3F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Parent node -->
+  <circle cx="600" cy="210" r="42" fill="none" stroke="#ea580c" stroke-width="3" opacity="0.85"/>
+  <circle cx="600" cy="210" r="12" fill="#ea580c" opacity="0.75"/>
+
+  <!-- Children -->
+  <circle cx="320" cy="390" r="28" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.7"/>
+  <circle cx="320" cy="390" r="7" fill="#C9A96E" opacity="0.65"/>
+  <circle cx="600" cy="430" r="28" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.7"/>
+  <circle cx="600" cy="430" r="7" fill="#C9A96E" opacity="0.65"/>
+  <circle cx="880" cy="390" r="28" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.7"/>
+  <circle cx="880" cy="390" r="7" fill="#C9A96E" opacity="0.65"/>
+
+  <!-- Links parent -> children -->
+  <path d="M575 245 C480 300 380 340 340 370" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
+  <path d="M600 252 C600 320 600 360 600 400" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
+  <path d="M625 245 C720 300 820 340 860 370" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.45"/>
+
+  <!-- Return message arcs (dashed) children -> parent -->
+  <path d="M340 365 C420 300 500 260 565 225" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+  <path d="M600 400 C600 340 600 290 600 255" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+  <path d="M860 365 C780 300 700 260 635 225" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.55"/>
+
+  <!-- Poll ring around parent -->
+  <circle cx="600" cy="210" r="70" fill="none" stroke="#C9A96E" stroke-width="1" stroke-dasharray="3 6" opacity="0.35"/>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="610" width="1200" height="20" fill="url(#accent)" opacity="0.7"/>
+</svg>
