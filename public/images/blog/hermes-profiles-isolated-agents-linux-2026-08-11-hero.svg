@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Hermes Profiles for isolated multi-agent systems on Linux">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+    <linearGradient id="profileGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#162236"/>
+      <stop offset="100%" stop-color="#0f1a2e"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="isolation" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e3a8a" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid for linux/terminal feel -->
+  <g stroke="#162236" stroke-width="1" opacity="0.25">
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="500" y1="0" x2="500" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+    <line x1="1100" y1="0" x2="1100" y2="630"/>
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+  </g>
+
+  <!-- Profile 1: Left - Interactive / CLI -->
+  <g transform="translate(180, 200)">
+    <rect x="-90" y="-90" width="180" height="180" rx="12" fill="url(#profileGrad)" stroke="#ff6b00" stroke-width="3" filter="url(#glow)"/>
+    <rect x="-75" y="-75" width="150" height="150" rx="8" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.6"/>
+    <!-- inner isolation layers -->
+    <rect x="-60" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#ff6b00" stroke-width="1"/>
+    <rect x="10" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#ff6b00" stroke-width="1"/>
+    <rect x="-60" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#ff6b00" stroke-width="1"/>
+    <rect x="10" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#ff6b00" stroke-width="1"/>
+    <!-- barrier lines -->
+    <line x1="-90" y1="-30" x2="90" y2="-30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+    <line x1="-90" y1="30" x2="90" y2="30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  </g>
+
+  <!-- Profile 2: Center - Cron / Headless -->
+  <g transform="translate(420, 200)">
+    <rect x="-90" y="-90" width="180" height="180" rx="12" fill="url(#profileGrad)" stroke="#0e7490" stroke-width="3" filter="url(#glow)"/>
+    <rect x="-75" y="-75" width="150" height="150" rx="8" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/>
+    <!-- inner isolation layers -->
+    <rect x="-60" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#0e7490" stroke-width="1"/>
+    <rect x="10" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#0e7490" stroke-width="1"/>
+    <rect x="-60" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#0e7490" stroke-width="1"/>
+    <rect x="10" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#0e7490" stroke-width="1"/>
+    <!-- barrier lines -->
+    <line x1="-90" y1="-30" x2="90" y2="-30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+    <line x1="-90" y1="30" x2="90" y2="30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+    <!-- cron indicator circles -->
+    <circle cx="0" cy="-45" r="8" fill="none" stroke="#0e7490" stroke-width="2"/>
+    <circle cx="0" cy="45" r="8" fill="none" stroke="#0e7490" stroke-width="2"/>
+  </g>
+
+  <!-- Profile 3: Right - Gateway / Swarm -->
+  <g transform="translate(660, 200)">
+    <rect x="-90" y="-90" width="180" height="180" rx="12" fill="url(#profileGrad)" stroke="#f59e0b" stroke-width="3" filter="url(#glow)"/>
+    <rect x="-75" y="-75" width="150" height="150" rx="8" fill="none" stroke="#ff6b00" stroke-width="1.5" opacity="0.6"/>
+    <!-- inner isolation layers -->
+    <rect x="-60" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="1"/>
+    <rect x="10" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="1"/>
+    <rect x="-60" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="1"/>
+    <rect x="10" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="1"/>
+    <!-- barrier lines -->
+    <line x1="-90" y1="-30" x2="90" y2="-30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+    <line x1="-90" y1="30" x2="90" y2="30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  </g>
+
+  <!-- Profile 4: Far right - Dedicated Research -->
+  <g transform="translate(900, 200)">
+    <rect x="-90" y="-90" width="180" height="180" rx="12" fill="url(#profileGrad)" stroke="#00d4ff" stroke-width="3" filter="url(#glow)"/>
+    <rect x="-75" y="-75" width="150" height="150" rx="8" fill="none" stroke="#0e7490" stroke-width="1.5" opacity="0.6"/>
+    <!-- inner isolation layers -->
+    <rect x="-60" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#00d4ff" stroke-width="1"/>
+    <rect x="10" y="-60" width="50" height="50" rx="4" fill="#0a1628" stroke="#00d4ff" stroke-width="1"/>
+    <rect x="-60" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#00d4ff" stroke-width="1"/>
+    <rect x="10" y="0" width="50" height="50" rx="4" fill="#0a1628" stroke="#00d4ff" stroke-width="1"/>
+    <!-- barrier lines -->
+    <line x1="-90" y1="-30" x2="90" y2="-30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+    <line x1="-90" y1="30" x2="90" y2="30" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4,2" opacity="0.5"/>
+  </g>
+
+  <!-- Cross-profile coordination lines (faint, dashed to show isolation) -->
+  <g stroke="#00d4ff" stroke-width="1.5" opacity="0.25" stroke-dasharray="6,4">
+    <line x1="270" y1="290" x2="330" y2="290"/>
+    <line x1="510" y1="290" x2="570" y2="290"/>
+    <line x1="750" y1="290" x2="810" y2="290"/>
+  </g>
+
+  <!-- Bottom accent bar for brand -->
+  <rect x="0" y="580" width="1200" height="50" fill="#0a1628" opacity="0.6"/>
+  <rect x="100" y="595" width="1000" height="3" rx="1" fill="url(#accent1)" opacity="0.4"/>
+  <rect x="100" y="605" width="1000" height="2" rx="1" fill="url(#accent2)" opacity="0.3"/>
+</svg>
