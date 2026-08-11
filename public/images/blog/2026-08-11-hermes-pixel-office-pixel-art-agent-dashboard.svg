@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#1a1423"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a2138"/>
+      <stop offset="100%" stop-color="#251d31"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <!-- Pulse circle behind icon -->
+  <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+  </radialGradient>
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Left side: pixel office scene miniature -->
+  <!-- Wall -->
+  <rect x="60" y="200" width="320" height="8" fill="#3a2f4b"/>
+  <rect x="60" y="208" width="320" height="2" fill="#241c30"/>
+  <!-- Windows -->
+  <rect x="90" y="195" width="40" height="12" fill="#151022"/>
+  <rect x="92" y="198" width="36" height="6" fill="#3b5a8f"/>
+  <rect x="150" y="195" width="40" height="12" fill="#151022"/>
+  <rect x="152" y="198" width="36" height="6" fill="#3b5a8f"/>
+  <rect x="210" y="195" width="40" height="12" fill="#151022"/>
+  <rect x="212" y="198" width="36" height="6" fill="#3b5a8f"/>
+  <rect x="270" y="195" width="40" height="12" fill="#151022"/>
+  <rect x="272" y="198" width="36" height="6" fill="#3b5a8f"/>
+  <rect x="330" y="195" width="40" height="12" fill="#151022"/>
+  <rect x="332" y="198" width="36" height="6" fill="#3b5a8f"/>
+
+  <!-- Floor -->
+  <rect x="60" y="210" width="320" height="180" fill="url(#floor)"/>
+
+  <!-- Desks -->
+  <rect x="80" y="280" width="60" height="24" fill="#6b4a2f"/>
+  <rect x="80" y="304" width="60" height="8" fill="#54381f"/>
+  <rect x="82" y="312" width="8" height="16" fill="#3c2814"/>
+  <rect x="132" y="312" width="8" height="16" fill="#3c2814"/>
+  <rect x="100" y="262" width="20" height="18" fill="#191524"/>
+  <rect x="104" y="266" width="12" height="10" fill="#0f2c1e"/>
+
+  <rect x="180" y="280" width="60" height="24" fill="#6b4a2f"/>
+  <rect x="180" y="304" width="60" height="8" fill="#54381f"/>
+  <rect x="182" y="312" width="8" height="16" fill="#3c2814"/>
+  <rect x="232" y="312" width="8" height="16" fill="#3c2814"/>
+  <rect x="200" y="262" width="20" height="18" fill="#191524"/>
+  <rect x="204" y="266" width="12" height="10" fill="#1e2c4a"/>
+
+  <rect x="280" y="280" width="60" height="24" fill="#6b4a2f"/>
+  <rect x="280" y="304" width="60" height="8" fill="#54381f"/>
+  <rect x="282" y="312" width="8" height="16" fill="#3c2814"/>
+  <rect x="332" y="312" width="8" height="16" fill="#3c2814"/>
+  <rect x="300" y="262" width="20" height="18" fill="#191524"/>
+  <rect x="304" y="266" width="12" height="10" fill="#0f2c1e"/>
+
+  <!-- Characters (simplified pixel sprites) -->
+  <!-- Agent 1 - blue shirt, thinking -->
+  <rect x="98" y="254" width="12" height="10" fill="#2b2b2b"/>
+  <rect x="98" y="262" width="12" height="10" fill="#f0c8a0"/>
+  <rect x="98" y="270" width="12" height="14" fill="#4fa4d8"/>
+  <rect x="104" y="250" width="6" height="4" fill="#cfc4e8" opacity="0.6"/>
+
+  <!-- Agent 2 - pink shirt, working -->
+  <rect x="198" y="254" width="12" height="10" fill="#5a3825"/>
+  <rect x="198" y="262" width="12" height="10" fill="#c68b59"/>
+  <rect x="198" y="270" width="12" height="14" fill="#d84f6f"/>
+  <rect x="204" y="250" width="6" height="4" fill="#e8c170"/>
+
+  <!-- Agent 3 - green shirt, done -->
+  <rect x="298" y="254" width="12" height="10" fill="#2b2b2b"/>
+  <rect x="298" y="262" width="12" height="10" fill="#e0ac69"/>
+  <rect x="298" y="270" width="12" height="14" fill="#5fce7a"/>
+  <rect x="304" y="248" width="6" height="6" fill="#5fce7a"/>
+
+  <!-- Plant -->
+  <rect x="70" y="362" width="8" height="12" fill="#8d5524"/>
+  <rect x="68" y="356" width="12" height="8" fill="#5fce7a"/>
+
+  <!-- Water cooler -->
+  <rect x="360" y="356" width="10" height="16" fill="#7fa8d8"/>
+
+  <!-- Right side: Title and text -->
+  <!-- Medical cross icon -->
+  <g transform="translate(580, 180)">
+    <rect x="0" y="0" width="48" height="48" rx="4" fill="#00E5A0" opacity="0.12"/>
+    <rect x="20" y="8" width="8" height="32" fill="#00E5A0"/>
+    <rect x="8" y="20" width="32" height="8" fill="#00E5A0"/>
+  </g>
+
+  <!-- Title -->
+  <text x="650" y="210" fill="#E2E8F0" font-size="42" font-weight="700" font-family="system-ui, -apple-system, sans-serif">
+    Hermes Pixel Office
+  </text>
+  <text x="650" y="248" fill="#00E5A0" font-size="18" font-weight="600" font-family="system-ui, -apple-system, sans-serif" letter-spacing="2">
+    PIXEL-ART OBSERVABILITY FOR AI AGENT FLEETS
+  </text>
+
+  <!-- Description lines -->
+  <text x="650" y="300" fill="#94A3B8" font-size="16" font-family="system-ui, -apple-system, sans-serif">
+    Every Hermes session becomes an animated pixel character.
+  </text>
+  <text x="650" y="326" fill="#94A3B8" font-size="16" font-family="system-ui, -apple-system, sans-serif">
+    Watch tools fire, subagents spawn, and approvals flag —
+  </text>
+  <text x="650" y="352" fill="#94A3B8" font-size="16" font-family="system-ui, -apple-system, sans-serif">
+    live in your browser. Zero overhead. Visual only.
+  </text>
+
+  <!-- Tech tags -->
+  <text x="650" y="410" fill="#00E5A0" font-size="14" font-family="ui-monospace, Menlo, monospace" opacity="0.7">
+    HERMES AGENT PLUGIN &#x2022; v0.2.0 &#x2022; ZERO DEPENDENCIES &#x2022; MIT
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
