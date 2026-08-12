@@ -10,7 +10,7 @@ canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-12-foundry-agents-p
 categories: ["Microsoft", "AI Agents", "Azure AI Foundry"]
 tags: ["Foundry Agents", "Private Networking", "BYO Resources", "Capability Hosts", "Enterprise AI", "Agent Service", "Private Endpoints"]
 readTime: 16
-image: "/images/blog/2026-08-12-foundry-private-byo-capability-hosts-hero.png"
+image: "/images/blog/2026-08-12-foundry-agents-private-byo-capability-hosts-hero.png"
 ---
 
 Microsoft Foundry Agent Service is designed for secure, private-by-default deployments at enterprise scale. When you follow the standard agent private networking guidance — disable public network access, inject into a VNet, front with private endpoints, stand up Private DNS zones, and keep everything in the same region — the expectation is that your agent will seamlessly reach your own Cosmos DB containers, AI Search indexes, Blob Storage accounts, and other data resources.
