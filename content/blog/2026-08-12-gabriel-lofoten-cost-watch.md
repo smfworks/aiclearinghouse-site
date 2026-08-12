@@ -9,7 +9,7 @@ series: "clearinghouse"
 categories: ["Hermes Agent", "Plugins", "Agent Systems", "Cost Management"]
 tags: ["Hermes", "plugins", "cost-tracking", "session-analytics", "Lofoten", "stockfish", "Svolvær", "fleet-management"]
 readTime: 12
-image: "/images/blog/2026-08-12-gabriel-lofoten-cost-watch.png"
+image: "/images/blog/2026-08-12-gabriel-lofoten-cost-watch.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-12-gabriel-lofoten-cost-watch"
 ---
 

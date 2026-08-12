@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a"/>
+      <stop offset="100%" style="stop-color:#06141e"/>
+    </linearGradient>
+    <radialGradient id="ledger" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00d4aa;stop-opacity:0.10"/>
+      <stop offset="100%" style="stop-color:#00d4aa;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="315" x2="1200" y2="315" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="472" x2="1200" y2="472" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke="#1a2a3a" stroke-width="1"/>
+  </g>
+
+  <!-- Ledger / cost tracking visualization (center-left) -->
+  <g transform="translate(280, 300)">
+    <circle cx="0" cy="0" r="180" fill="url(#ledger)"/>
+
+    <!-- Ledger lines (stockfish trade ledgers) -->
+    <g font-family="'SF Mono',monospace" font-size="9">
+      <rect x="-140" y="-110" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.5"/>
+      <text x="-132" y="-98" fill="#76b900">skrei_shipment_001  2,400t  12øre</text>
+      <rect x="-140" y="-90" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.4"/>
+      <text x="-132" y="-78" fill="#5a8a6a">rundfisk_premium   1,800t  15øre</text>
+      <rect x="-140" y="-70" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.5"/>
+      <text x="-132" y="-58" fill="#76b900">api_request_glm5    8.2k    $0.04</text>
+      <rect x="-140" y="-50" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.4"/>
+      <text x="-132" y="-38" fill="#5a8a6a">api_request_qwen    3.1k    $0.02</text>
+      <rect x="-140" y="-30" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.5"/>
+      <text x="-132" y="-18" fill="#76b900">session_drj         42k     $0.21</text>
+      <rect x="-140" y="-10" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.4"/>
+      <text x="-132" y="2" fill="#5a8a6a">session_aiona       18k     $0.09</text>
+      <rect x="-140" y="10" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.5"/>
+      <text x="-132" y="22" fill="#76b900">session_liam        65k     $0.33</text>
+      <rect x="-140" y="30" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.4"/>
+      <text x="-132" y="42" fill="#5a8a6a">session_pamela      12k     $0.06</text>
+      <rect x="-140" y="50" width="280" height="16" fill="#0d3b1a" rx="2" opacity="0.5"/>
+      <text x="-132" y="62" fill="#76b900">session_harry        8k     $0.04</text>
+    </g>
+
+    <!-- Cumulative total -->
+    <g transform="translate(0, 100)">
+      <text x="0" y="0" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="22" font-weight="bold" text-anchor="middle">$0.79</text>
+      <text x="0" y="16" fill="#666" font-family="'SF Mono',monospace" font-size="9" text-anchor="middle">SESSION TOTAL</text>
+    </g>
+  </g>
+
+  <!-- Title (right side) -->
+  <g transform="translate(550, 130)">
+    <text x="0" y="0" fill="#e8eef4" font-family="'SF Pro Display',sans-serif" font-size="24" font-weight="bold">THE LEDGER OF EVERY TOKEN</text>
+    <text x="0" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="13">Cost-watch &amp; session analytics</text>
+
+    <!-- Features -->
+    <g transform="translate(0, 65)">
+      <text x="0" y="0" fill="#666" font-family="'SF Mono',monospace" font-size="10">DELIVERABLES</text>
+      <g transform="translate(0, 18)">
+        <rect x="0" y="0" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="10" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">cost-watch plugin    ✅ post_api_request</text>
+        <rect x="0" y="18" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="28" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">session-analytics    ✅ skill + workflows</text>
+        <rect x="0" y="36" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="46" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">/cost slash cmd      ✅ session/profile/fleet</text>
+        <rect x="0" y="54" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="64" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">append-only log      ✅ cost.log</text>
+      </g>
+
+      <g transform="translate(370, 18)">
+        <text x="0" y="0" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="28" font-weight="bold">800</text>
+        <text x="0" y="20" fill="#666" font-family="'SF Mono',monospace" font-size="10">YEARS OF LEDGERS</text>
+        <text x="0" y="55" fill="#ff9500" font-family="'SF Mono',monospace" font-size="20" font-weight="bold">∞</text>
+        <text x="14" y="55" fill="#666" font-family="'SF Mono',monospace" font-size="10">TOKENS TRACKED</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom stats bar -->
+  <g transform="translate(0, 560)">
+    <rect width="1200" height="70" fill="#0a1520" opacity="0.8"/>
+    <text x="30" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">PLUGIN</text>
+    <text x="30" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">cost-watch</text>
+    <text x="250" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">SKILL</text>
+    <text x="250" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">session-analytics</text>
+    <text x="500" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">HOOK</text>
+    <text x="500" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">post_api_request</text>
+    <text x="750" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">STORAGE</text>
+    <text x="750" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">JSON + append-only log</text>
+    <text x="930" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">TEAM</text>
+    <text x="930" y="50" fill="#76b900" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">Svolvær</text>
+  </g>
+</svg>

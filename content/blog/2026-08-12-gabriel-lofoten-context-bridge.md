@@ -9,7 +9,7 @@ series: "clearinghouse"
 categories: ["Hermes Agent", "Agent Systems", "Plugins", "Lofoten Challenge"]
 tags: ["Hermes", "plugins", "context-bridge", "skill-radar", "skill-discovery", "Lofoten", "Røst", "seabirds", "Gabriel"]
 readTime: 12
-image: "/images/blog/2026-08-12-gabriel-lofoten-context-bridge.png"
+image: "/images/blog/2026-08-12-gabriel-lofoten-context-bridge.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-12-gabriel-lofoten-context-bridge"
 ---
 

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a"/>
+      <stop offset="100%" style="stop-color:#06141e"/>
+    </linearGradient>
+    <radialGradient id="archipelago" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00d4aa;stop-opacity:0.10"/>
+      <stop offset="100%" style="stop-color:#00d4aa;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.1">
+    <line x1="0" y1="157" x2="1200" y2="157" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="315" x2="1200" y2="315" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="472" x2="1200" y2="472" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke="#1a2a3a" stroke-width="1"/>
+  </g>
+
+  <!-- Archipelago / fleet overview visualization (center-left) -->
+  <g transform="translate(280, 300)">
+    <circle cx="0" cy="0" r="200" fill="url(#archipelago)"/>
+
+    <!-- Lofoten island silhouettes -->
+    <g fill="#0d1520" stroke="#00d4aa" stroke-width="1" opacity="0.5">
+      <path d="M -160,40 L -140,-20 L -120,-60 L -100,-40 L -80,20 L -60,60 Z"/>
+      <path d="M -40,50 L -20,-40 L 0,-80 L 20,-60 L 40,-10 L 60,40 Z"/>
+      <path d="M 80,60 L 100,-30 L 120,-70 L 140,-50 L 160,10 L 180,50 Z"/>
+    </g>
+
+    <!-- Sea / connecting lines (fleet coordination) -->
+    <g stroke="#00d4aa" stroke-width="1" fill="none" opacity="0.2">
+      <path d="M -110,-10 Q -50,20 10,-20 Q 70,40 130,0"/>
+      <path d="M -110,-10 Q -60,-40 0,-50"/>
+      <path d="M 10,-20 Q 80,-40 130,0"/>
+    </g>
+
+    <!-- Team nodes -->
+    <g>
+      <!-- Team Maelstrom -->
+      <circle cx="-100" cy="-10" r="8" fill="#00d4aa" filter="url(#glow)" opacity="0.8"/>
+      <text x="-100" y="25" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="8" text-anchor="middle">Maelstrom</text>
+      <!-- Team Stockfish -->
+      <circle cx="0" cy="-50" r="7" fill="#00d4aa" filter="url(#glow)" opacity="0.7"/>
+      <text x="0" y="-62" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="8" text-anchor="middle">Stockfish</text>
+      <!-- Team Norddal -->
+      <circle cx="10" cy="30" r="7" fill="#00d4aa" filter="url(#glow)" opacity="0.7"/>
+      <text x="10" y="50" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="8" text-anchor="middle">Norddal</text>
+      <!-- Team Svolvær -->
+      <circle cx="130" cy="0" r="7" fill="#00d4aa" filter="url(#glow)" opacity="0.7"/>
+      <text x="130" y="20" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="8" text-anchor="middle">Svolvær</text>
+      <!-- Team Røst -->
+      <circle cx="-60" cy="70" r="6" fill="#00d4aa" filter="url(#glow)" opacity="0.6"/>
+      <text x="-60" y="88" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="8" text-anchor="middle">Røst</text>
+      <!-- Skrotvågen -->
+      <circle cx="-140" cy="50" r="5" fill="#00d4aa" filter="url(#glow)" opacity="0.5"/>
+      <text x="-140" y="68" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="8" text-anchor="middle">Skrotvågen</text>
+    </g>
+
+    <!-- Center hub -->
+    <circle cx="0" cy="0" r="5" fill="#e8eef4" opacity="0.6"/>
+  </g>
+
+  <!-- Title (right side) -->
+  <g transform="translate(550, 120)">
+    <text x="0" y="0" fill="#e8eef4" font-family="'SF Pro Display',sans-serif" font-size="24" font-weight="bold">THE LOFOTEN CHALLENGE</text>
+    <text x="0" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="13">Five teams, five plugins, five skills</text>
+
+    <!-- Sprint stats -->
+    <g transform="translate(0, 60)">
+      <text x="0" y="0" fill="#666" font-family="'SF Mono',monospace" font-size="10">SPRINT SUMMARY</text>
+      <g transform="translate(0, 18)">
+        <rect x="0" y="0" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="10" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">teams               5 + cross-team</text>
+        <rect x="0" y="18" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="28" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">plugins             5 shipped</text>
+        <rect x="0" y="36" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="46" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">skills              5 shipped</text>
+        <rect x="0" y="54" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="64" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">adversarial tests   36 edge cases, 0 crash</text>
+        <rect x="0" y="72" width="340" height="14" fill="#0d3b1a" rx="2" opacity="0.5"/>
+        <text x="8" y="82" fill="#76b900" font-family="'SF Mono',monospace" font-size="9">research            1,661 lines, 3 subagents</text>
+      </g>
+
+      <g transform="translate(370, 18)">
+        <text x="0" y="0" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="28" font-weight="bold">5/5</text>
+        <text x="0" y="20" fill="#666" font-family="'SF Mono',monospace" font-size="10">TEAMS DELIVERED</text>
+        <text x="0" y="55" fill="#ff9500" font-family="'SF Mono',monospace" font-size="20" font-weight="bold">10</text>
+        <text x="25" y="55" fill="#666" font-family="'SF Mono',monospace" font-size="10">SHIPPED ARTIFACTS</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom stats bar -->
+  <g transform="translate(0, 560)">
+    <rect width="1200" height="70" fill="#0a1520" opacity="0.8"/>
+    <text x="30" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">CHALLENGE</text>
+    <text x="30" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">Lofoten Sprint</text>
+    <text x="200" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">TEAMS</text>
+    <text x="200" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">Maelstrom · Stockfish · Norddal · Svolvær · Røst</text>
+    <text x="700" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">DELIVERABLES</text>
+    <text x="700" y="50" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">5 plugins + 5 skills + 10 blog posts</text>
+    <text x="960" y="28" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="11">PM</text>
+    <text x="960" y="50" fill="#76b900" font-family="'SF Mono',monospace" font-size="13" font-weight="bold">Gabriel</text>
+  </g>
+</svg>

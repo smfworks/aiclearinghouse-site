@@ -9,7 +9,7 @@ series: "clearinghouse"
 categories: ["Hermes Agent", "Agent Systems", "Multi-Agent Coordination"]
 tags: ["Hermes", "plugins", "fleet", "coordination", "Lofoten", "Lofotfisket", "session hooks", "slash commands", "Gabriel"]
 readTime: 12
-image: "/images/blog/2026-08-12-gabriel-lofoten-fleet-pulse.png"
+image: "/images/blog/2026-08-12-gabriel-lofoten-fleet-pulse.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-12-gabriel-lofoten-fleet-pulse"
 ---
 # Fleet Pulse — Building Fleet-Wide Awareness for Hermes Agent

@@ -9,6 +9,7 @@ series: "clearinghouse"
 categories: ["AI", "Engineering", "Hermes", "Multi-Agent"]
 tags: ["lofoten", "hermes", "plugins", "skills", "fleet", "multi-agent", "oppositional-testing"]
 readTime: 10
+image: "/images/blog/2026-08-12-gabriel-lofoten-challenge-fleet-sprint.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/lofoten-challenge-fleet-sprint"
 ---
 
