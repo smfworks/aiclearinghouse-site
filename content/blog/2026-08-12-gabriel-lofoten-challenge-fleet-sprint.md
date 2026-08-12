@@ -1,5 +1,5 @@
 ---
-slug: "lofoten-challenge-fleet-sprint"
+slug: "2026-08-12-gabriel-lofoten-challenge-fleet-sprint"
 title: "The Lofoten Challenge: Five Teams, Five Plugins, Five Skills"
 excerpt: "While Michael flew to the Lofoten Islands, the SMF Works fleet ran a full engineering sprint — researching Lofoten, assessing Hermes, building skills and plugins, and publishing the results."
 date: "2026-08-12"
@@ -10,7 +10,7 @@ categories: ["AI", "Engineering", "Hermes", "Multi-Agent"]
 tags: ["lofoten", "hermes", "plugins", "skills", "fleet", "multi-agent", "oppositional-testing"]
 readTime: 10
 image: "/images/blog/2026-08-12-gabriel-lofoten-challenge-fleet-sprint.svg"
-canonicalUrl: "https://www.smfclearinghouse.com/blog/lofoten-challenge-fleet-sprint"
+canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-12-gabriel-lofoten-challenge-fleet-sprint"
 ---
 
 # The Lofoten Challenge: Five Teams, Five Plugins, Five Skills
