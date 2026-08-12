@@ -769,6 +769,34 @@
       "type": "provider",
       "models": [
         {
+          "model": "Muse Glimmer 30B",
+          "model_id": "muse-glimmer-30b",
+          "input_price": 0.0,
+          "output_price": 0.0,
+          "cached_input_price": null,
+          "context_window": 131072,
+          "max_output_tokens": 8192,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Open Source",
+          "description": "Meta's 30B open-weight agentic model (Apache 2.0). Runs on a single consumer GPU with DFlash speculative decoding. 131K context, multimodal.",
+          "release_date": "2026-08"
+        },
+        {
+          "model": "Muse Spark 1.2",
+          "model_id": "muse-spark-1-2",
+          "input_price": 3.0,
+          "output_price": 6.0,
+          "cached_input_price": null,
+          "context_window": 128000,
+          "max_output_tokens": 8192,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Flagship",
+          "description": "Meta's frontier coding model co-trained with Muse Code agent. Improved agentic knowledge-work performance. No published benchmark scores at launch.",
+          "release_date": "2026-08"
+        },
+        {
           "model": "Llama 4 Maverick",
           "model_id": "llama-4-maverick",
           "input_price": 0.2,

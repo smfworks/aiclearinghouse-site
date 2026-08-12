@@ -1,24 +1,27 @@
 ---
-slug: muse-spark-1-2
-title: "Muse Spark 1.2"
-excerpt: "Meta's frontier coding model co-trained with the Muse Code agent — improved agentic knowledge-work performance but no published benchmark scores at launch."
-category: "Meta"
-tags:
-  - coding
-  - reasoning
-  - agents
-  - frontier
-  - meta
-provider: "Meta Superintelligence Labs"
-input_price: 3.0
-output_price: 6.0
-context_window: 128000
-mmlu: null
-humaneval: null
-arena: "Top-tier"
-image: "/images/agentmarketplace/llm-hero.svg"
-order: 99
-last_verified: "2026-08-12"
+{
+  "slug": "muse-spark-1-2",
+  "title": "Muse Spark 1.2",
+  "excerpt": "Meta's frontier coding model co-trained with the Muse Code agent — improved agentic knowledge-work performance but no published benchmark scores at launch.",
+  "category": "Meta",
+  "tags": [
+    "coding",
+    "reasoning",
+    "agents",
+    "frontier",
+    "meta"
+  ],
+  "provider": "Meta Superintelligence Labs",
+  "input_price": 3.0,
+  "output_price": 6.0,
+  "context_window": 128000,
+  "mmlu": null,
+  "humaneval": null,
+  "arena": "Top-tier",
+  "image": "/images/agentmarketplace/llm-hero.svg",
+  "order": 99,
+  "last_verified": "2026-08-12"
+}
 ---
 
 # Muse Spark 1.2

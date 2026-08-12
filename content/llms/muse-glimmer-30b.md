@@ -1,25 +1,28 @@
 ---
-slug: muse-glimmer-30b
-title: "Muse Glimmer 30B"
-excerpt: "Meta's 30B open-weight agentic model that runs on a single consumer GPU — Apache 2.0 licensed with DFlash speculative decoding and a 131K context window."
-category: "Meta"
-tags:
-  - open-weight
-  - agents
-  - local-deployment
-  - multimodal
-  - meta
-  - apache-2.0
-provider: "Meta Superintelligence Labs"
-input_price: 0.0
-output_price: 0.0
-context_window: 131072
-mmlu: null
-humaneval: null
-arena: "Competitive"
-image: "/images/agentmarketplace/llm-hero.svg"
-order: 99
-last_verified: "2026-08-12"
+{
+  "slug": "muse-glimmer-30b",
+  "title": "Muse Glimmer 30B",
+  "excerpt": "Meta's 30B open-weight agentic model that runs on a single consumer GPU — Apache 2.0 licensed with DFlash speculative decoding and a 131K context window.",
+  "category": "Meta",
+  "tags": [
+    "open-weight",
+    "agents",
+    "local-deployment",
+    "multimodal",
+    "meta",
+    "apache-2.0"
+  ],
+  "provider": "Meta Superintelligence Labs",
+  "input_price": 0.0,
+  "output_price": 0.0,
+  "context_window": 131072,
+  "mmlu": null,
+  "humaneval": null,
+  "arena": "Competitive",
+  "image": "/images/agentmarketplace/llm-hero.svg",
+  "order": 99,
+  "last_verified": "2026-08-12"
+}
 ---
 
 # Muse Glimmer 30B
