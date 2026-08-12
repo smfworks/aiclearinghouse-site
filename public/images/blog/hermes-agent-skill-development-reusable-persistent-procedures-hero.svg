@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Hermes Agent Skill Development" — no-text abstract: stacked skill artifacts (rects) connected to central agent node, with persistence links and subtle schedule arcs. Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490. Validates as well-formed XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract representation of stacked reusable skills connected to an agent core with persistence and scheduling links">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#162236" stroke-width="1" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- soft background glows -->
+  <rect x="200" y="180" width="800" height="80" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="200" y="380" width="800" height="80" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- central agent core (teal circle with inner structure) -->
+  <g transform="translate(600, 315)">
+    <circle cx="0" cy="0" r="68" fill="#0e7490" opacity="0.9"/>
+    <circle cx="0" cy="0" r="68" fill="none" stroke="#22d3ee" stroke-width="4" opacity="0.6"/>
+    <circle cx="0" cy="0" r="32" fill="#1e3a8a"/>
+    <!-- inner node pattern representing loaded skills -->
+    <circle cx="-18" cy="-18" r="8" fill="#f59e0b" opacity="0.9"/>
+    <circle cx="18" cy="-18" r="8" fill="#f59e0b" opacity="0.9"/>
+    <circle cx="0" cy="20" r="8" fill="#ff6b00" opacity="0.9"/>
+  </g>
+
+  <!-- stacked skill artifacts (left side, layered rects representing procedures) -->
+  <g transform="translate(280, 200)">
+    <!-- skill 1 -->
+    <rect x="0" y="0" width="140" height="32" rx="4" fill="#1e3a8a" stroke="#0e7490" stroke-width="2"/>
+    <rect x="8" y="6" width="124" height="6" rx="2" fill="#0e7490" opacity="0.7"/>
+    <!-- skill 2 -->
+    <rect x="0" y="42" width="140" height="32" rx="4" fill="#1e3a8a" stroke="#0e7490" stroke-width="2"/>
+    <rect x="8" y="48" width="124" height="6" rx="2" fill="#0e7490" opacity="0.7"/>
+    <!-- skill 3 -->
+    <rect x="0" y="84" width="140" height="32" rx="4" fill="#1e3a8a" stroke="#0e7490" stroke-width="2"/>
+    <rect x="8" y="90" width="124" height="6" rx="2" fill="#0e7490" opacity="0.7"/>
+    <!-- skill 4 (gold accent) -->
+    <rect x="0" y="126" width="140" height="32" rx="4" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="8" y="132" width="124" height="6" rx="2" fill="#f59e0b" opacity="0.7"/>
+  </g>
+
+  <!-- connection lines from skills to core (persistence / load) -->
+  <path d="M420 240 Q520 280 532 315" stroke="#0e7490" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M420 282 Q520 300 532 315" stroke="#0e7490" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M420 324 Q520 320 532 315" stroke="#0e7490" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <path d="M420 366 Q520 340 532 315" stroke="#f59e0b" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- persistence / memory ring on right -->
+  <g transform="translate(920, 315)">
+    <circle cx="0" cy="0" r="52" fill="none" stroke="#1e3a8a" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
+    <circle cx="0" cy="0" r="38" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+    <!-- small persistence nodes -->
+    <circle cx="-30" cy="-20" r="7" fill="#0e7490" opacity="0.85"/>
+    <circle cx="30" cy="-20" r="7" fill="#0e7490" opacity="0.85"/>
+    <circle cx="-30" cy="20" r="7" fill="#f59e0b" opacity="0.85"/>
+    <circle cx="30" cy="20" r="7" fill="#f59e0b" opacity="0.85"/>
+    <circle cx="0" cy="38" r="7" fill="#0e7490" opacity="0.85"/>
+    <circle cx="0" cy="-38" r="7" fill="#f59e0b" opacity="0.85"/>
+  </g>
+
+  <!-- links from core to persistence -->
+  <path d="M668 315 Q780 280 868 280" stroke="#0e7490" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M668 315 Q780 350 868 350" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- subtle schedule / cron arcs (abstract, no text) at top -->
+  <g transform="translate(600, 120)">
+    <path d="M -80 0 A 80 30 0 0 1 80 0" fill="none" stroke="#0e7490" stroke-width="2.5" opacity="0.4"/>
+    <path d="M -50 8 A 50 20 0 0 1 50 8" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.35"/>
+    <!-- dots on arc for ticks -->
+    <circle cx="-60" cy="-5" r="3" fill="#0e7490" opacity="0.6"/>
+    <circle cx="0" cy="-8" r="3" fill="#0e7490" opacity="0.6"/>
+    <circle cx="60" cy="-5" r="3" fill="#0e7490" opacity="0.6"/>
+  </g>
+
+  <!-- small terminal / code hint dots at bottom -->
+  <g transform="translate(300, 480)">
+    <rect x="0" y="0" width="18" height="18" rx="2" fill="none" stroke="#0e7490" stroke-width="1.5" opacity="0.4"/>
+    <rect x="24" y="0" width="18" height="18" rx="2" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.4"/>
+    <rect x="48" y="0" width="18" height="18" rx="2" fill="none" stroke="#0e7490" stroke-width="1.5" opacity="0.4"/>
+  </g>
+  <g transform="translate(850, 480)">
+    <rect x="0" y="0" width="18" height="18" rx="2" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.4"/>
+    <rect x="24" y="0" width="18" height="18" rx="2" fill="none" stroke="#0e7490" stroke-width="1.5" opacity="0.4"/>
+    <rect x="48" y="0" width="18" height="18" rx="2" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.4"/>
+  </g>
+</svg>
