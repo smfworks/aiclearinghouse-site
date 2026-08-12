@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e1a"/>
+      <stop offset="100%" style="stop-color:#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  
+  <!-- Grid -->
+  <g opacity="0.15">
+    <line x1="0" y1="78" x2="1200" y2="78" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="156" x2="1200" y2="156" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="234" x2="1200" y2="234" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="312" x2="1200" y2="312" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="390" x2="1200" y2="390" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="468" x2="1200" y2="468" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="546" x2="1200" y2="546" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="150" y1="0" x2="150" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="450" y1="0" x2="450" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="750" y1="0" x2="750" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="900" y1="0" x2="900" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="1050" y1="0" x2="1050" y2="624" stroke="#1a2a3a" stroke-width="1"/>
+  </g>
+  
+  <!-- Lighthouse silhouette (Lofoten-inspired sentinel) -->
+  <g transform="translate(200, 200)">
+    <!-- Base -->
+    <rect x="-30" y="180" width="60" height="40" fill="#1a2a3a" stroke="#76b900" stroke-width="1" opacity="0.8"/>
+    <!-- Tower -->
+    <polygon points="-20,180 20,180 15,60 -15,60" fill="#0a1520" stroke="#76b900" stroke-width="1.5" opacity="0.9"/>
+    <!-- Light room -->
+    <rect x="-18" y="40" width="36" height="25" fill="#0a1520" stroke="#76b900" stroke-width="1.5"/>
+    <!-- Light beam -->
+    <polygon points="-18,52 18,52 120,90 120,15" fill="#76b900" opacity="0.12"/>
+    <polygon points="-18,52 18,52 120,90 120,15" fill="none" stroke="#76b900" stroke-width="0.5" opacity="0.4"/>
+    <!-- Light source -->
+    <circle cx="0" cy="52" r="5" fill="#76b900" filter="url(#glow)"/>
+    <!-- Dome -->
+    <path d="M -18 40 Q 0 25 18 40" fill="#0a1520" stroke="#76b900" stroke-width="1.5"/>
+    <!-- Antenna -->
+    <line x1="0" y1="25" x2="0" y2="5" stroke="#76b900" stroke-width="1"/>
+    <circle cx="0" cy="5" r="2" fill="#76b900"/>
+  </g>
+  
+  <!-- Mountain silhouettes (Lofoten peaks) -->
+  <g transform="translate(450, 380)" opacity="0.6">
+    <polygon points="0,0 60,-120 120,-80 180,-140 240,-60 300,-100 360,-40 360,0" fill="#0a1520" stroke="#2a4a5a" stroke-width="1"/>
+  </g>
+  
+  <!-- Session metrics visualization -->
+  <g transform="translate(550, 120)">
+    <!-- Title -->
+    <text x="0" y="0" fill="#e8eef4" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="bold">SESSION OBSERVABILITY</text>
+    <text x="0" y="28" fill="#5a8a6a" font-family="'SF Mono', 'Courier New', monospace" font-size="13">Passive monitoring for Hermes Agent</text>
+    
+    <!-- Metric bars -->
+    <g transform="translate(0, 60)">
+      <!-- Tool calls -->
+      <text x="0" y="0" fill="#666" font-family="'SF Mono', monospace" font-size="10">TOOL CALLS</text>
+      <text x="120" y="0" fill="#76b900" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">247</text>
+      <rect x="0" y="8" width="200" height="3" fill="#1a2a3a" rx="1"/>
+      <rect x="0" y="8" width="180" height="3" fill="#76b900" rx="1" opacity="0.7"/>
+      
+      <!-- Error rate -->
+      <text x="250" y="0" fill="#666" font-family="'SF Mono', monospace" font-size="10">ERROR RATE</text>
+      <text x="370" y="0" fill="#ff9500" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">4.1%</text>
+      <rect x="250" y="8" width="200" height="3" fill="#1a2a3a" rx="1"/>
+      <rect x="250" y="8" width="8" height="3" fill="#ff9500" rx="1" opacity="0.7"/>
+      
+      <!-- Health score -->
+      <text x="0" y="40" fill="#666" font-family="'SF Mono', monospace" font-size="10">HEALTH SCORE</text>
+      <text x="120" y="40" fill="#00d4aa" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">87/100</text>
+      <rect x="0" y="48" width="200" height="3" fill="#1a2a3a" rx="1"/>
+      <rect x="0" y="48" width="174" height="3" fill="#00d4aa" rx="1" opacity="0.7"/>
+      
+      <!-- Duration -->
+      <text x="250" y="40" fill="#666" font-family="'SF Mono', monospace" font-size="10">DURATION</text>
+      <text x="370" y="40" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="14" font-weight="bold">42m 18s</text>
+      <rect x="250" y="48" width="200" height="3" fill="#1a2a3a" rx="1"/>
+      <rect x="250" y="48" width="120" height="3" fill="#e8eef4" rx="1" opacity="0.4"/>
+    </g>
+    
+    <!-- Tool breakdown -->
+    <g transform="translate(0, 140)">
+      <text x="0" y="0" fill="#666" font-family="'SF Mono', monospace" font-size="10">TOOLS USED</text>
+      <g transform="translate(0, 15)">
+        <rect x="0" y="0" width="140" height="12" fill="#0d3b1a" rx="2" opacity="0.6"/>
+        <text x="5" y="9" fill="#76b900" font-family="'SF Mono', monospace" font-size="9">terminal: 89</text>
+        
+        <rect x="0" y="18" width="100" height="12" fill="#0d3b1a" rx="2" opacity="0.6"/>
+        <text x="5" y="27" fill="#76b900" font-family="'SF Mono', monospace" font-size="9">write_file: 62</text>
+        
+        <rect x="0" y="36" width="60" height="12" fill="#0d3b1a" rx="2" opacity="0.6"/>
+        <text x="5" y="45" fill="#76b900" font-family="'SF Mono', monospace" font-size="9">web_search: 38</text>
+        
+        <rect x="0" y="54" width="40" height="12" fill="#0d3b1a" rx="2" opacity="0.6"/>
+        <text x="5" y="63" fill="#76b900" font-family="'SF Mono', monospace" font-size="9">read_file: 25</text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Bottom stats bar -->
+  <g transform="translate(0, 560)">
+    <rect width="1200" height="64" fill="#0a1520" opacity="0.8"/>
+    <text x="30" y="28" fill="#5a8a6a" font-family="'SF Mono', monospace" font-size="11">PLUGIN</text>
+    <text x="30" y="48" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="13" font-weight="bold">session-observability</text>
+    
+    <text x="250" y="28" fill="#5a8a6a" font-family="'SF Mono', monospace" font-size="11">TOOLS</text>
+    <text x="250" y="48" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="13" font-weight="bold">2 tools + 3 hooks</text>
+    
+    <text x="450" y="28" fill="#5a8a6a" font-family="'SF Mono', monospace" font-size="11">TESTS</text>
+    <text x="450" y="48" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="13" font-weight="bold">11/11 passed</text>
+    
+    <text x="650" y="28" fill="#5a8a6a" font-family="'SF Mono', monospace" font-size="11">DEPS</text>
+    <text x="650" y="48" fill="#e8eef4" font-family="'SF Mono', monospace" font-size="13" font-weight="bold">Python stdlib only</text>
+    
+    <text x="900" y="28" fill="#5a8a6a" font-family="'SF Mono', monospace" font-size="11">TEAM</text>
+    <text x="900" y="48" fill="#76b900" font-family="'SF Mono', monospace" font-size="13" font-weight="bold">Nordfjord</text>
+  </g>
+</svg>
