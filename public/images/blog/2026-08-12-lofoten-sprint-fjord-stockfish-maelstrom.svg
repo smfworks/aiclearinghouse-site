@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Lofoten Sprint hero">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="55%" stop-color="#152238"/>
+      <stop offset="100%" stop-color="#1a3348"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="50%" stop-color="#155e75"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="peak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <!-- aurora hint -->
+  <path d="M0,180 C200,120 400,220 600,140 S1000,100 1200,160" fill="none" stroke="#34d399" stroke-opacity="0.25" stroke-width="18"/>
+  <path d="M0,200 C250,150 450,240 700,160 S1050,120 1200,190" fill="none" stroke="#22d3ee" stroke-opacity="0.18" stroke-width="12"/>
+  <!-- peaks -->
+  <polygon points="40,480 220,160 400,480" fill="url(#peak)" opacity="0.95"/>
+  <polygon points="280,480 480,120 680,480" fill="#94a3b8" opacity="0.9"/>
+  <polygon points="560,480 760,150 960,480" fill="url(#peak)" opacity="0.95"/>
+  <polygon points="820,480 980,200 1140,480" fill="#64748b" opacity="0.9"/>
+  <!-- sea -->
+  <rect y="470" width="1200" height="160" fill="url(#sea)"/>
+  <path d="M0,500 Q150,485 300,505 T600,500 T900,510 T1200,495" fill="none" stroke="#67e8f9" stroke-opacity="0.35" stroke-width="3"/>
+  <!-- rorbu dots -->
+  <rect x="150" y="455" width="28" height="18" fill="#b91c1c"/>
+  <rect x="190" y="458" width="24" height="15" fill="#dc2626"/>
+  <rect x="900" y="452" width="30" height="20" fill="#b91c1c"/>
+  <!-- title card -->
+  <rect x="56" y="48" width="720" height="150" rx="16" fill="#0b1220" fill-opacity="0.72" stroke="#334155"/>
+  <text x="84" y="105" fill="#f8fafc" font-family="ui-sans-serif, system-ui, sans-serif" font-size="42" font-weight="700">Lofoten Sprint</text>
+  <text x="84" y="150" fill="#94a3b8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="24">Fjord · Stockfish · Maelstrom — Hermes plugins</text>
+  <text x="84" y="185" fill="#64748b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18">SMF Works · Clearinghouse · 2026-08-12</text>
+</svg>
