@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.04" stroke="#4A90D9">
+    <line x1="0" y1="100" x2="1200" y2="100"/><line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/><line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/><line x1="800" y1="0" x2="800" y2="630"/>
+  </g>
+  <circle cx="220" cy="315" r="160" fill="#4A90D9" opacity="0.08"/>
+  <rect x="140" y="230" width="160" height="110" rx="10" fill="none" stroke="#4A90D9" stroke-width="3"/>
+  <path d="M160 270 h50 M160 295 h90 M160 320 h70" stroke="#E2E8F0" stroke-width="3"/>
+  <text x="430" y="250" fill="#E2E8F0" font-size="44" font-weight="700" font-family="system-ui,sans-serif">SMF Forge 0.2.0</text>
+  <text x="430" y="310" fill="#4A90D9" font-size="22" letter-spacing="2" font-family="system-ui,sans-serif">PRODUCTION HARDENING</text>
+  <text x="430" y="360" fill="#94A3B8" font-size="18" font-family="system-ui,sans-serif">A CLI that runs before it asks for secrets</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#4A90D9" opacity="0.5"/>
+</svg>
