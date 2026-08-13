@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgBroker" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="55%" stop-color="#10243A"/>
+      <stop offset="100%" stop-color="#0C1A22"/>
+    </linearGradient>
+    <radialGradient id="pulseBroker" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FACC15" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FACC15" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgBroker)"/>
+  <g opacity="0.035" stroke="#00D4FF">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="420" y1="0" x2="420" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="980" y1="0" x2="980" y2="630"/>
+  </g>
+  <circle cx="210" cy="315" r="176" fill="url(#pulseBroker)"/>
+  <!-- Two keys: agent vs approver -->
+  <g fill="none" stroke="#FACC15" stroke-width="3.2" stroke-linecap="round">
+    <circle cx="168" cy="278" r="28"/>
+    <path d="M196 278 H268"/>
+    <path d="M248 278 V298"/>
+    <path d="M262 278 V312"/>
+    <circle cx="168" cy="368" r="28"/>
+    <path d="M196 368 H268"/>
+    <path d="M248 368 V388"/>
+    <path d="M262 368 V402"/>
+  </g>
+  <text x="156" y="284" fill="#E2E8F0" font-family="system-ui,sans-serif" font-size="13" font-weight="700">A</text>
+  <text x="156" y="374" fill="#00D4FF" font-family="system-ui,sans-serif" font-size="13" font-weight="700">H</text>
+  <!-- Hash-chain nodes -->
+  <g fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.85">
+    <rect x="118" y="448" width="36" height="22" rx="3"/>
+    <rect x="172" y="448" width="36" height="22" rx="3"/>
+    <rect x="226" y="448" width="36" height="22" rx="3"/>
+    <path d="M154 459 H172 M208 459 H226"/>
+  </g>
+  <text x="430" y="248" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" letter-spacing="-0.4">m365-access-broker 0.2.0</text>
+  <text x="430" y="298" fill="#FACC15" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="500" letter-spacing="2.2">TWO KEYS. NO /ME.</text>
+  <line x1="430" y1="322" x2="820" y2="322" stroke="#FACC15" stroke-width="1.5" opacity="0.28"/>
+  <text x="430" y="362" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16">Agent cannot mint. Live Graph uses /users/{id}.</text>
+  <text x="430" y="392" fill="#64748B" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">91/91 · audit chain 114 · Dr J PASS</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#FACC15" opacity="0.55"/>
+</svg>
