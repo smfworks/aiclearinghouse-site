@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't Invent the Receipt" — no-text abstract: solid verified receipt vs dashed fabricated ghost, gated by a central agent core. Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract representation of a verified tool receipt versus a blocked fabricated result, gated by an agent core">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#162236" stroke-width="1" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <rect x="80" y="160" width="420" height="70" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="700" y="400" width="420" height="70" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- verified receipt (left, solid) -->
+  <g transform="translate(170, 175)">
+    <rect x="0" y="0" width="220" height="280" rx="10" fill="#12233a" stroke="#0e7490" stroke-width="3"/>
+    <rect x="18" y="24" width="184" height="10" rx="3" fill="#0e7490" opacity="0.85"/>
+    <rect x="18" y="50" width="148" height="8" rx="3" fill="#22d3ee" opacity="0.45"/>
+    <rect x="18" y="74" width="168" height="8" rx="3" fill="#0e7490" opacity="0.55"/>
+    <rect x="18" y="98" width="120" height="8" rx="3" fill="#0e7490" opacity="0.4"/>
+    <rect x="18" y="132" width="184" height="2" fill="#1e3a8a"/>
+    <rect x="18" y="154" width="160" height="8" rx="3" fill="#22d3ee" opacity="0.35"/>
+    <rect x="18" y="178" width="140" height="8" rx="3" fill="#0e7490" opacity="0.4"/>
+    <rect x="18" y="202" width="176" height="8" rx="3" fill="#0e7490" opacity="0.35"/>
+    <circle cx="178" cy="244" r="18" fill="#0e7490"/>
+    <path d="M168 244 L175 251 L190 236" fill="none" stroke="#0a1628" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- fabricated ghost receipt (right, dashed) -->
+  <g transform="translate(810, 175)">
+    <rect x="0" y="0" width="220" height="280" rx="10" fill="#122033" stroke="#f59e0b" stroke-width="3" stroke-dasharray="10 8" opacity="0.85"/>
+    <rect x="18" y="24" width="184" height="10" rx="3" fill="#f59e0b" opacity="0.28"/>
+    <rect x="18" y="50" width="148" height="8" rx="3" fill="#ff6b00" opacity="0.18"/>
+    <rect x="18" y="74" width="168" height="8" rx="3" fill="#f59e0b" opacity="0.16"/>
+    <rect x="18" y="98" width="120" height="8" rx="3" fill="#ff6b00" opacity="0.14"/>
+    <rect x="18" y="132" width="184" height="2" fill="#3a2a12" opacity="0.6"/>
+    <rect x="18" y="154" width="160" height="8" rx="3" fill="#f59e0b" opacity="0.12"/>
+    <rect x="18" y="178" width="140" height="8" rx="3" fill="#ff6b00" opacity="0.12"/>
+    <circle cx="178" cy="244" r="18" fill="none" stroke="#ff6b00" stroke-width="3"/>
+    <path d="M170 236 L186 252 M186 236 L170 252" fill="none" stroke="#ff6b00" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- central gate / agent core -->
+  <g transform="translate(600, 315)">
+    <circle cx="0" cy="0" r="78" fill="#0e7490" opacity="0.18" filter="url(#blur)"/>
+    <circle cx="0" cy="0" r="62" fill="#0e7490" opacity="0.92"/>
+    <circle cx="0" cy="0" r="62" fill="none" stroke="#22d3ee" stroke-width="4" opacity="0.55"/>
+    <circle cx="0" cy="0" r="28" fill="#1e3a8a"/>
+    <rect x="-10" y="-22" width="20" height="44" rx="3" fill="#f59e0b"/>
+    <rect x="-22" y="-10" width="44" height="20" rx="3" fill="#ff6b00" opacity="0.9"/>
+  </g>
+
+  <!-- verified path into the gate -->
+  <path d="M390 315 L538 315" stroke="#0e7490" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <polygon points="528,305 548,315 528,325" fill="#0e7490"/>
+
+  <!-- blocked path out of the gate -->
+  <path d="M662 315 L810 315" stroke="#ff6b00" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="8 8" opacity="0.75"/>
+  <rect x="724" y="300" width="30" height="30" rx="4" fill="#0a1628" stroke="#ff6b00" stroke-width="2.5"/>
+  <path d="M731 307 L747 323 M747 307 L731 323" stroke="#ff6b00" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- tool nodes along the bottom -->
+  <g transform="translate(240, 510)">
+    <rect x="0" y="0" width="28" height="28" rx="4" fill="none" stroke="#0e7490" stroke-width="2" opacity="0.55"/>
+    <rect x="44" y="0" width="28" height="28" rx="4" fill="none" stroke="#0e7490" stroke-width="2" opacity="0.55"/>
+    <rect x="88" y="0" width="28" height="28" rx="4" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.45"/>
+  </g>
+  <g transform="translate(844, 510)">
+    <rect x="0" y="0" width="28" height="28" rx="4" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.4"/>
+    <rect x="44" y="0" width="28" height="28" rx="4" fill="none" stroke="#0e7490" stroke-width="2" opacity="0.4"/>
+    <rect x="88" y="0" width="28" height="28" rx="4" fill="none" stroke="#ff6b00" stroke-width="2" opacity="0.4"/>
+  </g>
+</svg>
