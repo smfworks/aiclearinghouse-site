@@ -62,7 +62,8 @@ export function scanRepository() {
     let text;
     try {
       text = readFileSync(abs, "utf8");
-    } catch {
+    } catch (err) {
+      hits.push({ file: rel, rule: "unreadable_tracked_file" });
       continue;
     }
     hits.push(...scanContents(rel, text));

@@ -10,9 +10,10 @@ const scannerUrl = pathToFileURL(path.join(repoRoot, "scripts", "scan-secrets.mj
 describe("scan-secrets", () => {
   test("flags a Together live key and ignores documentation placeholders", async () => {
     const { scanContents } = await import(`${scannerUrl}?t=${Date.now()}`);
+    const syntheticTogether = `tgp_${"v1"}_${"A".repeat(20)}`;
     const live = scanContents(
       "scripts/generate-hero.mjs",
-      'const API_KEY = "tgp_v1_AAAAAAAAAAAAAAAA";',
+      `const API_KEY = "${syntheticTogether}";`,
     );
     assert.equal(live.some((hit) => hit.rule === "together_key"), true);
 
