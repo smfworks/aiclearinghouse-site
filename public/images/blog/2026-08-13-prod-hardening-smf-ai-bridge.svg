@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/><line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/><line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/><line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+  <!-- Bridge icon: two nodes connected -->
+  <g transform="translate(140, 250)">
+    <rect x="40" y="0" width="30" height="100" rx="4" fill="none" stroke="#00E5A0" stroke-width="2.5"/>
+    <rect x="5" y="35" width="100" height="30" rx="4" fill="none" stroke="#00E5A0" stroke-width="2.5"/>
+    <circle cx="55" cy="50" r="8" fill="#00E5A0" opacity="0.3"/>
+    <circle cx="55" cy="50" r="4" fill="#00E5A0"/>
+    <!-- Bridge connections -->
+    <line x1="105" y1="50" x2="160" y2="50" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+    <circle cx="160" cy="50" r="6" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+    <line x1="55" y1="0" x2="55" y2="-20" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="55" cy="-20" r="3" fill="#00E5A0" opacity="0.4"/>
+    <line x1="55" y1="100" x2="55" y2="120" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <line x1="55" y1="120" x2="30" y2="120" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="30" cy="120" r="3" fill="#00E5A0" opacity="0.4"/>
+  </g>
+  <!-- Node.js / bridge motif on right -->
+  <g transform="translate(900, 250)" opacity="0.4">
+    <polygon points="90,0 170,45 170,135 90,180 10,135 10,45" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="90" y="100" font-family="system-ui, sans-serif" font-size="16" fill="#00E5A0" text-anchor="middle">623 lines</text>
+    <text x="90" y="120" font-family="system-ui, sans-serif" font-size="12" fill="#94A3B8" text-anchor="middle">→ 79 tests</text>
+  </g>
+  <text x="320" y="270" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" fill="#E2E8F0">Production Hardening:</text>
+  <text x="320" y="325" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="bold" fill="#E2E8F0">SMF AI Bridge</text>
+  <text x="320" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#00E5A0" letter-spacing="2">ZERO TESTS → PRODUCTION-READY</text>
+  <text x="320" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="#94A3B8">623 lines of untested JS → 79 tests, CI/CD, graceful shutdown</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
