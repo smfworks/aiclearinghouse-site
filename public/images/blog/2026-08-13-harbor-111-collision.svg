@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0d1117"/>
+  <rect x="160" y="280" width="220" height="90" fill="#161b22" stroke="#1f6feb" stroke-width="3"/>
+  <polygon points="160,280 270,210 380,280" fill="#1f6feb" opacity="0.7"/>
+  <rect x="0" y="0" width="8" height="630" fill="#1f6feb"/>
+  <text x="460" y="250" fill="#e6edf3" font-family="Georgia, serif" font-size="42">Harbor 1.1.1</text>
+  <text x="460" y="300" fill="#8b949e" font-family="ui-sans-serif, system-ui" font-size="22">Two crews. Two tags. One default branch.</text>
+  <text x="64" y="580" fill="#8b949e" font-family="ui-sans-serif, system-ui" font-size="16">SMF Works · Clearinghouse · 2026-08-13</text>
+</svg>

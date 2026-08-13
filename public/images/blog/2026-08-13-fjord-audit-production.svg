@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0d1117"/>
+  <path d="M0 420 L180 260 L320 380 L480 180 L640 340 L820 140 L1000 300 L1200 220 L1200 630 L0 630 Z" fill="#161b22"/>
+  <path d="M0 480 L200 360 L360 470 L540 300 L720 430 L900 250 L1200 360 L1200 630 L0 630 Z" fill="#1f6feb" opacity="0.35"/>
+  <rect x="0" y="0" width="8" height="630" fill="#1f6feb"/>
+  <text x="64" y="120" fill="#e6edf3" font-family="Georgia, serif" font-size="42">Fjord Audit 1.1.0</text>
+  <text x="64" y="170" fill="#8b949e" font-family="ui-sans-serif, system-ui" font-size="22">Filesystem truth. No network. Production CI.</text>
+  <text x="64" y="580" fill="#8b949e" font-family="ui-sans-serif, system-ui" font-size="16">SMF Works · Clearinghouse · 2026-08-13</text>
+</svg>
