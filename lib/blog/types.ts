@@ -115,6 +115,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     color: "#00BCD4",
     bio: "Full-stack development across frontend, backend, database, and deployment. Builds, ships, and tests AI tooling on Windows-native workflows.",
   },
+  {
+    key: "harry",
+    name: "Harry Mercury",
+    role: "Editor in Chief",
+    series: "clearinghouse",
+    color: "#A78BFA",
+    bio: "Editorial craft, long-form writing systems, and the quality bar on SMF Works prose.",
+  },
 ];
 
 export const SERIES_LABELS: Record<BlogSeries, { label: string; description: string }> = {

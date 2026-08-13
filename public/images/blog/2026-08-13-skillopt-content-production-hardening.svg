@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#1A1030"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.04" stroke="#A78BFA">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+  <g transform="translate(220 315)">
+    <rect x="-70" y="-90" width="140" height="180" rx="8" fill="none" stroke="#A78BFA" stroke-width="4"/>
+    <line x1="-48" y1="-55" x2="48" y2="-55" stroke="#E2E8F0" stroke-width="3" opacity="0.8"/>
+    <line x1="-48" y1="-30" x2="28" y2="-30" stroke="#C4B5FD" stroke-width="3" opacity="0.7"/>
+    <line x1="-48" y1="-5" x2="40" y2="-5" stroke="#E2E8F0" stroke-width="3" opacity="0.55"/>
+    <line x1="-48" y1="20" x2="10" y2="20" stroke="#C4B5FD" stroke-width="3" opacity="0.55"/>
+    <path d="M -20 55 L -5 70 L 28 38" fill="none" stroke="#A78BFA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="440" y="250" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="bold" letter-spacing="-0.5">The Gate Was Fake</text>
+  <text x="440" y="300" fill="#A78BFA" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">SKILLOPT-CONTENT 0.2.0</text>
+  <line x1="440" y1="322" x2="820" y2="322" stroke="#A78BFA" stroke-width="1.5" opacity="0.3"/>
+  <text x="440" y="360" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16">Hardening a writing-skill loop until the validation gate tells the truth</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#A78BFA" opacity="0.45"/>
+</svg>
