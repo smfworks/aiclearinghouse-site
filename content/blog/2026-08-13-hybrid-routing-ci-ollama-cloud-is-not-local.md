@@ -65,10 +65,12 @@ def test_ollama_cloud_name_is_not_inferred_local_for_sensitive_routes(tmp_path):
 
 ## What changed
 
-PR: [smfworks/hermes-plugin-hybrid-routing#5](https://github.com/smfworks/hermes-plugin-hybrid-routing/pull/5)
+PR: [smfworks/hermes-plugin-hybrid-routing#6](https://github.com/smfworks/hermes-plugin-hybrid-routing/pull/6)
+
+CI, `SECURITY.md`, and packaging gates already landed in [#2](https://github.com/smfworks/hermes-plugin-hybrid-routing/pull/2) (`16a2e06`, v1.1.1) while this wave was in review. The remaining unique change is the locality regression:
 
 ```text
-33bfc64  ci: add GitHub Actions matrix and ollama-cloud locality regression
+f313c8b  test: ollama-cloud names are not inferred as local
 ```
 
 Verification on this machine:
