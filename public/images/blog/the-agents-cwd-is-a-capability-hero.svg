@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Agent's CWD Is a Capability" — no-text abstract.
+     Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490.
+     Nested directory stack (live) vs vanished floor (dead), ancestor ladder in the middle. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract representation of a live working directory, a deleted directory floor, and an agent recovering by walking to the parent">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="55%" stop-color="#ff6b00" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#162236" stroke-width="1" stroke-opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect x="90" y="140" width="360" height="80" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="760" y="390" width="360" height="80" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- live nested directories (left) -->
+  <g transform="translate(150, 150)">
+    <rect x="0" y="180" width="280" height="150" rx="12" fill="#12233a" stroke="#0e7490" stroke-width="3"/>
+    <rect x="28" y="120" width="224" height="70" rx="10" fill="#163044" stroke="#22d3ee" stroke-width="2.5" opacity="0.95"/>
+    <rect x="56" y="60" width="168" height="70" rx="10" fill="#1a3a52" stroke="#0e7490" stroke-width="2.5"/>
+    <rect x="84" y="0" width="112" height="70" rx="10" fill="#0e7490" opacity="0.92"/>
+    <rect x="84" y="0" width="112" height="70" rx="10" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.55"/>
+    <circle cx="140" cy="255" r="16" fill="#0e7490"/>
+    <path d="M132 255 L138 261 L150 247" fill="none" stroke="#0a1628" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- vanished / deleted floor (right) -->
+  <g transform="translate(770, 150)">
+    <rect x="0" y="180" width="280" height="150" rx="12" fill="#1a140c" stroke="#f59e0b" stroke-width="3" stroke-dasharray="10 8" opacity="0.85"/>
+    <rect x="28" y="120" width="224" height="70" rx="10" fill="none" stroke="#ff6b00" stroke-width="2.5" stroke-dasharray="8 7" opacity="0.55"/>
+    <rect x="56" y="60" width="168" height="70" rx="10" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="8 7" opacity="0.35"/>
+    <rect x="84" y="0" width="112" height="70" rx="10" fill="none" stroke="#ff6b00" stroke-width="2.5" stroke-dasharray="6 6" opacity="0.28"/>
+    <circle cx="140" cy="255" r="16" fill="none" stroke="#ff6b00" stroke-width="3"/>
+    <path d="M132 247 L148 263 M148 247 L132 263" fill="none" stroke="#ff6b00" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- ancestor ladder (center) -->
+  <g transform="translate(600, 315)">
+    <rect x="-28" y="110" width="56" height="14" rx="3" fill="#1e3a8a" opacity="0.9"/>
+    <rect x="-40" y="70" width="80" height="14" rx="3" fill="#1e3a8a"/>
+    <rect x="-52" y="30" width="104" height="14" rx="3" fill="#0e7490" opacity="0.85"/>
+    <rect x="-64" y="-10" width="128" height="14" rx="3" fill="#0e7490"/>
+    <rect x="-76" y="-50" width="152" height="14" rx="3" fill="#f59e0b" opacity="0.9"/>
+    <circle cx="0" cy="-110" r="54" fill="#0e7490" opacity="0.16" filter="url(#blur)"/>
+    <circle cx="0" cy="-110" r="42" fill="#0e7490" opacity="0.92"/>
+    <circle cx="0" cy="-110" r="42" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.5"/>
+    <circle cx="0" cy="-110" r="16" fill="#1e3a8a"/>
+    <rect x="-6" y="-124" width="12" height="28" rx="2" fill="#f59e0b"/>
+    <rect x="-14" y="-116" width="28" height="12" rx="2" fill="#ff6b00" opacity="0.9"/>
+  </g>
+
+  <!-- blocked descent into vanished dir -->
+  <path d="M642 250 L770 315" stroke="#ff6b00" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="8 8" opacity="0.7"/>
+  <rect x="690" y="258" width="26" height="26" rx="4" fill="#0a1628" stroke="#ff6b00" stroke-width="2.5"/>
+  <path d="M696 264 L710 278 M710 264 L696 278" stroke="#ff6b00" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- recovered walk to live parent -->
+  <path d="M430 315 L548 315" stroke="#0e7490" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <polygon points="538,305 558,315 538,325" fill="#0e7490"/>
+
+  <!-- floor line -->
+  <rect x="120" y="530" width="960" height="3" fill="#1e3a8a" opacity="0.45"/>
+  <rect x="120" y="530" width="360" height="3" fill="#0e7490" opacity="0.8"/>
+  <rect x="720" y="530" width="360" height="3" fill="#ff6b00" opacity="0.35" stroke="none"/>
+</svg>
