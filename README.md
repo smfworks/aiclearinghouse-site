@@ -68,6 +68,10 @@ SMF **product** engineering centers on **Praxis** (`smf-praxis`) and **Swarm 2.0
 | `npm run build` | Production build |
 | `npm run start` | Serve production build |
 | `npm run lint` | ESLint |
+| `npm test` | Hero-script and secret-scan contract tests |
+| `npm run test:secrets` | Fail-closed scan of tracked files for live credential material |
+
+Hero images: `TOGETHER_API_KEY=... node scripts/generate-hero.mjs "Title" "blog/slug-hero.png"`. The script fails closed without the env var. See [SECURITY.md](./SECURITY.md) and `.env.example`.
 
 ## License
 

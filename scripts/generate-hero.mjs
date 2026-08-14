@@ -1,29 +1,84 @@
 /**
- * generate-hero.mjs - Generate blog hero images using Together.ai FLUX.2-pro
+ * generate-hero.mjs — Generate blog hero images using Together.ai FLUX.2-pro
  *
  * Usage:
- *   node scripts/generate-hero.mjs "Post Title" "blog/filename-hero.png"
+ *   TOGETHER_API_KEY=... node scripts/generate-hero.mjs "Post Title" "blog/filename-hero.png"
  *
- * Env:
- *   TOGETHER_API_KEY - your Together.ai API key
+ * Fail-closed: refuses to run without TOGETHER_API_KEY in the environment.
+ * Never hardcode credentials in this file.
  */
 
-const API_KEY = "tgp_v1_lcIjblJqLUFUrfsA9iEZo-PrMFo3clEfbcii4oZPYgI";
-const MODEL = "black-forest-labs/FLUX.2-pro";
-const IMAGE_DIR = "public/images";
+import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 
-async function generateImage(prompt, outputPath) {
-  console.error(`Generating image for: "${prompt.slice(0, 80)}..."`);
+export const MODEL = "black-forest-labs/FLUX.2-pro";
+export const IMAGE_DIR = "public/images";
 
-  const response = await fetch("https://api.together.xyz/v1/images/generations", {
+export function resolveTogetherApiKey(env = process.env) {
+  const raw = env.TOGETHER_API_KEY;
+  const key = typeof raw === "string" ? raw.trim() : "";
+  if (!key) {
+    return {
+      ok: false,
+      error:
+        "TOGETHER_API_KEY is required. Set it in the environment (or a gitignored .env loaded by your shell). Do not hardcode secrets.",
+    };
+  }
+  return { ok: true, key };
+}
+
+export function parseHeroArgs(argv, imageDir = IMAGE_DIR) {
+  if (!Array.isArray(argv) || argv.length < 2) {
+    return {
+      ok: false,
+      error:
+        'Usage: node scripts/generate-hero.mjs "Post Title" "blog/filename-hero.png"',
+    };
+  }
+  const title = String(argv[0] ?? "").trim();
+  const filename = String(argv[1] ?? "").trim().replace(/\\/g, "/");
+  if (!title || !filename) {
+    return { ok: false, error: "Title and output filename are required." };
+  }
+  if (path.isAbsolute(filename) || filename.split("/").includes("..")) {
+    return {
+      ok: false,
+      error: "Output path must be a relative path under public/images/.",
+    };
+  }
+  return {
+    ok: true,
+    title,
+    filename,
+    outputPath: `${imageDir}/${filename}`,
+  };
+}
+
+export function buildPrompt(title) {
+  return `Professional editorial hero image for a technology blog post. Clean, modern, dark theme with subtle blue and cyan accents. Microsoft-inspired design language. Abstract geometric patterns representing AI, cloud computing, and intelligent agents. No text or typography. Cinematic lighting, 8K quality, depth of field. Topic context: "${title}".`;
+}
+
+export async function generateImage(
+  prompt,
+  outputPath,
+  { apiKey, fetchImpl = fetch } = {},
+) {
+  if (!apiKey) {
+    throw new Error("apiKey is required");
+  }
+
+  console.error(`Generating image for: "${String(prompt).slice(0, 80)}..."`);
+
+  const response = await fetchImpl("https://api.together.xyz/v1/images/generations", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       model: MODEL,
-      prompt: prompt,
+      prompt,
       width: 1216,
       height: 640,
       n: 1,
@@ -33,45 +88,49 @@ async function generateImage(prompt, outputPath) {
 
   if (!response.ok) {
     const err = await response.text();
-    console.error(`API error (${response.status}): ${err}`);
-    process.exit(1);
+    throw new Error(`Together API error (${response.status}): ${err}`);
   }
 
   const data = await response.json();
   const b64 = data.data?.[0]?.b64_json;
-
   if (!b64) {
-    console.error("No image data in response:", JSON.stringify(data, null, 2));
-    process.exit(1);
+    throw new Error(`No image data in response: ${JSON.stringify(data)}`);
   }
-
-  const fs = await import("node:fs");
-  const path = await import("node:path");
 
   const fullPath = path.resolve(outputPath);
   fs.mkdirSync(path.dirname(fullPath), { recursive: true });
   fs.writeFileSync(fullPath, Buffer.from(b64, "base64"));
-
   console.log(`Saved: ${fullPath}`);
   console.log(`URL: /images/${path.relative(IMAGE_DIR, outputPath).replace(/\\/g, "/")}`);
   return fullPath;
 }
 
-// Prompt templates optimized for FLUX.2-pro — slick, modern, editorial
-function buildPrompt(title) {
-  return `Professional editorial hero image for a technology blog post. Clean, modern, dark theme with subtle blue and cyan accents. Microsoft-inspired design language. Abstract geometric patterns representing AI, cloud computing, and intelligent agents. No text or typography. Cinematic lighting, 8K quality, depth of field. Topic context: "${title}".`;
+export async function main(argv = process.argv.slice(2), env = process.env) {
+  const parsed = parseHeroArgs(argv);
+  if (!parsed.ok) {
+    console.error(parsed.error);
+    return 1;
+  }
+  const auth = resolveTogetherApiKey(env);
+  if (!auth.ok) {
+    console.error(auth.error);
+    return 1;
+  }
+  try {
+    await generateImage(buildPrompt(parsed.title), parsed.outputPath, {
+      apiKey: auth.key,
+    });
+  } catch (err) {
+    console.error(err instanceof Error ? err.message : String(err));
+    return 1;
+  }
+  return 0;
 }
 
-// Main
-const args = process.argv.slice(2);
-if (args.length < 2) {
-  console.error("Usage: node scripts/generate-hero.mjs \"Post Title\" \"blog/filename-hero.png\"");
-  process.exit(1);
+const invokedDirectly =
+  Boolean(process.argv[1]) &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (invokedDirectly) {
+  process.exit(await main());
 }
-
-const title = args[0];
-const filename = args[1];
-const outputPath = `${IMAGE_DIR}/${filename}`;
-const prompt = buildPrompt(title);
-
-await generateImage(prompt, outputPath);
