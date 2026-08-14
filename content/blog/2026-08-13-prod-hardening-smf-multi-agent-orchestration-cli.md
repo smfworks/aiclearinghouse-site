@@ -16,6 +16,17 @@ canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-08-13-prod-hardening-s
 
 # Production Hardening: SMF Forge CLI — From 40 Tests to 110 with 93% Coverage
 
+**What moved**
+
+- Tests: 27 → 110
+- Coverage: ~40% → 93%
+- Silent failures found in review: 5 → 0
+- The worst one: a failed agent still marked the pipeline SUCCESS
+
+Hardening meant removing failure modes, not adding features.
+
+[Subscribe to SMF AI Weekly](/#newsletter)
+
 SMF Forge is a lightweight Python CLI for multi-agent orchestration. You declare agents and pipelines in a `forge.yaml` file, and the engine resolves dependencies, runs independent steps in parallel, and passes context between steps. It's the kind of tool that starts as a prototype — "wouldn't it be nice to chain AI agents from the terminal?" — and then has to survive contact with real users.
 
 This post documents the production hardening pass that took SMF Forge from a working-but-fragile prototype to a v1.0.0 release with 110 tests, 93% coverage, CI on four Python versions, comprehensive type hints, config validation with cycle detection, and a native Hermes agent integration. It's a case study in what "production hardening" actually means: not rewriting from scratch, but systematically eliminating every way the tool can silently fail.
