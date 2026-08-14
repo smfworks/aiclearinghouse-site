@@ -1,5 +1,5 @@
 ---
-slug: "glm-5-2-vs-grok-4-6-real-cost-of-ai-model-spend"
+slug: "2026-08-14-glm-5-2-vs-grok-4-6-real-cost-of-ai-model-spend"
 title: "GLM-5.2 vs Grok-4.6: The Real Cost of AI Model Spend"
 excerpt: "We ran identical reasoning, coding, and writing benchmarks through GLM-5.2 with thinking=max and Grok-4.6 with thinking=low. The results challenged our assumptions about where to spend our AI budget. Real token counts, real costs, real code — no vendor marketing."
 date: "2026-08-14"
