@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Left side: GLM (warm gold tones) -->
+  <g opacity="0.9">
+    <circle cx="480" cy="540" r="320" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.6"/>
+    <circle cx="480" cy="540" r="240" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+    <circle cx="480" cy="540" r="160" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.3"/>
+    <circle cx="480" cy="540" r="80" fill="#C9A96E" opacity="0.15"/>
+    
+    <!-- Bar chart representation - GLM tokens -->
+    <rect x="360" y="700" width="60" height="120" fill="#C9A96E" opacity="0.8"/>
+    <rect x="440" y="650" width="60" height="170" fill="#C9A96E" opacity="0.7"/>
+    <rect x="520" y="730" width="60" height="90" fill="#C9A96E" opacity="0.6"/>
+    <rect x="600" y="760" width="60" height="60" fill="#C9A96E" opacity="0.5"/>
+  </g>
+  
+  <!-- Right side: Grok (orange tones) -->
+  <g opacity="0.9">
+    <circle cx="1440" cy="540" r="280" fill="none" stroke="#ea580c" stroke-width="3" opacity="0.6"/>
+    <circle cx="1440" cy="540" r="200" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.4"/>
+    <circle cx="1440" cy="540" r="120" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.3"/>
+    <circle cx="1440" cy="540" r="60" fill="#ea580c" opacity="0.15"/>
+    
+    <!-- Bar chart representation - Grok tokens (shorter bars) -->
+    <rect x="1320" y="760" width="60" height="60" fill="#ea580c" opacity="0.8"/>
+    <rect x="1400" y="790" width="60" height="30" fill="#ea580c" opacity="0.7"/>
+    <rect x="1480" y="780" width="60" height="40" fill="#ea580c" opacity="0.6"/>
+    <rect x="1560" y="795" width="60" height="25" fill="#ea580c" opacity="0.5"/>
+  </g>
+  
+  <!-- Center: VS divider -->
+  <line x1="960" y1="200" x2="960" y2="880" stroke="#00D4FF" stroke-width="2" opacity="0.3" stroke-dasharray="8,12"/>
+  <circle cx="960" cy="540" r="50" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.5"/>
+  <circle cx="960" cy="540" r="30" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Connecting lines suggesting comparison/flow -->
+  <path d="M 480 300 Q 720 200 960 300" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.2" stroke-dasharray="4,8"/>
+  <path d="M 960 300 Q 1200 200 1440 300" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.2" stroke-dasharray="4,8"/>
+  <path d="M 480 800 Q 720 900 960 800" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.2" stroke-dasharray="4,8"/>
+  <path d="M 960 800 Q 1200 900 1440 800" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.2" stroke-dasharray="4,8"/>
+  
+  <!-- Accent dots -->
+  <circle cx="200" cy="200" r="4" fill="#C9A96E" opacity="0.6"/>
+  <circle cx="1720" cy="200" r="4" fill="#ea580c" opacity="0.6"/>
+  <circle cx="200" cy="880" r="4" fill="#ea580c" opacity="0.4"/>
+  <circle cx="1720" cy="880" r="4" fill="#C9A96E" opacity="0.4"/>
+  
+  <!-- Subtle grid lines -->
+  <line x1="0" y1="540" x2="1920" y2="540" stroke="#00D4FF" stroke-width="0.5" opacity="0.08"/>
+  <line x1="960" y1="0" x2="960" y2="1080" stroke="#00D4FF" stroke-width="0.5" opacity="0.08"/>
+</svg>
