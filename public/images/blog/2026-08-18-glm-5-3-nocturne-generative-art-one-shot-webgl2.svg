@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Abstract flowing particle streams (left) -->
+  <g opacity="0.6">
+    <path d="M 200 200 Q 400 300 350 500 T 300 800" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.3"/>
+    <path d="M 250 180 Q 450 280 400 480 T 350 780" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.2"/>
+    <path d="M 300 220 Q 500 320 450 520 T 400 820" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.2"/>
+    
+    <!-- Particle dots along the flow -->
+    <circle cx="200" cy="200" r="2.5" fill="#00D4FF" opacity="0.7"/>
+    <circle cx="280" cy="260" r="2" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="350" cy="350" r="3" fill="#00D4FF" opacity="0.6"/>
+    <circle cx="370" cy="450" r="2" fill="#C9A96E" opacity="0.4"/>
+    <circle cx="340" cy="550" r="2.5" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="310" cy="680" r="2" fill="#ea580c" opacity="0.4"/>
+    <circle cx="300" cy="780" r="1.5" fill="#00D4FF" opacity="0.3"/>
+  </g>
+  
+  <!-- Fluid simulation swirl (center-right) -->
+  <g opacity="0.5">
+    <circle cx="1200" cy="540" r="120" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.2"/>
+    <circle cx="1200" cy="540" r="90" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.15"/>
+    <circle cx="1200" cy="540" r="60" fill="none" stroke="#ea580c" stroke-width="1" opacity="0.2"/>
+    <circle cx="1200" cy="540" r="30" fill="#00D4FF" opacity="0.05"/>
+    
+    <!-- Ink drop trails -->
+    <path d="M 1080 400 Q 1140 460 1200 520 Q 1260 580 1300 660" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.3"/>
+    <path d="M 1100 600 Q 1160 540 1220 500 Q 1280 460 1320 440" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.2"/>
+    <path d="M 1060 500 Q 1120 520 1180 500 Q 1240 480 1300 520" fill="none" stroke="#C9A96E" stroke-width="1" opacity="0.15"/>
+  </g>
+  
+  <!-- 3D geometry wireframe (right) -->
+  <g opacity="0.4" transform="translate(1550, 400)">
+    <polygon points="0,-80 70,-25 43,65 -43,65 -70,-25" fill="none" stroke="#00D4FF" stroke-width="1.5" opacity="0.5"/>
+    <polygon points="0,-60 52,-18 32,48 -32,48 -52,-18" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
+    <polygon points="0,-40 35,-12 22,32 -22,32 -35,-12" fill="none" stroke="#ea580c" stroke-width="1" opacity="0.2"/>
+    <line x1="0" y1="-80" x2="0" y2="65" stroke="#00D4FF" stroke-width="0.5" opacity="0.15"/>
+    <line x1="-70" y1="-25" x2="43" y2="65" stroke="#00D4FF" stroke-width="0.5" opacity="0.1"/>
+    <line x1="70" y1="-25" x2="-43" y2="65" stroke="#00D4FF" stroke-width="0.5" opacity="0.1"/>
+  </g>
+  
+  <!-- UI hint elements -->
+  <g opacity="0.15">
+    <rect x="60" y="60" width="6" height="40" rx="3" fill="#00D4FF"/>
+    <rect x="60" y="110" width="6" height="20" rx="3" fill="#ea580c"/>
+    <rect x="60" y="140" width="6" height="30" rx="3" fill="#C9A96E"/>
+    <rect x="60" y="180" width="6" height="15" rx="3" fill="#00D4FF"/>
+  </g>
+  
+  <!-- Starfield dots -->
+  <g opacity="0.3">
+    <circle cx="100" cy="100" r="1" fill="#00D4FF"/>
+    <circle cx="500" cy="120" r="1" fill="#C9A96E"/>
+    <circle cx="800" cy="80" r="1.5" fill="#00D4FF"/>
+    <circle cx="1700" cy="100" r="1" fill="#ea580c"/>
+    <circle cx="100" cy="950" r="1" fill="#C9A96E"/>
+    <circle cx="700" cy="950" r="1.5" fill="#00D4FF"/>
+    <circle cx="1400" cy="950" r="1" fill="#ea580c"/>
+    <circle cx="1800" cy="900" r="1" fill="#00D4FF"/>
+  </g>
+  
+  <!-- Accent dots -->
+  <circle cx="200" cy="200" r="3" fill="#00D4FF" opacity="0.4"/>
+  <circle cx="1700" cy="200" r="3" fill="#ea580c" opacity="0.4"/>
+  <circle cx="200" cy="880" r="3" fill="#C9A96E" opacity="0.3"/>
+  <circle cx="1700" cy="880" r="3" fill="#00D4FF" opacity="0.3"/>
+</svg>
