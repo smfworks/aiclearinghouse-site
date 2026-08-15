@@ -18,7 +18,7 @@ Following our [one-shot game build](/blog/2026-08-18-glm-5-3-one-shot-game-build
 
 The result is Nocturne — Generative Atelier: a 56KB single-file WebGL2 application with 48 functions, GLSL shaders, framebuffer ping-pong rendering, and four fully interactive visual modes. One prompt. Zero iteration.
 
-**[Try the live demo →](/demos/glm-5.3-nocturne-atelier.html)**
+**[Try the live demo →](/demos/glm-5.3-nocturne-atelier/)**
 
 ## The Prompt
 
@@ -135,7 +135,7 @@ We loaded the HTML in a headless Chromium browser:
 
 WebGL2 is not available in headless Chromium on our test machine (no GPU), so we could not capture rendered screenshots. The WebGL2 code is architecturally correct — context creation, shader compilation, FBO setup, and the rendering pipeline are all properly implemented. On a machine with WebGL2 support (any modern browser with GPU acceleration), the application will render.
 
-**[Try the live demo →](/demos/glm-5.3-nocturne-atelier.html)** (requires a browser with WebGL2 support)
+**[Try the live demo →](/demos/glm-5.3-nocturne-atelier/)** (requires a browser with WebGL2 support)
 
 ## The Honest Assessment
 
