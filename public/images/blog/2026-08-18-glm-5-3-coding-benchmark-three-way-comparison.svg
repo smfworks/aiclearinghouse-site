@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Three columns: GLM-5.3 (left), V4-Pro (center), GLM-5.2 (right) -->
+  
+  <!-- GLM-5.3: Cyan/blue — 6/6 -->
+  <g opacity="0.9">
+    <circle cx="360" cy="480" r="240" fill="none" stroke="#00D4FF" stroke-width="3" opacity="0.6"/>
+    <circle cx="360" cy="480" r="160" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.4"/>
+    <circle cx="360" cy="480" r="80" fill="#00D4FF" opacity="0.12"/>
+    <g opacity="0.8">
+      <rect x="270" y="740" width="25" height="25" rx="3" fill="#00D4FF"/>
+      <rect x="305" y="740" width="25" height="25" rx="3" fill="#00D4FF"/>
+      <rect x="340" y="740" width="25" height="25" rx="3" fill="#00D4FF"/>
+      <rect x="375" y="740" width="25" height="25" rx="3" fill="#00D4FF"/>
+      <rect x="410" y="740" width="25" height="25" rx="3" fill="#00D4FF"/>
+      <rect x="445" y="740" width="25" height="25" rx="3" fill="#00D4FF"/>
+    </g>
+  </g>
+  
+  <!-- V4-Pro: Orange — 6/6 -->
+  <g opacity="0.9">
+    <circle cx="960" cy="480" r="240" fill="none" stroke="#ea580c" stroke-width="3" opacity="0.6"/>
+    <circle cx="960" cy="480" r="160" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.4"/>
+    <circle cx="960" cy="480" r="80" fill="#ea580c" opacity="0.12"/>
+    <g opacity="0.8">
+      <rect x="870" y="740" width="25" height="25" rx="3" fill="#ea580c"/>
+      <rect x="905" y="740" width="25" height="25" rx="3" fill="#ea580c"/>
+      <rect x="940" y="740" width="25" height="25" rx="3" fill="#ea580c"/>
+      <rect x="975" y="740" width="25" height="25" rx="3" fill="#ea580c"/>
+      <rect x="1010" y="740" width="25" height="25" rx="3" fill="#ea580c"/>
+      <rect x="1045" y="740" width="25" height="25" rx="3" fill="#ea580c"/>
+    </g>
+  </g>
+  
+  <!-- GLM-5.2: Gold — 4/6 -->
+  <g opacity="0.9">
+    <circle cx="1560" cy="480" r="220" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.6"/>
+    <circle cx="1560" cy="480" r="140" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+    <circle cx="1560" cy="480" r="70" fill="#C9A96E" opacity="0.12"/>
+    <g opacity="0.8">
+      <rect x="1470" y="740" width="25" height="25" rx="3" fill="#C9A96E"/>
+      <rect x="1505" y="740" width="25" height="25" rx="3" fill="#C9A96E"/>
+      <rect x="1540" y="740" width="25" height="25" rx="3" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.5"/>
+      <rect x="1575" y="740" width="25" height="25" rx="3" fill="#C9A96E"/>
+      <rect x="1610" y="740" width="25" height="25" rx="3" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.5"/>
+      <rect x="1645" y="740" width="25" height="25" rx="3" fill="#C9A96E"/>
+    </g>
+  </g>
+  
+  <!-- Connecting lines -->
+  <path d="M 360 280 L 960 280" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.15" stroke-dasharray="4,8"/>
+  <path d="M 960 280 L 1560 280" fill="none" stroke="#ea580c" stroke-width="1" opacity="0.15" stroke-dasharray="4,8"/>
+  <path d="M 360 680 L 960 680" fill="none" stroke="#00D4FF" stroke-width="1" opacity="0.15" stroke-dasharray="4,8"/>
+  <path d="M 960 680 L 1560 680" fill="none" stroke="#ea580c" stroke-width="1" opacity="0.15" stroke-dasharray="4,8"/>
+  
+  <!-- Accent dots -->
+  <circle cx="200" cy="200" r="4" fill="#00D4FF" opacity="0.5"/>
+  <circle cx="960" cy="200" r="4" fill="#ea580c" opacity="0.5"/>
+  <circle cx="1720" cy="200" r="4" fill="#C9A96E" opacity="0.5"/>
+  
+  <!-- Grid -->
+  <line x1="0" y1="480" x2="1920" y2="480" stroke="#ea580c" stroke-width="0.5" opacity="0.05"/>
+</svg>
