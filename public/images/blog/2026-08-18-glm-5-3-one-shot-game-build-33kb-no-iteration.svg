@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Starfield -->
+  <g opacity="0.8">
+    <circle cx="150" cy="120" r="1.5" fill="#00D4FF" opacity="0.6"/>
+    <circle cx="380" cy="80" r="1" fill="#C9A96E" opacity="0.4"/>
+    <circle cx="620" cy="180" r="2" fill="#00D4FF" opacity="0.8"/>
+    <circle cx="850" cy="60" r="1" fill="#ea580c" opacity="0.5"/>
+    <circle cx="1100" cy="140" r="1.5" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="1350" cy="90" r="1" fill="#C9A96E" opacity="0.3"/>
+    <circle cx="1600" cy="160" r="2" fill="#00D4FF" opacity="0.7"/>
+    <circle cx="1800" cy="100" r="1" fill="#ea580c" opacity="0.4"/>
+    <circle cx="240" cy="950" r="1.5" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="580" cy="920" r="1" fill="#C9A96E" opacity="0.4"/>
+    <circle cx="900" cy="980" r="2" fill="#00D4FF" opacity="0.6"/>
+    <circle cx="1250" cy="940" r="1" fill="#ea580c" opacity="0.3"/>
+    <circle cx="1550" cy="960" r="1.5" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="1750" cy="930" r="1" fill="#C9A96E" opacity="0.4"/>
+  </g>
+  
+  <!-- Central glow (game core) -->
+  <circle cx="960" cy="540" r="200" fill="#00D4FF" opacity="0.04"/>
+  <circle cx="960" cy="540" r="120" fill="#00D4FF" opacity="0.06"/>
+  <circle cx="960" cy="540" r="60" fill="#00D4FF" opacity="0.08"/>
+  
+  <!-- Ship (triangle) -->
+  <g transform="translate(720, 420) rotate(25)">
+    <path d="M 0,-20 L 15,15 L 0,8 L -15,15 Z" fill="none" stroke="#00D4FF" stroke-width="2.5" opacity="0.7" stroke-linejoin="round"/>
+    <circle cx="0" cy="0" r="3" fill="#00D4FF" opacity="0.5"/>
+  </g>
+  
+  <!-- Particle trail -->
+  <g opacity="0.5">
+    <circle cx="740" cy="440" r="3" fill="#00D4FF"/>
+    <circle cx="760" cy="460" r="2.5" fill="#ea580c" opacity="0.7"/>
+    <circle cx="780" cy="480" r="2" fill="#C9A96E" opacity="0.5"/>
+    <circle cx="800" cy="500" r="1.5" fill="#00D4FF" opacity="0.3"/>
+  </g>
+  
+  <!-- Asteroids -->
+  <g opacity="0.6">
+    <circle cx="1400" cy="350" r="28" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.5"/>
+    <circle cx="1400" cy="350" r="22" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.3"/>
+    <circle cx="1400" cy="350" r="14" fill="#ea580c" opacity="0.08"/>
+    
+    <circle cx="1180" cy="720" r="22" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.5"/>
+    <circle cx="1180" cy="720" r="16" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+    <circle cx="1180" cy="720" r="10" fill="#C9A96E" opacity="0.08"/>
+  </g>
+  
+  <!-- Projectile -->
+  <g opacity="0.8">
+    <line x1="750" y1="420" x2="900" y2="350" stroke="#00D4FF" stroke-width="2" opacity="0.6"/>
+    <circle cx="900" cy="350" r="4" fill="#00D4FF" opacity="0.8"/>
+    <circle cx="900" cy="350" r="8" fill="#00D4FF" opacity="0.2"/>
+  </g>
+  
+  <!-- Explosion burst -->
+  <g opacity="0.5">
+    <circle cx="1380" cy="340" r="8" fill="#ea580c" opacity="0.4"/>
+    <circle cx="1420" cy="360" r="6" fill="#ea580c" opacity="0.3"/>
+    <circle cx="1390" cy="380" r="4" fill="#C9A96E" opacity="0.4"/>
+    <circle cx="1410" cy="330" r="5" fill="#ea580c" opacity="0.2"/>
+  </g>
+  
+  <!-- HUD elements (abstract) -->
+  <rect x="60" y="60" width="180" height="6" rx="3" fill="#00D4FF" opacity="0.3"/>
+  <rect x="60" y="60" width="120" height="6" rx="3" fill="#00D4FF" opacity="0.6"/>
+  
+  <rect x="60" y="80" width="140" height="4" rx="2" fill="#C9A96E" opacity="0.25"/>
+  <rect x="60" y="80" width="100" height="4" rx="2" fill="#C9A96E" opacity="0.5"/>
+  
+  <!-- Stats overlay -->
+  <g opacity="0.15">
+    <rect x="60" y="980" width="120" height="2" fill="#00D4FF"/>
+    <rect x="200" y="980" width="80" height="2" fill="#ea580c"/>
+    <rect x="300" y="980" width="100" height="2" fill="#C9A96E"/>
+  </g>
+  
+  <!-- Accent dots -->
+  <circle cx="200" cy="200" r="3" fill="#00D4FF" opacity="0.4"/>
+  <circle cx="1720" cy="200" r="3" fill="#ea580c" opacity="0.4"/>
+  <circle cx="200" cy="880" r="3" fill="#C9A96E" opacity="0.3"/>
+  <circle cx="1720" cy="880" r="3" fill="#00D4FF" opacity="0.3"/>
+</svg>
