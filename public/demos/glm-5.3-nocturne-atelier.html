@@ -1039,14 +1039,17 @@ function create2DRenderer(){
    ============================================================ */
 const cap=glFloatCapable();
 let R=null;
-try{ R = cap ? createGLRenderer() : null; }catch(e){ console.warn('GL renderer failed:',e); R=null; }
-if(!R){
-  try{ R = create2DRenderer(); }catch(e){ console.warn('2D renderer failed:',e); }
+let useGL=false;
+try{ R=create2DRenderer(); }catch(e){ console.warn('2D renderer failed:',e); }
+if(cap && R){
+  setTimeout(()=>{
+    try{
+      var glR=createGLRenderer();
+      if(glR){ glR.setPalette(); glR.setMode(modeIdx||0); R=glR; useGL=true; }
+    }catch(e){}
+  },1000);
 }
-if(R){
-  R.setPalette();
-  R.setMode(modeIdx);
-}
+if(R){ R.setPalette(); R.setMode(modeIdx||0); }
 
 /* ---------- pointer ---------- */
 let lastPX=0,lastPY=0;
