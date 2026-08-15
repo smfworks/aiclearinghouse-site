@@ -401,7 +401,7 @@ class Body {
       const mRatio = (this.massKg||0)/MSUN;
       const Ty = Math.pow(this.a,1.5)/Math.sqrt(1+mRatio);
       this.Tdays = Ty*365.256;
-      this.n = TAU/this.Tdays;                 // mean motion, rad/day
+      this.nMotion = TAU/this.Tdays;                 // mean motion, rad/day
       this.M0 = mod2pi(this.M0deg*D2R);
       this.basis = orbitalBasis(this.Om, this.i, this.w);
       this.b = this.aVis*Math.sqrt(1-this.e*this.e);
@@ -425,7 +425,7 @@ class Body {
     /* Mean anomaly -> eccentric anomaly -> perifocal coordinates:
        x' = a(cosE - e),  y' = b sinE,  r = a(1 - e cosE).
        Vis-viva for the live speed: v = 29.78*sqrt(2/r - 1/a) km/s. */
-    const M = mod2pi(this.M0 + this.n*tDays);
+    const M = mod2pi(this.M0 + this.nMotion*tDays);
     const E = solveKepler(M, this.e);
     const cE=Math.cos(E), sE=Math.sin(E);
     const xp=this.aVis*(cE-this.e), yp=this.b*sE;
