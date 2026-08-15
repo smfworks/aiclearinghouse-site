@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Sun (center) -->
+  <circle cx="960" cy="540" r="50" fill="#ea580c" opacity="0.15"/>
+  <circle cx="960" cy="540" r="35" fill="#ea580c" opacity="0.25"/>
+  <circle cx="960" cy="540" r="20" fill="#ea580c" opacity="0.5"/>
+  <circle cx="960" cy="540" r="10" fill="#C9A96E"/>
+  
+  <!-- Orbital paths -->
+  <ellipse cx="960" cy="540" rx="120" ry="80" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.2"/>
+  <ellipse cx="960" cy="540" rx="180" ry="120" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.15"/>
+  <ellipse cx="960" cy="540" rx="250" ry="165" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.12"/>
+  <ellipse cx="960" cy="540" rx="320" ry="210" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.1"/>
+  <ellipse cx="960" cy="540" rx="400" ry="260" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.08"/>
+  <ellipse cx="960" cy="540" rx="500" ry="320" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.06"/>
+  <ellipse cx="960" cy="540" rx="600" ry="380" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.05"/>
+  <ellipse cx="960" cy="540" rx="720" ry="450" fill="none" stroke="#00D4FF" stroke-width="0.5" opacity="0.04"/>
+  
+  <!-- Planets (at various positions on orbits) -->
+  <circle cx="1080" cy="510" r="3" fill="#C9A96E" opacity="0.7"/>
+  <circle cx="1140" cy="560" r="5" fill="#00D4FF" opacity="0.5"/>
+  <circle cx="1060" cy="580" r="4" fill="#00D4FF" opacity="0.4"/>
+  <circle cx="1280" cy="490" r="5" fill="#ea580c" opacity="0.6"/>
+  <circle cx="720" cy="620" r="8" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="560" cy="480" r="7" fill="#00D4FF" opacity="0.4"/>
+  <circle cx="1360" cy="620" r="6" fill="#00D4FF" opacity="0.35"/>
+  <circle cx="400" cy="500" r="5" fill="#C9A96E" opacity="0.3"/>
+  
+  <!-- Asteroid belt -->
+  <g opacity="0.15">
+    <circle cx="1050" cy="520" r="1" fill="#C9A96E"/>
+    <circle cx="1020" cy="560" r="1" fill="#C9A96E"/>
+    <circle cx="1100" cy="500" r="1" fill="#C9A96E"/>
+    <circle cx="980" cy="600" r="1" fill="#C9A96E"/>
+    <circle cx="1150" cy="530" r="1" fill="#C9A96E"/>
+    <circle cx="1000" cy="620" r="1" fill="#C9A96E"/>
+    <circle cx="1120" cy="570" r="1" fill="#C9A96E"/>
+    <circle cx="1060" cy="500" r="1" fill="#C9A96E"/>
+  </g>
+  
+  <!-- Starfield -->
+  <g opacity="0.3">
+    <circle cx="100" cy="100" r="1" fill="#00D4FF"/>
+    <circle cx="300" cy="200" r="1.5" fill="#C9A96E" opacity="0.5"/>
+    <circle cx="1700" cy="150" r="1" fill="#ea580c" opacity="0.4"/>
+    <circle cx="150" cy="900" r="1" fill="#00D4FF"/>
+    <circle cx="1800" cy="950" r="1.5" fill="#C9A96E" opacity="0.3"/>
+    <circle cx="1600" cy="250" r="1" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="250" cy="850" r="1" fill="#ea580c" opacity="0.3"/>
+  </g>
+  
+  <!-- UI hint elements -->
+  <g opacity="0.1">
+    <rect x="60" y="60" width="4" height="30" rx="2" fill="#00D4FF"/>
+    <rect x="60" y="100" width="4" height="20" rx="2" fill="#ea580c"/>
+    <rect x="60" y="130" width="4" height="15" rx="2" fill="#C9A96E"/>
+  </g>
+</svg>
