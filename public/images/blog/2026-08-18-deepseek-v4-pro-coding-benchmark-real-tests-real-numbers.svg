@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Left: DeepSeek V4-Pro (blue tones) -->
+  <g opacity="0.9">
+    <circle cx="480" cy="480" r="300" fill="none" stroke="#00D4FF" stroke-width="3" opacity="0.6"/>
+    <circle cx="480" cy="480" r="220" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.4"/>
+    <circle cx="480" cy="480" r="140" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.3"/>
+    <circle cx="480" cy="480" r="60" fill="#00D4FF" opacity="0.12"/>
+    
+    <!-- Code bracket motif -->
+    <path d="M 440 420 L 410 480 L 440 540" fill="none" stroke="#00D4FF" stroke-width="4" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 520 420 L 550 480 L 520 540" fill="none" stroke="#00D4FF" stroke-width="4" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Pass indicators (6/6) -->
+    <g opacity="0.7">
+      <rect x="360" y="740" width="30" height="30" rx="4" fill="#00D4FF" opacity="0.8"/>
+      <rect x="400" y="740" width="30" height="30" rx="4" fill="#00D4FF" opacity="0.8"/>
+      <rect x="440" y="740" width="30" height="30" rx="4" fill="#00D4FF" opacity="0.8"/>
+      <rect x="480" y="740" width="30" height="30" rx="4" fill="#00D4FF" opacity="0.8"/>
+      <rect x="520" y="740" width="30" height="30" rx="4" fill="#00D4FF" opacity="0.8"/>
+      <rect x="560" y="740" width="30" height="30" rx="4" fill="#00D4FF" opacity="0.8"/>
+    </g>
+  </g>
+  
+  <!-- Right: GLM-5.2 (gold tones) -->
+  <g opacity="0.9">
+    <circle cx="1440" cy="480" r="280" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.6"/>
+    <circle cx="1440" cy="480" r="200" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+    <circle cx="1440" cy="480" r="120" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.3"/>
+    <circle cx="1440" cy="480" r="50" fill="#C9A96E" opacity="0.12"/>
+    
+    <!-- Code bracket motif -->
+    <path d="M 1400 420 L 1370 480 L 1400 540" fill="none" stroke="#C9A96E" stroke-width="4" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 1480 420 L 1510 480 L 1480 540" fill="none" stroke="#C9A96E" stroke-width="4" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Pass indicators (4/6) -->
+    <g opacity="0.7">
+      <rect x="1320" y="740" width="30" height="30" rx="4" fill="#C9A96E" opacity="0.8"/>
+      <rect x="1360" y="740" width="30" height="30" rx="4" fill="#C9A96E" opacity="0.8"/>
+      <rect x="1400" y="740" width="30" height="30" rx="4" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.5"/>
+      <rect x="1440" y="740" width="30" height="30" rx="4" fill="#C9A96E" opacity="0.8"/>
+      <rect x="1480" y="740" width="30" height="30" rx="4" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.5"/>
+      <rect x="1520" y="740" width="30" height="30" rx="4" fill="#C9A96E" opacity="0.8"/>
+    </g>
+  </g>
+  
+  <!-- Center divider -->
+  <line x1="960" y1="200" x2="960" y2="880" stroke="#ea580c" stroke-width="2" opacity="0.25" stroke-dasharray="8,12"/>
+  <circle cx="960" cy="480" r="45" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.4"/>
+  <circle cx="960" cy="480" r="25" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.3"/>
+  
+  <!-- Connecting flow lines -->
+  <path d="M 480 280 Q 720 180 960 280" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.15" stroke-dasharray="4,8"/>
+  <path d="M 960 280 Q 1200 180 1440 280" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.15" stroke-dasharray="4,8"/>
+  <path d="M 480 680 Q 720 780 960 680" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.15" stroke-dasharray="4,8"/>
+  <path d="M 960 680 Q 1200 780 1440 680" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.15" stroke-dasharray="4,8"/>
+  
+  <!-- Accent dots -->
+  <circle cx="200" cy="200" r="4" fill="#00D4FF" opacity="0.5"/>
+  <circle cx="1720" cy="200" r="4" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="200" cy="880" r="4" fill="#C9A96E" opacity="0.3"/>
+  <circle cx="1720" cy="880" r="4" fill="#00D4FF" opacity="0.3"/>
+  
+  <!-- Subtle grid -->
+  <line x1="0" y1="480" x2="1920" y2="480" stroke="#ea580c" stroke-width="0.5" opacity="0.06"/>
+  <line x1="960" y1="0" x2="960" y2="1080" stroke="#ea580c" stroke-width="0.5" opacity="0.06"/>
+</svg>
