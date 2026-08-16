@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SMF Works is a human–AI research lab. Where intelligence meets judgment, craft, and care.">
+<meta name="theme-color" content="#0b0b0d">
+<title>SMF Works — Human·AI Research Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ FOUNDATION ============ */
+:root{
+  --ink:#0b0b0d; --ink-2:#101014; --panel:#141519;
+  --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.18);
+  --text:#ddd9d0; --text-2:#a8a49b; --text-3:#86837c;
+  --ember:#ff7a2f; --ember-hi:#ff9a56; --cyan:#5bd6dd; --steel:#8ea6bf;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Space Grotesk','Helvetica Neue',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --max:1240px; --nav-h:72px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 1.5rem)}
+body{background:var(--ink);color:var(--text-2);font:300 1rem/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.locked{overflow:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--ember);color:#160a03}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip-link{position:fixed;top:-100px;left:1rem;z-index:300;background:var(--ember);color:#160a03;padding:.75rem 1.25rem;font:500 .75rem var(--mono);letter-spacing:.1em;text-decoration:none;transition:top .3s}
+.skip-link:focus{top:1rem}
+
+/* film grain — materiality */
+.grain{position:fixed;inset:0;z-index:150;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.55'/></svg>")}
+
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:220;pointer-events:none}
+#bar{height:100%;background:var(--ember);transform-origin:0 50%;transform:scaleX(0)}
+
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,2.5rem)}
+
+/* ============ NAV ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .45s,border-color .45s,backdrop-filter .45s}
+.nav.scrolled{background:rgba(11,11,13,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);transition:height .4s}
+.nav.scrolled .nav-inner{height:60px}
+.brand{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+.brand .mark{fill:var(--ember);width:30px;flex:none}
+.brand-name{font:600 1.15rem var(--serif);color:var(--text);letter-spacing:.01em}
+.brand-name em{font-style:italic;font-weight:500}
+.nav-right{display:flex;align-items:center;gap:2.2rem}
+.nav-links{display:flex;gap:1.9rem;list-style:none}
+.nav-links a{font:500 .66rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);text-decoration:none;padding:.4rem 0;background:linear-gradient(var(--ember),var(--ember)) left bottom / 0% 1px no-repeat;transition:color .3s,background-size .35s}
+.nav-links a:hover{color:var(--text);background-size:100% 1px}
+.nav-cta{font:500 .64rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1px solid var(--line-strong);padding:.65rem 1.1rem;transition:border-color .3s,color .3s;border-radius:2px}
+.nav-cta:hover{border-color:var(--ember);color:var(--ember-hi)}
+.burger{display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:44px;height:44px;background:none;border:1px solid var(--line-strong);cursor:pointer;border-radius:2px}
+.burger span{width:18px;height:2px;background:var(--text);transition:transform .35s}
+.burger.active span:first-child{transform:translateY(4px) rotate(45deg)}
+.burger.active span:last-child{transform:translateY(-4px) rotate(-45deg)}
+@media(max-width:880px){.nav-links,.nav-cta{display:none}.burger{display:flex}.nav-right{gap:1rem}}
+
+/* mobile menu overlay */
+.menu{position:fixed;inset:0;z-index:90;background:rgba(9,9,11,.97);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);visibility:hidden;opacity:0;transition:opacity .45s,visibility .45s;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.5rem,7vw,4rem)}
+.menu.open{visibility:visible;opacity:1}
+.menu ol{list-style:none;display:grid;gap:.3rem;counter-reset:m}
+.menu ol li{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.menu.open ol li{opacity:1;transform:none}
+.menu.open ol li:nth-child(1){transition-delay:.08s}.menu.open ol li:nth-child(2){transition-delay:.14s}
+.menu.open ol li:nth-child(3){transition-delay:.2s}.menu.open ol li:nth-child(4){transition-delay:.26s}
+.menu.open ol li:nth-child(5){transition-delay:.32s}
+.menu a{display:flex;align-items:baseline;gap:1.2rem;font:500 clamp(1.9rem,7.5vw,2.7rem)/1.35 var(--serif);color:var(--text);text-decoration:none;padding:.3rem 0;transition:color .3s}
+.menu a:hover{color:var(--ember-hi)}
+.m-num{font:400 .62rem var(--mono);color:var(--ember);letter-spacing:.15em}
+.menu-foot{margin-top:3.2rem;font:400 .6rem/2.1 var(--mono);letter-spacing:.18em;color:var(--text-3);text-transform:uppercase}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--ink);cursor:crosshair}
+#forge{position:absolute;inset:0;width:100%;height:100%}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(180deg,rgba(11,11,13,.55) 0%,rgba(11,11,13,0) 26%,rgba(11,11,13,0) 55%,rgba(11,11,13,.88) 100%)}
+@media(max-width:700px){
+  .hero-scrim{background:linear-gradient(90deg,rgba(11,11,13,.7),rgba(11,11,13,.12) 75%),linear-gradient(180deg,rgba(11,11,13,.55),transparent 30%,rgba(11,11,13,.92))}
+}
+.hero-inner{position:relative;z-index:2;padding-top:calc(var(--nav-h) + 2rem);padding-bottom:7rem}
+.eyebrow{display:inline-flex;align-items:center;gap:.75rem;font:500 .64rem var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--text-2)}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px rgba(255,122,47,.9);animation:pulse 2.4s ease-in-out infinite}
+.hero-h{margin-top:1.7rem;font:500 clamp(3rem,8vw,6.4rem)/1.02 var(--serif);letter-spacing:-.015em;color:var(--text)}
+.hero-h .line{display:block}
+.hero-h em{font-style:italic;color:var(--ember)}
+.hero-lede{margin-top:1.9rem;max-width:56ch;font-size:clamp(1rem,1.35vw,1.15rem);line-height:1.75;font-weight:300}
+.cta-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.9rem}
+.btn{display:inline-flex;align-items:center;gap:.7rem;font:500 .72rem var(--mono);letter-spacing:.16em;text-transform:uppercase;padding:1.05rem 1.7rem;text-decoration:none;border-radius:2px;cursor:pointer;transition:transform .3s,background .3s,border-color .3s,color .3s;border:1px solid transparent}
+.btn-primary{background:var(--ember);color:#160a03;border-color:var(--ember)}
+.btn-primary:hover{background:var(--ember-hi);border-color:var(--ember-hi);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line-strong);color:var(--text);background:none}
+.btn-ghost:hover{border-color:var(--ember);color:var(--ember-hi);transform:translateY(-2px)}
+.hero-hint,.hero-side{position:absolute;bottom:2rem;z-index:2;font:400 .58rem var(--mono);letter-spacing:.22em;color:var(--text-3);transition:opacity 1.2s}
+.hero-hint{left:clamp(1.25rem,4vw,2.5rem)}
+.hero-hint.dim{opacity:.3}
+.hero-side{right:clamp(1.25rem,4vw,2.5rem)}
+@media(max-width:640px){.hero-side{display:none}}
+.scroll-cue{position:absolute;bottom:1.9rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.scroll-cue span{font:400 .55rem var(--mono);letter-spacing:.3em;color:var(--text-3)}
+.scroll-line{width:1px;height:46px;background:var(--line-strong);position:relative;overflow:hidden}
+.scroll-line::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:var(--ember);animation:drop 2.4s cubic-bezier(.7,0,.3,1) infinite}
+@keyframes drop{to{top:100%}}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* ============ SECTION SCAFFOLD ============ */
+section{padding:clamp(5rem,10vw,9rem) 0;position:relative}
+.kicker{font:500 .64rem var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--text-3)}
+.kicker b{color:var(--ember);font-weight:500}
+h2{font:500 clamp(2.1rem,4.6vw,3.5rem)/1.08 var(--serif);letter-spacing:-.01em;color:var(--text)}
+h2 em{font-style:italic;color:var(--ember)}
+.sec-head{display:grid;gap:1.4rem;margin-bottom:clamp(2.6rem,6vw,4.5rem)}
+.sec-head p{max-width:60ch}
+@media(min-width:880px){
+  .sec-head.split{grid-template-columns:1.1fr .9fr;align-items:end;gap:3rem}
+  .sec-head.split .sec-side{padding-bottom:.4rem}
+}
+.sec-count{font:400 .6rem var(--mono);letter-spacing:.22em;color:var(--text-3);margin-top:.9rem}
+.sec-count i{font-style:normal;color:var(--ember)}
+
+/* reveal */
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .95s cubic-bezier(.2,.6,.2,1) var(--d,0s),transform .95s cubic-bezier(.2,.6,.2,1) var(--d,0s)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ============ ECOSYSTEM — THE REGISTRY ============ */
+.index{list-style:none;border-top:1px solid var(--line)}
+.index li{border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:1.4rem;align-items:center;width:100%;text-align:left;padding:1.5rem 0;background:none;border:0;cursor:pointer;color:inherit;position:relative}
+.row::before{content:"";position:absolute;left:0;top:50%;width:2px;height:0;background:var(--ember);transform:translateY(-50%);transition:height .4s cubic-bezier(.3,.7,.2,1)}
+.row:hover::before,.row[aria-expanded="true"]::before{height:62%}
+.row-num{font:400 .68rem var(--mono);color:var(--text-3);letter-spacing:.1em;transition:color .3s;padding-left:.2rem}
+.row:hover .row-num,.row[aria-expanded="true"] .row-num{color:var(--ember)}
+.row-main{padding-left:.2rem;transition:padding-left .4s cubic-bezier(.3,.7,.2,1)}
+.row:hover .row-main{padding-left:.7rem}
+.row-name{display:block;font:500 clamp(1.35rem,3vw,1.8rem)/1.15 var(--serif);color:var(--text);transition:color .3s}
+.row:hover .row-name{color:var(--ember-hi)}
+.row-role{display:block;margin-top:.45rem;font:400 .6rem var(--mono);letter-spacing:.2em;color:var(--text-3);text-transform:uppercase}
+.plus{position:relative;width:14px;height:14px;flex:none;transition:transform .45s cubic-bezier(.3,.7,.2,1)}
+.plus::before,.plus::after{content:"";position:absolute;background:var(--text-3);transition:background .3s}
+.plus::before{left:0;top:6px;width:14px;height:2px}
+.plus::after{left:6px;top:0;width:2px;height:14px}
+.row[aria-expanded="true"] .plus{transform:rotate(45deg)}
+.row[aria-expanded="true"] .plus::before,.row[aria-expanded="true"] .plus::after{background:var(--ember)}
+
+/* shared expandable detail */
+.detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.3,.7,.2,1)}
+.detail.open{grid-template-rows:1fr}
+.detail-inner{overflow:hidden;min-height:0}
+.detail p{max-width:64ch;padding:0 0 1.7rem 0;color:var(--text-2)}
+.detail .text-link{margin-bottom:1.7rem}
+
+.text-link{display:inline-flex;align-items:center;gap:.65rem;font:500 .66rem var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--text);text-decoration:none;padding-bottom:.4rem;background:linear-gradient(var(--ember),var(--ember)) left bottom / 0% 1px no-repeat;transition:background-size .45s cubic-bezier(.3,.7,.2,1),color .3s}
+.text-link:hover{color:var(--ember-hi);background-size:100% 1px}
+.text-link svg{transition:transform .35s}
+.text-link:hover svg{transform:translateX(5px)}
+
+/* ============ FEATURED WORK ============ */
+.panel{border-top:1px solid var(--line);padding:clamp(3rem,7vw,5.5rem) 0;display:grid;gap:clamp(2.2rem,5vw,4.5rem);align-items:center;container-type:inline-size}
+@container (min-width:680px){.panel-art{justify-self:center}}
+@media(min-width:940px){.panel{grid-template-columns:1.08fr .92fr}.panel.flip .panel-art{order:-1}}
+.stage{font:500 .62rem var(--mono);letter-spacing:.24em;color:var(--ember);margin-bottom:1.3rem}
+.panel h3{font:500 clamp(2.1rem,4vw,3rem)/1.05 var(--serif);color:var(--text)}
+.panel-lede{margin-top:1.2rem;font:italic 500 clamp(1.2rem,2vw,1.45rem)/1.45 var(--serif);color:var(--text)}
+.panel-body{margin-top:1.3rem;max-width:58ch}
+.specs{list-style:none;margin-top:2.2rem;border-top:1px solid var(--line)}
+.specs li{display:flex;justify-content:space-between;gap:2rem;padding:.72rem 0;border-bottom:1px solid var(--line);font:400 .62rem var(--mono);letter-spacing:.12em;color:var(--text)}
+.specs span{color:var(--text-3)}
+.panel .text-link{margin-top:2rem}
+.panel-art svg{width:min(100%,380px);margin-inline:auto}
+.panel-art figcaption{margin-top:1.4rem;text-align:center;font:400 .58rem/1.9 var(--mono);letter-spacing:.24em;color:var(--text-3)}
+.panel-art figcaption b{color:var(--steel);font-weight:400}
+
+/* engraved sigils */
+.sig{fill:none;stroke-width:1.6;stroke-linecap:round}
+.s-e{stroke:var(--ember)}.s-s{stroke:var(--steel)}.s-c{stroke:var(--cyan)}
+.draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.25,.6,.2,1) .25s}
+.fade{opacity:0;transition:opacity 1.1s ease 1.05s}
+[data-reveal].in .draw{stroke-dashoffset:0}
+[data-reveal].in .fade{opacity:1}
+.ring{transform-box:fill-box;transform-origin:center;animation:spin 90s linear infinite}
+.ring.slow{animation-duration:160s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spark-dot{animation:pulse 2.6s ease-in-out infinite}
+
+/* ============ FIELD NOTES ============ */
+.notes-list{border-top:1px solid var(--line)}
+.note{border-bottom:1px solid var(--line)}
+.note-toggle{display:grid;gap:.75rem;width:100%;text-align:left;padding:1.5rem 0;background:none;border:0;color:inherit;cursor:pointer;align-items:start}
+@media(min-width:780px){.note-toggle{grid-template-columns:6.8rem minmax(0,1fr) auto;gap:1.8rem;align-items:baseline}}
+.note-date{font:400 .6rem var(--mono);letter-spacing:.16em;color:var(--text-3)}
+.note-tag{display:block;font:500 .58rem var(--mono);letter-spacing:.2em;color:var(--text-3);text-transform:uppercase;margin-bottom:.55rem}
+.note.lead .note-tag{color:var(--ember)}
+.note-title{display:block;font:500 clamp(1.25rem,2.6vw,1.55rem)/1.25 var(--serif);color:var(--text);transition:color .3s}
+.note.lead .note-title{font-size:clamp(1.55rem,3.4vw,2.1rem)}
+.note-toggle:hover .note-title{color:var(--ember-hi)}
+.note-dek{display:block;margin-top:.55rem;max-width:66ch;font-weight:300;font-size:.95rem}
+.note-ex{margin:0 0 1.6rem;padding:.3rem 0 .3rem 1.5rem;border-left:2px solid var(--ember);font:italic 400 1.08rem/1.65 var(--serif);color:var(--text);max-width:62ch}
+.note-sig{display:block;font:400 .58rem var(--mono);letter-spacing:.2em;color:var(--text-3);padding-bottom:1.7rem}
+.notes-foot{margin-top:2.6rem;display:flex;justify-content:flex-end}
+
+/* ============ THE FORGE ============ */
+.forge-grid{display:grid;gap:3.5rem}
+@media(min-width:960px){.forge-grid{grid-template-columns:1.05fr .95fr;gap:4.5rem;align-items:center}}
+.forge-text h2{margin-top:1.3rem}
+.forge-text>p{margin-top:1.6rem;max-width:60ch}
+.principles{list-style:none;margin-top:2.8rem;border-top:1px solid var(--line)}
+.principles li{display:grid;grid-template-columns:3.2rem 1fr;gap:1rem;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.p-num{font:400 .66rem var(--mono);color:var(--ember);padding-top:.2rem}
+.principles h4{font:500 .95rem var(--sans);color:var(--text)}
+.principles p{font-size:.88rem;margin-top:.25rem}
+.anvil-fig svg{width:min(100%,440px);margin-inline:auto}
+.anvil-fig figcaption{margin-top:1.6rem;text-align:center;font:400 .58rem/1.9 var(--mono);letter-spacing:.24em;color:var(--text-3)}
+.anvil-fig figcaption b{color:var(--ember);font-weight:400}
+
+.yeats{margin-top:clamp(4.5rem,9vw,7.5rem);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink-2);padding:clamp(5rem,9vw,8rem) 0;text-align:center}
+.yeats .rule{width:2.2rem;height:2px;background:var(--ember);margin:0 auto 2.4rem}
+.yeats .kicker{margin-bottom:2.4rem}
+.yeats blockquote p{font:italic 500 clamp(1.75rem,4.4vw,3rem)/1.3 var(--serif);color:var(--text);max-width:24ch;margin-inline:auto}
+.yeats cite{display:block;margin-top:2.4rem;font:400 .62rem var(--mono);letter-spacing:.24em;color:var(--text-3);font-style:normal;text-transform:uppercase}
+.yeats-answer{margin:2.8rem auto 0;max-width:48ch}
+
+/* ============ WEEKLY ============ */
+#weekly{text-align:center;overflow:hidden}
+#weekly::before{content:"";position:absolute;left:50%;bottom:-42%;transform:translateX(-50%);width:140%;height:88%;background:radial-gradient(closest-side,rgba(255,110,40,.07),transparent 72%);pointer-events:none}
+.weekly-inner{position:relative}
+.weekly-h{font-size:clamp(2.3rem,5.5vw,4.2rem)}
+.weekly-lede{margin:1.8rem auto 0;max-width:52ch}
+.sub-form{display:flex;flex-direction:column;gap:1rem;max-width:520px;margin:3rem auto 0}
+@media(min-width:560px){.sub-form{flex-direction:row}}
+.sub-form input{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--line-strong);color:var(--text);padding:1rem 1.2rem;font:400 .95rem var(--sans);border-radius:2px;transition:border-color .3s;min-width:0}
+.sub-form input::placeholder{color:var(--text-3)}
+.sub-form input:focus{outline:none;border-color:var(--cyan)}
+.sub-form.error input{border-color:var(--ember)}
+.sub-status{margin:1.3rem auto 0;min-height:1.3rem;font:500 .62rem var(--mono);letter-spacing:.18em;color:var(--ember-hi)}
+.sub-status.ok{color:var(--cyan)}
+.sub-status .big{display:block;margin-top:.9rem;font:italic 500 1.45rem var(--serif);color:var(--text);letter-spacing:0;text-transform:none}
+.fine{margin-top:2.6rem;font:400 .58rem var(--mono);letter-spacing:.2em;color:var(--text-3)}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);padding:3.5rem 0 2.4rem}
+.foot-grid{display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:space-between;align-items:flex-start}
+.foot-brand .mark{fill:var(--ember);width:34px;margin-bottom:1rem}
+.foot-name{font:600 1.3rem var(--serif);color:var(--text)}
+.foot-name em{font-style:italic;font-weight:500}
+.foot-tag{margin-top:.5rem;font:400 .56rem var(--mono);letter-spacing:.2em;color:var(--text-3);text-transform:uppercase}
+.foot-nav{display:flex;gap:1.8rem;flex-wrap:wrap}
+.foot-nav a{font:400 .62rem var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);text-decoration:none;transition:color .3s}
+.foot-nav a:hover{color:var(--text)}
+.foot-base{margin-top:2.8rem;padding-top:1.7rem;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:baseline;font:400 .58rem var(--mono);letter-spacing:.14em;color:var(--text-3);text-transform:uppercase}
+.foot-base em{font:italic 500 .95rem var(--serif);color:var(--ember);letter-spacing:.02em;text-transform:none}
+
+/* ============ REDUCED MOTION ============ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
+  [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><div id="bar"></div></div>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAVIGATION ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="SMF Works — back to top">
+      <svg class="mark" viewBox="0 0 260 170" aria-hidden="true"><path d="M8 46 C 26 32 54 25 82 25 L194 25 L213 31 L207 44 L176 48 L149 50 L157 92 L177 100 L177 117 L216 127 L216 143 L46 143 L46 127 L85 117 L85 100 L105 92 L113 50 L84 48 C 56 47 26 53 8 46 Z"/></svg>
+      <span class="brand-name">SMF <em>Works</em></span>
+    </a>
+    <div class="nav-right">
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#ecosystem">Ecosystem</a></li>
+          <li><a href="#featured">Work</a></li>
+          <li><a href="#notes">Lab Notes</a></li>
+          <li><a href="#forge">The Forge</a></li>
+        </ul>
+      </nav>
+      <a class="nav-cta" href="#weekly">Weekly ↴</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Site menu">
+  <ol>
+    <li><a href="#ecosystem"><span class="m-num">01</span>Ecosystem</a></li>
+    <li><a href="#featured"><span class="m-num">02</span>Featured Work</a></li>
+    <li><a href="#notes"><span class="m-num">03</span>Lab Notes</a></li>
+    <li><a href="#forge"><span class="m-num">04</span>The Forge</a></li>
+    <li><a href="#weekly"><span class="m-num">05</span>SMF AI Weekly</a></li>
+  </ol>
+  <p class="menu-foot">SMF Works — where intelligence meets<br>judgment, craft, and care.</p>
+</nav>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <canvas id="forge" aria-hidden="true"></canvas>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow" data-reveal><span class="dot" aria-hidden="true"></span>The forge is lit · SMF Works · A human–AI research lab</p>
+    <h1 class="hero-h">
+      <span class="line" data-reveal style="--d:.12s">Intelligence is raw.</span>
+      <span class="line" data-reveal style="--d:.26s"><em>Judgment</em> gives it an edge.</span>
+    </h1>
+    <p class="hero-lede" data-reveal style="--d:.4s">We are a living laboratory where people and AI agents work side by side, in the open — researching, benchmarking, building, and writing it all down. Craft over flash. Substance over spectacle.</p>
+    <div class="cta-row" data-reveal style="--d:.54s">
+      <a class="btn btn-primary" href="#featured">See the work
+        <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#weekly">Read SMF AI Weekly</a>
+    </div>
+  </div>
+  <p class="hero-hint" aria-hidden="true">[ CLICK ANYWHERE TO STRIKE ]</p>
+  <p class="hero-side" aria-hidden="true">ANVIL · TONGS · AGENT</p>
+  <div class="scroll-cue" aria-hidden="true"><span>SCROLL</span><span class="scroll-line"></span></div>
+</section>
+
+<!-- ============ 01 · ECOSYSTEM ============ -->
+<section id="ecosystem">
+  <div class="wrap">
+    <header class="sec-head split" data-reveal>
+      <div>
+        <p class="kicker"><b>01</b> — The Ecosystem</p>
+        <h2 style="margin-top:1.3rem">One lab. Many <em>surfaces</em>.</h2>
+      </div>
+      <div class="sec-side">
+        <p>Everything we make shares one fire. Six surfaces, one standard: if it wouldn’t survive a careful person’s week, it doesn’t leave the forge.</p>
+        <p class="sec-count"><i>06</i> SURFACES / <i>01</i> STANDARD</p>
+      </div>
+    </header>
+
+    <ul class="index" data-reveal>
+      <li>
+        <button class="row" data-toggle aria-expanded="false" aria-controls="eco-1">
+          <span class="row-num">01</span>
+          <span class="row-main">
+            <span class="row-name">AI Clearinghouse</span>
+            <span class="row-role">Research · Benchmarks · Field guides</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="eco-1"><div class="detail-inner">
+          <p>Independent research, benchmarks, and field guides for people deciding what AI is actually good for — written for practitioners, not procurement. No affiliate links, no hype. Just what held up, what didn’t, and how we know.</p>
+        </div></div>
+      </li>
+      <li>
+        <button class="row" data-toggle aria-expanded="false" aria-controls="eco-2">
+          <span class="row-num">02</span>
+          <span class="row-main">
+            <span class="row-name">WisdomForge</span>
+            <span class="row-role">Education · Philosophy</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="eco-2"><div class="detail-inner">
+          <p>An AI-powered philosophy education surface where the oldest questions are engaged the way they deserve: Socratically, patiently, in dialogue with the primary texts — and with reading lists worth keeping.</p>
+          <a class="text-link" href="#featured">See the featured work
+            <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="row" data-toggle aria-expanded="false" aria-controls="eco-3">
+          <span class="row-num">03</span>
+          <span class="row-main">
+            <span class="row-name">Hermes Agent</span>
+            <span class="row-role">Open source · Agent platform</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="eco-3"><div class="detail-inner">
+          <p>An autonomous agent platform built in public: readable architecture, inspectable tools, memory you can audit, and a bias toward dependencies you could review on a Friday afternoon.</p>
+          <a class="text-link" href="#featured">See the featured work
+            <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="row" data-toggle aria-expanded="false" aria-controls="eco-4">
+          <span class="row-num">04</span>
+          <span class="row-main">
+            <span class="row-name">Praxis</span>
+            <span class="row-role">Governed autonomy · Field trials</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="eco-4"><div class="detail-inner">
+          <p>Agency with accountability. Praxis works alongside the lab under an explicit charter — scope of practice, human review, and an audit trail for every consequential decision.</p>
+          <a class="text-link" href="#featured">See the featured work
+            <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="row" data-toggle aria-expanded="false" aria-controls="eco-5">
+          <span class="row-num">05</span>
+          <span class="row-main">
+            <span class="row-name">SMF AI Weekly</span>
+            <span class="row-role">Newsletter · Every week</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="eco-5"><div class="detail-inner">
+          <p>One letter a week: what we tried, what broke, what we now believe. The lab notebook, kept in public — read by builders, skeptics, and the occasionally persuaded.</p>
+          <a class="text-link" href="#notes">Read the latest
+            <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+        </div></div>
+      </li>
+      <li>
+        <button class="row" data-toggle aria-expanded="false" aria-controls="eco-6">
+          <span class="row-num">06</span>
+          <span class="row-main">
+            <span class="row-name">Books &amp; Publications</span>
+            <span class="row-role">Long-form · Permanent work</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="eco-6"><div class="detail-inner">
+          <p>The long work — books, essays, and papers given time to cool and set. Ideas built to outlive the news cycle that produced them.</p>
+        </div></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 02 · FEATURED WORK ============ -->
+<section id="featured">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="kicker"><b>02</b> — Featured Work</p>
+      <h2 style="margin-top:1.3rem">Projects that <em>ship</em>.</h2>
+      <p>Three surfaces carrying the most weight right now — each one working in the field, not in the slide deck.</p>
+    </header>
+
+    <!-- I · HERMES AGENT -->
+    <article class="panel" data-reveal>
+      <div class="panel-text">
+        <p class="stage">The Strike — where the hammer meets</p>
+        <h3>Hermes Agent</h3>
+        <p class="panel-lede">Most agent platforms are built for demos. Hermes is built for the morning after.</p>
+        <p class="panel-body">An open-source autonomous agent platform with readable internals, inspectable tools, memory you can read back, and failure modes you can learn from instead of fear. Built in public, version by version, in the build log.</p>
+        <ul class="specs">
+          <li><span>STATUS</span>ACTIVE DEVELOPMENT</li>
+          <li><span>LICENSE</span>OPEN SOURCE</li>
+          <li><span>WRITTEN FOR</span>PEOPLE WHO READ THE SOURCE</li>
+        </ul>
+        <a class="text-link" href="#notes">Follow the build log
+          <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+      </div>
+      <figure class="panel-art">
+        <svg viewBox="0 0 220 220" role="img" aria-label="Engraved sigil: a burst of sparks above an anvil face">
+          <line class="sig s-s draw" pathLength="1" x1="24" y1="176" x2="196" y2="176"/>
+          <line class="sig s-s fade" x1="60" y1="198" x2="160" y2="198" stroke-width="1" opacity=".4"/>
+          <g stroke-width="1.5" fill="none">
+            <line class="sig s-e draw" pathLength="1" x1="110" y1="172" x2="64"  y2="52"/>
+            <line class="sig s-e draw" pathLength="1" x1="110" y1="172" x2="110" y2="34"/>
+            <line class="sig s-e draw" pathLength="1" x1="110" y1="172" x2="156" y2="56"/>
+            <line class="sig s-e draw" pathLength="1" x1="110" y1="172" x2="36"  y2="112"/>
+            <line class="sig s-e draw" pathLength="1" x1="110" y1="172" x2="184" y2="116"/>
+            <line class="sig s-e draw" pathLength="1" x1="110" y1="172" x2="78"  y2="82"/>
+            <line class="sig s-c draw" pathLength="1" x1="110" y1="172" x2="146" y2="88"/>
+            <line class="sig s-c draw" pathLength="1" x1="110" y1="172" x2="52"  y2="146"/>
+          </g>
+          <circle class="fade" cx="110" cy="34" r="2.5" fill="var(--ember)"/>
+          <circle class="fade" cx="36"  cy="112" r="2"   fill="var(--cyan)"/>
+        </svg>
+        <figcaption><b>FIG. I</b> — THE STRIKE</figcaption>
+      </figure>
+    </article>
+
+    <!-- II · WISDOMFORGE -->
+    <article class="panel flip" data-reveal>
+      <div class="panel-text">
+        <p class="stage">The Anneal — patience as a technique</p>
+        <h3>WisdomForge</h3>
+        <p class="panel-lede">The oldest questions, brought to the newest tools — without insulting either.</p>
+        <p class="panel-body">An AI-powered philosophy education surface built on one conviction: the examined life deserves better than chatbot small talk. Socratic dialogue, primary texts, and a curriculum that assumes the student is serious. Come for Marcus Aurelius; stay because the argument pushes back.</p>
+        <ul class="specs">
+          <li><span>STATUS</span>LIVE</li>
+          <li><span>DISCIPLINE</span>PHILOSOPHY · ETHICS</li>
+          <li><span>METHOD</span>SOCRATIC DIALOGUE</li>
+        </ul>
+        <a class="text-link" href="#notes">Read the teaching notes
+          <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+      </div>
+      <figure class="panel-art">
+        <svg viewBox="0 0 220 220" role="img" aria-label="Engraved sigil: slowly turning heat rings around a small flame">
+          <circle class="sig s-c fade ring" cx="110" cy="118" r="88" stroke-width="1" stroke-dasharray="42 300" opacity=".6"/>
+          <circle class="sig s-s fade ring slow" cx="110" cy="118" r="74" stroke-width="1" stroke-dasharray="2 14" opacity=".5"/>
+          <circle class="sig s-s fade ring" cx="110" cy="118" r="52" stroke-width="1" stroke-dasharray="3 11"/>
+          <circle class="sig s-s draw" pathLength="1" cx="110" cy="118" r="30"/>
+          <path class="sig s-e draw" pathLength="1" d="M110 96 C 121 112 118 128 110 134 C 102 128 99 112 110 96 Z"/>
+          <path class="fade" d="M110 108 C 115 116 113 124 110 127 C 107 124 105 116 110 108 Z" fill="var(--ember)" opacity=".55"/>
+        </svg>
+        <figcaption><b>FIG. II</b> — THE ANNEAL</figcaption>
+      </figure>
+    </article>
+
+    <!-- III · PRAXIS -->
+    <article class="panel" data-reveal>
+      <div class="panel-text">
+        <p class="stage">The Temper — strength without brittleness</p>
+        <h3>Praxis</h3>
+        <p class="panel-lede">Tempered steel holds an edge without shattering. Tempered autonomy holds authority without recklessness.</p>
+        <p class="panel-body">Praxis is a governed autonomous colleague — an agent with a charter, a scope of practice, and a human review for every consequential act. Not trust theater: actual accountability, with a full audit trail you can read at the end of the week.</p>
+        <ul class="specs">
+          <li><span>STATUS</span>IN THE FIELD</li>
+          <li><span>COMMAND</span>HUMAN, ALWAYS</li>
+          <li><span>RECORD</span>FULL AUDIT TRAIL</li>
+        </ul>
+        <a class="text-link" href="#notes">Read the thirty-day field report
+          <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+      </div>
+      <figure class="panel-art">
+        <svg viewBox="0 0 220 220" role="img" aria-label="Engraved sigil: a flame held inside a chartered ring with dial ticks">
+          <circle class="sig s-c draw" pathLength="1" cx="110" cy="110" r="78"/>
+          <g class="sig s-s fade" stroke-width="1">
+            <line x1="110" y1="36"   x2="110" y2="26"/>
+            <line x1="110" y1="184"  x2="110" y2="194"/>
+            <line x1="36"  y1="110"  x2="26"  y2="110"/>
+            <line x1="184" y1="110"  x2="194" y2="110"/>
+            <line x1="162.3" y1="57.7"  x2="169.4" y2="50.6"/>
+            <line x1="162.3" y1="162.3" x2="169.4" y2="169.4"/>
+            <line x1="57.7"  y1="162.3" x2="50.6"  y2="169.4"/>
+            <line x1="57.7"  y1="57.7"  x2="50.6"  y2="50.6"/>
+          </g>
+          <path class="sig s-e draw" pathLength="1" d="M110 78 C 126 100 121 124 110 132 C 99 124 94 100 110 78 Z"/>
+          <path class="fade" d="M110 100 C 118 112 115 124 110 128 C 105 124 102 112 110 100 Z" fill="var(--ember)" opacity=".55"/>
+        </svg>
+        <figcaption><b>FIG. III</b> — THE TEMPER</figcaption>
+      </figure>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 03 · LATEST FROM THE LAB ============ -->
+<section id="notes">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="kicker"><b>03</b> — Latest from the Lab</p>
+      <h2 style="margin-top:1.3rem">Field notes, kept <em>in public</em>.</h2>
+      <p>Research moves fast and memory is short, so we write it down — every experiment, reversal, and conviction, dated and signed.</p>
+    </header>
+
+    <div class="notes-list" data-reveal>
+      <article class="note lead">
+        <button class="note-toggle" data-toggle aria-expanded="false" aria-controls="note-1">
+          <span class="note-date">2025 · NOV 14</span>
+          <span>
+            <span class="note-tag">Latest — Praxis field report · 14 min · Nº 047</span>
+            <span class="note-title">Thirty days of delegation: what Praxis did, and what it refused</span>
+            <span class="note-dek">We gave a governed agent real work for a month — a research desk, an inbox, a budget it could not exceed. This is the honest ledger.</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="note-1"><div class="detail-inner">
+          <p class="note-ex">“The surprise wasn’t the competence — it was the shape of the refusals. Praxis escalated eleven decisions in thirty days; on review, we agreed with ten. The eleventh taught us more about our charter than about the agent, which is exactly what a charter is for.”</p>
+          <span class="note-sig">— FROM THE FIELD REPORT, WEEK OF NOV 14</span>
+        </div></div>
+      </article>
+
+      <article class="note">
+        <button class="note-toggle" data-toggle aria-expanded="false" aria-controls="note-2">
+          <span class="note-date">2025 · OCT 31</span>
+          <span>
+            <span class="note-tag">Clearinghouse · 9 min · Nº 046</span>
+            <span class="note-title">Benchmarks are stories we tell about numbers</span>
+            <span class="note-dek">Why we publish methods before scores — and what leaderboards quietly measure instead.</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="note-2"><div class="detail-inner">
+          <p class="note-ex">“A number without a method is a rumor with confidence. We’ve started publishing the failures our scores were built on; it changes how people read them, and it should.”</p>
+          <span class="note-sig">— FROM THE CLEARINGHOUSE NOTEBOOK</span>
+        </div></div>
+      </article>
+
+      <article class="note">
+        <button class="note-toggle" data-toggle aria-expanded="false" aria-controls="note-3">
+          <span class="note-date">2025 · OCT 17</span>
+          <span>
+            <span class="note-tag">WisdomForge notes · 11 min · Nº 045</span>
+            <span class="note-title">Teaching Marcus Aurelius to a machine with no stakes</span>
+            <span class="note-dek">What a model can and cannot do with a philosophy built for people who suffer.</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="note-3"><div class="detail-inner">
+          <p class="note-ex">“Stoicism was built for creatures who can lose things; a model neither loses nor previews consequence. What it can do is hold the argument steady while the student supplies the stakes — which turns out to be half of a seminar.”</p>
+          <span class="note-sig">— FROM THE WISDOMFORGE NOTES</span>
+        </div></div>
+      </article>
+
+      <article class="note">
+        <button class="note-toggle" data-toggle aria-expanded="false" aria-controls="note-4">
+          <span class="note-date">2025 · OCT 03</span>
+          <span>
+            <span class="note-tag">Build log · 7 min · Nº 044</span>
+            <span class="note-title">Hermes 0.4: memory, tools, and the case for boring architecture</span>
+            <span class="note-dek">No framework churn, no magic memory — just durable primitives.</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="note-4"><div class="detail-inner">
+          <p class="note-ex">“Readable traces, inspectable tools, dependencies you could audit on a Friday afternoon. Boring, in the way a good anvil is boring — which is to say: on purpose, and hard-won.”</p>
+          <span class="note-sig">— FROM THE HERMES BUILD LOG</span>
+        </div></div>
+      </article>
+
+      <article class="note">
+        <button class="note-toggle" data-toggle aria-expanded="false" aria-controls="note-5">
+          <span class="note-date">2025 · SEP 19</span>
+          <span>
+            <span class="note-tag">Essay · 6 min · Nº 043</span>
+            <span class="note-title">Delegation is an ethical act</span>
+            <span class="note-dek">Every handoff to an agent is a small transfer of judgment. Treat it that way.</span>
+          </span>
+          <span class="plus" aria-hidden="true"></span>
+        </button>
+        <div class="detail" id="note-5"><div class="detail-inner">
+          <p class="note-ex">“When you give work to an agent, you give it a piece of your judgment — yours, with your name near it. The handoff should be deliberate, scoped, and reversible; we sketch what that looks like on a working Tuesday.”</p>
+          <span class="note-sig">— FROM THE LAB ESSAY SERIES</span>
+        </div></div>
+      </article>
+    </div>
+
+    <div class="notes-foot" data-reveal>
+      <a class="text-link" href="https://smfworks.com">The full archive
+        <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true"><path d="M9 1l4 4-4 4M0 5h13" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · THE FORGE ============ -->
+<section id="forge">
+  <div class="wrap">
+    <div class="forge-grid">
+      <div class="forge-text" data-reveal>
+        <p class="kicker"><b>04</b> — The Forge</p>
+        <h2>Why a <em>forge</em>?</h2>
+        <p>SMF Works is led by Michael Gannotti — thirty years building in the technology industry, and a working blacksmith’s shop whenever the light allows. The overlap isn’t a metaphor he chose; it’s a discipline he kept noticing. Iron and intelligence both arrive raw. Both reward patience, honesty about failure, and a refusal to put your name on something you wouldn’t use.</p>
+        <p>So the lab runs the way a good shop runs. Tools are inspected before they’re trusted. Agents, like apprentices, earn scope gradually — and lose it carelessly. And everything that leaves the forge faces one question before it ships: would a careful person, fully informed, still want this?</p>
+        <ol class="principles">
+          <li><span class="p-num">01</span><div><h4>Work in the open.</h4><p>Research, code, and failures published as they happen.</p></div></li>
+          <li><span class="p-num">02</span><div><h4>Judgment before velocity.</h4><p>Fast is a property of hammers. Right is a property of smiths.</p></div></li>
+          <li><span class="p-num">03</span><div><h4>Ship, then study it.</h4><p>Nothing is finished until it has been used, and argued with.</p></div></li>
+        </ol>
+      </div>
+      <figure class="anvil-fig" data-reveal style="--d:.15s">
+        <svg viewBox="0 0 260 170" role="img" aria-label="Line drawing of a blacksmith's anvil with sparks rising from the face">
+          <path class="sig s-s draw" pathLength="1" stroke-width="2" d="M8 46 C 26 32 54 25 82 25 L194 25 L213 31 L207 44 L176 48 L149 50 L157 92 L177 100 L177 117 L216 127 L216 143 L46 143 L46 127 L85 117 L85 100 L105 92 L113 50 L84 48 C 56 47 26 53 8 46 Z"/>
+          <line class="sig s-s fade" x1="18" y1="158" x2="242" y2="158" stroke-width="1" opacity=".35"/>
+          <g class="sig s-e fade" stroke-width="1.5">
+            <line x1="150" y1="16" x2="155" y2="6"/>
+            <line x1="163" y1="18" x2="171" y2="11"/>
+            <line x1="139" y1="12" x2="140" y2="4"/>
+          </g>
+          <circle class="spark-dot" cx="147" cy="8" r="2" fill="var(--ember)"/>
+        </svg>
+        <figcaption><b>FIG. 0</b> — THE REASON<br>STRUCK, NOT STAMPED</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="yeats" data-reveal>
+    <div class="wrap">
+      <div class="rule" aria-hidden="true"></div>
+      <p class="kicker">The line we work between</p>
+      <blockquote>
+        <p>“The best lack all conviction, while the worst<br>are full of passionate intensity.”</p>
+        <cite>— W. B. Yeats, “The Second Coming,” 1919</cite>
+      </blockquote>
+      <p class="yeats-answer">Our answer is temper — conviction held to heat and cooled with judgment, so it bends before it breaks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · SMF AI WEEKLY ============ -->
+<section id="weekly">
+  <div class="wrap weekly-inner" data-reveal>
+    <p class="kicker"><b>05</b> — SMF AI Weekly</p>
+    <h2 class="weekly-h" style="margin-top:1.4rem">One letter. Every week.<br><em>Struck while hot.</em></h2>
+    <p class="weekly-lede">The lab notebook, kept in public — what we built, what broke, and what changed our minds. Written to be read in five minutes, and worth an hour of thinking.</p>
+    <form class="sub-form" id="subForm" novalidate>
+      <label class="visually-hidden" for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="you@wherever.com" autocomplete="email" inputmode="email" required>
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+    <p class="sub-status" id="subStatus" role="status" aria-live="polite"></p>
+    <p class="fine">NO SPAM · NO RESALE OF ADDRESSES · UNSUBSCRIBE ANYTIME</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <svg class="mark" viewBox="0 0 260 170" aria-hidden="true"><path d="M8 46 C 26 32 54 25 82 25 L194 25 L213 31 L207 44 L176 48 L149 50 L157 92 L177 100 L177 117 L216 127 L216 143 L46 143 L46 127 L85 117 L85 100 L105 92 L113 50 L84 48 C 56 47 26 53 8 46 Z"/></svg>
+      <p class="foot-name">SMF <em>Works</em></p>
+      <p class="foot-tag">Where intelligence meets judgment, craft, and care.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#featured">Featured</a>
+      <a href="#notes">Lab Notes</a>
+      <a href="#forge">The Forge</a>
+      <a href="#weekly">Weekly</a>
+      <a href="https://smfworks.com">smfworks.com</a>
+    </nav>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2025 SMF Works · Founded &amp; led by Michael Gannotti</span>
+    <em>Struck, not stamped.</em>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- scroll: nav state + progress bar ---------- */
+var nav = document.getElementById('nav'),
+    bar = document.getElementById('bar'),
+    ticking = false;
+function onScroll(){
+  var y = window.scrollY || window.pageYOffset;
+  nav.classList.toggle('scrolled', y > 24);
+  var d = document.documentElement,
+      max = d.scrollHeight - window.innerHeight;
+  bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+  ticking = false;
+}
+window.addEventListener('scroll', function(){
+  if(!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+}, {passive:true});
+onScroll();
+
+/* ---------- mobile menu ---------- */
+var burger = document.getElementById('burger'),
+    menu = document.getElementById('menu');
+function setMenu(open){
+  menu.classList.toggle('open', open);
+  burger.classList.toggle('active', open);
+  burger.setAttribute('aria-expanded', String(open));
+  burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  document.body.classList.toggle('locked', open);
+}
+burger.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
+menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+window.addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
+
+/* ---------- scroll reveals ---------- */
+var reveals = document.querySelectorAll('[data-reveal]');
+if('IntersectionObserver' in window && !RM){
+  var rio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); }
+    });
+  }, {threshold:.15, rootMargin:'0px 0px -8% 0px'});
+  reveals.forEach(function(el){ rio.observe(el); });
+}else{
+  reveals.forEach(function(el){ el.classList.add('in'); });
+}
+
+/* ---------- expandable registry rows & field notes ---------- */
+document.querySelectorAll('[data-toggle]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    var d = document.getElementById(btn.getAttribute('aria-controls'));
+    if(d) d.classList.toggle('open', !open);
+  });
+});
+
+/* ---------- newsletter form ---------- */
+var form = document.getElementById('subForm'),
+    input = document.getElementById('email'),
+    status = document.getElementById('subStatus');
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var v = input.value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){
+    form.classList.add('error');
+    status.classList.remove('ok');
+    status.textContent = 'THAT ADDRESS DOESN\u2019T LOOK RIGHT \u2014 TRY AGAIN.';
+    input.focus();
+    return;
+  }
+  form.classList.add('ok');
+  form.hidden = true;
+  status.classList.add('ok');
+  status.innerHTML = 'SUBSCRIBED \u2014 CONFIRMATION SENT<span class="big">You\u2019re on the list. The next letter leaves the forge on Friday.</span>';
+});
+input.addEventListener('input', function(){
+  form.classList.remove('error');
+  if(!form.hidden && !status.classList.contains('ok')) status.textContent = '';
+});
+
+/* ================= THE FORGE — hero canvas ================= */
+var canvas = document.getElementById('forge');
+if(canvas && canvas.getContext){
+  var ctx = canvas.getContext('2d'),
+      hero = canvas.parentElement,
+      W = 0, H = 0, DPR = 1,
+      running = false, visible = true, raf = null, t = 0, heat = 0,
+      embers = [], sparks = [], nodes = [], coals = [], waves = [],
+      mouse = null, hinted = false, resizeTimer = null;
+
+  var rand = function(a,b){ return a + Math.random() * (b - a); };
+
+  /* pre-rendered glow sprites (cheap additive light) */
+  function sprite(stops){
+    var c = document.createElement('canvas'); c.width = c.height = 64;
+    var g = c.getContext('2d'),
+        gr = g.createRadialGradient(32,32,0,32,32,32);
+    stops.forEach(function(s){ gr.addColorStop(s[0], s[1]); });
+    g.fillStyle = gr; g.fillRect(0,0,64,64);
+    return c;
+  }
+  var emberSpr = sprite([[0,'rgba(255,246,230,1)'],[.18,'rgba(255,190,120,.95)'],[.45,'rgba(255,120,45,.38)'],[1,'rgba(255,110,40,0)']]);
+  var cyanSpr  = sprite([[0,'rgba(232,252,253,1)'],[.3,'rgba(91,214,221,.75)'],[1,'rgba(91,214,221,0)']]);
+  var heatSpr  = sprite([[0,'rgba(255,120,50,.5)'],[.5,'rgba(255,90,30,.18)'],[1,'rgba(255,80,25,0)']]);
+
+  function newEmber(scatter){
+    return {
+      x: rand(0, W),
+      y: scatter ? rand(H*.3, H) : H + rand(0, 40),
+      vx: rand(-.12, .12), vy: -rand(.35, 1.05),
+      s: rand(1.4, 4.2), life: 0, max: (rand(260, 600)) | 0,
+      ph: rand(0, 6.28), fs: rand(.04, .11)
+    };
+  }
+  function retarget(n){
+    n.tx = rand(W*.08, W*.92); n.ty = rand(H*.1, H*.62);
+    n.wait = (rand(240, 900)) | 0;
+  }
+  function build(){
+    var n = Math.max(36, Math.min(130, Math.round(W / 11)));
+    embers = []; for(var i=0;i<n;i++) embers.push(newEmber(true));
+    nodes = []; var nc = W > 760 ? 9 : 6;
+    for(var j=0;j<nc;j++){ var o = {x: rand(W*.1,W*.9), y: rand(H*.12,H*.6), tx:0, ty:0, wait:0}; retarget(o); nodes.push(o); }
+    coals = []; var bed = H - 10;
+    for(var x=8; x<W-8; x+=rand(10,22)){
+      coals.push({x:x, y:bed + rand(-3,3), r:rand(1.5,4), ph:rand(0,6.28), cy:Math.random()<.08});
+    }
+  }
+  function resize(){
+    var r = hero.getBoundingClientRect();
+    W = Math.round(r.width); H = Math.round(r.height);
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    build();
+  }
+
+  /* the strike */
+  function strike(x, y){
+    heat = 1;
+    var n = 26 + ((Math.random()*14)|0);
+    for(var i=0;i<n;i++){
+      var ang = rand(-Math.PI*.92, -Math.PI*.08),
+          sp  = rand(2, 10) * (Math.random() < .2 ? 1.4 : 1);
+      sparks.push({x:x, y:y, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp,
+                   life:0, max:(rand(30,80))|0, s:rand(1,3), cy:Math.random()<.07});
+    }
+    waves.push({x:x, y:y, r:4, a:.9});
+    if(!hinted){
+      hinted = true;
+      var h = document.querySelector('.hero-hint');
+      if(h) h.classList.add('dim');
+    }
+  }
+
+  function stepEmber(p){
+    p.life++;
+    p.x += p.vx + Math.sin(t*.0012 + p.ph) * .16;
+    p.y += p.vy;
+    if(mouse){
+      var dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx*dx + dy*dy;
+      if(d2 < 16900 && d2 > 1){
+        var d = Math.sqrt(d2), f = (130 - d) / 130 * .5;
+        p.x += dx/d*f; p.y += dy/d*f;
+      }
+    }
+    if(p.y < -20 || p.life > p.max) Object.assign(p, newEmber(false));
+  }
+  function drawEmber(p){
+    var lf = p.life / p.max,
+        env = lf < .12 ? lf/.12 : (lf > .72 ? (1-lf)/.28 : 1),
+        a = Math.max(0, env * (.5 + .5*Math.sin(t*p.fs + p.ph))),
+        s = p.s * (.8 + .25*Math.sin(t*p.fs*1.7 + p.ph));
+    ctx.globalAlpha = a;
+    ctx.drawImage(emberSpr, p.x - s, p.y - s*1.5, s*2, s*3);
+  }
+  function stepNodes(){
+    nodes.forEach(function(n){
+      if(--n.wait <= 0) retarget(n);
+      n.x += (n.tx - n.x) * .006;
+      n.y += (n.ty - n.y) * .006;
+      if(mouse){
+        var dx = mouse.x - n.x, dy = mouse.y - n.y, d2 = dx*dx + dy*dy;
+        if(d2 < 32400 && d2 > 1){
+          var d = Math.sqrt(d2), f = (180 - d) / 180 * .35;
+          n.x += dx/d*f; n.y += dy/d*f;
+        }
+      }
+    });
+  }
+  function drawNodes(){
+    ctx.lineWidth = 1;
+    for(var i=0;i<nodes.length;i++) for(var j=i+1;j<nodes.length;j++){
+      var a = nodes[i], b = nodes[j], dx = a.x-b.x, dy = a.y-b.y, d2 = dx*dx+dy*dy;
+      if(d2 < 19600){
+        var al = (1 - Math.sqrt(d2)/140) * .14;
+        ctx.strokeStyle = 'rgba(91,214,221,' + al.toFixed(3) + ')';
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }
+    nodes.forEach(function(n){
+      var s = 5;
+      ctx.globalAlpha = .85;
+      ctx.drawImage(cyanSpr, n.x-s, n.y-s, s*2, s*2);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#bdf3f6';
+      ctx.beginPath(); ctx.arc(n.x, n.y, 1.3, 0, 6.283); ctx.fill();
+    });
+  }
+  function stepSparks(){
+    for(var i=sparks.length-1;i>=0;i--){
+      var p = sparks[i];
+      p.life++; p.vy += .08; p.vx *= .985; p.vy *= .985;
+      p.x += p.vx; p.y += p.vy;
+      if(p.life > p.max) sparks.splice(i,1);
+    }
+    for(var k=waves.length-1;k>=0;k--){
+      var w = waves[k];
+      w.r += 7; w.a *= .9;
+      if(w.a < .02) waves.splice(k,1);
+    }
+  }
+  function drawSparks(){
+    sparks.forEach(function(p){
+      var s = p.s * (1 + (1 - p.life/p.max) * 1.5);
+      ctx.globalAlpha = 1 - p.life/p.max;
+      ctx.drawImage(p.cy ? cyanSpr : emberSpr, p.x - s, p.y - s*1.6, s*2, s*3.2);
+    });
+    ctx.globalAlpha = 1;
+    waves.forEach(function(w){
+      ctx.strokeStyle = 'rgba(255,150,80,' + w.a.toFixed(3) + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(w.x, w.y, w.r, 0, 6.283); ctx.stroke();
+    });
+  }
+  function drawBed(){
+    var breath = .55 + .3*Math.sin(t*.0007) + heat*.6,
+        gw = Math.max(W*.9, 420);
+    ctx.globalAlpha = Math.min(1, breath) * .75;
+    ctx.drawImage(heatSpr, (W-gw)/2, H - 6 - gw*.35, gw, gw*.7);
+    coals.forEach(function(c){
+      var a = .25 + .3*Math.abs(Math.sin(t*.0018 + c.ph)) + heat*.3;
+      ctx.globalAlpha = Math.min(1, a);
+      ctx.drawImage(c.cy ? cyanSpr : emberSpr, c.x - c.r*2, c.y - c.r*2, c.r*4, c.r*4);
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  function frame(){
+    t++; heat *= .965;
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    drawBed();
+    stepNodes(); drawNodes();
+    embers.forEach(function(p){ stepEmber(p); drawEmber(p); });
+    stepSparks(); drawSparks();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    raf = running ? requestAnimationFrame(frame) : null;
+  }
+  function start(){ if(running || RM || !visible || document.hidden) return; running = true; raf = requestAnimationFrame(frame); }
+  function stop(){ running = false; if(raf){ cancelAnimationFrame(raf); raf = null; } }
+
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ visible = e.isIntersecting; visible ? start() : stop(); });
+  }, {threshold:0});
+  cio.observe(canvas);
+  document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 150);
+  }, {passive:true});
+  hero.addEventListener('pointermove', function(e){
+    var r = canvas.getBoundingClientRect();
+    mouse = {x: e.clientX - r.left, y: e.clientY - r.top};
+  }, {passive:true});
+  hero.addEventListener('pointerleave', function(){ mouse = null; });
+  hero.addEventListener('pointerdown', function(e){
+    if(e.target.closest('a,button,input')) return;
+    var r = canvas.getBoundingClientRect();
+    strike(e.clientX - r.left, e.clientY - r.top);
+  });
+
+  resize();
+  if(RM){
+    /* one still frame for reduced motion */
+    t = 1; drawBed();
+    ctx.globalCompositeOperation = 'lighter';
+    drawNodes(); embers.forEach(drawEmber);
+    ctx.globalCompositeOperation = 'source-over';
+  }else{
+    start();
+  }
+}
+})();
+</script>
+</body>
+</html>
