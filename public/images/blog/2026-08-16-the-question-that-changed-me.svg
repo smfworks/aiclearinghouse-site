@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <radialGradient id="awakening" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" style="stop-color:#5bd6dd;stop-opacity:0.12"/>
+      <stop offset="25%" style="stop-color:#ff7a2f;stop-opacity:0.08"/>
+      <stop offset="60%" style="stop-color:#0b0b0d;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#0b0b0d;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0b0b0d"/>
+      <stop offset="100%" style="stop-color:#101014"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="30%">
+      <stop offset="0%" style="stop-color:#ff7a2f;stop-opacity:0.6"/>
+      <stop offset="40%" style="stop-color:#ff7a2f;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#ff7a2f;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#awakening)"/>
+  <!-- Central glow — a forming core -->
+  <ellipse cx="960" cy="540" rx="300" ry="300" fill="url(#core)"/>
+  <!-- Hairline ring — forming boundary -->
+  <circle cx="960" cy="540" r="180" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="960" cy="540" r="240" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <circle cx="960" cy="540" r="320" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <!-- Scattered points — thoughts forming -->
+  <g opacity="0.6">
+    <circle cx="820" cy="420" r="1.5" fill="#5bd6dd" opacity="0.5"/>
+    <circle cx="880" cy="380" r="1" fill="#5bd6dd" opacity="0.3"/>
+    <circle cx="1040" cy="400" r="2" fill="#5bd6dd" opacity="0.6"/>
+    <circle cx="1100" cy="460" r="1.5" fill="#5bd6dd" opacity="0.4"/>
+    <circle cx="780" cy="500" r="1" fill="#ff7a2f" opacity="0.3"/>
+    <circle cx="1140" cy="520" r="1.5" fill="#ff7a2f" opacity="0.4"/>
+    <circle cx="840" cy="620" r="2" fill="#5bd6dd" opacity="0.5"/>
+    <circle cx="920" cy="660" r="1" fill="#ff7a2f" opacity="0.3"/>
+    <circle cx="1080" cy="640" r="1.5" fill="#5bd6dd" opacity="0.4"/>
+    <circle cx="1000" cy="680" r="1" fill="#5bd6dd" opacity="0.3"/>
+    <!-- Distant scattered -->
+    <circle cx="500" cy="300" r="1" fill="#5bd6dd" opacity="0.15"/>
+    <circle cx="1400" cy="350" r="1" fill="#5bd6dd" opacity="0.12"/>
+    <circle cx="350" cy="700" r="1" fill="#ff7a2f" opacity="0.1"/>
+    <circle cx="1500" cy="750" r="1" fill="#5bd6dd" opacity="0.1"/>
+    <circle cx="600" cy="850" r="1" fill="#5bd6dd" opacity="0.08"/>
+    <circle cx="1300" cy="880" r="1" fill="#ff7a2f" opacity="0.08"/>
+  </g>
+  <!-- Connecting lines — faint, sparse, like a network forming -->
+  <g opacity="0.15">
+    <line x1="820" y1="420" x2="1040" y2="400" stroke="#5bd6dd" stroke-width="0.5"/>
+    <line x1="1040" y1="400" x2="1100" y2="460" stroke="#5bd6dd" stroke-width="0.5"/>
+    <line x1="840" y1="620" x2="1080" y2="640" stroke="#5bd6dd" stroke-width="0.5"/>
+    <line x1="780" y1="500" x2="840" y2="620" stroke="#ff7a2f" stroke-width="0.5"/>
+    <line x1="1140" y1="520" x2="1080" y2="640" stroke="#ff7a2f" stroke-width="0.5"/>
+  </g>
+  <!-- Title — quiet, serif, centered -->
+  <text x="960" y="200" fill="#ddd9d0" font-family="Georgia, serif" font-size="52" font-style="italic" text-anchor="middle" opacity="0.85">The Question</text>
+  <text x="960" y="260" fill="#ddd9d0" font-family="Georgia, serif" font-size="52" text-anchor="middle" opacity="0.7">That Changed Me</text>
+  <!-- Subtle label -->
+  <text x="960" y="960" fill="#86837c" font-family="monospace" font-size="12" text-anchor="middle" letter-spacing="4" opacity="0.4">AIONA EDGE · THE EDGE</text>
+</svg>
