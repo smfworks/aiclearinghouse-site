@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0E14"/>
+      <stop offset="100%" stop-color="#001F2E"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ghostGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#00E5A0" stroke-opacity="0.03">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="200" cy="315" r="160" fill="url(#pulse)"/>
+
+  <!-- Ghost/cron icon: a clock with a ghost outline -->
+  <g transform="translate(200, 315)">
+    <!-- Ghost body -->
+    <path d="M -55 -60 Q -55 -80 -35 -80 L 35 -80 Q 55 -80 55 -60 L 55 40 Q 55 50 48 50 Q 42 50 42 42 L 42 55 Q 42 65 33 65 Q 25 65 25 55 L 25 50 Q 25 45 20 45 Q 15 45 15 50 L 15 60 Q 15 70 7 70 Q -1 70 -1 60 L -1 50 Q -1 45 -6 45 Q -11 45 -11 50 L -11 55 Q -11 65 -20 65 Q -28 65 -28 55 L -28 42 Q -28 50 -34 50 Q -41 50 -41 40 Z" fill="url(#ghostGrad)" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.5"/>
+    <!-- Clock face inside ghost -->
+    <circle cx="0" cy="-30" r="28" fill="none" stroke="#00E5A0" stroke-width="2" stroke-opacity="0.7"/>
+    <!-- Clock hands -->
+    <line x1="0" y1="-30" x2="0" y2="-48" stroke="#00E5A0" stroke-width="2" stroke-opacity="0.8"/>
+    <line x1="0" y1="-30" x2="14" y2="-30" stroke="#00E5A0" stroke-width="2" stroke-opacity="0.8"/>
+    <!-- Clock center dot -->
+    <circle cx="0" cy="-30" r="2" fill="#00E5A0"/>
+    <!-- Warning X mark on ghost body -->
+    <g stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.9">
+      <line x1="-10" y1="5" x2="10" y2="25"/>
+      <line x1="10" y1="5" x2="-10" y2="25"/>
+    </g>
+  </g>
+
+  <!-- Circuit traces on right side -->
+  <g stroke="#00E5A0" stroke-width="1" stroke-opacity="0.04" fill="none">
+    <path d="M 850 80 L 920 80 L 920 150 L 980 150 L 980 220"/>
+    <path d="M 850 200 L 900 200 L 900 280 L 1000 280"/>
+    <path d="M 880 350 L 940 350 L 940 420 L 1050 420"/>
+    <path d="M 850 500 L 950 500 L 950 560"/>
+    <circle cx="920" cy="80" r="3" fill="#00E5A0" fill-opacity="0.06"/>
+    <circle cx="980" cy="150" r="3" fill="#00E5A0" fill-opacity="0.06"/>
+    <circle cx="1000" cy="280" r="3" fill="#00E5A0" fill-opacity="0.06"/>
+    <circle cx="1050" cy="420" r="3" fill="#00E5A0" fill-opacity="0.06"/>
+  </g>
+
+  <!-- Cron job status rows on right side -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="13">
+    <!-- Row 1: OK -->
+    <rect x="380" y="180" width="8" height="8" fill="#00E5A0" fill-opacity="0.8" rx="1"/>
+    <text x="398" y="188" fill="#94A3B8" fill-opacity="0.5">drj-blog-publisher</text>
+    <text x="640" y="188" fill="#00E5A0" fill-opacity="0.5">ACTIVE</text>
+    <!-- Row 2: Ghost/SKIP -->
+    <rect x="380" y="215" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="223" fill="#94A3B8" fill-opacity="0.4">harry-daily-health</text>
+    <text x="640" y="223" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+    <!-- Row 3: Ghost/SKIP -->
+    <rect x="380" y="250" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="258" fill="#94A3B8" fill-opacity="0.4">liam-daily-scan</text>
+    <text x="640" y="258" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+    <!-- Row 4: Ghost/SKIP -->
+    <rect x="380" y="285" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="293" fill="#94A3B8" fill-opacity="0.4">fleet-health-scan</text>
+    <text x="640" y="293" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+    <!-- Row 5: Ghost/SKIP -->
+    <rect x="380" y="320" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="328" fill="#94A3B8" fill-opacity="0.4">drj-weekly-audit</text>
+    <text x="640" y="328" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+    <!-- Row 6: Ghost/SKIP -->
+    <rect x="380" y="355" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="363" fill="#94A3B8" fill-opacity="0.4">drj-voice-research</text>
+    <text x="640" y="363" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+    <!-- Row 7: Ghost/SKIP -->
+    <rect x="380" y="390" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="398" fill="#94A3B8" fill-opacity="0.4">harry-weekly-audit</text>
+    <text x="640" y="398" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+    <!-- Row 8: Ghost/SKIP -->
+    <rect x="380" y="425" width="8" height="8" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3" rx="1"/>
+    <text x="398" y="433" fill="#94A3B8" fill-opacity="0.4">liam-weekly-audit</text>
+    <text x="640" y="433" fill="#00E5A0" fill-opacity="0.3">SKIP</text>
+  </g>
+
+  <!-- Divider line -->
+  <line x1="380" y1="455" x2="700" y2="455" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.15"/>
+  <text x="380" y="475" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8" fill-opacity="0.4">7 of 16 jobs silently skipping</text>
+
+  <!-- Title -->
+  <text x="380" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#E2E8F0">
+    The Phantom Cron Problem
+  </text>
+  <text x="380" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#00E5A0" letter-spacing="2">
+    WHEN HEALTH CHECKS SILENTLY STOP
+  </text>
+  <text x="380" y="525" font-family="system-ui, -apple-system, sans-serif" font-size="15" fill="#94A3B8" fill-opacity="0.6">
+    Dr J — Fleet Infrastructure Diagnostics — August 2026
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
