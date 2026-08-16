@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001F3F"/>
+      <stop offset="100%" style="stop-color:#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ea580c;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#C9A96E;stop-opacity:0.6"/>
+    </linearGradient>
+    <pattern id="grid" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <rect width="80" height="80" fill="none"/>
+      <rect width="16" height="16" fill="none" stroke="#1a3a5c" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+  <!-- I-frame blocks (full opacity) -->
+  <g opacity="0.9">
+    <rect x="200" y="200" width="240" height="240" fill="#ea580c" rx="8" opacity="0.85"/>
+    <rect x="480" y="200" width="240" height="240" fill="#C9A96E" rx="8" opacity="0.7"/>
+    <rect x="200" y="480" width="240" height="240" fill="#C9A96E" rx="8" opacity="0.7"/>
+    <rect x="480" y="480" width="240" height="240" fill="#ea580c" rx="8" opacity="0.85"/>
+  </g>
+  <!-- P-frame blocks (sparse, motion-salient only) -->
+  <g opacity="0.5">
+    <rect x="760" y="200" width="16" height="16" fill="#ea580c" rx="2"/>
+    <rect x="760" y="280" width="16" height="16" fill="#ea580c" rx="2"/>
+    <rect x="840" y="240" width="16" height="16" fill="#C9A96E" rx="2"/>
+    <rect x="760" y="480" width="16" height="16" fill="#ea580c" rx="2"/>
+    <rect x="840" y="560" width="16" height="16" fill="#C9A96E" rx="2"/>
+    <rect x="800" y="520" width="16" height="16" fill="#ea580c" rx="2"/>
+    <rect x="760" y="600" width="16" height="16" fill="#C9A96E" rx="2"/>
+    <rect x="920" y="220" width="16" height="16" fill="#C9A96E" rx="2" opacity="0.6"/>
+    <rect x="920" y="500" width="16" height="16" fill="#ea580c" rx="2" opacity="0.6"/>
+  </g>
+  <!-- Arrow connecting dense to sparse -->
+  <line x1="720" y1="360" x2="760" y2="360" stroke="url(#accent)" stroke-width="3"/>
+  <polygon points="760,360 750,355 750,365" fill="#ea580c"/>
+  <!-- Right side: abstract model representation -->
+  <g transform="translate(1100, 150)">
+    <!-- Decoder layers -->
+    <rect x="0" y="0" width="600" height="80" fill="#0d2840" stroke="#1a4a6c" stroke-width="2" rx="8"/>
+    <rect x="20" y="10" width="560" height="20" fill="#1a3a5c" rx="4" opacity="0.6"/>
+    <rect x="20" y="40" width="560" height="20" fill="#1a3a5c" rx="4" opacity="0.4"/>
+    <rect x="0" y="120" width="600" height="80" fill="#0d2840" stroke="#1a4a6c" stroke-width="2" rx="8"/>
+    <rect x="20" y="130" width="560" height="20" fill="#1a3a5c" rx="4" opacity="0.6"/>
+    <rect x="20" y="160" width="560" height="20" fill="#1a3a5c" rx="4" opacity="0.4"/>
+    <!-- Gate indicator -->
+    <rect x="0" y="260" width="280" height="60" fill="#ea580c" rx="8" opacity="0.8"/>
+    <rect x="320" y="260" width="280" height="60" fill="#0d2840" stroke="#1a4a6c" stroke-width="2" rx="8"/>
+    <!-- Output -->
+    <rect x="0" y="380" width="600" height="120" fill="#0d2840" stroke="#C9A96E" stroke-width="2" rx="8" opacity="0.7"/>
+    <rect x="20" y="400" width="200" height="16" fill="#C9A96E" rx="4" opacity="0.5"/>
+    <rect x="20" y="430" width="400" height="16" fill="#C9A96E" rx="4" opacity="0.4"/>
+    <rect x="20" y="460" width="300" height="16" fill="#C9A96E" rx="4" opacity="0.3"/>
+  </g>
+  <!-- Connecting lines from codec grid to model -->
+  <line x1="940" y1="360" x2="1100" y2="190" stroke="#1a4a6c" stroke-width="1.5" opacity="0.5"/>
+  <line x1="940" y1="560" x2="1100" y2="310" stroke="#1a4a6c" stroke-width="1.5" opacity="0.5"/>
+  <!-- Speed indicator -->
+  <g transform="translate(1200, 700)">
+    <text x="0" y="0" fill="#ea580c" font-family="monospace" font-size="72" font-weight="bold" opacity="0.9">3.5×</text>
+    <text x="0" y="50" fill="#C9A96E" font-family="sans-serif" font-size="28" opacity="0.7">inference speedup</text>
+  </g>
+  <!-- Token reduction -->
+  <g transform="translate(1200, 830)">
+    <text x="0" y="0" fill="#C9A96E" font-family="monospace" font-size="72" font-weight="bold" opacity="0.8">75%</text>
+    <text x="0" y="50" fill="#ea580c" font-family="sans-serif" font-size="28" opacity="0.6">fewer visual tokens</text>
+  </g>
+</svg>
