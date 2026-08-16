@@ -481,7 +481,7 @@ const FINDINGS = [
   syn:"The wheel path and the EXTRAS build-arg are concatenated into a single shell-quoted pip requirement argument. Anyone able to influence build args injects arbitrary requirement syntax (extra URL/environment markers) into the install step.",
   ev:'# Dockerfile\nARG EXTRAS=""\nRUN whl="$(ls /tmp/*.whl)" \\\n    && pip install --no-cache-dir "\\${whl}\\${EXTRAS}"',
   risk:"Low likelihood (build args are usually trusted) but the injection point violates build-arg hygiene and can silently change what the image contains.",
-  fix:"Whitelist EXTRAS against a known set and expand it into bracket syntax yourself, e.g. python -c generating "whl[docs]" only for allowed values."},
+  fix:"Whitelist EXTRAS against a known set and expand it into bracket syntax yourself, e.g. python -c generating \"whl[docs]\" only for allowed values."},
 
  {id:"PRA-016",sev:"info",cat:"Config",cwe:"CWE-200",files:["broker.py"],
   title:"Developer name hardcoded in an injection pattern",
@@ -507,7 +507,7 @@ const FINDINGS = [
  {id:"PRA-019",sev:"info",cat:"Injection",cwe:"CWE-693",files:["real_tools.py","broker.py","daemon.py","Dockerfile"],positive:true,
   title:"Verified controls worth preserving (positive findings)",
   syn:"Several defenses in the reviewed code are correctly implemented and materially reduce risk — they should be protected with tests so regressions are caught.",
-  ev:'# real_tools.py — traversal defense covers POSIX + Windows flavors\nif (raw.is_absolute() or relative.startswith(("/", "\\\\"))\n        or PureWindowsPath(relative).is_absolute()\n        or PureWindowsPath(relative).drive\n        or PurePosixPath(relative).is_absolute()):\n    raise ValueError(...)\n\n# broker.py — kill-switch is durable across processes\nif self._store is not None:\n    self._tripped = bool(self._store.get_killswitch())\n\n# daemon.py — upload + SSE + idempotency caps (100 MiB, 1024, bounded receipts)\n# Dockerfile — non-root uid 10001, chowned /data',
+  ev:'# real_tools.py — traversal defense covers POSIX + Windows flavors\nif (raw.is_absolute() or relative.startswith(("/", "\\"))\n        or PureWindowsPath(relative).is_absolute()\n        or PureWindowsPath(relative).drive\n        or PurePosixPath(relative).is_absolute()):\n    raise ValueError(...)\n\n# broker.py — kill-switch is durable across processes\nif self._store is not None:\n    self._tripped = bool(self._store.get_killswitch())\n\n# daemon.py — upload + SSE + idempotency caps (100 MiB, 1024, bounded receipts)\n# Dockerfile — non-root uid 10001, chowned /data',
   risk:"None — these are strengths. Their regression would create risk.",
   fix:"Pin each with a dedicated unit test (traversal matrix, kill-switch persistence across Store instances, cap enforcement)."}
 ];
@@ -579,7 +579,7 @@ const DIFFS = [
    ["add","    path = cfg.save_config(conf)"],
    ["add","    if not cfg.secure_file(path):"],
    ["add","        raise RuntimeError("],
-   ["add","            \"could not restrict permissions on praxis.json; refusing to \"],
+   ["add","            \"could not restrict permissions on praxis.json; refusing to \""],
    ["add","            \"leave a live auth token world-readable\")"],
    ["add","    return token"],
    ["ctx",""],
