@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEUROSCOPE — live backprop observatory</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='5' fill='none' stroke='%233fd8c6' stroke-width='1.5'/%3E%3Ccircle cx='8' cy='8' r='1.6' fill='%23f2a748'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#06090c;
+    --panel:rgba(9,14,18,.86);
+    --line:rgba(255,255,255,.08);
+    --line2:rgba(255,255,255,.14);
+    --tx:#c8d5d2;
+    --dim:#5d6c70;
+    --teal:#3fd8c6;
+    --amber:#f2a748;
+    --rose:#ff5f7a;
+    --mono:"Iosevka","JetBrains Mono","Cascadia Code","Fira Code","SF Mono",ui-monospace,Consolas,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;background:var(--bg);overscroll-behavior:none}
+  body{font-family:var(--mono);color:var(--tx);font-size:12px;-webkit-user-select:none;user-select:none}
+  canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+  canvas#gl.dragging{cursor:grabbing}
+
+  .lbl{font-size:9px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+  .val{font-size:11px;color:var(--tx)}
+
+  /* ── top bar ─────────────────────────────── */
+  #topbar{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;
+    justify-content:space-between;padding:0 18px;background:var(--panel);
+    border-bottom:1px solid var(--line);backdrop-filter:blur(10px);z-index:10}
+  .brand{display:flex;align-items:center;gap:11px}
+  .brand svg{color:var(--teal)}
+  .brand .t{font-size:14px;letter-spacing:.28em;font-weight:700}
+  .brand .s{font-size:8.5px;letter-spacing:.22em;color:var(--dim);margin-top:2px}
+  .stats{display:flex;gap:0}
+  .stat{display:flex;flex-direction:column;gap:3px;padding:0 18px;border-left:1px solid var(--line)}
+  .stat .v{font-size:13px;font-variant-numeric:tabular-nums}
+  .teal{color:var(--teal)} .amber{color:var(--amber)}
+
+  /* ── control panel ───────────────────────── */
+  #panel{position:fixed;left:12px;top:64px;width:246px;background:var(--panel);
+    border:1px solid var(--line);backdrop-filter:blur(10px);z-index:10;
+    max-height:calc(100vh - 236px);overflow-y:auto}
+  #panel::-webkit-scrollbar{width:5px}
+  #panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12)}
+  #panel section{padding:11px 14px 13px;border-bottom:1px solid var(--line)}
+  #panel section:last-child{border-bottom:none}
+  #panel h3{font-size:9px;letter-spacing:.2em;color:var(--dim);font-weight:400;
+    text-transform:uppercase;margin-bottom:10px}
+
+  .row{display:flex;gap:6px}
+  .btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+    background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--tx);
+    font-family:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    padding:7px 4px;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+  .btn:hover{border-color:var(--line2);background:rgba(255,255,255,.06)}
+  .btn svg{flex:none}
+  .btn.running{color:var(--teal);border-color:rgba(63,216,198,.45);background:rgba(63,216,198,.07)}
+
+  .ctl{margin-bottom:11px}
+  .ctl:last-child{margin-bottom:2px}
+  .ctop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;
+    background:var(--line2);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;
+    border-radius:50%;background:var(--teal);border:none}
+  input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;
+    background:var(--teal);border:none}
+
+  .seg{display:flex;border:1px solid var(--line)}
+  .seg button{flex:1;background:transparent;border:none;border-right:1px solid var(--line);
+    color:var(--dim);font-family:inherit;font-size:9.5px;letter-spacing:.1em;
+    text-transform:uppercase;padding:7px 0;cursor:pointer;transition:all .15s}
+  .seg button:last-child{border-right:none}
+  .seg button.active{color:var(--teal);background:rgba(63,216,198,.08)}
+  .seg button:hover:not(.active){color:var(--tx)}
+
+  #legendBody{margin-top:10px;display:flex;flex-direction:column;gap:5px;font-size:10px;color:#8fa0a0}
+  #legendBody .lrow{display:flex;align-items:center;gap:8px}
+  .sw{width:9px;height:9px;flex:none;border-radius:1px}
+  .lnote{color:var(--dim);font-size:9.5px;line-height:1.5;margin-top:3px}
+
+  .chips{display:flex;flex-wrap:wrap;gap:5px}
+  .chip{background:rgba(255,255,255,.03);border:1px solid var(--line);color:#9fb0ae;
+    font-family:inherit;font-size:9.5px;letter-spacing:.08em;padding:4px 9px;cursor:pointer;
+    transition:all .15s}
+  .chip:hover{border-color:var(--line2);color:var(--tx)}
+  .chip.active{color:var(--amber);border-color:rgba(242,167,72,.45)}
+
+  .archrow{display:flex;gap:6px}
+  #arch{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--tx);
+    font-family:inherit;font-size:11px;padding:6px 8px;outline:none;-webkit-user-select:text;user-select:text}
+  #arch:focus{border-color:rgba(63,216,198,.4)}
+  #btnApply{flex:none;padding:6px 12px}
+  .err{color:var(--rose);font-size:9.5px;margin-top:6px;min-height:12px;line-height:1.4}
+
+  /* ── chart ───────────────────────────────── */
+  #chartbox{position:fixed;left:12px;bottom:12px;width:322px;background:var(--panel);
+    border:1px solid var(--line);backdrop-filter:blur(10px);z-index:10}
+  .chart-head{display:flex;align-items:baseline;justify-content:space-between;
+    padding:8px 12px;border-bottom:1px solid var(--line)}
+  .chart-head .lbl{letter-spacing:.18em}
+  #chartvals{font-size:10px;font-variant-numeric:tabular-nums}
+  #chart{display:block;width:100%;height:128px}
+
+  /* ── info card ───────────────────────────── */
+  #infocard{position:fixed;right:12px;top:64px;width:252px;background:var(--panel);
+    border:1px solid var(--line);backdrop-filter:blur(10px);z-index:10;
+    opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .2s}
+  #infocard.on{opacity:1;transform:none;pointer-events:auto}
+  .info-head{display:flex;align-items:center;justify-content:space-between;
+    padding:9px 12px;border-bottom:1px solid var(--line)}
+  .tag{font-size:9px;letter-spacing:.18em;padding:2px 7px;border:1px solid}
+  .tag.node{color:var(--teal);border-color:rgba(63,216,198,.4)}
+  .tag.edge{color:var(--amber);border-color:rgba(242,167,72,.4)}
+  #infoClose{background:none;border:none;color:var(--dim);cursor:pointer;font-family:inherit;
+    font-size:13px;line-height:1}
+  #infoClose:hover{color:var(--tx)}
+  #infoBody{padding:10px 12px 12px}
+  .kv{display:flex;justify-content:space-between;padding:3.5px 0;font-size:11px}
+  .kv .k{color:var(--dim)}
+  .kv .v{font-variant-numeric:tabular-nums}
+  #infoSub{font-size:9.5px;color:var(--dim);letter-spacing:.06em}
+
+  #hint{position:fixed;bottom:14px;right:14px;z-index:9;font-size:9.5px;color:var(--dim);
+    letter-spacing:.08em;text-align:right;line-height:1.7}
+  #hint b{color:#8fa0a0;font-weight:400}
+
+  #toast{position:fixed;left:50%;bottom:56px;transform:translateX(-50%) translateY(10px);
+    background:var(--panel);border:1px solid var(--line);padding:8px 16px;font-size:11px;
+    letter-spacing:.06em;opacity:0;pointer-events:none;transition:all .25s;z-index:20}
+  #toast.on{opacity:1;transform:translateX(-50%)}
+
+  #nogl{position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+    color:var(--rose);z-index:50;font-size:13px;letter-spacing:.05em}
+  @media (max-width:760px){
+    #panel{width:212px}
+    #chartbox{width:212px}
+    #hint{display:none}
+    .stat{padding:0 10px}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="gl"></canvas>
+<div id="nogl">WebGL2 is not available in this browser.</div>
+
+<header id="topbar">
+  <div class="brand">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.2" opacity=".8"/>
+      <ellipse cx="11" cy="11" rx="10" ry="4" stroke="currentColor" stroke-width="1" opacity=".4" transform="rotate(-24 11 11)"/>
+      <circle cx="11" cy="11" r="2" fill="#f2a748"/>
+      <circle cx="17.4" cy="7.2" r="1.3" fill="currentColor"/>
+    </svg>
+    <div>
+      <div class="t">NEUROSCOPE</div>
+      <div class="s">LIVE BACKPROP OBSERVATORY</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="lbl">epoch</span><span class="v" id="stEpoch">0000</span></div>
+    <div class="stat"><span class="lbl">loss · CE</span><span class="v teal" id="stLoss">—</span></div>
+    <div class="stat"><span class="lbl">accuracy</span><span class="v amber" id="stAcc">—</span></div>
+    <div class="stat"><span class="lbl">params</span><span class="v" id="stParams">—</span></div>
+  </div>
+</header>
+
+<aside id="panel">
+  <section>
+    <h3>01 · transport</h3>
+    <div class="row">
+      <button id="btnPlay" class="btn">
+        <svg id="icPlay" width="11" height="11" viewBox="0 0 16 16"><path d="M4 2l9 6-9 6z" fill="currentColor"/></svg>
+        <span id="playLbl">train</span>
+      </button>
+      <button id="btnStep" class="btn" title="run one mini-batch">
+        <svg width="11" height="11" viewBox="0 0 16 16"><path d="M3 3l7 5-7 5zM11 3h2v10h-2z" fill="currentColor"/></svg>
+        <span>step</span>
+      </button>
+      <button id="btnReset" class="btn" title="re-initialise weights">
+        <svg width="11" height="11" viewBox="0 0 16 16"><path d="M3.2 8a5 5 0 1 0 1.6-3.7M3 2.6v3.6h3.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span>reset</span>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h3>02 · optimisation</h3>
+    <div class="ctl">
+      <div class="ctop"><span class="lbl">learning rate η</span><span class="val" id="valLr">0.300</span></div>
+      <input type="range" id="rngLr" min="0" max="100" value="77">
+    </div>
+    <div class="ctl">
+      <div class="ctop"><span class="lbl">batch size</span><span class="val" id="valBatch">16</span></div>
+      <input type="range" id="rngBatch" min="4" max="64" step="2" value="16">
+    </div>
+    <div class="ctl">
+      <div class="ctop"><span class="lbl">speed · steps/frame</span><span class="val" id="valSpeed">4</span></div>
+      <input type="range" id="rngSpeed" min="1" max="20" value="4">
+    </div>
+  </section>
+
+  <section>
+    <h3>03 · view mode</h3>
+    <div class="seg" id="modeSeg">
+      <button data-mode="act" class="active">signal</button>
+      <button data-mode="wgt">weights</button>
+      <button data-mode="grad">grads</button>
+    </div>
+    <div id="legendBody"></div>
+  </section>
+
+  <section>
+    <h3>04 · camera focus</h3>
+    <div class="chips" id="focusRow"></div>
+  </section>
+
+  <section>
+    <h3>05 · architecture</h3>
+    <div class="archrow">
+      <input id="arch" type="text" value="4, 8, 6, 3" spellcheck="false" autocomplete="off">
+      <button id="btnApply" class="btn">set</button>
+    </div>
+    <div class="err" id="archErr"></div>
+  </section>
+</aside>
+
+<div id="chartbox">
+  <div class="chart-head">
+    <span class="lbl">training curve</span>
+    <span id="chartvals"><span class="teal" id="chLoss">—</span> · <span class="amber" id="chAcc">—</span></span>
+  </div>
+  <canvas id="chart"></canvas>
+</div>
+
+<div id="infocard">
+  <div class="info-head">
+    <span class="tag node" id="infoTag">NODE</span>
+    <span id="infoSub"></span>
+    <button id="infoClose" title="close">✕</button>
+  </div>
+  <div id="infoBody"></div>
+</div>
+
+<div id="hint">
+  <b>drag</b> orbit · <b>wheel</b> zoom · <b>right-drag</b> pan<br>
+  <b>click</b> node / connection to inspect · <b>space</b> run / halt
+</div>
+
+<div id="toast"></div>
+
+<script>
+(()=>{ 'use strict';
+
+/* ════════════════════════════════════════════════════════════════════
+   §0 · SMALL HELPERS
+   ════════════════════════════════════════════════════════════════════ */
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const sub3=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const add3=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]];
+const scl3=(a,s)=>[a[0]*s,a[1]*s,a[2]*s];
+const dot3=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross3=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm3=a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return[a[0]/l,a[1]/l,a[2]/l];};
+const fmt=(v,d=3)=>(v>=0?'+':'')+v.toFixed(d);
+const f_=v=>v.toFixed(3);
+
+// deterministic RNG (mulberry32) + gaussian sampling (Box–Muller)
+function mulberry32(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);
+  t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+let rand=mulberry32((Date.now()^0x9e3779b9)>>>0);
+function gauss(){let u=0,v=0;while(u===0)u=rand();while(v===0)v=rand();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+/* ════════════════════════════════════════════════════════════════════
+   §1 · MINIMAL MATRIX MATH (column-major, WebGL layout)
+   ════════════════════════════════════════════════════════════════════ */
+function perspective(fovy,aspect,n,f){
+  const t=1/Math.tan(fovy/2),nf=1/(n-f);
+  return new Float32Array([t/aspect,0,0,0, 0,t,0,0, 0,0,(f+n)*nf,-1, 0,0,2*f*n*nf,0]);
+}
+function lookAt(eye,c,up){
+  const z=norm3(sub3(eye,c));       // camera forward (looks down -z in view space)
+  const x=norm3(cross3(up,z));       // camera right
+  const y=cross3(z,x);               // camera up
+  return new Float32Array([
+    x[0],y[0],z[0],0,
+    x[1],y[1],z[1],0,
+    x[2],y[2],z[2],0,
+    -dot3(x,eye),-dot3(y,eye),-dot3(z,eye),1]);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   §2 · NEURAL NETWORK — the real thing.
+   A fully-connected classifier trained with mini-batch gradient descent.
+
+   Notation: layers 0..K-1 (0 = input, K-1 = softmax output).
+   W[l][j][i] connects unit i of layer l → unit j of layer l+1.
+
+   FORWARD PASS
+     z_l = W_l · a_{l-1} + b_l          (affine transform)
+     a_l = tanh(z_l)                    (hidden activation, l < K-1)
+     p   = softmax(z_{K-1})             (class probabilities)
+       softmax(z)_k = exp(z_k − max z) / Σ_j exp(z_j − max z)
+
+   LOSS — categorical cross-entropy, averaged over the mini-batch:
+     L = −(1/m) Σ_samples Σ_k  y_k · log(p_k)
+
+   BACKPROPAGATION — chain rule applied layer by layer.
+   Output error (softmax ⊗ cross-entropy Jacobian collapses to this):
+     δ_{K-1}[j] = ∂L/∂z_{K-1}[j] = p_j − y_j
+   Hidden error, pushed backwards through the next layer's weights:
+     δ_l[i] = ( Σ_j W_{l+1}[j][i] · δ_{l+1}[j] ) · tanh′(z_l[i])
+            = ( W_{l+1}ᵀ · δ_{l+1} )[i] · (1 − a_l[i]²)
+   Parameter gradients (error ⊗ incoming activation):
+     ∂L/∂W_l[j][i] = δ_{l+1}[j] · a_l[i]
+     ∂L/∂b_l[j]    = δ_{l+1}[j]
+
+   GRADIENT DESCENT update (η = learning rate, means over the batch):
+     W_l ← W_l − η · ∂L/∂W_l ,   b_l ← b_l − η · ∂L/∂b_l
+   ════════════════════════════════════════════════════════════════════ */
+
+let sizes=[4,8,6,3];
+let net=null;
+
+// Dataset: 3 Gaussian blobs in R⁴ (fixed seed → reproducible), then each
+// feature is standardised to zero mean / unit variance for stable training.
+const N_SAMPLES=240, N_IN=4, N_CLASS=3;
+const BLOB_MEANS=[[1.5,-1.0,0.5,-0.5],[-1.0,1.5,-0.5,0.5],[0.5,-0.5,1.8,-1.2]];
+const X=[],Y=[];
+(function makeDataset(){
+  const r=mulberry32(1337),g=()=>{let u=0,v=0;while(!u)u=r();while(!v)v=r();
+    return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};
+  for(let s=0;s<N_SAMPLES;s++){
+    const c=s%N_CLASS,m=BLOB_MEANS[c],x=new Float64Array(N_IN);
+    for(let i=0;i<N_IN;i++)x[i]=m[i]+g()*0.8;
+    X.push(x);Y.push(c);
+  }
+  for(let i=0;i<N_IN;i++){                       // per-feature standardisation
+    let mu=0;for(const x of X)mu+=x[i];mu/=N_SAMPLES;
+    let sd=0;for(const x of X)sd+=(x[i]-mu)**2;sd=Math.sqrt(sd/N_SAMPLES)||1;
+    for(const x of X)x[i]=(x[i]-mu)/sd;
+  }
+})();
+
+function buildNet(sz){
+  const K=sz.length;
+  const W=[],B=[],gW=[],gB=[],edgeG=[];
+  for(let l=0;l<K-1;l++){
+    // Xavier initialisation: W ~ N(0, 1/fan_in) — keeps tanh pre-activations in
+    // their linear regime at the start of training.
+    const std=Math.sqrt(1/sz[l]),rows=[],grow=[],gema=[];
+    for(let j=0;j<sz[l+1];j++){
+      const r=new Float64Array(sz[l]);
+      for(let i=0;i<sz[l];i++)r[i]=gauss()*std;
+      rows.push(r);grow.push(new Float64Array(sz[l]));gema.push(new Float64Array(sz[l]));
+    }
+    W.push(rows);gW.push(grow);edgeG.push(gema);
+    B.push(new Float64Array(sz[l+1]));gB.push(new Float64Array(sz[l+1]));
+  }
+  const act=[],delta=[],nAct=[],nAbs=[],nGrad=[];
+  for(let l=0;l<K;l++){
+    act.push(new Float64Array(sz[l]));delta.push(new Float64Array(sz[l]));
+    nAct.push(new Float64Array(sz[l]));nAbs.push(new Float64Array(sz[l]));
+    nGrad.push(new Float64Array(sz[l]));
+  }
+  return {sizes:sz,K,W,B,gW,gB,edgeG,act,delta,nAct,nAbs,nGrad,
+          steps:0,seen:0,loss:0,acc:0};
+}
+
+function softmax(v){
+  let m=-1e30;for(let i=0;i<v.length;i++)if(v[i]>m)m=v[i];
+  let s=0;for(let i=0;i<v.length;i++){v[i]=Math.exp(v[i]-m);s+=v[i];}
+  for(let i=0;i<v.length;i++)v[i]/=s;
+}
+
+// Forward pass: fills net.act[0..K-1]. act[0]=x, hidden tanh, output softmax.
+function forward(x){
+  const{K,W,B,act,sizes}=net;
+  act[0].set(x);
+  for(let l=0;l<K-1;l++){
+    const inA=act[l],out=act[l+1],Wl=W[l],Bl=B[l],n=sizes[l+1],last=(l===K-2);
+    for(let j=0;j<n;j++){
+      const wr=Wl[j];let z=Bl[j];
+      for(let i=0;i<inA.length;i++)z+=wr[i]*inA[i];
+      out[j]=last?z:Math.tanh(z);        // logits kept raw; softmax applied below
+    }
+    if(last)softmax(out);
+  }
+}
+
+// Backward pass for one sample: fills net.delta, returns that sample's CE loss.
+function backward(y){
+  const{K,W,act,delta,sizes}=net;
+  const p=act[K-1],out=delta[K-1];
+  const loss=-Math.log(p[y]+1e-12);
+  // output error: δ = p − y   (derivative of CE w.r.t. softmax logits)
+  for(let j=0;j<sizes[K-1];j++)out[j]=p[j]-(j===y?1:0);
+  // hidden errors: δ_l = (Wᵀ δ_{l+1}) ⊙ (1 − a_l²),  tanh′(z)=1−tanh(z)²
+  for(let l=K-2;l>=1;l--){
+    const dl=delta[l],dn=delta[l+1],Wl=W[l],a=act[l],n=sizes[l];
+    for(let i=0;i<n;i++){
+      let s=0;for(let j=0;j<sizes[l+1];j++)s+=Wl[j][i]*dn[j];
+      dl[i]=s*(1-a[i]*a[i]);
+    }
+  }
+  return loss;
+}
+
+// One mini-batch SGD step: forward+backward per sample, accumulate gradients,
+// then apply the weight update. Also refreshes all visualisation statistics.
+function trainStep(lr,bs){
+  const{K,W,B,gW,gB,act,delta,sizes,nAct,nAbs,nGrad,edgeG}=net;
+  for(let l=0;l<K-1;l++){for(let j=0;j<sizes[l+1];j++){gW[l][j].fill(0);}gB[l].fill(0);}
+  const sA=[],sB=[],sD=[];
+  for(let l=0;l<K;l++){sA.push(new Float64Array(sizes[l]));
+    sB.push(new Float64Array(sizes[l]));sD.push(new Float64Array(sizes[l]));}
+  let loss=0;
+  for(let n=0;n<bs;n++){
+    const s=(rand()*N_SAMPLES)|0;
+    forward(X[s]);                          // activations for this sample
+    loss+=backward(Y[s]);                   // deltas for this sample
+    for(let l=0;l<K;l++)for(let i=0;i<sizes[l];i++){
+      sA[l][i]+=act[l][i];sB[l][i]+=Math.abs(act[l][i]);
+      if(l>0)sD[l][i]+=Math.abs(delta[l][i]);
+    }
+    // gradient accumulation: gW += δ_{l+1} ⊗ a_l  ,  gB += δ_{l+1}
+    for(let l=0;l<K-1;l++){
+      const ap=act[l],dl=delta[l+1],gl=gW[l],gb=gB[l];
+      for(let j=0;j<sizes[l+1];j++){
+        const d=dl[j],gr=gl[j];
+        for(let i=0;i<ap.length;i++)gr[i]+=d*ap[i];
+        gb[j]+=d;
+      }
+    }
+  }
+  const inv=1/bs;
+  // gradient descent update + exponential moving average of |gradient| (for the
+  // gradient view mode — raw per-batch gradients are far too jittery to look at)
+  for(let l=0;l<K-1;l++)for(let j=0;j<sizes[l+1];j++){
+    const wr=W[l][j],gr=gW[l][j],er=edgeG[l][j];
+    for(let i=0;i<wr.length;i++){
+      wr[i]-=lr*gr[i]*inv;
+      er[i]=er[i]*0.85+Math.abs(gr[i]*inv)*0.15;
+    }
+    B[l][j]-=lr*gB[l][j]*inv;
+  }
+  for(let l=0;l<K;l++)for(let i=0;i<sizes[l];i++){
+    nAct[l][i]=sA[l][i]*inv; nAbs[l][i]=sB[l][i]*inv;
+    if(l>0)nGrad[l][i]=nGrad[l][i]*0.6+sD[l][i]*inv*0.4;
+  }
+  net.steps++;net.seen+=bs;net.loss=loss*inv;
+}
+
+// Full-dataset evaluation (loss + accuracy); also refreshes activation means
+// from the whole dataset — used at init and while paused for a settled view.
+function refreshStats(){
+  const{K,act,sizes,nAct,nAbs}=net;
+  for(let l=0;l<K;l++){nAct[l].fill(0);nAbs[l].fill(0);}
+  for(let s=0;s<N_SAMPLES;s++){
+    forward(X[s]);
+    for(let l=0;l<K;l++)for(let i=0;i<sizes[l];i++){
+      nAct[l][i]+=act[l][i];nAbs[l][i]+=Math.abs(act[l][i]);}
+  }
+  for(let l=0;l<K;l++)for(let i=0;i<sizes[l];i++){
+    nAct[l][i]/=N_SAMPLES;nAbs[l][i]/=N_SAMPLES;}
+}
+function evalFull(push){
+  let L=0,c=0;
+  for(let s=0;s<N_SAMPLES;s++){
+    forward(X[s]);const p=net.act[net.K-1];
+    L+=-Math.log(p[Y[s]]+1e-12);
+    let am=0;for(let k=1;k<N_CLASS;k++)if(p[k]>p[am])am=k;
+    if(am===Y[s])c++;
+  }
+  net.loss=L/N_SAMPLES;net.acc=c/N_SAMPLES;
+  if(push){histL.push(net.loss);histA.push(net.acc);
+    if(histL.length>6000){for(let i=0;i<3000;i++){histL[i]=histL[i*2];histA[i]=histA[i*2];}
+      histL.length=histA.length=3000;}}
+}
+const epoch=()=>Math.floor(net.seen/N_SAMPLES);
+const paramCount=()=>{let p=0;for(let l=0;l<sizes.length-1;l++)p+=(sizes[l]+1)*sizes[l+1];return p;};
+
+/* ════════════════════════════════════════════════════════════════════
+   §3 · 3D LAYOUT — layers along X, units of each layer on a ring in the
+   Y-Z plane → a "corridor of rings" you can orbit through.
+   ════════════════════════════════════════════════════════════════════ */
+const LAYER_GAP=3.3;
+let nodes=[],edges=[],layerX=[],dist0=14;
+function layerName(l){return l===0?'IN':l===sizes.length-1?'OUT':'H'+l;}
+function buildLayout(){
+  const K=sizes.length;nodes=[];edges=[];layerX=[];
+  for(let l=0;l<K;l++)layerX.push((l-(K-1)/2)*LAYER_GAP);
+  for(let l=0;l<K;l++){
+    const n=sizes[l],r=n<=1?0:Math.max(0.85,0.17*n);
+    for(let i=0;i<n;i++){
+      const a=n<=1?0:(i+0.5)*2*Math.PI/n;
+      nodes.push({l,i,pos:[layerX[l],r*Math.cos(a),r*Math.sin(a)],rad:0.15});
+    }
+  }
+  const nodeOf=(l,i)=>nodes.find(n=>n.l===l&&n.i===i);
+  for(let l=0;l<K-1;l++)for(let j=0;j<sizes[l+1];j++)for(let i=0;i<sizes[l];i++){
+    const a=nodeOf(l,i),b=nodeOf(l+1,j);
+    edges.push({l,i,j,a:a.pos,b:b.pos,phase:rand()});
+  }
+  dist0=clamp((K-1)*LAYER_GAP*1.5,9,18);
+  nodeV=new Float32Array(nodes.length);   // displayed (lerped) signed intensity
+  edgeV=new Float32Array(edges.length);
+  sm={a:0.3,w:0.4,g:0.05,c:0.2,gn:0.05};
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   §4 · TINY WEBGL2 ENGINE — instanced spheres, billboarded ribbons,
+   additive halos, flowing pulses and a rotating starfield.
+   ════════════════════════════════════════════════════════════════════ */
+const cv=$('gl');
+const gl=cv.getContext('webgl2',{antialias:true,alpha:false});
+if(!gl){$('nogl').style.display='flex';return;}
+
+function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(s));return s;}
+function prog(vs,fs,unis){const p=gl.createProgram();
+  gl.attachShader(p,sh(gl.VERTEX_SHADER,vs));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(p);
+  if(!gl.getProgramParameter(p,gl.LINK_STATUS))console.error(gl.getProgramInfoLog(p));
+  p.u={};for(const n of unis)p.u[n]=gl.getUniformLocation(p,n);return p;}
+
+/* — nodes: instanced unit spheres — */
+const SPH_VS=`#version 300 es
+layout(location=0) in vec3 aPos;
+layout(location=1) in vec3 iPos;
+layout(location=2) in float iScale;
+layout(location=3) in vec3 iColor;
+layout(location=4) in float iSel;
+uniform mat4 uProj,uView;
+out vec3 vN;out vec3 vC;out float vSel;out vec3 vW;
+void main(){
+  vec3 w=iPos+aPos*iScale;
+  vW=w;vN=aPos;vC=iColor;vSel=iSel;
+  gl_Position=uProj*uView*vec4(w,1.0);
+}`;
+const SPH_FS=`#version 300 es
+precision highp float;
+in vec3 vN;in vec3 vC;in float vSel;in vec3 vW;
+uniform vec3 uCamPos;
+out vec4 frag;
+void main(){
+  vec3 N=normalize(vN);
+  vec3 L=normalize(vec3(0.5,0.9,0.45));
+  vec3 V=normalize(uCamPos-vW);
+  float dif=max(dot(N,L),0.0);
+  float rim=pow(1.0-max(dot(N,V),0.0),2.6);
+  vec3 c=vC*(0.32+0.68*dif)+vC*rim*0.55+vec3(0.9,1.0,0.98)*rim*0.05;
+  if(vSel>0.5)c+=vec3(0.85,1.0,0.96)*rim*1.5+vec3(0.1);
+  frag=vec4(c,1.0);
+}`;
+
+/* — connections: camera-facing tapered ribbons — */
+const EDGE_VS=`#version 300 es
+layout(location=0) in vec2 aCorner;   // x: along [0,1]  y: across [-1,1]
+layout(location=1) in vec3 iA;
+layout(location=2) in vec3 iB;
+layout(location=3) in float iHalfW;
+layout(location=4) in vec4 iColor;
+uniform mat4 uProj,uView;uniform vec3 uCamPos;
+out vec4 vColor;out float vAcross;
+void main(){
+  float t=aCorner.x;
+  vec3 p=mix(iA,iB,t);
+  vec3 dir=normalize(iB-iA);
+  vec3 v=normalize(uCamPos-p);
+  vec3 side=normalize(cross(dir,v));
+  float taper=0.45+0.55*sin(3.14159265*t);      // slightly fatter mid-span
+  vec3 w=p+side*aCorner.y*iHalfW*taper;
+  vAcross=aCorner.y;vColor=iColor;
+  gl_Position=uProj*uView*vec4(w,1.0);
+}`;
+const EDGE_FS=`#version 300 es
+precision highp float;
+in vec4 vColor;in float vAcross;
+out vec4 frag;
+void main(){
+  float a=vColor.a*(1.0-abs(vAcross)*0.45);
+  vec3 c=vColor.rgb*(0.8+0.35*(1.0-abs(vAcross)));
+  frag=vec4(c,a);
+}`;
+
+/* — node halos: additive billboard quads — */
+const HALO_VS=`#version 300 es
+layout(location=0) in vec2 aCorner;
+layout(location=1) in vec3 iPos;
+layout(location=2) in float iScale;
+layout(location=3) in vec3 iColor;
+layout(location=4) in float iAlpha;
+uniform mat4 uProj,uView;
+out vec2 vUV;out vec3 vC;out float vA;
+void main(){
+  vec3 right=vec3(uView[0].x,uView[1].x,uView[2].x);
+  vec3 up   =vec3(uView[0].y,uView[1].y,uView[2].y);
+  vec3 w=iPos+(right*aCorner.x+up*aCorner.y)*iScale;
+  vUV=aCorner;vC=iColor;vA=iAlpha;
+  gl_Position=uProj*uView*vec4(w,1.0);
+}`;
+const HALO_FS=`#version 300 es
+precision highp float;
+in vec2 vUV;in vec3 vC;in float vA;
+out vec4 frag;
+void main(){
+  float d=length(vUV);
+  float a=pow(max(0.0,1.0-d),2.3);
+  frag=vec4(vC*a*vA,1.0);
+}`;
+
+/* — signal pulses travelling along connections (instanced points) — */
+const PULSE_VS=`#version 300 es
+layout(location=0) in vec3 iA;
+layout(location=1) in vec3 iB;
+layout(location=2) in float iPhase;
+layout(location=3) in float iSpeed;
+layout(location=4) in float iSize;
+layout(location=5) in vec4 iColor;
+uniform mat4 uProj,uView;uniform float uTime,uPR,uH,uTan;
+out vec3 vC;out float vA;
+void main(){
+  float t=fract(iPhase+uTime*iSpeed);
+  vec4 cp=uProj*uView*vec4(mix(iA,iB,t),1.0);
+  gl_Position=cp;
+  gl_PointSize=clamp(iSize*uPR*uH/(2.0*uTan*cp.w),1.0,60.0);
+  vC=iColor.rgb;vA=iColor.a*sin(3.14159265*t);
+}`;
+const PULSE_FS=`#version 300 es
+precision highp float;
+in vec3 vC;in float vA;
+out vec4 frag;
+void main(){
+  vec2 q=gl_PointCoord*2.0-1.0;
+  float a=max(0.0,1.0-dot(q,q));a*=a;
+  frag=vec4(vC*a*vA,1.0);
+}`;
+
+/* — background starfield (points, slow rotation + twinkle) — */
+const STAR_VS=`#version 300 es
+layout(location=0) in vec3 aPos;
+layout(location=1) in float aPhase;
+layout(location=2) in float aSize;
+layout(location=3) in vec3 aCol;
+uniform mat4 uProj,uView;uniform float uTime,uPR;
+out vec3 vC;
+void main(){
+  float an=uTime*0.004;
+  vec3 p=vec3(aPos.x*cos(an)-aPos.z*sin(an),aPos.y,aPos.x*sin(an)+aPos.z*cos(an));
+  float tw=0.5+0.5*sin(uTime*(0.3+fract(aPhase)*0.6)+aPhase*17.0);
+  vC=aCol*(0.35+0.65*tw);
+  gl_PointSize=aSize*uPR;
+  gl_Position=uProj*uView*vec4(p,1.0);
+}`;
+const STAR_FS=`#version 300 es
+precision highp float;
+in vec3 vC;
+out vec4 frag;
+void main(){
+  vec2 q=gl_PointCoord*2.0-1.0;
+  float a=smoothstep(1.0,0.15,length(q));
+  frag=vec4(vC*a*0.8,1.0);
+}`;
+
+const pSph=prog(SPH_VS,SPH_FS,['uProj','uView','uCamPos']);
+const pEdge=prog(EDGE_VS,EDGE_FS,['uProj','uView','uCamPos']);
+const pHalo=prog(HALO_VS,HALO_FS,['uProj','uView']);
+const pPulse=prog(PULSE_VS,PULSE_FS,['uProj','uView','uTime','uPR','uH','uTan']);
+const pStar=prog(STAR_VS,STAR_FS,['uProj','uView','uTime','uPR']);
+
+// geometry ------------------------------------------------------------------
+function sphereGeo(lat,lon){
+  const pos=[],idx=[];
+  for(let i=0;i<=lat;i++){const th=i/lat*Math.PI,st=Math.sin(th),ct=Math.cos(th);
+    for(let j=0;j<=lon;j++){const ph=j/lon*2*Math.PI;
+      pos.push(st*Math.cos(ph),ct,st*Math.sin(ph));}}
+  for(let i=0;i<lat;i++)for(let j=0;j<lon;j++){
+    const a=i*(lon+1)+j,b=a+lon+1;
+    idx.push(a,b,a+1,a+1,b,b+1);}
+  return{pos:new Float32Array(pos),idx:new Uint16Array(idx),count:idx.length};
+}
+const sph=sphereGeo(14,20);
+function buf(data){const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);
+  gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);return b;}
+const quadEdge=new Float32Array([0,-1, 1,-1, 0,1, 1,1]);
+const quadHalo=new Float32Array([-1,-1, 1,-1, -1,1, 1,1]);
+const quadIdx=new Uint16Array([0,1,2, 1,3,2]);
+
+const N_STARS=850;
+const starData=new Float32Array(N_STARS*8);
+{const r=mulberry32(4242);
+ for(let s=0;s<N_STARS;s++){
+   const d=norm3([gauss.call?0:0,0,0]); // placeholder replaced below
+   let v=[r()*2-1,r()*2-1,r()*2-1];const rr=45+r()*70;
+   v=norm3(v);
+   const o=s*8,warm=r();
+   starData.set([v[0]*rr,v[1]*rr,v[2]*rr, r()*40, 0.8+r()*1.9,
+     0.75+warm*0.25, 0.85+warm*0.1, 1.0-warm*0.25],o);
+ }}
+
+// VAOs ----------------------------------------------------------------------
+function attrib(loc,size,offset,stride){gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc,size,gl.FLOAT,false,stride,offset);}
+function instAttrib(loc,size,offset,stride){gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc,size,gl.FLOAT,false,stride,offset);
+  gl.vertexAttribDivisor(loc,1);}
+
+const sphPosBuf=buf(sph.pos),sphIdxBuf=(()=>{const b=gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,b);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,sph.idx,gl.STATIC_DRAW);return b;})();
+const sphInst=gl.createBuffer();
+const vaoSph=gl.createVertexArray();gl.bindVertexArray(vaoSph);
+gl.bindBuffer(gl.ARRAY_BUFFER,sphPosBuf);attrib(0,3,0,12);
+gl.bindBuffer(gl.ARRAY_BUFFER,sphInst);
+instAttrib(1,3,0,32);instAttrib(2,1,12,32);instAttrib(3,3,16,32);instAttrib(4,1,28,32);
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,sphIdxBuf);
+gl.bindVertexArray(null);
+
+function makeQuadVao(corners,layout){
+  const vao=gl.createVertexArray();gl.bindVertexArray(vao);
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf(corners));attrib(0,2,0,8);
+  const inst=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,inst);
+  let off=0;
+  for(const[size]of layout){instAttrib(layout.indexOf?0:0,0,0,0);}   // replaced below
+  gl.bindVertexArray(null);
+  return{vao,inst};
+}
+// (explicit construction is clearer than a generic helper here)
+const edgeInst=gl.createBuffer();
+const vaoEdge=gl.createVertexArray();gl.bindVertexArray(vaoEdge);
+gl.bindBuffer(gl.ARRAY_BUFFER,buf(quadEdge));attrib(0,2,0,8);
+gl.bindBuffer(gl.ARRAY_BUFFER,edgeInst);
+instAttrib(1,3,0,44);instAttrib(2,3,12,44);instAttrib(3,1,24,44);instAttrib(4,4,28,44);
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,buf(quadIdx));
+gl.bindVertexArray(null);
+
+const haloInst=gl.createBuffer();
+const vaoHalo=gl.createVertexArray();gl.bindVertexArray(vaoHalo);
+gl.bindBuffer(gl.ARRAY_BUFFER,buf(quadHalo));attrib(0,2,0,8);
+gl.bindBuffer(gl.ARRAY_BUFFER,haloInst);
+instAttrib(1,3,0,32);instAttrib(2,1,12,32);instAttrib(3,3,16,32);instAttrib(4,1,28,32);
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,buf(quadIdx));
+gl.bindVertexArray(null);
+
+const pulseInst=gl.createBuffer();
+const vaoPulse=gl.createVertexArray();gl.bindVertexArray(vaoPulse);
+gl.bindBuffer(gl.ARRAY_BUFFER,pulseInst);
+instAttrib(0,3,0,52);instAttrib(1,3,12,52);instAttrib(2,1,24,52);
+instAttrib(3,1,28,52);instAttrib(4,1,32,52);instAttrib(5,4,36,52);
+gl.bindVertexArray(null);
+
+const vaoStar=gl.createVertexArray();gl.bindVertexArray(vaoStar);
+gl.bindBuffer(gl.ARRAY_BUFFER,buf(starData));
+attrib(0,3,0,32);attrib(1,1,12,32);attrib(2,1,16,32);attrib(3,3,20,32);
+gl.bindVertexArray(null);
+
+/* ════════════════════════════════════════════════════════════════════
+   §5 · CAMERA + INPUT (orbit / zoom / pan / focus)
+   ════════════════════════════════════════════════════════════════════ */
+const FOV=50*Math.PI/180;
+const cam={yaw:0.62,pitch:0.17,dist:15,tgt:[0,0,0],gTgt:[0,0,0],gDist:15};
+function camBasis(){
+  const cp=Math.cos(cam.pitch),sp=Math.sin(cam.pitch),
+        cy=Math.cos(cam.yaw),sy=Math.sin(cam.yaw);
+  const eye=[cam.tgt[0]+cam.dist*cp*sy,cam.tgt[1]+cam.dist*sp,cam.tgt[2]+cam.dist*cp*cy];
+  const fwd=norm3(sub3(cam.tgt,eye));
+  const right=norm3(cross3(fwd,[0,1,0]));
+  const up=cross3(right,fwd);
+  return{eye,fwd,right,up};
+}
+let VW=1,VH=1,DPR=1,proj=null,view=null;
+function resize(){
+  DPR=Math.min(2,window.devicePixelRatio||1);
+  VW=window.innerWidth;VH=window.innerHeight;
+  cv.width=VW*DPR;cv.height=VH*DPR;
+  gl.viewport(0,0,cv.width,cv.height);
+  proj=perspective(FOV,VW/VH,0.1,400);
+  resizeChart();
+}
+window.addEventListener('resize',resize);
+
+const pointers=new Map();
+let downPos=null,moved=false,pinchD=0;
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+cv.addEventListener('pointerdown',e=>{
+  cv.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY,btn:e.button,shift:e.shiftKey});
+  downPos={x:e.clientX,y:e.clientY};moved=false;
+  if(pointers.size===2){const p=[...pointers.values()];pinchD=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);}
+  cv.classList.add('dragging');
+});
+cv.addEventListener('pointermove',e=>{
+  if(pointers.has(e.pointerId)){
+    const p=pointers.get(e.pointerId);
+    const dx=e.clientX-p.x,dy=e.clientY-p.y;
+    p.x=e.clientX;p.y=e.clientY;
+    if(Math.abs(e.clientX-downPos.x)+Math.abs(e.clientY-downPos.y)>4)moved=true;
+    if(pointers.size===2){
+      const q=[...pointers.values()];
+      const d=Math.hypot(q[0].x-q[1].x,q[0].y-q[1].y);
+      if(pinchD>0){cam.dist=clamp(cam.dist*pinchD/d,3,60);cam.gDist=cam.dist;}
+      pinchD=d;return;
+    }
+    const pan=p.btn===2||p.btn===1||(p.btn===0&&p.shift);
+    if(pan){
+      const{right,up}=camBasis(),k=cam.dist*0.0016;
+      cam.gTgt=add3(cam.gTgt,add3(scl3(right,-dx*k),scl3(up,dy*k)));
+      cam.tgt=[...cam.gTgt];
+    }else{
+      cam.yaw-=dx*0.0055;
+      cam.pitch=clamp(cam.pitch+dy*0.0055,-1.35,1.35);
+    }
+  }else{
+    // hover cursor
+    const hit=pick(e.clientX,e.clientY);
+    cv.style.cursor=hit?'pointer':'grab';
+  }
+});
+cv.addEventListener('pointerup',e=>{
+  pointers.delete(e.pointerId);
+  if(pointers.size===0)cv.classList.remove('dragging');
+  const p=pointers.has(e.pointerId)?pointers.get(e.pointerId):null;
+  if(!moved&&downPos&&e.button===0){const hit=pick(e.clientX,e.clientY);select(hit);}
+  downPos=null;
+});
+cv.addEventListener('pointercancel',e=>{pointers.delete(e.pointerId);cv.classList.remove('dragging');});
+cv.addEventListener('wheel',e=>{
+  e.preventDefault();
+  cam.dist=clamp(cam.dist*Math.exp(e.deltaY*0.0011),3,60);
+  cam.gDist=cam.dist;
+},{passive:false});
+
+/* ── picking: analytic ray/sphere + ray/segment tests, no GPU readback ── */
+function pickRay(mx,my){
+  const{fwd,right,up}=camBasis();
+  const th=Math.tan(FOV/2),asp=VW/VH;
+  const ax=(mx/VW*2-1)*th*asp,ay=(1-my/VH*2)*th;
+  return norm3(add3(fwd,add3(scl3(right,ax),scl3(up,ay))));
+}
+function raySphere(ro,rd,c,r){
+  const oc=sub3(ro,c),b=dot3(oc,rd),cc=dot3(oc,oc)-r*r,disc=b*b-cc;
+  if(disc<0)return-1;
+  const t=-b-Math.sqrt(disc);return t>0.02?t:-1;
+}
+function raySeg(ro,rd,a,b){
+  const v=sub3(b,a),w0=sub3(ro,a);
+  const B=dot3(rd,v),C=dot3(v,v),D=dot3(rd,w0),E=dot3(v,w0);
+  const den=C-B*B;
+  let s=den>1e-9?(E-B*D)/den:0;s=clamp(s,0,1);
+  let t=Math.max(0.001,s*B-D);
+  const p1=add3(ro,scl3(rd,t)),p2=add3(a,scl3(v,s));
+  return{t,d:Math.hypot(p1[0]-p2[0],p1[1]-p2[1],p1[2]-p2[2])};
+}
+function pick(mx,my){
+  const{eye}=camBasis(),dir=pickRay(mx,my);
+  let best=null;
+  nodes.forEach((nd,ix)=>{
+    const t=raySphere(eye,dir,nd.pos,Math.max(nd.rad,0.17));
+    if(t>0&&(!best||t<best.t))best={type:'node',idx:ix,t};
+  });
+  edges.forEach((e,ix)=>{
+    const r=raySeg(eye,dir,e.a,e.b);
+    const thr=Math.max(0.05,(e.hw||0.01)*3);
+    if(r.d<thr&&(!best||r.t<best.t))best={type:'edge',idx:ix,t:r.t};
+  });
+  return best;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   §6 · VISUAL ENCODING
+   Diverging map: teal (negative) ← dim → amber (positive).
+   Gradient mode: rose heat ramp on |∂L/∂θ| (EMA).
+   ════════════════════════════════════════════════════════════════════ */
+const NEG=[0.22,0.83,0.76],POS=[0.98,0.66,0.27],DIM=[0.07,0.09,0.10];
+const ROSE=[1.0,0.36,0.47],RDIM=[0.12,0.06,0.09];
+function divColor(v){
+  const t=Math.pow(clamp(Math.abs(v),0,1),0.72),h=v>=0?POS:NEG;
+  return[DIM[0]+(h[0]-DIM[0])*t,DIM[1]+(h[1]-DIM[1])*t,DIM[2]+(h[2]-DIM[2])*t];
+}
+function heat(t){
+  t=Math.pow(clamp(t,0,1),0.7);
+  return[RDIM[0]+(ROSE[0]-RDIM[0])*t,RDIM[1]+(ROSE[1]-RDIM[1])*t,RDIM[2]+(ROSE[2]-RDIM[2])*t];
+}
+let nodeV=null,edgeV=null,sm=null;   // lerped intensities + smoothed normalisers
+let mode='act';
+
+function updateVisuals(dt){
+  const K=net.K;
+  let mw=1e-6,mg=1e-6,mc=1e-6,ma=1e-6,mgn=1e-6;
+  for(let e=0;e<edges.length;e++){
+    const E=edges[e],w=Math.abs(net.W[E.l][E.j][E.i]),g=net.edgeG[E.l][E.j][E.i];
+    if(w>mw)mw=w;if(g>mg)mg=g;
+    const c=Math.abs(net.nAct[E.l][E.i]*net.W[E.l][E.j][E.i]);if(c>mc)mc=c;
+  }
+  for(const nd of nodes){
+    const a=net.nAbs[nd.l][nd.i],g=net.nGrad[nd.l][nd.i];
+    if(a>ma)ma=a;if(g>mgn)mgn=g;
+  }
+  const k=1-Math.exp(-dt*4);
+  sm.w+=(mw-sm.w)*k;sm.g+=(mg-sm.g)*k;sm.c+=(mc-sm.c)*k;
+  sm.a+=(ma-sm.a)*k;sm.gn+=(mgn-sm.gn)*k;
+  const lk=1-Math.exp(-dt*8);
+  for(let n=0;n<nodes.length;n++){
+    const nd=nodes[n];
+    const tgt=mode==='grad'
+      ?net.nGrad[nd.l][nd.i]/sm.gn
+      :net.nAct[nd.l][nd.i]/Math.max(sm.a,1e-6);
+    nodeV[n]+=(clamp(tgt,-1.2,1.2)-nodeV[n])*lk;
+  }
+  for(let e=0;e<edges.length;e++){
+    const E=edges[e];
+    let tgt;
+    if(mode==='grad')tgt=net.edgeG[E.l][E.j][E.i]/sm.g;
+    else if(mode==='wgt')tgt=net.W[E.l][E.j][E.i]/sm.w;
+    else tgt=net.nAct[E.l][E.i]*net.W[E.l][E.j][E.i]/sm.c;
+    edgeV[e]+=(clamp(tgt,-1.2,1.2)-edgeV[e])*lk;
+  }
+}
+
+/* ── per-frame instance arrays ── */
+const nodeArr=[],edgeArr=[],haloArr=[],pulseArr=[];
+function buildInstances(){
+  nodeArr.length=0;edgeArr.length=0;haloArr.length=0;pulseArr.length=0;
+  for(let n=0;n<nodes.length;n++){
+    const nd=nodes[n],v=nodeV[n],m=clamp(Math.abs(v),0,1);
+    const rad=0.13+0.17*Math.pow(m,0.8);nd.rad=rad;
+    const col=mode==='grad'?heat(m):divColor(v);
+    const selN=(sel&&sel.type==='node'&&sel.idx===n)?1:0;
+    nodeArr.push(nd.pos[0],nd.pos[1],nd.pos[2],rad,col[0],col[1],col[2],selN);
+    haloArr.push(nd.pos[0],nd.pos[1],nd.pos[2],rad*2.9,col[0],col[1],col[2],0.05+0.5*m);
+  }
+  for(let e=0;e<edges.length;e++){
+    const E=edges[e],v=edgeV[e],m=clamp(Math.abs(v),0,1);
+    const col=mode==='grad'?heat(m):divColor(v);
+    let hw=0.006+0.036*m,al=0.06+0.5*m;
+    const selE=(sel&&sel.type==='edge'&&sel.idx===e);
+    if(selE){hw*=1.9;al=0.95;}
+    E.hw=hw;
+    const cr=selE?[0.92,0.97,1.0]:col;
+    edgeArr.push(E.a[0],E.a[1],E.a[2],E.b[0],E.b[1],E.b[2],hw,cr[0],cr[1],cr[2],al);
+    if(m>0.14&&!selE){
+      pulseArr.push(E.a[0],E.a[1],E.a[2],E.b[0],E.b[1],E.b[2],E.phase,
+        0.18+0.95*m,0.028+0.05*m,col[0],col[1],col[2],0.55*m);
+    }
+  }
+}
+
+/* ── draw one frame ── */
+function render(tSec){
+  gl.clearColor(0.024,0.035,0.047,1);
+  gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  gl.disable(gl.CULL_FACE);
+
+  // stars — additive, no depth
+  gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);
+  gl.useProgram(pStar);
+  gl.uniformMatrix4fv(pStar.u.uProj,false,proj);
+  gl.uniformMatrix4fv(pStar.u.uView,false,view);
+  gl.uniform1f(pStar.u.uTime,tSec);gl.uniform1f(pStar.u.uPR,DPR);
+  gl.bindVertexArray(vaoStar);
+  gl.drawArrays(gl.POINTS,0,N_STARS);
+
+  // spheres — opaque, depth-written
+  gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.disable(gl.BLEND);
+  const{eye}=camBasis();
+  gl.useProgram(pSph);
+  gl.uniformMatrix4fv(pSph.u.uProj,false,proj);
+  gl.uniformMatrix4fv(pSph.u.uView,false,view);
+  gl.uniform3fv(pSph.u.uCamPos,eye);
+  gl.bindVertexArray(vaoSph);
+  gl.bindBuffer(gl.ARRAY_BUFFER,sphInst);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(nodeArr),gl.DYNAMIC_DRAW);
+  gl.drawElementsInstanced(gl.TRIANGLES,sph.count,gl.UNSIGNED_SHORT,0,nodes.length);
+
+  // ribbons — blended, depth-tested but not depth-writing
+  gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);
+  gl.useProgram(pEdge);
+  gl.uniformMatrix4fv(pEdge.u.uProj,false,proj);
+  gl.uniformMatrix4fv(pEdge.u.uView,false,view);
+  gl.uniform3fv(pEdge.u.uCamPos,eye);
+  gl.bindVertexArray(vaoEdge);
+  gl.bindBuffer(gl.ARRAY_BUFFER,edgeInst);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(edgeArr),gl.DYNAMIC_DRAW);
+  gl.drawElementsInstanced(gl.TRIANGLES,6,gl.UNSIGNED_SHORT,0,edges.length);
+
+  // pulses — additive points flowing along connections
+  if(pulseArr.length){
+    gl.blendFunc(gl.ONE,gl.ONE);
+    gl.useProgram(pPulse);
+    gl.uniformMatrix4fv(pPulse.u.uProj,false,proj);
+    gl.uniformMatrix4fv(pPulse.u.uView,false,view);
+    gl.uniform1f(pPulse.u.uTime,tSec);gl.uniform1f(pPulse.u.uPR,DPR);
+    gl.uniform1f(pPulse.u.uH,cv.height);gl.uniform1f(pPulse.u.uTan,Math.tan(FOV/2));
+    gl.bindVertexArray(vaoPulse);
+    gl.bindBuffer(gl.ARRAY_BUFFER,pulseInst);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(pulseArr),gl.DYNAMIC_DRAW);
+    gl.drawArraysInstanced(gl.POINTS,0,1,pulseArr.length/13);
+  }
+
+  // halos — additive glow rings around active nodes
+  gl.blendFunc(gl.ONE,gl.ONE);
+  gl.useProgram(pHalo);
+  gl.uniformMatrix4fv(pHalo.u.uProj,false,proj);
+  gl.uniformMatrix4fv(pHalo.u.uView,false,view);
+  gl.bindVertexArray(vaoHalo);
+  gl.bindBuffer(gl.ARRAY_BUFFER,haloInst);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(haloArr),gl.DYNAMIC_DRAW);
+  gl.drawElementsInstanced(gl.TRIANGLES,6,gl.UNSIGNED_SHORT,0,nodes.length);
+
+  gl.bindVertexArray(null);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   §7 · UI WIRING
+   ════════════════════════════════════════════════════════════════════ */
+let playing=false,lr=0.3,batchSize=16,speed=4,sel=null;
+const histL=[],histA=[];
+
+function toast(msg){
+  const t=$('toast');t.textContent=msg;t.classList.add('on');
+  clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800);
+}
+function setPlaying(p){
+  playing=p;
+  $('btnPlay').classList.toggle('running',p);
+  $('playLbl').textContent=p?'halt':'train';
+  $('icPlay').innerHTML=p
+    ?'<path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/>'
+    :'<path d="M4 2l9 6-9 6z" fill="currentColor"/>';
+}
+$('btnPlay').addEventListener('click',()=>setPlaying(!playing));
+$('btnStep').addEventListener('click',()=>{trainStep(lr,batchSize);evalFull(true);});
+$('btnReset').addEventListener('click',()=>{
+  rand=mulberry32((Date.now()^0x51ed270b)>>>0);
+  net=buildNet(sizes);histL.length=0;histA.length=0;
+  refreshStats();evalFull(true);select(null);
+  toast('weights re-initialised · epoch 0');
+});
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(e.code==='Space'){e.preventDefault();setPlaying(!playing);}
+  if(e.key==='r'||e.key==='R')$('btnReset').click();
+});
+
+$('rngLr').addEventListener('input',e=>{
+  lr=Math.pow(10,lerp(Math.log10(0.005),0,e.target.value/100));
+  $('valLr').textContent=lr<0.01?lr.toFixed(4):lr.toFixed(3);
+});
+$('rngBatch').addEventListener('input',e=>{
+  batchSize=+e.target.value;$('valBatch').textContent=batchSize;
+});
+$('rngSpeed').addEventListener('input',e=>{
+  speed=+e.target.value;$('valSpeed').textContent=speed;
+});
+lr=Math.pow(10,lerp(Math.log10(0.005),0,0.77));
+
+const LEGENDS={
+  act:{rows:[['#3fd8c6','negative signal'],['#f2a748','positive signal'],['#1a2126','quiet']],
+       note:'edge = activation × weight (signed contribution) · node = mean activation · pulse speed & size ∝ |signal|'},
+  wgt:{rows:[['#3fd8c6','negative weight'],['#f2a748','positive weight'],['#1a2126','near zero']],
+       note:'edge = weight sign & magnitude · width ∝ |w| · node colour = mean unit activation'},
+  grad:{rows:[['#2e1218','small |∂L/∂θ|'],['#ff5c78','large |∂L/∂θ|']],
+       note:'rose intensity = smoothed gradient magnitude — watch it flare when the net is surprised, fade as it converges'}
+};
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+  const L=LEGENDS[m];
+  $('legendBody').innerHTML=
+    L.rows.map(r=>`<div class="lrow"><span class="sw" style="background:${r[0]}"></span>${r[1]}</div>`).join('')
+    +`<div class="lnote">${L.note}</div>`;
+}
+document.querySelectorAll('#modeSeg button').forEach(b=>
+  b.addEventListener('click',()=>setMode(b.dataset.mode)));
+setMode('act');
+
+function buildFocusButtons(){
+  const row=$('focusRow');row.innerHTML='';
+  const mk=(label,fn,active)=>{
+    const b=document.createElement('button');b.className='chip'+(active?' active':'');
+    b.textContent=label;b.addEventListener('click',()=>{fn();
+      row.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      b.classList.add('active');});
+    row.appendChild(b);
+  };
+  mk('ALL',()=>{cam.gTgt=[0,0,0];cam.gDist=dist0;},true);
+  layerX.forEach((x,l)=>mk(layerName(l),()=>{
+    cam.gTgt=[x,0,0];cam.gDist=5.6;
+  }));
+}
+function applyArch(){
+  const err=$('archErr');
+  const parts=$('arch').value.split(/[,\s×x]+/).filter(Boolean).map(Number);
+  const bad=msg=>{err.textContent=msg;return false;};
+  err.textContent='';
+  if(parts.some(v=>!Number.isInteger(v)||v<1||v>24))return bad('layers must be integers 1–24');
+  if(parts.length<3)return bad('need at least one hidden layer');
+  if(parts.length>7)return bad('max 7 layers total');
+  if(parts[0]!==N_IN)return bad('input layer must be '+N_IN+' (dataset features)');
+  if(parts[parts.length-1]!==N_CLASS)return bad('output layer must be '+N_CLASS+' (classes)');
+  sizes=parts;
+  rebuild();
+  toast('architecture → '+sizes.join('-')+' · '+paramCount()+' params');
+}
+$('btnApply').addEventListener('click',applyArch);
+$('arch').addEventListener('keydown',e=>{if(e.key==='Enter')applyArch();});
+
+function rebuild(){
+  rand=mulberry32((Date.now()^0x1a2b3c4d)>>>0);
+  net=buildNet(sizes);
+  histL.length=0;histA.length=0;
+  buildLayout();buildFocusButtons();
+  refreshStats();evalFull(true);
+  select(null);
+  cam.gTgt=[0,0,0];cam.gDist=dist0;
+  $('stParams').textContent=paramCount();
+}
+
+/* ── selection / info card ── */
+function select(hit){
+  sel=hit?{type:hit.type,idx:hit.idx}:null;
+  const card=$('infocard');
+  if(!sel){card.classList.remove('on');return;}
+  card.classList.add('on');
+  $('infoTag').textContent=sel.type==='node'?'NODE':'WEIGHT';
+  $('infoTag').className='tag '+sel.type;
+  refreshInfo();
+}
+$('infoClose').addEventListener('click',()=>select(null));
+function refreshInfo(){
+  if(!sel)return;
+  const kv=(k,v)=>`<div class="kv"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+  let html='',sub='';
+  if(sel.type==='node'){
+    const nd=nodes[sel.idx];
+    sub=layerName(nd.l)+' · unit '+nd.i;
+    html+=kv('activation (mean)',fmt(net.nAct[nd.l][nd.i]));
+    html+=kv('|activation|',f_(net.nAbs[nd.l][nd.i]));
+    if(nd.l>0){
+      html+=kv('bias b',fmt(net.B[nd.l-1][nd.i],4));
+      html+=kv('grad |δ| (ema)',net.nGrad[nd.l][nd.i].toExponential(2));
+    }
+    html+=kv('fan-in / fan-out',(nd.l>0?sizes[nd.l-1]:0)+' / '+(nd.l<sizes.length-1?sizes[nd.l+1]:0));
+  }else{
+    const E=edges[sel.idx],w=net.W[E.l][E.j][E.i],g=net.edgeG[E.l][E.j][E.i];
+    sub=layerName(E.l)+'['+E.i+'] → '+layerName(E.l+1)+'['+E.j+']';
+    html+=kv('weight w',fmt(w,4));
+    html+=kv('|w|',f_(Math.abs(w)));
+    html+=kv('grad |∂L/∂w| (ema)',g.toExponential(2));
+    html+=kv('signal a·w',fmt(net.nAct[E.l][E.i]*w,4));
+  }
+  $('infoSub').textContent=sub;
+  $('infoBody').innerHTML=html;
+}
+
+/* ── 2D loss chart ── */
+const chart=$('chart'),ctx2=chart.getContext('2d');
+let chW=0,chH=0;
+function resizeChart(){
+  const r=chart.getBoundingClientRect();
+  chW=Math.max(10,r.width);chH=Math.max(10,r.height);
+  chart.width=chW*DPR;chart.height=chH*DPR;
+  ctx2.setTransform(DPR,0,0,DPR,0,0);
+}
+function drawChart(){
+  ctx2.clearRect(0,0,chW,chH);
+  ctx2.strokeStyle='rgba(255,255,255,0.06)';ctx2.lineWidth=1;
+  for(let i=1;i<4;i++){const y=(chH*i/4)|0;
+    ctx2.beginPath();ctx2.moveTo(0,y+.5);ctx2.lineTo(chW,y+.5);ctx2.stroke();}
+  const n=histL.length;
+  ctx2.font='9px '+getComputedStyle(document.body).fontFamily;
+  if(n<2){ctx2.fillStyle='rgba(255,255,255,.22)';
+    ctx2.fillText('awaiting training data…',10,chH/2);return;}
+  const stride=Math.max(1,Math.ceil(n/chW)),pts=Math.max(2,Math.floor(n/stride));
+  let maxL=0.05;for(const v of histL)if(v>maxL)maxL=v;
+  // loss (teal)
+  ctx2.strokeStyle='#3fd8c6';ctx2.lineWidth=1.4;ctx2.beginPath();
+  for(let k=0;k<pts;k++){
+    const v=histL[Math.min(n-1,k*stride)];
+    const x=1+k/(pts-1)*(chW-2),y=chH-3-(chH-16)*clamp(v/maxL,0,1);
+    k?ctx2.lineTo(x,y):ctx2.moveTo(x,y);
+  }
+  ctx2.stroke();
+  // accuracy (amber, fixed 0–1 scale)
+  ctx2.strokeStyle='rgba(242,167,72,.85)';ctx2.lineWidth=1;ctx2.beginPath();
+  for(let k=0;k<pts;k++){
+    const v=histA[Math.min(n-1,k*stride)];
+    const x=1+k/(pts-1)*(chW-2),y=chH-3-(chH-16)*clamp(v,0,1);
+    k?ctx2.lineTo(x,y):ctx2.moveTo(x,y);
+  }
+  ctx2.stroke();
+  ctx2.fillStyle='rgba(255,255,255,.28)';
+  ctx2.fillText(maxL.toFixed(2),4,10);
+  ctx2.fillText('0',4,chH-5);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   §8 · BOOT + MAIN LOOP
+   ════════════════════════════════════════════════════════════════════ */
+rebuild();
+resize();
+let last=performance.now(),frame=0;
+function tick(now){
+  const dt=Math.min(0.05,(now-last)/1000);last=now;frame++;
+  // camera easing toward goals
+  for(let i=0;i<3;i++)cam.tgt[i]=lerp(cam.tgt[i],cam.gTgt[i],0.09);
+  cam.dist=lerp(cam.dist,cam.gDist,0.09);
+  // training
+  if(playing){
+    for(let s=0;s<speed;s++){
+      trainStep(lr,batchSize);
+      if(net.steps%10===0)evalFull(true);
+    }
+  }else if(frame%45===0){refreshStats();evalFull(false);}
+  // visuals
+  updateVisuals(dt);
+  buildInstances();
+  view=lookAt(...(()=>{const{eye}=camBasis();return[eye,cam.tgt,[0,1,0]];})());
+  render(now*0.001);
+  // throttled DOM updates
+  if(frame%6===0){
+    drawChart();
+    $('stEpoch').textContent=String(epoch()).padStart(4,'0');
+    $('stLoss').textContent=net.loss.toFixed(4);
+    $('stAcc').textContent=(net.acc*100).toFixed(1)+'%';
+    $('chLoss').textContent='L '+net.loss.toFixed(3);
+    $('chAcc').textContent='A '+(net.acc*100).toFixed(1)+'%';
+    if(sel)refreshInfo();
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+})();
+</script>
+</body>
+</html>

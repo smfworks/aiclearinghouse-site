@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  
+  <!-- Neural network layers (4 columns) -->
+  <g opacity="0.7">
+    <!-- Layer 1: 4 nodes -->
+    <circle cx="360" cy="380" r="12" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="360" cy="490" r="14" fill="#00D4FF" opacity="0.7"/>
+    <circle cx="360" cy="600" r="10" fill="#00D4FF" opacity="0.4"/>
+    <circle cx="360" cy="710" r="13" fill="#00D4FF" opacity="0.6"/>
+    
+    <!-- Layer 2: 8 nodes -->
+    <circle cx="760" cy="280" r="11" fill="#ea580c" opacity="0.4"/>
+    <circle cx="760" cy="370" r="15" fill="#ea580c" opacity="0.7"/>
+    <circle cx="760" cy="460" r="9" fill="#ea580c" opacity="0.3"/>
+    <circle cx="760" cy="550" r="13" fill="#ea580c" opacity="0.5"/>
+    <circle cx="760" cy="640" r="16" fill="#ea580c" opacity="0.8"/>
+    <circle cx="760" cy="730" r="10" fill="#ea580c" opacity="0.4"/>
+    <circle cx="760" cy="820" r="12" fill="#ea580c" opacity="0.5"/>
+    
+    <!-- Layer 3: 6 nodes -->
+    <circle cx="1160" cy="360" r="14" fill="#C9A96E" opacity="0.6"/>
+    <circle cx="1160" cy="470" r="11" fill="#C9A96E" opacity="0.4"/>
+    <circle cx="1160" cy="580" r="15" fill="#C9A96E" opacity="0.7"/>
+    <circle cx="1160" cy="690" r="10" fill="#C9A96E" opacity="0.3"/>
+    
+    <!-- Layer 4: 3 nodes -->
+    <circle cx="1560" cy="450" r="16" fill="#00D4FF" opacity="0.8"/>
+    <circle cx="1560" cy="570" r="13" fill="#00D4FF" opacity="0.5"/>
+    <circle cx="1560" cy="690" r="15" fill="#00D4FF" opacity="0.7"/>
+  </g>
+  
+  <!-- Connections (sample) -->
+  <g opacity="0.2">
+    <line x1="372" y1="380" x2="748" y2="280" stroke="#00D4FF" stroke-width="1"/>
+    <line x1="372" y1="380" x2="748" y2="370" stroke="#00D4FF" stroke-width="2"/>
+    <line x1="372" y1="490" x2="748" y2="460" stroke="#ea580c" stroke-width="1.5"/>
+    <line x1="372" y1="490" x2="748" y2="640" stroke="#00D4FF" stroke-width="0.8"/>
+    <line x1="372" y1="600" x2="748" y2="550" stroke="#ea580c" stroke-width="2"/>
+    <line x1="372" y1="710" x2="748" y2="730" stroke="#C9A96E" stroke-width="1"/>
+    
+    <line x1="772" y1="370" x2="1148" y2="360" stroke="#00D4FF" stroke-width="1.5"/>
+    <line x1="772" y1="550" x2="1148" y2="470" stroke="#ea580c" stroke-width="0.8"/>
+    <line x1="772" y1="640" x2="1148" y2="580" stroke="#00D4FF" stroke-width="2"/>
+    
+    <line x1="1172" y1="360" x2="1548" y2="450" stroke="#C9A96E" stroke-width="1"/>
+    <line x1="1172" y1="580" x2="1548" y2="570" stroke="#00D4FF" stroke-width="1.5"/>
+    <line x1="1172" y1="690" x2="1548" y2="690" stroke="#ea580c" stroke-width="0.8"/>
+  </g>
+  
+  <!-- Loss curve (bottom right) -->
+  <g opacity="0.3" transform="translate(1400, 880)">
+    <path d="M 0 0 Q 50 -20 100 -40 T 200 -60 T 300 -70 T 400 -75" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="400" y2="0" stroke="#00D4FF" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  
+  <!-- Starfield -->
+  <g opacity="0.25">
+    <circle cx="100" cy="120" r="1" fill="#00D4FF"/>
+    <circle cx="1800" cy="150" r="1" fill="#C9A96E"/>
+    <circle cx="200" cy="950" r="1" fill="#ea580c"/>
+    <circle cx="1700" cy="950" r="1" fill="#00D4FF"/>
+  </g>
+</svg>
