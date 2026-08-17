@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="linear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4aa"/>
+      <stop offset="100%" stop-color="#00a88a"/>
+    </linearGradient>
+    <linearGradient id="full" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#76b900"/>
+      <stop offset="100%" stop-color="#5a8a00"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <!-- grid -->
+  <g stroke="#1a2a3a" stroke-opacity="0.3" stroke-width="1">
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+    <line x1="300" y1="0" x2="300" y2="624"/>
+    <line x1="600" y1="0" x2="600" y2="624"/>
+    <line x1="900" y1="0" x2="900" y2="624"/>
+  </g>
+
+  <!-- title -->
+  <text x="60" y="80" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="44" font-weight="700" fill="#e8eef4">Qwen3.8-27B on DGX Spark</text>
+  <text x="60" y="122" font-family="'SF Mono','Courier New',monospace" font-size="20" fill="#5a8a6a">Hybrid Gated DeltaNet VLM · FP8 · SGLang · 262K context</text>
+
+  <!-- architecture: 16 repeats of 3 linear + 1 full -->
+  <g transform="translate(60, 180)">
+    <text x="0" y="-10" font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#666">64 LAYERS — 16 × (3 GATED DELTANET + 1 GATED ATTENTION)</text>
+    <g>
+      <!-- 16 groups, each 3 teal + 1 green -->
+      <g id="layers">
+        <!-- row 1 -->
+        <rect x="0" y="0" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="0" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="0" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="0" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 2 -->
+        <rect x="0" y="26" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="26" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="26" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="26" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 3 -->
+        <rect x="0" y="52" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="52" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="52" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="52" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 4 -->
+        <rect x="0" y="78" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="78" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="78" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="78" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 5 -->
+        <rect x="0" y="104" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="104" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="104" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="104" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 6 -->
+        <rect x="0" y="130" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="130" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="130" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="130" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 7 -->
+        <rect x="0" y="156" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="156" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="156" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="156" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 8 -->
+        <rect x="0" y="182" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="182" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="182" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="182" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 9 -->
+        <rect x="0" y="208" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="208" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="208" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="208" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 10 -->
+        <rect x="0" y="234" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="234" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="234" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="234" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 11 -->
+        <rect x="0" y="260" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="260" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="260" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="260" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 12 -->
+        <rect x="0" y="286" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="286" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="286" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="286" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 13 -->
+        <rect x="0" y="312" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="312" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="312" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="312" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 14 -->
+        <rect x="0" y="338" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="338" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="338" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="338" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 15 -->
+        <rect x="0" y="364" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="364" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="364" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="364" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+        <!-- row 16 -->
+        <rect x="0" y="390" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="56" y="390" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="112" y="390" width="52" height="20" rx="3" fill="url(#linear)" opacity="0.9"/>
+        <rect x="168" y="390" width="52" height="20" rx="3" fill="url(#full)" opacity="0.9"/>
+      </g>
+    </g>
+    <!-- legend -->
+    <rect x="0" y="430" width="14" height="14" rx="2" fill="url(#linear)"/>
+    <text x="20" y="442" font-family="'SF Mono','Courier New',monospace" font-size="13" fill="#5a8a6a">Gated DeltaNet (linear attention) ×48</text>
+    <rect x="300" y="430" width="14" height="14" rx="2" fill="url(#full)"/>
+    <text x="320" y="442" font-family="'SF Mono','Courier New',monospace" font-size="13" fill="#5a8a6a">Gated Attention ×16</text>
+  </g>
+
+  <!-- stats bar -->
+  <g transform="translate(60, 500)">
+    <rect x="0" y="0" width="1080" height="84" rx="8" fill="#0d1524" stroke="#1a2a3a" stroke-width="1"/>
+    <g font-family="'SF Mono','Courier New',monospace">
+      <text x="30" y="30" font-size="12" fill="#666">OFFICIAL A</text>
+      <text x="30" y="58" font-size="26" font-weight="700" fill="#e8eef4">79.0%</text>
+      <text x="30" y="76" font-size="11" fill="#5a8a6a">124/157 tests</text>
+
+      <text x="210" y="30" font-size="12" fill="#666">TOOL CALLING</text>
+      <text x="210" y="58" font-size="26" font-weight="700" fill="#00d4aa">100%</text>
+      <text x="210" y="76" font-size="11" fill="#5a8a6a">qwen3_coder</text>
+
+      <text x="390" y="30" font-size="12" fill="#666">CODING</text>
+      <text x="390" y="58" font-size="26" font-weight="700" fill="#e8eef4">86.7%</text>
+      <text x="390" y="76" font-size="11" fill="#5a8a6a">26/30, 0 SyntaxError</text>
+
+      <text x="570" y="30" font-size="12" fill="#666">TTFT</text>
+      <text x="570" y="58" font-size="26" font-weight="700" fill="#e8eef4">324ms</text>
+      <text x="570" y="76" font-size="11" fill="#5a8a6a">EAGLE spec decode</text>
+
+      <text x="750" y="30" font-size="12" fill="#666">DECODE</text>
+      <text x="750" y="58" font-size="26" font-weight="700" fill="#e8eef4">15.6</text>
+      <text x="750" y="76" font-size="11" fill="#5a8a6a">tok/s @ 1024</text>
+
+      <text x="930" y="30" font-size="12" fill="#666">VISION</text>
+      <text x="930" y="58" font-size="26" font-weight="700" fill="#76b900">4/4</text>
+      <text x="930" y="76" font-size="11" fill="#5a8a6a">shapes · colors · OCR</text>
+    </g>
+  </g>
+</svg>
