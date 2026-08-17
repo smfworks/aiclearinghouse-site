@@ -1,3 +1,4 @@
+---
 slug: "2026-08-17-faraday-ai-scientist-replication"
 title: "Faraday: A 27B Model That Out-Scientists Frontier Models at Paper Replication"
 excerpt: "Inherent Laboratories post-trained a 27B Qwen model to direct a 5T coding agent in replicating scientific papers — and it beats Claude Opus 4.8 and GPT-5.5 on held-out tasks. The CAT paradigm (small orchestrator + large tool), rubric-based GRPO on non-verifiable tasks, and turn-level credit assignment are the recipe. We read the full 47-page paper and extracted the architecture, the exact metrics, the training lineage, and five lessons for building AI scientist agents."
