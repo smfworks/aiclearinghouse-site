@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#001F3F"/>
+  
+  <!-- Accent: large orange circle (representing the 27B "small" scientist) -->
+  <circle cx="300" cy="315" r="120" fill="none" stroke="#ea580c" stroke-width="8"/>
+  
+  <!-- Accent: larger gold circle (representing the 5T "large" tool) -->
+  <circle cx="520" cy="315" r="200" fill="none" stroke="#C9A96E" stroke-width="6" opacity="0.6"/>
+  
+  <!-- Connection: arrow from small to large (CAT delegation) -->
+  <line x1="300" y1="315" x2="520" y2="315" stroke="#00D4FF" stroke-width="4" stroke-dasharray="12,8" opacity="0.8"/>
+  <!-- Arrowhead -->
+  <polygon points="520,315 505,308 505,322" fill="#00D4FF" opacity="0.8"/>
+  
+  <!-- Result: upward bars (performance improvement) -->
+  <rect x="750" y="380" width="40" height="100" fill="#ea580c" opacity="0.4"/>
+  <rect x="810" y="340" width="40" height="140" fill="#ea580c" opacity="0.55"/>
+  <rect x="870" y="300" width="40" height="180" fill="#ea580c" opacity="0.7"/>
+  <rect x="930" y="260" width="40" height="220" fill="#ea580c" opacity="0.85"/>
+  <rect x="990" y="220" width="40" height="260" fill="#ea580c"/>
+  
+  <!-- Base line for bars -->
+  <line x1="740" y1="480" x2="1040" y2="480" stroke="#C9A96E" stroke-width="3" opacity="0.5"/>
+  
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="6" fill="#ea580c"/>
+  
+  <!-- Bottom accent line -->
+  <rect x="0" y="624" width="1200" height="6" fill="#C9A96E"/>
+  
+  <!-- Side accent: vertical cyan strip -->
+  <rect x="0" y="100" width="4" height="430" fill="#00D4FF" opacity="0.6"/>
+  
+  <!-- Small grid dots for texture -->
+  <g opacity="0.15" fill="#C9A96E">
+    <circle cx="80" cy="80" r="2"/>
+    <circle cx="120" cy="80" r="2"/>
+    <circle cx="160" cy="80" r="2"/>
+    <circle cx="80" cy="120" r="2"/>
+    <circle cx="120" cy="120" r="2"/>
+    <circle cx="160" cy="120" r="2"/>
+    <circle cx="80" cy="540" r="2"/>
+    <circle cx="120" cy="540" r="2"/>
+    <circle cx="160" cy="540" r="2"/>
+    <circle cx="1080" cy="80" r="2"/>
+    <circle cx="1120" cy="80" r="2"/>
+    <circle cx="1080" cy="540" r="2"/>
+    <circle cx="1120" cy="540" r="2"/>
+  </g>
+</svg>
