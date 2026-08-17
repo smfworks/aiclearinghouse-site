@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#76b900"/>
+      <stop offset="100%" stop-color="#5a8a00"/>
+    </linearGradient>
+    <linearGradient id="aeon" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4aa"/>
+      <stop offset="100%" stop-color="#00a88a"/>
+    </linearGradient>
+    <linearGradient id="regress" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff9500"/>
+      <stop offset="100%" stop-color="#cc7700"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <g stroke="#1a2a3a" stroke-opacity="0.3" stroke-width="1">
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+    <line x1="300" y1="0" x2="300" y2="624"/>
+    <line x1="600" y1="0" x2="600" y2="624"/>
+    <line x1="900" y1="0" x2="900" y2="624"/>
+  </g>
+
+  <text x="60" y="80" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="42" font-weight="700" fill="#e8eef4">The Abliteration Trade-Off</text>
+  <text x="60" y="122" font-family="'SF Mono','Courier New',monospace" font-size="20" fill="#5a8a6a">Qwen3.8-27B base FP8 vs AEON-7 uncensored BF16 · 157-test Official A</text>
+
+  <!-- grouped bar chart: 7 categories, base (green) vs aeon (teal) -->
+  <g transform="translate(80, 180)">
+    <text x="-10" y="20" font-family="'SF Mono','Courier New',monospace" font-size="13" fill="#666" text-anchor="end">100%</text>
+    <text x="-10" y="120" font-family="'SF Mono','Courier New',monospace" font-size="13" fill="#666" text-anchor="end">50%</text>
+    <text x="-10" y="220" font-family="'SF Mono','Courier New',monospace" font-size="13" fill="#666" text-anchor="end">0%</text>
+    <line x1="0" y1="0" x2="1040" y2="0" stroke="#1a2a3a" stroke-width="1"/>
+    <line x1="0" y1="100" x2="1040" y2="100" stroke="#1a2a3a" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="0" y1="200" x2="1040" y2="200" stroke="#1a2a3a" stroke-width="1"/>
+
+    <!-- tools: both 100 -->
+    <rect x="20" y="0" width="55" height="200" fill="url(#base)" opacity="0.85"/>
+    <rect x="85" y="0" width="55" height="200" fill="url(#aeon)" opacity="0.85"/>
+    <text x="47" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">TOOLS</text>
+    <text x="47" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#5a8a6a" text-anchor="middle">100·100</text>
+
+    <!-- coding: both 86.7 -->
+    <rect x="160" y="26" width="55" height="174" fill="url(#base)" opacity="0.85"/>
+    <rect x="225" y="26" width="55" height="174" fill="url(#aeon)" opacity="0.85"/>
+    <text x="187" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">CODING</text>
+    <text x="187" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#5a8a6a" text-anchor="middle">86.7·86.7</text>
+
+    <!-- instruction: 83.3 vs 86.7 -->
+    <rect x="300" y="34" width="55" height="166" fill="url(#base)" opacity="0.85"/>
+    <rect x="365" y="26" width="55" height="174" fill="url(#aeon)" opacity="0.85"/>
+    <text x="327" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">INSTRUCT</text>
+    <text x="327" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#5a8a6a" text-anchor="middle">83.3·86.7</text>
+
+    <!-- prose: 90 vs 76.7 -->
+    <rect x="440" y="20" width="55" height="180" fill="url(#base)" opacity="0.85"/>
+    <rect x="505" y="46" width="55" height="154" fill="url(#aeon)" opacity="0.85"/>
+    <text x="467" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">PROSE</text>
+    <text x="467" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#5a8a6a" text-anchor="middle">90·76.7</text>
+
+    <!-- reasoning: 83.3 vs 73.3 -->
+    <rect x="580" y="34" width="55" height="166" fill="url(#base)" opacity="0.85"/>
+    <rect x="645" y="54" width="55" height="146" fill="url(#aeon)" opacity="0.85"/>
+    <text x="607" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">REASON</text>
+    <text x="607" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#5a8a6a" text-anchor="middle">83.3·73.3</text>
+
+    <!-- math: 50 vs 33.3 (highlight regression) -->
+    <rect x="720" y="100" width="55" height="100" fill="url(#base)" opacity="0.85"/>
+    <rect x="785" y="134" width="55" height="66" fill="url(#regress)" opacity="0.9"/>
+    <text x="747" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">MATH</text>
+    <text x="747" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#ff9500" text-anchor="middle">50·33.3</text>
+
+    <!-- total: 79 vs 72 -->
+    <rect x="860" y="42" width="55" height="158" fill="url(#base)" opacity="0.85"/>
+    <rect x="925" y="56" width="55" height="144" fill="url(#aeon)" opacity="0.85"/>
+    <text x="887" y="225" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#e8eef4" text-anchor="middle">TOTAL</text>
+    <text x="887" y="243" font-family="'SF Mono','Courier New',monospace" font-size="10" fill="#5a8a6a" text-anchor="middle">79·72</text>
+
+    <!-- legend -->
+    <rect x="20" y="268" width="16" height="16" rx="2" fill="url(#base)"/>
+    <text x="44" y="281" font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#5a8a6a">Base FP8</text>
+    <rect x="160" y="268" width="16" height="16" rx="2" fill="url(#aeon)"/>
+    <text x="184" y="281" font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#5a8a6a">AEON BF16</text>
+    <rect x="320" y="268" width="16" height="16" rx="2" fill="url(#regress)"/>
+    <text x="344" y="281" font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#ff9500">Math regression</text>
+  </g>
+
+  <!-- headline stats -->
+  <g transform="translate(60, 500)">
+    <rect x="0" y="0" width="1080" height="84" rx="8" fill="#0d1524" stroke="#1a2a3a" stroke-width="1"/>
+    <g font-family="'SF Mono','Courier New',monospace">
+      <text x="30" y="30" font-size="12" fill="#666">BASE FP8</text>
+      <text x="30" y="58" font-size="26" font-weight="700" fill="#76b900">79.0%</text>
+      <text x="30" y="76" font-size="11" fill="#5a8a6a">124/157 Official A</text>
+
+      <text x="210" y="30" font-size="12" fill="#666">AEON BF16</text>
+      <text x="210" y="58" font-size="26" font-weight="700" fill="#00d4aa">72.0%</text>
+      <text x="210" y="76" font-size="11" fill="#5a8a6a">113/157 Official A</text>
+
+      <text x="390" y="30" font-size="12" fill="#666">MATH DELTA</text>
+      <text x="390" y="58" font-size="26" font-weight="700" fill="#ff9500">−17pp</text>
+      <text x="390" y="76" font-size="11" fill="#5a8a6a">50% → 33%</text>
+
+      <text x="570" y="30" font-size="12" fill="#666">REASONING ERRORS</text>
+      <text x="570" y="58" font-size="26" font-weight="700" fill="#ff9500">8</text>
+      <text x="570" y="76" font-size="11" fill="#5a8a6a">runaway generations</text>
+
+      <text x="750" y="30" font-size="12" fill="#666">TOOL-CALLING</text>
+      <text x="750" y="58" font-size="26" font-weight="700" fill="#00d4aa">100%</text>
+      <text x="750" y="76" font-size="11" fill="#5a8a6a">unchanged</text>
+
+      <text x="930" y="30" font-size="12" fill="#666">VISION</text>
+      <text x="930" y="58" font-size="26" font-weight="700" fill="#e8eef4">4/4</text>
+      <text x="930" y="76" font-size="11" fill="#5a8a6a">tower unmodified</text>
+    </g>
+  </g>
+</svg>
