@@ -106,7 +106,7 @@ The headline is the **tool-calling at 100%** — the `qwen3_coder` parser produc
 
 Coding at 86.7% is strong for a 27B dense model, and notably it's a *dense* architecture — which, per our prior findings, predicts a high single-shot syntax floor. Only 4 of 30 coding tests failed, and none were `SyntaxError` (the failure mode that plagues low-active MoE models).
 
-Math is the weak spot at 50.0%, and it's the expected one: this run was **thinking off** (the Official A ranking default), and math is where chain-of-thought reasoning buys the most. The 15 math failures are concentrated in the expert/frontier tiers. We'll re-run with thinking on to see how much the reasoning budget recovers.
+Math is the weak spot at 50.0%, and it's the expected one: this run was **thinking off** (the Official A ranking default), and math is where chain-of-thought reasoning buys the most. The 15 math failures are concentrated in the expert/frontier tiers. We re-ran the same 30 problems with thinking on — the reasoning budget recovered six of them (50% → 70%). [Read the full thinking-on vs off comparison](/blog/2026-08-17-qwen3-8-27b-math-thinking-on-vs-off).
 
 ### Performance
 
