@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a3e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  
+  <!-- Grid lines -->
+  <g stroke="#1e293b" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="100" x2="1200" y2="100" />
+    <line x1="0" y1="200" x2="1200" y2="200" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="500" x2="1200" y2="500" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+  </g>
+  
+  <!-- Bar chart: per-category pass rates -->
+  <!-- Math: 50% -->
+  <rect x="120" y="280" width="80" height="220" fill="#ef4444" rx="4" />
+  <text x="160" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Math</text>
+  <text x="160" y="270" font-family="monospace" font-size="16" fill="#ef4444" text-anchor="middle" font-weight="bold">50%</text>
+  
+  <!-- Coding: 86.7% -->
+  <rect x="240" y="109" width="80" height="391" fill="#22c55e" rx="4" />
+  <text x="280" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Coding</text>
+  <text x="280" y="99" font-family="monospace" font-size="16" fill="#22c55e" text-anchor="middle" font-weight="bold">87%</text>
+  
+  <!-- Reasoning: 83.3% -->
+  <rect x="360" y="123" width="80" height="377" fill="#22c55e" rx="4" />
+  <text x="400" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Reason</text>
+  <text x="400" y="113" font-family="monospace" font-size="16" fill="#22c55e" text-anchor="middle" font-weight="bold">83%</text>
+  
+  <!-- Instruction: 83.3% -->
+  <rect x="480" y="123" width="80" height="377" fill="#22c55e" rx="4" />
+  <text x="520" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Instr</text>
+  <text x="520" y="113" font-family="monospace" font-size="16" fill="#22c55e" text-anchor="middle" font-weight="bold">83%</text>
+  
+  <!-- Prose: 90% -->
+  <rect x="600" y="94" width="80" height="406" fill="#06b6d4" rx="4" />
+  <text x="640" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Prose</text>
+  <text x="640" y="84" font-family="monospace" font-size="16" fill="#06b6d4" text-anchor="middle" font-weight="bold">90%</text>
+  
+  <!-- Writing: 80% -->
+  <rect x="720" y="136" width="80" height="364" fill="#22c55e" rx="4" />
+  <text x="760" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Write</text>
+  <text x="760" y="126" font-family="monospace" font-size="16" fill="#22c55e" text-anchor="middle" font-weight="bold">80%</text>
+  
+  <!-- Tool Calling: 100% -->
+  <rect x="840" y="50" width="80" height="450" fill="#06b6d4" rx="4" />
+  <text x="880" y="520" font-family="monospace" font-size="14" fill="#94a3b8" text-anchor="middle">Tools</text>
+  <text x="880" y="40" font-family="monospace" font-size="16" fill="#06b6d4" text-anchor="middle" font-weight="bold">100%</text>
+  
+  <!-- Overall line at 79% -->
+  <line x1="100" y1="173" x2="960" y2="173" stroke="#7c3aed" stroke-width="2" stroke-dasharray="8,4" opacity="0.6" />
+  <text x="970" y="177" font-family="monospace" font-size="13" fill="#7c3aed" opacity="0.8">79% avg</text>
+  
+  <!-- Title -->
+  <text x="600" y="570" font-family="sans-serif" font-size="24" fill="#e2e8f0" text-anchor="middle" font-weight="bold">Qwen3.8-27B FP8 — Per-Capability Profile</text>
+  <text x="600" y="600" font-family="monospace" font-size="14" fill="#64748b" text-anchor="middle">SMF-Bench strict_v01 · DGX Spark · FP8 + EAGLE</text>
+</svg>
