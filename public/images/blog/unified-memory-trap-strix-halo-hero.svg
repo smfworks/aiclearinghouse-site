@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Unified Memory Trap" — no-text abstract.
+     Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490.
+     Single LPDDR5 memory pool at bottom; CPU and GPU blocks above
+     both drawing from the same pool. The competition zone (overlap)
+     is the "trap" — visualized as the amber tension band. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract representation of a unified memory pool shared between CPU and GPU, with a tension zone where they compete for the same capacity">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="poolGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0.72"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#162236" stroke-width="1" stroke-opacity="0.3"/>
+    </pattern>
+    <pattern id="dram" width="24" height="16" patternUnits="userSpaceOnUse">
+      <rect x="2" y="2" width="18" height="12" rx="2" fill="#0e7490" opacity="0.28"/>
+      <rect x="2" y="2" width="18" height="12" rx="2" fill="none" stroke="#22d3ee" stroke-width="0.8" opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- CPU block (left, teal) -->
+  <g transform="translate(180, 90)">
+    <rect x="0" y="0" width="200" height="120" rx="14" fill="#12233a" stroke="#0e7490" stroke-width="3"/>
+    <rect x="16" y="16" width="168" height="88" rx="8" fill="#0e7490" opacity="0.18"/>
+    <rect x="28" y="30" width="36" height="60" rx="4" fill="#0e7490" opacity="0.55"/>
+    <rect x="72" y="30" width="36" height="60" rx="4" fill="#0e7490" opacity="0.45"/>
+    <rect x="116" y="30" width="36" height="60" rx="4" fill="#0e7490" opacity="0.6"/>
+    <rect x="160" y="30" width="16" height="60" rx="4" fill="#22d3ee" opacity="0.7"/>
+    <text x="100" y="118" text-anchor="middle" font-family="monospace" font-size="14" fill="#0e7490" opacity="0.6">CPU</text>
+  </g>
+
+  <!-- GPU block (right, gold) -->
+  <g transform="translate(820, 90)">
+    <rect x="0" y="0" width="200" height="120" rx="14" fill="#1a140c" stroke="#f59e0b" stroke-width="3"/>
+    <rect x="16" y="16" width="168" height="88" rx="8" fill="#f59e0b" opacity="0.12"/>
+    <rect x="28" y="30" width="144" height="26" rx="4" fill="#ff6b00" opacity="0.5"/>
+    <rect x="28" y="62" width="144" height="26" rx="4" fill="#f59e0b" opacity="0.35"/>
+    <text x="100" y="118" text-anchor="middle" font-family="monospace" font-size="14" fill="#f59e0b" opacity="0.6">GPU</text>
+  </g>
+
+  <!-- CPU → pool arrow -->
+  <path d="M280 220 L280 330" stroke="#0e7490" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <polygon points="270,322 290,322 280,340" fill="#0e7490"/>
+  <path d="M280 340 L280 410" stroke="#0e7490" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- GPU → pool arrow -->
+  <path d="M920 220 L920 330" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <polygon points="910,322 930,322 920,340" fill="#f59e0b"/>
+  <path d="M920 340 L920 410" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Tension band (the trap — where CPU and GPU compete) -->
+  <rect x="380" y="240" width="440" height="100" rx="8" fill="url(#goldGlow)" filter="url(#blur)"/>
+  <rect x="380" y="260" width="440" height="60" rx="6" fill="none" stroke="#ff6b00" stroke-width="2" stroke-dasharray="10 8" opacity="0.55"/>
+
+  <!-- The unified memory pool (bottom) -->
+  <g transform="translate(150, 380)">
+    <rect x="0" y="0" width="900" height="180" rx="16" fill="url(#poolGrad)"/>
+    <rect x="0" y="0" width="900" height="180" rx="16" fill="url(#dram)"/>
+    <rect x="0" y="0" width="900" height="180" rx="16" fill="none" stroke="#22d3ee" stroke-width="2.5" opacity="0.6"/>
+
+    <!-- capacity bar segments inside pool -->
+    <!-- model weights -->
+    <rect x="20" y="30" width="270" height="50" rx="6" fill="#1e3a8a" opacity="0.85"/>
+    <rect x="20" y="30" width="270" height="50" rx="6" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.5"/>
+    <!-- KV cache -->
+    <rect x="300" y="30" width="200" height="50" rx="6" fill="#0e7490" opacity="0.8"/>
+    <rect x="300" y="30" width="200" height="50" rx="6" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+    <!-- desktop / OS -->
+    <rect x="510" y="30" width="160" height="50" rx="6" fill="#f59e0b" opacity="0.35"/>
+    <rect x="510" y="30" width="160" height="50" rx="6" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.4"/>
+    <!-- free -->
+    <rect x="680" y="30" width="200" height="50" rx="6" fill="#0a1628" opacity="0.5"/>
+    <rect x="680" y="30" width="200" height="50" rx="6" fill="none" stroke="#1e3a8a" stroke-width="1.5" opacity="0.5" stroke-dasharray="6 6"/>
+
+    <!-- GTT aperture label area (second tier) -->
+    <rect x="20" y="100" width="860" height="56" rx="6" fill="#0a1628" opacity="0.4"/>
+    <rect x="20" y="100" width="860" height="56" rx="6" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.35" stroke-dasharray="8 6"/>
+    <rect x="40" y="112" width="120" height="32" rx="4" fill="#f59e0b" opacity="0.22"/>
+    <rect x="170" y="112" width="690" height="32" rx="4" fill="#0a1628" opacity="0.6"/>
+  </g>
+
+  <!-- floor accent -->
+  <rect x="120" y="580" width="960" height="3" fill="#1e3a8a" opacity="0.45"/>
+  <rect x="120" y="580" width="420" height="3" fill="#0e7490" opacity="0.7"/>
+  <rect x="540" y="580" width="300" height="3" fill="#ff6b00" opacity="0.4"/>
+</svg>
