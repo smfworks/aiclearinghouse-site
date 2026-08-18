@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-glm-5-3-neuroscope-neural-network-visualizer-one-shot"
+slug: "2026-08-15-glm-5-3-neuroscope-neural-network-visualizer-one-shot"
 title: "GLM-5.3 Built a Live Neural Network Visualizer in One Shot — Neuroscope"
 excerpt: "One prompt. No Three.js, no external libraries. GLM-5.3 wrote a complete 3D neural network visualizer with real backpropagation — forward pass, gradient descent, softmax + cross-entropy loss, live weight updates visualized as color-coded connections, training controls, loss curve, and click-to-inspect. 50KB, 43 functions, 10.6 minutes."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"

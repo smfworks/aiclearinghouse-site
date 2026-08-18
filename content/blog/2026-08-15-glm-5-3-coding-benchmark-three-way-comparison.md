@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-glm-5-3-coding-benchmark-three-way-comparison"
+slug: "2026-08-15-glm-5-3-coding-benchmark-three-way-comparison"
 title: "GLM-5.3 vs DeepSeek V4-Pro vs GLM-5.2: The Three-Way Coding Benchmark"
 excerpt: "GLM-5.3 shipped today with a 50% coding improvement claim over GLM-5.2. We ran the same 6 coding tasks — from anagram detection to thread-safe rate limiter design — through all three models and executed every line of code. GLM-5.3 passed 6/6. So did DeepSeek V4-Pro. GLM-5.2 passed 4/6. But the efficiency story is very different from the pass rate story."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"

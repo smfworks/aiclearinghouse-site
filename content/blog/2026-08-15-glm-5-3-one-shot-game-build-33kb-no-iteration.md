@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-glm-5-3-one-shot-game-build-33kb-no-iteration"
+slug: "2026-08-15-glm-5-3-one-shot-game-build-33kb-no-iteration"
 title: "GLM-5.3 Built a Complete Game in One Shot — 33KB, Zero Iteration"
 excerpt: "We gave GLM-5.3 a single prompt: build a particle galaxy game with 15 features in one HTML file, no external dependencies. It thought for 6.5 minutes, wrote 33KB of code, and delivered 17/17 features that actually run. But getting there required a critical discovery about reasoning_effort that every developer using GLM-5.3 needs to know."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"

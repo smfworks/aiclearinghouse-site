@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-glm-5-3-security-audit-praxis-one-shot-analysis"
+slug: "2026-08-15-glm-5-3-security-audit-praxis-one-shot-analysis"
 title: "GLM-5.3 Performed a Real Security Audit in One Shot — Praxis Static Analysis"
 excerpt: "We gave GLM-5.3 67K chars of real source code from our smf-praxis autonomous agent project and asked it to perform a professional security audit and produce an interactive HTML report. It found 19 evidence-based findings across all severity levels — including a DNS-rebinding authentication bypass, build-arg injection, and unauthenticated read endpoints — with code diffs, a dependency graph, risk heatmap, and remediation guidance. 76KB report, 7.7 minutes, one shot."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"

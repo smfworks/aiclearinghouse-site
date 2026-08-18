@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-glm-5-3-nocturne-generative-art-one-shot-webgl2"
+slug: "2026-08-15-glm-5-3-nocturne-generative-art-one-shot-webgl2"
 title: "GLM-5.3 Built a WebGL2 Art Studio in One Shot — Nocturne: Generative Atelier"
 excerpt: "One prompt. No iteration. GLM-5.3 produced a 56KB WebGL2 generative art playground with four interactive modes — particle drift, flow field, reactive 3D geometry, and ink fluid simulation — complete with GLSL shaders, FBO ping-pong rendering, high-res frame export, and video recording. 20 minutes of reasoning, 152K characters of architectural planning, 57K characters of code."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"

@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-glm-5-3-kepler-orrery-solar-system-one-shot"
+slug: "2026-08-15-glm-5-3-kepler-orrery-solar-system-one-shot"
 title: "GLM-5.3 Built a 3D Solar System Simulator in One Shot — Kepler Orrery"
 excerpt: "One prompt. No Three.js, no external libraries. GLM-5.3 wrote a complete WebGL2 solar system sandbox from scratch — 8 planets with correct orbital periods, elliptical orbits with eccentricity, axial tilts, asteroid belt, camera controls, planet selection, custom body creation, and time warp. 55KB, 26 functions, 12 minutes."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"

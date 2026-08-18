@@ -1,8 +1,8 @@
 ---
-slug: "2026-08-18-deepseek-v4-pro-coding-benchmark-real-tests-real-numbers"
+slug: "2026-08-15-deepseek-v4-pro-coding-benchmark-real-tests-real-numbers"
 title: "DeepSeek V4-Pro on Ollama: We Put the Coding Claims to the Test"
 excerpt: "DeepSeek V4-Pro claims 93.5% on LiveCodeBench. We ran 6 coding tasks of increasing difficulty through the new Ollama cloud rollout — from string manipulation to a thread-safe rate limiter — and executed every line of code both models produced. Here are the real numbers, the failures, and the honest verdict on whether V4-Pro's coding performance lives up to the benchmark sheet."
-date: "2026-08-18"
+date: "2026-08-15"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"
