@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2a3a"/>
+      <stop offset="100%" stop-color="#0a1a2a"/>
+    </linearGradient>
+    <linearGradient id="filmGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#76b900" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00d4aa" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00d4aa"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.1">
+    <line x1="0" y1="156" x2="1200" y2="156" stroke="#1a2a3a"/>
+    <line x1="0" y1="312" x2="1200" y2="312" stroke="#1a2a3a"/>
+    <line x1="0" y1="468" x2="1200" y2="468" stroke="#1a2a3a"/>
+    <line x1="300" y1="0" x2="300" y2="624" stroke="#1a2a3a"/>
+    <line x1="600" y1="0" x2="600" y2="624" stroke="#1a2a3a"/>
+    <line x1="900" y1="0" x2="900" y2="624" stroke="#1a2a3a"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="bold" fill="#e8eef4">MiniMax H3 FL2VA — 2× DGX Spark Video Generation</text>
+  <text x="600" y="62" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#5a8a6a">Ray TP=2 · Ulysses SP · NCCL/RoCE v2 · Online FP8 · $0.00 per video</text>
+
+  <!-- Film strip decoration -->
+  <g transform="translate(0, 80)" opacity="0.3">
+    <rect x="0" y="0" width="1200" height="4" fill="#76b900"/>
+    <g fill="#0d1f12">
+      <rect x="20" y="0" width="8" height="4"/><rect x="60" y="0" width="8" height="4"/><rect x="100" y="0" width="8" height="4"/>
+      <rect x="140" y="0" width="8" height="4"/><rect x="180" y="0" width="8" height="4"/><rect x="220" y="0" width="8" height="4"/>
+      <rect x="260" y="0" width="8" height="4"/><rect x="300" y="0" width="8" height="4"/><rect x="340" y="0" width="8" height="4"/>
+      <rect x="380" y="0" width="8" height="4"/><rect x="420" y="0" width="8" height="4"/><rect x="460" y="0" width="8" height="4"/>
+      <rect x="500" y="0" width="8" height="4"/><rect x="540" y="0" width="8" height="4"/><rect x="580" y="0" width="8" height="4"/>
+      <rect x="620" y="0" width="8" height="4"/><rect x="660" y="0" width="8" height="4"/><rect x="700" y="0" width="8" height="4"/>
+      <rect x="740" y="0" width="8" height="4"/><rect x="780" y="0" width="8" height="4"/><rect x="820" y="0" width="8" height="4"/>
+      <rect x="860" y="0" width="8" height="4"/><rect x="900" y="0" width="8" height="4"/><rect x="940" y="0" width="8" height="4"/>
+      <rect x="980" y="0" width="8" height="4"/><rect x="1020" y="0" width="8" height="4"/><rect x="1060" y="0" width="8" height="4"/>
+      <rect x="1100" y="0" width="8" height="4"/><rect x="1140" y="0" width="8" height="4"/><rect x="1180" y="0" width="8" height="4"/>
+    </g>
+  </g>
+
+  <!-- Spark Node 1 (Head/API) -->
+  <g transform="translate(60, 110)">
+    <rect x="0" y="0" width="180" height="250" rx="12" fill="url(#sparkGrad)" stroke="#76b900" stroke-width="2" filter="url(#glowGreen)"/>
+    <text x="90" y="28" text-anchor="middle" font-family="'SF Mono',monospace" font-size="12" font-weight="bold" fill="#76b900">spark-56bc</text>
+    <text x="90" y="44" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">HEAD · API :8000</text>
+    <!-- GPU -->
+    <rect x="25" y="58" width="130" height="60" rx="6" fill="#0d1f12" stroke="#2a5a3a"/>
+    <text x="90" y="80" text-anchor="middle" font-family="'SF Mono',monospace" font-size="10" fill="#76b900">GB10</text>
+    <text x="90" y="96" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">SM121 · 128GB UMA</text>
+    <!-- CX7 -->
+    <rect x="40" y="130" width="100" height="28" rx="4" fill="#0d1f12" stroke="#00d4aa" stroke-width="1.5" filter="url(#glow)"/>
+    <text x="90" y="148" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#00d4aa">CX-7 200GbE</text>
+    <!-- Ray -->
+    <text x="90" y="180" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#e8eef4">Ray Head</text>
+    <text x="90" y="196" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#e8eef4">Rank 0</text>
+    <text x="90" y="216" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">Encoders + VAE</text>
+    <text x="90" y="232" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">+ MP4 encode</text>
+  </g>
+
+  <!-- QSFP Link -->
+  <g transform="translate(240, 180)">
+    <line x1="0" y1="15" x2="100" y2="15" stroke="#00d4aa" stroke-width="3" filter="url(#glow)"/>
+    <line x1="0" y1="25" x2="100" y2="25" stroke="#00d4aa" stroke-width="2" opacity="0.5"/>
+    <text x="50" y="8" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#00d4aa">QSFP</text>
+    <text x="50" y="45" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">22 GB/s NCCL</text>
+  </g>
+
+  <!-- Spark Node 2 (Worker) -->
+  <g transform="translate(340, 110)">
+    <rect x="0" y="0" width="180" height="250" rx="12" fill="url(#sparkGrad)" stroke="#76b900" stroke-width="2" filter="url(#glowGreen)"/>
+    <text x="90" y="28" text-anchor="middle" font-family="'SF Mono',monospace" font-size="12" font-weight="bold" fill="#76b900">spark-d369</text>
+    <text x="90" y="44" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">WORKER · Rank 1</text>
+    <rect x="25" y="58" width="130" height="60" rx="6" fill="#0d1f12" stroke="#2a5a3a"/>
+    <text x="90" y="80" text-anchor="middle" font-family="'SF Mono',monospace" font-size="10" fill="#76b900">GB10</text>
+    <text x="90" y="96" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">SM121 · 128GB UMA</text>
+    <rect x="40" y="130" width="100" height="28" rx="4" fill="#0d1f12" stroke="#00d4aa" stroke-width="1.5" filter="url(#glow)"/>
+    <text x="90" y="148" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#00d4aa">CX-7 200GbE</text>
+    <text x="90" y="180" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#e8eef4">Ray Worker</text>
+    <text x="90" y="196" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#e8eef4">Rank 1</text>
+    <text x="90" y="216" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">DiT denoising</text>
+    <text x="90" y="232" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">Ulysses SP</text>
+  </g>
+
+  <!-- Arrow to video output -->
+  <line x1="520" y1="220" x2="600" y2="220" stroke="#00d4aa" stroke-width="2" marker-end="url(#arr)" filter="url(#glow)"/>
+
+  <!-- Video output representation -->
+  <g transform="translate(610, 130)">
+    <rect x="0" y="0" width="120" height="90" rx="4" fill="#0d1f12" stroke="#76b900" stroke-width="2" filter="url(#glowGreen)"/>
+    <!-- Play button -->
+    <polygon points="48,28 48,62 78,45" fill="#76b900" opacity="0.9"/>
+    <text x="60" y="82" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">768×448 H.264</text>
+    <!-- Audio waves -->
+    <g transform="translate(5, 8)" opacity="0.4">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#00d4aa" stroke-width="1"/>
+      <line x1="3" y1="-2" x2="3" y2="8" stroke="#00d4aa" stroke-width="1"/>
+      <line x1="6" y1="-1" x2="6" y2="7" stroke="#00d4aa" stroke-width="1"/>
+      <line x1="9" y1="1" x2="9" y2="5" stroke="#00d4aa" stroke-width="1"/>
+    </g>
+  </g>
+
+  <!-- Benchmark bars -->
+  <g transform="translate(760, 100)">
+    <text x="0" y="0" font-family="'SF Pro Display',sans-serif" font-size="13" font-weight="bold" fill="#e8eef4">Benchmark — 2× vs 1× DGX Spark</text>
+
+    <!-- Standard tier -->
+    <g transform="translate(0, 15)">
+      <text x="0" y="12" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">Standard</text>
+      <rect x="80" y="3" width="200" height="12" rx="2" fill="#1a2a3a"/>
+      <rect x="80" y="3" width="62" height="12" rx="2" fill="#00d4aa" filter="url(#glow)"/>
+      <text x="150" y="12" font-family="'SF Mono',monospace" font-size="8" fill="#00d4aa">51s</text>
+      <text x="290" y="12" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">1×: 163s</text>
+    </g>
+
+    <!-- High quality -->
+    <g transform="translate(0, 35)">
+      <text x="0" y="12" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">HQ 960p</text>
+      <rect x="80" y="3" width="200" height="12" rx="2" fill="#1a2a3a"/>
+      <rect x="80" y="3" width="110" height="12" rx="2" fill="#00d4aa" filter="url(#glow)"/>
+      <text x="198" y="12" font-family="'SF Mono',monospace" font-size="8" fill="#00d4aa">221s</text>
+      <text x="290" y="12" font-family="'SF Mono',monospace" font-size="8" fill="#5a8a6a">1×: 579s</text>
+    </g>
+
+    <!-- Speedup badges -->
+    <g transform="translate(0, 60)">
+      <rect x="0" y="0" width="100" height="30" rx="6" fill="#0d1f12" stroke="#76b900" stroke-width="1.5" filter="url(#glowGreen)"/>
+      <text x="50" y="20" text-anchor="middle" font-family="'SF Pro Display',sans-serif" font-size="14" font-weight="bold" fill="#76b900">3.2× faster</text>
+    </g>
+    <g transform="translate(110, 60)">
+      <rect x="0" y="0" width="100" height="30" rx="6" fill="#0d1f12" stroke="#00d4aa" stroke-width="1.5" filter="url(#glow)"/>
+      <text x="50" y="20" text-anchor="middle" font-family="'SF Pro Display',sans-serif" font-size="14" font-weight="bold" fill="#00d4aa">2.6× faster</text>
+    </g>
+  </g>
+
+  <!-- Resolution scaling chart -->
+  <g transform="translate(60, 390)">
+    <text x="0" y="0" font-family="'SF Pro Display',sans-serif" font-size="12" font-weight="bold" fill="#e8eef4">Resolution Scaling (20 steps, 2s, warm)</text>
+    <g transform="translate(0, 10)">
+      <text x="0" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">512×320</text>
+      <rect x="80" y="5" width="440" height="12" rx="2" fill="#1a2a3a"/>
+      <rect x="80" y="5" width="44" height="12" rx="2" fill="#00d4aa" filter="url(#glow)"/>
+      <text x="530" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#00d4aa">22.0s</text>
+    </g>
+    <g transform="translate(0, 28)">
+      <text x="0" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">640×384</text>
+      <rect x="80" y="5" width="440" height="12" rx="2" fill="#1a2a3a"/>
+      <rect x="80" y="5" width="78" height="12" rx="2" fill="#00d4aa" filter="url(#glow)"/>
+      <text x="530" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#00d4aa">38.9s</text>
+    </g>
+    <g transform="translate(0, 46)">
+      <text x="0" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">768×448</text>
+      <rect x="80" y="5" width="440" height="12" rx="2" fill="#1a2a3a"/>
+      <rect x="80" y="5" width="114" height="12" rx="2" fill="#00d4aa" filter="url(#glow)"/>
+      <text x="530" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#00d4aa">57.2s</text>
+    </g>
+    <g transform="translate(0, 64)">
+      <text x="0" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">960×544</text>
+      <rect x="80" y="5" width="440" height="12" rx="2" fill="#1a2a3a"/>
+      <rect x="80" y="5" width="214" height="12" rx="2" fill="#ff9500"/>
+      <text x="530" y="14" font-family="'SF Mono',monospace" font-size="9" fill="#ff9500">106.9s</text>
+    </g>
+  </g>
+
+  <!-- Zero cost + marketing badge -->
+  <g transform="translate(620, 380)">
+    <rect x="0" y="0" width="250" height="90" rx="10" fill="#0d1f12" stroke="#76b900" stroke-width="2" filter="url(#glowGreen)"/>
+    <text x="125" y="25" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">COST PER VIDEO</text>
+    <text x="125" y="55" text-anchor="middle" font-family="'SF Pro Display',sans-serif" font-size="28" font-weight="bold" fill="#76b900">$0.00</text>
+    <text x="125" y="75" text-anchor="middle" font-family="'SF Mono',monospace" font-size="8" fill="#e8eef4">No cloud API · No per-second billing</text>
+    <text x="125" y="88" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">vs OpenRouter: $0.13/sec = $0.30/video</text>
+  </g>
+
+  <!-- Step scaling mini chart -->
+  <g transform="translate(890, 380)">
+    <rect x="0" y="0" width="280" height="90" rx="10" fill="#0d1f12" stroke="#00d4aa" stroke-width="1.5" filter="url(#glow)"/>
+    <text x="140" y="20" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#5a8a6a">STEP SCALING (768×448, 2s)</text>
+    <g transform="translate(10, 28)">
+      <rect x="0" y="0" width="30" height="8" rx="1" fill="#00d4aa" opacity="0.4"/>
+      <rect x="35" y="0" width="43" height="8" rx="1" fill="#00d4aa" opacity="0.6"/>
+      <rect x="85" y="0" width="64" height="8" rx="1" fill="#00d4aa" opacity="0.8"/>
+      <rect x="155" y="0" width="104" height="8" rx="1" fill="#00d4aa"/>
+      <text x="0" y="22" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">10: 35s</text>
+      <text x="35" y="22" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">20: 50s</text>
+      <text x="85" y="22" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">30: 75s</text>
+      <text x="155" y="22" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">50: 121s</text>
+    </g>
+    <text x="140" y="80" text-anchor="middle" font-family="'SF Mono',monospace" font-size="7" fill="#5a8a6a">Linear scaling · ~2.3s per step</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="600" y="600" text-anchor="middle" font-family="'SF Mono',monospace" font-size="9" fill="#3a5a4a">SMF Works · 2× DGX Spark · Ray + NCCL/RoCE · vLLM-Omni · MiniMax H3 FL2VA</text>
+</svg>
