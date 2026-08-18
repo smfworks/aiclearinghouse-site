@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.04" stroke="#FF6B00">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="240" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Right-side circuit traces -->
+  <g opacity="0.06" stroke="#FF6B00" fill="none" stroke-width="2">
+    <path d="M 950 80 L 1020 80 L 1020 160 L 1100 160"/>
+    <path d="M 950 200 L 1050 200 L 1050 280 L 1180 280"/>
+    <path d="M 980 380 L 1060 380 L 1060 460 L 1140 460"/>
+    <path d="M 960 520 L 1030 520 L 1030 580 L 1180 580"/>
+    <circle cx="1020" cy="80" r="3" fill="#FF6B00"/>
+    <circle cx="1050" cy="280" r="3" fill="#FF6B00"/>
+    <circle cx="1060" cy="460" r="3" fill="#FF6B00"/>
+    <circle cx="1030" cy="580" r="3" fill="#FF6B00"/>
+  </g>
+
+  <!-- Skill anatomy diagram — left side -->
+  <!-- Outer skill box -->
+  <rect x="80" y="140" width="320" height="350" rx="12" fill="none" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.5"/>
+  <rect x="80" y="140" width="320" height="40" rx="12" fill="#FF6B00" fill-opacity="0.12"/>
+  <text x="240" y="166" text-anchor="middle" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="2">SKILL.MD</text>
+
+  <!-- Frontmatter section -->
+  <rect x="100" y="195" width="280" height="55" rx="8" fill="#FF6B00" fill-opacity="0.06" stroke="#FF6B00" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="240" y="218" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600">YAML Frontmatter</text>
+  <text x="240" y="238" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11">name · description · version · tags</text>
+
+  <!-- Arrow down -->
+  <line x1="240" y1="255" x2="240" y2="275" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.4"/>
+  <polygon points="235,270 245,270 240,278" fill="#FF6B00" fill-opacity="0.4"/>
+
+  <!-- Body section -->
+  <rect x="100" y="285" width="280" height="55" rx="8" fill="#FF6B00" fill-opacity="0.06" stroke="#FF6B00" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="240" y="308" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600">Markdown Body</text>
+  <text x="240" y="328" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11">steps · pitfalls · verification</text>
+
+  <!-- Arrow down -->
+  <line x1="240" y1="345" x2="240" y2="365" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.4"/>
+  <polygon points="235,360 245,360 240,368" fill="#FF6B00" fill-opacity="0.4"/>
+
+  <!-- References section -->
+  <rect x="100" y="375" width="280" height="55" rx="8" fill="#FF6B00" fill-opacity="0.06" stroke="#FF6B00" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="240" y="398" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600">Reference Files</text>
+  <text x="240" y="418" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11">configs · templates · scripts</text>
+
+  <!-- Deployment arrow -->
+  <line x1="240" y1="435" x2="240" y2="455" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.4"/>
+  <polygon points="235,450 245,450 240,458" fill="#FF6B00" fill-opacity="0.4"/>
+  <text x="240" y="478" text-anchor="middle" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">~/.hermes/skills/</text>
+
+  <!-- Flow arrows from diagram to text area -->
+  <g opacity="0.15" stroke="#FF6B00" fill="none" stroke-width="1.5">
+    <path d="M 400 220 L 480 220 L 480 200 L 540 200"/>
+    <path d="M 400 312 L 520 312 L 520 295 L 540 295"/>
+    <path d="M 400 402 L 500 402 L 500 390 L 540 390"/>
+  </g>
+
+  <!-- Title text -->
+  <text x="560" y="200" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">The Anatomy of</text>
+  <text x="560" y="248" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">a Hermes Skill</text>
+
+  <!-- Subtitle -->
+  <text x="560" y="288" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" letter-spacing="2">ZERO TO DEPLOYED IN ONE POST</text>
+
+  <!-- Tagline -->
+  <text x="560" y="325" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15">Frontmatter · body · references · deployment</text>
+  <text x="560" y="350" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15">Real code, real pitfalls, real workflow</text>
+
+  <!-- Liam's Landing badge -->
+  <rect x="560" y="380" width="160" height="30" rx="15" fill="#FF6B00" fill-opacity="0.15" stroke="#FF6B00" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="640" y="400" text-anchor="middle" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600">LIAM'S LANDING</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#FF6B00" fill-opacity="0.6"/>
+</svg>
