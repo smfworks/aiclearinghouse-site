@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#001F3F"/>
+  <!-- Outer loop arc (meta-harness) -->
+  <circle cx="600" cy="315" r="240" fill="none" stroke="#ea580c" stroke-width="4" stroke-dasharray="12 8" opacity="0.7"/>
+  <!-- Inner loop circle (design harness) -->
+  <circle cx="600" cy="315" r="150" fill="none" stroke="#C9A96E" stroke-width="4" opacity="0.85"/>
+  <!-- Five component nodes around inner loop -->
+  <circle cx="600" cy="165" r="18" fill="#ea580c" opacity="0.9"/>
+  <circle cx="743" cy="253" r="18" fill="#C9A96E" opacity="0.9"/>
+  <circle cx="743" cy="377" r="18" fill="#00D4FF" opacity="0.8"/>
+  <circle cx="600" cy="465" r="18" fill="#C9A96E" opacity="0.9"/>
+  <circle cx="457" cy="377" r="18" fill="#ea580c" opacity="0.9"/>
+  <circle cx="457" cy="253" r="18" fill="#00D4FF" opacity="0.8"/>
+  <!-- Center node (model, fixed) -->
+  <rect x="560" y="280" width="80" height="70" rx="8" fill="#001F3F" stroke="#C9A96E" stroke-width="3"/>
+  <circle cx="600" cy="315" r="12" fill="#ea580c"/>
+  <!-- Connecting lines from center to outer (rollout/eval) -->
+  <line x1="600" y1="315" x2="600" y2="165" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+  <line x1="600" y1="315" x2="743" y2="253" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+  <line x1="600" y1="315" x2="743" y2="377" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+  <line x1="600" y1="315" x2="600" y2="465" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+  <line x1="600" y1="315" x2="457" y2="377" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+  <line x1="600" y1="315" x2="457" y2="253" stroke="#C9A96E" stroke-width="2" opacity="0.4"/>
+  <!-- Acceptance gate indicator -->
+  <rect x="540" y="540" width="120" height="50" rx="6" fill="none" stroke="#ea580c" stroke-width="2.5" opacity="0.7"/>
+  <line x1="600" y1="465" x2="600" y2="540" stroke="#ea580c" stroke-width="2.5" opacity="0.5" stroke-dasharray="6 4"/>
+  <!-- Subtle background grid -->
+  <line x1="0" y1="157" x2="1200" y2="157" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="0" y1="473" x2="1200" y2="473" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="300" y1="0" x2="300" y2="630" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+  <line x1="900" y1="0" x2="900" y2="630" stroke="#C9A96E" stroke-width="0.5" opacity="0.1"/>
+</svg>
