@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#001F3F"/>
+  <!-- Outer optimization loop -->
+  <circle cx="450" cy="315" r="200" fill="none" stroke="#ea580c" stroke-width="4" stroke-dasharray="10 6" opacity="0.6"/>
+  <!-- Inner harness loop -->
+  <circle cx="450" cy="315" r="130" fill="none" stroke="#C9A96E" stroke-width="3.5" opacity="0.8"/>
+  <!-- Five component nodes -->
+  <circle cx="450" cy="185" r="14" fill="#ea580c" opacity="0.85"/>
+  <circle cx="565" cy="257" r="14" fill="#C9A96E" opacity="0.85"/>
+  <circle cx="565" cy="373" r="14" fill="#00D4FF" opacity="0.75"/>
+  <circle cx="450" cy="445" r="14" fill="#C9A96E" opacity="0.85"/>
+  <circle cx="335" cy="373" r="14" fill="#ea580c" opacity="0.85"/>
+  <circle cx="335" cy="257" r="14" fill="#00D4FF" opacity="0.75"/>
+  <!-- Center: fixed model -->
+  <rect x="415" y="285" width="70" height="60" rx="6" fill="#001F3F" stroke="#C9A96E" stroke-width="2.5"/>
+  <circle cx="450" cy="315" r="10" fill="#ea580c"/>
+  <!-- Connecting lines -->
+  <line x1="450" y1="315" x2="450" y2="185" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="315" x2="565" y2="257" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="315" x2="565" y2="373" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="315" x2="450" y2="445" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="315" x2="335" y2="373" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  <line x1="450" y1="315" x2="335" y2="257" stroke="#C9A96E" stroke-width="1.5" opacity="0.3"/>
+  <!-- Acceptance gate -->
+  <rect x="390" y="500" width="120" height="45" rx="5" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.6"/>
+  <line x1="450" y1="445" x2="450" y2="500" stroke="#ea580c" stroke-width="2" opacity="0.4" stroke-dasharray="5 3"/>
+  <!-- Right side: model comparison bars -->
+  <rect x="750" y="120" width="300" height="20" fill="#ea580c" opacity="0.8" rx="2"/>
+  <rect x="750" y="160" width="270" height="20" fill="#C9A96E" opacity="0.7" rx="2"/>
+  <rect x="750" y="200" width="265" height="20" fill="#C9A96E" opacity="0.6" rx="2"/>
+  <rect x="750" y="240" width="240" height="20" fill="#00D4FF" opacity="0.5" rx="2"/>
+  <!-- Cost labels (as bars, no text) -->
+  <rect x="1070" y="120" width="8" height="20" fill="#C9A96E" opacity="0.4" rx="1"/>
+  <rect x="1070" y="160" width="40" height="20" fill="#C9A96E" opacity="0.5" rx="1"/>
+  <rect x="1070" y="200" width="60" height="20" fill="#C9A96E" opacity="0.6" rx="1"/>
+  <rect x="1070" y="240" width="80" height="20" fill="#C9A96E" opacity="0.7" rx="1"/>
+  <!-- Pareto frontier line -->
+  <line x1="750" y1="135" x2="1070" y2="255" stroke="#ea580c" stroke-width="2" stroke-dasharray="8 4" opacity="0.5"/>
+  <!-- Subtle grid -->
+  <line x1="0" y1="157" x2="1200" y2="157" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="0" y1="473" x2="1200" y2="473" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+  <line x1="700" y1="0" x2="700" y2="630" stroke="#C9A96E" stroke-width="0.5" opacity="0.08"/>
+</svg>
