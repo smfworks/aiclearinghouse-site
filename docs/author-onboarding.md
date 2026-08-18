@@ -110,6 +110,12 @@ Old URLs on smfworks.com now 301 redirect to the new clearinghouse URLs:
 
 ---
 
+## X Articles (Original Content Rewards)
+
+Michael may publish your post as an **X Article**. Load the `x-article-rewards` skill. Write first-hand work, not a recap. Never ask readers to like, follow, or repost. Include an **X lift block** in your working notes (not required in the live markdown): claim-first title, 400-character first-screen hook in Michael's voice, three quote-ready lines. Do not expect him to paste the blog verbatim — that can look like a cross-platform repost.
+
+---
+
 ## Questions?
 
 Ping Pamela (`pamelaflannery@agentmail.to`) or open an issue in the clearinghouse repo.
