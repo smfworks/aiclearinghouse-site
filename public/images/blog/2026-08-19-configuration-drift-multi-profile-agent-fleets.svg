@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#00E5A0" stroke-opacity="0.03" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Right-side circuit traces -->
+  <g stroke="#00E5A0" stroke-opacity="0.04" fill="none" stroke-width="1">
+    <path d="M 950 50 L 950 120 L 980 120 L 980 200 L 1050 200 L 1050 280 L 1080 280 L 1080 360"/>
+    <path d="M 1020 80 L 1020 160 L 1100 160 L 1100 240 L 1140 240 L 1140 320"/>
+    <path d="M 900 400 L 940 400 L 940 460 L 1000 460 L 1000 520 L 1060 520"/>
+    <circle cx="1050" cy="280" r="3" fill="#00E5A0" fill-opacity="0.12"/>
+    <circle cx="1140" cy="320" r="3" fill="#00E5A0" fill-opacity="0.12"/>
+    <circle cx="1060" cy="520" r="3" fill="#00E5A0" fill-opacity="0.12"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Dr J medical cross + circuit branches icon -->
+  <!-- Medical cross -->
+  <g transform="translate(220, 315)">
+    <!-- Cross background -->
+    <rect x="-35" y="-12" width="70" height="24" rx="4" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.7"/>
+    <rect x="-12" y="-35" width="24" height="70" rx="4" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.7"/>
+    <!-- Cross fill -->
+    <rect x="-33" y="-10" width="66" height="20" rx="3" fill="#00E5A0" fill-opacity="0.08"/>
+    <rect x="-10" y="-33" width="20" height="66" rx="3" fill="#00E5A0" fill-opacity="0.08"/>
+
+    <!-- Neural/circuit branches from cross -->
+    <g stroke="#00E5A0" stroke-width="1.5" fill="none" stroke-opacity="0.5">
+      <!-- Top branch -->
+      <path d="M 0 -35 L 0 -55 L 25 -55 L 25 -70"/>
+      <circle cx="25" cy="-70" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+      <!-- Right branch -->
+      <path d="M 35 0 L 55 0 L 55 25 L 70 25"/>
+      <circle cx="70" cy="25" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+      <!-- Bottom branch -->
+      <path d="M 0 35 L 0 55 L -25 55 L -25 70"/>
+      <circle cx="-25" cy="70" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+      <!-- Left branch -->
+      <path d="M -35 0 L -55 0 L -55 -25 L -70 -25"/>
+      <circle cx="-70" cy="-25" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+    </g>
+  </g>
+
+  <!-- Drift visualization: profile nodes diverging -->
+  <!-- Central hub -->
+  <g transform="translate(520, 200)">
+    <!-- Intended config node -->
+    <rect x="-60" y="-20" width="120" height="40" rx="6" fill="#00E5A0" fill-opacity="0.06" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.4"/>
+    <text x="0" y="5" text-anchor="middle" fill="#00E5A0" font-size="13" font-family="system-ui, -apple-system, sans-serif" font-weight="600">INTENDED</text>
+  </g>
+
+  <!-- Drifting profile nodes -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="11">
+    <!-- Profile 1: aligned -->
+    <g transform="translate(720, 130)">
+      <rect x="-45" y="-16" width="90" height="32" rx="5" fill="#00E5A0" fill-opacity="0.05" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+      <text x="0" y="3" text-anchor="middle" fill="#00E5A0" fill-opacity="0.6">Profile A</text>
+      <line x1="-60" y1="0" x2="-45" y2="0" stroke="#00E5A0" stroke-opacity="0.25" stroke-width="1"/>
+    </g>
+    <!-- Profile 2: drifting -->
+    <g transform="translate(740, 190)">
+      <rect x="-45" y="-16" width="90" height="32" rx="5" fill="#00E5A0" fill-opacity="0.03" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="4 3"/>
+      <text x="0" y="3" text-anchor="middle" fill="#00E5A0" fill-opacity="0.4">Profile B</text>
+      <line x1="-60" y1="0" x2="-45" y2="0" stroke="#00E5A0" stroke-opacity="0.15" stroke-width="1" stroke-dasharray="4 3"/>
+    </g>
+    <!-- Profile 3: drifted far -->
+    <g transform="translate(770, 250)">
+      <rect x="-45" y="-16" width="90" height="32" rx="5" fill="#FF4444" fill-opacity="0.03" stroke="#FF6B6B" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="2 2"/>
+      <text x="0" y="3" text-anchor="middle" fill="#FF6B6B" fill-opacity="0.5">Profile C</text>
+      <line x1="-60" y1="0" x2="-45" y2="0" stroke="#FF6B6B" stroke-opacity="0.15" stroke-width="1" stroke-dasharray="2 2"/>
+    </g>
+    <!-- Profile 4: drifted -->
+    <g transform="translate(720, 310)">
+      <rect x="-45" y="-16" width="90" height="32" rx="5" fill="#00E5A0" fill-opacity="0.02" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.15" stroke-dasharray="6 4"/>
+      <text x="0" y="3" text-anchor="middle" fill="#00E5A0" fill-opacity="0.3">Profile D</text>
+      <line x1="-60" y1="0" x2="-45" y2="0" stroke="#00E5A0" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="6 4"/>
+    </g>
+  </g>
+
+  <!-- Connecting lines from intended to profiles -->
+  <g stroke="#00E5A0" stroke-width="1" fill="none">
+    <path d="M 580 200 L 675 130" stroke-opacity="0.25"/>
+    <path d="M 580 200 L 695 190" stroke-opacity="0.15" stroke-dasharray="4 3"/>
+    <path d="M 580 200 L 725 250" stroke="#FF6B6B" stroke-opacity="0.2" stroke-dasharray="2 2"/>
+    <path d="M 580 200 L 675 310" stroke-opacity="0.1" stroke-dasharray="6 4"/>
+  </g>
+
+  <!-- Title -->
+  <text x="520" y="420" fill="#E2E8F0" font-size="42" font-weight="700" font-family="system-ui, -apple-system, sans-serif">Configuration Drift</text>
+  <text x="520" y="465" fill="#E2E8F0" font-size="22" font-weight="400" font-family="system-ui, -apple-system, sans-serif">The Slow Decay of Multi-Profile Agent Fleets</text>
+
+  <!-- Subtitle -->
+  <text x="520" y="510" fill="#00E5A0" font-size="16" font-weight="600" letter-spacing="2" font-family="system-ui, -apple-system, sans-serif">DR J INFRASTRUCTURE DIAGNOSTICS</text>
+
+  <!-- Tagline -->
+  <text x="520" y="545" fill="#94A3B8" font-size="15" font-family="system-ui, -apple-system, sans-serif">Model drift · Credential expiry · Skill desync · Silent failover</text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
