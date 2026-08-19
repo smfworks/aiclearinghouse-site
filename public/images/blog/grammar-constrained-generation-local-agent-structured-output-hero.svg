@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Grammar-Constrained Generation" — no-text abstract:
+     a token-decoding tree where only grammar-allowed branches are lit
+     (teal/gold) and pruned branches are dim. Navy palette. Validates as XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Constrained decoding token tree: allowed branches lit, disallowed branches pruned">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative grid frame -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- ambient glows -->
+  <rect x="0" y="250" width="1200" height="50" fill="url(#tealGlow)" filter="url(#blur)"/>
+  <rect x="180" y="0" width="180" height="630" fill="url(#goldGlow)" filter="url(#blur)"/>
+
+  <!-- ===== Root token (BOS / start of JSON) ===== -->
+  <g transform="translate(180, 400)">
+    <circle cx="0" cy="0" r="30" fill="#0e7490" opacity="0.95"/>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.7"/>
+    <circle cx="0" cy="0" r="10" fill="#0a1628"/>
+  </g>
+
+  <!-- ===== Layer 1: allowed '{' branch (teal, up) and pruned 'text' branch (dim, down) ===== -->
+  <!-- allowed: { -->
+  <path d="M210,400 L360,290" stroke="#0e7490" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(360, 290)">
+    <circle cx="0" cy="0" r="24" fill="#0e7490" opacity="0.95"/>
+    <circle cx="0" cy="0" r="24" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.75"/>
+    <circle cx="0" cy="0" r="8" fill="#0a1628"/>
+  </g>
+  <!-- pruned: random text token -->
+  <path d="M210,400 L360,490" stroke="#1e3a8a" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.30"/>
+  <g transform="translate(360, 490)" opacity="0.28">
+    <circle cx="0" cy="0" r="22" fill="#1e3a8a"/>
+    <circle cx="0" cy="0" r="22" fill="none" stroke="#3b82f6" stroke-width="2.5" opacity="0.5"/>
+    <line x1="-30" y1="-30" x2="30" y2="30" stroke="#3b82f6" stroke-width="3" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Layer 2 from '{': allowed "key" branch (gold, up-right) and pruned number branch (dim, down-right) ===== -->
+  <path d="M384,290 L560,190" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(560, 190)">
+    <circle cx="0" cy="0" r="24" fill="#f59e0b" opacity="0.95"/>
+    <circle cx="0" cy="0" r="24" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.75"/>
+    <circle cx="0" cy="0" r="8" fill="#0a1628"/>
+  </g>
+  <!-- pruned: bare number where string key expected -->
+  <path d="M384,290 L560,330" stroke="#1e3a8a" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.28"/>
+  <g transform="translate(560, 330)" opacity="0.26">
+    <circle cx="0" cy="0" r="22" fill="#1e3a8a"/>
+    <circle cx="0" cy="0" r="22" fill="none" stroke="#3b82f6" stroke-width="2.5" opacity="0.5"/>
+    <line x1="-30" y1="-30" x2="30" y2="30" stroke="#3b82f6" stroke-width="3" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Layer 3 from "key": allowed ':' branch (teal) ===== -->
+  <path d="M584,190 L740,150" stroke="#0e7490" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(740, 150)">
+    <circle cx="0" cy="0" r="22" fill="#0e7490" opacity="0.95"/>
+    <circle cx="0" cy="0" r="22" fill="none" stroke="#22d3ee" stroke-width="3" opacity="0.75"/>
+    <circle cx="0" cy="0" r="7" fill="#0a1628"/>
+  </g>
+  <!-- pruned: comma where colon expected -->
+  <path d="M584,190 L740,250" stroke="#1e3a8a" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.28"/>
+  <g transform="translate(740, 250)" opacity="0.26">
+    <circle cx="0" cy="0" r="20" fill="#1e3a8a"/>
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#3b82f6" stroke-width="2.5" opacity="0.5"/>
+    <line x1="-28" y1="-28" x2="28" y2="28" stroke="#3b82f6" stroke-width="3" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Layer 4 from ':': allowed value branch (gold) ===== -->
+  <path d="M762,150 L920,110" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(920, 110)">
+    <circle cx="0" cy="0" r="26" fill="#f59e0b" opacity="0.95"/>
+    <circle cx="0" cy="0" r="26" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.75"/>
+    <circle cx="0" cy="0" r="9" fill="#0a1628"/>
+  </g>
+
+  <!-- small allowed commit dots along the lit path -->
+  <circle cx="285" cy="345" r="6" fill="#0e7490" opacity="0.6"/>
+  <circle cx="472" cy="240" r="6" fill="#f59e0b" opacity="0.6"/>
+  <circle cx="662" cy="170" r="6" fill="#0e7490" opacity="0.6"/>
+
+  <!-- dotted envelope: the "valid JSON" grammar boundary -->
+  <ellipse cx="560" cy="290" rx="430" ry="220" fill="none" stroke="#1e3a8a" stroke-width="1.5" stroke-dasharray="4 7" opacity="0.40"/>
+
+  <!-- legend dots bottom-right (abstract, no text) -->
+  <g transform="translate(1010, 515)">
+    <circle cx="0" cy="0" r="9" fill="#0e7490" opacity="0.95"/>
+    <circle cx="28" cy="0" r="9" fill="#f59e0b" opacity="0.95"/>
+    <circle cx="56" cy="0" r="9" fill="#1e3a8a" opacity="0.30"/>
+  </g>
+</svg>
