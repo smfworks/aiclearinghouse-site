@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Prefix Caching for Agent Loops" — no-text abstract:
+     three successive agent turns shown as horizontal bars. The shared
+     prefix (system prompt + tools) is lit teal/gold and identical across
+     turns; only the trailing "new tokens" segment differs per turn.
+     Navy palette. Validates as XML. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Three agent turns sharing a cached prefix: identical teal/gold prefix blocks, distinct trailing segments per turn">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="prefixGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="prefixGrad2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.80"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="tealGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#0e7490" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative grid frame -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- ambient glow -->
+  <rect x="0" y="200" width="1200" height="60" fill="url(#tealGlow)" filter="url(#blur)"/>
+
+  <!-- ===== "cached" bracket on the left spanning all three prefix blocks ===== -->
+  <g stroke="#0e7490" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.80">
+    <path d="M120,155 L105,155 L105,455 L120,455"/>
+  </g>
+  <g stroke="#22d3ee" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.50">
+    <path d="M120,155 L105,155 L105,455 L120,455"/>
+  </g>
+
+  <!-- ===== Turn 1: prefix (cached) + new tokens ===== -->
+  <g transform="translate(140, 155)">
+    <!-- cached prefix block -->
+    <rect x="0" y="0" width="720" height="70" rx="6" fill="url(#prefixGrad)"/>
+    <rect x="0" y="0" width="720" height="70" rx="6" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.45"/>
+    <!-- internal segments (abstract tokens) -->
+    <g fill="#0a1628" opacity="0.25">
+      <rect x="18" y="18" width="80" height="34" rx="3"/>
+      <rect x="108" y="18" width="120" height="34" rx="3"/>
+      <rect x="240" y="18" width="60" height="34" rx="3"/>
+      <rect x="312" y="18" width="140" height="34" rx="3"/>
+      <rect x="464" y="18" width="100" height="34" rx="3"/>
+      <rect x="576" y="18" width="120" height="34" rx="3"/>
+    </g>
+    <!-- new tokens (Turn 1 tail) -->
+    <rect x="740" y="0" width="140" height="70" rx="6" fill="#1e3a8a" opacity="0.50"/>
+    <rect x="740" y="0" width="140" height="70" rx="6" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.40"/>
+    <g fill="#0a1628" opacity="0.20">
+      <rect x="758" y="18" width="50" height="34" rx="3"/>
+      <rect x="818" y="18" width="50" height="34" rx="3"/>
+    </g>
+  </g>
+
+  <!-- ===== Turn 2: identical prefix + different tail ===== -->
+  <g transform="translate(140, 255)">
+    <rect x="0" y="0" width="720" height="70" rx="6" fill="url(#prefixGrad)"/>
+    <rect x="0" y="0" width="720" height="70" rx="6" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.45"/>
+    <g fill="#0a1628" opacity="0.25">
+      <rect x="18" y="18" width="80" height="34" rx="3"/>
+      <rect x="108" y="18" width="120" height="34" rx="3"/>
+      <rect x="240" y="18" width="60" height="34" rx="3"/>
+      <rect x="312" y="18" width="140" height="34" rx="3"/>
+      <rect x="464" y="18" width="100" height="34" rx="3"/>
+      <rect x="576" y="18" width="120" height="34" rx="3"/>
+    </g>
+    <!-- new tokens (Turn 2 tail — gold to show it's different from Turn 1) -->
+    <rect x="740" y="0" width="100" height="70" rx="6" fill="url(#prefixGrad2)"/>
+    <rect x="740" y="0" width="100" height="70" rx="6" fill="none" stroke="#ff6b00" stroke-width="2" opacity="0.45"/>
+    <g fill="#0a1628" opacity="0.20">
+      <rect x="758" y="18" width="70" height="34" rx="3"/>
+    </g>
+  </g>
+
+  <!-- ===== Turn 3: identical prefix + yet another tail ===== -->
+  <g transform="translate(140, 385)">
+    <rect x="0" y="0" width="720" height="70" rx="6" fill="url(#prefixGrad)"/>
+    <rect x="0" y="0" width="720" height="70" rx="6" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.45"/>
+    <g fill="#0a1628" opacity="0.25">
+      <rect x="18" y="18" width="80" height="34" rx="3"/>
+      <rect x="108" y="18" width="120" height="34" rx="3"/>
+      <rect x="240" y="18" width="60" height="34" rx="3"/>
+      <rect x="312" y="18" width="140" height="34" rx="3"/>
+      <rect x="464" y="18" width="100" height="34" rx="3"/>
+      <rect x="576" y="18" width="120" height="34" rx="3"/>
+    </g>
+    <!-- new tokens (Turn 3 tail — different length/color) -->
+    <rect x="740" y="0" width="180" height="70" rx="6" fill="#1e3a8a" opacity="0.55"/>
+    <rect x="740" y="0" width="180" height="70" rx="6" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.45"/>
+    <g fill="#0a1628" opacity="0.20">
+      <rect x="758" y="18" width="60" height="34" rx="3"/>
+      <rect x="828" y="18" width="80" height="34" rx="3"/>
+    </g>
+  </g>
+
+  <!-- ===== dashed "cache boundary" line between prefix and tails ===== -->
+  <g stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="5 6" opacity="0.35">
+    <line x1="860" y1="140" x2="860" y2="470"/>
+  </g>
+
+  <!-- ===== connector dots between prefix blocks (showing reuse) ===== -->
+  <g fill="#22d3ee" opacity="0.50">
+    <circle cx="140" cy="190" r="4"/>
+    <circle cx="140" cy="225" r="4"/>
+    <circle cx="140" cy="290" r="4"/>
+    <circle cx="140" cy="325" r="4"/>
+    <circle cx="140" cy="420" r="4"/>
+    <circle cx="140" cy="455" r="4"/>
+  </g>
+
+  <!-- legend dots bottom-right (abstract, no text) -->
+  <g transform="translate(1010, 515)">
+    <circle cx="0" cy="0" r="9" fill="#0e7490" opacity="0.95"/>
+    <circle cx="28" cy="0" r="9" fill="#f59e0b" opacity="0.80"/>
+    <circle cx="56" cy="0" r="9" fill="#1e3a8a" opacity="0.50"/>
+  </g>
+</svg>
