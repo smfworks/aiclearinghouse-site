@@ -31,6 +31,23 @@ This guide is not theoretical. Everything here is running in production at SMF W
 
 ---
 
+## 📦 This guide is now a living repository
+
+Since this article first published, readers asked for something a Hermes agent could be pointed at directly — so I rebuilt it as a versioned, evolving GitHub repository:
+
+### 🌐 [smfworks/hermes-ai-team](https://github.com/smfworks/hermes-ai-team)
+
+- **Phase-by-phase docs** (0–6) written to be agent-consumable: your Hermes profile can read `AGENTS.md`, then implement the phases against `checklists/`.
+- **Templates** — SOUL, USER, MEMORY, STATE, SKILL, chief-of-staff SOUL, and group-chat pod manifests.
+- **Working scripts** — Dawn Circle create/close, vault init, a nightly market-scan example, a systemd gateway unit. Verified, not aspirational.
+- **New Phase 6 — Hermes Desktop Bots & Group Chats** — the newest coordination layer: named Bots (profiles with faces and SOULs), routines attached to the Bot that does the work, group chats of 2–6 Bots organized by area of focus (research pod, build pod, content pod, ops pod), `@mention` routing, `@user` escalation, bot-to-bot DMs, and cross-machine peers (`hermes peer dm`).
+- **Living roadmap + CHANGELOG** — this repo grows as the ecosystem does, and contributions are welcome.
+
+The article below remains the read-this-first narrative. The repository is the thing to point an agent at.
+
+
+---
+
 ## Table of Contents
 
 1. [Install Hermes](#1-install-hermes)
