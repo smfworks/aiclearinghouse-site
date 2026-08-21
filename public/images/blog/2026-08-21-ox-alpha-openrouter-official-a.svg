@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2a3a" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <text x="60" y="58" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="28" font-weight="700">Ox Alpha</text>
+  <text x="60" y="86" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="14">stealth/ox-alpha · OpenRouter · Official A · 2026-08-21</text>
+
+  <text x="60" y="190" fill="#76b900" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="92" font-weight="700" filter="url(#glow)">80.9%</text>
+  <text x="60" y="228" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="20">127 / 157  ·  0 errors  ·  $0</text>
+
+  <!-- suite bars: y from 270 -->
+  <!-- tools 100 -->
+  <text x="60" y="278" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">tools</text>
+  <rect x="180" y="266" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="266" width="420" height="12" rx="2" fill="#76b900"/>
+  <text x="610" y="278" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">2/2</text>
+
+  <text x="60" y="304" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">writing</text>
+  <rect x="180" y="292" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="292" width="420" height="12" rx="2" fill="#76b900"/>
+  <text x="610" y="304" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">5/5</text>
+
+  <text x="60" y="330" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">reasoning</text>
+  <rect x="180" y="318" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="318" width="378" height="12" rx="2" fill="#00d4aa"/>
+  <text x="610" y="330" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">27/30</text>
+
+  <text x="60" y="356" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">prose</text>
+  <rect x="180" y="344" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="344" width="378" height="12" rx="2" fill="#00d4aa"/>
+  <text x="610" y="356" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">27/30</text>
+
+  <text x="60" y="382" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">instruction</text>
+  <rect x="180" y="370" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="370" width="364" height="12" rx="2" fill="#00d4aa"/>
+  <text x="610" y="382" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">26/30</text>
+
+  <text x="60" y="408" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">coding</text>
+  <rect x="180" y="396" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="396" width="280" height="12" rx="2" fill="#ff9500"/>
+  <text x="610" y="408" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">20/30</text>
+
+  <text x="60" y="434" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">math</text>
+  <rect x="180" y="422" width="420" height="12" rx="2" fill="#122018"/>
+  <rect x="180" y="422" width="280" height="12" rx="2" fill="#ff9500"/>
+  <text x="610" y="434" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="12">20/30</text>
+
+  <!-- right column: vision -->
+  <rect x="760" y="130" width="380" height="250" rx="10" fill="#0f172a" stroke="#1a3a2a" stroke-width="1.5"/>
+  <text x="950" y="168" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="700">Modalities we probed</text>
+
+  <rect x="790" y="190" width="150" height="70" rx="8" fill="#122018" stroke="#76b900" stroke-width="1.5"/>
+  <text x="865" y="220" text-anchor="middle" fill="#76b900" font-family="'SF Mono','Courier New',monospace" font-size="13">VISION</text>
+  <text x="865" y="242" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="700">works</text>
+
+  <rect x="960" y="190" width="150" height="70" rx="8" fill="#1a1210" stroke="#ff9500" stroke-width="1.5"/>
+  <text x="1035" y="220" text-anchor="middle" fill="#ff9500" font-family="'SF Mono','Courier New',monospace" font-size="13">VIDEO</text>
+  <text x="1035" y="242" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="18" font-weight="700">404</text>
+
+  <text x="950" y="300" text-anchor="middle" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="12">PNG data-URL + HTTPS: described</text>
+  <text x="950" y="320" text-anchor="middle" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="12">video_url: no supporting endpoint</text>
+  <text x="950" y="350" text-anchor="middle" fill="#888" font-family="'SF Mono','Courier New',monospace" font-size="12">1M context  ·  tools native  ·  free</text>
+
+  <!-- stats bar -->
+  <rect x="0" y="520" width="1200" height="110" fill="#071018"/>
+  <text x="120" y="560" text-anchor="middle" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">CONTEXT</text>
+  <text x="120" y="592" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="700">1M</text>
+  <text x="360" y="560" text-anchor="middle" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">WALL</text>
+  <text x="360" y="592" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="700">94.7 min</text>
+  <text x="600" y="560" text-anchor="middle" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">MEAN LATENCY</text>
+  <text x="600" y="592" text-anchor="middle" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="700">36.2 s</text>
+  <text x="840" y="560" text-anchor="middle" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">SYNTAXERRORS</text>
+  <text x="840" y="592" text-anchor="middle" fill="#ff9500" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="700">9</text>
+  <text x="1060" y="560" text-anchor="middle" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">COST</text>
+  <text x="1060" y="592" text-anchor="middle" fill="#76b900" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="26" font-weight="700">$0</text>
+</svg>
