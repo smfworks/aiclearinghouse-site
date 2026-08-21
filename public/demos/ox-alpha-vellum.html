@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vellum — Component Specimen</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   VELLUM · design tokens
+   ============================================================ */
+:root{
+  color-scheme: light;
+
+  /* surfaces */
+  --paper:        #F4EFE6;
+  --surface:      #FBF8F1;
+  --sunk:         #ECE6D8;
+  --line:         #DCD3BF;
+  --line-strong:  #C7BCA4;
+
+  /* text */
+  --ink:          #211C14;
+  --ink-2:        #5C543F;
+  --ink-3:        #8B8168;
+
+  /* accents */
+  --accent:           #20433A;   /* pine   */
+  --accent-deep:      #152E28;
+  --accent-soft:      rgb(32 67 58 / .09);
+  --accent-contrast:  #F6F1E6;
+  --brick:            #A2402E;   /* error  */
+  --copper:           #A66A38;   /* info   */
+
+  --wash: rgb(33 28 20 / .055);   /* ghost hover tint */
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgb(33 27 18 / .06);
+  --shadow-md: 0 2px 6px -1px rgb(33 27 18 / .07), 0 10px 26px -10px rgb(33 27 18 / .14);
+  --shadow-lg: 0 4px 12px -2px rgb(33 27 18 / .09), 0 28px 56px -18px rgb(33 27 18 / .22);
+
+  /* motion */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --dur-fast: 150ms;
+  --dur:      260ms;
+
+  --shell: 1140px;
+}
+
+/* ---- inverted scope: the whole kit re-themed by token swap ---- */
+.inverse{
+  color-scheme: dark;
+  --paper:       #171310;
+  --surface:     #201B15;
+  --sunk:        #292218;
+  --line:        #39311F;
+  --line-strong: #4C422C;
+  --ink:         #EDE6D6;
+  --ink-2:       #B0A78F;
+  --ink-3:       #7E7560;
+  --accent:           #A9C7B2;
+  --accent-deep:      #C3DBCB;
+  --accent-soft:      rgb(169 199 178 / .13);
+  --accent-contrast:  #14231D;
+  --brick:       #D08A76;
+  --copper:      #C99A6B;
+  --wash: rgb(237 230 214 / .08);
+  --shadow-sm: none; --shadow-md: none; --shadow-lg: none;
+}
+
+/* ============================================================
+   base
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+
+html{ scroll-behavior:smooth }
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font:400 1rem/1.6 "Instrument Sans", sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* film grain — the "printed, not rendered" layer */
+body::after{
+  content:""; position:fixed; inset:0; z-index:999; pointer-events:none; opacity:.05;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection{ background:var(--accent); color:var(--accent-contrast) }
+img{ max-width:100%; display:block }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+input,textarea{ font:inherit; color:inherit }
+
+.shell{ max-width:var(--shell); margin-inline:auto; padding-inline:clamp(20px,5vw,44px) }
+
+/* icon sprite defaults */
+.ic{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.7;
+     stroke-linecap:round; stroke-linejoin:round; flex:none }
+
+/* ============================================================
+   masthead
+   ============================================================ */
+.masthead{
+  position:sticky; top:0; z-index:100;
+  background:color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter:blur(14px) saturate(1.15);
+  -webkit-backdrop-filter:blur(14px) saturate(1.15);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--dur) ease, box-shadow var(--dur) ease;
+}
+.masthead.is-scrolled{ border-bottom-color:var(--line); box-shadow:0 10px 30px -24px rgb(33 27 18 / .5) }
+.masthead .shell{ display:flex; align-items:center; gap:28px; padding-block:13px }
+
+.brand{
+  display:flex; align-items:center; gap:9px; text-decoration:none;
+  font:italic 600 1.24rem "Fraunces", serif; letter-spacing:-.01em; color:var(--ink);
+}
+.brand .ic{ width:15px; height:15px; color:var(--accent) }
+
+.masthead nav{ margin-left:auto; display:flex; gap:26px }
+.nav-link{
+  position:relative; padding:4px 0; text-decoration:none;
+  font:500 .7rem "Spline Sans Mono", monospace;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2);
+  transition:color var(--dur-fast) ease;
+}
+.nav-link::after{
+  content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+  background:var(--accent); transition:right .28s var(--ease-out);
+}
+.nav-link:hover{ color:var(--ink) }
+.nav-link:hover::after{ right:0 }
+
+.version{
+  font:500 .64rem "Spline Sans Mono", monospace; letter-spacing:.1em;
+  color:var(--ink-3); border:1px solid var(--line); border-radius:99px; padding:4px 10px;
+}
+
+/* ============================================================
+   hero
+   ============================================================ */
+.hero{ position:relative; padding-block:clamp(72px,11vw,136px) clamp(56px,8vw,96px) }
+
+.eyebrow{
+  display:flex; align-items:center; gap:10px;
+  font:500 .7rem "Spline Sans Mono", monospace;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-2);
+}
+.eyebrow .ic{ width:13px; height:13px; color:var(--accent) }
+
+.hero__title{
+  margin-top:26px; max-width:14ch;
+  font:480 clamp(2.7rem,6.4vw,5rem)/1.04 "Fraunces", serif;
+  letter-spacing:-.02em; text-wrap:balance;
+}
+.hero__title em{ font-style:italic; color:var(--accent); position:relative; white-space:nowrap }
+.hero__title em svg{
+  position:absolute; left:-1%; bottom:-.14em; width:102%; height:.2em; overflow:visible;
+}
+.hero__title em path{
+  fill:none; stroke:currentColor; stroke-width:5; stroke-linecap:round;
+  stroke-dasharray:1; stroke-dashoffset:1;
+  animation:draw .9s var(--ease-out) .7s forwards;
+}
+@keyframes draw{ to{ stroke-dashoffset:0 } }
+
+.hero__lede{ margin-top:24px; max-width:52ch; font-size:1.06rem; line-height:1.7; color:var(--ink-2) }
+
+.hero__cta{ display:flex; flex-wrap:wrap; gap:14px; margin-top:36px }
+
+.palette{ display:flex; flex-wrap:wrap; gap:clamp(18px,3vw,34px); margin-top:clamp(44px,6vw,72px) }
+.swatch{ display:flex; align-items:center; gap:10px }
+.swatch i{
+  width:20px; height:20px; border-radius:50%; background:var(--sw);
+  border:1px solid var(--line-strong); flex:none;
+}
+.swatch b{ display:block; font:500 .66rem "Spline Sans Mono",monospace; letter-spacing:.08em; color:var(--ink-2) }
+.swatch span{ font:400 .6rem "Spline Sans Mono",monospace; color:var(--ink-3) }
+
+/* rotating colophon stamp */
+.stamp{
+  position:absolute; top:64px; right:clamp(8px,4vw,64px);
+  width:150px; height:150px; color:var(--ink-3);
+  animation:rot 38s linear infinite; pointer-events:none;
+}
+.stamp text{
+  font:500 11px "Spline Sans Mono",monospace;
+  letter-spacing:.18em; fill:currentColor;
+}
+.stamp use{ stroke:currentColor; fill:none; stroke-width:1.4 }
+@keyframes rot{ to{ transform:rotate(1turn) } }
+@media (max-width:1020px){ .stamp{ display:none } }
+
+/* ============================================================
+   section scaffolding — the specimen-sheet rhythm
+   ============================================================ */
+.sec{ border-top:1px solid var(--line); scroll-margin-top:76px }
+.sec .shell{ padding-block:clamp(64px,9vw,106px) }
+
+.sec-head{ display:grid; grid-template-columns:150px 1fr; gap:16px 44px; align-items:start }
+.sec-kicker{ display:flex; flex-direction:column; gap:5px; padding-top:12px }
+.sec-index{ font:500 .82rem "Spline Sans Mono",monospace; color:var(--accent) }
+.sec-name{
+  font:500 .64rem "Spline Sans Mono",monospace;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-3);
+}
+.sec-title{
+  font:500 clamp(1.85rem,3.4vw,2.55rem)/1.1 "Fraunces",serif;
+  letter-spacing:-.015em; max-width:20ch;
+}
+.sec-lede{ margin-top:14px; max-width:58ch; color:var(--ink-2); line-height:1.68 }
+
+/* spec-group rows: label rail + content */
+.group{
+  display:grid; grid-template-columns:170px 1fr; gap:14px 40px;
+  padding-block:30px; border-top:1px solid var(--line);
+}
+.group:first-of-type{ border-top:0; padding-top:clamp(30px,4vw,44px) }
+.group__label{
+  font:500 .66rem "Spline Sans Mono",monospace;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); padding-top:13px;
+}
+.note{ margin-top:14px; font:400 .72rem "Spline Sans Mono",monospace; color:var(--ink-3); letter-spacing:.02em }
+
+.split{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(30px,4.5vw,60px); align-items:start }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  height:44px; padding:0 21px; border-radius:10px; border:1px solid transparent;
+  font:500 .92rem/1 "Instrument Sans",sans-serif; letter-spacing:.005em;
+  user-select:none; -webkit-tap-highlight-color:transparent; white-space:nowrap;
+  transition:
+    background var(--dur-fast) ease, border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease, transform 130ms var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+.btn:active, .btn.is-active{ transform:translateY(0) scale(.978); transition-duration:70ms }
+.btn .ic{ width:17px; height:17px; transition:transform var(--dur-fast) var(--ease-out), opacity 120ms ease }
+.btn:hover .btn__trail{ transform:translateX(3px) }
+
+.btn--primary{
+  background:var(--accent); color:var(--accent-contrast);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .1), 0 1px 2px rgb(23 20 14 / .2);
+}
+.btn--primary:hover, .btn--primary.is-hover{
+  background:var(--accent-deep); transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 rgb(255 255 255 / .1), 0 8px 18px -8px rgb(23 20 14 / .45);
+}
+
+.btn--secondary{
+  background:var(--surface); border-color:var(--line-strong); color:var(--ink);
+  box-shadow:0 1px 2px rgb(23 20 14 / .05);
+}
+.btn--secondary:hover, .btn--secondary.is-hover{
+  border-color:var(--ink); transform:translateY(-1px); box-shadow:var(--shadow-md);
+}
+
+.btn--ghost{ background:transparent; color:var(--ink) }
+.btn--ghost:hover, .btn--ghost.is-hover{ background:var(--wash) }
+
+/* focus ring: paper gap + pine ring, shared by every control */
+.btn:focus-visible, .btn.is-focus{
+  outline:none; transform:none;
+  box-shadow:0 0 0 2px var(--paper), 0 0 0 4px var(--accent);
+}
+
+.btn:disabled, .btn[aria-disabled="true"]:not(.is-loading){
+  cursor:not-allowed; opacity:.45; transform:none !important; box-shadow:none;
+}
+
+/* loading: label fades, spinner occupies the same footprint */
+.btn__spinner{
+  position:absolute; width:17px; height:17px; border-radius:50%;
+  border:2px solid currentColor; border-right-color:transparent;
+  opacity:0; animation:spin .7s linear infinite;
+}
+.btn.is-loading{ pointer-events:none }
+.btn.is-loading .btn__spinner{ opacity:1 }
+.btn.is-loading > :not(.btn__spinner){ opacity:0 }
+@keyframes spin{ to{ transform:rotate(1turn) } }
+
+.btn--sm{ height:36px; padding:0 15px; font-size:.84rem; border-radius:9px }
+.btn--lg{ height:52px; padding:0 27px; font-size:1rem; border-radius:11px }
+.btn--icon{ width:44px; padding:0 }
+.btn--icon.btn--sm{ width:36px }
+.btn--block{ width:100% }
+
+.row{ display:flex; flex-wrap:wrap; align-items:center; gap:14px }
+.states{ display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr)); gap:22px 18px }
+.state-cell{ display:flex; flex-direction:column; align-items:flex-start; gap:11px }
+.state-cell figcaption{ font:400 .64rem "Spline Sans Mono",monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3) }
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.cards{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(20px,2.6vw,30px); align-items:start }
+
+.card{
+  position:relative; display:flex; flex-direction:column;
+  background:var(--surface); border:1px solid var(--line); border-radius:16px;
+  overflow:hidden; box-shadow:var(--shadow-sm);
+  transition:transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) ease;
+}
+@media (hover:hover){
+  .card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--line-strong) }
+}
+.card:focus-within{ border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft) }
+
+.card__media{ overflow:hidden; background:var(--sunk); aspect-ratio:16/10 }
+.card__media img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease-out) }
+.card:hover .card__media img{ transform:scale(1.045) }
+
+.card__body{ display:flex; flex-direction:column; gap:12px; padding:26px 26px 22px; flex:1 }
+.card__top{ display:flex; align-items:baseline; justify-content:space-between; gap:12px }
+
+.tag{
+  display:inline-flex; align-items:center; gap:8px;
+  font:500 .66rem "Spline Sans Mono",monospace;
+  letter-spacing:.15em; text-transform:uppercase; color:var(--accent);
+}
+.tag::before{ content:""; width:18px; height:1px; background:currentColor; opacity:.55 }
+.card__date{ font:400 .64rem "Spline Sans Mono",monospace; color:var(--ink-3); letter-spacing:.06em }
+
+.card__title{ font:500 1.42rem/1.22 "Fraunces",serif; letter-spacing:-.01em }
+.card__title a{ color:inherit; text-decoration:none }
+.card__title a:focus-visible{ outline:none; text-decoration:underline; text-decoration-color:var(--accent); text-underline-offset:4px }
+.card__excerpt{ font-size:.92rem; line-height:1.65; color:var(--ink-2) }
+
+.card__foot{
+  margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding-top:16px; border-top:1px solid var(--line);
+}
+.byline{ display:flex; align-items:center; gap:11px }
+.avatar{
+  width:31px; height:31px; border-radius:50%;
+  background:var(--accent-soft); color:var(--accent);
+  display:grid; place-items:center;
+  font:500 .6rem "Spline Sans Mono",monospace; letter-spacing:.05em;
+}
+.byline b{ display:block; font-size:.82rem; font-weight:600; line-height:1.25 }
+.byline span{ font-size:.72rem; color:var(--ink-3) }
+
+.card__go{
+  width:37px; height:37px; border-radius:50%; flex:none;
+  border:1px solid var(--line-strong); color:var(--ink);
+  display:grid; place-items:center;
+  transition:background var(--dur-fast) ease, color var(--dur-fast) ease,
+             border-color var(--dur-fast) ease, transform var(--dur) var(--ease-out);
+}
+.card__go .ic{ width:15px; height:15px }
+.card:hover .card__go{ background:var(--accent); border-color:var(--accent); color:var(--accent-contrast); transform:rotate(-45deg) }
+.card__go:focus-visible{ outline:none; box-shadow:0 0 0 2px var(--paper), 0 0 0 4px var(--accent) }
+
+/* horizontal feature */
+.card--wide{ flex-direction:row }
+.card--wide .card__media{ width:46%; aspect-ratio:auto; min-height:340px }
+.card--wide .card__body{ padding:clamp(26px,3vw,38px) }
+.card--wide .card__title{ font-size:clamp(1.5rem,2.2vw,1.85rem) }
+
+/* quiet: no chrome, pure typography */
+.card--quiet{ background:transparent; border:0; box-shadow:none; border-radius:0 }
+.card--quiet:hover{ transform:none; box-shadow:none }
+.card--quiet .card__body{ padding:18px 2px 0 }
+.card--quiet:hover .card__title{ color:var(--accent) }
+.card--quiet .card__foot{ border-top:0; padding-top:12px }
+
+.stack{ display:flex; flex-direction:column; gap:clamp(20px,2.6vw,30px) }
+
+/* ============================================================
+   FIELD
+   ============================================================ */
+.panel{
+  background:var(--surface); border:1px solid var(--line); border-radius:18px;
+  padding:clamp(24px,3.4vw,42px); box-shadow:var(--shadow-sm);
+}
+.panel h3{ font:500 1.32rem/1.2 "Fraunces",serif; letter-spacing:-.01em }
+.panel__sub{ margin-top:8px; font-size:.9rem; color:var(--ink-2) }
+
+.form{ display:flex; flex-direction:column; gap:22px; margin-top:28px }
+.form__actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:6px }
+
+.field{ position:relative }
+.field__control{
+  width:100%; height:56px; padding:23px 16px 9px;
+  background:var(--surface); border:1px solid var(--line-strong); border-radius:10px;
+  font-size:.95rem; line-height:1.4; caret-color:var(--accent);
+  transition:border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+textarea.field__control{ height:auto; min-height:134px; resize:vertical; padding-top:25px }
+.field__control::placeholder{ color:transparent }
+.field__control:hover:not(:focus):not(:disabled){ border-color:var(--ink-3) }
+.field__control:focus, .field.is-focus .field__control{
+  outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);
+}
+.field__control:disabled{
+  background:var(--sunk); border-color:var(--line); color:var(--ink-3); cursor:not-allowed;
+}
+.field__control:-webkit-autofill{
+  -webkit-box-shadow:0 0 0 44px var(--surface) inset;
+  -webkit-text-fill-color:var(--ink);
+}
+
+.field__label{
+  position:absolute; left:17px; top:50%; transform:translateY(-50%);
+  color:var(--ink-3); font-size:.95rem; pointer-events:none; transform-origin:left center;
+  transition:top 170ms var(--ease-out), transform 170ms var(--ease-out),
+             font-size 170ms var(--ease-out), letter-spacing 170ms var(--ease-out),
+             color 170ms ease;
+}
+/* textarea rests top-aligned, not centred */
+.field--area .field__label{ top:25px; transform:none }
+
+.field__control:focus ~ .field__label,
+.field__control:not(:placeholder-shown) ~ .field__label,
+.field.is-float .field__label{
+  top:9px; transform:none;
+  font-size:.64rem; font-weight:500;
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.field__control:focus ~ .field__label,
+.field.is-focus .field__label{ color:var(--accent) }
+
+.field__foot{ display:flex; justify-content:space-between; gap:12px; margin-top:7px; min-height:1.25em }
+.field__hint{
+  display:flex; align-items:center; gap:6px;
+  font-size:.79rem; color:var(--brick);
+}
+.field__hint .ic{ width:14px; height:14px }
+.field__count{ font:400 .66rem "Spline Sans Mono",monospace; color:var(--ink-3); letter-spacing:.05em }
+.field__count.is-warm{ color:var(--brick) }
+
+.field.has-error .field__control{ border-color:var(--brick); box-shadow:0 0 0 3px rgb(162 64 46 / .12) }
+.field.has-error .field__label{ color:var(--brick) }
+.field.has-error{ animation:shake .3s var(--ease-out) }
+@keyframes shake{
+  20%{ transform:translateX(-4px) } 45%{ transform:translateX(3px) }
+  70%{ transform:translateX(-2px) } 90%{ transform:translateX(1px) }
+}
+.field.has-success .field__control{ border-color:var(--accent) }
+
+/* password reveal */
+.field--lock .field__control{ padding-right:52px }
+.pw-toggle{
+  position:absolute; right:7px; top:50%; transform:translateY(-50%);
+  width:38px; height:38px; border-radius:9px; color:var(--ink-3);
+  display:grid; place-items:center;
+  transition:color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+.pw-toggle:hover{ color:var(--ink); background:var(--wash) }
+.pw-toggle:focus-visible{ outline:none; box-shadow:0 0 0 2px var(--paper), 0 0 0 4px var(--accent) }
+.pw-toggle .ic{ width:18px; height:18px }
+
+.spec-field{ display:flex; flex-direction:column; gap:9px }
+.spec-field > figcaption{ font:400 .64rem "Spline Sans Mono",monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3) }
+.spec-list{ display:flex; flex-direction:column; gap:24px }
+
+/* ============================================================
+   TOASTS
+   ============================================================ */
+.toasts{
+  position:fixed; right:22px; bottom:22px; z-index:200;
+  display:flex; flex-direction:column; align-items:flex-end; gap:0;
+  width:min(384px, calc(100vw - 44px));
+  pointer-events:none;
+}
+.toast{
+  pointer-events:auto; position:relative; overflow:hidden;
+  display:flex; align-items:flex-start; gap:13px; width:100%;
+  margin-bottom:10px; padding:15px 14px 17px 19px;
+  background:var(--surface); border:1px solid var(--line); border-radius:13px;
+  box-shadow:var(--shadow-lg);
+  transition:opacity .32s var(--ease-out), transform .32s var(--ease-out),
+             height .32s var(--ease-out), margin .32s var(--ease-out), padding .32s var(--ease-out);
+}
+.toast.is-entering{ opacity:0; transform:translateY(16px) scale(.97) }
+.toast.is-leaving{ opacity:0; transform:translateY(8px) scale(.98) }
+
+.toast::before{
+  content:""; position:absolute; left:0; top:11px; bottom:11px; width:3px;
+  border-radius:99px; background:var(--tint,var(--accent));
+}
+.toast--success{ --tint:var(--accent) }
+.toast--info{    --tint:var(--copper) }
+.toast--error{   --tint:var(--brick) }
+
+.toast__icon{ width:19px; height:19px; margin-top:1px; color:var(--tint) }
+.toast__body{ flex:1; min-width:0 }
+.toast__title{ font-size:.87rem; font-weight:600; line-height:1.35 }
+.toast__msg{ margin-top:3px; font-size:.81rem; line-height:1.5; color:var(--ink-2) }
+
+.toast__close{
+  width:28px; height:28px; border-radius:8px; flex:none;
+  display:grid; place-items:center; color:var(--ink-3);
+  transition:color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+.toast__close:hover{ color:var(--ink); background:var(--wash) }
+.toast__close .ic{ width:14px; height:14px }
+.toast__close:focus-visible{ outline:none; box-shadow:0 0 0 2px var(--paper), 0 0 0 4px var(--accent) }
+
+.toast__progress{
+  position:absolute; left:0; right:0; bottom:0; height:2px;
+  opacity:.55; transform-origin:left;
+}
+
+.facts{ display:flex; flex-direction:column; gap:12px; margin-top:4px }
+.facts li{
+  display:flex; align-items:center; gap:11px; list-style:none;
+  font:400 .78rem "Spline Sans Mono",monospace; letter-spacing:.03em; color:var(--ink-2);
+}
+.facts .ic{ width:12px; height:12px; color:var(--accent) }
+
+/* ============================================================
+   inversion band + footer
+   ============================================================ */
+.band{ border-top:1px solid var(--line); background:var(--paper) }
+.band.inverse{ border-top-color:#000 }
+.band .cluster{ display:flex; flex-wrap:wrap; align-items:center; gap:clamp(26px,4vw,52px); margin-top:clamp(34px,5vw,52px) }
+.band .cluster > *{ flex:none }
+
+.footer{ border-top:1px solid var(--line) }
+.footer .shell{
+  display:flex; flex-wrap:wrap; align-items:center; gap:16px 36px;
+  padding-block:34px;
+}
+.footer p{ font:400 .74rem "Spline Sans Mono",monospace; color:var(--ink-3); letter-spacing:.03em }
+.footer .brand{ font-size:1.05rem }
+.top-link{
+  margin-left:auto; display:inline-flex; align-items:center; gap:8px;
+  font:500 .68rem "Spline Sans Mono",monospace; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-2); text-decoration:none;
+}
+.top-link .ic{ width:14px; height:14px; transform:rotate(-90deg); transition:transform var(--dur-fast) var(--ease-out) }
+.top-link:hover{ color:var(--ink) }
+.top-link:hover .ic{ transform:rotate(-90deg) translateX(3px) }
+
+/* ============================================================
+   reveal choreography
+   ============================================================ */
+.reveal{
+  opacity:0; transform:translateY(20px);
+  transition:opacity .75s var(--ease-out) var(--d,0s), transform .75s var(--ease-out) var(--d,0s);
+}
+.reveal.in-view{ opacity:1; transform:none }
+
+/* ============================================================
+   responsive
+   ============================================================ */
+@media (max-width:920px){
+  .sec-head{ grid-template-columns:1fr; gap:10px }
+  .sec-kicker{ flex-direction:row; align-items:baseline; gap:14px; padding-top:0 }
+  .group{ grid-template-columns:1fr; gap:16px }
+  .group__label{ padding-top:0 }
+  .split{ grid-template-columns:1fr }
+  .cards{ grid-template-columns:1fr }
+  .card--wide{ flex-direction:column }
+  .card--wide .card__media{ width:100%; aspect-ratio:16/10; min-height:0 }
+}
+@media (max-width:640px){
+  .masthead nav, .version{ display:none }
+  .toasts{ right:16px; bottom:16px; width:calc(100vw - 32px) }
+}
+
+/* ============================================================
+   reduced motion — everything lands instantly, nothing spins
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  html{ scroll-behavior:auto }
+  .reveal{ opacity:1; transform:none }
+  .hero__title em path{ stroke-dashoffset:0 }
+  .stamp{ animation:none }
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- ======================= icon sprite ======================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-spark" viewBox="0 0 24 24">
+    <path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"/>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24">
+    <path d="M4.5 12h15M13.5 6l6 6-6 6"/>
+  </symbol>
+  <symbol id="i-up" viewBox="0 0 24 24">
+    <path d="M12 19.5v-15M6 10.5l6-6 6 6"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9"/><path d="m8.4 12.4 2.5 2.6 4.9-5.4"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9"/><path d="M12 11.2V16.5M12 7.6v.2"/>
+  </symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24">
+    <path d="M10.3 4.1 2.9 17a2 2 0 0 0 1.7 3h14.8a2 2 0 0 0 1.7-3L13.7 4.1a2 2 0 0 0-3.4 0Z"/>
+    <path d="M12 9.5v4M12 16.8v.2"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24">
+    <path d="M6 6l12 12M18 6 6 18"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24">
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24">
+    <path d="M4 4.5 20 19.5M9.9 6.1A9.8 9.8 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17.5 17.5 0 0 1-3 3.7M6 7.3A16.4 16.4 0 0 0 2.5 12S6 18.5 12 18.5a9 9 0 0 0 3.4-.7"/>
+    <path d="M10 10.2a2.8 2.8 0 0 0 3.9 3.9"/>
+  </symbol>
+</svg>
+
+<!-- ======================= masthead ======================= -->
+<header class="masthead" id="masthead">
+  <div class="shell">
+    <a class="brand" href="#top">
+      <svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>
+      Vellum
+    </a>
+    <nav aria-label="Specimen index">
+      <a class="nav-link" href="#buttons">Buttons</a>
+      <a class="nav-link" href="#cards">Card</a>
+      <a class="nav-link" href="#fields">Fields</a>
+      <a class="nav-link" href="#toasts">Toasts</a>
+      <a class="nav-link" href="#inversion">Inversion</a>
+    </nav>
+    <span class="version">v1.0 · specimen</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ======================= hero ======================= -->
+  <section class="hero shell">
+    <p class="eyebrow reveal">
+      <svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>
+      Vellum · component specimen · vol. I
+    </p>
+
+    <h1 class="hero__title reveal" style="--d:.07s">
+      Software with the <em>manners<svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 10 C 52 4, 148 4, 196 9"/></svg></em> of&nbsp;print.
+    </h1>
+
+    <p class="hero__lede reveal" style="--d:.14s">
+      A compact, opinionated component set — four primitives tuned for warmth,
+      restraint and typographic care. Every state considered, every token swappable,
+      nothing you wouldn’t ship.
+    </p>
+
+    <div class="hero__cta reveal" style="--d:.21s">
+      <a class="btn btn--primary btn--lg" href="#buttons">Browse the specimens</a>
+      <a class="btn btn--ghost btn--lg" href="#inversion">
+        See it invert
+        <svg class="ic btn__trail" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+
+    <div class="palette reveal" style="--d:.28s" aria-label="Core palette">
+      <div class="swatch" style="--sw:#F4EFE6"><i></i><div><b>Paper</b><span>#F4EFE6</span></div></div>
+      <div class="swatch" style="--sw:#FBF8F1"><i></i><div><b>Surface</b><span>#FBF8F1</span></div></div>
+      <div class="swatch" style="--sw:#20433A"><i></i><div><b>Pine</b><span>#20433A</span></div></div>
+      <div class="swatch" style="--sw:#211C14"><i></i><div><b>Ink</b><span>#211C14</span></div></div>
+      <div class="swatch" style="--sw:#A2402E"><i></i><div><b>Brick</b><span>#A2402E</span></div></div>
+    </div>
+
+    <div class="stamp" aria-hidden="true">
+      <svg viewBox="0 0 160 160">
+        <defs><path id="stamp-circ" d="M80 80 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0"/></defs>
+        <text><textPath href="#stamp-circ">VELLUM · COMPONENT SPECIMEN · VOL. I ·&#160;</textPath></text>
+        <use href="#i-spark" x="71" y="71" width="18" height="18"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ======================= 01 · buttons ======================= -->
+  <section class="sec" id="buttons">
+    <div class="shell">
+      <header class="sec-head reveal">
+        <div class="sec-kicker"><span class="sec-index">01</span><span class="sec-name">Interaction</span></div>
+        <div>
+          <h2 class="sec-title">Buttons that answer the hand.</h2>
+          <p class="sec-lede">
+            Three weights of intent — commit, consider, dismiss. Hover lifts by a single
+            pixel; pressing settles the button into the page. Focus is never left to guesswork.
+          </p>
+        </div>
+      </header>
+
+      <div class="group reveal">
+        <span class="group__label">Variants</span>
+        <div>
+          <div class="row">
+            <button class="btn btn--primary" type="button">Begin checkout</button>
+            <button class="btn btn--secondary" type="button">View basket</button>
+            <button class="btn btn--ghost" type="button">Keep browsing</button>
+            <button class="btn btn--secondary btn--icon" type="button" aria-label="Filter results">
+              <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </button>
+          </div>
+          <p class="note">primary commits · secondary considers · ghost dismisses — icon buttons always carry an aria-label</p>
+        </div>
+      </div>
+
+      <div class="group reveal">
+        <span class="group__label">Scale</span>
+        <div class="row">
+          <button class="btn btn--primary btn--sm" type="button">Small</button>
+          <button class="btn btn--primary" type="button">Regular</button>
+          <button class="btn btn--primary btn--lg" type="button">Large</button>
+        </div>
+      </div>
+
+      <div class="group reveal">
+        <span class="group__label">States</span>
+        <div>
+          <div class="states">
+            <figure class="state-cell">
+              <button class="btn btn--primary" type="button">Default</button>
+              <figcaption>rest</figcaption>
+            </figure>
+            <figure class="state-cell">
+              <button class="btn btn--primary is-hover" type="button">Hover</button>
+              <figcaption>−1 px · shadow blooms</figcaption>
+            </figure>
+            <figure class="state-cell">
+              <button class="btn btn--secondary is-focus" type="button">Focus</button>
+              <figcaption>paper gap + pine ring</figcaption>
+            </figure>
+            <figure class="state-cell">
+              <button class="btn btn--primary is-active" type="button">Active</button>
+              <figcaption>scale .978 · 70 ms</figcaption>
+            </figure>
+            <figure class="state-cell">
+              <button class="btn btn--primary" type="button" disabled>Disabled</button>
+              <figcaption>dimmed · not-allowed</figcaption>
+            </figure>
+            <figure class="state-cell">
+              <button class="btn btn--primary is-loading" type="button">
+                <span class="btn__spinner" aria-hidden="true"></span>
+                <span>Saving</span>
+              </button>
+              <figcaption>footprint preserved</figcaption>
+            </figure>
+          </div>
+          <p class="note">the specimens above are frozen with .is-hover / .is-focus / .is-active — try tabbing through the live ones instead</p>
+        </div>
+      </div>
+
+      <div class="group reveal">
+        <span class="group__label">In action</span>
+        <div>
+          <div class="row">
+            <button class="btn btn--primary" type="button"
+                    data-toast='{"variant":"success","title":"Draft saved","message":"Volume II is stored locally — nothing leaves your browser."}'>
+              Save draft
+            </button>
+            <button class="btn btn--secondary" type="button"
+                    data-toast='{"variant":"info","title":"Preview link ready","message":"Valid for seven days, then it quietly expires."}'>
+              Share preview
+            </button>
+            <button class="btn btn--primary" type="button" id="btn-loading">
+              <span class="btn__spinner" aria-hidden="true"></span>
+              <span>Submit request</span>
+              <svg class="ic btn__trail" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </button>
+          </div>
+          <p class="note">“submit request” runs a real 1.9 s loading cycle, then confirms by toast</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 02 · card ======================= -->
+  <section class="sec" id="cards">
+    <div class="shell">
+      <header class="sec-head reveal">
+        <div class="sec-kicker"><span class="sec-index">02</span><span class="sec-name">Composition</span></div>
+        <div>
+          <h2 class="sec-title">A card is a small front door.</h2>
+          <p class="sec-lede">
+            Hairline border at rest, elevation on arrival. The image breathes, the arrow
+            turns to face outward, and focus-within rings the whole doorway — keyboard
+            users get the same invitation as pointers.
+          </p>
+        </div>
+      </header>
+
+      <div class="cards">
+        <article class="card card--wide reveal">
+          <div class="card__media">
+            <img src="https://picsum.photos/seed/vellum-journal/900/720.jpg" alt="Cloth-bound field journal resting on a wooden desk" loading="lazy">
+          </div>
+          <div class="card__body">
+            <div class="card__top">
+              <span class="tag">Featured edition</span>
+              <span class="card__date">Autumn 2025</span>
+            </div>
+            <h3 class="card__title"><a href="#cards">The Field Journal, second printing</a></h3>
+            <p class="card__excerpt">
+              Rebound in waxed sage canvas with a sewn spine that lies perfectly flat.
+              192 pages of heavyweight cream stock, ruled faintly enough to disappear
+              under pencil.
+            </p>
+            <div class="card__foot">
+              <div class="byline">
+                <span class="avatar" aria-hidden="true">EM</span>
+                <div><b>Elena Marchetti</b><span>Bindery lead · 6 min read</span></div>
+              </div>
+              <a class="card__go" href="#cards" aria-label="Read about the Field Journal">
+                <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <div class="stack">
+          <article class="card reveal" style="--d:.08s">
+            <div class="card__media">
+              <img src="https://picsum.photos/seed/vellum-print/720/460.jpg" alt="Letterpress print drying on a rack" loading="lazy">
+            </div>
+            <div class="card__body">
+              <div class="card__top">
+                <span class="tag">Print room</span>
+                <span class="card__date">June 2025</span>
+              </div>
+              <h3 class="card__title"><a href="#cards">Letterpress № 04 — “Low Tide”</a></h3>
+              <div class="card__foot">
+                <div class="byline">
+                  <span class="avatar" aria-hidden="true">RK</span>
+                  <div><b>Rune Kaldan</b><span>Edition of 120</span></div>
+                </div>
+                <a class="card__go" href="#cards" aria-label="View Letterpress No. 4">
+                  <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card card--quiet reveal" style="--d:.16s">
+            <div class="card__body">
+              <div class="card__top">
+                <span class="tag">From the notebook</span>
+                <span class="card__date">2 min</span>
+              </div>
+              <h3 class="card__title"><a href="#cards">Why we still trim edges by hand</a></h3>
+              <p class="card__excerpt">
+                Machines are faster. But a deckled edge tells you someone stopped,
+                looked, and decided it wasn’t finished yet.
+              </p>
+              <div class="card__foot">
+                <div class="byline">
+                  <span class="avatar" aria-hidden="true">EM</span>
+                  <div><b>Elena Marchetti</b><span>Essay</span></div>
+                </div>
+                <a class="card__go" href="#cards" aria-label="Read the essay">
+                  <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 03 · fields ======================= -->
+  <section class="sec" id="fields">
+    <div class="shell">
+      <header class="sec-head reveal">
+        <div class="sec-kicker"><span class="sec-index">03</span><span class="sec-name">Input</span></div>
+        <div>
+          <h2 class="sec-title">Fields that introduce themselves.</h2>
+          <p class="sec-lede">
+            The label lives inside the field until it’s needed, then steps aside in small
+            capitals. Validation speaks in brick red, success in pine — and the label is
+            always a real <span style="font-family:'Spline Sans Mono',monospace;font-size:.85em">&lt;label&gt;</span>, never a placeholder.
+          </p>
+        </div>
+      </header>
+
+      <div class="split">
+        <div class="panel reveal">
+          <h3>Commission an edition</h3>
+          <p class="panel__sub">Tell us what you’d like bound, printed or stitched.</p>
+
+          <form class="form" id="enquiry" novalidate>
+            <div class="field">
+              <input class="field__control" id="fullname" name="fullname" type="text" placeholder=" " autocomplete="name">
+              <label class="field__label" for="fullname">Full name</label>
+              <div class="field__foot">
+                <p class="field__hint" hidden>
+                  <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg><span></span>
+                </p>
+              </div>
+            </div>
+
+            <div class="field">
+              <input class="field__control" id="email" name="email" type="email" placeholder=" " autocomplete="email">
+              <label class="field__label" for="email">Email address</label>
+              <div class="field__foot">
+                <p class="field__hint" hidden>
+                  <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg><span></span>
+                </p>
+              </div>
+            </div>
+
+            <div class="field field--area">
+              <textarea class="field__control" id="brief" name="brief" placeholder=" " maxlength="280"></textarea>
+              <label class="field__label" for="brief">Project brief</label>
+              <div class="field__foot">
+                <p class="field__hint" hidden>
+                  <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg><span></span>
+                </p>
+                <span class="field__count" id="brief-count">0 / 280</span>
+              </div>
+            </div>
+
+            <div class="form__actions">
+              <button class="btn btn--primary" type="submit">
+                Send enquiry
+                <svg class="ic btn__trail" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </button>
+              <button class="btn btn--ghost" type="reset">Clear</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="reveal" style="--d:.1s">
+          <div class="spec-list">
+            <figure class="spec-field">
+              <figcaption>Filled</figcaption>
+              <div class="field">
+                <input class="field__control" id="sp-filled" type="text" placeholder=" " value="Ada Lovelace">
+                <label class="field__label" for="sp-filled">Full name</label>
+              </div>
+            </figure>
+
+            <figure class="spec-field">
+              <figcaption>Focused</figcaption>
+              <div class="field is-focus is-float">
+                <input class="field__control" id="sp-focus" type="text" placeholder=" ">
+                <label class="field__label" for="sp-focus">Email address</label>
+              </div>
+            </figure>
+
+            <figure class="spec-field">
+              <figcaption>Error</figcaption>
+              <div class="field has-error">
+                <input class="field__control" id="sp-error" type="email" placeholder=" " value="ada@analysis">
+                <label class="field__label" for="sp-error">Email address</label>
+                <div class="field__foot">
+                  <p class="field__hint">
+                    <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
+                    <span>That address doesn’t look right.</span>
+                  </p>
+                </div>
+              </div>
+            </figure>
+
+            <figure class="spec-field">
+              <figcaption>Disabled</figcaption>
+              <div class="field">
+                <input class="field__control" id="sp-disabled" type="text" placeholder=" " value="By appointment" disabled>
+                <label class="field__label" for="sp-disabled">Studio visits</label>
+              </div>
+            </figure>
+
+            <figure class="spec-field">
+              <figcaption>Password · live toggle</figcaption>
+              <div class="field field--lock">
+                <input class="field__control" id="password" type="password" placeholder=" " autocomplete="new-password">
+                <label class="field__label" for="password">Set a passphrase</label>
+                <button class="pw-toggle" id="pw-toggle" type="button" aria-label="Show password" aria-pressed="false">
+                  <svg class="ic" id="eye-on" aria-hidden="true"><use href="#i-eye"/></svg>
+                  <svg class="ic" id="eye-off" aria-hidden="true" hidden><use href="#i-eye-off"/></svg>
+                </button>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 04 · toasts ======================= -->
+  <section class="sec" id="toasts">
+    <div class="shell">
+      <header class="sec-head reveal">
+        <div class="sec-kicker"><span class="sec-index">04</span><span class="sec-name">Feedback</span></div>
+        <div>
+          <h2 class="sec-title">News, delivered quietly.</h2>
+          <p class="sec-lede">
+            Toasts arrive from the lower right with a coloured spine and a draining
+            progress hairline. Hover one to hold it open; it folds away without
+            disturbing its neighbours.
+          </p>
+        </div>
+      </header>
+
+      <div class="group reveal" style="border-top:0;padding-top:0">
+        <span class="group__label">Dispatch</span>
+        <div>
+          <div class="row">
+            <button class="btn btn--primary" type="button"
+              data-toast='{"variant":"success","title":"Proof approved","message":"Volume II has gone to the bindery."}'>Approve proof</button>
+            <button class="btn btn--secondary" type="button"
+              data-toast='{"variant":"info","title":"Restocked","message":"Field Journals are back in Sage and Oat."}'>Check stock</button>
+            <button class="btn btn--secondary" type="button"
+              data-toast='{"variant":"error","title":"Payment declined","message":"The card was refused. No charge was made."}'>Test decline</button>
+            <button class="btn btn--ghost" type="button"
+              data-toast='{"variant":"info","title":"Holding steady","message":"This one waits for you — no timer, close it by hand.","duration":0}'>Hold open</button>
+          </div>
+          <ul class="facts note" style="margin-top:22px">
+            <li><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>auto-dismiss after 5 s · hover pauses the clock</li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>stack capped at four — the eldest steps out first</li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>announced politely: role=status, errors as role=alert</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= 05 · inversion ======================= -->
+  <section class="sec band inverse" id="inversion">
+    <div class="shell">
+      <header class="sec-head reveal">
+        <div class="sec-kicker"><span class="sec-index">05</span><span class="sec-name">Theming</span></div>
+        <div>
+          <h2 class="sec-title">One palette away from night.</h2>
+          <p class="sec-lede">
+            Everything below is the same markup you’ve already seen. Only ten custom
+            properties changed — the components never knew a thing.
+          </p>
+        </div>
+      </header>
+
+      <div class="cluster reveal">
+        <div class="row">
+          <button class="btn btn--primary" type="button">Reserve a copy</button>
+          <button class="btn btn--secondary" type="button">Details</button>
+          <button class="btn btn--ghost" type="button">Not now</button>
+        </div>
+
+        <div class="field" style="width:min(300px,100%)">
+          <input class="field__control" id="inv-email" type="email" placeholder=" " value="ada@lovelace.dev">
+          <label class="field__label" for="inv-email">Work email</label>
+        </div>
+
+        <article class="card" style="width:min(290px,100%)">
+          <div class="card__media" style="aspect-ratio:16/9">
+            <img src="https://picsum.photos/seed/vellum-nocturne/640/380.jpg" alt="Dimly lit bindery bench at night" loading="lazy">
+          </div>
+          <div class="card__body" style="padding:20px 20px 18px">
+            <div class="card__top">
+              <span class="tag">Night shift</span>
+              <span class="card__date">Late</span>
+            </div>
+            <h3 class="card__title" style="font-size:1.15rem">The bindery after hours</h3>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= footer ======================= -->
+<footer class="footer">
+  <div class="shell">
+    <a class="brand" href="#top">
+      <svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>
+      Vellum
+    </a>
+    <p>© <span id="year">2025</span> · set in Fraunces, Instrument Sans &amp; Spline Sans Mono · one file, no frameworks</p>
+    <a class="top-link" href="#top">
+      Back to top
+      <svg class="ic" aria-hidden="true"><use href="#i-up"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- ======================= toast host ======================= -->
+<div class="toasts" id="toasts" role="region" aria-live="polite" aria-label="Notifications"></div>
+
+<script>
+/* ============================================================
+   VELLUM · behaviour (vanilla, ~150 lines)
+   ============================================================ */
+const $  = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+/* ---------- masthead: hairline + shadow once the page scrolls ---------- */
+const masthead = $('#masthead');
+addEventListener('scroll', () => {
+  masthead.classList.toggle('is-scrolled', scrollY > 8);
+}, { passive: true });
+
+/* ---------- reveal choreography ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+  });
+}, { threshold: .12, rootMargin: '0px 0px -40px' });
+$$('.reveal').forEach(el => io.observe(el));
+
+/* ---------- toast hub ---------- */
+const ToastHub = (() => {
+  const host  = $('#toasts');
+  const ICON  = { success: '#i-check', info: '#i-info', error: '#i-alert' };
+  const TINT  = { success: 'var(--accent)', info: 'var(--copper)', error: 'var(--brick)' };
+  const MAX   = 4;
+
+  function dismiss(el, quick = false) {
+    if (!el || el.dataset.leaving) return;
+    el.dataset.leaving = '1';
+    el.style.height = el.offsetHeight + 'px';               // freeze, then fold
+    requestAnimationFrame(() => {
+      el.classList.add('is-leaving');
+      Object.assign(el.style, { height: '0px', paddingTop: '0px', paddingBottom: '0px', marginBottom: '0px' });
+    });
+    setTimeout(() => el.remove(), quick ? 220 : 380);
+  }
+
+  function show({ variant = 'info', title, message = '', duration = 5000 }) {
+    if (host.children.length >= MAX) dismiss(host.firstElementChild, true);
+
+    const el = document.createElement('div');
+    el.className = `toast toast--${variant} is-entering`;
+    el.setAttribute('role', variant === 'error' ? 'alert' : 'status');
+    el.innerHTML = `
+      <svg class="ic toast__icon" aria-hidden="true"><use href="${ICON[variant]}"/></svg>
+      <div class="toast__body">
+        <p class="toast__title"></p>
+        ${message ? '<p class="toast__msg"></p>' : ''}
+      </div>
+      <button class="toast__close" type="button" aria-label="Dismiss notification">
+        <svg class="ic" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+      ${duration ? `<span class="toast__progress" style="background:${TINT[variant]}"></span>` : ''}`;
+    el.querySelector('.toast__title').textContent = title;
+    if (message) el.querySelector('.toast__msg').textContent = message;
+    host.appendChild(el);
+
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('is-entering')));
+
+    let anim = null;
+    if (duration) {
+      const bar = el.querySelector('.toast__progress');
+      anim = bar.animate(
+        [{ transform: 'scaleX(1)' }, { transform: 'scaleX(0)' }],
+        { duration, easing: 'linear', fill: 'forwards' }
+      );
+      anim.finished.then(() => dismiss(el)).catch(() => {});   // cancelled = fine
+      el.addEventListener('mouseenter', () => anim.pause());   // hover holds the clock
+      el.addEventListener('mouseleave', () => anim.play());
+    }
+    el.querySelector('.toast__close')
+      .addEventListener('click', () => { anim?.cancel(); dismiss(el); });
+    return el;
+  }
+
+  return { show };
+})();
+
+/* declarative triggers: <button data-toast='{...}'> */
+$$('[data-toast]').forEach(btn =>
+  btn.addEventListener('click', () => ToastHub.show(JSON.parse(btn.dataset.toast)))
+);
+
+/* ---------- loading-cycle demo ---------- */
+const loadBtn = $('#btn-loading');
+loadBtn?.addEventListener('click', () => {
+  if (loadBtn.classList.contains('is-loading')) return;
+  loadBtn.classList.add('is-loading');
+  loadBtn.disabled = true;
+  setTimeout(() => {
+    loadBtn.classList.remove('is-loading');
+    loadBtn.disabled = false;
+    ToastHub.show({
+      variant: 'success',
+      title: 'Request received',
+      message: 'The atelier replies to every commission within two working days.'
+    });
+  }, 1900);
+});
+
+/* ---------- password reveal ---------- */
+const pw = $('#password'), pwBtn = $('#pw-toggle');
+pwBtn?.addEventListener('click', () => {
+  const reveal = pw.type === 'password';
+  pw.type = reveal ? 'text' : 'password';
+  pwBtn.setAttribute('aria-pressed', String(reveal));
+  pwBtn.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+  $('#eye-on').hidden = reveal;
+  $('#eye-off').hidden = !reveal;
+  pw.focus();
+});
+
+/* ---------- character counter ---------- */
+const brief = $('#brief'), count = $('#brief-count');
+brief?.addEventListener('input', () => {
+  const n = brief.value.length;
+  count.textContent = `${n} / 280`;
+  count.classList.toggle('is-warm', n > 250);
+});
+
+/* ---------- enquiry form: inline validation + toast confirmation ---------- */
+const form = $('#enquiry');
+let firstInvalid = null;
+
+function mark(input, valid, msg) {
+  const f = input.closest('.field');
+  f.classList.remove('has-error', 'has-success');
+  const hint = $('.field__hint', f);
+  if (hint) hint.hidden = true;
+  if (valid) { f.classList.add('has-success'); return true; }
+  void f.offsetWidth;                       // restart the shake
+  f.classList.add('has-error');
+  if (hint) { $('span', hint).textContent = msg; hint.hidden = false; }
+  firstInvalid ??= input;
+  return false;
+}
+
+form?.addEventListener('submit', e => {
+  e.preventDefault();
+  firstInvalid = null;
+  const name  = $('#fullname');
+  const email = $('#email');
+  const okName  = mark(name,  name.value.trim().length >= 2, 'Please tell us your name.');
+  const okEmail = mark(email, /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()),
+                             'That address doesn’t look right.');
+  if (!(okName && okEmail)) { firstInvalid?.focus(); return; }
+  ToastHub.show({
+    variant: 'success',
+    title: 'Enquiry sent',
+    message: 'Thank you — the atelier will reply shortly.'
+  });
+  form.reset();
+  if (count) count.textContent = '0 / 280';
+});
+
+/* typing clears any verdict */
+$$('#enquiry .field__control').forEach(c =>
+  c.addEventListener('input', () => {
+    const f = c.closest('.field');
+    f.classList.remove('has-error', 'has-success');
+    const h = $('.field__hint', f);
+    if (h) h.hidden = true;
+  })
+);
+
+$('#year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
