@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f0b09">
+<title>Vesper — a visual meditation</title>
+<meta name="description" content="A quiet, generative space for focused work and reflection.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='7' fill='%23e8e0cf'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#0f0b09;
+    color:#eae2d2;
+    font-family:'Cormorant Garamond',Georgia,serif;
+    overflow:hidden;
+    height:100vh;height:100dvh;
+    touch-action:manipulation;
+    overscroll-behavior:none;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:rgba(232,224,207,.18)}
+  :focus-visible{outline:1px dashed rgba(234,226,210,.45);outline-offset:5px}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+  /* ---- canvas & framing ---- */
+  #scene{position:fixed;inset:0;display:block;opacity:0;transition:opacity 2.8s ease .1s}
+  body.ready #scene{opacity:1}
+  .vignette{position:fixed;inset:0;pointer-events:none;z-index:2;
+    background:radial-gradient(130% 130% at 50% 44%, transparent 55%, rgba(3,2,2,.55) 100%)}
+
+  /* ---- peripheral instruments ---- */
+  .ui{position:fixed;z-index:4;
+    font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    font-size:10px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;
+    opacity:0;transform:translateY(8px);
+    transition:opacity 1.6s cubic-bezier(.22,.61,.36,1) var(--d,0s),
+               transform 1.6s cubic-bezier(.22,.61,.36,1) var(--d,0s)}
+  body.ready .ui{opacity:1;transform:none}
+  body.breathing .ui{opacity:.28;transition-delay:0s}
+
+  .tl{top:var(--pad);left:var(--pad);--d:.45s}
+  .tr{top:var(--pad);right:var(--pad);--d:.65s}
+  .bl{bottom:var(--pad);left:var(--pad);--d:.85s}
+  .br{bottom:var(--pad);right:var(--pad);--d:1.05s;
+    color:rgba(234,226,210,.4);letter-spacing:.22em;font-variant-numeric:tabular-nums}
+  :root{--pad:clamp(20px,4vw,46px)}
+
+  .mark{font-size:11px;letter-spacing:.5em;color:rgba(234,226,210,.82)}
+  .sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;text-transform:none;
+    letter-spacing:.02em;font-size:14px;color:rgba(234,226,210,.42);margin-top:7px}
+
+  .dot{width:5px;height:5px;border-radius:50%;border:1px solid currentColor;
+    opacity:.55;transition:background .5s,opacity .5s;flex:none}
+  .ctl{display:flex;align-items:center;gap:10px;padding:10px 0 10px 10px;
+    color:rgba(234,226,210,.5);transition:color .5s}
+  .ctl:hover{color:rgba(234,226,210,.85)}
+  .ctl[aria-pressed="true"] .dot{background:currentColor;opacity:.95}
+
+  .lbl{display:block;font-size:9px;letter-spacing:.34em;color:rgba(234,226,210,.32);margin-bottom:10px}
+  .row{display:flex;gap:22px}
+  .scn{display:flex;align-items:center;gap:8px;padding:6px 0;
+    color:rgba(234,226,210,.38);transition:color .5s}
+  .scn::before{content:"";width:4px;height:4px;border-radius:50%;
+    border:1px solid currentColor;transition:background .5s}
+  .scn:hover{color:rgba(234,226,210,.7)}
+  .scn.active{color:rgba(234,226,210,.88)}
+  .scn.active::before{background:currentColor}
+
+  /* ---- center stage ---- */
+  .stage{position:fixed;inset:0;z-index:3;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;pointer-events:none;padding:0 28px}
+  .quote{font-weight:300;font-size:clamp(1.35rem,2.7vw,2.05rem);line-height:1.55;
+    letter-spacing:.012em;text-align:center;max-width:36ch;
+    color:rgba(238,231,217,.62);opacity:0;transition:opacity 2s ease}
+
+  .breath-btn{pointer-events:auto;position:absolute;left:50%;
+    bottom:calc(var(--pad) + 6px);transform:translate(-50%,8px);
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;
+    text-transform:uppercase;color:rgba(234,226,210,.5);
+    border:1px solid rgba(234,226,210,.16);border-radius:999px;
+    padding:13px 26px 13px 32px;background:rgba(10,8,7,.25);
+    backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+    opacity:0;
+    transition:opacity 1.6s cubic-bezier(.22,.61,.36,1) 1.25s,
+               transform 1.6s cubic-bezier(.22,.61,.36,1) 1.25s,
+               color .5s,border-color .5s,letter-spacing .6s}
+  body.ready .breath-btn{opacity:1;transform:translate(-50%,0)}
+  body.breathing .breath-btn{transition-delay:0s}
+  .breath-btn:hover{color:rgba(238,231,217,.85);border-color:rgba(234,226,210,.4);letter-spacing:.4em}
+  .breath-btn:active{transform:translate(-50%,0) scale(.97)}
+
+  .breath-word{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+    text-align:center;font-style:italic;font-weight:300;
+    font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:.02em;
+    color:rgba(238,231,217,.55);opacity:0;transition:opacity 1.1s ease}
+  .breath-word.show{opacity:1}
+  .breath-cycle{position:absolute;left:0;right:0;top:calc(50% + 3.8em);text-align:center;
+    padding-left:.4em;font-family:'IBM Plex Mono',monospace;font-size:9px;
+    letter-spacing:.4em;text-transform:uppercase;color:rgba(234,226,210,.3);
+    opacity:0;transition:opacity 1.2s ease}
+  body.breathing .breath-cycle{opacity:1}
+
+  .hint{position:fixed;top:var(--pad);left:50%;transform:translateX(-50%);z-index:4;
+    padding-left:.34em;font-family:'IBM Plex Mono',monospace;font-size:9px;
+    letter-spacing:.34em;text-transform:uppercase;color:rgba(234,226,210,.4);
+    opacity:0;transition:opacity 1.6s ease}
+  .hint.show{opacity:1}
+  body.breathing .hint{opacity:0}
+
+  @media (max-width:640px){
+    .hint{display:none}
+    .breath-btn{bottom:calc(var(--pad) + 58px)}
+    .row{gap:16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .quote,.breath-word{transition-duration:.6s}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="ui tl">
+  <div class="mark">Vesper</div>
+  <div class="sub">a visual meditation</div>
+</header>
+
+<button id="soundBtn" class="ctl ui tr" aria-pressed="false">
+  <span class="dot" aria-hidden="true"></span><span id="soundTxt">sound · off</span>
+</button>
+
+<nav class="ui bl" aria-label="Atmosphere">
+  <span class="lbl">atmosphere</span>
+  <div class="row">
+    <button class="scn active" data-scene="dusk" aria-pressed="true">dusk</button>
+    <button class="scn" data-scene="deep" aria-pressed="false">deep</button>
+    <button class="scn" data-scene="mist" aria-pressed="false">mist</button>
+  </div>
+</nav>
+
+<div id="clock" class="ui br">present · 00:00</div>
+
+<div id="hint" class="hint">move slowly — press the surface</div>
+
+<main class="stage">
+  <p id="quote" class="quote">Stillness is not the absence of movement, but of hurry.</p>
+  <button id="breathBtn" class="breath-btn">begin breathing</button>
+  <div id="breathWord" class="breath-word" aria-live="polite"></div>
+  <div id="breathCycle" class="breath-cycle"></div>
+</main>
+
+<script>
+(() => {
+'use strict';
+
+/* ============================================================
+   VESPER — a visual meditation
+   Architecture:
+     glow buffer (half-res)  → light fields, additive blending
+     main canvas (full-res)  → parallax composite, ripples,
+                               dust, breath ring, film grain
+   ============================================================ */
+
+const $   = s => document.querySelector(s);
+const TAU = Math.PI * 2;
+const RM  = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MOTION = RM ? 0.35 : 1;          // global damping for ambient motion
+
+/* ---------- canvases ---------- */
+const cv = $('#scene'), cx = cv.getContext('2d');
+const glow = document.createElement('canvas'), gx = glow.getContext('2d');
+const GS = 0.5;                         // glow buffer resolution scale
+let W = 0, H = 0, DPR = 1, MIN = 0;
+
+let grainPat = null;
+function tuneGrain(){
+  if (grainPat && grainPat.setTransform && typeof DOMMatrix !== 'undefined')
+    grainPat.setTransform(new DOMMatrix([1/DPR, 0, 0, 1/DPR, 0, 0]));
+}
+function resize(){
+  DPR = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight; MIN = Math.min(W, H);
+  cv.width  = Math.round(W * DPR);  cv.height  = Math.round(H * DPR);
+  glow.width  = Math.max(2, Math.round(W * DPR * GS));
+  glow.height = Math.max(2, Math.round(H * DPR * GS));
+  tuneGrain();
+}
+addEventListener('resize', resize);
+resize();
+
+/* ---------- scenes (art-directed palettes) ----------
+   orbs: hx/hy home position, ax/ay drift amplitude (fraction of
+   viewport), f drift frequency, hsl colour, a peak alpha,
+   r radius (fraction of min dimension), pu pulse depth       */
+const SCENES = {
+  dusk: { base:[16,11,9], root:110.0,
+    orbs:[
+      {hx:.67,hy:.30,ax:.10,ay:.09,f:.043,h:33, s:.58,l:.57,a:.20,r:.60,pu:.07},
+      {hx:.27,hy:.63,ax:.12,ay:.10,f:.031,h:14, s:.52,l:.47,a:.16,r:.86,pu:.05},
+      {hx:.80,hy:.72,ax:.08,ay:.12,f:.057,h:46, s:.40,l:.63,a:.10,r:.40,pu:.09},
+      {hx:.20,hy:.22,ax:.13,ay:.07,f:.024,h:352,s:.30,l:.42,a:.09,r:.98,pu:.04}],
+    dust:{h:38, s:.55,l:.74,n:64,a:.50,tw:.55,vy:-8, vx:4}},
+  deep: { base:[5,9,12], root:92.5,
+    orbs:[
+      {hx:.63,hy:.34,ax:.11,ay:.09,f:.036,h:191,s:.55,l:.44,a:.19,r:.78,pu:.05},
+      {hx:.29,hy:.66,ax:.13,ay:.11,f:.026,h:206,s:.46,l:.35,a:.15,r:1.05,pu:.04},
+      {hx:.77,hy:.73,ax:.08,ay:.13,f:.052,h:169,s:.42,l:.52,a:.10,r:.42,pu:.08},
+      {hx:.23,hy:.20,ax:.14,ay:.06,f:.021,h:216,s:.32,l:.32,a:.08,r:1.22,pu:.03}],
+    dust:{h:189,s:.45,l:.76,n:54,a:.45,tw:.42,vy:-5, vx:2}},
+  mist: { base:[11,12,11], root:123.47,
+    orbs:[
+      {hx:.50,hy:.28,ax:.11,ay:.09,f:.045,h:96, s:.10,l:.62,a:.14,r:.74,pu:.06},
+      {hx:.30,hy:.60,ax:.13,ay:.10,f:.030,h:142,s:.12,l:.53,a:.11,r:1.00,pu:.04},
+      {hx:.73,hy:.68,ax:.09,ay:.12,f:.058,h:60, s:.08,l:.68,a:.08,r:.45,pu:.09},
+      {hx:.24,hy:.26,ax:.14,ay:.09,f:.025,h:203,s:.08,l:.47,a:.07,r:1.12,pu:.03}],
+    dust:{h:90, s:.08,l:.86,n:88,a:.40,tw:.75,vy:-10,vx:6}}
+};
+
+let curName = 'dusk';
+const cur = JSON.parse(JSON.stringify(SCENES.dusk));  // live interpolated state
+let tgt = SCENES.dusk;
+
+const lerpHue = (a, b, k) => {
+  const d = ((b - a + 540) % 360) - 180;
+  return (a + d * k + 360) % 360;
+};
+
+function approach(dt){                 // ease current palette toward target
+  const k = 1 - Math.exp(-dt * 0.5);   // settles over ~4–6 s
+  for (let i = 0; i < 3; i++) cur.base[i] += (tgt.base[i] - cur.base[i]) * k;
+  cur.root += (tgt.root - cur.root) * k;
+  for (let j = 0; j < 4; j++){
+    const c = cur.orbs[j], t = tgt.orbs[j];
+    for (const p of ['hx','hy','ax','ay','f','s','l','a','r','pu'])
+      c[p] += (t[p] - c[p]) * k;
+    c.h = lerpHue(c.h, t.h, k);
+  }
+  const cd = cur.dust, td = tgt.dust;
+  for (const p of ['h','s','l','n','a','tw','vy','vx']) cd[p] += (td[p] - cd[p]) * k;
+}
+
+/* ---------- pointer state ---------- */
+let nowS = 0;
+let px = W/2, py = H/2, ptx = px, pty = py;
+let pActive = false, pLast = -9, presence = 0;
+
+/* ---------- ripples ---------- */
+const ripples = [];
+function addRipple(x, y){
+  if (ripples.length > 7) ripples.shift();
+  ripples.push({x, y, t:0});
+}
+
+/* ---------- dust motes (normalized coords survive resize) ---------- */
+const PMAX = 90, parts = [];
+for (let i = 0; i < PMAX; i++) parts.push({
+  x:Math.random(), y:Math.random(),
+  z:.3 + .7*Math.random(),          // depth: parallax + size + brightness
+  ph:Math.random()*TAU, tw:.4 + .9*Math.random(),
+  ox:0, oy:0, vx:0, vy:0            // displacement + velocity from pointer
+});
+
+/* soft sprite for the few larger "bokeh" motes */
+const mote = document.createElement('canvas'); mote.width = mote.height = 64;
+{
+  const m = mote.getContext('2d');
+  const g = m.createRadialGradient(32,32,0, 32,32,32);
+  g.addColorStop(0,'rgba(255,246,230,.9)');
+  g.addColorStop(.35,'rgba(255,240,218,.28)');
+  g.addColorStop(1,'rgba(255,240,218,0)');
+  m.fillStyle = g; m.fillRect(0,0,64,64);
+}
+const motes = [];
+for (let i = 0; i < 6; i++) motes.push({
+  x:Math.random(), y:Math.random(), z:.5 + .5*Math.random(),
+  ph:Math.random()*TAU, s:.5 + .5*Math.random()
+});
+
+/* ---------- film grain tile ---------- */
+const GN = 144, gc = document.createElement('canvas'); gc.width = gc.height = GN;
+{
+  const g = gc.getContext('2d'), id = g.createImageData(GN, GN), d = id.data;
+  for (let i = 0; i < d.length; i += 4){
+    const v = Math.random()*255 | 0;
+    d[i] = d[i+1] = d[i+2] = v;
+    d[i+3] = Math.random()*26 | 0;
+  }
+  g.putImageData(id, 0, 0);
+}
+
+/* ---------- breath ritual ---------- */
+const PH = [{w:'inhale',d:4},{w:'hold',d:4},{w:'exhale',d:6},{w:'rest',d:2}];
+const PTOT = PH.reduce((a,p)=>a+p.d, 0);
+let breathing = false, bt = 0, bv = 0, phaseIdx = -1, cycleN = 0, wordTimer = 0;
+
+const wordEl = $('#breathWord'), cycEl = $('#breathCycle'),
+      bBtn = $('#breathBtn'), qEl = $('#quote');
+
+function roman(n){
+  const map = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],
+               [50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+  let s = '';
+  for (const [v,r] of map) while (n >= v){ s += r; n -= v; }
+  return s.toLowerCase();
+}
+function setPhase(i){
+  phaseIdx = i;
+  clearTimeout(wordTimer);
+  const p = PH[i];
+  if (p.w === 'rest'){                       // rest = deliberate silence
+    wordEl.classList.remove('show');
+  } else {
+    wordEl.textContent = p.w;
+    wordEl.classList.add('show');
+    wordTimer = setTimeout(() => wordEl.classList.remove('show'), p.d*1000 - 500);
+  }
+  cycEl.textContent = 'cycle ' + roman(cycleN);
+}
+function startBreath(){
+  breathing = true; bt = 0; bv = 0; phaseIdx = -1; cycleN = 1;
+  document.body.classList.add('breathing');
+  bBtn.textContent = 'return';
+  qEl.style.opacity = 0;
+  setPhase(0);
+}
+function stopBreath(){
+  breathing = false;
+  clearTimeout(wordTimer);
+  document.body.classList.remove('breathing');
+  wordEl.classList.remove('show');
+  bBtn.textContent = 'begin breathing';
+  qEl.style.opacity = .62;
+}
+bBtn.addEventListener('click', () => breathing ? stopBreath() : startBreath());
+
+/* ---------- rotating lines ---------- */
+const QUOTES = [
+  'Stillness is not the absence of movement, but of hurry.',
+  'Breathe until the room forgets its edges.',
+  'The light you are looking for is already resting on the water.',
+  'What is quiet in you was never waiting. It was listening.',
+  'Even the deepest night is mostly space.',
+  'Let the hour pass through you without asking where it goes.',
+  'Nothing here needs you to be anything at all.',
+  'A mind left alone settles, like sediment in still water.',
+  'You are the silence the day leaves behind.',
+  'Slow is not a speed. It is a direction.'
+];
+let qi = 0, qBusy = false;
+setInterval(() => {
+  if (breathing || qBusy) return;
+  qBusy = true;
+  qEl.style.opacity = 0;
+  setTimeout(() => {
+    qi = (qi + 1) % QUOTES.length;
+    qEl.textContent = QUOTES[qi];
+    qEl.style.opacity = .62;
+    qBusy = false;
+  }, 2000);
+}, 17000);
+
+/* ---------- session clock ---------- */
+const clockEl = $('#clock'), t0 = Date.now();
+setInterval(() => {
+  const s  = Math.floor((Date.now() - t0) / 1000);
+  const m  = String(Math.floor(s/60)).padStart(2,'0');
+  const ss = String(s % 60).padStart(2,'0');
+  clockEl.textContent = `present · ${m}:${ss}`;
+}, 1000);
+
+/* ---------- hint ---------- */
+const hintEl = $('#hint');
+let hintDone = false;
+function dismissHint(){ if (hintDone) return; hintDone = true; hintEl.classList.remove('show'); }
+setTimeout(() => {
+  if (!hintDone && !matchMedia('(max-width:640px)').matches) hintEl.classList.add('show');
+}, 3200);
+setTimeout(dismissHint, 15000);
+
+/* ---------- scene switching ---------- */
+function setScene(name){
+  if (name === curName) return;
+  curName = name; tgt = SCENES[name];
+  document.querySelectorAll('.scn').forEach(x => {
+    const on = x.dataset.scene === name;
+    x.classList.toggle('active', on);
+    x.setAttribute('aria-pressed', on);
+  });
+  if (audio && soundOn) retune();
+}
+document.querySelectorAll('.scn').forEach(b =>
+  b.addEventListener('click', () => setScene(b.dataset.scene)));
+
+/* ---------- generative drone (Web Audio, fully local) ---------- */
+let audio = null, soundOn = false;
+const sBtn = $('#soundBtn'), sTxt = $('#soundTxt');
+
+function buildAudio(){
+  const AC = new (window.AudioContext || window.webkitAudioContext)();
+  const master = AC.createGain(); master.gain.value = 0.0001;
+  const comp = AC.createDynamicsCompressor();
+  master.connect(comp); comp.connect(AC.destination);
+  const lp = AC.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = 540; lp.Q.value = .4;
+  lp.connect(master);
+
+  const ratios = [1, 1.4983, 2.0016, 2.9966];     // root, fifth, octave, ninth
+  const vg     = [.40, .20, .09, .045];
+  const root   = SCENES[curName].root;
+  const voices = ratios.map((r, i) => {
+    const o = AC.createOscillator();
+    o.type = 'sine';
+    o.frequency.value = root * r;
+    o.detune.value = (i % 2 ? 4 : -3);
+    const g = AC.createGain(); g.gain.value = vg[i] * .62;
+    const lfo = AC.createOscillator(); lfo.frequency.value = .045 + i*.019;
+    const lg = AC.createGain(); lg.gain.value = vg[i] * .30;
+    lfo.connect(lg); lg.connect(g.gain);
+    let node = g;
+    if (AC.createStereoPanner){                    // slow spatial drift
+      const p = AC.createStereoPanner();
+      const pl = AC.createOscillator(); pl.frequency.value = .028 + i*.013;
+      const pg = AC.createGain(); pg.gain.value = .45;
+      pl.connect(pg); pg.connect(p.pan); pl.start();
+      g.connect(p); node = p;
+    }
+    o.connect(g); node.connect(lp);
+    o.start(); lfo.start();
+    return {o, r};
+  });
+
+  const len = AC.sampleRate * 2;                   // filtered noise = "air"
+  const buf = AC.createBuffer(1, len, AC.sampleRate), ch = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) ch[i] = Math.random()*2 - 1;
+  const ns = AC.createBufferSource(); ns.buffer = buf; ns.loop = true;
+  const bp = AC.createBiquadFilter(); bp.type = 'bandpass';
+  bp.frequency.value = 720; bp.Q.value = .5;
+  const ng = AC.createGain(); ng.gain.value = .014;
+  ns.connect(bp); bp.connect(ng); ng.connect(master); ns.start();
+
+  return {AC, master, voices};
+}
+function retune(){
+  const t = audio.AC.currentTime, r = SCENES[curName].root;
+  audio.voices.forEach(v => v.o.frequency.setTargetAtTime(r * v.r, t, 1.4));
+}
+function toggleSound(){
+  if (!soundOn){
+    if (!audio) audio = buildAudio();
+    audio.AC.resume();
+    const t = audio.AC.currentTime;
+    audio.master.gain.cancelScheduledValues(t);
+    audio.master.gain.setValueAtTime(Math.max(audio.master.gain.value, .0001), t);
+    audio.master.gain.linearRampToValueAtTime(.06, t + 2.8);
+    soundOn = true;
+    sBtn.setAttribute('aria-pressed','true');
+    sTxt.textContent = 'sound · on';
+  } else {
+    const t = audio.AC.currentTime;
+    audio.master.gain.cancelScheduledValues(t);
+    audio.master.gain.setValueAtTime(audio.master.gain.value, t);
+    audio.master.gain.linearRampToValueAtTime(.0001, t + 1.1);
+    soundOn = false;
+    sBtn.setAttribute('aria-pressed','false');
+    sTxt.textContent = 'sound · off';
+    setTimeout(() => { if (!soundOn && audio) audio.AC.suspend(); }, 1400);
+  }
+}
+sBtn.addEventListener('click', toggleSound);
+
+/* ---------- pointer & keyboard listeners ---------- */
+addEventListener('pointermove', e => {
+  ptx = e.clientX; pty = e.clientY;
+  pActive = true; pLast = nowS; dismissHint();
+}, {passive:true});
+
+addEventListener('pointerdown', e => {
+  ptx = e.clientX; pty = e.clientY;
+  px = ptx; py = pty;
+  pActive = true; pLast = nowS;
+  addRipple(e.clientX, e.clientY);
+  dismissHint();
+});
+
+document.addEventListener('mouseleave', () => pActive = false);
+addEventListener('blur', () => pActive = false);
+
+addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if      (k === '1') setScene('dusk');
+  else if (k === '2') setScene('deep');
+  else if (k === '3') setScene('mist');
+  else if (k === 'b') breathing ? stopBreath() : startBreath();
+  else if (k === 's') toggleSound();
+  else if (k === 'escape' && breathing) stopBreath();
+});
+
+/* ---------- rendering ---------- */
+function drawGlow(){
+  gx.setTransform(glow.width / W, 0, 0, glow.height / H, 0, 0);
+  gx.globalCompositeOperation = 'source-over';
+  gx.fillStyle = `rgb(${cur.base[0]|0},${cur.base[1]|0},${cur.base[2]|0})`;
+  gx.fillRect(0, 0, W, H);
+  gx.globalCompositeOperation = 'lighter';
+
+  const b = breathing ? bv : 0;
+  for (let i = 0; i < 4; i++){
+    const o  = cur.orbs[i];
+    const t1 = at * o.f * TAU + i * 2.4;
+    const t2 = at * o.f * 2.62 * TAU + i * 1.7 + 1.3;
+    const X = W * (o.hx + Math.sin(t1)*o.ax + Math.sin(t2)*o.ax*.35)
+            + (px - W/2) * .018 * (1 - i*.18);        // gentle parallax
+    const Y = H * (o.hy + Math.sin(t1+1.7)*o.ay + Math.sin(t2+.6)*o.ay*.35)
+            + (py - H/2) * .018 * (1 - i*.18);
+    const R = MIN * o.r * (1 + o.pu * Math.sin(at*.5 + i*2.1)) * (0.88 + 0.26*b);
+    const A = o.a * (0.86 + 0.14*Math.sin(at*.31 + i*2.4)) * (0.72 + 0.5*b);
+    const g = gx.createRadialGradient(X, Y, 0, X, Y, R);
+    const col = `${o.h|0},${(o.s*100)|0}%,${(o.l*100)|0}`;
+    g.addColorStop(0,   `hsla(${col},${A.toFixed(3)})`);
+    g.addColorStop(.55, `hsla(${col},${(A*.32).toFixed(3)})`);
+    g.addColorStop(1,   'hsla(0,0%,0%,0)');
+    gx.fillStyle = g;
+    gx.fillRect(X-R, Y-R, R*2, R*2);
+  }
+
+  if (presence > .01){                              // the candle you carry
+    const R = MIN * .17, A = .09 * presence;
+    const g = gx.createRadialGradient(px, py, 0, px, py, R);
+    g.addColorStop(0, `hsla(42,45%,82%,${A.toFixed(3)})`);
+    g.addColorStop(1, 'hsla(42,45%,82%,0)');
+    gx.fillStyle = g;
+    gx.fillRect(px-R, py-R, R*2, R*2);
+  }
+}
+
+function compose(dt){
+  cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  cx.clearRect(0, 0, W, H);
+
+  // light field, counter-parallaxed (overscan hides the shifted edge)
+  cx.drawImage(glow, (px-W/2)*-.012 - 12, (py-H/2)*-.012 - 12, W+24, H+24);
+  cx.globalCompositeOperation = 'lighter';
+
+  // ripples — stones in still water
+  const LIFE = 2.6;
+  for (let i = ripples.length - 1; i >= 0; i--){
+    const r = ripples[i]; r.t += dt;
+    const k = r.t / LIFE;
+    if (k >= 1){ ripples.splice(i, 1); continue; }
+    const rr = (1 - Math.pow(1-k, 3)) * MIN * .36;
+    cx.lineWidth = 1;
+    cx.strokeStyle = `rgba(236,229,213,${(.20*(1-k)).toFixed(3)})`;
+    cx.beginPath(); cx.arc(r.x, r.y, rr, 0, TAU); cx.stroke();
+    const k2 = (r.t - .16) / LIFE;
+    if (k2 > 0 && k2 < 1){
+      const r2 = (1 - Math.pow(1-k2, 3)) * MIN * .36;
+      cx.strokeStyle = `rgba(236,229,213,${(.10*(1-k2)).toFixed(3)})`;
+      cx.beginPath(); cx.arc(r.x, r.y, r2, 0, TAU); cx.stroke();
+    }
+  }
+
+  // dust motes
+  const d = cur.dust, dn = Math.round(d.n);
+  const repR = Math.max(90, MIN * .16);
+  for (let i = 0; i < dn; i++){
+    const p = parts[i];
+    p.y += d.vy * p.z * dt * MOTION / H;
+    p.x += d.vx * p.z * dt * MOTION * Math.sin(at*.23 + p.ph) / W;
+    if (p.y < -.03) p.y += 1.06; if (p.y > 1.03) p.y -= 1.06;
+    if (p.x < -.03) p.x += 1.06; if (p.x > 1.03) p.x -= 1.06;
+    const sx = p.x*W + p.ox, sy = p.y*H + p.oy;
+    const dx = sx - px, dy = sy - py, dist = Math.hypot(dx, dy);
+    if (dist < repR && dist > .1){                  // hand through still air
+      const f = 1 - dist/repR, imp = f*f*46*dt;
+      p.vx += dx/dist*imp; p.vy += dy/dist*imp;
+    }
+    const damp = Math.exp(-dt*1.6);
+    p.vx *= damp; p.vy *= damp;
+    p.ox = (p.ox + p.vx*dt) * Math.exp(-dt*.55);
+    p.oy = (p.oy + p.vy*dt) * Math.exp(-dt*.55);
+    const twk = .5 + .5*Math.sin(at*d.tw*TAU*.5 + p.ph);
+    const a = d.a * (.25 + .75*twk) * (.4 + .6*p.z);
+    cx.fillStyle = `hsla(${d.h|0},${(d.s*100)|0}%,${(d.l*100)|0}%,${a.toFixed(3)})`;
+    cx.beginPath();
+    cx.arc(p.x*W + p.ox, p.y*H + p.oy, .5 + p.z*1.1, 0, TAU);
+    cx.fill();
+  }
+
+  // a few soft bokeh motes
+  for (const m of motes){
+    m.y += -3.2*m.z*dt*MOTION/H;
+    m.x += 1.6*m.z*dt*MOTION*Math.sin(at*.17 + m.ph)/W;
+    if (m.y < -.05) m.y += 1.1;
+    if (m.x < -.05) m.x += 1.1; if (m.x > 1.05) m.x -= 1.1;
+    const s = (6 + m.s*10) * (MIN/900 + .4);
+    cx.globalAlpha = .05 + .07*(.5 + .5*Math.sin(at*.4 + m.ph));
+    cx.drawImage(mote, m.x*W - s, m.y*H - s, s*2, s*2);
+  }
+  cx.globalAlpha = 1;
+
+  // breath ring
+  if (breathing){
+    const CX = W/2, CY = H/2;
+    const R = MIN * .145 * (0.82 + 0.42*bv);
+    cx.lineWidth = 1;
+    cx.strokeStyle = `rgba(238,231,216,${(.10 + .10*bv).toFixed(3)})`;
+    cx.beginPath(); cx.arc(CX, CY, R, 0, TAU); cx.stroke();
+    cx.strokeStyle = 'rgba(238,231,216,.05)';
+    cx.beginPath(); cx.arc(CX, CY, R*1.45, 0, TAU); cx.stroke();
+    cx.strokeStyle = 'rgba(238,231,216,.34)';
+    cx.beginPath(); cx.arc(CX, CY, R, -Math.PI/2, -Math.PI/2 + (bt/PTOT)*TAU);
+    cx.stroke();
+  }
+
+  cx.globalCompositeOperation = 'source-over';
+
+  // film grain
+  if (!grainPat){ grainPat = cx.createPattern(gc, 'repeat'); tuneGrain(); }
+  const jx = RM ? 0 : (Math.random()*GN)|0, jy = RM ? 0 : (Math.random()*GN)|0;
+  cx.save();
+  cx.translate(-jx, -jy);
+  cx.fillStyle = grainPat;
+  cx.fillRect(0, 0, W+GN, H+GN);
+  cx.restore();
+}
+
+/* ---------- main loop ---------- */
+let last = performance.now()/1000, at = 0, running = true, rafId = 0;
+
+function loop(){
+  if (!running) return;
+  rafId = requestAnimationFrame(loop);
+  const t = performance.now()/1000;
+  let dt = t - last; last = t;
+  if (dt > .05) dt = .05;
+  if (dt <= 0) dt = .001;
+  nowS = t;
+  at += dt * MOTION;                 // ambient time (slowed for reduced motion)
+
+  approach(dt);
+
+  px += (ptx - px) * Math.min(1, dt*3.2);
+  py += (pty - py) * Math.min(1, dt*3.2);
+  const pT = (pActive && t - pLast < 2.5) ? 1 : 0;
+  presence += (pT - presence) * Math.min(1, dt*1.6);
+
+  if (breathing){
+    bt += dt;
+    if (bt >= PTOT){ bt -= PTOT; cycleN++; }
+    let acc = 0, i = 0;
+    for (; i < PH.length; i++){ if (bt < acc + PH[i].d) break; acc += PH[i].d; }
+    i = Math.min(i, PH.length - 1);
+    if (i !== phaseIdx) setPhase(i);
+    const pr = (bt - acc) / PH[i].d;
+    const ez = x => .5 - .5*Math.cos(Math.PI*x);
+    const target = i === 0 ? ez(pr) : i === 1 ? 1 : i === 2 ? 1 - ez(pr) : 0;
+    bv += (target - bv) * Math.min(1, dt*5);
+  }
+
+  drawGlow();
+  compose(dt);
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden){
+    running = false;
+    cancelAnimationFrame(rafId);
+  } else {
+    running = true;
+    last = performance.now()/1000;
+    rafId = requestAnimationFrame(loop);
+    if (soundOn && audio) audio.AC.resume();
+  }
+});
+
+/* ---------- boot ---------- */
+requestAnimationFrame(() => requestAnimationFrame(() =>
+  document.body.classList.add('ready')));
+setTimeout(() => qEl.style.opacity = .62, 1800);
+rafId = requestAnimationFrame(loop);
+
+})();
+</script>
+</body>
+</html>
