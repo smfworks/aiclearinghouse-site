@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- grid -->
+  <g stroke="#00E5A0" stroke-opacity="0.03">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- circuit traces, top-right -->
+  <g stroke="#00E5A0" stroke-opacity="0.05" fill="none">
+    <path d="M 900 0 V 60 H 1020 V 24"/>
+    <path d="M 1200 120 H 1150 V 70 H 1100"/>
+  </g>
+
+  <!-- incident pulse behind fracture point -->
+  <circle cx="654" cy="302" r="150" fill="url(#pulse)"/>
+
+  <!-- medical cross motif, top-right -->
+  <g fill="#00E5A0">
+    <rect x="1092" y="64" width="24" height="64" rx="6"/>
+    <rect x="1072" y="84" width="64" height="24" rx="6"/>
+  </g>
+  <g stroke="#00E5A0" stroke-opacity="0.5" fill="none">
+    <line x1="1072" y1="84" x2="1044" y2="84"/>
+    <line x1="1136" y1="84" x2="1164" y2="84"/>
+    <line x1="1092" y1="64" x2="1092" y2="40"/>
+    <line x1="1116" y1="128" x2="1116" y2="152"/>
+  </g>
+  <g fill="#00E5A0">
+    <circle cx="1040" cy="84" r="3"/>
+    <circle cx="1168" cy="84" r="3"/>
+    <circle cx="1092" cy="36" r="3"/>
+    <circle cx="1116" cy="156" r="3"/>
+  </g>
+
+  <!-- title block -->
+  <text x="64" y="100" font-size="14" letter-spacing="3" fill="#94A3B8">DR J · FLEET HEALTH REPORT</text>
+  <text x="64" y="152" font-size="44" font-weight="700" fill="#E2E8F0">The Context Collapse Problem</text>
+  <text x="64" y="190" font-size="20" letter-spacing="2" fill="#00E5A0">WHEN THE DIAGNOSTICS OUTGROW THEIR OWN BUDGET</text>
+
+  <!-- context budget bar -->
+  <rect x="64" y="280" width="1072" height="44" rx="10" fill="#131B2E" stroke="#1e2a45"/>
+  <rect x="64" y="280" width="590" height="44" rx="10" fill="#00E5A0" fill-opacity="0.22"/>
+  <rect x="652" y="280" width="4" height="44" fill="#00E5A0"/>
+
+  <!-- fracture line -->
+  <path d="M 650 268 L 662 286 L 646 302 L 664 318 L 652 336" stroke="#F8FAFC" stroke-width="2.5" fill="none"/>
+
+  <!-- 36K marker -->
+  <text x="654" y="254" font-size="16" font-weight="700" text-anchor="middle" fill="#00E5A0">36K</text>
+  <path d="M 650 260 L 654 268 L 658 260" stroke="#00E5A0" stroke-width="2" fill="none"/>
+
+  <!-- ticks -->
+  <g stroke="#475569">
+    <line x1="64" y1="324" x2="64" y2="334"/>
+    <line x1="332" y1="324" x2="332" y2="334"/>
+    <line x1="600" y1="324" x2="600" y2="334"/>
+    <line x1="868" y1="324" x2="868" y2="334"/>
+    <line x1="1136" y1="324" x2="1136" y2="334"/>
+  </g>
+  <g font-size="13" fill="#64748B" text-anchor="middle">
+    <text x="64" y="352">0</text>
+    <text x="332" y="352">16K</text>
+    <text x="600" y="352">32K</text>
+    <text x="868" y="352">48K</text>
+    <text x="1136" y="352">64K</text>
+  </g>
+  <text x="600" y="392" font-size="13" letter-spacing="1" text-anchor="middle" fill="#64748B">SERVER CONTEXT 65,536 · RUNTIME BUDGET ~36,000 · COMPRESSION: TERMINAL</text>
+
+  <!-- EKG line: healthy, flatline, recovery -->
+  <polyline points="64,480 84,480 92,468 100,494 108,450 116,486 124,480 144,480 176,480 196,480 204,468 212,494 220,450 228,486 236,480 256,480 288,480 308,480 316,468 324,494 332,450 340,486 348,480 368,480" stroke="#00E5A0" stroke-width="2.5" fill="none"/>
+  <line x1="368" y1="480" x2="756" y2="480" stroke="#475569" stroke-width="2.5"/>
+  <text x="562" y="460" font-size="12" letter-spacing="2" text-anchor="middle" fill="#64748B">CONTEXT EXHAUSTED</text>
+  <polyline points="756,480 786,480 794,472 802,488 810,464 818,484 826,480 846,480 866,480 896,480 904,474 912,486 920,468 928,483 936,480 956,480 1136,480" stroke="#00E5A0" stroke-opacity="0.6" stroke-width="2.5" fill="none"/>
+
+  <!-- bottom tagline -->
+  <text x="64" y="575" font-size="14" letter-spacing="1" fill="#94A3B8">OPENCLAW &amp; HERMES INFRASTRUCTURE · AUGUST 21, 2026</text>
+
+  <!-- bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
