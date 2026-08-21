@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>Lithos — a crystalline study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#ccd4e0;
+    --gold:rgba(203,170,110,.55);
+    --dim:rgba(172,182,198,.52);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:#0b0d17}
+  #scene{display:block;width:100vw;height:100vh;cursor:crosshair}
+
+  /* ---- whisper plate (bottom-left) ---- */
+  #hud{
+    position:fixed;left:30px;bottom:28px;
+    user-select:none;pointer-events:none;
+    color:var(--ink);
+    opacity:0;transition:opacity 1.6s ease;
+  }
+  #hud.shown{opacity:1}
+  #hud.idle{opacity:.3}
+  #hud.hidden{opacity:0}
+  #hud h1{
+    font:500 15px/1 "Cormorant Garamond",Georgia,serif;
+    letter-spacing:.46em;text-indent:.46em;
+  }
+  #hud .sub{
+    font:italic 400 13px/1 "Cormorant Garamond",Georgia,serif;
+    color:var(--dim);letter-spacing:.05em;margin-top:7px;
+  }
+  #hud .rule{width:46px;height:1px;background:rgba(203,170,110,.42);margin:13px 0 11px}
+  #hud .keys,#hud .status{
+    font:300 10px/1.8 "IBM Plex Mono",ui-monospace,Menlo,monospace;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  }
+  #hud .status{color:var(--gold)}
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+
+<div id="hud">
+  <h1>LITHOS</h1>
+  <div class="sub">crystalline study &middot; slow growth</div>
+  <div class="rule"></div>
+  <div class="keys">space hold &middot; n seed &middot; c clear &middot; s save &middot; h hide</div>
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+(() => {
+'use strict';
+/* =====================================================================
+   LITHOS — a living crystalline growth system
+   ---------------------------------------------------------------------
+   Architecture:
+     · Colonies grow lattice-aligned filaments from wandering tips.
+     · Filaments are stamped into a persistent "ink" canvas that is
+       continuously refreshed for live colonies (developing) and left
+       to evaporate for dead ones (sublimation). This gives real
+       growth/decay dynamics at negligible per-frame cost.
+     · Dust motes ride a slow flow field with tapered trails.
+     · A breathing camera (drift + zoom + mouse parallax) views the
+       specimen layer against a static infinite-distance backdrop.
+===================================================================== */
+
+/* ---------------- tiny math kit ---------------- */
+const TAU = Math.PI * 2;
+const rand  = (a = 1, b) => b === undefined ? Math.random() * a : a + Math.random() * (b - a);
+const pick  = arr => arr[(Math.random() * arr.length) | 0];
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp  = (a, b, u) => a + (b - a) * u;
+const smooth = (a, b, x) => { const u = clamp((x - a) / (b - a), 0, 1); return u * u * (3 - 2 * u); };
+const angDiff = (a, b) => { let d = (a - b) % TAU; if (d > Math.PI) d -= TAU; if (d < -Math.PI) d += TAU; return d; };
+const weightedPick = pairs => {
+  let r = Math.random();
+  for (const [v, w] of pairs) { r -= w; if (r <= 0) return v; }
+  return pairs[pairs.length - 1][0];
+};
+
+/* ---------------- configuration ---------------- */
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const CFG = {
+  dprMax: 2,
+  motionScale: REDUCED ? 0.4 : 1,           // global tempo dial
+  colony: {
+    life:      [48, 80],                    // seconds, + 18 × tier scale
+    growFrac:  0.62,                        // portion of life spent growing
+    lattices:  [[6, .5], [8, .2], [12, .3]],// symmetry orders, weighted
+    tipSpeed:  [30, 44],
+    tipEnergy: [8, 13],                     // seconds of travel per tip
+    baseWidth: 3.0,
+    taper:     0.006,                       // width decay per px travelled
+    branchRate: 0.5,
+    maxGen:    5,
+    minSeg:    30,                          // min travel before branching
+    segCap:    2400,                        // per-colony filament memory
+    tipCap:    110,
+    vertexPx:  5,                           // polyline decimation
+  },
+  maxSegments: 7200,                        // global ink-pressure governor
+  autoMin: 4, autoMax: 8,                   // auto-nucleation band
+  exhaleRate: 13,                           // motes/s emitted during decay
+};
+
+const TIERS = [{ s: 1.0 }, { s: 0.72 }, { s: 0.52 }];
+
+/* Three restrained mineral palettes — one gold accent shared by all. */
+const PALETTES = [
+  { deep: [ 43, 66, 82], body: [ 82,116,126], core: [172,199,206], tip: [214,177,112], node: [186,204,208] }, // moonstone
+  { deep: [ 54, 58,102], body: [ 96,104,152], core: [180,189,216], tip: [206,171,108], node: [184,192,222] }, // indigo frost
+  { deep: [ 40, 72, 76], body: [ 78,118,116], core: [168,198,192], tip: [209,174,110], node: [182,206,200] }, // verdigris
+];
+
+/* ---------------- canvas & view state ---------------- */
+const canvas = document.getElementById('scene');
+const ctx = canvas.getContext('2d');
+const view = { w: 0, h: 0, dpr: 1 };
+
+let bg, ink, ictx;                            // backdrop + persistent ink layer
+let colonies = [], motes = [], sparks = [], pulses = [];
+let simT = 0, timeScale = 1, timeScaleTarget = 1, frameNo = 0;
+let seedQueue = [], seedHoldUntil = 0, nextIdx = 0, govCooldown = 0;
+let emaDt = 0.016;
+const quality = { level: 0, restampEvery: 4, chunks: 4 };
+
+const cam = { px: 0, py: 0, z: 1, r: 0 };
+const mouse = { nx: 0, ny: 0 };
+
+/* filter support probe (for the soft bloom composite) */
+const FILTER_OK = (() => {
+  try { ctx.filter = 'blur(1px)'; const ok = /blur/.test(ctx.filter); ctx.filter = 'none'; return ok; }
+  catch (e) { return false; }
+})();
+
+/* ---------------- backdrop: void + grain, baked once ---------------- */
+function buildBackground() {
+  bg = document.createElement('canvas');
+  bg.width = view.w * view.dpr; bg.height = view.h * view.dpr;
+  const c = bg.getContext('2d');
+  c.scale(view.dpr, view.dpr);
+
+  c.fillStyle = '#0b0d17';
+  c.fillRect(0, 0, view.w, view.h);
+
+  // barely-there tonal lift behind the field's centre
+  let g = c.createRadialGradient(view.w * .5, view.h * .44, 0, view.w * .5, view.h * .44, Math.max(view.w, view.h) * .62);
+  g.addColorStop(0, 'rgba(23,27,43,.85)');
+  g.addColorStop(.55, 'rgba(16,19,32,.35)');
+  g.addColorStop(1, 'rgba(11,13,23,0)');
+  c.fillStyle = g; c.fillRect(0, 0, view.w, view.h);
+
+  // corner falloff
+  g = c.createRadialGradient(view.w * .5, view.h * .5, Math.min(view.w, view.h) * .36, view.w * .5, view.h * .5, Math.hypot(view.w, view.h) * .62);
+  g.addColorStop(0, 'rgba(4,5,10,0)');
+  g.addColorStop(1, 'rgba(4,5,10,.55)');
+  c.fillStyle = g; c.fillRect(0, 0, view.w, view.h);
+
+  // film grain — printed-matter texture, static and calm
+  const gr = document.createElement('canvas'); gr.width = gr.height = 140;
+  const gc = gr.getContext('2d');
+  const img = gc.createImageData(140, 140);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const v = 118 + ((Math.random() * 74) | 0);
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+    img.data[i + 3] = Math.random() * 26;
+  }
+  gc.putImageData(img, 0, 0);
+  c.globalCompositeOperation = 'overlay';
+  c.fillStyle = c.createPattern(gr, 'repeat');
+  c.fillRect(0, 0, view.w, view.h);
+  c.globalCompositeOperation = 'source-over';
+}
+
+/* ---------------- persistent ink layer ---------------- */
+function buildInk(preserve) {
+  const old = preserve ? ink : null;
+  ink = document.createElement('canvas');
+  ink.width = view.w * view.dpr; ink.height = view.h * view.dpr;
+  ictx = ink.getContext('2d');
+  ictx.setTransform(view.dpr, 0, 0, view.dpr, 0, 0);
+  ictx.lineCap = 'round';
+  if (old) ictx.drawImage(old, 0, 0, view.w, view.h);
+}
+
+const INK_HALF_LIFE = 26;   // seconds for abandoned ink to halve
+function fadeInk() {
+  // stepped fade to survive 8-bit alpha quantisation
+  ictx.globalCompositeOperation = 'destination-out';
+  ictx.globalAlpha = 1 - Math.pow(2, -(20 / 60) / INK_HALF_LIFE);
+  ictx.fillStyle = '#000';
+  ictx.fillRect(0, 0, view.w, view.h);
+  ictx.globalCompositeOperation = 'source-over';
+  ictx.globalAlpha = 1;
+}
+
+/* ---------------- colony: crystalline growth ---------------- */
+class Colony {
+  constructor(x, y, tier) {
+    this.idx = nextIdx++;
+    this.x = x; this.y = y;
+    this.tier = tier;
+    this.pal = pick(PALETTES);
+    this.k = weightedPick(CFG.colony.lattices);
+    this.rot = rand(TAU);
+    this.born = simT;
+    this.life = rand(...CFG.colony.life) + 18 * tier.s;
+    this.tips = []; this.segments = []; this.nodes = [];
+    this.dead = false; this.exhaleAcc = 0;
+
+    const n0 = 3 + ((Math.random() * 3) | 0);   // irregular star of trunks
+    for (let i = 0; i < n0; i++) {
+      this.tips.push(this.makeTip(this.rot + i * TAU / n0 + rand(-.2, .2), 0));
+    }
+  }
+
+  makeTip(dir, gen, parent) {
+    const C = CFG.colony;
+    return {
+      x: this.x, y: this.y, lx: this.x, ly: this.y,
+      dir, gen,
+      speed: rand(...C.tipSpeed) * this.tier.s * CFG.motionScale * (gen ? .92 : 1),
+      dist: 0,
+      energy: parent ? parent.energy * .8 : rand(...C.tipEnergy),
+      wobPh: rand(TAU),
+    };
+  }
+
+  widthOf(tp) {
+    return Math.max(.34, CFG.colony.baseWidth * this.tier.s * Math.exp(-tp.dist * CFG.colony.taper));
+  }
+
+  /* alpha envelope: develop in, hold, dissolve out */
+  alphaAt(t) {
+    const age = t - this.born;
+    return smooth(0, 2.6, age) * (1 - smooth(this.life * .60, this.life, age));
+  }
+  /* how strongly the colony re-inks itself (1 = fully alive) */
+  restampW() {
+    const age = simT - this.born;
+    return 1 - smooth(this.life * .55, this.life * .92, age);
+  }
+
+  update(dt) {
+    const C = CFG.colony, age = simT - this.born;
+    const growEnd = this.life * C.growFrac;
+
+    if (age < growEnd) {
+      const act = smooth(0, 2.4, age);            // growth eases in
+      const st = TAU / this.k;
+      for (let i = this.tips.length - 1; i >= 0; i--) {
+        const tp = this.tips[i];
+
+        // organic waver, then a gentle pull toward the lattice axis
+        tp.dir += Math.sin(simT * .8 + tp.wobPh) * .4 * dt;
+        const near = Math.round((tp.dir - this.rot) / st) * st + this.rot;
+        tp.dir += angDiff(near, tp.dir) * 1.7 * dt;
+
+        const len = tp.speed * act * dt;
+        const nx = tp.x + Math.cos(tp.dir) * len;
+        const ny = tp.y + Math.sin(tp.dir) * len;
+        tp.dist += len; tp.energy -= dt;
+        const w = this.widthOf(tp);
+
+        // decimate to polyline vertices
+        const dx = nx - tp.lx, dy = ny - tp.ly;
+        if (dx * dx + dy * dy >= C.vertexPx * C.vertexPx) {
+          this.segments.push({ x1: tp.lx, y1: tp.ly, x2: nx, y2: ny, w, gen: tp.gen });
+          tp.lx = nx; tp.ly = ny;
+          if (this.segments.length > C.segCap) this.segments.splice(0, 200); // old ink evaporates naturally
+        }
+        tp.x = nx; tp.y = ny;
+
+        // branching — rarer as generations deepen
+        if (this.tips.length < C.tipCap && tp.gen < C.maxGen && tp.dist > C.minSeg &&
+            Math.random() < C.branchRate * act * dt * (1 - tp.gen / (C.maxGen + 3))) {
+          const kids = Math.random() < .2 ? 2 : 1;
+          for (let j = 0; j < kids; j++) {
+            const sign = Math.random() < .5 ? 1 : -1;
+            const mult = Math.random() < .25 ? 2 : 1;
+            const child = this.makeTip(tp.dir + sign * st * mult + rand(-.05, .05), tp.gen + 1, tp);
+            child.x = child.lx = tp.x; child.y = child.ly = tp.y;
+            this.tips.push(child);
+          }
+          if (tp.gen <= 3 && this.nodes.length < 160)
+            this.nodes.push({ x: tp.x, y: tp.y, r: rand(1.0, 2.0) });
+        }
+
+        // retire spent tips
+        if (tp.energy <= 0 || w < .34 ||
+            tp.x < -90 || tp.x > view.w + 90 || tp.y < -90 || tp.y > view.h + 90) {
+          this.tips.splice(i, 1);
+        }
+      }
+    }
+
+    // branch nodes are stamped into ink once, then fade with everything else
+    if (this.nodes.length) {
+      const n = this.pal.node;
+      ictx.fillStyle = `rgba(${n[0]},${n[1]},${n[2]},.5)`;
+      for (const nd of this.nodes) { ictx.beginPath(); ictx.arc(nd.x, nd.y, nd.r, 0, TAU); ictx.fill(); }
+      this.nodes.length = 0;
+    }
+
+    // the exhale: a dying colony releases gold motes from its body
+    if (age > this.life * .68) {
+      this.exhaleAcc += dt * CFG.exhaleRate * this.alphaAt(simT);
+      while (this.exhaleAcc >= 1) { this.exhaleAcc -= 1; spawnExhale(this); }
+    }
+    if (age > this.life) this.dead = true;
+  }
+
+  /* re-stamp the living body into ink (staggered across frames) */
+  restamp() {
+    const w = this.restampW();
+    if (w <= .02 || !this.segments.length) return;
+    const a = (quality.restampEvery === 4 ? .5 : .68) * w;
+    const pal = this.pal, cols = [pal.deep, pal.body, pal.core];
+    const bins = [.75, 1.25, 1.9], reps = [.6, 1.0, 1.55, 2.5];
+
+    const groups = new Map();
+    for (const s of this.segments) {
+      let b = 0; while (b < 3 && s.w > bins[b]) b++;
+      const role = s.gen < 2 ? 0 : s.gen < 4 ? 1 : 2;
+      const key = role * 4 + b;
+      let arr = groups.get(key); if (!arr) { arr = []; groups.set(key, arr); }
+      arr.push(s.x1, s.y1, s.x2, s.y2);
+    }
+    for (const [key, pts] of groups) {
+      const col = cols[(key / 4) | 0];
+      ictx.strokeStyle = `rgba(${col[0]},${col[1]},${col[2]},${a.toFixed(3)})`;
+      ictx.lineWidth = reps[key % 4];
+      ictx.beginPath();
+      for (let i = 0; i < pts.length; i += 4) { ictx.moveTo(pts[i], pts[i + 1]); ictx.lineTo(pts[i + 2], pts[i + 3]); }
+      ictx.stroke();
+    }
+  }
+
+  /* transient gold frontier, drawn live */
+  drawTips(c) {
+    if (!this.tips.length || simT - this.born >= this.life * CFG.colony.growFrac) return;
+    const A = this.alphaAt(simT); if (A <= 0) return;
+    const [r, g, b] = this.pal.tip;
+    c.globalCompositeOperation = 'lighter';
+    c.beginPath();                                          // soft halos
+    for (const tp of this.tips) {
+      const rr = 3.4 + this.widthOf(tp) * 1.6;
+      c.moveTo(tp.x + rr, tp.y); c.arc(tp.x, tp.y, rr, 0, TAU);
+    }
+    c.fillStyle = `rgba(${r},${g},${b},${(.05 * A).toFixed(3)})`; c.fill();
+    c.beginPath();                                          // bright cores
+    for (const tp of this.tips) {
+      const rr = (.8 + this.widthOf(tp) * .55) * (1 + .15 * Math.sin(simT * 2.1 + tp.wobPh));
+      c.moveTo(tp.x + rr, tp.y); c.arc(tp.x, tp.y, rr, 0, TAU);
+    }
+    c.fillStyle = `rgba(${r},${g},${b},${(.55 * A).toFixed(3)})`; c.fill();
+    c.globalCompositeOperation = 'source-over';
+  }
+}
+
+/* ---------------- dust motes with tapered trails ---------------- */
+class Mote {
+  constructor() {
+    this.x = rand(view.w); this.y = rand(view.h);
+    const a = rand(TAU);
+    this.vx = Math.cos(a) * rand(4, 10);
+    this.vy = Math.sin(a) * rand(4, 10) - 3;
+    this.size = rand(.6, 1.5);
+    this.warmth = Math.pow(Math.random(), 2.2);   // a few warm ones
+    this.tw = rand(.4, 1.4); this.ph = rand(TAU);
+    this.trail = [];
+  }
+  step(dt) {
+    const s = .0016, ms = CFG.motionScale;
+    // layered-sine flow field: a calm, slow swirl
+    const a = Math.sin(this.x * s + simT * .11) * Math.cos(this.y * s * 1.3 - simT * .09) * 2.4
+            + Math.sin((this.x + this.y) * s * .5 + simT * .05) * 1.2;
+    const e = 1 - Math.exp(-dt * .7);
+    this.vx = lerp(this.vx, Math.cos(a) * 9 * ms, e);
+    this.vy = lerp(this.vy, Math.sin(a) * 9 * ms - 2.2 * ms, e);
+    this.x += this.vx * dt; this.y += this.vy * dt;
+    const m = 30;
+    if (this.x < -m) this.x = view.w + m; if (this.x > view.w + m) this.x = -m;
+    if (this.y < -m) this.y = view.h + m; if (this.y > view.h + m) this.y = -m;
+    this.trail.push(this.x, this.y);
+    if (this.trail.length > 28) this.trail.splice(0, 2);
+  }
+}
+
+function drawMotes(c, t) {
+  if (!motes.length) return;
+  c.globalCompositeOperation = 'lighter';
+  c.lineCap = 'round';
+  const CH = quality.chunks;
+  for (let k = 0; k < CH; k++) {                 // all tails batched into CH strokes
+    c.beginPath();
+    for (const m of motes) {
+      const n = m.trail.length / 2; if (n < 2) continue;
+      const a = Math.floor(k * n / CH), b = Math.min(n - 1, Math.floor((k + 1) * n / CH));
+      if (b <= a) continue;
+      c.moveTo(m.trail[a * 2], m.trail[a * 2 + 1]);
+      for (let i = a + 1; i <= b; i++) c.lineTo(m.trail[i * 2], m.trail[i * 2 + 1]);
+    }
+    const u = (k + 1) / CH;
+    c.lineWidth = .5 + 1.2 * u * u;
+    c.strokeStyle = `rgba(202,207,220,${(.02 + .07 * u * u).toFixed(3)})`;
+    c.stroke();
+  }
+  for (let warm = 0; warm < 2; warm++) {         // heads, batched by quantised alpha
+    const buckets = new Map();
+    for (const m of motes) {
+      if ((m.warmth > .5 ? 1 : 0) !== warm) continue;
+      const tw = .5 + .5 * Math.sin(t * m.tw + m.ph);
+      const a = Math.round((.10 + .34 * tw) * 20) / 20;
+      let arr = buckets.get(a); if (!arr) { arr = []; buckets.set(a, arr); }
+      arr.push(m);
+    }
+    for (const [a, arr] of buckets) {
+      c.beginPath();
+      for (const m of arr) { c.moveTo(m.x + m.size * .9, m.y); c.arc(m.x, m.y, m.size * .9, 0, TAU); }
+      c.fillStyle = warm ? `rgba(226,196,138,${a})` : `rgba(198,206,222,${a})`;
+      c.fill();
+    }
+  }
+  c.globalCompositeOperation = 'source-over';
+}
+
+/* ---------------- exhaled motes (the dying colony's breath) ---------------- */
+function spawnExhale(colony) {
+  if (sparks.length > 150 || !colony.segments.length) return;
+  const s = colony.segments[(Math.random() * colony.segments.length) | 0];
+  const u = Math.random();
+  sparks.push({
+    x: lerp(s.x1, s.x2, u), y: lerp(s.y1, s.y2, u),
+    vx: rand(-6, 6), vy: rand(-4, 2),
+    size: rand(.7, 1.6), age: 0, life: rand(3.5, 7),
+  });
+}
+function updateSparks(dt) {
+  for (const s of sparks) {
+    s.age += dt;
+    s.vy += (-16 * CFG.motionScale - s.vy) * dt * .5;
+    s.vx *= 1 - dt * .4;
+    s.x += s.vx * dt; s.y += s.vy * dt;
+  }
+  sparks = sparks.filter(s => s.age < s.life);
+}
+function drawSparks(c) {
+  if (!sparks.length) return;
+  c.globalCompositeOperation = 'lighter';
+  const bands = [[], [], []];
+  for (const s of sparks) {
+    const u = s.age / s.life;
+    bands[u < .33 ? 0 : u < .66 ? 1 : 2].push(s);
+  }
+  const alphas = [.10, .22, .38];
+  bands.forEach((arr, i) => {
+    if (!arr.length) return;
+    const a = alphas[i];
+    c.beginPath();
+    for (const s of arr) { c.moveTo(s.x + s.size, s.y); c.arc(s.x, s.y, s.size, 0, TAU); }
+    c.fillStyle = `rgba(216,182,120,${a})`; c.fill();
+    c.beginPath();
+    for (const s of arr) { const r = s.size * 3; c.moveTo(s.x + r, s.y); c.arc(s.x, s.y, r, 0, TAU); }
+    c.fillStyle = `rgba(216,182,120,${a * .18})`; c.fill();
+  });
+  c.globalCompositeOperation = 'source-over';
+}
+
+/* ---------------- nucleation & placement ---------------- */
+function findOrigin() {
+  const alive = colonies.filter(c => !c.dead);
+  let best = null, bestScore = -1;
+  for (let i = 0; i < 48; i++) {
+    // bell-ish distribution keeps the middle band favoured
+    const gx = (Math.random() + Math.random() + Math.random()) / 3;
+    const gy = (Math.random() + Math.random() + Math.random()) / 3;
+    const x = view.w * (.12 + .76 * gx), y = view.h * (.14 + .72 * gy);
+    let dmin = 1e9;
+    for (const c of alive) dmin = Math.min(dmin, Math.hypot(x - c.x, y - c.y));
+    const edge = Math.min(x, y, view.w - x, view.h - y);
+    const score = Math.min(dmin, 260) + edge * .35 + rand(0, 40);
+    if (score > bestScore) { bestScore = score; best = { x, y }; }
+  }
+  return best;
+}
+
+function spawnColony(x, y, forceTier) {
+  const anchors = colonies.filter(c => !c.dead && c.tier.s > .9).length;
+  let tier = forceTier;
+  if (!tier) {
+    const r = Math.random();
+    tier = (r < .24 && anchors < 2) ? TIERS[0] : r < .62 ? TIERS[1] : TIERS[2];
+  }
+  colonies.push(new Colony(x, y, tier));
+  pulses.push({ x, y, t0: simT });
+}
+
+/* ink-pressure governor: retire the most senior colony when crowded */
+function govern() {
+  if (simT < govCooldown) return;
+  let total = 0;
+  for (const c of colonies) total += c.segments.length;
+  if (total <= CFG.maxSegments) return;
+  let senior = null;
+  for (const c of colonies) if (!c.dead && (!senior || c.born < senior.born)) senior = c;
+  if (senior) {
+    senior.life = Math.min(senior.life, (simT - senior.born) + 14);
+    govCooldown = simT + 20;
+  }
+}
+
+/* ---------------- camera: breath, drift, parallax ---------------- */
+function updateCamera(dt) {
+  const ms = CFG.motionScale;
+  const tx = (Math.sin(simT * .043) * 8 + Math.sin(simT * .021 + 1.7) * 6) * ms + mouse.nx * 13 * ms;
+  const ty = (Math.cos(simT * .037) * 7 + Math.sin(simT * .017 + .6) * 5) * ms + mouse.ny * 9 * ms;
+  const tz = 1 + .026 * Math.sin(simT * .05 + .9) * ms;
+  const tr = .006 * Math.sin(simT * .024) * ms;
+  const e = 1 - Math.exp(-dt * .9);
+  cam.px += (tx - cam.px) * e; cam.py += (ty - cam.py) * e;
+  cam.z  += (tz - cam.z)  * e; cam.r  += (tr - cam.r)  * e;
+}
+function applyCamera() {
+  const cx = view.w / 2, cy = view.h / 2;
+  ctx.translate(cx, cy); ctx.rotate(cam.r); ctx.scale(cam.z, cam.z);
+  ctx.translate(-cx + cam.px, -cy + cam.py);
+}
+function screenToWorld(sx, sy) {
+  const cx = view.w / 2, cy = view.h / 2;
+  const dx = sx - cx, dy = sy - cy;
+  const cos = Math.cos(-cam.r), sin = Math.sin(-cam.r);
+  return {
+    x: (dx * cos - dy * sin) / cam.z + cx - cam.px,
+    y: (dx * sin + dy * cos) / cam.z + cy - cam.py,
+  };
+}
+
+/* ---------------- render ---------------- */
+function render(t) {
+  ctx.setTransform(view.dpr, 0, 0, view.dpr, 0, 0);
+  ctx.drawImage(bg, 0, 0, view.w, view.h);       // static void = infinite distance
+
+  ctx.save();
+  applyCamera();
+
+  // seed pulses
+  for (const p of pulses) {
+    const u = (t - p.t0) / 2.8; if (u < 0 || u >= 1) continue;
+    ctx.strokeStyle = `rgba(213,186,134,${(.30 * (1 - u) * (1 - u)).toFixed(3)})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(p.x, p.y, 6 + u * 95, 0, TAU); ctx.stroke();
+  }
+
+  // the crystal body: developed ink, then its soft bloom
+  ctx.drawImage(ink, 0, 0, ink.width, ink.height, 0, 0, view.w, view.h);
+  if (FILTER_OK) {
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = .26;
+    ctx.filter = 'blur(9px)';
+    ctx.drawImage(ink, 0, 0, ink.width, ink.height, 0, 0, view.w, view.h);
+    ctx.restore();
+  }
+
+  drawMotes(ctx, t);
+  drawSparks(ctx);
+  for (const c of colonies) c.drawTips(ctx);
+
+  ctx.restore();
+}
+
+/* ---------------- orchestration ---------------- */
+function update(dt) {
+  for (const c of colonies) c.update(dt);
+  for (const m of motes) m.step(dt);
+  updateSparks(dt);
+  pulses = pulses.filter(p => simT - p.t0 < 2.8);
+
+  // staggered re-inking: each colony refreshes every Nth frame
+  for (const c of colonies) {
+    if ((frameNo + c.idx) % quality.restampEvery === 0) c.restamp();
+  }
+  if (frameNo % 20 === 0) fadeInk();
+
+  govern();
+
+  // nucleation schedule
+  while (seedQueue.length && simT >= seedQueue[0]) { spawnColonyAt(findOrigin()); seedQueue.shift(); }
+  const alive = colonies.reduce((n, c) => n + (c.dead ? 0 : 1), 0);
+  if (alive < CFG.autoMin && simT > seedHoldUntil &&
+      (!seedQueue.length || seedQueue[0] > simT + 6) && alive < CFG.autoMax) {
+    seedQueue.push(simT + rand(2, 5));
+  }
+  colonies = colonies.filter(c => simT - c.born < c.life + 34);   // reclaim once faded
+}
+function spawnColonyAt(pos) { if (pos) spawnColony(pos.x, pos.y); }
+
+let last = performance.now();
+function frame(now) {
+  requestAnimationFrame(frame);
+  const raw = Math.min(.05, (now - last) / 1000); last = now;
+
+  // adaptive quality: trade refresh rate, never correctness
+  emaDt = lerp(emaDt, raw, .05);
+  if (emaDt > .024 && quality.level === 0) {
+    quality.level = 1; quality.restampEvery = 6; quality.chunks = 2;
+  }
+
+  timeScale += (timeScaleTarget - timeScale) * (1 - Math.exp(-raw * 5));
+  const sdt = raw * timeScale;
+  if (sdt > 0) {                       // a held piece is truly still
+    simT += sdt; frameNo++;
+    update(sdt);
+    updateCamera(sdt);
+  }
+  render(simT);
+}
+
+/* ---------------- sizing ---------------- */
+function resize() {
+  view.w = innerWidth; view.h = innerHeight;
+  view.dpr = Math.min(devicePixelRatio || 1, CFG.dprMax);
+  canvas.width = view.w * view.dpr; canvas.height = view.h * view.dpr;
+  buildBackground();
+  buildInk(true);
+  const target = clamp(Math.round(view.w * view.h / 8500), 110, 240);
+  while (motes.length < target) motes.push(new Mote());
+  if (motes.length > target) motes.length = target;
+}
+addEventListener('resize', resize);
+
+/* ---------------- interaction ---------------- */
+const hud = document.getElementById('hud');
+const statusEl = document.getElementById('status');
+let idleTimer = null, savedMsgUntil = 0;
+
+function wake() {
+  hud.classList.remove('idle');
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => hud.classList.add('idle'), 5000);
+}
+wake(); setTimeout(() => hud.classList.add('shown'), 400);
+
+addEventListener('pointermove', e => {
+  mouse.nx = (e.clientX / view.w) * 2 - 1;
+  mouse.ny = (e.clientY / view.h) * 2 - 1;
+  wake();
+});
+addEventListener('pointerdown', e => {
+  if (e.target !== canvas) return;
+  const w = screenToWorld(e.clientX, e.clientY);
+  spawnColony(w.x, w.y);
+  wake();
+});
+
+addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (e.code === 'Space') {
+    e.preventDefault();
+    timeScaleTarget = timeScaleTarget > 0 ? 0 : 1;
+  } else if (k === 'n') {
+    seedQueue.unshift(simT);                 // seed immediately, curated spot
+  } else if (k === 'c') {
+    for (const c of colonies) if (!c.dead) c.life = Math.min(c.life, (simT - c.born) + 7);
+    seedHoldUntil = simT + 5;
+  } else if (k === 's') {
+    canvas.toBlob(blob => {
+      if (!blob) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `lithos-${Date.now()}.png`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    });
+    savedMsgUntil = performance.now() + 1600;
+  } else if (k === 'h') {
+    hud.classList.toggle('hidden');
+  }
+  wake();
+});
+
+setInterval(() => {
+  const alive = colonies.reduce((n, c) => n + (c.dead ? 0 : 1), 0);
+  const segs = colonies.reduce((n, c) => n + c.segments.length, 0);
+  const state = timeScaleTarget === 0 ? 'held' : REDUCED ? 'drift' : 'flowing';
+  statusEl.textContent = performance.now() < savedMsgUntil
+    ? 'snapshot saved'
+    : `${String(alive).padStart(2, '0')} colonies \u00B7 ${segs} filaments \u00B7 ${state}`;
+}, 600);
+
+/* ---------------- begin ---------------- */
+resize();
+seedQueue = [0.7, 4.5, 10.5, 18];              // a quiet, staggered opening bloom
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
