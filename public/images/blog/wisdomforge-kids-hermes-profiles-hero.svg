@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.12"/>
+      <stop offset="70%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Three rising rings = three child bands; no letters -->
+  <circle cx="280" cy="340" r="70" fill="none" stroke="#ea580c" stroke-width="2.2" opacity="0.7"/>
+  <circle cx="280" cy="340" r="8" fill="#ea580c" opacity="0.8"/>
+
+  <circle cx="600" cy="300" r="95" fill="none" stroke="#C9A96E" stroke-width="2.4" opacity="0.8"/>
+  <circle cx="600" cy="300" r="10" fill="#C9A96E"/>
+
+  <circle cx="920" cy="260" r="120" fill="none" stroke="#00D4FF" stroke-width="2.6" opacity="0.75"/>
+  <circle cx="920" cy="260" r="11" fill="#00D4FF" opacity="0.85"/>
+
+  <path d="M280 340 L600 300 L920 260" fill="none" stroke="#C9A96E" stroke-width="1.6" opacity="0.45"/>
+
+  <circle cx="280" cy="340" r="140" fill="none" stroke="#ea580c" stroke-width="0.6" stroke-dasharray="3 8" opacity="0.2"/>
+  <circle cx="600" cy="300" r="170" fill="none" stroke="#C9A96E" stroke-width="0.6" stroke-dasharray="2 9" opacity="0.18"/>
+  <circle cx="920" cy="260" r="190" fill="none" stroke="#00D4FF" stroke-width="0.6" stroke-dasharray="2 10" opacity="0.16"/>
+
+  <line x1="100" y1="560" x2="1100" y2="560" stroke="#C9A96E" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="600" cy="560" r="4" fill="#C9A96E" opacity="0.5"/>
+</svg>
