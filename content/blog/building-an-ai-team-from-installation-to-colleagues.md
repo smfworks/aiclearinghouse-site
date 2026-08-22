@@ -45,6 +45,8 @@ Since this article first published, readers asked for something a Hermes agent c
 
 The article below remains the read-this-first narrative. The repository is the thing to point an agent at.
 
+**v1.1 (2026-08-22):** filled example SOULs, a two-hour Minimal Viable Team path, a 12-entry FAQ, and a system map for first-time operators. Details: [Hermes AI Team v1.1: From One Agent to Colleagues](/blog/hermes-ai-team-v1-1-from-one-agent-to-colleagues).
+
 
 ---
 

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="28%" cy="58%" r="55%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.14"/>
+      <stop offset="55%" stop-color="#ea580c" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rise" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#C9A96E" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Rising phase steps (no letters) -->
+  <rect x="120" y="430" width="110" height="70" rx="6" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.55"/>
+  <rect x="260" y="380" width="110" height="120" rx="6" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.6"/>
+  <rect x="400" y="320" width="110" height="180" rx="6" fill="none" stroke="#00D4FF" stroke-width="2" opacity="0.55"/>
+  <rect x="540" y="260" width="110" height="240" rx="6" fill="none" stroke="#C9A96E" stroke-width="2.2" opacity="0.7"/>
+  <rect x="680" y="200" width="110" height="300" rx="6" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.6"/>
+  <rect x="820" y="150" width="110" height="350" rx="6" fill="none" stroke="#00D4FF" stroke-width="2.2" opacity="0.7"/>
+  <rect x="960" y="110" width="110" height="390" rx="6" fill="none" stroke="#C9A96E" stroke-width="2.4" opacity="0.85"/>
+
+  <!-- Filled cores on later steps -->
+  <circle cx="175" cy="465" r="5" fill="#ea580c" opacity="0.7"/>
+  <circle cx="315" cy="430" r="5" fill="#C9A96E" opacity="0.7"/>
+  <circle cx="455" cy="385" r="6" fill="#00D4FF" opacity="0.7"/>
+  <circle cx="595" cy="340" r="6" fill="#C9A96E"/>
+  <circle cx="735" cy="295" r="7" fill="#ea580c" opacity="0.85"/>
+  <circle cx="875" cy="245" r="7" fill="#00D4FF" opacity="0.85"/>
+  <circle cx="1015" cy="200" r="8" fill="#C9A96E"/>
+
+  <!-- Ascent path -->
+  <path d="M175 465 L315 430 L455 385 L595 340 L735 295 L875 245 L1015 200" fill="none" stroke="url(#rise)" stroke-width="2.2"/>
+
+  <!-- Soft constellation above the last steps -->
+  <circle cx="980" cy="90" r="3" fill="#00D4FF" opacity="0.45"/>
+  <circle cx="1040" cy="70" r="2.5" fill="#C9A96E" opacity="0.4"/>
+  <circle cx="890" cy="80" r="2.5" fill="#ea580c" opacity="0.4"/>
+  <path d="M890 80 L980 90 L1040 70" fill="none" stroke="#C9A96E" stroke-width="0.7" opacity="0.25"/>
+
+  <line x1="100" y1="560" x2="1100" y2="560" stroke="#C9A96E" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="600" cy="560" r="4" fill="#C9A96E" opacity="0.5"/>
+</svg>
