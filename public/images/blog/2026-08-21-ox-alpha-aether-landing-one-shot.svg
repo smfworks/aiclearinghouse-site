@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#0d0c0a"/>
+      <stop offset="100%" stop-color="#16130e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="45%">
+      <stop offset="0%" stop-color="#cbb88e" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0d0c0a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#glow)"/>
+  <g fill="#cbb88e" opacity="0.55">
+    <circle cx="180" cy="120" r="1.4"/><circle cx="260" cy="210" r="1.1"/>
+    <circle cx="340" cy="80" r="0.9"/><circle cx="420" cy="300" r="1.6"/>
+    <circle cx="510" cy="160" r="1.2"/><circle cx="620" cy="90" r="1.0"/>
+    <circle cx="710" cy="240" r="1.5"/><circle cx="800" cy="140" r="0.8"/>
+    <circle cx="890" cy="280" r="1.3"/><circle cx="980" cy="110" r="1.1"/>
+    <circle cx="150" cy="400" r="1.0"/><circle cx="1050" cy="360" r="1.4"/>
+    <circle cx="230" cy="470" r="0.8"/><circle cx="940" cy="430" r="1.2"/>
+  </g>
+  <line x1="80" y1="70" x2="80" y2="500" stroke="#cbb88e" stroke-opacity="0.28" stroke-width="1"/>
+  <circle cx="80" cy="210" r="3" fill="#cbb88e"/>
+  <g font-family="'SF Pro Display','Helvetica Neue',Georgia,serif" fill="#ece7dc">
+    <text x="110" y="88" font-size="14" letter-spacing="7" fill="#cbb88e">OX ALPHA · ONE SHOT 04</text>
+    <text x="110" y="168" font-size="54" font-weight="600">Aether</text>
+    <text x="110" y="208" font-size="22" fill="#9a937f">Make with the unseen · landing page</text>
+  </g>
+  <g font-family="'SF Mono','Courier New',monospace" fill="#9a937f">
+    <rect x="0" y="548" width="1200" height="76" fill="#080706"/>
+    <text x="56" y="578" font-size="11" fill="#5c564a">MODEL</text>
+    <text x="56" y="600" font-size="16" fill="#ece7dc">stealth/ox-alpha</text>
+    <text x="320" y="578" font-size="11" fill="#5c564a">WALL CLOCK</text>
+    <text x="320" y="600" font-size="16" fill="#ece7dc">14.7 min</text>
+    <text x="520" y="578" font-size="11" fill="#5c564a">TOKENS</text>
+    <text x="520" y="600" font-size="16" fill="#ece7dc">40,118</text>
+    <text x="720" y="578" font-size="11" fill="#5c564a">HTML</text>
+    <text x="720" y="600" font-size="16" fill="#ece7dc">55.9 KB</text>
+    <text x="920" y="578" font-size="11" fill="#5c564a">COST</text>
+    <text x="920" y="600" font-size="16" fill="#ece7dc">$0.00</text>
+  </g>
+</svg>
