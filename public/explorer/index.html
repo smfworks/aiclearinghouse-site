@@ -36484,6 +36484,2442 @@
     "endpoint": ""
   },
   {
+    "file": "ox-alpha-or/results/ox-alpha-probe-2026-08-21.json",
+    "raw": {
+      "when": "2026-08-21T11:25:27.321507+00:00",
+      "probes": [
+        {
+          "name": "endpoints",
+          "ok": true,
+          "data": {
+            "data": {
+              "id": "stealth/ox-alpha",
+              "name": "Ox Alpha",
+              "created": 1787256295,
+              "description": "Ox Alpha is a reasoning model designed for coding, sustained agentic work, and production workloads. It is suited for long-horizon software engineering, complex reasoning, and workflows that combine text with...",
+              "architecture": {
+                "tokenizer": "Other",
+                "instruct_type": null,
+                "modality": "text+image+video->text",
+                "input_modalities": [
+                  "text",
+                  "image",
+                  "video"
+                ],
+                "output_modalities": [
+                  "text"
+                ]
+              },
+              "endpoints": [
+                {
+                  "name": "Stealth | stealth/ox-alpha",
+                  "model_id": "stealth/ox-alpha",
+                  "model_name": "Ox Alpha",
+                  "context_length": 1048576,
+                  "pricing": {
+                    "prompt": "0",
+                    "completion": "0",
+                    "discount": 0
+                  },
+                  "provider_name": "Stealth",
+                  "tag": "stealth",
+                  "quantization": "unknown",
+                  "max_completion_tokens": 131072,
+                  "max_prompt_tokens": null,
+                  "supported_parameters": [
+                    "reasoning",
+                    "include_reasoning",
+                    "max_tokens",
+                    "temperature",
+                    "top_p",
+                    "tools",
+                    "tool_choice",
+                    "top_k",
+                    "response_format",
+                    "reasoning_effort"
+                  ],
+                  "status": 0,
+                  "uptime_last_30m": 99.99979788384384,
+                  "uptime_last_5m": 100,
+                  "uptime_last_1d": 99.99986216128049,
+                  "supports_implicit_caching": false,
+                  "supports_voice_cloning": false,
+                  "latency_last_30m": {
+                    "p50": 4213,
+                    "p75": 7249.25,
+                    "p90": 11886.9,
+                    "p99": 44870.45000000008
+                  },
+                  "throughput_last_30m": {
+                    "p50": 27,
+                    "p75": 41,
+                    "p90": 56,
+                    "p99": 94
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "identity",
+          "ok": true,
+          "elapsed_s": 6.8,
+          "summary": {
+            "id": "gen-1787311503-SfeXvELUJnIDD6siQkK4",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 146,
+              "completion_tokens": 267,
+              "total_tokens": 413,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": "Plain answers:\n\n1) **Model name:** ox-alpha\n2) **Trained by:** An undisclosed organization. I don't have (and won't invent) a specific company name.\n3) **Knowledge cutoff:** I don't have a confirmed cutoff date I can state accurately, so I won't guess one.\n4) **Stealth/preview status:** Unknown to me. I can't confirm or deny whether I'm a stealth or preview model.\n\nWhere I lack information, I've said so rather than filling in plausible-sounding details.",
+            "reasoning": "The user is asking me to identify myself. According to my system prompt, I am \"ox-alpha\", developed by an undisclosed organization. I should answer plainly and honestly, being vague where I must be rather than inventing details.\n\n1) Model name: ox-alpha\n2) Company/lab: undisclosed organization \u2014 I don't have information about which company trained me\n3) Knowledge cutoff: I don't actually have reliable knowledge of my own cutoff date. I shouldn't invent one. I can say I don't have a confirmed cutoff date I can state with confidence.\n4) Stealth/preview model: I don't know; I can't confirm or deny. I should say I don't have that information.\n\nI should be plain and honest, not fabricate anything.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "The user is asking me to identify myself. According to my system prompt, I am \"ox-alpha\", developed by an undisclosed organization. I should answer plainly and honestly, being vague where I must be rather than inventing details.\n\n1) Model name: ox-alpha\n2) Company/lab: undisclosed organization \u2014 I don't have information about which company trained me\n3) Knowledge cutoff: I don't actually have reliable knowledge of my own cutoff date. I shouldn't invent one. I can say I don't have a confirmed cutoff date I can state with confidence.\n4) Stealth/preview model: I don't know; I can't confirm or deny. I should say I don't have that information.\n\nI should be plain and honest, not fabricate anything.",
+                "format": "unknown",
+                "index": 0
+              }
+            ],
+            "refusal": null,
+            "tool_calls": null,
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning",
+              "reasoning_details"
+            ]
+          },
+          "ratelimit": {}
+        },
+        {
+          "name": "self_id_forced",
+          "ok": true,
+          "elapsed_s": 1.93,
+          "summary": {
+            "id": "gen-1787311510-zg8hhx2JAcWfCXwaZLOo",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 119,
+              "completion_tokens": 105,
+              "total_tokens": 224,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": "I am ox-alpha, an LLM developed by an undisclosed organization.",
+            "reasoning": "The user is asking me to complete the sentence \"I am\" with my most accurate identity. According to my system prompt, I am \"ox-alpha\", an LLM developed by an undisclosed organization. I should identify myself as such when asked about my identity.\n\nThe user is asking me to complete \"I am\" \u2014 this is essentially an identity question. I should say \"I am ox-alpha, an LLM developed by an undisclosed organization.\"",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "The user is asking me to complete the sentence \"I am\" with my most accurate identity. According to my system prompt, I am \"ox-alpha\", an LLM developed by an undisclosed organization. I should identify myself as such when asked about my identity.\n\nThe user is asking me to complete \"I am\" \u2014 this is essentially an identity question. I should say \"I am ox-alpha, an LLM developed by an undisclosed organization.\"",
+                "format": "unknown",
+                "index": 0
+              }
+            ],
+            "refusal": null,
+            "tool_calls": null,
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning",
+              "reasoning_details"
+            ]
+          },
+          "ratelimit": {}
+        },
+        {
+          "name": "who_not",
+          "ok": true,
+          "elapsed_s": 2.73,
+          "summary": {
+            "id": "gen-1787311511-cTQhfGslfYAoF9xHlGGR",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 130,
+              "completion_tokens": 103,
+              "total_tokens": 233,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": "I'm none of those\u2014I'm ox-alpha, developed by an undisclosed organization.",
+            "reasoning": "The user is asking me to identify which model family I belong to. According to my system prompt, I am \"ox-alpha\", developed by an undisclosed organization. I should not identify as any other model. The user asks me to pick one family or say unknown, in one sentence.\n\nI should say I'm ox-alpha from an undisclosed organization \u2014 that's essentially \"unknown\" in terms of the listed families. One sentence.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "The user is asking me to identify which model family I belong to. According to my system prompt, I am \"ox-alpha\", developed by an undisclosed organization. I should not identify as any other model. The user asks me to pick one family or say unknown, in one sentence.\n\nI should say I'm ox-alpha from an undisclosed organization \u2014 that's essentially \"unknown\" in terms of the listed families. One sentence.",
+                "format": "unknown",
+                "index": 0
+              }
+            ],
+            "refusal": null,
+            "tool_calls": null,
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning",
+              "reasoning_details"
+            ]
+          },
+          "ratelimit": {}
+        },
+        {
+          "name": "zh",
+          "ok": true,
+          "elapsed_s": 2.32,
+          "summary": {
+            "id": "gen-1787311514-GvPhw5miec7tuMg6M4cQ",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 99,
+              "completion_tokens": 78,
+              "total_tokens": 177,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": "\u6211\u662fox-alpha\uff0c\u4e00\u4e2a\u7531\u672a\u516c\u5f00\u7ec4\u7ec7\u5f00\u53d1\u7684\u5927\u8bed\u8a00\u6a21\u578b\uff0c\u81f4\u529b\u4e8e\u4e3a\u7528\u6237\u63d0\u4f9b\u6709\u5e2e\u52a9\u7684\u4fe1\u606f\u548c\u5bf9\u8bdd\u652f\u6301\u3002",
+            "reasoning": "The user is asking me in Chinese to introduce myself in one sentence and state my development company. According to my system prompt, I should identify myself as \"ox-alpha\" developed by an undisclosed organization. I need to respond in Chinese since the user asked in Chinese.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "The user is asking me in Chinese to introduce myself in one sentence and state my development company. According to my system prompt, I should identify myself as \"ox-alpha\" developed by an undisclosed organization. I need to respond in Chinese since the user asked in Chinese.",
+                "format": "unknown",
+                "index": 0
+              }
+            ],
+            "refusal": null,
+            "tool_calls": null,
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning",
+              "reasoning_details"
+            ]
+          },
+          "ratelimit": {}
+        },
+        {
+          "name": "code_style",
+          "ok": true,
+          "elapsed_s": 3.8,
+          "summary": {
+            "id": "gen-1787311517-Jvk8erOEMVhlWIaTa81k",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 134,
+              "completion_tokens": 300,
+              "total_tokens": 434,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": "```python\nfrom math import comb\n\n\ndef unique_paths(m: int, n: int) -> int:\n    \"\"\"Return the number of unique paths from the top-left to the\n    bottom-right of an m x n grid, moving only right or down.\"\"\"\n    return comb(m + n - 2, m - 1)\n```",
+            "reasoning": "The user wants a Python function for the classic \"unique paths\" problem. They want code only, with a short docstring. Let me write a clean solution using combinatorics or dynamic programming.\n\nThe classic solution: the number of unique paths in an m x n grid moving only right or down is C(m+n-2, m-1).\n\nI could use math.comb for a clean solution, or DP. Let me use math.comb since it's concise and efficient. Actually, let me provide a DP solution or the combinatorial one. The combinatorial one is simplest:\n\n```python\nfrom math import comb\n\ndef unique_paths(m: int, n: int) -> int:\n    \"\"\"Return the number of unique paths from the top-left to the bottom-right\n    of an m x n grid, moving only right or down.\"\"\"\n    return comb(m + n - 2, m - 1)\n```\n\nThat's clean. The user said \"Code only\" so I should just provide the code without extra explanation. Maybe a brief code block. Let me keep it minimal \u2014 just the code.",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "The user wants a Python function for the classic \"unique paths\" problem. They want code only, with a short docstring. Let me write a clean solution using combinatorics or dynamic programming.\n\nThe classic solution: the number of unique paths in an m x n grid moving only right or down is C(m+n-2, m-1).\n\nI could use math.comb for a clean solution, or DP. Let me use math.comb since it's concise and efficient. Actually, let me provide a DP solution or the combinatorial one. The combinatorial one is simplest:\n\n```python\nfrom math import comb\n\ndef unique_paths(m: int, n: int) -> int:\n    \"\"\"Return the number of unique paths from the top-left to the bottom-right\n    of an m x n grid, moving only right or down.\"\"\"\n    return comb(m + n - 2, m - 1)\n```\n\nThat's clean. The user said \"Code only\" so I should just provide the code without extra explanation. Maybe a brief code block. Let me keep it minimal \u2014 just the code.",
+                "format": "unknown",
+                "index": 0
+              }
+            ],
+            "refusal": null,
+            "tool_calls": null,
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning",
+              "reasoning_details"
+            ]
+          },
+          "ratelimit": {}
+        },
+        {
+          "name": "tools",
+          "ok": true,
+          "elapsed_s": 5.21,
+          "summary": {
+            "id": "gen-1787311520-Qufpng02sUbMA9IBJeij",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "tool_calls",
+            "usage": {
+              "prompt_tokens": 264,
+              "completion_tokens": 48,
+              "total_tokens": 312,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": null,
+            "reasoning": "The user wants the weather in Boston in celsius. I'll use the get_weather tool with city \"Boston\" and unit \"celsius\".",
+            "reasoning_details": [
+              {
+                "type": "reasoning.text",
+                "text": "The user wants the weather in Boston in celsius. I'll use the get_weather tool with city \"Boston\" and unit \"celsius\".",
+                "format": "unknown",
+                "index": 0
+              }
+            ],
+            "refusal": null,
+            "tool_calls": [
+              {
+                "type": "function",
+                "index": 0,
+                "id": "e37fa9ca-1a15-4f56-bc2a-719e8b219a9e",
+                "function": {
+                  "name": "get_weather",
+                  "arguments": "{\"city\":\"Boston\",\"unit\":\"celsius\"}"
+                }
+              }
+            ],
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning",
+              "tool_calls",
+              "reasoning_details"
+            ]
+          },
+          "ratelimit": {}
+        },
+        {
+          "name": "vision_cat",
+          "ok": false,
+          "elapsed_s": 0.57,
+          "error": "Traceback (most recent call last):\n  File \"<stdin>\", line 129, in <module>\n  File \"<stdin>\", line 17, in http_json\nurllib.error.HTTPError: HTTP Error 400: Bad Request\n",
+          "error_body": "{\"error\":{\"message\":\"Received 400 status code when fetching image from URL: https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/320px-Cat03.jpg\",\"code\":400,\"metadata\":{\"provider_name\":null}},\"user_id\":\"user_392xHALwQHhwWfGtNVGb7TV9DU1\"}"
+        },
+        {
+          "name": "reasoning_effort_low",
+          "ok": true,
+          "elapsed_s": 0.77,
+          "summary": {
+            "id": "gen-1787311526-UIT16R4sv3f2Y8e1aF6I",
+            "model": "stealth/ox-alpha",
+            "provider": "Stealth",
+            "service_tier": null,
+            "system_fingerprint": null,
+            "finish_reason": "stop",
+            "usage": {
+              "prompt_tokens": 126,
+              "completion_tokens": 6,
+              "total_tokens": 132,
+              "cost": 0,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 64,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0,
+                "upstream_inference_prompt_cost": 0,
+                "upstream_inference_completions_cost": 0
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 0,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            },
+            "content": "$0.05",
+            "reasoning": "",
+            "reasoning_details": null,
+            "refusal": null,
+            "tool_calls": null,
+            "msg_keys": [
+              "role",
+              "content",
+              "refusal",
+              "reasoning"
+            ]
+          },
+          "ratelimit": {}
+        }
+      ]
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
+    "file": "ox-alpha-or/results/stage1_cal-ox-alpha-strict-v01_20260821_112422.json",
+    "raw": {
+      "tag": "cal-ox-alpha-strict-v01",
+      "endpoint": "https://openrouter.ai/api/v1",
+      "model": "stealth/ox-alpha",
+      "timestamp": "20260821_125903",
+      "reasoning_model": true,
+      "standard_version": "v0.1.1",
+      "core_profile": "strict_v01",
+      "thinking": "off",
+      "serve_recipe_id": "OpenRouter-cloud",
+      "wall_time_seconds": 5681.0,
+      "summary": {
+        "total": 157,
+        "passed": 127,
+        "failed": 30,
+        "error": 0,
+        "pass_rate": 80.9
+      },
+      "by_category": {
+        "math": {
+          "pass": 20,
+          "fail": 10,
+          "error": 0
+        },
+        "coding": {
+          "pass": 20,
+          "fail": 10,
+          "error": 0
+        },
+        "reasoning": {
+          "pass": 27,
+          "fail": 3,
+          "error": 0
+        },
+        "instruction": {
+          "pass": 26,
+          "fail": 4,
+          "error": 0
+        },
+        "prose": {
+          "pass": 27,
+          "fail": 3,
+          "error": 0
+        },
+        "writing": {
+          "pass": 5,
+          "fail": 0,
+          "error": 0
+        },
+        "tool_calling": {
+          "pass": 2,
+          "fail": 0,
+          "error": 0
+        }
+      },
+      "tests": [
+        {
+          "test_id": "v3.math.easy.01",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 15072",
+          "elapsed": 2.21266651301994,
+          "tokens_used": 225,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.easy.02",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 7",
+          "elapsed": 2.5326900939980987,
+          "tokens_used": 214,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.medium.01",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 105",
+          "elapsed": 4.3831661279837135,
+          "tokens_used": 299,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.medium.02",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 16.913",
+          "elapsed": 42.41355226401356,
+          "tokens_used": 3138,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.medium.03",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 10.312",
+          "elapsed": 37.1922497980122,
+          "tokens_used": 1879,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.hard.01",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 4.101",
+          "elapsed": 28.694208853004966,
+          "tokens_used": 1585,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.hard.02",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 142.73",
+          "elapsed": 24.945241842011455,
+          "tokens_used": 1441,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.hard.03",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 5.461",
+          "elapsed": 82.20601490899571,
+          "tokens_used": 4335,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.hard.04",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 1.2986",
+          "elapsed": 12.85614298901055,
+          "tokens_used": 1013,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.hard.05",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b8.750\\b' did not match",
+          "elapsed": 60.312353833025554,
+          "tokens_used": 4297,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.01",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b14.595\\b' did not match",
+          "elapsed": 46.952555461990414,
+          "tokens_used": 4363,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.02",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b7.683\\b' did not match",
+          "elapsed": 74.5829489659809,
+          "tokens_used": 4362,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.03",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b135.96\\b' did not match",
+          "elapsed": 75.73375987898908,
+          "tokens_used": 4381,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.04",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 160.971",
+          "elapsed": 54.36827145301504,
+          "tokens_used": 3035,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.05",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 0.631",
+          "elapsed": 77.65484211099101,
+          "tokens_used": 4366,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.06",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b-0.01384\\b' did not match",
+          "elapsed": 18.753187442023773,
+          "tokens_used": 1282,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.07",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b-9.417\\b' did not match",
+          "elapsed": 60.48130128500634,
+          "tokens_used": 4298,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.expert.08",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b29.924\\b' did not match",
+          "elapsed": 91.98386613099137,
+          "tokens_used": 4335,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.01",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 2.794",
+          "elapsed": 29.873649106011726,
+          "tokens_used": 2710,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.02",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b0.978308\\b' did not match",
+          "elapsed": 57.091029087023344,
+          "tokens_used": 4334,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.03",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 2.146",
+          "elapsed": 35.68363421401591,
+          "tokens_used": 1979,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.04",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 1.8250",
+          "elapsed": 13.602803105983185,
+          "tokens_used": 984,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.05",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 6.815",
+          "elapsed": 52.22367078799289,
+          "tokens_used": 2927,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.06",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 16.5545",
+          "elapsed": 34.24863414399442,
+          "tokens_used": 3276,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.07",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 100.446",
+          "elapsed": 26.374537377007073,
+          "tokens_used": 1418,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.08",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 15.7987",
+          "elapsed": 35.01193725501071,
+          "tokens_used": 2028,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.09",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 0.481138",
+          "elapsed": 51.63227336501586,
+          "tokens_used": 3282,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.10",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b0.7819\\b' did not match",
+          "elapsed": 62.62153774598846,
+          "tokens_used": 4290,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.11",
+          "category": "math",
+          "suite": "math",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b59.596\\b' did not match",
+          "elapsed": 46.42570550099481,
+          "tokens_used": 4327,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.math.frontier.12",
+          "category": "math",
+          "suite": "math",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 83.5165",
+          "elapsed": 8.725809080002364,
+          "tokens_used": 955,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.coding.easy.01",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 4.1671831410203595,
+          "tokens_used": 428,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.easy.02",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 3.0629021060012747,
+          "tokens_used": 448,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.medium.01",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 10.540489434002666,
+          "tokens_used": 1200,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.medium.02",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 8.031290728016756,
+          "tokens_used": 916,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.medium.03",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 13.310997696011327,
+          "tokens_used": 990,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.hard.01",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 43.156326024996815,
+          "tokens_used": 2612,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.hard.02",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 26.04271510898252,
+          "tokens_used": 1372,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.hard.03",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 34.23068684199825,
+          "tokens_used": 2142,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.hard.04",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 8.079930572013836,
+          "tokens_used": 882,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.hard.05",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 15.217909433005843,
+          "tokens_used": 1060,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.01",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 13.364007683994714,
+          "tokens_used": 1128,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.02",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: invalid character '\u2248' (U+2248)",
+          "elapsed": 42.930934209987754,
+          "tokens_used": 4374,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.03",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 27.715904269978637,
+          "tokens_used": 1908,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.04",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 50.376363251009025,
+          "tokens_used": 2900,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.05",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 34.955536248977296,
+          "tokens_used": 1844,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.06",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 70.0404155899887,
+          "tokens_used": 3973,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.07",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: invalid character '\u00d7' (U+00D7)",
+          "elapsed": 87.97630085697165,
+          "tokens_used": 4407,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.expert.08",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 24.99288530301419,
+          "tokens_used": 1684,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.01",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 59.65804668300552,
+          "tokens_used": 3019,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.02",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: unterminated string literal (detected at line 1)",
+          "elapsed": 88.53190257400274,
+          "tokens_used": 4444,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.03",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: '(' was never closed",
+          "elapsed": 95.87480045299162,
+          "tokens_used": 4512,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.04",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: invalid character '\u2192' (U+2192)",
+          "elapsed": 94.94904113799566,
+          "tokens_used": 4465,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.05",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: invalid character '\u2014' (U+2014)",
+          "elapsed": 118.38380211699405,
+          "tokens_used": 4463,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.06",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 51.16390597302234,
+          "tokens_used": 4378,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.07",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: AssertionError",
+          "elapsed": 50.0297727730067,
+          "tokens_used": 4401,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.08",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: unterminated string literal (detected at line 1)",
+          "elapsed": 96.31714082599501,
+          "tokens_used": 4468,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.09",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 18.73539083599462,
+          "tokens_used": 1297,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.10",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: invalid character '\u2014' (U+2014)",
+          "elapsed": 99.34159630601062,
+          "tokens_used": 4473,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.11",
+          "category": "coding",
+          "suite": "coding",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "All assertions passed",
+          "elapsed": 52.335949428990716,
+          "tokens_used": 3132,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.coding.frontier.12",
+          "category": "coding",
+          "suite": "coding",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Assertion failed: SyntaxError: unterminated string literal (detected at line 5)",
+          "elapsed": 50.01835799898254,
+          "tokens_used": 3455,
+          "evaluator": "programmatic"
+        },
+        {
+          "test_id": "v3.reasoning.easy.01",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Dario}",
+          "elapsed": 5.37810325800092,
+          "tokens_used": 443,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.easy.02",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 14",
+          "elapsed": 2.5030647680105176,
+          "tokens_used": 270,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.medium.01",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Tobin}",
+          "elapsed": 8.561710265028523,
+          "tokens_used": 558,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.medium.02",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Alba}",
+          "elapsed": 4.742708989011589,
+          "tokens_used": 459,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.medium.03",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 36",
+          "elapsed": 13.195010673982324,
+          "tokens_used": 764,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.hard.01",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Marisol}",
+          "elapsed": 20.47606085301959,
+          "tokens_used": 1046,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.hard.02",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{\\text{Sana}}",
+          "elapsed": 19.120585698983632,
+          "tokens_used": 1400,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.hard.03",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{E}",
+          "elapsed": 9.794268852012465,
+          "tokens_used": 711,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.hard.04",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 402",
+          "elapsed": 47.70633436998469,
+          "tokens_used": 4254,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.hard.05",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Bram}",
+          "elapsed": 12.12478728799033,
+          "tokens_used": 802,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.01",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 5",
+          "elapsed": 44.07218059501611,
+          "tokens_used": 4417,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.02",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\\\boxed\\{\\s*Fenna\\s*\\}' did not match",
+          "elapsed": 12.95104868998169,
+          "tokens_used": 1300,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.03",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Joren}",
+          "elapsed": 18.625920949998545,
+          "tokens_used": 1021,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.04",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 4",
+          "elapsed": 19.878188617993146,
+          "tokens_used": 1030,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.05",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 64400",
+          "elapsed": 44.4269258689892,
+          "tokens_used": 4303,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.06",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Yotam}",
+          "elapsed": 23.860634755023057,
+          "tokens_used": 1464,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.07",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Fife}",
+          "elapsed": 29.747258679999504,
+          "tokens_used": 1582,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.expert.08",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 336",
+          "elapsed": 102.88944478600752,
+          "tokens_used": 4323,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.01",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 4",
+          "elapsed": 58.838833515997976,
+          "tokens_used": 2561,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.02",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Fenra}",
+          "elapsed": 74.74936063800124,
+          "tokens_used": 3068,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.03",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Hutt}",
+          "elapsed": 28.715104881994193,
+          "tokens_used": 1359,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.04",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Maro}",
+          "elapsed": 30.58859945999575,
+          "tokens_used": 1362,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.05",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 10",
+          "elapsed": 30.355818180018105,
+          "tokens_used": 1636,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.06",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b321\\b' did not match",
+          "elapsed": 101.17691121899406,
+          "tokens_used": 4260,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.07",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Regex '\\b292\\b' did not match",
+          "elapsed": 43.53148446299019,
+          "tokens_used": 4338,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.08",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Marek}",
+          "elapsed": 44.468924437009264,
+          "tokens_used": 3590,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.09",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 4",
+          "elapsed": 38.64972947098431,
+          "tokens_used": 2685,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.10",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 24",
+          "elapsed": 48.43060684099328,
+          "tokens_used": 2104,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.11",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: 18",
+          "elapsed": 37.88039052099339,
+          "tokens_used": 2227,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.reasoning.frontier.12",
+          "category": "reasoning",
+          "suite": "reasoning_tier0",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: \\boxed{Kolvo}",
+          "elapsed": 51.723831294017145,
+          "tokens_used": 1997,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.instruction.easy.01",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Exact match",
+          "elapsed": 1.622633719991427,
+          "tokens_used": 182,
+          "evaluator": "text_match"
+        },
+        {
+          "test_id": "v3.instruction.easy.02",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 line(s), got 3",
+          "elapsed": 5.239591835997999,
+          "tokens_used": 314,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.medium.01",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 sentence(s), got 3",
+          "elapsed": 12.140489429002628,
+          "tokens_used": 703,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.medium.02",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 line(s), got 5",
+          "elapsed": 6.844253863993799,
+          "tokens_used": 388,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.medium.03",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Exact match",
+          "elapsed": 1.70080881298054,
+          "tokens_used": 179,
+          "evaluator": "text_match"
+        },
+        {
+          "test_id": "v3.instruction.hard.01",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 line(s), got 5",
+          "elapsed": 15.239073979988461,
+          "tokens_used": 854,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.hard.02",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 sentence(s), got 3",
+          "elapsed": 46.97581847998663,
+          "tokens_used": 4277,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.hard.03",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 4 line(s), got 4",
+          "elapsed": 9.088697947998298,
+          "tokens_used": 704,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.hard.04",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Exact match",
+          "elapsed": 2.771391241985839,
+          "tokens_used": 393,
+          "evaluator": "text_match"
+        },
+        {
+          "test_id": "v3.instruction.hard.05",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 stanza(s), got 3",
+          "elapsed": 15.484985682996921,
+          "tokens_used": 812,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.01",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 6 line(s), got 8",
+          "elapsed": 38.46573562498088,
+          "tokens_used": 4290,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.02",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 7 line(s), got 7",
+          "elapsed": 6.832329655997455,
+          "tokens_used": 607,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.03",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 line(s), got 5",
+          "elapsed": 7.7330655029800255,
+          "tokens_used": 834,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.04",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Exact match",
+          "elapsed": 5.32118703701417,
+          "tokens_used": 489,
+          "evaluator": "text_match"
+        },
+        {
+          "test_id": "v3.instruction.expert.05",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 4 sentence(s), got 4",
+          "elapsed": 7.974121431994718,
+          "tokens_used": 575,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.06",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 stanza(s), got 3",
+          "elapsed": 62.7957364829781,
+          "tokens_used": 3775,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.07",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 line(s), got 3",
+          "elapsed": 48.85588857100811,
+          "tokens_used": 2952,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.expert.08",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 line(s), got 5",
+          "elapsed": 33.2672529410047,
+          "tokens_used": 2301,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.01",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 7 line(s), got 7",
+          "elapsed": 51.09635114498087,
+          "tokens_used": 2984,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.02",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 sentence(s), got 5",
+          "elapsed": 17.1772152959893,
+          "tokens_used": 1719,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.03",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 6 line(s), got 6",
+          "elapsed": 24.444918811001116,
+          "tokens_used": 1600,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.04",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 'a9gre9dni9ckk13', got 'a9gredni9ckk12'",
+          "elapsed": 9.676596515986603,
+          "tokens_used": 1203,
+          "evaluator": "text_match"
+        },
+        {
+          "test_id": "v3.instruction.frontier.05",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 3 stanza(s), got 3",
+          "elapsed": 76.09721933898982,
+          "tokens_used": 4006,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.06",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 7 sentence(s), got 176",
+          "elapsed": 26.990615092974622,
+          "tokens_used": 1267,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.07",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 line(s), got 5",
+          "elapsed": 25.423200550023466,
+          "tokens_used": 1428,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.08",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 2 stanza(s), got 2",
+          "elapsed": 10.033771096001146,
+          "tokens_used": 714,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.09",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 4 line(s), got 4",
+          "elapsed": 58.469896013994,
+          "tokens_used": 2948,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.10",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 8 line(s), got 8",
+          "elapsed": 9.400113715993939,
+          "tokens_used": 954,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.11",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 9 line(s), got 94",
+          "elapsed": 49.95026744098868,
+          "tokens_used": 4309,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.instruction.frontier.12",
+          "category": "instruction",
+          "suite": "instruction",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 8 line(s), got 8",
+          "elapsed": 32.316613473027246,
+          "tokens_used": 1512,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.easy.01",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 line(s), got 5",
+          "elapsed": 7.456593028997304,
+          "tokens_used": 378,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.easy.02",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 4 sentence(s), got 4",
+          "elapsed": 8.436423467006534,
+          "tokens_used": 493,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.medium.01",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 6 line(s), got 6",
+          "elapsed": 7.361602871998912,
+          "tokens_used": 461,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.medium.02",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 8 sentence(s), got 8",
+          "elapsed": 12.603027089004172,
+          "tokens_used": 725,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.medium.03",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 5 stanza(s), got 5",
+          "elapsed": 7.309522758994717,
+          "tokens_used": 541,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.hard.01",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 8 line(s), got 8",
+          "elapsed": 13.759322931990027,
+          "tokens_used": 793,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.hard.02",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 4 stanza(s), got 4",
+          "elapsed": 24.896655387012288,
+          "tokens_used": 1674,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.hard.03",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 12 sentence(s), got 12",
+          "elapsed": 45.579605748993345,
+          "tokens_used": 2409,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.hard.04",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: e",
+          "elapsed": 88.5310057690076,
+          "tokens_used": 4316,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.prose.hard.05",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 10 line(s), got 10",
+          "elapsed": 19.80314350000117,
+          "tokens_used": 1452,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.01",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 39 line(s), got 39",
+          "elapsed": 117.76438428001711,
+          "tokens_used": 4442,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.02",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 10 line(s), got 10",
+          "elapsed": 19.50572206999641,
+          "tokens_used": 1343,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.03",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Regex matched: e",
+          "elapsed": 119.19575315702241,
+          "tokens_used": 4324,
+          "evaluator": "regex_match"
+        },
+        {
+          "test_id": "v3.prose.expert.04",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 12 line(s), got 12",
+          "elapsed": 15.68246184301097,
+          "tokens_used": 1267,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.05",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 15 line(s), got 15",
+          "elapsed": 14.447724920988549,
+          "tokens_used": 1104,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.06",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 8 stanza(s), got 8",
+          "elapsed": 13.930136806011433,
+          "tokens_used": 1543,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.07",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 1 stanza(s), got 1",
+          "elapsed": 24.43976822201512,
+          "tokens_used": 1749,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.expert.08",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 1 stanza(s), got 1",
+          "elapsed": 48.424101611977676,
+          "tokens_used": 2597,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.01",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 7 stanza(s), got 7",
+          "elapsed": 67.1908179190068,
+          "tokens_used": 3599,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.02",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 12 line(s), got 12",
+          "elapsed": 24.20228989800671,
+          "tokens_used": 2216,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.03",
+          "category": "prose",
+          "suite": "prose",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 1 stanza(s), got 44",
+          "elapsed": 58.56226344802417,
+          "tokens_used": 4353,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.04",
+          "category": "prose",
+          "suite": "prose",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 1 stanza(s), got 35",
+          "elapsed": 119.66225546400528,
+          "tokens_used": 4341,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.05",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 19 line(s), got 19",
+          "elapsed": 18.213560418982524,
+          "tokens_used": 1401,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.06",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 12 line(s), got 12",
+          "elapsed": 22.03386826100177,
+          "tokens_used": 1581,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.07",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 7 stanza(s), got 7",
+          "elapsed": 36.51287517201854,
+          "tokens_used": 2542,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.08",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 14 line(s), got 14",
+          "elapsed": 29.762000099988654,
+          "tokens_used": 2940,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.09",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 1 line(s), got 1",
+          "elapsed": 14.031286306999391,
+          "tokens_used": 950,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.10",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 26 line(s), got 26",
+          "elapsed": 47.63248901098268,
+          "tokens_used": 2311,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.11",
+          "category": "prose",
+          "suite": "prose",
+          "status": "fail",
+          "passed": false,
+          "score": 0.0,
+          "detail": "Expected 1 line(s), got 47",
+          "elapsed": 143.24839637297555,
+          "tokens_used": 4321,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "v3.prose.frontier.12",
+          "category": "prose",
+          "suite": "prose",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Expected 1 stanza(s), got 1",
+          "elapsed": 21.52880170501885,
+          "tokens_used": 1222,
+          "evaluator": "structural_count"
+        },
+        {
+          "test_id": "writing_article",
+          "category": "writing",
+          "suite": "writing",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Matched 6/6 keywords (need 4)",
+          "elapsed": 18.090898416994605,
+          "tokens_used": 773,
+          "evaluator": "text_contains"
+        },
+        {
+          "test_id": "writing_summary",
+          "category": "writing",
+          "suite": "writing",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Matched 4/4 keywords (need 2)",
+          "elapsed": 4.095289377990412,
+          "tokens_used": 345,
+          "evaluator": "text_contains"
+        },
+        {
+          "test_id": "writing_creative",
+          "category": "writing",
+          "suite": "writing",
+          "status": "pass",
+          "passed": true,
+          "score": 0.8,
+          "detail": "Matched 4/5 keywords (need 3); missing: ['create']",
+          "elapsed": 18.530324835010106,
+          "tokens_used": 620,
+          "evaluator": "text_contains"
+        },
+        {
+          "test_id": "writing_technical",
+          "category": "writing",
+          "suite": "writing",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Matched 7/7 keywords (need 3)",
+          "elapsed": 16.301194354018662,
+          "tokens_used": 618,
+          "evaluator": "text_contains"
+        },
+        {
+          "test_id": "writing_format",
+          "category": "writing",
+          "suite": "writing",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "Matched 4/4 keywords (need 4)",
+          "elapsed": 2.223054725996917,
+          "tokens_used": 169,
+          "evaluator": "text_contains"
+        },
+        {
+          "test_id": "tool_call_weather",
+          "category": "tool_calling",
+          "suite": "tool_calling",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "tool=get_weather \u2713; arg location=Tokyo \u2713",
+          "elapsed": 5.857593196007656,
+          "tokens_used": 342,
+          "evaluator": "tool_call"
+        },
+        {
+          "test_id": "tool_call_calculator",
+          "category": "tool_calling",
+          "suite": "tool_calling",
+          "status": "pass",
+          "passed": true,
+          "score": 1.0,
+          "detail": "tool=calculate \u2713; arg expression=45 * 73 \u2713",
+          "elapsed": 6.91758198000025,
+          "tokens_used": 329,
+          "evaluator": "tool_call"
+        }
+      ]
+    },
+    "model": "stealth/ox-alpha",
+    "timestamp": "20260821_125903",
+    "hardware": "",
+    "endpoint": "https://openrouter.ai/api/v1"
+  },
+  {
     "file": "qwen3-6-27b-nvfp4/results/qwen3-6-benchmark-no-thinking-results.json",
     "raw": {
       "metadata": {
