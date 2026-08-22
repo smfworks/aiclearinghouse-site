@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nocturne · Six Studies in Light &amp; Silence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens ============ */
+:root{
+  --room:#151311;               /* warm near-black wall */
+  --bone:#e9e2d4;               /* warm off-white */
+  --bone-dim:#9a9180;           /* secondary label ink */
+  --ink-soft:#b3aa99;           /* reading ink */
+  --hairline:rgba(233,226,212,.13);
+  --tungsten:#b3945e;           /* the single accent: lamplight */
+  --ease:cubic-bezier(.22,1,.36,1);   /* ceremonial ease-out */
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Jost','Avenir Next','Helvetica Neue',sans-serif;
+  --pad-x:clamp(24px,5vw,72px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--room);color:var(--bone);font-family:var(--sans);
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;
+  height:100dvh;overflow:hidden;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--tungsten);color:#161310}
+:focus{outline:none}
+:focus-visible{outline:1px solid rgba(179,148,94,.75);outline-offset:5px}
+button{font-family:inherit;color:inherit}
+
+/* ============ the room itself ============ */
+/* two faint washes: skylight far above, faint floor bounce below — light, not decoration */
+.wall{position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(130% 100% at 50% -25%, #221d18 0%, rgba(34,29,24,0) 60%),
+    radial-gradient(90% 70% at 50% 118%, #1b1713 0%, rgba(27,23,19,0) 55%),
+    var(--room);
+}
+/* film grain over everything: the material layer */
+.grain{position:fixed;inset:-140px;z-index:40;pointer-events:none;opacity:.05;
+  background-repeat:repeat;animation:grain 1.6s steps(6) infinite}
+@keyframes grain{
+  0%{transform:translate(0,0)}20%{transform:translate(-38px,22px)}
+  40%{transform:translate(24px,-30px)}60%{transform:translate(-20px,-14px)}
+  80%{transform:translate(30px,26px)}100%{transform:translate(0,0)}
+}
+/* the visitor's presence: a faint warm glow that drifts behind the cursor */
+.presence{position:fixed;left:0;top:0;width:880px;height:880px;z-index:2;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,236,205,.05) 0%,rgba(255,236,205,.02) 38%,rgba(255,236,205,0) 65%);
+  transform:translate(-50%,-50%);will-change:transform}
+@media (hover:none){.presence{display:none}}
+/* the room dimming between works, like eyes adjusting */
+.dimmer{position:fixed;inset:0;z-index:6;background:#0a0908;opacity:0;pointer-events:none;transition:opacity .5s ease}
+
+/* ============ masthead ============ */
+.masthead{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;height:74px;padding:0 var(--pad-x);border-bottom:1px solid var(--hairline)}
+.brand{font:500 11px/1 var(--sans);letter-spacing:.44em;text-transform:uppercase;color:var(--bone)}
+.sub{font:300 10.5px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--bone-dim);text-align:center}
+.meta{font:300 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bone-dim);justify-self:end}
+
+/* ============ the hang ============ */
+.room{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;
+  gap:clamp(40px,6vw,96px);padding:20px var(--pad-x);min-height:0}
+.hang{position:relative;cursor:pointer}
+/* the spotlight: light as attention. it warms on load, re-aims on every change,
+   and brightens as you approach the work */
+.spotlight{position:absolute;inset:-26% -34%;z-index:0;pointer-events:none;opacity:0;
+  transition:opacity 1.2s var(--ease),filter 1.4s var(--ease);
+  background:
+    radial-gradient(58% 52% at 50% 40%, rgba(255,240,214,.11) 0%, rgba(255,240,214,.04) 46%, rgba(255,240,214,0) 72%),
+    radial-gradient(46% 13% at 50% 103%, rgba(255,240,214,.05) 0%, rgba(255,240,214,0) 70%);
+}
+.ready .spotlight{opacity:1}
+.hang:hover .spotlight{filter:brightness(1.55)}
+/* the work floats off the wall on a pool of shadow */
+.frame{position:relative;z-index:1;background:#0e0d0b;border-radius:2px;
+  width:min(88vw,660px,calc(58vh * var(--r,.8)));
+  aspect-ratio:var(--ar,4/5);
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.85),0 8px 28px rgba(0,0,0,.45),0 0 0 1px rgba(233,226,212,.08);
+  transition:opacity .5s ease,filter 1.1s var(--ease),box-shadow 1.2s var(--ease);
+}
+.frame canvas{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:inherit}
+.hang:hover .frame{box-shadow:0 30px 80px -20px rgba(0,0,0,.85),0 8px 28px rgba(0,0,0,.45),0 0 0 1px rgba(233,226,212,.16)}
+.room.leaving .frame{opacity:0;filter:blur(6px) brightness(.55);transition:opacity .45s ease,filter .5s ease}
+
+/* ============ the plaque ============ */
+.plaque{width:min(280px,86vw);position:relative;z-index:1;transform:translateY(4.5vh)}
+.plaque h2{font:italic 300 clamp(26px,2.3vw,32px)/1.18 var(--serif);color:var(--bone);margin:15px 0 11px}
+.plaque .medium{font:300 11px/1.85 var(--sans);letter-spacing:.12em;color:var(--bone-dim)}
+.plaque .note{font:400 15.5px/1.7 var(--serif);color:var(--ink-soft);margin-top:13px}
+.plaque .line{opacity:0;transform:translateY(12px);
+  transition:opacity .75s var(--ease),transform .75s var(--ease)}
+
+/* shared label vocabulary (plaque + record) */
+.cat{font:500 10px/1 var(--sans);letter-spacing:.36em;text-transform:uppercase;color:var(--tungsten)}
+.artist{font:400 10.5px/1.7 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--bone-dim)}
+.rule{height:1px;background:var(--hairline);margin:20px 0 16px;position:relative}
+.rule i{position:absolute;left:0;top:0;height:1px;width:30px;background:var(--tungsten);transition:width 1s var(--ease)}
+/* light spills from the work onto the label when you approach it */
+@media (hover:hover) and (min-width:921px){
+  .room:has(.hang:hover) .rule i{width:100%}
+}
+
+/* ============ ghost button ============ */
+.ghost-btn{position:relative;background:none;border:0;padding:12px 0 9px;margin-top:20px;cursor:pointer;
+  font:400 10.5px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim);
+  transition:color .5s var(--ease)}
+.ghost-btn::after{content:"";position:absolute;left:0;bottom:6px;width:100%;height:1px;background:var(--hairline)}
+.ghost-btn::before{content:"";position:absolute;left:0;bottom:6px;width:0;height:1px;background:var(--tungsten);
+  transition:width .9s var(--ease);z-index:1}
+.ghost-btn:hover{color:var(--bone)}
+.ghost-btn:hover::before{width:100%}
+
+/* ============ index (the exhibition checklist) ============ */
+.index{position:fixed;left:clamp(20px,3.4vw,48px);top:50%;transform:translateY(-50%);z-index:5;
+  display:flex;flex-direction:column;gap:15px}
+.index button{display:flex;align-items:center;gap:10px;background:none;border:0;padding:3px 0;cursor:pointer;
+  font:400 10px/1 var(--sans);letter-spacing:.22em;color:var(--bone-dim);opacity:.7;position:relative;
+  transition:color .5s var(--ease),opacity .5s var(--ease)}
+.index button:hover{opacity:1;color:var(--ink-soft)}
+.index button.active{opacity:1;color:var(--bone)}
+.index .tick{width:15px;height:1px;background:var(--tungsten);transform:scaleX(0);
+  transform-origin:left center;transition:transform .8s var(--ease)}
+.index button.active .tick{transform:scaleX(1)}
+.index button::after{content:attr(data-title);position:absolute;left:calc(100% + 16px);top:50%;
+  transform:translateY(-50%);font:italic 400 13.5px/1 var(--serif);color:var(--ink-soft);
+  white-space:nowrap;opacity:0;transition:opacity .5s var(--ease) .08s;pointer-events:none}
+.index button:hover::after,.index button:focus-visible::after{opacity:1}
+
+/* ============ footer ============ */
+.footer{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;height:70px;padding:0 var(--pad-x);border-top:1px solid var(--hairline)}
+.counter{font:400 11px/1 var(--sans);letter-spacing:.36em;color:var(--bone-dim);font-variant-numeric:tabular-nums}
+.nav-btn{display:flex;align-items:center;gap:14px;background:none;border:0;padding:10px 0;cursor:pointer;
+  font:400 10.5px/1 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--bone-dim);
+  transition:color .5s var(--ease)}
+.nav-btn:hover{color:var(--bone)}
+.arr-line{display:block;width:30px;height:1px;background:currentColor;transition:width .9s var(--ease)}
+.nav-btn:hover .arr-line{width:56px}
+.arr-head{flex:none}
+
+/* ============ the record (detail overlay) ============ */
+.overlay{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;
+  overflow:auto;padding:clamp(24px,5vw,72px);background:rgba(13,12,10,.88);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility 0s linear .6s}
+.overlay.open{opacity:1;visibility:visible;transition:opacity .6s var(--ease)}
+.close{position:absolute;top:22px;right:clamp(20px,4vw,52px);width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--hairline);background:rgba(21,19,17,.5);cursor:pointer;color:var(--bone-dim);
+  display:grid;place-items:center;transition:border-color .5s var(--ease),transform .9s var(--ease),color .5s var(--ease)}
+.close:hover{border-color:rgba(179,148,94,.6);transform:rotate(90deg);color:var(--bone)}
+.record{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(36px,5vw,84px);
+  align-items:center;max-width:1040px;width:100%;margin:auto}
+.record .frame{width:min(34vw,380px,calc(44vh * var(--r,.8)))}
+.record-art{justify-self:center}
+.record-text h2{font:italic 300 clamp(30px,3.2vw,42px)/1.12 var(--serif);color:var(--bone);margin:16px 0 10px}
+.facts{margin-top:4px}
+.facts>div{display:flex;justify-content:space-between;align-items:baseline;gap:28px;padding:10px 2px;
+  border-bottom:1px solid var(--hairline)}
+.facts>div:first-child{border-top:1px solid var(--hairline)}
+.facts dt{font:400 9.5px/1 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--bone-dim)}
+.facts dd{font:300 12.5px/1.5 var(--sans);letter-spacing:.05em;color:var(--bone);text-align:right}
+.record .long{font:400 16.5px/1.78 var(--serif);color:var(--ink-soft);margin-top:20px;max-width:54ch}
+.record .line{opacity:0;transform:translateY(12px);
+  transition:opacity .8s var(--ease) var(--d,0ms),transform .8s var(--ease) var(--d,0ms)}
+.overlay.open .record .line{opacity:1;transform:none}
+
+/* ============ boot ceremony ============ */
+[data-boot]{opacity:0;transform:translateY(12px);
+  transition:opacity 1.1s var(--ease) var(--d,0ms),transform 1.1s var(--ease) var(--d,0ms),filter 1.4s var(--ease) var(--d,0ms)}
+.ready [data-boot]{opacity:1;transform:none}
+#hang[data-boot]{filter:blur(16px) brightness(.6)}   /* the work warms into focus */
+
+/* ============ responsive ============ */
+@media (max-width:920px){
+  body{height:auto;min-height:100dvh;overflow:auto;grid-template-rows:auto auto auto auto}
+  .masthead{height:62px}
+  .masthead .sub{display:none}
+  .room{flex-direction:column;gap:34px;padding-top:40px;padding-bottom:26px}
+  .frame{width:min(86vw,500px,calc(50vh * var(--r,.8)))}
+  .plaque{transform:none;text-align:center;width:min(460px,88vw)}
+  .rule i{left:50%;transform:translateX(-50%);width:34px}
+  .index{position:static;transform:none;flex-direction:row;justify-content:center;gap:24px;padding:6px 0 16px}
+  .index button::after{display:none}
+  .footer{height:62px}
+  .record{grid-template-columns:1fr;gap:34px;max-width:560px;padding:64px 0 24px}
+  .record .frame{width:min(72vw,360px,calc(44vh * var(--r,.8)))}
+}
+@media (max-height:600px) and (min-width:921px){body{height:auto;overflow:auto}}
+@media (prefers-reduced-motion:reduce){
+  .grain{animation:none}
+  [data-boot],.plaque .line,.record .line,.frame,.spotlight,.dimmer,
+  .index .tick,.arr-line,.ghost-btn::before,.rule i{transition-duration:.001ms!important;transition-delay:0ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="wall" aria-hidden="true"></div>
+<div class="presence" aria-hidden="true"></div>
+<div class="dimmer" aria-hidden="true"></div>
+
+<header class="masthead">
+  <span class="brand" data-boot style="--d:150ms">Nocturne</span>
+  <span class="sub" data-boot style="--d:320ms">Six studies in light &amp; silence</span>
+  <span class="meta" data-boot style="--d:470ms">East Wing · Night hours</span>
+</header>
+
+<main class="room" id="room">
+  <div class="hang" id="hang" data-boot style="--d:380ms" role="button" tabindex="0"
+       aria-label="Open the record for the current work">
+    <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+    <div class="frame" id="frame">
+      <canvas id="art" role="img"></canvas>
+    </div>
+  </div>
+
+  <aside class="plaque" aria-live="polite">
+    <p class="cat line" id="p-cat"></p>
+    <h2 class="line" id="p-title"></h2>
+    <p class="artist line" id="p-artist"></p>
+    <div class="rule line"><i></i></div>
+    <p class="medium line" id="p-medium"></p>
+    <p class="note line" id="p-note"></p>
+    <button class="ghost-btn line" id="record-btn" type="button">View the record</button>
+  </aside>
+</main>
+
+<nav class="index" id="index" aria-label="Works in the exhibition"></nav>
+
+<footer class="footer">
+  <button class="nav-btn" id="prev-btn" data-boot style="--d:700ms" type="button">
+    <svg class="arr-head" width="7" height="10" viewBox="0 0 7 10" aria-hidden="true">
+      <path d="M6 1 1.5 5 6 9" fill="none" stroke="currentColor" stroke-width="1"/>
+    </svg>
+    <span class="arr-line" aria-hidden="true"></span>
+    <span>Previous</span>
+  </button>
+  <span class="counter" id="counter" data-boot style="--d:820ms" aria-hidden="true"></span>
+  <button class="nav-btn" id="next-btn" data-boot style="--d:940ms" type="button">
+    <span>Next</span>
+    <span class="arr-line" aria-hidden="true"></span>
+    <svg class="arr-head" width="7" height="10" viewBox="0 0 7 10" aria-hidden="true">
+      <path d="M1 1 5.5 5 1 9" fill="none" stroke="currentColor" stroke-width="1"/>
+    </svg>
+  </button>
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Work record">
+  <button class="close" id="close-btn" type="button" aria-label="Return to the room" title="Esc">
+    <svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true">
+      <path d="M1.5 1.5 10.5 10.5 M10.5 1.5 1.5 10.5" stroke="currentColor" stroke-width="1"/>
+    </svg>
+  </button>
+  <div class="record">
+    <div class="record-art line" style="--d:120ms">
+      <div class="frame" id="r-frame"><canvas id="r-art" role="img"></canvas></div>
+    </div>
+    <div class="record-text">
+      <p class="cat line" style="--d:180ms" id="r-cat"></p>
+      <h2 class="line" style="--d:250ms" id="r-title"></h2>
+      <p class="artist line" style="--d:320ms" id="r-artist"></p>
+      <div class="rule line" style="--d:380ms"><i></i></div>
+      <dl class="facts">
+        <div class="line" style="--d:440ms"><dt>Medium</dt><dd id="r-medium"></dd></div>
+        <div class="line" style="--d:490ms"><dt>Dimensions</dt><dd id="r-dims"></dd></div>
+        <div class="line" style="--d:540ms"><dt>Year</dt><dd id="r-year"></dd></div>
+        <div class="line" style="--d:590ms"><dt>Catalogue</dt><dd id="r-cat2"></dd></div>
+      </dl>
+      <p class="long line" style="--d:660ms" id="r-note"></p>
+      <button class="ghost-btn line" style="--d:740ms" id="return-btn" type="button">Return to the room</button>
+    </div>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<script>
+'use strict';
+/* ================= utilities ================= */
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const clampN=(v,a,b)=>Math.min(b,Math.max(a,v));
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+/* seeded PRNG so every artwork renders identically on every visit */
+function mulberry32(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;
+  let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+/* ================= material: the grain tile =================
+   One noise tile serves both the wall overlay and every canvas,
+   so the whole room shares the same "surface". */
+const grainTile=(()=>{
+  const c=document.createElement('canvas');c.width=c.height=160;
+  const g=c.getContext('2d'),d=g.createImageData(160,160);
+  for(let i=0;i<d.data.length;i+=4){const v=100+Math.random()*80;
+    d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255}
+  g.putImageData(d,0,0);return c;
+})();
+$('.grain').style.backgroundImage=`url(${grainTile.toDataURL()})`;
+
+function grainPass(ctx,strength){ /* pressed into each canvas as tooth */
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);
+  ctx.globalCompositeOperation='overlay';ctx.globalAlpha=strength;
+  ctx.fillStyle=ctx.createPattern(grainTile,'repeat');
+  ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);ctx.restore();
+}
+function vignette(ctx,w,h){ /* edges recede: the work is an object in light */
+  const g=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*.34,w/2,h/2,Math.hypot(w,h)*.60);
+  g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.17)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+}
+
+/* ================= the six painters =================
+   Each work is drawn by hand-tuned canvas code with seeded
+   imperfection — jittered lines, uneven pressure — so nothing
+   feels machine-perfect. */
+function paintGrid(ctx,w,h,rnd){ /* I — pencil rows on bone */
+  ctx.fillStyle='#e7e0d1';ctx.fillRect(0,0,w,h);
+  const wash=ctx.createRadialGradient(w*.5,h*.36,0,w*.5,h*.36,w*.85);
+  wash.addColorStop(0,'rgba(191,158,104,.10)');wash.addColorStop(1,'rgba(191,158,104,0)');
+  ctx.fillStyle=wash;ctx.fillRect(0,0,w,h);
+  const m=h*.13,n=30;ctx.lineWidth=1;
+  for(let i=0;i<=n;i++){
+    const y=m+(h-2*m)*i/n;
+    ctx.strokeStyle=`rgba(76,66,52,${(.09+rnd()*.15).toFixed(3)})`;
+    const ph=rnd()*6.28,amp=.5+rnd()*.9;
+    ctx.beginPath();
+    for(let x=w*.11,k=0;x<=w*.89;x+=w*.012,k++){
+      const yy=y+Math.sin(x*.02+ph)*amp+(rnd()-.5)*.5;
+      k===0?ctx.moveTo(x,yy):ctx.lineTo(x,yy);
+    }
+    ctx.stroke();
+  }
+}
+function paintLines(ctx,w,h,rnd){ /* II — sixty ink lines, one warm */
+  ctx.fillStyle='#eae3d4';ctx.fillRect(0,0,w,h);
+  const n=60,mx=w*.17,top=h*.17,bot=h*.83,warmAt=Math.floor(n*.64);
+  let drift=0;
+  for(let i=0;i<n;i++){
+    const x=mx+(w-2*mx)*i/(n-1);
+    drift=clampN(drift+(rnd()-.5)*2.4,-13,13); /* the cumulative "plotter error" */
+    const warm=i===warmAt;
+    ctx.strokeStyle=warm?'rgba(163,112,50,.85)':`rgba(47,42,34,${(.30+rnd()*.32).toFixed(3)})`;
+    ctx.lineWidth=warm?2:1;
+    ctx.beginPath();
+    ctx.moveTo(x+drift*.35,top+(rnd()-.5)*2.5);
+    ctx.lineTo(x+drift,bot+(rnd()-.5)*2.5);
+    ctx.stroke();
+  }
+}
+function paintDisc(ctx,w,h,rnd){ /* III — a bone disc on dark ground */
+  ctx.fillStyle='#211d18';ctx.fillRect(0,0,w,h);
+  const r=Math.min(w,h)*.30,cx=w*.46,cy=h*.44;
+  ctx.strokeStyle='rgba(176,136,72,.5)';ctx.lineWidth=1.1;
+  ctx.beginPath();ctx.arc(cx,cy,r*1.34,-2.5,-.35);ctx.stroke();
+  ctx.strokeStyle='rgba(233,226,210,.08)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.arc(cx,cy,r*1.62,0,6.29);ctx.stroke();
+  const g=ctx.createRadialGradient(cx-r*.28,cy-r*.32,r*.08,cx,cy,r);
+  g.addColorStop(0,'#eae3d3');g.addColorStop(.72,'#ded5c1');g.addColorStop(1,'#c6b99e');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,6.29);ctx.fill();
+}
+function paintHorizon(ctx,w,h,rnd){ /* IV — two fields, one ochre decision */
+  ctx.fillStyle='#e8e1d2';ctx.fillRect(0,0,w,h);
+  const hy=h*.66;
+  ctx.fillStyle='#37302a';
+  ctx.beginPath();ctx.moveTo(0,hy);
+  for(let x=0;x<=w;x+=w/40)ctx.lineTo(x,hy+(rnd()-.5)*1.8);
+  ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fill();
+  const g=ctx.createLinearGradient(0,hy,0,h);
+  g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.32)');
+  ctx.fillStyle=g;ctx.fillRect(0,hy,w,h-hy);
+  ctx.strokeStyle='rgba(163,112,50,.7)';ctx.lineWidth=1.3;
+  ctx.beginPath();ctx.moveTo(w*.15,hy-h*.08);ctx.lineTo(w*.85,hy-h*.08);ctx.stroke();
+  ctx.strokeStyle='rgba(76,66,52,.28)';ctx.lineWidth=1;
+  for(let i=0;i<4;i++){
+    const x=w*(.22+rnd()*.56);
+    ctx.beginPath();ctx.moveTo(x,hy-h*.045);ctx.lineTo(x+(rnd()-.5)*2,hy-h*.012);ctx.stroke();
+  }
+}
+function paintMarks(ctx,w,h,rnd){ /* V — a night chart of graphite ticks */
+  ctx.fillStyle='#e5ded0';ctx.fillRect(0,0,w,h);
+  const cols=13,rows=17,mx=w*.15,my=h*.12;
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+    if(rnd()<.17)continue;
+    const x=mx+(w-2*mx)*c/(cols-1)+(rnd()-.5)*5;
+    const y=my+(h-2*my)*r/(rows-1)+(rnd()-.5)*5;
+    const warm=rnd()<.05;
+    ctx.strokeStyle=warm?'rgba(163,112,50,.65)':`rgba(58,50,40,${(.10+rnd()*.30).toFixed(3)})`;
+    ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+(rnd()-.5)*1.6,y+2.5+rnd()*7);ctx.stroke();
+  }
+}
+function paintVeil(ctx,w,h,rnd){ /* VI — light through slats, on dyed linen */
+  ctx.fillStyle='#1d1a16';ctx.fillRect(0,0,w,h);
+  const bands=8;
+  for(let i=0;i<bands;i++){
+    const bw=w*(.05+rnd()*.10);
+    const x=w*.07+(w*.86)*i/(bands-1)+(rnd()-.5)*w*.03;
+    const a=.05+rnd()*.12;
+    const g=ctx.createLinearGradient(x,0,x+bw,0);
+    g.addColorStop(0,'rgba(236,222,196,0)');
+    g.addColorStop(.5,`rgba(236,222,196,${a.toFixed(3)})`);
+    g.addColorStop(1,'rgba(236,222,196,0)');
+    ctx.fillStyle=g;ctx.fillRect(x,0,bw,h);
+  }
+  const g2=ctx.createLinearGradient(w*.18,0,w*.82,0);
+  g2.addColorStop(0,'rgba(236,222,196,0)');g2.addColorStop(.5,'rgba(236,222,196,.045)');
+  g2.addColorStop(1,'rgba(236,222,196,0)');
+  ctx.fillStyle=g2;ctx.fillRect(w*.18,0,w*.64,h);
+}
+
+/* ================= the exhibition ================= */
+const WORKS=[
+ {num:'I',cat:'N.01',title:'Night Grid',artist:'Mara Ilves',year:'1971',
+  medium:'Graphite and mineral pigment on linen',dims:'82 × 64 cm',
+  ratio:[4,5],seed:11,dark:false,paint:paintGrid,
+  note:'Ruled over eleven nights. The lines loosen toward morning, and it is there the drawing breathes.',
+  long:'Ruled over eleven nights in a studio lit only by a north window, the grid was drawn at dusk and abandoned each morning when the light turned warm. Ilves never corrected a line once the sun had touched it. The rows loosen toward the lower edge of the linen, and it is there — where the hand grew tired — that the drawing finally breathes.'},
+ {num:'II',cat:'N.02',title:'Sixty Lines, One Warm',artist:'Tomas Okazaki',year:'1983',
+  medium:'Iron-gall ink on cotton paper',dims:'56 × 76 cm',
+  ratio:[56,76],seed:27,dark:false,paint:paintLines,
+  note:'A plotter\u2019s error, kept. The warm line marks the moment the machine was forgiven.',
+  long:'Drawn by a modified flatbed plotter over the course of a winter, sixty lines to a sheet. On the fifty-third pass the feed slipped and the machine drew a single line from the wrong reservoir of ink. Okazaki kept the error, re-inked the reservoir to match, and rebuilt the remaining sheets around that one warm deviation.'},
+ {num:'III',cat:'N.03',title:'Disc at Rest',artist:'H\u00e9l\u00e8ne Vasseur',year:'1968',
+  medium:'Oil and marble dust on panel',dims:'90 × 90 cm',
+  ratio:[1,1],seed:42,dark:true,paint:paintDisc,
+  note:'Painted in a sitting that lasted three days. The halo is where the light was allowed to leave.',
+  long:'Painted in a single sitting that lasted three days, the panel kept flat on the studio floor so the marble dust would settle evenly — it never did. The surface therefore holds the light differently at every hour, which Vasseur considered the true subject of the work. The thin halo is where she allowed the light to leave the disc.'},
+ {num:'IV',cat:'N.04',title:'Horizon, Measured Twice',artist:'James Aldous',year:'1994',
+  medium:'Casein on panel',dims:'118 × 74 cm',
+  ratio:[118,74],seed:58,dark:false,paint:paintHorizon,
+  note:'The upper field first, the lower a year later. Between them, the day\u2019s only decision.',
+  long:'The upper field was painted first, the lower second, with a full year between them — Aldous called the intervening months \u201cthe measurement.\u201d He refused to let the two fields meet cleanly; the horizon wavers because it was made by a hand that had changed its mind. The ochre line above is not the horizon itself but the act of looking at it.'},
+ {num:'V',cat:'N.05',title:'Fall of Marks',artist:'Runa Lindqvist',year:'2002',
+  medium:'Graphite on paper',dims:'64 × 82 cm',
+  ratio:[64,82],seed:73,dark:false,paint:paintMarks,
+  note:'Rainfall against the studio window, transcribed from memory the following winter.',
+  long:'A record of rainfall against the studio window through one night in October, transcribed from memory the following winter. Lindqvist worked with the curtains drawn, insisting that remembering the rain was more accurate than counting it. The few warm marks are the streetlamp, which she could not bring herself to leave out.'},
+ {num:'VI',cat:'N.06',title:'Veil',artist:'Ana Beltr\u00e1n',year:'2024',
+  medium:'Pigment on dyed linen, unvarnished',dims:'138 × 92 cm',
+  ratio:[138,92],seed:91,dark:true,paint:paintVeil,
+  note:'The newest work in the room, and the only one made for the dark.',
+  long:'The newest work in the room, and the only one made for the dark. It hung facing the window for a week before Beltr\u00e1n turned it to the wall and declared it finished. The bands are pigment on dyed linen, left unvarnished; they will continue to fade for decades, which the artist describes as the work\u2019s final movement.'}
+];
+
+/* ================= rendering ================= */
+const room=$('#room'),frame=$('#frame'),art=$('#art'),spotlight=$('#spotlight'),
+      dimmer=$('.dimmer'),counter=$('#counter'),overlay=$('#overlay'),
+      rFrame=$('#r-frame'),rArt=$('#r-art'),hang=$('#hang');
+const plaqueLines=$$('.plaque .line');
+
+function renderArt(canvas,work){
+  const r=canvas.getBoundingClientRect();
+  if(r.width<2)return;
+  const dpr=clampN(window.devicePixelRatio||1,1,2);
+  canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);
+  const ctx=canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  work.paint(ctx,r.width,r.height,mulberry32(work.seed));
+  vignette(ctx,r.width,r.height);
+  grainPass(ctx,work.dark?0.5:0.38); /* dark works take more tooth */
+}
+
+function setWork(i){
+  const w=WORKS[i];
+  frame.style.setProperty('--r',(w.ratio[0]/w.ratio[1]).toFixed(4));
+  frame.style.setProperty('--ar',`${w.ratio[0]} / ${w.ratio[1]}`);
+  $('#p-cat').textContent=w.cat;
+  $('#p-title').textContent=w.title;
+  $('#p-artist').textContent=`${w.artist} · ${w.year}`;
+  $('#p-medium').textContent=w.medium;
+  $('#p-note').textContent=w.note;
+  /* medium + dims as two quiet lines */
+  $('#p-medium').innerHTML=`${w.medium}<br>${w.dims}`;
+  art.setAttribute('aria-label',`${w.title} — ${w.artist}, ${w.year}`);
+  counter.textContent=`${String(i+1).padStart(2,'0')} / ${String(WORKS.length).padStart(2,'0')}`;
+  indexBtns.forEach((b,bi)=>b.classList.toggle('active',bi===i));
+  document.title=`${w.title} — Nocturne`;
+}
+
+/* plaque lines rise one at a time — the label is "read" by the light */
+function revealPlaque(){
+  plaqueLines.forEach(el=>{el.style.transition='none';el.style.opacity='0';el.style.transform='translateY(12px)'});
+  void document.body.offsetHeight;
+  plaqueLines.forEach((el,i)=>{
+    el.style.transition='';el.style.transitionDelay=`${140+i*95}ms`;
+    el.style.opacity='1';el.style.transform='none';
+  });
+}
+function hidePlaque(){
+  plaqueLines.forEach((el,i)=>{
+    el.style.transition='opacity .35s ease,transform .35s ease';
+    el.style.transitionDelay=`${i*30}ms`;
+    el.style.opacity='0';el.style.transform='translateY(-8px)';
+  });
+}
+
+/* ================= the ceremony of moving through the room ================= */
+let cur=0,busy=false,pending=null;
+
+async function goTo(i){
+  i=(i+WORKS.length)%WORKS.length;
+  if(i===cur)return;
+  if(busy){pending=i;return}
+  busy=true;cur=i;
+
+  /* phase one — the room dims, the work lets go of the light */
+  hidePlaque();
+  room.classList.add('leaving');
+  spotlight.style.opacity='.12';
+  dimmer.style.opacity='.34';
+  await wait(520);
+
+  /* phase two — swap, in the dark */
+  setWork(i);
+  renderArt(art,WORKS[i]);
+  if(overlayOpen)fillRecord(i,true);
+  room.classList.remove('leaving');
+  frame.style.transition='none';
+  frame.style.opacity='0';frame.style.filter='blur(14px) brightness(.7)';
+  spotlight.style.transition='none';spotlight.style.opacity='0';
+  dimmer.style.transition='opacity 1.3s var(--ease)';dimmer.style.opacity='0';
+
+  /* phase three — the spotlight warms, the work comes into focus */
+  await nextFrame();
+  frame.style.transition='opacity 1.15s var(--ease),filter 1.5s var(--ease),box-shadow 1.2s var(--ease)';
+  frame.style.opacity='1';frame.style.filter='none';
+  spotlight.style.transition='opacity 1.4s var(--ease)';spotlight.style.opacity='';
+  revealPlaque();
+  await wait(1250);
+
+  frame.style.transition='';spotlight.style.transition='';dimmer.style.transition='';
+  busy=false;
+  if(pending!=null){const p=pending;pending=null;if(p!==cur)goTo(p)}
+}
+
+/* ================= index ================= */
+const indexNav=$('#index');
+const indexBtns=WORKS.map((w,i)=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.setAttribute('data-boot','');
+  b.style.setProperty('--d',`${620+i*70}ms`);
+  b.dataset.title=w.title;
+  b.setAttribute('aria-label',`Work ${w.num} — ${w.title}`);
+  b.innerHTML=`<span class="tick" aria-hidden="true"></span><span>${w.num}</span>`;
+  b.addEventListener('click',()=>goTo(i));
+  indexNav.appendChild(b);
+  return b;
+});
+
+/* ================= the record (detail view) ================= */
+let overlayOpen=false,lastFocus=null;
+
+function fillRecord(i,soft){
+  const w=WORKS[i];
+  $('#r-cat').textContent=w.cat;
+  $('#r-title').textContent=w.title;
+  $('#r-artist').textContent=`${w.artist} · ${w.year}`;
+  $('#r-medium').textContent=w.medium;
+  $('#r-dims').textContent=w.dims;
+  $('#r-year').textContent=w.year;
+  $('#r-cat2').textContent=w.cat;
+  $('#r-note').textContent=w.long;
+  rFrame.style.setProperty('--r',(w.ratio[0]/w.ratio[1]).toFixed(4));
+  rFrame.style.setProperty('--ar',`${w.ratio[0]} / ${w.ratio[1]}`);
+  rArt.setAttribute('aria-label',`${w.title} — ${w.artist}, ${w.year}`);
+  requestAnimationFrame(()=>renderArt(rArt,w));
+  if(soft){ /* re-stagger when browsing inside the record */
+    const lines=$$('.record .line');
+    lines.forEach(el=>{el.style.transition='none';el.style.opacity='0';el.style.transform='translateY(8px)'});
+    void document.body.offsetHeight;
+    lines.forEach((el,k)=>{el.style.transition='';el.style.transitionDelay=`${60+k*55}ms`});
+  }
+}
+function openRecord(){
+  lastFocus=document.activeElement;
+  fillRecord(cur,false);
+  overlayOpen=true;
+  overlay.classList.add('open');
+  setTimeout(()=>$('#close-btn').focus(),380);
+}
+function closeRecord(){
+  overlayOpen=false;
+  overlay.classList.remove('open');
+  $$('.record .line').forEach(el=>el.style.transitionDelay='0ms');
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+
+/* ================= wiring ================= */
+$('#prev-btn').addEventListener('click',()=>goTo(cur-1));
+$('#next-btn').addEventListener('click',()=>goTo(cur+1));
+$('#record-btn').addEventListener('click',openRecord);
+$('#return-btn').addEventListener('click',closeRecord);
+$('#close-btn').addEventListener('click',closeRecord);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeRecord()});
+hang.addEventListener('click',openRecord);
+hang.addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();openRecord()}
+});
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')goTo(cur+1);
+  else if(e.key==='ArrowLeft')goTo(cur-1);
+  else if(e.key==='Escape'&&overlayOpen)closeRecord();
+});
+let rT;addEventListener('resize',()=>{
+  clearTimeout(rT);
+  rT=setTimeout(()=>{renderArt(art,WORKS[cur]);if(overlayOpen)renderArt(rArt,WORKS[cur])},160);
+});
+
+/* the visitor's presence: a warm glow that lags behind the cursor like carried light */
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const el=$('.presence');
+  let tx=innerWidth/2,ty=innerHeight*.42,cx=tx,cy=ty;
+  addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY},{passive:true});
+  (function loop(){
+    cx+=(tx-cx)*.06;cy+=(ty-cy)*.06;
+    el.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  })();
+}
+
+/* ================= boot: the lights come up ================= */
+setWork(0);
+renderArt(art,WORKS[0]);
+Promise.race([document.fonts.ready,wait(1600)])
+  .then(()=>wait(120))
+  .then(()=>{
+    document.body.classList.add('ready');   /* wall, spotlight and work warm in */
+    setTimeout(revealPlaque,650);           /* then the label is read, line by line */
+  });
+</script>
+</body>
+</html>

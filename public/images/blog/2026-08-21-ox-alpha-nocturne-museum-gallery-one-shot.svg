@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c1814"/>
+      <stop offset="100%" stop-color="#151311"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="38%" cy="42%" r="38%">
+      <stop offset="0%" stop-color="#ffe8c8" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#151311" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#spot)"/>
+  <rect x="210" y="150" width="280" height="350" fill="#2a261f" rx="2"/>
+  <rect x="222" y="162" width="256" height="326" fill="#cfc6b4"/>
+  <g stroke="#8a8170" stroke-width="0.6" opacity="0.45">
+    <path d="M240 180 H460 M240 210 H460 M240 240 H460 M240 270 H460 M240 300 H460 M240 330 H460 M240 360 H460 M240 390 H460 M240 420 H460 M240 450 H460"/>
+  </g>
+  <g font-family="Georgia,serif" fill="#e9e2d4">
+    <text x="560" y="88" font-size="14" letter-spacing="8" fill="#b3945e">OX ALPHA · ONE SHOT 05</text>
+    <text x="560" y="168" font-size="48" font-style="italic">Nocturne</text>
+    <text x="560" y="208" font-size="20" fill="#9a9180">Six studies in a night museum</text>
+  </g>
+  <g font-family="'SF Mono','Courier New',monospace" fill="#9a9180">
+    <rect x="0" y="548" width="1200" height="76" fill="#0e0d0b"/>
+    <text x="56" y="578" font-size="11" fill="#6a6356">MODEL</text>
+    <text x="56" y="600" font-size="16" fill="#e9e2d4">stealth/ox-alpha</text>
+    <text x="320" y="578" font-size="11" fill="#6a6356">WALL CLOCK</text>
+    <text x="320" y="600" font-size="16" fill="#e9e2d4">14.6 min</text>
+    <text x="520" y="578" font-size="11" fill="#6a6356">TOKENS</text>
+    <text x="520" y="600" font-size="16" fill="#e9e2d4">50,916</text>
+    <text x="720" y="578" font-size="11" fill="#6a6356">HTML</text>
+    <text x="720" y="600" font-size="16" fill="#e9e2d4">32.4 KB</text>
+    <text x="920" y="578" font-size="11" fill="#6a6356">COST</text>
+    <text x="920" y="600" font-size="16" fill="#e9e2d4">$0.00</text>
+  </g>
+</svg>
