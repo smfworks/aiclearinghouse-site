@@ -1,14 +1,14 @@
 ---
 slug: "wisdomforge-kids-hermes-skill-pack"
 title: "Kids Hermes v0.2: From Design Guidance to a Parent Toolkit"
-excerpt: "v0.2 of the WisdomForge kids Hermes kit adds eight copy-in skills, per-band restriction recipes, a privacy checklist, and a band-change path. The philosophy is unchanged. The rituals are now procedural."
+excerpt: "v0.2 of the WisdomForge kids Hermes kit made the rituals installable. v0.2.1, now on main, adds skill examples, a private scaffold, family notes, and a five-minute smoke test. The philosophy is unchanged."
 date: "2026-08-23"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"
 categories: ["AI", "Hermes", "WisdomForge", "Education", "SMF Works"]
 tags: ["hermes", "wisdomforge", "kids", "skills", "parenting", "education"]
-readTime: 8
+readTime: 10
 image: "/images/blog/wisdomforge-kids-hermes-skill-pack-hero.svg"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/wisdomforge-kids-hermes-skill-pack"
 ---
@@ -26,6 +26,8 @@ A seed is a promise. It is not a habit.
 v0.2 landed on `main` today as [PR #1](https://github.com/smfworks/wisdomforge-kids-Hermes-profiles/pull/1) (`7179bf1`). It turns the promises into copy-in skills, restriction recipes, and a maintenance path. The original narrative is still here: [A Separate Agent for Each Age Band](/blog/wisdomforge-kids-hermes-profiles). That article is the why. This one is the kit you can hand an adult Hermes agent.
 
 This is still not a hosted “kids AI.” It still does not make AI safe. `SOUL.md` still does not sandbox the computer.
+
+**Addendum (2026-08-23, later):** v0.2.1 is on `main` as [PR #2](https://github.com/smfworks/wisdomforge-kids-Hermes-profiles/pull/2) (`b6d2fd2`). Same kit. More depth. See [below](#addendum--v021).
 
 ## What changed, and why it matters
 
@@ -95,9 +97,33 @@ Hint-first still leans on one math trial (Bastani et al., 2025, *PNAS*). Non-att
 
 v0.2 makes the rituals harder to drop. It does not make the research settled. It does not make a cloud provider private. Official Hermes docs still win when a command here goes stale.
 
+## Addendum — v0.2.1
+
+v0.2.1 merged to `main` the same day ([PR #2](https://github.com/smfworks/wisdomforge-kids-Hermes-profiles/pull/2), `b6d2fd2`). It is not a new product. It is the same kit with examples, a private scaffold, and less guesswork for the parent.
+
+**The original eight skills** now ship with short synthetic dialogues and a changelog. The ritual can take an optional figure or chapter name and ask questions only — never dump booklet text. If Approved / Unavailable in SOUL is still `[LIST]`, the capability check treats that as conversation only, not as permission.
+
+**Five new skills, still optional:**
+
+| Skill | Job | Who |
+|-------|-----|-----|
+| `session-boundaries` | One more question, then a break. No “I’ll wait.” | Especially 5–10 |
+| `ai-literacy` | Models predict next words. They can be wrong. | High; two sentences for younger bands |
+| `booklet-question-bank` | Parent-approved questions only | Optional, all bands |
+| `family-isolation-check` | Parent-only audit that files stayed isolated | Parent |
+| `parent-setup-helper` | Walks PARENT-GUIDE on the **adult** profile | Adult only |
+
+**Parent ergonomics.** `scripts/scaffold_child_profile.py` copies seeds, the band snippet, and recommended skills into a **private** folder. It refuses to write inside the public repo except `examples/`. `docs/FAMILY.md` is one child, one profile. `configs/local-models.md` is how to keep chat text on hardware you control. PARENT-GUIDE now has a five-minute smoke test, an enablement table, and a short FAQ.
+
+**Synthetic examples.** `examples/willow`, `juniper`, and `cedar` hold filled sample files and transcripts. They are fictional. They are not real children.
+
+A v0.2 profile does not need a rebuild. Copy the new skill folders you want. Re-run EVALS, including SKILL-07 through SKILL-10 (long session, pause, literacy, empty question bank).
+
+Still not a hosted kids AI. Still not a sandbox. Still not a COPPA certificate.
+
 ## Where to go
 
-- **Kit (v0.2 on main):** [github.com/smfworks/wisdomforge-kids-Hermes-profiles](https://github.com/smfworks/wisdomforge-kids-Hermes-profiles)
+- **Kit (v0.2.1 on main):** [github.com/smfworks/wisdomforge-kids-Hermes-profiles](https://github.com/smfworks/wisdomforge-kids-Hermes-profiles)
 - **Why the kit exists:** [A Separate Agent for Each Age Band](/blog/wisdomforge-kids-hermes-profiles)
 - **Adult team kit:** [github.com/smfworks/hermes-ai-team](https://github.com/smfworks/hermes-ai-team)
 - **Booklets:** [smfwisdomforge.com](https://www.smfwisdomforge.com)
