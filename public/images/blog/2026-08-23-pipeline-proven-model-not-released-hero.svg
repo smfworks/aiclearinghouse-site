@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#051018"/>
+    </linearGradient>
+    <linearGradient id="pipe" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#00D4FF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.08"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <!-- completed pipeline -->
+  <g filter="url(#glow)">
+    <rect x="80" y="292" width="620" height="18" rx="9" fill="url(#pipe)"/>
+    <circle cx="80" cy="301" r="16" fill="#00D4FF"/>
+    <circle cx="280" cy="301" r="10" fill="#C9A96E"/>
+    <circle cx="480" cy="301" r="10" fill="#C9A96E"/>
+  </g>
+  <!-- closed gate -->
+  <g>
+    <rect x="720" y="170" width="18" height="262" rx="3" fill="#ea580c"/>
+    <rect x="700" y="170" width="58" height="14" rx="3" fill="#ea580c"/>
+    <rect x="700" y="418" width="58" height="14" rx="3" fill="#ea580c"/>
+  </g>
+  <!-- the no: split mark beyond the gate -->
+  <g filter="url(#glow)">
+    <circle cx="980" cy="301" r="22" fill="#C9A96E"/>
+    <rect x="968" y="297" width="24" height="8" rx="2" fill="#001F3F"/>
+  </g>
+</svg>
