@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#000814"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="48%" cy="42%" r="52%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.13"/>
+      <stop offset="72%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Three band rings (same grammar as v0.1 hero) -->
+  <circle cx="300" cy="330" r="68" fill="none" stroke="#ea580c" stroke-width="2.2" opacity="0.72"/>
+  <circle cx="300" cy="330" r="7" fill="#ea580c" opacity="0.85"/>
+  <circle cx="600" cy="300" r="92" fill="none" stroke="#C9A96E" stroke-width="2.4" opacity="0.82"/>
+  <circle cx="600" cy="300" r="9" fill="#C9A96E"/>
+  <circle cx="900" cy="268" r="116" fill="none" stroke="#00D4FF" stroke-width="2.6" opacity="0.75"/>
+  <circle cx="900" cy="268" r="10" fill="#00D4FF" opacity="0.85"/>
+  <path d="M300 330 L600 300 L900 268" fill="none" stroke="#C9A96E" stroke-width="1.6" opacity="0.4"/>
+
+  <!-- Eight skill nodes around the middle band — no letters -->
+  <g fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.7">
+    <circle cx="600" cy="168" r="11"/>
+    <circle cx="712" cy="214" r="11"/>
+    <circle cx="748" cy="330" r="11"/>
+    <circle cx="712" cy="446" r="11"/>
+    <circle cx="600" cy="492" r="11"/>
+    <circle cx="488" cy="446" r="11"/>
+    <circle cx="452" cy="330" r="11"/>
+    <circle cx="488" cy="214" r="11"/>
+  </g>
+  <g fill="#ea580c" opacity="0.8">
+    <circle cx="600" cy="168" r="3.2"/>
+    <circle cx="712" cy="214" r="3.2"/>
+    <circle cx="748" cy="330" r="3.2"/>
+    <circle cx="712" cy="446" r="3.2"/>
+    <circle cx="600" cy="492" r="3.2"/>
+    <circle cx="488" cy="446" r="3.2"/>
+    <circle cx="452" cy="330" r="3.2"/>
+    <circle cx="488" cy="214" r="3.2"/>
+  </g>
+  <g stroke="#C9A96E" stroke-width="0.7" opacity="0.22">
+    <line x1="600" y1="208" x2="600" y2="179"/>
+    <line x1="668" y1="248" x2="704" y2="221"/>
+    <line x1="692" y1="300" x2="737" y2="330"/>
+    <line x1="668" y1="352" x2="704" y2="438"/>
+    <line x1="600" y1="392" x2="600" y2="481"/>
+    <line x1="532" y1="352" x2="496" y2="438"/>
+    <line x1="508" y1="300" x2="463" y2="330"/>
+    <line x1="532" y1="248" x2="496" y2="221"/>
+  </g>
+
+  <line x1="100" y1="560" x2="1100" y2="560" stroke="#C9A96E" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="600" cy="560" r="4" fill="#C9A96E" opacity="0.5"/>
+</svg>

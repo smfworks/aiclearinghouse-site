@@ -29,6 +29,8 @@ Children are not that person.
 
 This is not a hosted “kids AI.” It does not make AI safe. It gives a parent a design they can inspect, change, test, and refuse.
 
+**Update (2026-08-23):** v0.2 is on `main` — copy-in skills, restriction recipes, and a band-change path. [What changed, and what it means for parents and kids](/blog/wisdomforge-kids-hermes-skill-pack).
+
 ## Why a second kit
 
 A working adult Hermes profile can run a terminal, send mail, schedule jobs, and remember a lot. Turning off two tools does not make that a good start for a child. Memory, credentials, and skills leak. Tone leaks. The child inherits a life that is not theirs.
