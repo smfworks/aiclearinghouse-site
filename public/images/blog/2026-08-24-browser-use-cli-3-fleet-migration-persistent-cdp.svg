@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- grid -->
+  <g opacity="0.04" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <!-- circuit traces right side -->
+  <g opacity="0.06" stroke="#00E5A0" fill="none">
+    <path d="M950 80 H1080 V180 H1000 V280 H1100"/>
+    <path d="M900 500 H1050 V420 H1150"/>
+  </g>
+  <!-- pulse circle behind icon -->
+  <circle cx="250" cy="315" r="180" fill="url(#pulse)"/>
+  <!-- icon: cross + browser/circuit motif -->
+  <g transform="translate(250,315)">
+    <rect x="-46" y="-46" width="92" height="92" rx="18" fill="none" stroke="#00E5A0" stroke-width="3"/>
+    <rect x="-30" y="-30" width="60" height="60" rx="10" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <path d="M-24 -12 H24 M-12 -24 V24" stroke="#00E5A0" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="30" cy="-30" r="4" fill="#00E5A0"/>
+    <circle cx="-34" cy="34" r="4" fill="#00E5A0"/>
+  </g>
+  <!-- title text -->
+  <text x="460" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" fill="#E2E8F0">Browser Use 3.0 Was Already</text>
+  <text x="460" y="256" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" fill="#E2E8F0">Installed. The Fleet Was Still</text>
+  <text x="460" y="312" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" fill="#E2E8F0">Running Old Tools.</text>
+  <!-- subtitle -->
+  <text x="460" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#00E5A0" letter-spacing="2">AUDIT · FIX · FLEET MIGRATION</text>
+  <!-- key metric chips -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#94A3B8">
+    <rect x="460" y="410" width="180" height="44" rx="8" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.35"/>
+    <text x="478" y="439" fill="#00E5A0" font-weight="bold">~0.11s</text>
+    <text x="610" y="439" fill="#94A3B8">warm op</text>
+    <rect x="812" y="410" width="200" height="44" rx="8" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.35"/>
+    <text x="830" y="439" fill="#00E5A0" font-weight="bold">~100×</text>
+    <text x="962" y="439" fill="#94A3B8">faster</text>
+  </g>
+  <!-- bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
