@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- ICON: medical cross + ambiguous green light -->
+  <!-- Cross -->
+  <g transform="translate(220,315)">
+    <rect x="-8" y="-60" width="16" height="120" rx="4" fill="none" stroke="#00E5A0" stroke-width="3"/>
+    <rect x="-45" y="-8" width="90" height="16" rx="4" fill="none" stroke="#00E5A0" stroke-width="3"/>
+    <circle cx="0" cy="0" r="10" fill="#00E5A0" fill-opacity="0.3"/>
+    <circle cx="0" cy="0" r="4" fill="#00E5A0"/>
+    <!-- circuit branches -->
+    <path d="M 45,0 L 70,0 L 70,25" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.5"/>
+    <circle cx="70" cy="25" r="3" fill="#00E5A0" fill-opacity="0.6"/>
+    <path d="M 45,0 L 70,0 L 70,-30" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.35"/>
+    <circle cx="70" cy="-30" r="3" fill="#00E5A0" fill-opacity="0.4"/>
+    <path d="M 0,-45 L 0,-70 L 25,-70" stroke="#00E5A0" stroke-width="1.5" fill="none" opacity="0.35"/>
+    <circle cx="25" cy="-70" r="3" fill="#00E5A0" fill-opacity="0.4"/>
+  </g>
+
+  <!-- Green status lamp + question mark overlay: the unexplained green -->
+  <g transform="translate(870,315)">
+    <circle r="34" fill="#00E5A0" fill-opacity="0.14"/>
+    <circle r="26" fill="#00E5A0" fill-opacity="0.10"/>
+    <circle r="16" fill="#00E5A0" fill-opacity="1"/>
+    <text x="0" y="9" text-anchor="middle" fill="#0A0F1F" font-family="system-ui, sans-serif" font-size="26" font-weight="bold">?</text>
+  </g>
+  <rect x="904" y="315" width="64" height="2" fill="#00E5A0" fill-opacity="0.25"/>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 900,80 L 1020,80 L 1020,180 L 1150,180"/>
+    <path d="M 920,130 L 1050,130"/>
+    <circle cx="1150" cy="180" r="3.5" fill="#00E5A0" fill-opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#00E5A0" fill-opacity="0.3"/>
+    <path d="M 950,460 L 1050,460 L 1050,540 L 1120,540"/>
+    <circle cx="1120" cy="540" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="240" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="bold" letter-spacing="-0.5">
+    The Unexplained Green
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="288" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">
+    FLEET STATUS WITHOUT ATTRIBUTION
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="308" x2="770" y2="308" stroke="#00E5A0" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="345" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400">
+    When green means nothing — the diagnostic monitor as patient.
+  </text>
+  <text x="440" y="372" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400">
+    Audit pass with no fix · Rafael 8× blocked · Liam FTS gap 23.5%
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
