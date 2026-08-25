@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AETHER — The Fifth Element</title>
+  <meta name="description" content="A living field of light. An observatory for the unseen." />
+  <meta name="theme-color" content="#050508" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='none' stroke='%23d4af77' stroke-width='2'/><circle cx='50' cy='50' r='4' fill='%23d4af77'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050508;
+      --bg-elev: #0c0c12;
+      --ink: #f4efe6;
+      --ink-dim: #9a9388;
+      --gold: #d4af77;
+      --gold-soft: #c4a06a;
+      --rose: #e8b4b8;
+      --violet: #8b7cf6;
+      --teal: #6ee7d8;
+      --line: rgba(212, 175, 119, 0.18);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+      --font-sans: "Syne", "Helvetica Neue", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--ink); }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      cursor: none;
+    }
+    body.loading { overflow: hidden; }
+
+    ::selection { background: var(--gold); color: var(--bg); }
+
+    a { color: inherit; text-decoration: none; cursor: none; }
+    button { font: inherit; border: 0; background: none; color: inherit; cursor: none; }
+
+    /* ——— Grain & vignette ——— */
+    .grain, .vignette {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+    }
+    .grain {
+      opacity: 0.07;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grain 0.5s steps(4) infinite;
+    }
+    @keyframes grain {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-1%, 1%); }
+      50% { transform: translate(1%, -1%); }
+      75% { transform: translate(-1%, -2%); }
+    }
+    .vignette {
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%);
+    }
+
+    /* ——— Cursor ——— */
+    .cursor, .cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 200;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+    .cursor {
+      width: 6px; height: 6px;
+      background: #fff;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.7);
+      transition: width 0.35s var(--ease), height 0.35s var(--ease), background 0.35s, border-color 0.35s;
+    }
+    .cursor-ring.hover {
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.08);
+      border-color: #fff;
+    }
+    @media (pointer: coarse) {
+      .cursor, .cursor-ring { display: none; }
+      body { cursor: auto; }
+      a, button { cursor: pointer; }
+    }
+
+    /* ——— Loader ——— */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: #030305;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1.1s var(--ease), visibility 1.1s;
+    }
+    #loader.done {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-mark {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(42px, 8vw, 88px);
+      letter-spacing: 0.42em;
+      text-indent: 0.42em;
+      color: var(--gold);
+    }
+    .loader-bar {
+      width: min(280px, 60vw);
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 36px 0 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .loader-bar > i {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), #fff4d6);
+      box-shadow: 0 0 16px var(--gold);
+    }
+    .loader-meta {
+      display: flex;
+      justify-content: space-between;
+      width: min(280px, 60vw);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* ——— Canvas field ——— */
+    #field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ——— Nav ——— */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 40px;
+      mix-blend-mode: difference;
+      opacity: 0;
+      animation: rise 1.4s var(--ease) 0.2s forwards;
+    }
+    .brand {
+      font-family: var(--font-serif);
+      letter-spacing: 0.38em;
+      font-size: 13px;
+      font-weight: 400;
+    }
+    nav { display: flex; gap: 32px; }
+    nav a {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 1; }
+    .time {
+      font-variant-numeric: tabular-nums;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      opacity: 0.7;
+    }
+
+    /* ——— Layout ——— */
+    main { position: relative; z-index: 2; }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 8vw 12vh;
+      position: relative;
+    }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: rise 1.2s var(--ease) 0.4s forwards;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(64px, 16vw, 220px);
+      line-height: 0.82;
+      letter-spacing: -0.03em;
+    }
+    h1 span {
+      display: block;
+      overflow: hidden;
+    }
+    h1 span i {
+      display: block;
+      font-style: normal;
+      transform: translateY(110%);
+      animation: up 1.4s var(--ease) forwards;
+    }
+    h1 span:nth-child(1) i { animation-delay: 0.15s; }
+    h1 span:nth-child(2) i { animation-delay: 0.32s; }
+    .hero-foot {
+      margin-top: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      max-width: 1100px;
+      opacity: 0;
+      animation: rise 1.4s var(--ease) 0.9s forwards;
+    }
+    .lede {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.45;
+      max-width: 520px;
+      color: #ddd6c8;
+    }
+    .lede em { font-style: italic; color: var(--gold); }
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .scroll-line {
+      width: 48px; height: 1px;
+      background: var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      animation: sweep 2.2s var(--ease) infinite;
+    }
+
+    section {
+      position: relative;
+      padding: 18vh 8vw;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .kicker {
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(40px, 6.4vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      max-width: 16ch;
+    }
+    h2 em { font-style: italic; color: var(--gold-soft); }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10vw;
+      align-items: end;
+    }
+    .prose {
+      font-family: var(--font-serif);
+      font-size: clamp(18px, 1.6vw, 22px);
+      font-weight: 300;
+      line-height: 1.7;
+      color: #cfc6b6;
+      max-width: 46ch;
+    }
+    .prose p + p { margin-top: 1.2em; }
+
+    /* ——— Elements ——— */
+    .elements {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 80px;
+    }
+    .el {
+      position: relative;
+      min-height: 320px;
+      padding: 28px 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: border-color 0.5s, transform 0.5s var(--ease);
+    }
+    .el::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .el:hover { border-color: rgba(212,175,119,0.45); }
+    .el:hover::before { opacity: 1; }
+    .el-num {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+    }
+    .el h3 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 36px;
+      margin: 80px 0 16px;
+      position: relative;
+    }
+    .el p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink-dim);
+      position: relative;
+    }
+    .el .orb {
+      position: absolute;
+      width: 90px; height: 90px;
+      right: -10px; top: 40px;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    /* ——— Observatory ——— */
+    .observatory {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .obs-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      gap: 40px;
+    }
+    .dial {
+      position: relative;
+      width: 100%;
+      height: 52vh;
+      min-height: 360px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 70%, rgba(139,124,246,0.08), transparent 55%);
+    }
+    #dial {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .dial-caption {
+      position: absolute;
+      left: 24px; bottom: 20px;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* ——— Poem ——— */
+    .poem {
+      text-align: center;
+      padding: 24vh 8vw 18vh;
+    }
+    .poem blockquote {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(28px, 4.2vw, 56px);
+      line-height: 1.25;
+      max-width: 16ch;
+      margin: 0 auto 40px;
+    }
+    .poem cite {
+      display: block;
+      font-style: normal;
+      font-size: 11px;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ——— Footer ——— */
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 40px 8vw 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--ink-dim);
+    }
+    .sig {
+      font-family: var(--font-serif);
+      font-style: italic;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes up {
+      to { transform: translateY(0); }
+    }
+    @keyframes sweep {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @media (max-width: 980px) {
+      header { padding: 20px 22px; }
+      nav { display: none; }
+      .split, .elements { grid-template-columns: 1fr; }
+      .elements { gap: 12px; }
+      .el { min-height: auto; }
+      .el h3 { margin: 28px 0 12px; }
+      .hero-foot { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body class="loading">
+  <div id="loader" aria-hidden="true">
+    <div class="loader-mark">AETHER</div>
+    <div class="loader-bar"><i id="bar"></i></div>
+    <div class="loader-meta"><span>awakening</span><span id="pct">00</span></div>
+  </div>
+
+  <div class="grain"></div>
+  <div class="vignette"></div>
+  <div class="cursor" id="dot"></div>
+  <div class="cursor-ring" id="ring"></div>
+  <canvas id="field"></canvas>
+
+  <header>
+    <a class="brand hoverable" href="#top">AETHER</a>
+    <nav>
+      <a class="hoverable" href="#manifesto">Manifesto</a>
+      <a class="hoverable" href="#elements">Elements</a>
+      <a class="hoverable" href="#observatory">Observatory</a>
+    </nav>
+    <div class="time" id="clock">00:00:00</div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">The fifth element · MMXXVI</p>
+      <h1>
+        <span><i>Light that</i></span>
+        <span><i>thinks.</i></span>
+      </h1>
+      <div class="hero-foot">
+        <p class="lede">A living field of particles, memory, and hush. Move slowly. The cosmos <em>listens</em> when you do.</p>
+        <div class="scroll-hint"><span class="scroll-line"></span> Descend</div>
+      </div>
+    </section>
+
+    <section id="manifesto">
+      <div class="split">
+        <div class="reveal">
+          <p class="kicker">01 — Manifesto</p>
+          <h2>Between the stars there is <em>music</em> we forgot how to hear.</h2>
+        </div>
+        <div class="prose reveal">
+          <p>Aether was never emptiness. The ancients named the breath that holds the heavens — the medium through which light travels, and longing too.</p>
+          <p>This page is not a website. It is a small observatory. Every shimmer is computed. Every ribbon of color is a sine wave remembering the aurora. Your cursor is a star being born.</p>
+          <p>Stay a moment. Beauty is a form of attention.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="elements">
+      <div class="reveal">
+        <p class="kicker">02 — Quintessence</p>
+        <h2>Five notes in a single chord.</h2>
+      </div>
+      <div class="elements">
+        <article class="el reveal hoverable" style="--glow: rgba(196,160,106,0.22)">
+          <div class="orb" style="background: radial-gradient(circle, #e8d5a3, transparent 70%)"></div>
+          <span class="el-num">I</span>
+          <h3>Earth</h3>
+          <p>Weight, mineral hush, the patience of stone. All ascent begins here.</p>
+        </article>
+        <article class="el reveal hoverable" style="--glow: rgba(110,231,216,0.2)">
+          <div class="orb" style="background: radial-gradient(circle, #6ee7d8, transparent 70%)"></div>
+          <span class="el-num">II</span>
+          <h3>Water</h3>
+          <p>Memory without edges. It takes the shape of whatever it loves.</p>
+        </article>
+        <article class="el reveal hoverable" style="--glow: rgba(196,220,255,0.2)">
+          <div class="orb" style="background: radial-gradient(circle, #c9e4ff, transparent 70%)"></div>
+          <span class="el-num">III</span>
+          <h3>Air</h3>
+          <p>The invisible architecture of breath, rumor, and wind-written script.</p>
+        </article>
+        <article class="el reveal hoverable" style="--glow: rgba(255,140,120,0.22)">
+          <div class="orb" style="background: radial-gradient(circle, #ff8c78, transparent 70%)"></div>
+          <span class="el-num">IV</span>
+          <h3>Fire</h3>
+          <p>A brief, brilliant argument against the dark. Warmth as courage.</p>
+        </article>
+        <article class="el reveal hoverable" style="--glow: rgba(139,124,246,0.28)">
+          <div class="orb" style="background: radial-gradient(circle, #8b7cf6, transparent 70%)"></div>
+          <span class="el-num">V</span>
+          <h3>Aether</h3>
+          <p>The luminous remainder. What remains when names fall away.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="observatory" id="observatory">
+      <div class="obs-head reveal">
+        <div>
+          <p class="kicker">03 — Observatory</p>
+          <h2>Touch the dark. <em>It answers.</em></h2>
+        </div>
+        <p class="prose">Click or tap to seed a nova. Drag to bend the field. The rings remember your hand for a little while, then return to silence.</p>
+      </div>
+      <div class="dial reveal">
+        <canvas id="dial"></canvas>
+        <span class="dial-caption">Interactive field · click to bloom</span>
+      </div>
+    </section>
+
+    <section class="poem">
+      <div class="reveal">
+        <blockquote>What we call emptiness is only light, waiting to be noticed.</blockquote>
+        <cite>— Aether, untitled</cite>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="sig">Made of hush &amp; gold</span>
+    <span>No trackers · Only light</span>
+    <a class="hoverable" href="#top">Return ↑</a>
+  </footer>
+
+  <script>
+    (() => {
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* Clock */
+      const clock = document.getElementById("clock");
+      const tick = () => {
+        const d = new Date();
+        clock.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()]
+          .map(n => String(n).padStart(2, "0")).join(":");
+      };
+      tick();
+      setInterval(tick, 1000);
+
+      /* Loader */
+      const loader = document.getElementById("loader");
+      const bar = document.getElementById("bar");
+      const pct = document.getElementById("pct");
+      let p = 0;
+      const load = () => {
+        p += Math.random() * 11 + 4;
+        if (p > 100) p = 100;
+        bar.style.width = p + "%";
+        pct.textContent = String(Math.floor(p)).padStart(2, "0");
+        if (p < 100) requestAnimationFrame(load);
+        else setTimeout(() => {
+          loader.classList.add("done");
+          document.body.classList.remove("loading");
+        }, 280);
+      };
+      requestAnimationFrame(load);
+
+      /* Cursor */
+      const dot = document.getElementById("dot");
+      const ring = document.getElementById("ring");
+      const mouse = { x: innerWidth / 2, y: innerHeight / 2 };
+      const ringPos = { x: mouse.x, y: mouse.y };
+      window.addEventListener("mousemove", e => {
+        mouse.x = e.clientX; mouse.y = e.clientY;
+        dot.style.left = mouse.x + "px";
+        dot.style.top = mouse.y + "px";
+      });
+      const cursorLoop = () => {
+        ringPos.x += (mouse.x - ringPos.x) * 0.16;
+        ringPos.y += (mouse.y - ringPos.y) * 0.16;
+        ring.style.left = ringPos.x + "px";
+        ring.style.top = ringPos.y + "px";
+        requestAnimationFrame(cursorLoop);
+      };
+      cursorLoop();
+      document.querySelectorAll(".hoverable, a, button").forEach(el => {
+        el.addEventListener("mouseenter", () => ring.classList.add("hover"));
+        el.addEventListener("mouseleave", () => ring.classList.remove("hover"));
+      });
+
+      /* Tilt cards */
+      document.querySelectorAll(".el").forEach(card => {
+        card.addEventListener("mousemove", e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top) / r.height;
+          card.style.setProperty("--mx", x * 100 + "%");
+          card.style.setProperty("--my", y * 100 + "%");
+          card.style.transform = `rotateX(${(0.5 - y) * 8}deg) rotateY(${(x - 0.5) * 10}deg)`;
+        });
+        card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+      });
+
+      /* Reveal */
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => { if (en.isIntersecting) en.target.classList.add("in"); });
+      }, { threshold: 0.18 });
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+      /* Cosmic field */
+      const field = document.getElementById("field");
+      const fctx = field.getContext("2d");
+      let fw, fh, dpr;
+      const stars = [];
+      const dust = [];
+      const ribbons = [];
+
+      function resizeField() {
+        dpr = Math.min(devicePixelRatio || 1, 2);
+        fw = field.width = Math.floor(innerWidth * dpr);
+        fh = field.height = Math.floor(innerHeight * dpr);
+        field.style.width = innerWidth + "px";
+        field.style.height = innerHeight + "px";
+      }
+
+      function seedSky() {
+        stars.length = 0; dust.length = 0; ribbons.length = 0;
+        const n = Math.floor((innerWidth * innerHeight) / 2800);
+        for (let i = 0; i < n; i++) {
+          stars.push({
+            x: Math.random() * fw,
+            y: Math.random() * fh,
+            r: (Math.random() * 1.2 + 0.2) * dpr,
+            a: Math.random(),
+            s: Math.random() * 0.02 + 0.004,
+            p: Math.random() * Math.PI * 2
+          });
+        }
+        for (let i = 0; i < 70; i++) {
+          dust.push({
+            x: Math.random() * fw,
+            y: Math.random() * fh,
+            vx: (Math.random() - 0.5) * 0.15 * dpr,
+            vy: -Math.random() * 0.18 * dpr - 0.04 * dpr,
+            r: (Math.random() * 1.6 + 0.4) * dpr,
+            c: Math.random() > 0.5 ? "212,175,119" : "139,124,246"
+          });
+        }
+        const palette = [
+          [110, 231, 216],
+          [139, 124, 246],
+          [232, 180, 184],
+          [212, 175, 119]
+        ];
+        for (let i = 0; i < 4; i++) {
+          ribbons.push({
+            y: fh * (0.28 + i * 0.12),
+            amp: (40 + i * 18) * dpr,
+            freq: 0.0011 + i * 0.00025,
+            speed: 0.00035 + i * 0.00012,
+            w: (90 + i * 20) * dpr,
+            col: palette[i]
+          });
+        }
+      }
+
+      let t = 0;
+      function drawField() {
+        t += 1;
+        fctx.clearRect(0, 0, fw, fh);
+
+        const g = fctx.createRadialGradient(fw * 0.5, fh * 0.2, 0, fw * 0.5, fh * 0.55, fh * 0.9);
+        g.addColorStop(0, "#12121c");
+        g.addColorStop(0.55, "#08080e");
+        g.addColorStop(1, "#050508");
+        fctx.fillStyle = g;
+        fctx.fillRect(0, 0, fw, fh);
+
+        /* nebulae */
+        const nebulae = [
+          [fw * 0.2, fh * 0.3, fw * 0.35, "rgba(88,70,180,0.16)"],
+          [fw * 0.75, fh * 0.25, fw * 0.3, "rgba(60,140,150,0.12)"],
+          [fw * 0.55, fh * 0.7, fw * 0.28, "rgba(180,90,110,0.08)"]
+        ];
+        nebulae.forEach(([x, y, r, c]) => {
+          const ng = fctx.createRadialGradient(x, y, 0, x, y, r);
+          ng.addColorStop(0, c);
+          ng.addColorStop(1, "transparent");
+          fctx.fillStyle = ng;
+          fctx.fillRect(0, 0, fw, fh);
+        });
+
+        /* aurora */
+        if (!reduce) {
+          fctx.globalCompositeOperation = "screen";
+          ribbons.forEach((rb, i) => {
+            fctx.beginPath();
+            for (let x = 0; x <= fw; x += 8 * dpr) {
+              const y = rb.y
+                + Math.sin(x * rb.freq + t * rb.speed + i) * rb.amp
+                + Math.sin(x * rb.freq * 2.2 - t * rb.speed * 1.4) * rb.amp * 0.35
+                + (mouse.y / innerHeight - 0.5) * 40 * dpr;
+              x === 0 ? fctx.moveTo(x, y) : fctx.lineTo(x, y);
+            }
+            const [cr, cg, cb] = rb.col;
+            fctx.strokeStyle = `rgba(${cr},${cg},${cb},0.18)`;
+            fctx.lineWidth = rb.w;
+            fctx.stroke();
+          });
+          fctx.globalCompositeOperation = "source-over";
+        }
+
+        stars.forEach(s => {
+          const tw = 0.35 + Math.abs(Math.sin(t * s.s + s.p)) * 0.65;
+          fctx.beginPath();
+          fctx.fillStyle = `rgba(244,239,230,${s.a * tw})`;
+          fctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          fctx.fill();
+        });
+
+        dust.forEach(d => {
+          d.x += d.vx + (mouse.x / innerWidth - 0.5) * 0.2 * dpr;
+          d.y += d.vy;
+          if (d.y < -10) { d.y = fh + 10; d.x = Math.random() * fw; }
+          if (d.x < 0) d.x = fw;
+          if (d.x > fw) d.x = 0;
+          fctx.beginPath();
+          fctx.fillStyle = `rgba(${d.c},0.45)`;
+          fctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+          fctx.fill();
+        });
+
+        /* mouse sun */
+        const mx = mouse.x * dpr, my = mouse.y * dpr;
+        const sun = fctx.createRadialGradient(mx, my, 0, mx, my, 180 * dpr);
+        sun.addColorStop(0, "rgba(212,175,119,0.16)");
+        sun.addColorStop(0.4, "rgba(139,124,246,0.06)");
+        sun.addColorStop(1, "transparent");
+        fctx.fillStyle = sun;
+        fctx.fillRect(0, 0, fw, fh);
+
+        requestAnimationFrame(drawField);
+      }
+
+      resizeField();
+      seedSky();
+      drawField();
+      addEventListener("resize", () => { resizeField(); seedSky(); });
+
+      /* Observatory canvas */
+      const dial = document.getElementById("dial");
+      const dctx = dial.getContext("2d");
+      const blooms = [];
+      const motes = [];
+      let dw, dh, ddpr;
+
+      function resizeDial() {
+        const rect = dial.getBoundingClientRect();
+        ddpr = Math.min(devicePixelRatio || 1, 2);
+        dw = dial.width = Math.floor(rect.width * ddpr);
+        dh = dial.height = Math.floor(rect.height * ddpr);
+        if (!motes.length) {
+          for (let i = 0; i < 90; i++) {
+            motes.push({
+              x: Math.random() * dw,
+              y: Math.random() * dh,
+              vx: (Math.random() - 0.5) * 0.35 * ddpr,
+              vy: (Math.random() - 0.5) * 0.35 * ddpr,
+              r: (Math.random() * 1.4 + 0.4) * ddpr
+            });
+          }
+        }
+      }
+
+      function pointerOnDial(e) {
+        const r = dial.getBoundingClientRect();
+        const src = e.touches ? e.touches[0] : e;
+        return { x: (src.clientX - r.left) * ddpr, y: (src.clientY - r.top) * ddpr };
+      }
+
+      let dragging = false;
+      let attract = null;
+      dial.addEventListener("pointerdown", e => {
+        const p = pointerOnDial(e);
+        dragging = true;
+        attract = p;
+        blooms.push({ x: p.x, y: p.y, r: 4 * ddpr, a: 1, hue: 42 + Math.random() * 80 });
+      });
+      addEventListener("pointerup", () => { dragging = false; attract = null; });
+      dial.addEventListener("pointermove", e => {
+        if (!dragging) return;
+        attract = pointerOnDial(e);
+        if (Math.random() > 0.6) {
+          blooms.push({
+            x: attract.x, y: attract.y,
+            r: 2 * ddpr, a: 0.7,
+            hue: 30 + Math.random() * 90
+          });
+        }
+      });
+
+      function drawDial() {
+        dctx.fillStyle = "rgba(6,6,10,0.22)";
+        dctx.fillRect(0, 0, dw, dh);
+
+        /* faint grid */
+        dctx.strokeStyle = "rgba(212,175,119,0.05)";
+        dctx.lineWidth = 1;
+        const step = 48 * ddpr;
+        for (let x = 0; x < dw; x += step) {
+          dctx.beginPath(); dctx.moveTo(x, 0); dctx.lineTo(x, dh); dctx.stroke();
+        }
+        for (let y = 0; y < dh; y += step) {
+          dctx.beginPath(); dctx.moveTo(0, y); dctx.lineTo(dw, y); dctx.stroke();
+        }
+
+        motes.forEach(m => {
+          if (attract) {
+            const dx = attract.x - m.x, dy = attract.y - m.y;
+            const dist = Math.hypot(dx, dy) || 1;
+            m.vx += (dx / dist) * 0.06;
+            m.vy += (dy / dist) * 0.06;
+          }
+          m.vx *= 0.98; m.vy *= 0.98;
+          m.x += m.vx; m.y += m.vy;
+          if (m.x < 0 || m.x > dw) m.vx *= -1;
+          if (m.y < 0 || m.y > dh) m.vy *= -1;
+          dctx.beginPath();
+          dctx.fillStyle = "rgba(232,220,190,0.55)";
+          dctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+          dctx.fill();
+        });
+
+        /* connections */
+        dctx.lineWidth = 0.6 * ddpr;
+        for (let i = 0; i < motes.length; i++) {
+          for (let j = i + 1; j < motes.length; j++) {
+            const a = motes[i], b = motes[j];
+            const dist = Math.hypot(a.x - b.x, a.y - b.y);
+            if (dist < 90 * ddpr) {
+              dctx.strokeStyle = `rgba(212,175,119,${(1 - dist / (90 * ddpr)) * 0.22})`;
+              dctx.beginPath();
+              dctx.moveTo(a.x, a.y);
+              dctx.lineTo(b.x, b.y);
+              dctx.stroke();
+            }
+          }
+        }
+
+        for (let i = blooms.length - 1; i >= 0; i--) {
+          const b = blooms[i];
+          b.r += 2.2 * ddpr;
+          b.a -= 0.012;
+          if (b.a <= 0) { blooms.splice(i, 1); continue; }
+          dctx.beginPath();
+          dctx.strokeStyle = `hsla(${b.hue}, 55%, 68%, ${b.a})`;
+          dctx.lineWidth = 1.4 * ddpr;
+          dctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+          dctx.stroke();
+          const glow = dctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+          glow.addColorStop(0, `hsla(${b.hue}, 60%, 70%, ${b.a * 0.12})`);
+          glow.addColorStop(1, "transparent");
+          dctx.fillStyle = glow;
+          dctx.beginPath();
+          dctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+          dctx.fill();
+        }
+
+        requestAnimationFrame(drawDial);
+      }
+
+      resizeDial();
+      drawDial();
+      addEventListener("resize", resizeDial);
+    })();
+  </script>
+</body>
+</html>
