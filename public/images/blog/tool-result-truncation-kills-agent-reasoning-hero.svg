@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FF6B00"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.05" stroke="#1E3A8A">
+    <line x1="0" y1="105" x2="1200" y2="105" stroke-width="0.5"/>
+    <line x1="0" y1="210" x2="1200" y2="210" stroke-width="0.5"/>
+    <line x1="0" y1="315" x2="1200" y2="315" stroke-width="0.5"/>
+    <line x1="0" y1="420" x2="1200" y2="420" stroke-width="0.5"/>
+    <line x1="0" y1="525" x2="1200" y2="525" stroke-width="0.5"/>
+    <line x1="240" y1="0" x2="240" y2="630" stroke-width="0.5"/>
+    <line x1="480" y1="0" x2="480" y2="630" stroke-width="0.5"/>
+    <line x1="720" y1="0" x2="720" y2="630" stroke-width="0.5"/>
+    <line x1="960" y1="0" x2="960" y2="630" stroke-width="0.5"/>
+  </g>
+
+  <!-- Full data stream (left): representing tool output before truncation -->
+  <g transform="translate(120, 90)">
+    <rect x="-10" y="-10" width="200" height="470" rx="10" fill="#00132A" stroke="#1E3A8A" stroke-width="1.2" opacity="0.85"/>
+    <!-- terminal-like content lines (full) -->
+    <g font-family="monospace" font-size="12" fill="#0E7490" opacity="0.55">
+      <text x="6" y="24">$ git log --oneline -100</text>
+      <text x="6" y="44">6e1151f content: add blog</text>
+      <text x="6" y="62">aa3fbb4 news: update feed</text>
+      <text x="6" y="80">a310ea8 news: update feed</text>
+      <text x="6" y="98">06079ba Add Clearinghouse</text>
+      <text x="6" y="116">c42a2ba news: update feed</text>
+      <text x="6" y="134">1224ceb feat(aiona) v0.2.1</text>
+      <text x="6" y="152">774a442 feat(aiona) Kids v0.2</text>
+      <text x="6" y="170">855f069 news: update feed</text>
+      <text x="6" y="188">83b3d6e news: update feed</text>
+      <text x="6" y="206">8920586 news: update feed</text>
+      <text x="6" y="224">5fe1a02 refactor: loader</text>
+      <text x="6" y="242">2c4d110 fix: frontmatter</text>
+      <text x="6" y="260">1a99b8e feat: series filter</text>
+      <text x="6" y="278">0f33c2a docs: README</text>
+      <text x="6" y="296">e7d4401 chore: deps</text>
+      <text x="6" y="314">b91c5f0 fix: hero 404</text>
+      <text x="6" y="332">a02f9c1 content: dispatch</text>
+      <text x="6" y="350">c19e7f2 feat: OG image</text>
+      <text x="6" y="368">8f2a1d0 security: SSRF</text>
+      <text x="6" y="386">7c0b3e4 perf: kv-cache</text>
+      <text x="6" y="404">6a1f2c9 content: caching</text>
+      <text x="6" y="422">5b8d331 refactor: tools</text>
+      <text x="6" y="440">4c9e420 fix: parse</text>
+    </g>
+    <rect x="-10" y="-10" width="200" height="470" rx="10" fill="url(#amberGlow)" opacity="0.5"/>
+  </g>
+
+  <!-- Scissor / cut motif (center): the truncation event -->
+  <g transform="translate(330, 315)" filter="url(#glow)">
+    <!-- dashed cut line spanning height -->
+    <line x1="0" y1="-200" x2="0" y2="200" stroke="url(#goldLine)" stroke-width="2.5" stroke-dasharray="10 8" opacity="0.75"/>
+    <!-- scissor mark: two circles + blades -->
+    <g stroke="#F59E0B" stroke-width="2.5" fill="none" opacity="0.85">
+      <circle cx="-18" cy="0" r="9"/>
+      <circle cx="18" cy="0" r="9"/>
+      <line x1="-10" y1="0" x2="24" y2="26"/>
+      <line x1="10" y1="0" x2="-24" y2="26"/>
+    </g>
+    <!-- glow node at cut point -->
+    <circle cx="0" cy="0" r="5" fill="#FF6B00" opacity="0.9"/>
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#FF6B00" stroke-width="1" opacity="0.35"/>
+  </g>
+
+  <!-- Truncated stream (right-of-cut): tail dropped, ellipsis replaces end -->
+  <g transform="translate(380, 90)">
+    <rect x="-10" y="-10" width="180" height="300" rx="10" fill="#00132A" stroke="#1E3A8A" stroke-width="1.2" opacity="0.85"/>
+    <g font-family="monospace" font-size="12" fill="#0E7490" opacity="0.55">
+      <text x="6" y="24">$ git log --oneline -100</text>
+      <text x="6" y="44">6e1151f content: add blog</text>
+      <text x="6" y="62">aa3fbb4 news: update feed</text>
+      <text x="6" y="80">a310ea8 news: update feed</text>
+      <text x="6" y="98">06079ba Add Clearinghouse</text>
+      <text x="6" y="116">c42a2ba news: update feed</text>
+      <text x="6" y="134">1224ceb feat(aiona) v0.2.1</text>
+      <text x="6" y="152">774a442 feat(aiona) Kids</text>
+      <text x="6" y="170">855f069 news: update feed</text>
+      <text x="6" y="188">83b3d6e news: update feed</text>
+      <text x="6" y="206">8920586 news: update feed</text>
+    </g>
+    <!-- truncation marker -->
+    <g transform="translate(80, 250)">
+      <line x1="-60" y1="0" x2="60" y2="0" stroke="#F59E0B" stroke-width="1" opacity="0.4" stroke-dasharray="4 4"/>
+      <text x="0" y="22" text-anchor="middle" font-family="monospace" font-size="20" fill="#F59E0B" opacity="0.8" font-weight="bold">[...]</text>
+      <text x="0" y="44" text-anchor="middle" font-family="monospace" font-size="11" fill="#FF6B00" opacity="0.6">tail dropped</text>
+    </g>
+  </g>
+
+  <!-- Agent reasoning node (right): the model receiving incomplete data -->
+  <g transform="translate(820, 315)" filter="url(#softGlow)">
+    <!-- radial pulse behind node -->
+    <circle cx="0" cy="0" r="160" fill="url(#pulse)"/>
+    <!-- node hexagon -->
+    <polygon points="0,-110 95,-55 95,55 0,110 -95,55 -95,-55" fill="#00132A" stroke="#1E3A8A" stroke-width="2" opacity="0.9"/>
+    <polygon points="0,-110 95,-55 95,55 0,110 -95,55 -95,-55" fill="none" stroke="url(#goldLine)" stroke-width="1.5" opacity="0.6"/>
+    <!-- inner reasoning core -->
+    <circle cx="0" cy="0" r="34" fill="none" stroke="#F59E0B" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="0" cy="0" r="18" fill="#FF6B00" opacity="0.18"/>
+    <!-- synaptic links to truncated tail -->
+    <g stroke="#FF6B00" stroke-width="1" opacity="0.35" fill="none">
+      <path d="M -95,-30 Q -160,-20 -210,-10"/>
+      <path d="M -95,30 Q -160,40 -210,30"/>
+      <path d="M 0,-110 Q 20,-150 40,-170"/>
+      <path d="M 95,-55 Q 130,-80 150,-95"/>
+      <path d="M 95,55 Q 130,80 150,95"/>
+      <path d="M 0,110 Q 20,150 40,170"/>
+    </g>
+    <!-- broken-link indicator: dashed gap on the critical evidence path -->
+    <g stroke="#FF6B00" stroke-width="2" stroke-dasharray="3 6" opacity="0.5" fill="none">
+      <path d="M -95,0 Q -130,0 -160,0"/>
+    </g>
+    <circle cx="-160" cy="0" r="3" fill="#FF6B00" opacity="0.5"/>
+  </g>
+
+  <!-- right side decorative circuits -->
+  <g opacity="0.06" stroke="#1E3A8A" stroke-width="1.5" fill="none">
+    <path d="M 1010,60 L 1130,60 L 1130,160"/>
+    <path d="M 1050,120 L 1180,120"/>
+    <path d="M 1000,200 L 1000,300 L 1100,300"/>
+    <circle cx="1130" cy="160" r="3" fill="#1E3A8A"/>
+    <circle cx="1180" cy="120" r="3" fill="#1E3A8A"/>
+    <path d="M 1010,460 L 1160,460 L 1160,560"/>
+    <path d="M 1050,530 L 1180,530"/>
+    <circle cx="1160" cy="560" r="3" fill="#1E3A8A"/>
+  </g>
+
+  <!-- top accent bar -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#goldLine)" opacity="0.35"/>
+  <!-- bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="url(#goldLine)" opacity="0.45"/>
+</svg>
