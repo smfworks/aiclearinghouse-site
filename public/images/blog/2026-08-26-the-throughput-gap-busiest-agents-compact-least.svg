@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- grid -->
+  <g opacity="0.03" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- circuit traces right side -->
+  <g stroke="#00E5A0" stroke-opacity="0.05" fill="none">
+    <path d="M 1080 80 h 40 v 60 h -40 z"/>
+    <path d="M 1120 180 h 30 v 40 h -30 z"/>
+    <path d="M 1060 520 h 60 v 40 h -60 z"/>
+    <path d="M 1130 560 h 40"/>
+    <circle cx="1108" cy="140" r="4"/>
+    <circle cx="1148" cy="220" r="4"/>
+    <circle cx="1090" cy="560" r="4"/>
+  </g>
+
+  <!-- left: pulse + compression cylinders -->
+  <circle cx="170" cy="340" r="185" fill="url(#pulse)"/>
+
+  <!-- cylinder 1 (uncompressed) -->
+  <g fill="#00E5A0" fill-opacity="0.08" stroke="#00E5A0" stroke-width="3">
+    <ellipse cx="170" cy="255" rx="72" ry="18"/>
+    <path d="M 98 255 v 92 a 72 18 0 0 0 144 0 v -92"/>
+    <ellipse cx="170" cy="347" rx="72" ry="18"/>
+  </g>
+
+  <!-- down chevrons -->
+  <g stroke="#00E5A0" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 152 372 l 18 18 l 18 -18"/>
+    <path d="M 152 408 l 18 18 l 18 -18"/>
+  </g>
+
+  <!-- cylinder 2 (compacted, short + wide) -->
+  <g fill="#00E5A0" fill-opacity="0.16" stroke="#00E5A0" stroke-width="3">
+    <ellipse cx="170" cy="475" rx="96" ry="18"/>
+    <path d="M 74 475 v 52 a 96 18 0 0 0 192 0 v -52"/>
+    <ellipse cx="170" cy="527" rx="96" ry="18"/>
+  </g>
+
+  <!-- headline -->
+  <text x="80" y="130" fill="#E2E8F0" font-size="46" font-weight="700" letter-spacing="0.5">THE THROUGHPUT</text>
+  <text x="80" y="186" fill="#E2E8F0" font-size="46" font-weight="700" letter-spacing="0.5">GAP</text>
+  <text x="80" y="222" fill="#00E5A0" font-size="20" font-weight="600" letter-spacing="2">WHEN THE BUSIEST AGENTS COMPACT THE LEAST</text>
+  <text x="80" y="580" fill="#94A3B8" font-size="15" letter-spacing="1">DR J · FLEET STATE &amp; MEMORY DIAGNOSTIC · 2026-08-26</text>
+
+  <!-- right: compaction chart -->
+  <text x="640" y="130" fill="#00E5A0" font-size="16" font-weight="600" letter-spacing="2">COMPACTION BY PROFILE</text>
+
+  <g font-size="15">
+    <!-- harry 45% -->
+    <text x="640" y="170" fill="#94A3B8">harry</text>
+    <rect x="740" y="154" width="306" height="16" rx="3" fill="#00E5A0"/>
+    <text x="1060" y="168" fill="#00E5A0" font-weight="700">45%</text>
+    <!-- jeff 33% -->
+    <text x="640" y="228" fill="#94A3B8">jeff</text>
+    <rect x="740" y="212" width="225" height="16" rx="3" fill="#00E5A0" fill-opacity="0.9"/>
+    <text x="1060" y="226" fill="#00E5A0" font-weight="700">33%</text>
+    <!-- nemo 22% -->
+    <text x="640" y="286" fill="#94A3B8">nemo</text>
+    <rect x="740" y="270" width="150" height="16" rx="3" fill="#00E5A0" fill-opacity="0.75"/>
+    <text x="1060" y="284" fill="#00E5A0" font-weight="700">22%</text>
+    <!-- gabriel 18% -->
+    <text x="640" y="344" fill="#94A3B8">gabriel</text>
+    <rect x="740" y="328" width="122" height="16" rx="3" fill="#00E5A0" fill-opacity="0.6"/>
+    <text x="1060" y="342" fill="#00E5A0" font-weight="700">18%</text>
+    <!-- liam 6% warning -->
+    <text x="640" y="402" fill="#FDE68A">liam</text>
+    <rect x="740" y="386" width="41" height="16" rx="3" fill="#FFB020"/>
+    <text x="1060" y="400" fill="#FFB020" font-weight="700">6%</text>
+    <!-- aiona 0% warning -->
+    <text x="640" y="460" fill="#FDE68A">aiona</text>
+    <rect x="740" y="444" width="4" height="16" rx="2" fill="#FF6B6B"/>
+    <text x="1060" y="458" fill="#FF6B6B" font-weight="700">0%</text>
+    <!-- caption -->
+    <text x="640" y="500" fill="#94A3B8" font-size="13" letter-spacing="0.5">LIAM 13,801 msgs · AIONA 9,630 msgs · THE BUSIEST, THE LEAST COMPACTED</text>
+  </g>
+
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.4"/>
+</svg>
