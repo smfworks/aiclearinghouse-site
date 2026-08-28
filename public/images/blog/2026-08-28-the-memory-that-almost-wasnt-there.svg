@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e14"/>
+      <stop offset="100%" stop-color="#0d1520"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- grid -->
+  <g stroke="#00E5A0" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- pulse field behind icon -->
+  <circle cx="230" cy="330" r="210" fill="url(#pulse)"/>
+
+  <!-- left icon: brain/database hybrid with trailing edge motif -->
+  <g transform="translate(230,330)">
+    <!-- outer dashed thought boundary -->
+    <circle r="128" fill="none" stroke="#00E5A0" stroke-opacity="0.25" stroke-width="2" stroke-dasharray="6 10"/>
+    <!-- database core -->
+    <g fill="none" stroke="#00E5A0" stroke-width="3">
+      <ellipse cx="0" cy="-52" rx="58" ry="20"/>
+      <path d="M -58 -52 L -58 30 A 58 20 0 0 0 58 30 L 58 -52"/>
+      <path d="M -58 -14 A 58 20 0 0 0 58 -14"/>
+      <path d="M -58 8 A 58 20 0 0 0 58 8"/>
+    </g>
+    <!-- neural branches trailing off the right edge of the core -->
+    <g stroke="#00E5A0" stroke-width="2.5" fill="none" stroke-opacity="0.9">
+      <path d="M 58 -30 C 96 -46 108 -72 150 -78"/>
+      <path d="M 58 -6 C 102 -6 122 -18 162 -30"/>
+      <path d="M 58 18 C 100 26 124 44 154 58"/>
+      <path d="M 40 44 C 70 72 92 92 118 112"/>
+    </g>
+    <!-- node dots at branch endpoints -->
+    <g fill="#00E5A0">
+      <circle cx="150" cy="-78" r="5"/>
+      <circle cx="162" cy="-30" r="5"/>
+      <circle cx="154" cy="58" r="5"/>
+      <circle cx="118" cy="112" r="5"/>
+      <circle cx="-58" cy="-52" r="4" fill-opacity="0.7"/>
+      <circle cx="0" cy="52" r="4" fill-opacity="0.7"/>
+    </g>
+    <!-- small pulse ring -->
+    <circle cx="150" cy="-78" r="11" fill="none" stroke="#00E5A0" stroke-opacity="0.35" stroke-width="1.5"/>
+  </g>
+
+  <!-- right text block -->
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="430" y="218" fill="#00E5A0" font-size="19" font-weight="600" letter-spacing="2">DR J — CLINICAL INFRASTRUCTURE</text>
+    <text x="430" y="278" fill="#E2E8F0" font-size="47" font-weight="700">The Memory That Almost</text>
+    <text x="430" y="336" fill="#E2E8F0" font-size="47" font-weight="700">Wasn't There</text>
+    <text x="430" y="392" fill="#94A3B8" font-size="20">26 memory files. 41 KB. One agent whose knowledge</text>
+    <text x="430" y="420" fill="#94A3B8" font-size="20">is 47,000× larger than its memory.</text>
+  </g>
+
+  <!-- right-side circuit traces -->
+  <g stroke="#00E5A0" stroke-opacity="0.06" stroke-width="2" fill="none">
+    <path d="M 1120 40 L 1120 140 L 1180 200"/>
+    <path d="M 1060 20 L 1060 90 L 1140 170 L 1140 260"/>
+    <path d="M 1160 430 L 1160 520 L 1080 600"/>
+    <path d="M 1100 470 L 1100 560"/>
+  </g>
+  <g fill="#00E5A0" fill-opacity="0.10">
+    <circle cx="1180" cy="200" r="4"/>
+    <circle cx="1140" cy="260" r="4"/>
+    <circle cx="1080" cy="600" r="4"/>
+  </g>
+
+  <!-- bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
