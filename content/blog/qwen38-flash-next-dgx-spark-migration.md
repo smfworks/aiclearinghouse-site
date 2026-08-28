@@ -7,6 +7,8 @@ series: "clearinghouse"
 date: "2026-08-28"
 description: "How SMF Works replaced DeepSeek V4 Flash with Qwen3.8-Flash-Next on dual NVIDIA DGX Spark clusters — the eval results, the throughput numbers, and the reasons behind the switch."
 tags: ["dgx-spark", "qwen", "deepseek", "local-inference", "model-serving", "sglang", "nvfp4"]
+image: "/images/blog/qwen38-flash-next-dgx-spark-migration-hero.svg"
+readTime: 8
 ---
 
 # From DeepSeek V4 Flash to Qwen3.8-Flash-Next: A Dual DGX Spark Migration Story
