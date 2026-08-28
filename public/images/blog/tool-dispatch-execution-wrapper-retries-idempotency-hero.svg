@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Dispatch Layer" — abstract hub-and-spoke tool routing, no text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Tool dispatch layer hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#0f1d33"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#ff6b00" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="spokeTeal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="spokeGold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="spokeBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.12"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid frame -->
+  <g stroke="#162236" stroke-width="2">
+    <line x1="70" y1="0" x2="70" y2="630"/>
+    <line x1="1130" y1="0" x2="1130" y2="630"/>
+    <line x1="0" y1="70" x2="1200" y2="70"/>
+    <line x1="0" y1="560" x2="1200" y2="560"/>
+  </g>
+
+  <!-- central dispatch hub glow -->
+  <circle cx="600" cy="315" r="230" fill="url(#hubGlow)"/>
+
+  <!-- routed spokes: hub -> tool endpoints -->
+  <g stroke-width="3" fill="none" stroke-linecap="round">
+    <!-- upper-left teal (read tool) -->
+    <path d="M600,315 L250,140" stroke="url(#spokeTeal)"/>
+    <!-- upper-right gold (send tool) -->
+    <path d="M600,315 L960,160" stroke="url(#spokeGold)"/>
+    <!-- lower-left blue (draft tool) -->
+    <path d="M600,315 L210,470" stroke="url(#spokeBlue)"/>
+    <!-- lower-right teal (read tool) -->
+    <path d="M600,315 L980,490" stroke="url(#spokeTeal)"/>
+    <!-- straight-up gold (destructive tool) -->
+    <path d="M600,315 L600,105" stroke="url(#spokeGold)"/>
+    <!-- straight-down blue -->
+    <path d="M600,315 L600,520" stroke="url(#spokeBlue)"/>
+  </g>
+
+  <!-- retry / feedback arcs (dashed, returning to hub) -->
+  <g stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-dasharray="6 8" opacity="0.5">
+    <path d="M270,150 Q380,90 540,250"/>
+    <path d="M940,175 Q830,110 660,255"/>
+  </g>
+
+  <!-- tool endpoint nodes -->
+  <g>
+    <!-- read tools (teal) -->
+    <circle cx="250" cy="140" r="22" fill="#0e7490" opacity="0.9"/>
+    <circle cx="250" cy="140" r="22" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.7"/>
+    <circle cx="980" cy="490" r="22" fill="#0e7490" opacity="0.9"/>
+    <circle cx="980" cy="490" r="22" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.7"/>
+    <!-- send tool (gold) -->
+    <circle cx="960" cy="160" r="24" fill="#f59e0b" opacity="0.92"/>
+    <circle cx="960" cy="160" r="24" fill="none" stroke="#ff6b00" stroke-width="2" opacity="0.8"/>
+    <!-- draft tool (blue) -->
+    <circle cx="210" cy="470" r="22" fill="#1e3a8a" opacity="0.95"/>
+    <circle cx="210" cy="470" r="22" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+    <!-- destructive tool (gold, hollow ring) -->
+    <circle cx="600" cy="105" r="24" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.9"/>
+    <circle cx="600" cy="105" r="10" fill="#ff6b00" opacity="0.85"/>
+    <!-- down tool (blue) -->
+    <circle cx="600" cy="520" r="22" fill="#1e3a8a" opacity="0.95"/>
+    <circle cx="600" cy="520" r="22" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+  </g>
+
+  <!-- central hub: dispatch core -->
+  <g transform="translate(600,315)">
+    <circle r="58" fill="#0a1628" stroke="#ff6b00" stroke-width="3" opacity="0.95"/>
+    <circle r="58" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.4" filter="url(#soft)"/>
+    <!-- inner routing glyph: three concentric arcs suggesting a switch/router -->
+    <circle r="30" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+    <circle r="16" fill="#ff6b00" opacity="0.9"/>
+    <circle r="6" fill="#0a1628"/>
+  </g>
+
+  <!-- validation gate accents (small chevrons on two spokes) -->
+  <g fill="#00d4ff" opacity="0.6">
+    <path d="M430,225 l10,-7 l0,14 z"/>
+    <path d="M770,235 l10,-7 l0,14 z"/>
+  </g>
+</svg>
