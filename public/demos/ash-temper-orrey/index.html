@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ash &amp; Temper — Commission Orrery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<canvas id="orrery" aria-label="Commission orrery — planets are workstations, moons are commissions"></canvas>
+
+<header class="brand plate">
+  <h1>Ash <em>&amp;</em> Temper</h1>
+  <p>Commission Orrery · Workshop № 4</p>
+</header>
+
+<aside class="ledger plate" aria-label="Workstation ledger">
+  <div class="ledger-head">
+    <h2>Workstations</h2>
+    <span id="ledger-day">Day 1</span>
+  </div>
+  <ul id="station-list"></ul>
+  <div class="ledger-foot">
+    <span>Shipped</span><span id="shipped-ct">0 pcs</span>
+  </div>
+  <p class="ticker" id="ticker">The forge is lit. Day one.</p>
+</aside>
+
+<section class="detail plate hidden" id="detail" aria-live="polite"></section>
+
+<footer class="transport">
+  <button id="btn-play" class="icon-btn" aria-label="Play or pause"></button>
+  <div class="speed-group" role="group" aria-label="Shop speed">
+    <button class="speed-btn active" data-speed="1">1×</button>
+    <button class="speed-btn" data-speed="4">4×</button>
+    <button class="speed-btn" data-speed="16">16×</button>
+  </div>
+  <div class="day-block"><span id="day-big">DAY 01</span><span class="day-sub">shop time</span></div>
+  <button id="btn-new" class="text-btn"></button>
+  <button id="btn-mute" class="icon-btn" aria-label="Toggle sound"></button>
+  <div class="keys">
+    <span><kbd>Space</kbd> run</span>
+    <span><kbd>1–3</kbd> speed</span>
+    <span><kbd>←→</kbd> station</span>
+    <span><kbd>N</kbd> new job</span>
+    <span><kbd>M</kbd> sound</span>
+    <span><kbd>H</kbd> help</span>
+  </div>
+</footer>
+
+<div class="overlay hidden" id="help">
+  <div class="help-panel plate">
+    <div class="help-head">
+      <h3>Reading the orrery</h3>
+      <button id="help-close" class="icon-btn js-close" aria-label="Close help"></button>
+    </div>
+    <ul class="help-list">
+      <li><strong>The Forge</strong> — the heart of the shop. It never goes out, even when time is halted.</li>
+      <li><strong>Planets</strong> — the five workstations. One lap is one full cycle; the thin arc around each planet fills toward the brass line, and when it closes there, the next commission moves on.</li>
+      <li><strong>Moons</strong> — commissions in that station's queue, coloured by timber. The brass-ringed moon is next out.</li>
+      <li><strong>The brass line</strong> — today. Everything passes it on its way out the door.</li>
+    </ul>
+    <h3 class="sect">Keyboard</h3>
+    <div class="key-table">
+      <span><kbd>Space</kbd></span><span>run / halt shop time</span>
+      <span><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></span><span>speed — 1×, 4×, 16×</span>
+      <span><kbd>←</kbd> <kbd>→</kbd></span><span>cycle station selection</span>
+      <span><kbd>N</kbd></span><span>new commission</span>
+      <span><kbd>M</kbd></span><span>mute / unmute</span>
+      <span><kbd>H</kbd></span><span>this panel</span>
+      <span><kbd>Esc</kbd></span><span>close panel / deselect</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/orrey.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
