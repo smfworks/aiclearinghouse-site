@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAVE — a light instrument</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#d2a24f; --ink:#cfc2a8; --dim:#8a7d66; --bg:#080605;
+    --hair:rgba(210,162,79,.28);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;overflow:hidden;background:var(--bg);color:var(--ink);
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    -webkit-tap-highlight-color:transparent;user-select:none}
+  #gl{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+  #gl.drag{cursor:grabbing}
+
+  /* ——— film border ——— */
+  #frame{position:fixed;inset:0;pointer-events:none;z-index:5}
+  #frame .bar{position:absolute;left:0;right:0;height:8vh;background:#030202;
+    transform:scaleY(0);transition:transform .7s cubic-bezier(.7,0,.3,1)}
+  #frame .bar.top{top:0;transform-origin:top}
+  #frame .bar.bot{bottom:0;transform-origin:bottom}
+  body.film #frame .bar{transform:scaleY(1)}
+  #frame .bar span{position:absolute;font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+    color:#6b5c3d;opacity:0;transition:opacity .8s}
+  #frame .bar.top span{left:18px;top:50%;transform:translateY(-50%)}
+  #frame .bar.bot span{bottom:50%;transform:translateY(50%)}
+  #frame .bar.bot span:first-child{left:18px}
+  #frame .bar.bot span:last-child{right:18px}
+  body.film #frame .bar span{opacity:1}
+  #frame .line{position:absolute;inset:14px;border:1px solid rgba(210,162,79,0);transition:border-color .7s}
+  body.film #frame .line{border-color:rgba(210,162,79,.22)}
+
+  /* ——— title card ——— */
+  #card{position:fixed;left:0;right:0;top:54%;z-index:6;text-align:center;pointer-events:none;
+    opacity:1;transition:opacity 1.6s ease}
+  #card.hide{opacity:0}
+  #card h1{margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;color:#ecd8a4;
+    font-size:clamp(46px,9vw,108px);letter-spacing:.40em;padding-left:.40em;
+    text-shadow:0 2px 40px rgba(0,0,0,.65)}
+  #card .rule{width:120px;height:1px;background:rgba(210,162,79,.75);margin:14px auto 12px}
+  #card p{margin:0;font-size:10px;letter-spacing:.34em;padding-left:.34em;
+    text-transform:uppercase;color:#b09454}
+
+  /* ——— control dock ——— */
+  #dock{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;align-items:center;gap:18px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));flex-wrap:wrap;
+    background:rgba(9,7,5,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-top:1px solid var(--hair);transition:opacity .5s}
+  body.film #dock{opacity:.16}
+  body.film #dock:hover{opacity:1}
+  #rites{display:flex;gap:8px}
+  #rites button{font:inherit;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--dim);background:none;border:1px solid var(--hair);padding:8px 12px;cursor:pointer;
+    display:flex;align-items:center;gap:8px;transition:color .25s,border-color .25s}
+  #rites button .k{font-size:9px;border:1px solid var(--hair);padding:1px 5px;color:var(--dim)}
+  #rites button:hover{color:var(--ink)}
+  #rites button.on{color:#f0dca8;border-color:var(--gold)}
+  #rites button.on .k{border-color:var(--gold);color:var(--gold)}
+  #rites button:focus-visible{outline:1px dashed var(--gold);outline-offset:2px}
+  #sliders{display:flex;gap:14px;flex-wrap:wrap;flex:1;min-width:280px}
+  .ctl{display:flex;align-items:center;gap:7px}
+  .ctl .lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);width:46px}
+  .ctl .val{font-size:10px;color:var(--gold);width:46px;text-align:right}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:104px;height:20px;
+    background:transparent;cursor:ew-resize;margin:0}
+  input[type=range]::-webkit-slider-runnable-track{height:2px;background:rgba(210,162,79,.30)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:9px;height:16px;
+    margin-top:-7px;background:#0d0a07;border:1px solid var(--gold)}
+  input[type=range]::-moz-range-track{height:2px;background:rgba(210,162,79,.30)}
+  input[type=range]::-moz-range-thumb{width:9px;height:16px;background:#0d0a07;
+    border:1px solid var(--gold);border-radius:0}
+  input[type=range]:focus-visible{outline:1px dashed var(--gold);outline-offset:2px}
+  #meta{margin-left:auto;text-align:right}
+  #stats{display:flex;gap:12px;justify-content:flex-end;font-size:10px;color:var(--dim);letter-spacing:.12em}
+  #q.warn{color:#e8b24a}
+  #hints{font-size:9px;color:#5f553f;letter-spacing:.1em;margin-top:3px}
+
+  /* ——— shader error surface ——— */
+  #err{position:fixed;left:6vw;right:6vw;top:8vh;bottom:18vh;z-index:50;display:none;overflow:auto;
+    background:#0c0908;border:1px solid #8a3b2a;padding:22px 26px;color:#d8c9a8;
+    font:12px/1.6 'IBM Plex Mono',monospace;white-space:pre-wrap}
+  #err h2{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#e07b5a;margin:0 0 10px}
+  #err pre{margin:0 0 18px}
+
+  @media (pointer:coarse){
+    #rites button{padding:12px 16px;font-size:11px}
+    input[type=range]{width:122px;height:32px}
+    input[type=range]::-webkit-slider-thumb{width:15px;height:26px;margin-top:-12px}
+    #hints{display:none}
+    .ctl .lbl{width:50px;font-size:10px}
+    #dock{gap:12px}
+  }
+  @media (max-width:760px){
+    #meta{margin-left:0;text-align:left}
+    #stats{justify-content:flex-start}
+  }
+</style>
+</head>
+<body>
+<canvas id="gl" aria-label="Raymarched cathedral nave. Drag to look, scroll or pinch to dolly."></canvas>
+
+<div id="frame" aria-hidden="true">
+  <div class="bar top"><span>Nave — a light instrument</span></div>
+  <div class="bar bot"><span>Nave — a light instrument</span><span id="cap-r">rite i — solstice</span></div>
+  <div class="line"></div>
+</div>
+
+<div id="card"><h1>NAVE</h1><div class="rule"></div><p>rite i · solstice</p></div>
+
+<div id="dock">
+  <div id="rites">
+    <button class="on"><span class="k">1</span>Solstice</button>
+    <button><span class="k">2</span>Storm</button>
+    <button><span class="k">3</span>Chance</button>
+  </div>
+  <div id="sliders"></div>
+  <div id="meta">
+    <div id="stats"><span id="fps">— fps</span><span id="q">q·ii</span></div>
+    <div id="hints">drag — look · scroll — dolly · 1 2 3 — rites · f — film</div>
+  </div>
+</div>
+
+<div id="err" role="alert"></div>
+
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
+const canvas = $('#gl'), errBox = $('#err'), card = $('#card');
+
+function fail(title, log, src){
+  errBox.style.display = 'block';
+  errBox.textContent = '';
+  const h = document.createElement('h2'); h.textContent = title; errBox.appendChild(h);
+  const pre = document.createElement('pre'); pre.textContent = log || '(no log)'; errBox.appendChild(pre);
+  if (src){
+    const h2 = document.createElement('h2'); h2.textContent = 'source'; errBox.appendChild(h2);
+    const pre2 = document.createElement('pre');
+    pre2.textContent = src.split('\n').map((l,i)=>String(i+1).padStart(4)+' | '+l).join('\n');
+    errBox.appendChild(pre2);
+  }
+}
+canvas.addEventListener('webglcontextlost', e=>{
+  e.preventDefault();
+  fail('WebGL context lost', 'Reload the page to restart the instrument.');
+});
+
+/* ————————————————————————————————————————————— shaders ————————————————— */
+
+const VERT = `
+attribute vec2 aPos;
+varying vec2 vUv;
+void main(){ vUv = aPos*0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }
+`;
+
+const SCENE_FRAG = `
+precision highp float;
+
+// ————————————————————————————————————————————————————————————————————————
+// NAVE — the distance field
+// The whole cathedral is one SDF, marched from inside the empty nave
+// (d > 0 means "distance to the nearest stone"):
+//   floor        plane  y = 0
+//   side walls   planes x = +/-HW
+//   vault        a pointed Gothic arch: two circular arcs of radius ARC
+//                centred at (+/-ACO, SPR) — exact, one sqrt
+//   ribs         carved by dipping the vault heightfield (transverse ribs
+//                over the arch bays, longitudinal ribs keyed to uFolds)
+//   far wall     plane z = -ZW, carrying the rose window as an emissive
+//                shaded pattern (tracery lives in shading, not geometry)
+//   entrance wall plane z = +ZB
+//   columns      paired cylinders on a z-grid, |x| mirrored, radius
+//                swelling at the base and capital
+//   arches       a torus clipped to its upper half, every second bay
+//   altar        rounded box before the window
+// ————————————————————————————————————————————————————————————————————————
+
+varying vec2 vUv;
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec3  uCamPos;
+uniform vec3  uCamFwd;
+uniform float uFovTan;
+uniform float uMaxSteps;   // march step budget (adaptive)
+uniform float uFog;        // fog density
+uniform float uTemp;       // -1 cold glass .. +1 warm glass
+uniform float uFolds;      // rose tracery symmetry / vault rib rhythm
+uniform float uBeam;       // volumetric shaft gain
+uniform float uRain;       // wet-lens + wet-floor amount
+uniform float uFlash;      // lightning envelope (storm)
+uniform float uDust;       // dust mote density
+uniform float uColGap;     // column spacing
+
+const float HW  = 3.0;     // half width of the nave
+const float SPR = 3.35;    // vault springing height
+const float ACO = 0.62;    // pointed-arch centre offset
+const float ARC = HW + ACO;
+const float ZW  = 26.0;    // rose window wall
+const float ZB  = 21.0;    // entrance wall
+const float WY  = 4.30;    // rose window centre height
+const float WR  = 2.40;    // rose window radius
+const float TAU = 6.28318;
+const vec3  LD  = vec3(0.0, -0.3714, 0.9285);  // shaft direction (down the nave)
+
+float hash21(vec2 p){
+  p = fract(p*vec2(234.34, 435.345));
+  p += dot(p, p + 34.23);
+  return fract(p.x*p.y);
+}
+float vnoise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  f = f*f*(3.0 - 2.0*f);
+  float a = hash21(i),             b = hash21(i + vec2(1.0, 0.0));
+  float c = hash21(i + vec2(0.0, 1.0)), d = hash21(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+// average tint of the glass, used for spill, shafts and fog
+vec3 glassKey(){
+  float cool = clamp(0.5 - uTemp*0.5, 0.0, 1.0);
+  return mix(vec3(0.90, 0.42, 0.13), vec3(0.26, 0.52, 0.66), cool);
+}
+
+// one saturated primary per cell, warm or cold set blended by temperature
+vec3 glassCell(float h, float cool){
+  float s = fract(h)*3.999;
+  vec3 wc = vec3(1.00, 0.14, 0.02);
+  wc = mix(wc, vec3(1.00, 0.60, 0.05), step(1.0, s));
+  wc = mix(wc, vec3(0.55, 0.03, 0.04), step(2.0, s));
+  wc = mix(wc, vec3(0.98, 0.86, 0.50), step(3.0, s));
+  vec3 cc = vec3(0.06, 0.42, 0.75);
+  cc = mix(cc, vec3(0.62, 0.84, 0.94), step(1.0, s));
+  cc = mix(cc, vec3(0.02, 0.10, 0.24), step(2.0, s));
+  cc = mix(cc, vec3(0.30, 0.66, 0.62), step(3.0, s));
+  return mix(wc, cc, cool);
+}
+
+// the rose window: emissive mandala in polar coordinates.
+// uv is measured from the window centre on the wall plane.
+vec3 roseGlass(vec2 uv, float gain){
+  float r = length(uv);
+  if (r > WR) return vec3(0.0);
+  float a = atan(uv.y, uv.x);
+  float cool = clamp(0.5 - uTemp*0.5, 0.0, 1.0);
+  // stone tracery mask: spokes, rings, rim, centre boss
+  float fa = abs(fract(a/TAU*uFolds + 0.5) - 0.5) * TAU/uFolds;
+  float m = smoothstep(0.028, 0.055, fa);
+  m *= 1.0 - smoothstep(WR - 0.11, WR - 0.05, r);
+  m *= smoothstep(0.050, 0.085, abs(r - WR*0.34));
+  m *= smoothstep(0.050, 0.085, abs(r - WR*0.62));
+  m *= smoothstep(0.060, 0.100, abs(r - WR*0.85));
+  m *= smoothstep(0.09, 0.15, r);
+  // glass cells
+  float sec  = floor((a/TAU + 0.5)*uFolds);
+  float band = r < WR*0.34 ? 0.0 : r < WR*0.62 ? 1.0 : r < WR*0.85 ? 2.0 : 3.0;
+  float h = hash21(vec2(sec, band*7.7 + 3.1));
+  vec3 gc = glassCell(h*3.999, cool);
+  float breathe = 0.72 + 0.28*sin(uTime*0.5 + r*3.5 + sec*0.7);
+  vec3 col = gc*(0.55 + 0.9*h)*breathe;
+  // lightning surges through random cells
+  float surge = uFlash*(0.4 + 0.6*hash21(vec2(sec, floor(uTime*14.0))));
+  col += gc*surge*2.0;
+  return col*m*gain;
+}
+
+// analytic shadow of the colonnade on light travelling from the window:
+// where the 2D ray window->point crosses a column line, dim it.
+// This is what stripes the god rays — and it also shades surfaces.
+float keyShadow(vec3 p){
+  vec2 o = vec2(p.x, p.z + ZW);
+  float dist = length(o);
+  if (dist < 0.5) return 1.0;
+  vec2 dir = o/dist;
+  float occ = 1.0;
+  for (int s = 0; s < 2; s++){
+    float sx = s == 0 ? -1.0 : 1.0;
+    if (abs(dir.x) > 0.03){
+      float tc = sx*(HW - 0.10)/dir.x;
+      if (tc > 0.3 && tc < dist - 0.3){
+        float zc = -ZW + tc*dir.y;
+        float dz = abs(mod(zc + uColGap*0.5, uColGap) - uColGap*0.5);
+        occ = min(occ, smoothstep(0.10, 0.55, dz));
+      }
+    }
+  }
+  return occ;
+}
+
+// beam density at a point (cone of light from the window, down the nave)
+float beamAmt(vec3 p){
+  vec3 q = p - vec3(0.0, WY, -ZW);
+  float tt = dot(q, LD);
+  if (tt < 0.0 || tt > 46.0) return 0.0;
+  vec3 pp = q - tt*LD;
+  float w = 0.55 + tt*0.085;
+  return exp(-dot(pp, pp)/(w*w)) * exp(-tt*0.042);
+}
+
+// drifting dust + rare bright motes inside the shafts
+float dustAt(vec3 p){
+  float n = vnoise(vec2(p.x*1.25 + p.z*0.8, p.y*1.25 - p.z*0.55) + vec2(0.0, -uTime*0.11));
+  vec2 mg = vec2(p.x*3.0 + p.z*1.6, p.y*3.0 - p.z*2.2) + vec2(0.0, -uTime*0.22);
+  float h = hash21(floor(mg));
+  vec2 fp = fract(mg) - 0.5;
+  float mote = smoothstep(0.986, 1.0, h) * (1.0 - smoothstep(0.05, 0.42, length(fp)));
+  return (0.4 + 0.8*n)*uDust + mote*2.4;
+}
+
+// in-scattering accumulated along the primary ray
+vec3 volumetric(vec3 p, float seg){
+  float a = beamAmt(p);
+  if (a < 0.004) return vec3(0.0);
+  float sh = keyShadow(p);
+  if (sh < 0.02) return vec3(0.0);
+  float d = dustAt(p);
+  float breath = 0.85 + 0.30*sin(uTime*0.21)*sin(uTime*0.083 + 2.0);
+  return glassKey()*a*(0.30 + 0.80*d)*sh*seg*uBeam*(0.30 + 0.70*uFog)*breath*1.5;
+}
+
+// crawling interference veins — the storm's electric caustics
+float caustic(vec2 q, float t){
+  float n1 = vnoise(q*1.35 + vec2(0.0, t*0.32));
+  float n2 = vnoise(q*2.10 - vec2(t*0.26, 0.0));
+  float c = 1.0 - abs(n1 - n2)*2.6;
+  return pow(clamp(c, 0.0, 1.0), 7.0);
+}
+
+vec2 map(vec3 p){
+  float dF = p.y;                                          // floor
+  float dW = HW - abs(p.x);                                // side walls
+  float vt = abs(p.x) + ACO;
+  float dV = SPR + sqrt(max(ARC*ARC - vt*vt, 0.0)) - p.y;  // pointed vault
+  // ribs carved into the vault
+  float mzA = mod(p.z, uColGap*2.0) - uColGap;             // arch bays
+  float rib = (1.0 - smoothstep(0.03, 0.16, abs(mzA)))*0.08;
+  rib += (1.0 - smoothstep(0.84, 0.97, abs(cos(p.x*uFolds*0.45))))*0.05;
+  dV -= rib;
+  float dFar  = p.z + ZW;                                  // rose window wall
+  float dBack = ZB - p.z;                                  // entrance wall
+  // columns (radius swells at base and capital)
+  float qz = mod(p.z + uColGap*0.5, uColGap) - uColGap*0.5;
+  float cr = 0.20 + 0.20*smoothstep(2.4, SPR + 0.5, p.y)
+           + 0.14*(1.0 - smoothstep(0.0, 0.9, p.y));
+  float dC = length(vec2(abs(p.x) - HW, qz)) - cr;
+  // diaphragm arch every second bay, clipped to its upper half
+  float dA = 1e5;
+  if (p.z > -ZW + 2.5){
+    float tor = length(vec2(length(vec2(p.x, p.y - 3.05)) - (HW - 0.05), mzA)) - 0.16;
+    dA = max(tor, 3.05 - p.y);
+  }
+  // altar
+  vec3 ab = vec3(abs(p.x), abs(p.y - 0.42), abs(p.z + ZW - 5.2)) - vec3(1.05, 0.42, 0.50);
+  float dAlt = length(max(ab, 0.0)) + min(max(ab.x, max(ab.y, ab.z)), 0.0);
+
+  float d = dF, mat = 1.0;
+  if (dW   < d){ d = dW;   mat = 2.0; }
+  if (dV   < d){ d = dV;   mat = 2.0; }
+  if (dFar < d){ d = dFar; mat = 4.0; }
+  if (dBack< d){ d = dBack;mat = 2.0; }
+  if (dC   < d){ d = dC;   mat = 3.0; }
+  if (dA   < d){ d = dA;   mat = 2.0; }
+  if (dAlt < d){ d = dAlt; mat = 5.0; }
+  return vec2(d, mat);
+}
+
+vec3 calcN(vec3 p, float t){
+  vec2 e = vec2(1.0, -1.0)*max(0.0016, t*0.0012);
+  return normalize(
+    e.xyy*map(p + e.xyy).x + e.yyx*map(p + e.yyx).x +
+    e.yxy*map(p + e.yxy).x + e.xxx*map(p + e.xxx).x );
+}
+
+float calcAO(vec3 p, vec3 n){
+  float occ = 0.0, sca = 1.0;
+  for (int i = 0; i < 3; i++){
+    float h = 0.04 + 0.16*float(i);
+    occ += (h - map(p + n*h).x)*sca;
+    sca *= 0.62;
+  }
+  return clamp(1.0 - 1.1*occ, 0.0, 1.0);
+}
+
+vec2 trace(vec3 ro, vec3 rd, out vec3 glow){
+  glow = vec3(0.0);
+  float t = 0.02;
+  float cap = clamp(95.0/uMaxSteps, 1.5, 2.8);  // volumetric sample spacing
+  for (int i = 0; i < 90; i++){
+    if (float(i) >= uMaxSteps) break;
+    vec3 p = ro + rd*t;
+    vec2 h = map(p);
+    float st = min(h.x*0.85, cap);
+    glow += volumetric(p, st);
+    if (h.x < 0.001*t + 0.0006) return vec2(t, h.y);
+    t += st;
+    if (t > 58.0) break;
+  }
+  return vec2(-1.0, 0.0);
+}
+
+vec3 shade(vec3 p, vec3 rd, float mat, vec3 n, float ao){
+  float cool  = clamp(0.5 - uTemp*0.5, 0.0, 1.0);
+  float storm = smoothstep(0.55, 0.95, cool);
+  vec3 gk = glassKey();
+
+  // key light: the rose window, with the glass pattern projected onto
+  // this very point — colored light pools that parallax as you move.
+  vec3 toC = vec3(0.0, WY, -ZW) - p;
+  float dC = length(toC);
+  vec3 Lw = toC/dC;
+  float sh  = keyShadow(p + n*0.03);
+  float ndl = max(dot(n, Lw), 0.0);
+  vec2 wuvP = p.xy + Lw.xy*((-ZW - p.z)/Lw.z) - vec2(0.0, WY);
+  float inWin = 1.0 - smoothstep(WR - 0.15, WR + 0.2, length(wuvP));
+  vec3 pcol = roseGlass(wuvP, 1.0);
+  vec3 key = (pcol*1.25 + gk*(0.10 + 0.32*inWin)) * ndl * sh
+           * (0.85 + 5.5/(1.0 + 0.03*dC*dC));
+
+  // shafts also wash the surfaces they pass through
+  float ba = beamAmt(p);
+  vec3 bounce = gk*ba*sh*1.15*uBeam;
+  if (storm > 0.01){
+    bounce += gk*caustic(p.xz, uTime)*(ba*0.8 + 0.15)*sh
+            * (0.4 + 2.4*uFlash)*storm*1.6;
+  }
+
+  // altar candles
+  vec3 cand = vec3(0.0);
+  for (int i = 0; i < 2; i++){
+    vec3 cp = vec3(i == 0 ? 0.55 : -0.55, 0.95, -ZW + 5.2);
+    float cd = length(p - cp);
+    float fl = 0.72 + 0.28*vnoise(vec2(uTime*6.0, float(i)*7.3));
+    cand += vec3(1.0, 0.50, 0.16)*fl*0.55/(1.0 + cd*cd*2.5);
+  }
+
+  vec3 amb = mix(vec3(0.150, 0.128, 0.110), vec3(0.095, 0.115, 0.150), cool)
+           * (0.62 + 0.38*n.y)*ao;
+
+  // albedos
+  vec3 alb;
+  float wr = 0.0;
+  if (mat < 1.5){            // flagstone floor
+    vec2 tl = p.xz*0.62;
+    vec2 g = abs(fract(tl) - 0.5);
+    float line = smoothstep(0.44, 0.487, max(g.x, g.y));
+    float tv = hash21(floor(tl) + 3.1);
+    alb = vec3(0.150, 0.128, 0.106)*(0.80 + 0.35*tv);
+    alb *= 1.0 - 0.5*line;
+    alb *= 0.86 + 0.28*vnoise(p.xz*0.75);
+  } else if (mat < 2.5){     // stone
+    float by = p.y*1.05, row = floor(by);
+    float jl = smoothstep(0.465, 0.5, abs(fract(by) - 0.5));
+    float jv = smoothstep(0.465, 0.5, abs(fract((p.z + p.x)*0.5 + row*0.37) - 0.5));
+    alb = vec3(0.215, 0.190, 0.162);
+    alb *= 1.0 - 0.30*max(jl, jv);
+    alb *= 0.90 + 0.20*vnoise(vec2(p.z + p.x, p.y)*0.45);
+    alb *= 1.0 + 0.22*smoothstep(SPR, SPR + 2.4, p.y);
+  } else if (mat < 3.5){     // fluted column
+    float zc = floor(p.z/uColGap + 0.5)*uColGap;
+    float ang = atan(p.z - zc, abs(p.x) - HW);
+    alb = vec3(0.165, 0.145, 0.128)*(0.85 + 0.15*sin(ang*16.0));
+    alb *= 1.0 - 0.28*(1.0 - smoothstep(0.06, 0.28, abs(p.y - (SPR - 0.12))));
+    alb *= 1.0 - 0.20*(1.0 - smoothstep(0.06, 0.32, p.y));
+  } else if (mat < 4.5){     // window wall
+    vec2 wuv = p.xy - vec2(0.0, WY);
+    wr = length(wuv);
+    alb = vec3(0.200, 0.178, 0.152)*(0.85 + 0.30*vnoise(p.xy*0.85));
+    alb *= 1.0 - 0.30*(1.0 - smoothstep(0.03, 0.10, abs(wr - (WR + 0.24))));
+  } else {                   // altar
+    alb = vec3(0.235, 0.205, 0.172);
+  }
+
+  vec3 col = alb*(amb + key + bounce + cand);
+
+  if (mat > 3.5 && mat < 4.5){          // the window itself, emissive
+    col += roseGlass(p.xy - vec2(0.0, WY), 2.7);
+    col += gk*0.30/(1.0 + wr*wr*1.1);   // spill onto surrounding stone
+  }
+  if (mat > 4.5){                       // flames resting on the altar
+    for (int i = 0; i < 2; i++){
+      vec3 cp = vec3(i == 0 ? 0.55 : -0.55, 0.95, -ZW + 5.2);
+      float fd = length(p - cp);
+      float fl = 0.72 + 0.28*vnoise(vec2(uTime*6.0, float(i)*7.3));
+      col += vec3(1.0, 0.55, 0.16)*(1.0 - smoothstep(0.02, 0.10, fd))*4.5*fl;
+    }
+  }
+  if (mat < 1.5){                       // the mandala mirrored in the floor
+    vec3 refl = reflect(rd, n);
+    float wob = 0.018 + 0.05*uRain;
+    refl.xz += wob*(vec2(vnoise(p.xz*2.6 + uTime*0.07),
+                         vnoise(p.xz*2.6 + 7.7 - uTime*0.05)) - 0.5);
+    if (refl.z < -0.02){
+      float s = (-ZW - p.z)/refl.z;
+      vec3 rp = p + refl*s;
+      vec3 rc = roseGlass(rp.xy - vec2(0.0, WY), 1.0);
+      float gloss = 0.14 + 0.55*pow(1.0 - clamp(-rd.y, 0.0, 1.0), 3.0);
+      gloss *= 1.0 + 0.45*uRain;
+      col += (rc*1.2 + gk*0.12)*gloss*exp(-s*0.05);
+    }
+  }
+  return col;
+}
+
+void main(){
+  vec2 uv = vUv*2.0 - 1.0;
+  float aspect = uRes.x/uRes.y;
+  vec3 fwd   = normalize(uCamFwd);
+  vec3 right = normalize(cross(fwd, vec3(0.0, 1.0, 0.0)));
+  vec3 up    = cross(right, fwd);
+  vec3 rd = normalize(fwd + right*(uv.x*aspect)*uFovTan + up*(uv.y*uFovTan));
+
+  vec3 glow;
+  vec2 hit = trace(uCamPos, rd, glow);
+
+  float cool = clamp(0.5 - uTemp*0.5, 0.0, 1.0);
+  float breath = 0.85 + 0.30*sin(uTime*0.21)*sin(uTime*0.083 + 2.0);
+  vec3 fogC = mix(vec3(0.055, 0.036, 0.022), vec3(0.032, 0.042, 0.058), cool)
+            + glassKey()*0.012;
+
+  vec3 col;
+  if (hit.x > 0.0){
+    vec3 p = uCamPos + rd*hit.x;
+    vec3 n = calcN(p, hit.x);
+    float ao = calcAO(p, n);
+    col = shade(p, rd, hit.y, n, ao);
+    float fogA = 1.0 - exp(-hit.x*uFog*breath*0.028);
+    col = mix(col, fogC, fogA);
+  } else {
+    col = fogC*1.4;
+  }
+  col += glow;                                        // god rays & dust
+  col += uFlash*(vec3(0.30, 0.36, 0.48) + glassKey()*0.15);
+
+  col *= 1.22;                                        // exposure
+  col = (col*(2.51*col + 0.03))/(col*(2.43*col + 0.59) + 0.14);
+  col = pow(clamp(col, 0.0, 1.0), vec3(0.4545));
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
+
+const POST_FRAG = `
+precision highp float;
+varying vec2 vUv;
+uniform sampler2D uTex;    // unit 0: scene (or blur source)
+uniform sampler2D uBloom;  // unit 1: blurred bright pass
+uniform float uMode;       // 0 bright pass, 1 blur, 2 composite
+uniform vec2  uDir;        // blur direction in texel units
+uniform float uThr;        // bloom threshold
+uniform vec2  uRes;
+uniform float uTime;
+uniform float uRain;
+uniform float uGrain;      // 0 disables grain + aberration (auto quality)
+uniform float uBloomAmt;
+uniform float uFlash;
+
+float hash11(float n){ return fract(sin(n)*43758.5453); }
+float hash21(vec2 p){
+  p = fract(p*vec2(234.34, 435.345));
+  p += dot(p, p + 34.23);
+  return fract(p.x*p.y);
+}
+
+vec3 bright(){
+  vec3 c = texture2D(uTex, vUv).rgb;
+  float l = dot(c, vec3(0.299, 0.587, 0.114));
+  return c*smoothstep(uThr, uThr + 0.4, l);
+}
+vec3 blur(){
+  vec3 c = texture2D(uTex, vUv).rgb*0.227027;
+  c += (texture2D(uTex, vUv + uDir*1.38461).rgb + texture2D(uTex, vUv - uDir*1.38461).rgb)*0.316216;
+  c += (texture2D(uTex, vUv + uDir*3.23077).rgb + texture2D(uTex, vUv - uDir*3.23077).rgb)*0.070270;
+  return c;
+}
+float streaks(vec2 uv){
+  float acc = 0.0;
+  for (int k = 0; k < 2; k++){
+    float fk = float(k);
+    float sc = 36.0 + fk*44.0;
+    float x = uv.x*sc + fk*13.7;
+    float h = hash11(floor(x)*1.73 + fk*31.7);
+    float fx = fract(x) - 0.5;
+    float spd = 1.3 + h*2.1;
+    float y = fract(uv.y*(0.85 + h*0.45) + uTime*spd + h*8.3);
+    float len = 0.16 + h*0.34;
+    acc += (1.0 - smoothstep(0.0, 0.05 + 0.06*h, abs(fx)))
+         * (1.0 - smoothstep(0.0, len, y))*(0.35 + 0.65*h);
+  }
+  return acc;
+}
+
+void main(){
+  if (uMode < 0.5){ gl_FragColor = vec4(bright(), 1.0); return; }
+  if (uMode < 1.5){ gl_FragColor = vec4(blur(), 1.0);   return; }
+
+  vec2 uv = vUv;
+  float streak = 0.0;
+  if (uRain > 0.001){
+    streak = streaks(uv);
+    uv.x += streak*0.006*uRain;   // the lens refracts through the rain
+  }
+  vec3 col = texture2D(uTex, uv).rgb;
+  if (uGrain > 0.5){              // cheap chromatic pull at the edges
+    vec2 d = (vUv - 0.5)*0.004;
+    col.r = texture2D(uTex, uv + d).r;
+    col.b = texture2D(uTex, uv - d).b;
+  }
+  col += texture2D(uBloom, vUv).rgb*uBloomAmt;
+  if (uRain > 0.001) col += vec3(0.45, 0.55, 0.68)*streak*0.12*uRain;
+  col += uFlash*vec3(0.50, 0.58, 0.75)*0.20;
+
+  vec2 q = vUv - 0.5; q.x *= uRes.x/uRes.y;
+  col *= 1.0 - 0.40*smoothstep(0.42, 1.05, length(q));
+
+  if (uGrain > 0.5){
+    float g = hash21(vUv*uRes + vec2(mod(uTime*61.7, 97.0), mod(uTime*41.3, 89.0)));
+    col += (g - 0.5)*0.05*(0.35 + 0.65*(1.0 - clamp(dot(col, vec3(0.333)), 0.0, 1.0)));
+  }
+  gl_FragColor = vec4(col, 1.0);
+}
+`;
+
+/* ————————————————————————————————————————————— gl boot ————————————————— */
+
+const glOpts = {antialias:false, depth:false, stencil:false, alpha:false,
+                powerPreference:'high-performance', preserveDrawingBuffer:false};
+let gl = null;
+try { gl = canvas.getContext('webgl2', glOpts) || canvas.getContext('webgl', glOpts); }
+catch(e){ gl = null; }
+if (!gl){
+  fail('WebGL is not available',
+       'This instrument needs WebGL. Try a recent desktop or mobile browser.');
+} else {
+  boot();
+}
+
+function boot(){
+  function compile(type, src, name){
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+      fail('GLSL compile failed — ' + name, gl.getShaderInfoLog(s), src);
+      throw new Error('compile: ' + name);
+    }
+    return s;
+  }
+  function program(vs, fs, name){
+    const p = gl.createProgram();
+    gl.attachShader(p, compile(gl.VERTEX_SHADER, vs, name + ' · vertex'));
+    gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs, name + ' · fragment'));
+    gl.bindAttribLocation(p, 0, 'aPos');
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)){
+      fail('GLSL link failed — ' + name, gl.getProgramInfoLog(p));
+      throw new Error('link: ' + name);
+    }
+    return p;
+  }
+  function uniforms(p){
+    const n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS), o = {};
+    for (let i = 0; i < n; i++){
+      const u = gl.getActiveUniform(p, i);
+      o[u.name] = gl.getUniformLocation(p, u.name);
+    }
+    return o;
+  }
+
+  const sceneP = program(VERT, SCENE_FRAG, 'nave.scene');
+  const postP  = program(VERT, POST_FRAG,  'nave.post');
+  const su = uniforms(sceneP), pu = uniforms(postP);
+
+  // fullscreen triangle
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+  function makeRT(w, h){
+    const tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    const fbo = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+    return {tex, fbo};
+  }
+  function freeRT(rt){ if (rt){ gl.deleteTexture(rt.tex); gl.deleteFramebuffer(rt.fbo); } }
+
+  /* ————————————————————————————— state ————————————————————————————— */
+
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  const state = {
+    rite:0, draw:0, time:0, timeScale:1, bloom:0.45, fog:1.0, folds:12,
+    temp:0.75, camZ:7.0, yaw:0, pitch:0, yawT:0, pitchT:0,
+    beam:1.05, rain:0, dust:1.0, colGap:4.3, orbitAmp:0.85, orbitSpd:0.05, flashOn:false,
+  };
+  const RITES = [
+    {name:'solstice', temp: 0.75, fog:1.00, folds:12, bloom:0.45, beam:1.05, rain:0, dust:1.00, colGap:4.3, orbitAmp:0.85, orbitSpd:0.050, flashOn:false},
+    {name:'storm',    temp:-0.80, fog:1.45, folds: 9, bloom:0.60, beam:0.85, rain:1, dust:1.15, colGap:4.9, orbitAmp:0.30, orbitSpd:0.022, flashOn:true },
+  ];
+  const rand = (a,b)=>a + Math.random()*(b - a);
+  // rite iii: a draw from curated ranges — always stageable, never noise
+  function chanceRite(){
+    return {
+      name:'chance',
+      temp: rand(-0.85, 0.85),
+      fog: rand(0.60, 1.55),
+      folds: 6 + Math.floor(Math.random()*9),
+      bloom: rand(0.35, 0.62),
+      beam: rand(0.75, 1.30),
+      rain: Math.random() < 0.30 ? rand(0.25, 0.9) : 0,
+      dust: rand(0.70, 1.35),
+      colGap: rand(3.6, 5.2),
+      orbitAmp: rand(0.25, 1.10),
+      orbitSpd: rand(0.02, 0.085),
+      flashOn: Math.random() < 0.35,
+    };
+  }
+
+  /* ————————————————————————————— UI ————————————————————————————— */
+
+  const ROMAN = ['i','ii','iii'];
+  const CTLS = [
+    {key:'timeScale', lbl:'time',  min:0,   max:2.5, step:0.01, fmt:v=>v.toFixed(2)},
+    {key:'bloom',     lbl:'bloom', min:0,   max:1,   step:0.01, fmt:v=>v.toFixed(2)},
+    {key:'fog',       lbl:'fog',   min:0,   max:2,   step:0.01, fmt:v=>v.toFixed(2)},
+    {key:'folds',     lbl:'folds', min:5,   max:16,  step:1,    fmt:v=>String(Math.round(v))},
+    {key:'temp',      lbl:'temp',  min:-1,  max:1,   step:0.01, fmt:v=>(v>=0?'+':'\u2212')+Math.abs(v).toFixed(2)},
+    {key:'camZ',      lbl:'cam z', min:-6,  max:14,  step:0.1,  fmt:v=>v.toFixed(1)},
+  ];
+  const sliders = {};
+  CTLS.forEach(c=>{
+    const wrap = document.createElement('label');
+    wrap.className = 'ctl';
+    const lbl = document.createElement('span'); lbl.className = 'lbl'; lbl.textContent = c.lbl;
+    const inp = document.createElement('input');
+    inp.type = 'range'; inp.min = c.min; inp.max = c.max; inp.step = c.step;
+    inp.setAttribute('aria-label', c.lbl);
+    const val = document.createElement('span'); val.className = 'val';
+    inp.addEventListener('input', ()=>{
+      state[c.key] = parseFloat(inp.value);
+      val.textContent = c.fmt(state[c.key]);
+    });
+    wrap.appendChild(lbl); wrap.appendChild(inp); wrap.appendChild(val);
+    $('#sliders').appendChild(wrap);
+    sliders[c.key] = {inp, val, fmt:c.fmt};
+  });
+  function syncUI(){
+    for (const k in sliders){
+      sliders[k].inp.value = state[k];
+      sliders[k].val.textContent = sliders[k].fmt(state[k]);
+    }
+  }
+
+  const riteBtns = document.querySelectorAll('#rites button');
+  function applyRite(i){
+    state.rite = i;
+    const r = i === 2 ? chanceRite() : RITES[i];
+    if (i === 2) state.draw++;
+    for (const k in r) if (k !== 'name') state[k] = r[k];
+    riteBtns.forEach((b, bi)=>b.classList.toggle('on', bi === i));
+    $('#card p').textContent =
+      'rite ' + ROMAN[i] + ' · ' + r.name + (i === 2 ? ' · draw n\u00BA ' + state.draw : '');
+    $('#cap-r').textContent = 'rite ' + ROMAN[i] + ' — ' + r.name;
+    syncUI();
+  }
+  riteBtns.forEach((b, i)=>b.addEventListener('click', ()=>applyRite(i)));
+
+  let cardTimer = setTimeout(()=>card.classList.add('hide'), 4600);
+  function scheduleCardHide(){
+    clearTimeout(cardTimer);
+    cardTimer = setTimeout(()=>{
+      if (!document.body.classList.contains('film')) card.classList.add('hide');
+    }, 4600);
+  }
+  function toggleFilm(){
+    document.body.classList.toggle('film');
+    if (document.body.classList.contains('film')) card.classList.remove('hide');
+    else scheduleCardHide();
+  }
+  addEventListener('keydown', e=>{
+    if (e.key === '1') applyRite(0);
+    else if (e.key === '2') applyRite(1);
+    else if (e.key === '3') applyRite(2);       // press again to redraw chance
+    else if (e.key === 'f' || e.key === 'F') toggleFilm();
+  });
+
+  /* ————————————————————————————— camera input ————————————————————— */
+
+  const ptrs = new Map();
+  let lastPinch = 0, intro = 0;
+  canvas.addEventListener('pointerdown', e=>{
+    canvas.setPointerCapture(e.pointerId);
+    ptrs.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    if (ptrs.size === 2){
+      const a = [...ptrs.values()];
+      lastPinch = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
+    }
+    canvas.classList.add('drag');
+  });
+  canvas.addEventListener('pointermove', e=>{
+    if (!ptrs.has(e.pointerId)) return;
+    const p = ptrs.get(e.pointerId);
+    const dx = e.clientX - p.x, dy = e.clientY - p.y;
+    p.x = e.clientX; p.y = e.clientY;
+    if (ptrs.size === 1){
+      state.yawT   = clamp(state.yawT + dx*0.0016, -0.16, 0.16);
+      state.pitchT = clamp(state.pitchT - dy*0.0013, -0.09, 0.09);
+    } else if (ptrs.size === 2){
+      const a = [...ptrs.values()];
+      const d = Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
+      if (lastPinch > 0) state.camZ = clamp(state.camZ - (d - lastPinch)*0.02, -6, 14);
+      lastPinch = d;
+      intro = 99; syncUI();
+    }
+  });
+  const endPtr = e=>{
+    ptrs.delete(e.pointerId); lastPinch = 0;
+    if (!ptrs.size) canvas.classList.remove('drag');
+  };
+  canvas.addEventListener('pointerup', endPtr);
+  canvas.addEventListener('pointercancel', endPtr);
+  canvas.addEventListener('dblclick', ()=>{ state.yawT = 0; state.pitchT = 0; });
+  canvas.addEventListener('wheel', e=>{
+    e.preventDefault();
+    state.camZ = clamp(state.camZ + e.deltaY*0.0045, -6, 14);
+    intro = 99; syncUI();
+  }, {passive:false});
+
+  /* ————————————————————————— adaptive quality ————————————————————— */
+
+  const DPR_CAP = coarse ? 1.0 : 1.25;
+  const QSTEPS = [28, 40, 56, 74];
+  const QSCALE = [0.50, 0.66, 0.82, 1.00];
+  let q = (coarse || innerWidth < 720) ? 1 : 2;
+  const qMax = coarse ? 2 : 3;
+  let grainOn = true, rw = 2, rh = 2, bw = 2, bh = 2;
+  let sceneRT = null, bloomA = null, bloomB = null;
+  let lastQChange = 0;
+
+  function resize(){
+    const dpr = Math.min(devicePixelRatio || 1, DPR_CAP)*QSCALE[q];
+    rw = Math.max(2, Math.round(innerWidth*dpr));
+    rh = Math.max(2, Math.round(innerHeight*dpr));
+    canvas.width = rw; canvas.height = rh;
+    bw = Math.max(2, rw >> 2); bh = Math.max(2, rh >> 2);
+    freeRT(sceneRT); freeRT(bloomA); freeRT(bloomB);
+    sceneRT = makeRT(rw, rh);
+    bloomA = makeRT(bw, bh);
+    bloomB = makeRT(bw, bh);
+  }
+  function setQ(nq, auto){
+    q = nq; grainOn = q >= 2; resize();
+    const el = $('#q');
+    el.textContent = 'q\u00B7' + ['i','ii','iii','iv'][q] + (auto ? ' \u00B7auto' : '');
+    if (auto){ el.classList.add('warn'); setTimeout(()=>el.classList.remove('warn'), 1800); }
+    lastQChange = performance.now();
+  }
+  addEventListener('resize', resize);
+  setQ(q, false);
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches){
+    state.timeScale = 0.3;
+    state.orbitAmp *= 0.3;
+  }
+  applyRite(0);
+
+  /* ————————————————————————————— render loop ————————————————————— */
+
+  let flash = 0, last = performance.now(), fpsEMA = 60, qTimer = 0, fpsTimer = 0;
+
+  function frame(now){
+    requestAnimationFrame(frame);
+    const dtRaw = Math.min((now - last)/1000 || 0.016, 0.1);
+    last = now;
+    fpsEMA += (1/Math.max(dtRaw, 1e-4) - fpsEMA)*0.055;
+
+    fpsTimer += dtRaw;
+    if (fpsTimer > 0.5){ fpsTimer = 0; $('#fps').textContent = Math.round(fpsEMA) + ' fps'; }
+    qTimer += dtRaw;
+    if (qTimer > 1.25){
+      qTimer = 0;
+      if (fpsEMA < 28 && q > 0) setQ(q - 1, true);            // drop steps + grain
+      else if (fpsEMA > 57 && q < qMax &&
+               performance.now() - lastQChange > 5000) setQ(q + 1, true);
+    }
+
+    const dt = dtRaw*state.timeScale;
+    state.time += dt;
+    const t = state.time;
+
+    if (state.flashOn){
+      flash *= Math.exp(-dtRaw*6.0);
+      if (Math.random() < dtRaw*0.30) flash = 0.55 + Math.random()*0.85;
+      if (flash < 0.012) flash = 0;
+    } else flash = 0;
+
+    const k = 1 - Math.exp(-dtRaw*9);
+    state.yaw   += (state.yawT   - state.yaw)*k;
+    state.pitch += (state.pitchT - state.pitch)*k;
+    if (intro < 20) intro += dtRaw;
+    const camZ = clamp(state.camZ + 2.6*Math.exp(-intro*0.5), -6, 16);  // opening dolly
+    const camX = Math.sin(t*state.orbitSpd)*state.orbitAmp;
+    const camY = 1.72 + Math.sin(t*0.5)*0.018;
+    const cp = Math.cos(state.pitch);
+    const fwd = [Math.sin(state.yaw)*cp, Math.sin(state.pitch), -Math.cos(state.yaw)*cp];
+
+    // 1 · scene
+    gl.bindFramebuffer(gl.FRAMEBUFFER, sceneRT.fbo);
+    gl.viewport(0, 0, rw, rh);
+    gl.useProgram(sceneP);
+    gl.uniform2f(su.uRes, rw, rh);
+    gl.uniform1f(su.uTime, t);
+    gl.uniform3f(su.uCamPos, camX, camY, camZ);
+    gl.uniform3f(su.uCamFwd, fwd[0], fwd[1], fwd[2]);
+    gl.uniform1f(su.uFovTan, 0.55);
+    gl.uniform1f(su.uMaxSteps, QSTEPS[q]);
+    gl.uniform1f(su.uFog, state.fog);
+    gl.uniform1f(su.uTemp, state.temp);
+    gl.uniform1f(su.uFolds, state.folds);
+    gl.uniform1f(su.uBeam, state.beam);
+    gl.uniform1f(su.uRain, state.rain);
+    gl.uniform1f(su.uFlash, flash);
+    gl.uniform1f(su.uDust, state.dust);
+    gl.uniform1f(su.uColGap, state.colGap);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    gl.useProgram(postP);
+    gl.activeTexture(gl.TEXTURE0); gl.uniform1i(pu.uTex, 0);
+    gl.activeTexture(gl.TEXTURE1); gl.uniform1i(pu.uBloom, 1);
+
+    // 2 · threshold + downsample
+    gl.bindFramebuffer(gl.FRAMEBUFFER, bloomA.fbo);
+    gl.viewport(0, 0, bw, bh);
+    gl.uniform1f(pu.uMode, 0);
+    gl.uniform1f(pu.uThr, state.bloom);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, sceneRT.tex);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, null);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    // 3 · separable blur, two widening iterations
+    gl.uniform1f(pu.uMode, 1);
+    for (let i = 0; i < 2; i++){
+      gl.bindFramebuffer(gl.FRAMEBUFFER, bloomB.fbo);
+      gl.uniform2f(pu.uDir, 1/bw, 0);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, bloomA.tex);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, bloomA.fbo);
+      gl.uniform2f(pu.uDir, 0, 1/bh);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, bloomB.tex);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    // 4 · composite: bloom, rain on the lens, flash, vignette, grain
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, rw, rh);
+    gl.uniform1f(pu.uMode, 2);
+    gl.uniform2f(pu.uRes, rw, rh);
+    gl.uniform1f(pu.uTime, t);
+    gl.uniform1f(pu.uRain, state.rain);
+    gl.uniform1f(pu.uGrain, grainOn ? 1 : 0);
+    gl.uniform1f(pu.uBloomAmt, 0.9);
+    gl.uniform1f(pu.uFlash, flash);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, sceneRT.tex);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, bloomA.tex);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+  requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>
