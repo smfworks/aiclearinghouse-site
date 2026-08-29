@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#070504"/>
+      <stop offset="100%" stop-color="#1a0c08"/>
+    </linearGradient>
+    <radialGradient id="ember" cx="28%" cy="72%" r="42%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.85"/>
+      <stop offset="45%" stop-color="#C9A96E" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#001F3F" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#ember)"/>
+  <g opacity="0.12" stroke="#C9A96E" stroke-width="1" fill="none">
+    <path d="M0 78 H1200 M0 156 H1200 M0 234 H1200 M0 312 H1200 M0 390 H1200 M0 468 H1200 M0 546 H1200"/>
+    <path d="M80 0 V624 M160 0 V624 M240 0 V624 M320 0 V624 M400 0 V624 M480 0 V624 M560 0 V624 M640 0 V624 M720 0 V624 M800 0 V624 M880 0 V624 M960 0 V624 M1040 0 V624 M1120 0 V624"/>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="470" y="310" width="260" height="70" rx="8" fill="#1a120e" stroke="#C9A96E" stroke-opacity="0.35"/>
+    <rect x="590" y="140" width="28" height="200" fill="#2a1a14"/>
+    <rect x="520" y="210" width="170" height="22" fill="#3a2418"/>
+    <rect x="640" y="188" width="86" height="18" fill="#2a1a14"/>
+  </g>
+  <rect x="548" y="298" width="108" height="8" rx="2" fill="#ea580c" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="220" cy="480" r="90" fill="#ea580c" opacity="0.18" filter="url(#glow)"/>
+  <circle cx="980" cy="160" r="54" fill="#C9A96E" opacity="0.16" filter="url(#glow)"/>
+  <circle cx="190" cy="120" r="4" fill="#ea580c" opacity="0.7"/>
+  <circle cx="260" cy="210" r="3" fill="#C9A96E" opacity="0.55"/>
+  <circle cx="840" cy="420" r="3" fill="#ea580c" opacity="0.5"/>
+  <circle cx="910" cy="360" r="2" fill="#C9A96E" opacity="0.45"/>
+</svg>
