@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en" data-shift="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPARK-PAIR / GLM-5.3-FLASH — Observatory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#090c0f; --panel:#0d1114; --panel2:#10151a; --line:#1b2229; --line2:#242e37;
+  --tx:#ccd6dd; --tx2:#7d8a94; --tx3:#525f69;
+  --idle:#5c6a74; --ok:#2ed3ae; --warn:#f2a83b; --crit:#ff3d7a;
+  --t-coding:#3fd8c6; --t-agent:#5da9e6; --t-vision:#d9a94e; --t-long:#a58fe0;
+  --accent:#2ed3ae;
+  --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'IBM Plex Sans',sans-serif;
+}
+html[data-shift=combat]{
+  --bg:#0c0809; --panel:#130d0e; --panel2:#170f11; --line:#2b1b1e; --line2:#3b2428;
+  --tx:#e6d6d4; --tx2:#a08688; --tx3:#6d5457; --accent:#ff5a4d;
+}
+html[data-shift=diag]{
+  --bg:#05090d; --panel:#081014; --panel2:#0a141a; --line:#12222c; --line2:#1a2f3b;
+  --tx:#c6d8e4; --tx2:#6f8694; --tx3:#48606d; --accent:#3db8ff;
+}
+html[data-shift=diag] body::after{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:200;
+  background:repeating-linear-gradient(0deg, rgba(61,184,255,.03) 0 1px, transparent 1px 3px);
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--tx); font-family:var(--sans); font-size:13px;
+  display:grid; grid-template-rows:52px minmax(0,1fr) 170px 24px; overflow:hidden;
+}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:var(--line2)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---------- top bar ---------- */
+#top{display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line);background:var(--panel);min-width:0}
+.brand{display:flex;align-items:center;gap:9px;font:600 14px/1 var(--sans);white-space:nowrap}
+.brand svg{color:var(--accent);flex:none}
+.brand em{font-style:normal;color:var(--tx3);font-weight:500}
+.chips{display:flex;gap:6px;min-width:0;overflow:hidden}
+.chip{font:500 10px var(--mono);padding:3px 8px;border:1px solid var(--line2);color:var(--tx2);white-space:nowrap;letter-spacing:.02em}
+.chip b{color:var(--tx);font-weight:600}
+#clock{margin-left:auto;font:500 14px var(--mono);font-variant-numeric:tabular-nums;letter-spacing:.05em;white-space:nowrap}
+#clock small{color:var(--tx3);font-size:9px;margin-left:5px;letter-spacing:.14em}
+body.replaying #clock{color:var(--warn)}
+.hpill{display:flex;align-items:center;gap:7px;padding:4px 11px;border:1px solid;border-radius:999px;font:600 9.5px var(--sans);letter-spacing:.14em;white-space:nowrap}
+.hpill i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.hpill.nominal{color:var(--ok);border-color:rgba(46,211,174,.4)}
+.hpill.degraded{color:var(--warn);border-color:rgba(242,168,59,.45)}
+.hpill.critical{color:var(--crit);border-color:rgba(255,61,122,.55);animation:blink 1.1s infinite}
+@keyframes blink{50%{opacity:.55}}
+.seg{display:flex;border:1px solid var(--line2)}
+.seg button{background:transparent;border:0;border-right:1px solid var(--line2);color:var(--tx3);font:600 9px var(--sans);letter-spacing:.1em;padding:6px 10px;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button.on{color:var(--accent);background:var(--panel2)}
+.seg button:hover{color:var(--tx)}
+.btn{background:transparent;border:1px solid var(--line2);color:var(--tx2);font:600 9.5px var(--sans);letter-spacing:.12em;padding:6px 12px;cursor:pointer;white-space:nowrap}
+.btn:hover{color:var(--accent);border-color:var(--accent)}
+.btn.active{color:var(--warn);border-color:var(--warn)}
+#rbadge{font:600 10px var(--mono);color:var(--warn);font-variant-numeric:tabular-nums;display:none;white-space:nowrap}
+body.replaying #rbadge{display:inline}
+
+/* ---------- main grid ---------- */
+#main{display:grid;grid-template-columns:298px minmax(0,1fr) 352px;gap:10px;padding:10px;min-height:0}
+#colL,#colR{display:flex;flex-direction:column;gap:10px;min-height:0}
+
+/* ---------- node cards ---------- */
+.node{flex:1;background:var(--panel);border:1px solid var(--line);padding:10px 12px 9px;display:flex;flex-direction:column;gap:7px;min-height:0}
+.node.hot{border-color:rgba(242,168,59,.45)}
+.node.crit{border-color:rgba(255,61,122,.6);animation:blink 1.1s infinite}
+.nh{display:flex;align-items:center;gap:8px}
+.nname{font:700 13px var(--sans);letter-spacing:.04em}
+.ndot{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.nstat{font:600 8.5px var(--sans);letter-spacing:.14em;color:var(--tx3)}
+.nclk{margin-left:auto;font:500 10px var(--mono);color:var(--tx2);font-variant-numeric:tabular-nums}
+.nclk.thr{color:var(--warn)}
+.nsub{font:10px var(--mono);color:var(--tx3);border-bottom:1px solid var(--line);padding-bottom:6px}
+.nrow{display:flex;align-items:center;gap:8px;min-height:20px}
+.nrow label{font:600 8.5px var(--sans);letter-spacing:.13em;color:var(--tx3);width:30px;flex:none}
+.nrow label.l2{width:auto;margin-left:8px}
+.val{font:500 13px var(--mono);font-variant-numeric:tabular-nums}
+.val.sm{font-size:11px}
+.unit{font:9.5px var(--mono);color:var(--tx3)}
+.big{font:600 25px/1 var(--mono);font-variant-numeric:tabular-nums;flex:none;width:74px}
+.big u{text-decoration:none;font-size:11px;color:var(--tx3);margin-left:2px}
+.nrow.temp canvas{flex:1;height:40px;min-width:0}
+.membar{flex:1;height:8px;background:var(--panel2);border:1px solid var(--line);display:flex;overflow:hidden;min-width:0}
+.membar i{height:100%;flex:none}
+.membar .mw{background:#3a4750}
+.membar .mk{background:var(--ok);opacity:.7}
+.membar .ma{background:var(--tx3)}
+.thrc{width:100%;height:46px}
+.nrow.fan canvas{width:104px;height:36px;flex:none}
+.links{display:flex;flex-direction:column;gap:1px}
+.links>div{display:flex;align-items:baseline;gap:6px}
+.links label{font:600 8.5px var(--sans);letter-spacing:.13em;color:var(--tx3);width:34px}
+.links .val{font-size:11.5px}
+
+/* ---------- river ---------- */
+#river{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;min-height:0;position:relative}
+#river>header,.panel>header,#logwrap>header{display:flex;justify-content:space-between;align-items:baseline;padding:8px 12px 6px;font:600 9.5px var(--sans);letter-spacing:.16em;color:var(--tx2)}
+.hint{font:500 9px var(--mono);color:var(--tx3);letter-spacing:.02em}
+#rv-body{flex:1;display:flex;min-height:0}
+#rv-lanes{width:98px;border-right:1px dashed var(--line);display:flex;flex-direction:column}
+.lane{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2px;padding-left:12px;border-bottom:1px dashed var(--line)}
+.lane:last-child{border-bottom:0}
+.lane b{font:600 8.5px var(--sans);letter-spacing:.13em;color:var(--tx3);display:flex;align-items:center;gap:6px}
+.lane b i{width:7px;height:2px;flex:none}
+.lane span{font:500 13px var(--mono);font-variant-numeric:tabular-nums}
+#rv-flow{flex:1;position:relative;overflow:hidden;min-width:0}
+body.replaying #rv-flow{opacity:.4}
+.pill{position:absolute;left:0;top:0;display:flex;align-items:center;gap:7px;padding:3px 10px 3px 4px;background:var(--panel2);border:1px solid var(--line2);border-radius:999px;font:500 10.5px var(--mono);cursor:pointer;white-space:nowrap;user-select:none;will-change:transform;transition:opacity .6s,border-color .2s;z-index:2}
+.pill .tag{font:700 8.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#0a100e;padding:2px 7px;border-radius:999px}
+.pill .st{width:5px;height:5px;border-radius:50%;background:var(--idle);flex:none}
+.pill.run{border-color:rgba(46,211,174,.4)}
+.pill.run .st{background:var(--ok);box-shadow:0 0 0 2.5px rgba(46,211,174,.14)}
+.pill.done{opacity:0}
+.pill:hover{border-color:var(--accent)}
+.t-coding .tag{background:var(--t-coding)} .t-agent .tag{background:var(--t-agent)}
+.t-vision .tag{background:var(--t-vision)} .t-long .tag{background:var(--t-long)}
+#rv-replay{position:absolute;top:34px;right:12px;font:700 9.5px var(--sans);letter-spacing:.16em;color:var(--warn);border:1px solid var(--warn);padding:3px 9px;display:none;background:rgba(242,168,59,.08);z-index:5}
+body.replaying #rv-replay{display:block}
+
+/* ---------- right panels ---------- */
+.panel{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.panel .ph{font:500 9.5px var(--mono);color:var(--tx3);letter-spacing:0;font-variant-numeric:tabular-nums}
+.panel canvas{flex:1;width:100%;min-height:0}
+#p-kv{flex:1} #p-sc{flex:1.15} #p-hm{flex:0 0 168px}
+#p-hm canvas{flex:1;min-height:70px}
+#p-hm footer{padding:5px 12px 7px;font:500 9.5px var(--mono);color:var(--tx3);border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+
+/* ---------- event log ---------- */
+#logwrap{border-top:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+#log{flex:1;overflow-y:auto;min-height:0}
+.le{display:flex;align-items:baseline;gap:9px;padding:2.5px 14px;font:11.5px var(--mono);color:var(--tx2)}
+.le .t{color:var(--tx3);font-size:10px;flex:none;font-variant-numeric:tabular-nums}
+.le .d{width:6px;height:6px;border-radius:50%;flex:none;align-self:center;background:var(--idle)}
+.le.ok .d{background:var(--ok)} .le.warn .d{background:var(--warn)} .le.crit .d{background:var(--crit)}
+.le.ok .m{color:var(--ok)} .le.warn .m{color:var(--warn)} .le.crit .m{color:var(--crit)}
+.le.crit{background:rgba(255,61,122,.06)}
+.le.dim{opacity:.16}
+
+/* ---------- footer ---------- */
+#foot{display:flex;justify-content:space-between;align-items:center;padding:0 14px;border-top:1px solid var(--line);font:10px var(--mono);color:var(--tx3);letter-spacing:.03em}
+#foot .sim{display:flex;align-items:center;gap:7px;color:var(--tx2)}
+#foot .sim i{width:6px;height:6px;border-radius:50%;background:var(--warn);flex:none}
+
+/* ---------- drawer ---------- */
+#scrim{position:fixed;inset:52px 0 24px 0;background:rgba(3,5,7,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
+#scrim.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:52px;right:0;bottom:24px;width:402px;max-width:92vw;background:var(--panel2);border-left:1px solid var(--line2);transform:translateX(103%);transition:transform .28s cubic-bezier(.2,.8,.2,1);z-index:50;display:flex;flex-direction:column}
+#drawer.open{transform:none}
+.dh{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.dh .rid{font:600 15px var(--mono)}
+.dh .tag{font:700 8.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:#0a100e;padding:2px 7px;border-radius:999px}
+.dstate{font:500 10px var(--mono);color:var(--tx2);margin-right:auto}
+#d-close{background:transparent;border:1px solid var(--line2);color:var(--tx2);width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+#d-close:hover{color:var(--crit);border-color:var(--crit)}
+.dmeta{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.dm{background:var(--panel2);padding:8px 14px}
+.dm label{display:block;font:600 8px var(--sans);letter-spacing:.14em;color:var(--tx3);margin-bottom:3px}
+.dm b{font:500 12.5px var(--mono);font-variant-numeric:tabular-nums;font-weight:500}
+.dm b.warn{color:var(--warn)} .dm b.crit{color:var(--crit)} .dm b.ok{color:var(--ok)}
+.dex{flex:1;overflow:auto;padding:12px 14px}
+.dex pre{font:11px/1.6 var(--mono);color:var(--tx2);white-space:pre-wrap;word-break:break-word}
+.dfoot{padding:8px 14px;border-top:1px solid var(--line);font:10px var(--mono);color:var(--tx3)}
+
+@media (max-width:1500px){
+  #main{grid-template-columns:264px minmax(0,1fr) 316px}
+  #clock small{display:none}
+  .chip{padding:3px 6px}
+}
+@media (max-width:1280px){
+  #main{grid-template-columns:242px minmax(0,1fr) 288px;gap:8px;padding:8px}
+  body{grid-template-rows:52px minmax(0,1fr) 148px 22px}
+  .brand em{display:none}
+}
+@media (max-height:840px){ body{grid-template-rows:52px minmax(0,1fr) 138px 22px} .thrc{height:38px} }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="brand">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="5" width="7" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><rect x="10" y="5" width="7" height="8" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 9h2" stroke="currentColor" stroke-width="1.4"/></svg>
+    SPARK-PAIR <em>/ GLM-5.3-FLASH</em>
+  </div>
+  <div class="chips">
+    <span class="chip"><b>320B</b>-A18B MoE</span>
+    <span class="chip">KDA + MLA hybrid</span>
+    <span class="chip">native multimodal</span>
+    <span class="chip">CTX <b>262,144</b></span>
+  </div>
+  <div id="clock">--:--:--<small>UTC</small></div>
+  <div class="hpill nominal" id="health"><i></i><span>NOMINAL</span></div>
+  <div class="seg" id="shift">
+    <button data-s="day" class="on">DAYLIGHT</button>
+    <button data-s="combat">COMBAT RED</button>
+    <button data-s="diag">DIAGNOSTIC</button>
+  </div>
+  <span id="rbadge"></span>
+  <button class="btn" id="replayBtn">REPLAY 60 s</button>
+</header>
+
+<main id="main">
+  <section id="colL"></section>
+
+  <section id="river">
+    <header>REQUEST RIVER<span class="hint">click a pill for the request trace</span></header>
+    <div id="rv-body">
+      <div id="rv-lanes">
+        <div class="lane"><b><i style="background:var(--t-coding)"></i>CODING</b><span id="lc-coding">0</span></div>
+        <div class="lane"><b><i style="background:var(--t-agent)"></i>AGENT</b><span id="lc-agent">0</span></div>
+        <div class="lane"><b><i style="background:var(--t-vision)"></i>VISION</b><span id="lc-vision">0</span></div>
+        <div class="lane"><b><i style="background:var(--t-long)"></i>LONG-CTX</b><span id="lc-long">0</span></div>
+      </div>
+      <div id="rv-flow"></div>
+    </div>
+    <div id="rv-replay">REPLAY BUFFER ×5</div>
+  </section>
+
+  <section id="colR">
+    <div class="panel" id="p-kv">
+      <header>KV-CACHE OCCUPANCY<span class="ph" id="kv-h">–</span></header>
+      <canvas id="c-kv"></canvas>
+    </div>
+    <div class="panel" id="p-sc">
+      <header>CONCURRENCY × TTFT<span class="ph" id="sc-h">–</span></header>
+      <canvas id="c-sc"></canvas>
+    </div>
+    <div class="panel" id="p-hm">
+      <header>EXPERT ROUTING LOAD<span class="ph">8 / 288 PER TOKEN</span></header>
+      <canvas id="c-hm"></canvas>
+      <footer id="hm-f">–</footer>
+    </div>
+  </section>
+</main>
+
+<section id="logwrap">
+  <header>EVENT LOG<span class="hint">newest first · UTC</span></header>
+  <div id="log"></div>
+</section>
+
+<footer id="foot">
+  <span class="sim"><i></i>SIMULATION — not reading real node metrics unless wired later.</span>
+  <span>seed 0x5f3759df · tick 100 ms · render ≈30 fps</span>
+</footer>
+
+<div id="scrim"></div>
+<aside id="drawer">
+  <div class="dh">
+    <span class="rid" id="d-id">–</span><span class="tag" id="d-type">–</span>
+    <span class="dstate" id="d-st">–</span>
+    <button id="d-close" title="close"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.5"/></svg></button>
+  </div>
+  <div class="dmeta">
+    <div class="dm"><label>ARRIVED (UTC)</label><b id="d-arr">–</b></div>
+    <div class="dm"><label>TOKENS IN</label><b id="d-in">–</b></div>
+    <div class="dm"><label>TOKENS OUT</label><b id="d-out">–</b></div>
+    <div class="dm"><label>TTFT</label><b id="d-ttft">–</b></div>
+    <div class="dm"><label>TPOT (EFFECTIVE)</label><b id="d-tpot">–</b></div>
+    <div class="dm"><label>CTX NOW</label><b id="d-ctx">–</b></div>
+    <div class="dm"><label>FINISH REASON</label><b id="d-reason">–</b></div>
+    <div class="dm"><label>SHARD PLAN</label><b>TP=2 · A+B</b></div>
+  </div>
+  <div class="dex"><pre id="d-ex"></pre></div>
+  <div class="dfoot">draft len 3 · MTP accept <span id="d-mtp">–</span> · KDA+MLA · ctx cap 262,144</div>
+</aside>
+
+<script>
+'use strict';
+/* ================= seeded randomness & noise ================= */
+const SEED=0x5F3759DF;
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=mulberry32(SEED);
+function hash1(n){n=Math.imul(n^n>>>16,0x45d9f3b);n=Math.imul(n^n>>>16,0x45d9f3b);return((n^n>>>16)>>>0)/4294967296}
+function noise(x,ch){const i=Math.floor(x),f=x-i,u=f*f*(3-2*f);
+  return hash1(i*374761393+ch*668265263)*(1-u)+hash1((i+1)*374761393+ch*668265263)*u}
+function fbm(x,ch){return .55*noise(x,ch)+.3*noise(x*2.13+7.7,ch+1)+.15*noise(x*4.71+13.3,ch+2)}
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,u)=>a+(b-a)*u;
+const easeOut=u=>1-Math.pow(1-u,3);
+const fmtInt=n=>Math.round(n).toLocaleString('en-US');
+const fmtK=n=>n>=1000?(n/1000).toFixed(1)+'k':String(Math.round(n));
+
+/* ================= constants & state ================= */
+const TICK=.1, HIST_MAX=700, KV_GIB_PER_TOK=131072/2**30;
+const SCHED_MAX=24, PRE_CAP=9000, POOL_GIB=80, CAP_TOK=POOL_GIB/KV_GIB_PER_TOK;
+const WEIGHTS=78.2, NODE_MEM=128, WARMUP=90;
+const pageEpoch=Date.now(), simEpoch=pageEpoch-WARMUP*1000;
+
+const TYPES={
+  coding:{lane:0,pin:[400,6000],  pout:[150,1200]},
+  agent :{lane:1,pin:[6000,60000],pout:[300,2400]},
+  vision:{lane:2,pin:[1200,3500], pout:[80,500]},
+  long  :{lane:3,pin:[60000,235000],pout:[250,1800]},
+};
+let simT=0, reqs=[], finishedPts=[], hist=[], hmHist=[];
+let conc=0, queueN=0, decTps=0, preTps=0, kvTokens=0, kvA_GiB=0, kvB_GiB=0;
+let load=1, mtpAcc=.78, roceRetr=.02, accArr=0, lastRetract=-99, lastRc=0;
+const incidents={}, pendSpawns=[];
+let nextIncident=22+R()*25, nextRoutine=8+R()*8, noLog=false;
+const nodes=[mkNode(),mkNode()];
+function mkNode(){return{temp:44+R()*3,pwr:64,fan:24,thr:false,thrCycles:0,dec:0,pre:0,nv:1,roce:.3,kvG:0,actG:1.6,util:.06}}
+
+/* ================= event log ================= */
+const logEl=document.getElementById('log');
+function fmtUTC(ms){const d=new Date(ms),p=n=>String(n).padStart(2,'0');
+  return p(d.getUTCHours())+':'+p(d.getUTCMinutes())+':'+p(d.getUTCSeconds())}
+function log(msg,sev='info'){
+  if(noLog)return;
+  const el=document.createElement('div');el.className='le '+sev;el.dataset.t=simT;
+  el.innerHTML=`<span class="t">${fmtUTC(simEpoch+simT*1000)}</span><i class="d"></i><span class="m">${msg}</span>`;
+  logEl.prepend(el);
+  while(logEl.children.length>90)logEl.lastChild.remove();
+}
+
+/* ================= request factory ================= */
+function pickReason(type){const x=R();if(type==='agent'&&x<.4)return'tool_call';if(x<.12)return'length';return'stop'}
+function genExcerpt(r){
+  const q=mulberry32(r.seed),pk=a=>a[(q()*a.length)|0];
+  if(r.type==='coding'){
+    const f=pk(['kv_cache/allocator.c','scheduler/batch.py','kernels/attention.cu','serve/http_stream.go','tokenizer/bpe.py']);
+    const s=pk([
+      'pool = ArenaPool(blocks=4096, evict="lru")\nwith pool.lease(seq.id) as blk:\n    blk.write(kv_page)\n    refcnt[seq.id] += 1',
+      'fn route(&self, tok: u32) -> ExpertId {\n    let gate = softmax(self.w_gate.mv(tok));\n    self.topk(&gate, 8).expect("router")\n}',
+      'async def stream(req):\n    ctx = await tokenize(req.prompt, max_len=262_144)\n    async for chunk in engine.prefill(ctx):\n        yield chunk',
+      'for (int s = 0; s < batch.n; s++) {\n    Seq *sq = &batch.seqs[s];\n    sq->tok = mtp_draft(sq, 3);\n    sq->accept = verify(sq, sq->tok);\n}']);
+    return `> ${pk(['Fix the intermittent deadlock in','Harden the error path around','Add backpressure to','Profile the hot loop in','Write a fuzz target for'])} ${f}\n\n\`\`\`${pk(['python','rust','python','c'])}\n${s}\n\`\`\`\n\n${pk(['Keep the diff under 80 lines and add tests.','Explain the root cause before patching.','Match existing allocator semantics.','Target < 400 µs per step at batch 16.'])}`;
+  }
+  if(r.type==='vision'){
+    return `> ${pk(['Extract every line item and total into strict JSON.','Count and classify every vehicle; output a table.','Transcribe the whiteboard to markdown, preserving layout.','Read the axis labels and approximate each series.','Describe the anomaly and cite the pixel region.'])}\n\nimage  ${pk(['scan_0042.png · 3024×4032 · 2.1 MB','frame_1188.jpg · dashcam_2025-11-02.mp4 @ 00:41:18','whiteboard_export.png · 4032×3024','slide_revenue_q3.png · 1920×1080','mri_slice_0147.dcm · 512×512 · 12-bit'])}\nenc    ${pk(['vit-h/14 · 1,048 visual tokens','siglip-so400m · 729 visual tokens','vit-l/16 · 576 visual tokens'])}\n\n${pk(['Flag low-confidence regions with bounding boxes.','Preserve original reading order.','Return {"lines":[...]} only — no prose.','Cite pixel regions for every claim.'])}`;
+  }
+  if(r.type==='agent'){
+    return `> ${pk(['Migrate staging Postgres 13 → 16 with zero downtime.','Find the PR that regressed p99 on /v1/complete.','Draft the incident report from the oncall timeline.','Rotate expired mTLS certs across the edge fleet.','Backfill the feature store for tenants created before March.'])}\n\ntools  [shell] [browser] [sql] [github] [files]\nbudget ${pk(['24 steps · 90 s','12 steps · 60 s','40 steps · 240 s'])}\n\n${pk(['thought: check replication lag before cutover','tool_call sql: SELECT max(lag_bytes) FROM repl_stats','obs: lag_bytes=0 — safe to proceed','thought: diff the two schema dumps first','tool_call shell: git log --oneline v1.15.2..v1.16.0 -- serve/','obs: 14 commits, 3 touch scheduler/'])}\n…`;
+  }
+  return `> ${pk(['Find every clause conflicting with the SLA in §4.','Locate the first OOM and trace the causal chain.','Which modules still import the deprecated auth shim?','Summarize each speaker\u2019s commitments; flag contradictions.'])}\n\n${pk(['attach contract_v9_full.pdf · 148,112 tok','attach infra-logs-2025-11-30.tar.zst · 203,884 tok','attach repo@ae41f2 · full tree · 96,401 tok','attach transcripts_2025Q4.zip · 231,550 tok'])}\nctx    ${fmtInt(r.pin)} tok · ${pk(['chunked prefill 8,192','chunked prefill 16,384'])}\n\n${pk(['Answer only from the attachment; cite § or timestamp.','Open with a one-paragraph executive summary.','List findings newest-first with line references.'])}`;
+}
+function spawn(force){
+  const roll=R(), type=force||(roll<.34?'coding':roll<.64?'agent':roll<.78?'vision':'long');
+  const T=TYPES[type];
+  const r={
+    id:((R()*65536)|0).toString(16).padStart(4,'0').toUpperCase(),
+    type, pin:Math.round(lerp(T.pin[0],T.pin[1],Math.pow(R(),1.5))),
+    pout:Math.round(lerp(T.pout[0],T.pout[1],Math.pow(R(),1.4))),
+    enc:type==='vision'?180+R()*720:0,
+    seed:(R()*2**31)|0, state:'queue', tArrive:simT, tAdmit:0,
+    preDone:0, out:0, ctx:0, ttft:0, rate:0, done:false, gone:false,
+    reason:pickReason(type), _tk:0,
+  };
+  r.excerpt=genExcerpt(r);
+  reqs.push(r); makePill(r);
+}
+function startDecode(r){r.state='decode';r.ttft=simT-r.tArrive}
+function finish(r,reason){
+  r.done=true;r.reason=reason;
+  finishedPts.push({t:simT,c:conc,ttft:Math.max(.05,r.ttft),type:r.type});
+  if(finishedPts.length>420)finishedPts.shift();
+}
+
+/* ================= expert routing heatmap ================= */
+const heat=new Float32Array(288), bias=new Float32Array(288);
+{ const b=mulberry32(SEED^0x9E37); let s=0;
+  for(let i=0;i<288;i++){bias[i]=.4+2.2*Math.pow(b(),3);if(b()<.05)bias[i]+=6+b()*8;s+=bias[i]}
+  for(let i=0;i<288;i++)bias[i]/=s; }
+let hmTick=0;
+function hmStep(dt){
+  const churn=incidents.mtp?2.4:1, d=Math.pow(.94,dt*10);
+  const uni=conc*8*dt*(incidents.mtp?.8:.12);
+  for(let i=0;i<288;i++)
+    heat[i]=heat[i]*d + conc*8*dt*bias[i]*(.55+1.1*noise(simT*.8,12+(i&31)))*churn + uni/288;
+  hmTick+=dt;
+  if(hmTick>=1){hmTick=0;hmHist.push({t:simT,d:heat.slice()});if(hmHist.length>75)hmHist.shift()}
+}
+
+/* ================= incidents ================= */
+const env=inc=>clamp(Math.min((simT-inc.t0)/3,(inc.t1-simT)/3),0,1);
+function startIncident(){
+  const roll=R(); let k,dur,inc;
+  if(roll<.30){k='thermal';dur=30+R()*18;const node=R()<.5?0:1;
+    log(`SPARK-${node?'B':'A'} cooling degraded — inlet temp rising, fan pinned 97%`,'warn');
+    nodes[node].thrCycles=0; inc={node};}
+  else if(roll<.55){k='mtp';dur=13+R()*10;
+    log(`MTP DRAFT REJECT SPIKE — accept ${(mtpAcc*100).toFixed(0)}% → ~38%, speculative path degraded`,'warn');inc={};}
+  else if(roll<.75){k='encoder';dur=22+R()*14;
+    log('MULTIMODAL ENCODER WARMUP — ViT weights paging in, vision TTFT +2–3 s','warn');inc={};}
+  else if(roll<.90){k='roce';dur=16+R()*12;
+    log(`RoCE CONGESTION SPARK-A↔B — retransmits rising, srtt ${(9+R()*9).toFixed(0)} ms`,'warn');inc={};}
+  else {k='kvburst';dur=6;
+    log('LONG-CTX BURST — two ~200k prompts inbound, KV pool will swell','warn');
+    spawn('long'); pendSpawns.push(simT+2.5); inc={};}
+  inc.k=k;inc.t0=simT;inc.t1=simT+dur;incidents[k]=inc;
+  nextIncident=simT+dur+26+R()*40;
+}
+function incEnd(inc){
+  switch(inc.k){
+    case 'thermal':log(`THERMAL OK SPARK-${inc.node?'B':'A'} — episode closed after ${nodes[inc.node].thrCycles||0} throttle cycle(s)`,'ok');break;
+    case 'mtp':log(`MTP accept recovered to ${(mtpAcc*100).toFixed(0)}%`,'ok');break;
+    case 'encoder':log('encoder warm — ViT cache resident, vision latency nominal','ok');break;
+    case 'roce':log(`RoCE stable — retransmit ratio ${roceRetr.toFixed(2)}%`,'ok');break;
+  }
+}
+const routines=[
+  ()=>`router entropy ${(2.1+noise(simT*.2,20)*.5).toFixed(2)} · top expert E${String((hash1((simT*10)|0)*288|0)).padStart(3,'0')} mass ${(0.06+noise(simT*.3,21)*.06).toFixed(3)}`,
+  ()=>`kv pool ${fmtInt((CAP_TOK-kvTokens)/1)} tok free · frag ${(1+noise(simT*.1,22)*3).toFixed(1)}%`,
+  ()=>`MTP draft accept ${(mtpAcc*100).toFixed(1)}% (2k tok window)`,
+  ()=>`batch reshape ${lastRc}→${conc} seqs`,
+  ()=>`RoCE sample ${nodes[0].roce.toFixed(1)} GB/s · retrans ${roceRetr.toFixed(2)}%`,
+  ()=>`vision encoder cache hit ${(92+noise(simT*.15,23)*6).toFixed(1)}%`,
+  ()=>`heartbeat SPARK-A ${nodes[0].temp.toFixed(1)}°C ${nodes[0].fan|0}% · SPARK-B ${nodes[1].temp.toFixed(1)}°C ${nodes[1].fan|0}%`,
+  ()=>`chunked prefill ${preTps>0?'8,192 tok chunk active':'idle'}`,
+];
+function routineLog(){lastRc=conc;routines[(R()*routines.length)|0]()}
+
+/* ================= physics tick ================= */
+function tick(dt){
+  simT+=dt;
+  load=.72+.85*fbm(simT*.012,1);
+  accArr+=dt*.36*load*(0.7+0.6*noise(simT*.5,15));
+  while(accArr>=1){accArr-=1;spawn()}
+  while(pendSpawns.length&&simT>=pendSpawns[0]){pendSpawns.shift();spawn('long')}
+  if(simT>=nextIncident&&!Object.keys(incidents).length)startIncident();
+
+  const th=incidents.thermal, en=incidents.encoder, rc=incidents.roce;
+  const thEnv=th?env(th):0, enEnv=en?env(en):0, rcEnv=rc?env(rc):0;
+  const mtpT=incidents.mtp?.38:.74+.09*(fbm(simT*.05,4)-.5)*2;
+  mtpAcc+=(mtpT-mtpAcc)*dt/1.2;
+
+  /* admission */
+  let q=0; const pre=[],dec=[];
+  for(const r of reqs){
+    if(r.state==='queue')q++;
+    else if(r.state==='prefill')pre.push(r);
+    else if(r.state==='decode')dec.push(r);
+  }
+  conc=dec.length; queueN=q;
+  if(q&&SCHED_MAX-(conc+pre.length)>0&&kvTokens<CAP_TOK*.88){
+    let room=SCHED_MAX-(conc+pre.length);
+    for(const r of reqs){if(room<=0)break;if(r.state==='queue'){r.state='prefill';r.tAdmit=simT;r.preDone=0;room--}}
+  }
+  /* prefill (capacity shared across concurrent prefills) */
+  const capEach=PRE_CAP/Math.max(1,pre.length)*(enEnv>0?.82:1)*(rcEnv>0?.85:1);
+  for(const r of pre){
+    r.preDone+=capEach*dt;
+    if(r.preDone>=r.pin){
+      if(r.enc>0){r.state='encode';r.encLeft=r.enc*(incidents.encoder?3.2:1)}
+      else startDecode(r);
+    }
+  }
+  for(const r of reqs)if(r.state==='encode'){r.encLeft-=dt*1000;if(r.encLeft<=0)startDecode(r)}
+
+  /* decode: per-seq rate degrades with batch, MTP & clocks scale it */
+  let thrF=1;for(const n of nodes)if(n.thr)thrF=Math.min(thrF,.62);
+  const perSeq=(30+42/(1+(conc-1)*.10))*(0.5+0.65*mtpAcc)*thrF;
+  decTps=conc*perSeq;
+  for(const r of dec){
+    r.out+=perSeq*dt;r.rate=perSeq;
+    if(R()<dt*.0015){finish(r,'abort');continue}
+    if(r.out>=r.pout)finish(r,r.reason);
+  }
+  preTps=pre.length?PRE_CAP*(enEnv>0?.82:1)*(rcEnv>0?.85:1):0;
+
+  /* KV occupancy */
+  kvTokens=0;
+  for(const r of reqs){
+    if(r.state==='retracted'){r.ctx=0;continue}
+    const p=r.state==='decode'||r.state==='encode'?r.pin:r.preDone;
+    r.ctx=p+(r.state==='decode'?r.out:0);
+    kvTokens+=r.ctx;
+  }
+  const shA=.5+.06*(fbm(simT*.07,2)-.5)*2;
+  kvA_GiB=kvTokens*shA*KV_GIB_PER_TOK; kvB_GiB=kvTokens*(1-shA)*KV_GIB_PER_TOK;
+  if(kvTokens>CAP_TOK*.93&&simT>lastRetract+8){
+    let v=null;for(const r of reqs)if(r.state==='decode'&&(!v||r.pin>v.pin))v=r;
+    if(v){v.state='retracted';v.retractAt=simT+2.5;lastRetract=simT;
+      log(`KV PRESSURE · retracted seq ${v.id} (${fmtInt(v.pin)} tok) — re-queued`,'crit')}
+  }
+  for(const r of reqs)if(r.state==='retracted'&&simT>=r.retractAt)r.state='queue';
+
+  /* interconnect */
+  const rcF=rcEnv>0?.72:1;
+  const roceB=clamp((.3+conc*.30+pre.length*2.3)*(1+.15*(fbm(simT*.3,3)-.5))*rcF,0,24.4);
+  roceRetr=rcEnv>0?2.5+3.5*rcEnv+noise(simT*2,9)*1.5:Math.max(0,.05+.2*(fbm(simT*.4,5)-.5));
+
+  /* per-node thermals, power, fans */
+  for(let i=0;i<2;i++){
+    const n=nodes[i], sh=i?1-shA:shA, shp=.5+.05*(fbm(simT*.09,6+i)-.5)*2;
+    n.dec=decTps*sh; n.pre=preTps*shp; n.kvG=i?kvB_GiB:kvA_GiB;
+    const util=clamp(.06+.72*(conc*thrF)/SCHED_MAX+.15*Math.min(1,pre.length)*thrF,0,1.02);
+    n.util=clamp(util*(1+.08*(fbm(simT*.11,8+i)-.5)*2),0,1.05);
+    n.pwr=55+n.util*150+(th&&th.node===i?4:0);
+    n.actG=1.4+conc*.13+pre.length*.5;
+    const boost=(th&&th.node===i)?26*thEnv:0;
+    const fanT=Math.max(clamp(22+Math.max(0,n.temp-45)*2.1,22,100),(th&&th.node===i)?97:0);
+    const target=40+n.util*50-(n.fan-22)*.09+boost;
+    n.temp+=(target-n.temp)*dt/(target>n.temp?5:7);
+    n.temp+=.15*(noise(simT*1.7,10+i)-.5);
+    if(!n.thr&&n.temp>=87){n.thr=true;n.thrCycles++;
+      log(`THERMAL THROTTLE SPARK-${i?'B':'A'} · ${n.temp.toFixed(1)}°C — clocks 1007→620 MHz`,'crit')}
+    if(n.thr&&n.temp<=83){n.thr=false;
+      if(!th)log(`THERMAL CLEAR SPARK-${i?'B':'A'} · clocks restored`,'ok')}
+    n.fan+=(fanT-n.fan)*dt/2.5;
+    n.nv=(1.1+conc*.16+pre.length*.5)*(.9+.2*noise(simT*.25,14+i));
+    n.roce=roceB;
+  }
+  for(const k in incidents){const inc=incidents[k];if(simT>=inc.t1){delete incidents[k];incEnd(inc)}}
+  if(simT>=nextRoutine){nextRoutine=simT+9+R()*14;routineLog()}
+  reqs=reqs.filter(r=>!r.gone);
+  hmStep(dt);
+
+  /* history frame (10 Hz) */
+  hist.push({t:simT,conc,q:queueN,dec:decTps,pre:preTps,kvA:kvA_GiB,kvB:kvB_GiB,kvPct:kvTokens/CAP_TOK,
+    n:nodes.map(n=>({temp:n.temp,pwr:n.pwr,fan:n.fan,dec:n.dec,pre:n.pre,nv:n.nv,roce:n.roce,
+      retr:roceRetr,memK:n.kvG,memA:n.actG,thr:n.thr}))});
+  if(hist.length>HIST_MAX)hist.shift();
+}
+
+/* ================= palette ================= */
+let C={};
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function refreshPalette(){
+  const hx=h=>{h=h.trim().replace('#','');const v=parseInt(h,16);return[v>>16&255,v>>8&255,v&255]};
+  C={tx3:cssVar('--tx3'),tx2:cssVar('--tx2'),
+     ok:hx(cssVar('--ok')),warn:hx(cssVar('--warn')),crit:hx(cssVar('--crit')),idle:hx(cssVar('--idle')),
+     coding:hx(cssVar('--t-coding')),agent:hx(cssVar('--t-agent')),
+     vision:hx(cssVar('--t-vision')),long:hx(cssVar('--t-long')),accent:hx(cssVar('--accent'))};
+}
+const rgba=(c,a)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
+const mix3=(a,b,u)=>[lerp(a[0],b[0],u),lerp(a[1],b[1],u),lerp(a[2],b[2],u)];
+const tempColor=v=>v<58?C.idle:v<75?C.ok:v<85?C.warn:C.crit;
+
+/* ================= canvas helpers ================= */
+function fit(c){
+  const r=c.getBoundingClientRect(),d=devicePixelRatio||1;
+  const w=Math.max(2,Math.round(r.width*d)),h=Math.max(2,Math.round(r.height*d));
+  if(c.width!==w||c.height!==h){c.width=w;c.height=h}
+  const g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);
+  return[g,r.width,r.height];
+}
+function slice(t,win,fn){
+  const out=[];
+  for(let i=hist.length-1;i>=0;i--){const f=hist[i];
+    if(f.t>t)continue;if(f.t<t-win)break;out.unshift(fn(f))}
+  return out;
+}
+
+/* ---------- node cards: DOM ---------- */
+const colL=document.getElementById('colL');
+function nodeCard(i){
+  const X=i?'B':'A';
+  return `<article class="node" id="node-${X}">
+  <header class="nh"><span class="nname">SPARK-${X}</span><i class="ndot" id="dot-${X}"></i><span class="nstat" id="stat-${X}">NOMINAL</span><span class="nclk" id="clk-${X}">1007 MHz</span></header>
+  <div class="nsub">GB10 Grace-Blackwell · 128 GB LPDDR5x · uptime <span id="up-${X}">–</span></div>
+  <div class="nrow temp"><div class="big" id="big-${X}"><span id="v-temp-${X}">–</span><u>°C</u></div><canvas id="c-temp-${X}"></canvas></div>
+  <div class="nrow"><label>MEM</label><div class="membar" id="mem-${X}"><i class="mw"></i><i class="mk"></i><i class="ma"></i></div><span class="val sm" id="v-mem-${X}">–</span><span class="unit">GiB</span></div>
+  <div class="nrow"><label>DEC</label><span class="val" id="v-dec-${X}">–</span><span class="unit">tok/s</span><label class="l2">PRE</label><span class="val" id="v-pre-${X}">–</span><span class="unit">tok/s</span></div>
+  <canvas class="thrc" id="c-thr-${X}"></canvas>
+  <div class="nrow"><label>PWR</label><span class="val" id="v-pwr-${X}">–</span><span class="unit">W</span><label class="l2">FAN</label><span class="val" id="v-fan-${X}">–</span><span class="unit">%</span></div>
+  <div class="nrow fan"><canvas id="c-fan-${X}"></canvas><div class="links">
+    <div><label>NVL</label><span class="val" id="v-nv-${X}">–</span><span class="unit">GB/s</span></div>
+    <div><label>RoCE</label><span class="val" id="v-roce-${X}">–</span><span class="unit">GB/s</span></div>
+    <div><label>RETR</label><span class="val" id="v-retr-${X}">–</span><span class="unit">%</span></div>
+  </div></div></article>`;
+}
+colL.innerHTML=nodeCard(0)+nodeCard(1);
+const $=id=>document.getElementById(id);
+const cvTemp=[$('c-temp-A'),$('c-temp-B')], cvThr=[$('c-thr-A'),$('c-thr-B')], cvFan=[$('c-fan-A'),$('c-fan-B')];
+const E={};['temp','mem','dec','pre','pwr','fan','nv','roce','retr','clk','dot','stat','big','up'].forEach(k=>{
+  E[k]=[$('v-'+k+'-A')||$(k+'-A'),$('v-'+k+'-B')||$(k+'-B')]});
+const memBars=[$('mem-A'),$('mem-B')];
+
+function nodeDom(i,f){
+  const n=f.n[i], X=i?'B':'A', st=tempColor(n.temp);
+  E.temp[i].textContent=n.temp.toFixed(1);
+  E.big[i].style.color=rgba(st,1);
+  E.mem[i].textContent=(WEIGHTS+n.memK+n.memA+1.6).toFixed(1);
+  const seg=memBars[i].children, tot=NODE_MEM;
+  seg[0].style.width=(WEIGHTS/tot*100)+'%';
+  seg[1].style.width=(n.memK/tot*100)+'%';
+  seg[2].style.width=(n.memA/tot*100)+'%';
+  seg[1].style.background=n.memK/POOL_GIB>.85?rgba(C.crit,.75):n.memK/POOL_GIB>.7?rgba(C.warn,.8):rgba(C.ok,.7);
+  E.dec[i].textContent=fmtInt(n.dec);
+  E.pre[i].textContent=n.pre>=1000?(n.pre/1000).toFixed(1)+'k':fmtInt(n.pre);
+  E.pwr[i].textContent=Math.round(n.pwr);
+  E.fan[i].textContent=Math.round(n.fan);
+  E.nv[i].textContent=n.nv.toFixed(1);
+  E.roce[i].textContent=n.roce.toFixed(1);
+  E.retr[i].textContent=n.retr.toFixed(2);
+  E.clk[i].textContent=n.thr?'620 MHz · THROTTLED':'1007 MHz';
+  E.clk[i].classList.toggle('thr',n.thr);
+  const lvl=n.thr||n.temp>86?2:n.temp>75?1:0;
+  E.dot[i].style.background=lvl===2?rgba(C.crit,1):lvl===1?rgba(C.warn,1):rgba(C.ok,1);
+  E.stat[i].textContent=lvl===2?'CRITICAL':lvl===1?'HOT':'NOMINAL';
+  E.stat[i].style.color=lvl===2?rgba(C.crit,1):lvl===1?rgba(C.warn,1):'';
+  $('node-'+X).classList.toggle('crit',lvl===2);
+  $('node-'+X).classList.toggle('hot',lvl===1&&!n.thr);
+  const up=14*86400+6*3600+simT;
+  E.up[i].textContent=`${Math.floor(up/86400)}d ${String(Math.floor(up%86400/3600)).padStart(2,'0')}:${String(Math.floor(up%3600/60)).padStart(2,'0')}`;
+}
+
+/* ---------- temp sparkline ---------- */
+function drawTemp(i,t){
+  const[g,W,H]=fit(cvTemp[i]);
+  const vs=slice(t,60,f=>f.n[i].temp);
+  g.clearRect(0,0,W,H);
+  const y=v=>H-(v-32)/(98-32)*H;
+  g.strokeStyle=rgba(C.warn,.22);g.beginPath();g.moveTo(0,y(75));g.lineTo(W,y(75));g.stroke();
+  g.strokeStyle=rgba(C.crit,.28);g.beginPath();g.moveTo(0,y(87));g.lineTo(W,y(87));g.stroke();
+  if(vs.length<2)return;
+  const col=tempColor(vs[vs.length-1]);
+  g.beginPath();
+  for(let k=0;k<vs.length;k++){const x=W*k/(vs.length-1);k?g.lineTo(x,y(vs[k])):g.moveTo(x,y(vs[k]))}
+  g.lineWidth=1.4;g.strokeStyle=rgba(col,.95);g.stroke();
+  g.lineTo(W,H);g.lineTo(0,H);g.closePath();g.fillStyle=rgba(col,.07);g.fill();
+  g.beginPath();g.arc(W,y(vs[vs.length-1]),2,0,7);g.fillStyle=rgba(col,1);g.fill();
+}
+
+/* ---------- decode / prefill throughput ---------- */
+function drawThr(i,t){
+  const[g,W,H]=fit(cvThr[i]);
+  const ds=slice(t,60,f=>f.n[i].dec), ps=slice(t,60,f=>f.n[i].pre);
+  g.clearRect(0,0,W,H);
+  if(ds.length<2)return;
+  const mD=Math.max(200,Math.max(...ds)*1.15), mP=Math.max(1000,Math.max(...ps)*1.15);
+  g.strokeStyle=rgba(C.tx3,.25);
+  g.beginPath();g.moveTo(0,H*.5);g.lineTo(W,H*.5);g.stroke();
+  const line=(vs,m,col,dash)=>{g.beginPath();
+    for(let k=0;k<vs.length;k++){const x=W*k/(vs.length-1),yy=H-(vs[k]/m)*(H-4)-2;
+      k?g.lineTo(x,yy):g.moveTo(x,yy)}
+    g.lineWidth=1.3;g.setLineDash(dash||[]);g.strokeStyle=col;g.stroke();g.setLineDash([])};
+  line(ps,mP,rgba(C.tx2,.75),[3,3]);
+  line(ds,mD,rgba(C.ok,.95));
+  g.fillStyle=rgba(C.ok,1);g.fillRect(W-6,H-(ds[ds.length-1]/mD)*(H-4)-4,3,3);
+  g.fillStyle=rgba(C.tx2,1);g.fillRect(W-6,H-(ps[ps.length-1]/mP)*(H-4)-4,3,3);
+  g.fillStyle=rgba(C.tx3,.9);g.font='8.5px IBM Plex Mono';
+  g.fillText('dec',3,9);g.fillText('pre ×own scale',22,9);
+}
+
+/* ---------- fan curve ---------- */
+const fanCurve=t=>clamp(22+Math.max(0,t-45)*2.1,22,100);
+function drawFan(i,f){
+  const[g,W,H]=fit(cvFan[i]);g.clearRect(0,0,W,H);
+  const x=t=>(t-35)/60*W, y=v=>H-(v/100)*(H-6)-3;
+  g.strokeStyle=rgba(C.tx3,.3);
+  g.beginPath();g.moveTo(0,y(100));g.lineTo(W,y(100));g.moveTo(0,H-1);g.lineTo(W,H-1);g.stroke();
+  g.beginPath();
+  for(let t=35;t<=95;t+=2){const px=x(t),py=y(fanCurve(t));t===35?g.moveTo(px,py):g.lineTo(px,py)}
+  g.lineWidth=1.2;g.strokeStyle=rgba(C.tx2,.7);g.stroke();
+  const col=tempColor(f.n[i].temp);
+  g.beginPath();g.arc(x(f.n[i].temp),y(f.n[i].fan),3,0,7);
+  g.fillStyle=rgba(col,1);g.fill();
+  g.strokeStyle=rgba(col,.4);g.beginPath();g.arc(x(f.n[i].temp),y(f.n[i].fan),5.5,0,7);g.stroke();
+  g.fillStyle=rgba(C.tx3,.9);g.font='8px IBM Plex Mono';
+  g.fillText('35°',2,H-3);g.fillText('95°',W-20,H-3);
+}
+
+/* ---------- KV stacked area ---------- */
+const cKV=$('c-kv');
+function drawKV(t){
+  const[g,W,H]=fit(cKV);g.clearRect(0,0,W,H);
+  const L=36,Rp=8,T=8,B=15,iw=W-L-Rp,ih=H-T-B;
+  const y=v=>T+(1-v/84)*ih;
+  g.strokeStyle=rgba(C.tx3,.22);g.fillStyle=rgba(C.tx3,.85);g.font='8.5px IBM Plex Mono';
+  for(let v=0;v<=80;v+=20){g.beginPath();g.moveTo(L,y(v));g.lineTo(W-Rp,y(v));g.stroke();
+    g.fillText(String(v),4,y(v)+3)}
+  const yr=y(.93*POOL_GIB);
+  g.strokeStyle=rgba(C.crit,.5);g.setLineDash([4,3]);
+  g.beginPath();g.moveTo(L,yr);g.lineTo(W-Rp,yr);g.stroke();g.setLineDash([]);
+  g.fillStyle=rgba(C.crit,.7);g.fillText('retract',W-Rp-40,yr-3);
+  const ss=slice(t,60,f=>[f.kvA,f.kvB]);
+  if(ss.length<2){$('kv-h').textContent='–';return}
+  const X=k=>L+iw*k/(ss.length-1);
+  g.beginPath();
+  for(let k=0;k<ss.length;k++)k?g.lineTo(X(k),y(ss[k][0])):g.moveTo(X(k),y(ss[k][0]));
+  g.lineTo(W-Rp,y(0));g.lineTo(L,y(0));g.closePath();
+  g.fillStyle=rgba(C.ok,.42);g.fill();
+  g.beginPath();
+  for(let k=0;k<ss.length;k++)k?g.lineTo(X(k),y(ss[k][0]+ss[k][1])):g.moveTo(X(k),y(ss[k][0]+ss[k][1]));
+  for(let k=ss.length-1;k>=0;k--)g.lineTo(X(k),y(ss[k][0]));
+  g.closePath();g.fillStyle=rgba(C.agent,.35);g.fill();
+  g.beginPath();
+  for(let k=0;k<ss.length;k++)k?g.lineTo(X(k),y(ss[k][0]+ss[k][1])):g.moveTo(X(k),y(ss[k][0]+ss[k][1]));
+  g.lineWidth=1.2;g.strokeStyle=rgba(C.agent,.8);g.stroke();
+  const last=ss[ss.length-1],tot=last[0]+last[1],pct=tot/POOL_GIB;
+  $('kv-h').textContent=`${tot.toFixed(1)} / ${POOL_GIB} GiB · ${(pct*100)|0}%`;
+  $('kv-h').style.color=pct>.85?rgba(C.crit,1):pct>.7?rgba(C.warn,1):'';
+}
+
+/* ---------- concurrency × TTFT scatter ---------- */
+const cSC=$('c-sc');
+function drawSC(t){
+  const[g,W,H]=fit(cSC);g.clearRect(0,0,W,H);
+  const L=40,Rp=8,T=8,B=15,iw=W-L-Rp,ih=H-T-B;
+  const lg=Math.log10(30)-Math.log10(.1);
+  const Y=tt=>T+(1-(Math.log10(clamp(tt,.08,30))-Math.log10(.1))/lg)*ih;
+  const X=c=>L+iw*clamp(c,0,SCHED_MAX+2)/(SCHED_MAX+2);
+  g.font='8.5px IBM Plex Mono';
+  [[.1,'100ms'],[1,'1s'],[10,'10s']].forEach(([v,l])=>{
+    g.strokeStyle=rgba(C.tx3,.2);g.beginPath();g.moveTo(L,Y(v));g.lineTo(W-Rp,Y(v));g.stroke();
+    g.fillStyle=rgba(C.tx3,.85);g.fillText(l,4,Y(v)+3)});
+  for(let c=0;c<=24;c+=8){g.fillStyle=rgba(C.tx3,.85);g.fillText(String(c),X(c)-3,H-4)}
+  const fr=hist[hist.length-1];
+  g.strokeStyle=rgba(C.accent,.2);
+  g.beginPath();g.moveTo(X(fr.conc),T);g.lineTo(X(fr.conc),H-B);g.stroke();
+  let n=0;const tts=[];
+  for(const p of finishedPts){
+    if(p.t>t)continue;const age=t-p.t;if(age>60)continue;
+    const a=1-age/60;
+    g.beginPath();g.arc(X(p.c),Y(p.ttft),2.3,0,7);
+    g.fillStyle=rgba(C[p.type],.85*a);g.fill();n++;tts.push(p.ttft);
+  }
+  if(n){tts.sort((a,b)=>a-b);
+    const med=tts[tts.length>>1];
+    $('sc-h').textContent=`n=${n} · median ${med<1?(med*1000|0)+' ms':med.toFixed(1)+' s'}`;}
+}
+
+/* ---------- expert heatmap ---------- */
+const cHM=$('c-hm');
+function heatCol(v){
+  let c=[17,22,28];
+  c=mix3(c,C.accent,clamp(v*1.4,0,1));
+  if(v>.55)c=mix3(c,C.warn,(v-.55)/.45);
+  if(v>.85)c=mix3(c,C.crit,(v-.85)/.15);
+  return c;
+}
+function drawHM(t){
+  const[g,W,H]=fit(cHM);g.clearRect(0,0,W,H);
+  let data=heat;
+  if(replay.on||t<simT-.5){
+    for(let i=hmHist.length-1;i>=0;i--)if(hmHist[i].t<=t){data=hmHist[i].d;break}
+    if(data===heat&&hmHist.length)data=hmHist[0].d;
+  }
+  let mx=0,mean=0;for(let i=0;i<288;i++){if(data[i]>mx)mx=data[i];mean+=data[i]}
+  mean/=288;if(mx<=0)mx=1;
+  const cols=24,rows=12,gap=2,cw=(W-(cols-1)*gap)/cols,ch=(H-(rows-1)*gap)/rows;
+  const idx=[...Array(288).keys()].sort((a,b)=>data[b]-data[a]).slice(0,8);
+  for(let i=0;i<288;i++){
+    const cx=(i%cols)*(cw+gap),cy=(rows-1-(i/cols|0))*(ch+gap);
+    const v=Math.pow(data[i]/mx,.75);
+    g.fillStyle=rgba(heatCol(v),1);
+    g.fillRect(cx,cy,cw,ch);
+  }
+  g.lineWidth=1;g.strokeStyle=rgba(C.accent,.9);
+  for(const i of idx){if(data[i]<mx*.12)continue;
+    g.strokeRect((i%cols)*(cw+gap)-.5,(rows-1-(i/cols|0))*(ch+gap)-.5,cw+1,ch+1)}
+  $('hm-f').textContent=`hot E${String(idx[0]).padStart(3,'0')} E${String(idx[1]).padStart(3,'0')} E${String(idx[2]).padStart(3,'0')} · peak ${mx.toFixed(1)} · spread ${(mean/mx*100)|0}%`;
+}
+
+/* ================= request river pills ================= */
+const flow=$('rv-flow');
+function makePill(r){
+  const el=document.createElement('div');
+  el.className='pill q t-'+r.type;
+  el.innerHTML=`<i class="st"></i><span class="tag">${r.type==='long'?'long-ctx':r.type}</span><span class="rid">${r.id}</span><span class="tk">…</span>`;
+  el.addEventListener('click',()=>openDrawer(r));
+  r.pill=el;flow.appendChild(el);
+}
+function updatePills(){
+  const W=flow.clientWidth,H=flow.clientHeight,lh=H/4;
+  for(const r of reqs){
+    const el=r.pill;if(!el)continue;
+    if(r.done){el.classList.add('done');const e2=el;r.pill=null;r.gone=true;
+      setTimeout(()=>e2.remove(),700);continue}
+    const lane=TYPES[r.type].lane;let x;
+    if(r.state==='queue')x=8+3*Math.sin(simT*2+r.seed%97);
+    else{
+      const est=Math.max(4,r.pin/PRE_CAP+r.pout/38+r.enc/1000);
+      x=-30+(W+70)*easeOut(Math.min(1,(simT-r.tAdmit)/est));
+    }
+    const y=lane*lh+lh/2-11+5*Math.sin(simT*.9+r.seed%97);
+    el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`;
+    el.classList.toggle('run',r.state!=='queue');
+    el.classList.toggle('q',r.state==='queue');
+    if(simT-r._tk>.45){r._tk=simT;
+      el.lastElementChild.textContent=
+        r.state==='decode'?`${fmtK(r.pin)}→${fmtK(r.out)}`:
+        r.state==='prefill'?`${fmtK(r.pin)}→ prefill`:
+        r.state==='encode'?`${fmtK(r.pin)}→ encode`:`${fmtK(r.pin)} tok`;}
+  }
+  const cnt={coding:0,agent:0,vision:0,long:0};
+  for(const r of reqs)if(!r.done)cnt[r.type]++;
+  for(const k in cnt)$('lc-'+k).textContent=cnt[k];
+}
+
+/* ================= drawer ================= */
+const drawer=$('drawer'),scrim=$('scrim');let curReq=null;
+function openDrawer(r){
+  curReq=r;
+  $('d-id').textContent=r.id;
+  $('d-type').textContent=r.type==='long'?'long-ctx':r.type;
+  $('d-type').style.background=cssVar('--t-'+r.type);
+  $('d-arr').textContent=fmtUTC(simEpoch+r.tArrive*1000);
+  $('d-in').textContent=fmtInt(r.pin);
+  $('d-ex').textContent=r.excerpt;
+  drawer.classList.add('open');scrim.classList.add('on');
+  drawerUpdate();
+}
+function drawerUpdate(){
+  const r=curReq;if(!r||!drawer.classList.contains('open'))return;
+  $('d-st').textContent=r.done?'finished':r.state;
+  $('d-out').textContent=`${fmtInt(r.out)}${r.done?'':' / ~'+fmtInt(r.pout)}`;
+  $('d-ttft').textContent=r.ttft?fmtInt(r.ttft*1000)+' ms':'pending';
+  $('d-tpot').textContent=r.rate?fmtInt(1000/r.rate)+' ms/tok':'–';
+  $('d-ctx').textContent=fmtK(r.ctx)+' tok';
+  const rs=$('d-reason');
+  rs.textContent=r.done?r.reason:'–';
+  rs.className=r.reason==='abort'||r.reason==='preempted'?'crit':r.reason==='length'?'warn':r.reason==='stop'?'ok':'';
+  $('d-mtp').textContent=(mtpAcc*100).toFixed(1)+'%';
+}
+function closeDrawer(){drawer.classList.remove('open');scrim.classList.remove('on');curReq=null}
+$('d-close').addEventListener('click',closeDrawer);
+scrim.addEventListener('click',closeDrawer);
+addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+
+/* ================= replay ================= */
+const replay={on:false,t:0};
+const replayBtn=$('replayBtn');
+replayBtn.addEventListener('click',()=>{
+  if(replay.on){exitReplay();return}
+  if(hist.length<100)return;
+  replay.on=true;replay.t=simT-60;
+  document.body.classList.add('replaying');
+  replayBtn.textContent='SKIP TO LIVE';replayBtn.classList.add('active');
+  log('replay buffer engaged — rewinding last 60 s at ×5','info');
+});
+function exitReplay(){
+  replay.on=false;document.body.classList.remove('replaying');
+  replayBtn.textContent='REPLAY 60 s';replayBtn.classList.remove('active');
+}
+function sampleFrame(t){
+  const i=clamp(Math.round((t-hist[0].t)/TICK),0,hist.length-1);
+  return hist[i];
+}
+
+/* ================= shifts / health / clock ================= */
+$('shift').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  document.documentElement.dataset.shift=b.dataset.s;
+  document.querySelectorAll('#shift button').forEach(x=>x.classList.toggle('on',x===b));
+  refreshPalette();
+});
+const healthEl=$('health');
+function healthAt(t,f){
+  let h=0;
+  for(const n of f.n){if(n.thr||n.temp>86)h=2;else if(h<1&&n.temp>75)h=1}
+  if(f.kvPct>.93)h=2;else if(f.kvPct>.85&&h<1)h=1;
+  if(h<1)for(const k in incidents){const i=incidents[k];if(i.t0<=t&&t<=i.t1){h=1;break}}
+  return h;
+}
+function renderChrome(t,f){
+  const ms=simEpoch+t*1000;
+  $('clock').innerHTML=fmtUTC(ms)+'<small>UTC</small>';
+  const h=replay.on?healthAt(t,f):healthAt(simT,f);
+  healthEl.className='hpill '+(h===2?'critical':h===1?'degraded':'nominal');
+  healthEl.querySelector('span').textContent=h===2?'CRITICAL':h===1?'DEGRADED':'NOMINAL';
+  if(replay.on)$('rbadge').textContent='REPLAY T−'+Math.max(0,simT-t).toFixed(0)+' s';
+  if(replay.on)for(const el of logEl.children)el.classList.toggle('dim',+el.dataset.t>t);
+  else for(const el of logEl.children)el.classList.remove('dim');
+  $('kv-h').textContent=$('kv-h').textContent; // header text set in drawKV
+  const fr=hist[hist.length-1];
+  $('rv-stats')&&0;
+}
+
+/* ================= main loop ================= */
+let lastN=performance.now(),accT=0,lastR=0,hmLast=0;
+const rvHeader=document.querySelector('#river header');
+function render(now){
+  const viewT=replay.on?replay.t:simT;
+  const frame=replay.on?sampleFrame(viewT):hist[hist.length-1];
+  if(!frame)return;
+  nodeDom(0,frame);nodeDom(1,frame);
+  drawTemp(0,viewT);drawTemp(1,viewT);
+  drawThr(0,viewT);drawThr(1,viewT);
+  drawFan(0,frame);drawFan(1,frame);
+  drawKV(viewT);drawSC(viewT);
+  if(now-hmLast>160){hmLast=now;drawHM(viewT)}
+  updatePills();
+  rvHeader.lastElementChild.textContent=
+    `in-flight ${frame.conc} · queue ${frame.q} · dec ${fmtInt(frame.dec)} tok/s · pre ${fmtK(frame.pre)} tok/s`;
+  renderChrome(viewT,frame);
+  drawerUpdate();
+}
+function loop(now){
+  requestAnimationFrame(loop);
+  const dtR=Math.min(.1,(now-lastN)/1000);lastN=now;
+  accT+=dtR;while(accT>=TICK){tick(TICK);accT-=TICK}
+  if(replay.on){replay.t+=dtR*5;if(replay.t>=simT-TICK)exitReplay()}
+  if(now-lastR>=33){lastR=now;render(now)}
+}
+
+/* ================= boot: 90 s warmup so charts start full ================= */
+refreshPalette();
+noLog=true;
+for(let i=0;i<WARMUP/TICK;i++)tick(TICK);
+noLog=false;
+[['scheduler online — SCHED_MAX 24 seqs · chunked prefill 8,192','info'],
+ ['weights resident 78.2 GiB/node · KV pool 40.0 GiB/node · page 128 KiB','info'],
+ ['SPARK-A ↔ SPARK-B linked · RoCE 200GbE · NVLink 5 internal','ok'],
+ ['telemetry live — GLM-5.3-Flash serving','ok'],
+].forEach(([m,s])=>log(m,s));
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
