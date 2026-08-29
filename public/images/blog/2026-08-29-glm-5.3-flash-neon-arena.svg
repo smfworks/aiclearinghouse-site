@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#05080c"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g opacity="0.18" stroke="#00D4FF" stroke-width="1" fill="none">
+    <path d="M80 40 V584 M160 40 V584 M240 40 V584 M320 40 V584 M400 40 V584 M480 40 V584 M560 40 V584 M640 40 V584 M720 40 V584 M800 40 V584 M880 40 V584 M960 40 V584 M1040 40 V584 M1120 40 V584"/>
+    <rect x="48" y="36" width="1104" height="552"/>
+  </g>
+  <g filter="url(#glow)">
+    <polygon points="900,300 924,312 900,324 888,312" fill="#00D4FF"/>
+    <polygon points="340,180 356,190 340,200" fill="#C9A96E"/>
+    <polygon points="720,420 736,430 720,440" fill="#C9A96E"/>
+    <polygon points="980,470 996,480 980,490" fill="#C9A96E"/>
+    <circle cx="640" cy="310" r="10" fill="none" stroke="#00D4FF" stroke-width="2"/>
+    <circle cx="640" cy="310" r="2" fill="#00D4FF"/>
+  </g>
+  <circle cx="180" cy="500" r="3" fill="#ea580c" opacity="0.7"/>
+  <circle cx="1040" cy="140" r="3" fill="#00D4FF" opacity="0.55"/>
+</svg>
