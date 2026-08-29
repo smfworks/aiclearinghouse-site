@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#191512"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3a1a0a"/>
+      <stop offset="40%" stop-color="#ea580c"/>
+      <stop offset="70%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#4a4030"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect x="80" y="300" width="1040" height="48" rx="4" fill="url(#bar)" filter="url(#glow)"/>
+  <path d="M200 480 L420 500 L420 540 L180 560 Z" fill="none" stroke="#C9A96E" stroke-opacity="0.35"/>
+  <circle cx="980" cy="160" r="3" fill="#C9A96E" opacity="0.5"/>
+  <circle cx="160" cy="120" r="2" fill="#ea580c" opacity="0.45"/>
+</svg>
