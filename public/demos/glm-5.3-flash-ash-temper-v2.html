@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<!--
+  QA CHECKLIST — patch rev 2 (hero legibility, estimator/nav/diagram fixes)
+  1. Hero @1440×900: "Temper" must stay readable where it crosses the billet — core now caps at
+     amber (no clipped white), glow alpha ≤ .34, lockup carries a soft soot shadow. Re-check 1920×1080 and 375×700.
+  2. Estimator: toggle every steel/handle radio — the diamond must fill oxide; Tab through options —
+     the :has(:focus-visible) ring must show (Firefox <121 lacks :has → ring missing but radios still work).
+  3. Mobile ≤820px: open menu — toggle floats above the overlay and swaps to an X; body scroll locked;
+     close via X, via link, and by resizing back to desktop.
+  4. Ticket: estimate Nº must clear the rotated stamp from 320px to 1440px.
+  5. Process: needle pivots on the dial center (transform-box:view-box — Safari ≤13 ignores it and the
+     needle swings from its tip); horizontal track ends flush at scroll bottom; mobile HUD follows steps.
+  6. Integrated GPUs: sim is a 288×56 offscreen buffer + one blurred drawImage per frame — watch frame
+     time with canvas ctx.filter on Intel iGPU (falls back to two unblurred passes if unsupported);
+     embers capped at 70; switching tabs pauses the loop via IntersectionObserver.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ash & Temper — custom blades, restoration, and small-run metalwork. Pittsboro, North Carolina piedmont.">
+<title>Ash &amp; Temper — Custom Blades, Restoration &amp; Small-Run Metalwork</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23191512'/%3E%3Cpath d='M32 8 L46 32 L32 56 L18 32 Z' fill='none' stroke='%23c2a15e' stroke-width='3'/%3E%3Cline x1='6' y1='32' x2='58' y2='32' stroke='%23a8442e' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ tokens ============ */
+:root{
+  --soot:#191512; --soot-2:#211c17; --ink:#26211a;
+  --parch:#f1e9d8; --parch-2:#e9dec7; --parch-3:#f7f1e3;
+  --ink-dim:#5f5546; --ink-faint:rgba(38,33,26,.18);
+  --gold:#c2a15e; --gold-dim:rgba(194,161,94,.32); --gold-faint:rgba(194,161,94,.13);
+  --soot-text:#cfc4ac; --soot-muted:#a99b81;
+  --oxide:#93321f; --oxide-bright:#c65a3a;
+  --serif:'Fraunces',Georgia,serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:84px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{
+  background:var(--soot);color:var(--soot-text);
+  font-family:var(--serif);font-weight:380;font-size:16px;line-height:1.65;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+/* paper grain over everything, very quiet */
+body::after{
+  content:"";position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.05;background-size:180px 180px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+}
+::selection{background:var(--oxide);color:var(--parch)}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.mono{font-family:var(--mono)}
+.skip{position:fixed;top:-60px;left:1rem;z-index:3000;background:var(--oxide);color:var(--parch);padding:.7rem 1.1rem;font-family:var(--mono);font-size:.8rem;transition:top .2s}
+.skip:focus{top:1rem}
+
+/* ============ layout primitives ============ */
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(1.25rem,4vw,3rem)}
+section{padding-block:clamp(5rem,10vw,8.5rem)}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+.on-parch .kicker{color:var(--oxide)}
+h2{font-weight:380;font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.08;letter-spacing:-.01em;color:var(--parch);max-width:20ch}
+.on-parch h2{color:var(--ink)}
+.sec-note{margin-top:1.2rem;max-width:52ch;color:var(--soot-muted)}
+.on-parch .sec-note{color:var(--ink-dim)}
+.sec-head{margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ buttons ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:.65rem;font-family:var(--mono);font-size:.8rem;
+  letter-spacing:.14em;text-transform:uppercase;padding:.95rem 1.55rem;border:1px solid transparent;
+  cursor:pointer;text-decoration:none;background:none;color:inherit;
+  transition:background .25s,color .25s,border-color .25s,transform .25s ease-out;will-change:transform;
+}
+.btn svg{flex:none}
+.btn-solid{background:var(--oxide);color:var(--parch)}
+.btn-solid:hover{background:#7c2818}
+.btn-ghost{border-color:var(--gold-dim);color:var(--gold)}
+.btn-ghost:hover{background:var(--gold-faint)}
+.btn-ghost-ink{border-color:rgba(38,33,26,.45);color:var(--ink)}
+.btn-ghost-ink:hover{background:rgba(38,33,26,.06)}
+
+/* ============ header ============ */
+.site-head{
+  position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem clamp(1.25rem,4vw,3rem);background:rgba(25,21,18,.88);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--gold-faint);
+}
+.brand{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--parch);position:relative;z-index:20}
+.brand .mark{color:var(--gold)}
+.mark-line{stroke:var(--oxide-bright)}
+.brand span{font-size:1rem;letter-spacing:.12em;text-transform:uppercase;font-weight:420}
+.nav-links{display:flex;align-items:center;gap:clamp(1.1rem,2.6vw,2.3rem);list-style:none}
+.nav-links a{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;color:var(--soot-muted);padding:.4rem 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;
+}
+.nav-links a:hover{color:var(--parch)}
+.nav-links a.cur{color:var(--gold);border-bottom-color:var(--gold-dim)}
+.nav-toggle{display:none;position:relative;z-index:20;background:none;border:1px solid var(--gold-dim);color:var(--gold);padding:.5rem .7rem;cursor:pointer}
+.nav-toggle .i-x{display:none}
+body.nav-open .nav-toggle .i-x{display:block}
+body.nav-open .nav-toggle .i-bars{display:none}
+body.nav-open{overflow:hidden}
+@media (max-width:820px){
+  .nav-toggle{display:inline-flex}
+  .nav-links{
+    position:fixed;inset:0;background:var(--soot);flex-direction:column;justify-content:center;gap:2.2rem;
+    font-size:1.4rem;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .25s,transform .25s,visibility .25s;
+  }
+  .nav-links a{font-size:1.05rem}
+  body.nav-open .nav-links{opacity:1;visibility:visible;transform:none}
+}
+
+/* ============ hero ============ */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;padding:0;overflow:hidden}
+#billet{position:absolute;inset:0;width:100%;height:100%;z-index:0;cursor:crosshair}
+.hero-inner{position:relative;z-index:1;pointer-events:none;flex:1;display:flex;flex-direction:column;justify-content:center;padding:7rem clamp(1.25rem,4vw,3rem) 0}
+.hero-inner .kicker{margin-bottom:2rem}
+.lockup{font-size:clamp(3.6rem,12.5vw,10.5rem);line-height:.94;font-weight:340;letter-spacing:-.02em;color:var(--parch);text-shadow:0 1px 2px rgba(24,18,12,.4),0 6px 32px rgba(24,18,12,.6)}
+.lockup .amp{font-style:italic;color:var(--oxide-bright);font-weight:380}
+.hero-sub{margin-top:2rem;max-width:44ch;font-size:1.08rem;color:var(--soot-muted);text-shadow:0 1px 10px rgba(24,18,12,.55)}
+.hero-cta{margin-top:2.6rem;display:flex;gap:1rem;flex-wrap:wrap;pointer-events:auto}
+.hero-foot{
+  position:relative;z-index:1;pointer-events:none;display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+  padding:0 clamp(1.25rem,4vw,3rem) 1.6rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--soot-muted);
+}
+.hero-foot .readout{color:var(--gold)}
+
+/* ============ work grid ============ */
+.on-parch{background:var(--parch);color:var(--ink)}
+.work-grid{display:grid;grid-template-columns:repeat(12,1fr);border-top:1px solid var(--ink-faint);border-bottom:1px solid var(--ink-faint)}
+.tile{position:relative;grid-column:span 6;padding:clamp(1.5rem,3vw,2.6rem);border-bottom:1px solid var(--ink-faint);transition:background .3s}
+.tile:nth-child(odd){border-right:1px solid var(--ink-faint)}
+.tile:nth-child(1),.tile:nth-child(4),.tile:nth-child(5){grid-column:span 7}
+.tile:nth-child(2),.tile:nth-child(3),.tile:nth-child(6){grid-column:span 5}
+.tile:hover{background:var(--parch-2)}
+.tile-top{display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+.tile-fig{margin:1.6rem 0 1.4rem}
+.tile-fig .fig{transition:transform .35s ease}
+.tile:hover .tile-fig .fig{transform:translateY(-4px)}
+.tile-name{font-size:1.65rem;font-weight:440;letter-spacing:-.01em}
+.tile-prov{margin-top:.5rem;font-size:.95rem;color:var(--ink-dim);max-width:46ch}
+.tile-go{margin-top:1.1rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--oxide);display:inline-flex;align-items:center;gap:.5rem;opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+.tile:hover .tile-go,.tile:focus-within .tile-go{opacity:1;transform:none}
+.tile-btn{position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;cursor:pointer}
+.tile-btn:focus-visible{outline:2px solid var(--oxide);outline-offset:-5px}
+@media (hover:none){.tile-go{opacity:1;transform:none}}
+@media (max-width:820px){
+  .tile,.tile:nth-child(1),.tile:nth-child(2),.tile:nth-child(3),.tile:nth-child(4),.tile:nth-child(5),.tile:nth-child(6){grid-column:span 12;border-right:0}
+}
+
+/* technical plate drawings (parchment context) */
+.fig .blade{fill:#26211a;stroke:var(--gold);stroke-width:.9}
+.fig .handle{fill:#3a322a;stroke:var(--gold);stroke-width:.9}
+.fig .pin{fill:var(--gold)}
+.fig .temper{fill:none;stroke:var(--gold);stroke-width:.8;stroke-dasharray:5 5;opacity:.85;transition:stroke .3s}
+.tile:hover .fig .temper{stroke:var(--oxide-bright)}
+.fig .extra{fill:none;stroke:var(--gold);stroke-width:.7;stroke-dasharray:3 4;opacity:.7}
+.dim-line{stroke:var(--oxide);stroke-width:1}
+.dim-ext{stroke:var(--oxide);stroke-width:.7;stroke-dasharray:2 3}
+.dim-arrow{fill:var(--oxide)}
+.dim-text{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;fill:var(--oxide)}
+.tag-text{font-family:var(--mono);font-size:10px;letter-spacing:.1em;fill:var(--ink-dim)}
+.tag-leader{stroke:var(--ink-dim);stroke-width:.7;stroke-dasharray:2 3}
+.xsec{fill:#26211a;stroke:var(--gold);stroke-width:.9}
+
+/* ============ process (pinned horizontal) ============ */
+#process{padding:0;height:560vh}
+.proc-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;padding-top:96px}
+.proc-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding:0 clamp(1.25rem,4vw,3rem) 1.6rem;border-bottom:1px solid var(--gold-faint)}
+.proc-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+.proc-meta{display:flex;align-items:center;gap:1.2rem;font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.proc-bar{width:130px;height:1px;background:var(--gold-faint);position:relative;overflow:hidden}
+.proc-bar span{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.proc-track{flex:1;display:flex;align-items:center;gap:5vw;padding:0 7vw;will-change:transform}
+.step{flex:0 0 auto;width:min(600px,74vw);border-left:1px solid var(--gold-faint);padding-left:clamp(1.4rem,3vw,2.6rem)}
+.step-no{
+  font-family:var(--mono);font-size:clamp(3.4rem,7vw,5.6rem);line-height:1;color:transparent;
+  -webkit-text-stroke:1px var(--gold-dim);
+}
+.step h3{font-size:clamp(1.6rem,2.6vw,2.2rem);font-weight:420;color:var(--parch);margin:.6rem 0 .9rem}
+.step p{max-width:42ch;color:var(--soot-muted);font-size:.98rem}
+.step .dg{width:min(320px,60vw);margin-top:1.8rem}
+@media (max-width:900px){
+  #process{height:auto;padding-block:clamp(4rem,9vw,7rem)}
+  .proc-pin{position:static;height:auto;overflow:visible;padding-top:0}
+  .proc-head{padding-top:0;margin-bottom:2.5rem}
+  .proc-meta .proc-bar{display:none}
+  .proc-track{flex-direction:column;align-items:stretch;gap:3.5rem;padding:0 clamp(1.25rem,4vw,3rem);transform:none !important}
+  .step{width:100%}
+}
+
+/* process diagram strokes (soot context) */
+.dg .base{stroke:var(--gold-dim);stroke-width:1}
+.dg .dg-blade{fill:#241f1a;stroke:var(--gold);stroke-width:1}
+.dg .tang{fill:#241f1a;stroke:var(--gold);stroke-width:1}
+.dg .scale{fill:#39312a;stroke:var(--gold);stroke-width:1;transform-box:fill-box}
+.dg .hp{fill:var(--gold);transform-box:fill-box}
+.fl{transform-box:fill-box;transform-origin:50% 100%;animation:flick 1.2s ease-in-out infinite alternate}
+.f1{fill:var(--oxide)}
+.f2{fill:#d99a4e;animation-duration:.85s}
+.f3{fill:var(--oxide);animation-delay:.3s}
+@keyframes flick{from{transform:scaleY(.82) scaleX(.95)}to{transform:scaleY(1.14) scaleX(1.05)}}
+.billet-x{fill:#b8471f;animation:hotPulse 2.2s ease-in-out infinite alternate}
+@keyframes hotPulse{from{fill:#b8471f}to{fill:#f0a24a}}
+.bed{fill:#2c2620;stroke:var(--gold-dim);stroke-width:1}
+.wheel-rim{fill:#241f1a;stroke:var(--gold);stroke-width:1}
+.wheel-hub{fill:var(--gold)}
+.wheel-dash{fill:none;stroke:var(--gold);stroke-width:1;stroke-dasharray:4 7;transform-box:fill-box;transform-origin:center;animation:spin 2.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bevel{fill:none;stroke:var(--gold-dim);stroke-width:1;stroke-dasharray:4 4}
+.sp{stroke:#d99a4e;stroke-width:2;stroke-linecap:round;opacity:0;animation:spark .7s linear infinite}
+.s2{animation-delay:.18s}.s3{animation-delay:.32s}.s4{animation-delay:.47s}
+@keyframes spark{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(26px,15px)}}
+.dunk{animation:dunk 4.2s ease-in-out infinite}
+@keyframes dunk{0%,12%{transform:translateY(0)}32%,56%{transform:translateY(38px)}78%,100%{transform:translateY(0)}}
+.water{fill:rgba(194,161,94,.10)}
+.surface{fill:none;stroke:var(--gold);stroke-width:1.5;animation:sway 3s ease-in-out infinite alternate}
+@keyframes sway{from{transform:translateX(-3px)}to{transform:translateX(3px)}}
+.tank{fill:none;stroke:var(--gold-dim);stroke-width:1}
+.b{fill:var(--gold);opacity:0;transform-box:fill-box;animation:rise 2.4s linear infinite}
+.b2{animation-delay:.5s}.b3{animation-delay:1s}.b4{animation-delay:1.5s}
+@keyframes rise{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-26px);opacity:0}}
+.st{fill:none;stroke:var(--gold-dim);stroke-width:1.2;opacity:0;animation:steam 3.2s ease-out infinite}
+.st2{animation-delay:1.4s}
+@keyframes steam{0%{opacity:0;transform:translateY(6px)}35%{opacity:.7}100%{opacity:0;transform:translateY(-14px)}}
+.oven{fill:none;stroke:var(--gold);stroke-width:1}
+.oven-rack{stroke:var(--gold-dim);stroke-width:1;stroke-dasharray:3 4}
+.dial{fill:none;stroke:var(--gold-dim);stroke-width:1}
+.needle{stroke:var(--oxide-bright);stroke-width:2;stroke-linecap:round;transform-box:view-box;transform-origin:182px 52px;animation:needle 2.4s ease-in-out infinite alternate}
+@keyframes needle{from{transform:rotate(-50deg)}to{transform:rotate(50deg)}}
+.tg-blade{fill:#e3cd82;stroke:var(--gold);stroke-width:1;animation:temperCol 7s ease-in-out infinite}
+@keyframes temperCol{0%,100%{fill:#e3cd82}30%{fill:#b3803c}60%{fill:#7d5a86}80%{fill:#a8703f}}
+.hw{fill:none;stroke:var(--gold-dim);stroke-width:1.4;opacity:0;transform-box:fill-box;animation:hw 2.1s ease-out infinite}
+.hw2{animation-delay:.6s}.hw3{animation-delay:1.2s}
+@keyframes hw{0%{opacity:0;transform:translateY(5px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-7px)}}
+.sl{animation:closeL 5s ease-in-out infinite}
+.sr2{animation:closeR 5s ease-in-out infinite}
+@keyframes closeL{0%{transform:translateX(-16px);opacity:.4}25%,88%{transform:translateX(0);opacity:1}100%{transform:translateX(-16px);opacity:.4}}
+@keyframes closeR{0%{transform:translateX(16px);opacity:.4}25%,88%{transform:translateX(0);opacity:1}100%{transform:translateX(16px);opacity:.4}}
+.hp1{animation:pinDrop 5s ease-out infinite}
+.hp2{animation:pinDrop 5s ease-out .35s infinite}
+.hp3{animation:pinDrop 5s ease-out .7s infinite}
+@keyframes pinDrop{0%,20%{transform:translateY(-18px);opacity:0}32%{transform:translateY(0);opacity:1}36%{transform:translateY(-3px)}40%,88%{transform:translateY(0);opacity:1}100%{transform:translateY(0);opacity:0}}
+
+/* ============ estimator ============ */
+.est-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+@media (max-width:900px){.est-grid{grid-template-columns:1fr}}
+.est-form fieldset{border:0;margin-top:2.4rem}
+.est-form legend{font-family:var(--mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:.4rem}
+.field-label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
+.field-label output{font-size:.95rem;letter-spacing:.05em;color:var(--ink);text-transform:none}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;cursor:pointer;margin-top:.5rem}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(90deg,var(--ink) var(--p,50%),rgba(38,33,26,.22) var(--p,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;margin-top:-6.5px;background:var(--parch);border:2px solid var(--ink);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+input[type=range]::-moz-range-track{height:2px;background:linear-gradient(90deg,var(--ink) var(--p,50%),rgba(38,33,26,.22) var(--p,50%))}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;background:var(--parch);border:2px solid var(--ink);border-radius:0}
+.scale-marks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;color:var(--ink-dim);margin-top:.2rem}
+.opt{display:block;position:relative;padding:1rem .2rem;border-bottom:1px solid var(--ink-faint);cursor:pointer;transition:background .2s}
+.opt:first-of-type{border-top:1px solid var(--ink-faint)}
+.opt:hover{background:rgba(38,33,26,.04)}
+.opt:has(input:focus-visible){outline:2px solid var(--oxide);outline-offset:3px}
+.opt-row{display:flex;align-items:baseline;gap:.9rem}
+.diamond{width:12px;height:12px;flex:none;border:1.5px solid var(--ink);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);transform:translateY(1px);transition:background .2s,border-color .2s}
+.opt input:checked ~ .opt-row .diamond{background:var(--oxide);border-color:var(--oxide)}
+.opt input:checked ~ .opt-row .opt-tag{color:var(--oxide)}
+.opt-name{font-size:1.08rem;font-weight:440;color:var(--ink)}
+.opt-tag{margin-left:auto;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--ink-dim);white-space:nowrap}
+.opt-desc{margin-top:.25rem;font-size:.86rem;color:var(--ink-dim);padding-left:1.6rem}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.rush-row{display:flex;align-items:center;gap:1rem;margin-top:2.4rem;cursor:pointer}
+.switch{position:relative;width:46px;height:24px;border:1px solid rgba(38,33,26,.5);flex:none;transition:border-color .2s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;background:var(--ink);transition:transform .22s ease,background .22s}
+.rush-row input:checked ~ .switch{border-color:var(--oxide)}
+.rush-row input:checked ~ .switch::after{transform:translateX(22px);background:var(--oxide)}
+.rush-row input:focus-visible ~ .switch{outline:2px solid var(--oxide);outline-offset:3px}
+.rush-text strong{display:block;font-weight:440;color:var(--ink)}
+.rush-text span{font-size:.84rem;color:var(--ink-dim)}
+details.how{margin-top:2.6rem;border:1px solid var(--ink-faint)}
+details.how summary{
+  list-style:none;cursor:pointer;padding:1rem 1.3rem;font-family:var(--mono);font-size:.74rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink);display:flex;justify-content:space-between;align-items:center;
+}
+details.how summary::-webkit-details-marker{display:none}
+details.how summary::after{content:"+";font-size:1.1rem;color:var(--oxide);transition:transform .25s}
+details.how[open] summary::after{transform:rotate(45deg)}
+.how-body{padding:0 1.3rem 1.4rem;font-size:.92rem;color:var(--ink-dim)}
+.formula{font-family:var(--mono);font-size:.78rem;line-height:1.9;color:var(--ink);background:var(--parch-3);border:1px solid var(--ink-faint);padding:1rem 1.2rem;overflow-x:auto;margin-bottom:1rem}
+.calc{font-family:var(--mono);font-size:.78rem;color:var(--oxide);margin-top:.6rem}
+
+/* quote ticket */
+.ticket{
+  position:sticky;top:104px;background:var(--soot);color:var(--soot-text);border:1px solid var(--gold-dim);
+  padding:clamp(1.6rem,3vw,2.4rem);
+}
+.stamp{position:absolute;top:1.2rem;right:1.2rem;width:74px;color:var(--oxide-bright);opacity:.85;transform:rotate(-8deg)}
+.stamp-a{font-family:var(--mono);font-size:15px;letter-spacing:.1em;fill:currentColor}
+.stamp-b{font-family:var(--mono);font-size:7.5px;letter-spacing:.28em;fill:currentColor}
+.t-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-bottom:1.1rem;padding-right:6rem;border-bottom:1px dashed var(--gold-dim)}
+.t-band{padding:1.6rem 0 1.2rem;border-bottom:1px dashed var(--gold-dim)}
+.t-band-row{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem}
+.t-fig{font-size:clamp(1.5rem,2.4vw,2rem);color:var(--soot-muted)}
+.t-fig.big{font-size:clamp(2.2rem,3.6vw,3rem);color:var(--parch);font-weight:420}
+.t-cap{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soot-muted);margin-top:.4rem}
+.t-lead{padding:1.2rem 0;border-bottom:1px dashed var(--gold-dim)}
+.t-lead strong{font-weight:440;color:var(--parch);font-size:1.15rem}
+.t-lead span{display:block;font-size:.86rem;color:var(--soot-muted);margin-top:.2rem}
+.t-mat{padding:1.2rem 0 0}
+.t-mat h3{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.7rem}
+.t-mat ul{list-style:none}
+.t-mat li{padding:.45rem 0;border-bottom:1px solid rgba(194,161,94,.1);font-size:.9rem;display:flex;gap:.7rem}
+.t-mat li::before{content:"—";color:var(--gold-dim);flex:none}
+.t-note{margin-top:1.2rem;font-size:.78rem;color:var(--soot-muted);font-style:italic}
+
+/* ============ journal ============ */
+.entry{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr);gap:clamp(1.5rem,4vw,4rem);padding-block:clamp(2.5rem,5vw,4rem);border-top:1px solid var(--gold-faint)}
+.entry:first-of-type{border-top:0;padding-top:0}
+@media (max-width:820px){.entry{grid-template-columns:1fr}}
+.entry-meta{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soot-muted);line-height:2.2}
+.entry-meta .no{color:var(--gold)}
+.entry h3{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:400;color:var(--parch);margin-bottom:1.3rem;letter-spacing:-.01em}
+.entry p{max-width:58ch;color:var(--soot-text);margin-bottom:1.1rem;font-size:1rem}
+.pull{margin:2.2rem 0;padding:1.6rem 0;border-top:1px solid var(--gold-faint);border-bottom:1px solid var(--gold-faint)}
+.pull p{font-size:clamp(1.3rem,2.4vw,1.7rem);font-style:italic;font-weight:380;line-height:1.45;color:var(--gold);max-width:34ch;margin:0}
+
+/* ============ contact ============ */
+.contact-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2.5rem,6vw,5rem)}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.contact-prose p{max-width:44ch;color:var(--ink-dim);margin-bottom:1.2rem}
+.contact-dl{margin-top:2rem;border-top:1px solid var(--ink-faint)}
+.contact-dl div{display:flex;justify-content:space-between;gap:1.5rem;padding:.85rem .2rem;border-bottom:1px solid var(--ink-faint)}
+.contact-dl dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+.contact-dl dd{text-align:right;color:var(--ink)}
+.f-field{margin-bottom:1.8rem}
+.f-field label{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:.3rem}
+.f-field input,.f-field select,.f-field textarea{
+  width:100%;background:transparent;border:0;border-bottom:1px solid rgba(38,33,26,.4);
+  font-family:var(--serif);font-size:1.05rem;color:var(--ink);padding:.55rem 0;border-radius:0;transition:border-color .2s;
+}
+.f-field select{appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%235f5546' stroke-width='1.5'/></svg>");
+  background-repeat:no-repeat;background-position:right .2rem center;padding-right:1.6rem;
+}
+.f-field textarea{resize:vertical;min-height:110px}
+.f-field input:focus,.f-field select:focus,.f-field textarea:focus{outline:none;border-bottom-color:var(--oxide)}
+.f-field.err input,.f-field.err textarea{border-bottom-color:var(--oxide)}
+.f-err{display:none;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--oxide);margin-top:.4rem}
+.f-field.err .f-err{display:block}
+.sent{border:1px solid rgba(38,33,26,.3);padding:clamp(2rem,4vw,3.2rem);text-align:center}
+.seal{width:120px;margin:0 auto 1.4rem;color:var(--oxide);transform:rotate(-6deg)}
+.seal circle{fill:none;stroke:currentColor}
+.seal-o{stroke-width:2}.seal-i{stroke-width:1}
+.seal-big{font-family:var(--serif);font-size:26px;fill:currentColor;text-anchor:middle;letter-spacing:.06em}
+.seal-small{font-family:var(--mono);font-size:8px;letter-spacing:.34em;fill:currentColor;text-anchor:middle}
+.seal-dia{fill:currentColor}
+.sent.show .seal{animation:stampIn .55s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes stampIn{from{transform:scale(1.7) rotate(-16deg);opacity:0}60%{transform:scale(.94) rotate(-3deg);opacity:1}to{transform:scale(1) rotate(-6deg);opacity:1}}
+.sent h3{font-size:1.9rem;font-weight:420;color:var(--ink)}
+.sent p{max-width:42ch;margin:.9rem auto 1.6rem;color:var(--ink-dim)}
+
+/* ============ footer ============ */
+footer{background:var(--soot);border-top:1px solid var(--gold-faint);padding:clamp(3.5rem,7vw,5.5rem) 0 2.5rem}
+.foot-grid{display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap;align-items:flex-start}
+.foot-brand{display:flex;gap:1.6rem;align-items:center}
+.foot-mark{width:96px;flex:none}
+.fm-ring,.fm-blade{fill:none;stroke:var(--gold);stroke-width:1.5}
+.fm-line{stroke:var(--oxide-bright);stroke-width:1.5}
+.fm-a,.fm-t{font-family:var(--serif);font-size:22px;fill:var(--gold);text-anchor:middle}
+.foot-word{font-size:1.15rem;letter-spacing:.16em;text-transform:uppercase;color:var(--parch)}
+.foot-word small{display:block;margin-top:.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--soot-muted);text-transform:none}
+.foot-nav{list-style:none;display:flex;gap:1.8rem;flex-wrap:wrap}
+.foot-nav a{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--soot-muted)}
+.foot-nav a:hover{color:var(--gold)}
+.foot-fine{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--gold-faint);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--soot-muted)}
+
+/* ============ modal ============ */
+.modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:1.2rem}
+.modal[hidden]{display:none}
+.modal-backdrop{position:absolute;inset:0;background:rgba(18,15,12,.74)}
+.modal-panel{
+  position:relative;width:min(880px,94vw);max-height:90vh;overflow:auto;background:var(--parch);color:var(--ink);
+  border:1px solid rgba(38,33,26,.3);padding:clamp(1.6rem,4vw,3rem);
+  opacity:0;transform:translateY(16px);transition:opacity .28s ease,transform .28s ease;
+}
+.modal.open .modal-panel{opacity:1;transform:none}
+.modal-close{position:absolute;top:.9rem;right:.9rem;width:42px;height:42px;display:grid;place-items:center;background:none;border:1px solid rgba(38,33,26,.35);color:var(--ink);cursor:pointer;transition:background .2s}
+.modal-close:hover{background:rgba(38,33,26,.07)}
+.m-kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oxide)}
+.modal-panel h3{font-size:clamp(1.8rem,3.4vw,2.5rem);font-weight:420;margin-top:.4rem;letter-spacing:-.01em}
+.m-kind{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:.2rem}
+.modal-fig{margin:1.8rem 0;border:1px solid var(--ink-faint);background:var(--parch-3);padding:clamp(.8rem,2vw,1.6rem)}
+.modal-fig svg{width:100%;height:auto}
+.m-prov{font-size:1rem;color:var(--ink-dim);max-width:60ch;font-style:italic}
+.m-prov strong{font-style:normal;font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oxide);display:block;margin-bottom:.35rem}
+.m-cols{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:2rem;margin-top:1.8rem}
+@media (max-width:700px){.m-cols{grid-template-columns:1fr}}
+.m-specs div{display:flex;justify-content:space-between;gap:1.2rem;padding:.6rem .1rem;border-bottom:1px solid var(--ink-faint);font-size:.92rem}
+.m-specs dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);padding-top:.2rem}
+.m-specs dd{text-align:right;color:var(--ink)}
+.m-xsec-wrap{border:1px solid var(--ink-faint);background:var(--parch-3);padding:1rem}
+.m-edge{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--ink-dim);margin-top:.8rem}
+.m-foot{display:flex;justify-content:space-between;align-items:center;gap:1.4rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.4rem;border-top:1px dashed rgba(38,33,26,.3)}
+.m-price{font-size:1.6rem;font-weight:440}
+.m-price small{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);font-weight:400}
+
+/* ============ motion preferences ============ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to content</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-head">
+  <a class="brand" href="#top" aria-label="Ash and Temper — back to top">
+    <svg class="mark" viewBox="0 0 64 64" width="26" height="26" role="img" aria-label="Ash and Temper mark">
+      <path d="M32 8 L46 32 L32 56 L18 32 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+      <line class="mark-line" x1="6" y1="32" x2="58" y2="32" stroke-width="2.5"/>
+    </svg>
+    <span>Ash &amp; Temper</span>
+  </a>
+  <nav aria-label="Primary">
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 18 12" width="18" height="12" aria-hidden="true">
+        <path class="i-bars" d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" stroke-width="1.5"/>
+        <path class="i-x" d="M2 1l14 10M16 1L2 11" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <span class="sr-only">Menu</span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#estimator">Estimator</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" aria-label="Introduction">
+  <canvas id="billet" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="kicker">Custom blades · Restoration · Small-run metalwork — Pittsboro, NC</p>
+    <h1 class="lockup">Ash <span class="amp">&amp;</span><br>Temper</h1>
+    <p class="hero-sub">Knives forged slowly, in small numbers, from steel we can name. Every blade leaves with its drawing.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#estimator" data-magnetic>Start an estimate
+        <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M1 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#work" data-magnetic>See the work</a>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <p>Fig. 01 — a billet of 1084, cooling on the anvil. Move across it; steel remembers heat.</p>
+    <p class="readout" id="tempReadout">BILLET SURFACE — 2,150 °F</p>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section class="on-parch" id="work">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">01 · Selected work</p>
+      <h2>Six blades from the spring rack</h2>
+      <p class="sec-note">Every drawing below is to proportion, annotated the way the shop keeps records. Open a plate for the full spec sheet.</p>
+    </header>
+    <div class="work-grid" id="workGrid"><!-- tiles rendered by script --></div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section id="process" aria-label="Process">
+  <div class="proc-pin">
+    <div class="proc-head">
+      <div>
+        <p class="kicker">02 · Process</p>
+        <h2>Five steps, in the order the steel demands</h2>
+      </div>
+      <div class="proc-meta">
+        <p><span id="stepNow">01</span> / 05 — <span id="stepName">Forge</span></p>
+        <span class="proc-bar"><span id="procFill"></span></span>
+      </div>
+    </div>
+    <div class="proc-track" id="procTrack">
+
+      <article class="step">
+        <p class="step-no" aria-hidden="true">01</p>
+        <h3>Forge</h3>
+        <p>The bar goes into the coal forge near 2,050 °F and comes out longer, thinner, and honest. Ten to fourteen heats to draw a blade — the steel tells you when.</p>
+        <svg class="dg" viewBox="0 0 240 160" role="img" aria-label="Diagram: a billet heating among flickering flames in a coal forge">
+          <title>Forge diagram</title>
+          <path class="fl f1" d="M96,112 C90,92 104,84 98,60 C114,78 112,96 108,112 Z"/>
+          <path class="fl f2" d="M116,112 C112,88 128,80 120,52 C138,74 134,96 130,112 Z"/>
+          <path class="fl f3" d="M136,112 C132,96 144,88 140,68 C154,84 150,100 146,112 Z"/>
+          <rect class="billet-x" x="92" y="104" width="60" height="9" rx="1"/>
+          <path class="bed" d="M40,124 Q70,108 120,110 Q170,108 200,124 L200,132 L40,132 Z"/>
+          <line class="base" x1="28" y1="132" x2="212" y2="132"/>
+        </svg>
+      </article>
+
+      <article class="step">
+        <p class="step-no" aria-hidden="true">02</p>
+        <h3>Grind</h3>
+        <p>A 60-grit belt sets the bevel; a 400-grit finish decides how the patina will land. The grinder only removes — what remains is the knife.</p>
+        <svg class="dg" viewBox="0 0 240 160" role="img" aria-label="Diagram: a spinning grind wheel against a blade edge, throwing sparks">
+          <title>Grind diagram</title>
+          <circle class="wheel-rim" cx="66" cy="66" r="36"/>
+          <circle class="wheel-dash" cx="66" cy="66" r="24"/>
+          <circle class="wheel-hub" cx="66" cy="66" r="5"/>
+          <path class="dg-blade" d="M104,58 L186,54 C204,53 216,60 222,72 C212,88 184,96 148,96 L118,94 C110,88 104,74 104,58 Z"/>
+          <path class="bevel" d="M112,84 L206,66"/>
+          <line class="sp s1" x1="100" y1="88" x2="112" y2="96"/>
+          <line class="sp s2" x1="100" y1="88" x2="116" y2="88"/>
+          <line class="sp s3" x1="100" y1="88" x2="110" y2="102"/>
+          <line class="sp s4" x1="100" y1="88" x2="120" y2="100"/>
+          <line class="base" x1="24" y1="140" x2="216" y2="140"/>
+        </svg>
+      </article>
+
+      <article class="step">
+        <p class="step-no" aria-hidden="true">03</p>
+        <h3>Quench</h3>
+        <p>Foil-wrapped, soaked at 1,475 °F, pulled into fast oil. The difference between a blade and a piece of metal is about four seconds.</p>
+        <svg class="dg" viewBox="0 0 240 160" role="img" aria-label="Diagram: a blade descending into a quench tank among rising bubbles and steam">
+          <title>Quench diagram</title>
+          <g class="dunk"><path class="dg-blade" d="M118,14 L142,14 L144,66 C144,76 138,84 130,84 C122,84 116,76 116,66 Z"/></g>
+          <path class="water" d="M56,96 L184,96 L184,138 L56,138 Z"/>
+          <path class="surface" d="M56,96 Q66,91 76,96 T96,96 T116,96 T136,96 T156,96 T176,96 T184,96"/>
+          <rect class="tank" x="56" y="96" width="128" height="42"/>
+          <circle class="b b1" cx="126" cy="120" r="2"/>
+          <circle class="b b2" cx="136" cy="126" r="1.6"/>
+          <circle class="b b3" cx="120" cy="128" r="1.3"/>
+          <circle class="b b4" cx="132" cy="114" r="1.8"/>
+          <path class="st st1" d="M72,88 C68,80 76,76 72,68 C80,74 78,82 74,88 Z"/>
+          <path class="st st2" d="M168,88 C164,80 172,76 168,68 C176,74 174,82 170,88 Z"/>
+          <line class="base" x1="40" y1="146" x2="200" y2="146"/>
+        </svg>
+      </article>
+
+      <article class="step">
+        <p class="step-no" aria-hidden="true">04</p>
+        <h3>Temper</h3>
+        <p>Two hours at 375 °F, twice. Hardness you can trust at 59 HRC — hard enough to hold an edge, soft enough to forgive a drop.</p>
+        <svg class="dg" viewBox="0 0 240 160" role="img" aria-label="Diagram: a blade tempering inside an oven, shifting from straw to bronze to purple, while a dial needle swings">
+          <title>Temper diagram</title>
+          <rect class="oven" x="34" y="34" width="172" height="96"/>
+          <line class="oven-rack" x1="46" y1="112" x2="194" y2="112"/>
+          <circle class="dial" cx="182" cy="52" r="11"/>
+          <line class="needle" x1="182" y1="52" x2="182" y2="43"/>
+          <path class="tg-blade" d="M60,96 L150,92 C162,91 170,95 176,101 C168,108 150,111 130,111 L74,110 C66,106 60,102 60,96 Z"/>
+          <path class="hw hw1" d="M84,64 q4,-6 0,-12 q-4,-6 0,-12"/>
+          <path class="hw hw2" d="M116,60 q4,-6 0,-12 q-4,-6 0,-12"/>
+          <path class="hw hw3" d="M148,66 q4,-6 0,-12 q-4,-6 0,-12"/>
+        </svg>
+      </article>
+
+      <article class="step">
+        <p class="step-no" aria-hidden="true">05</p>
+        <h3>Handle</h3>
+        <p>Walnut scales drilled, pinned with brass, bedded in epoxy. Sanded to 400 grit, oiled, and the first edge put on by hand.</p>
+        <svg class="dg" viewBox="0 0 240 160" role="img" aria-label="Diagram: handle scales closing around a tang as three pins are set from above">
+          <title>Handle diagram</title>
+          <path class="tang" d="M112,52 L128,52 L126,118 L114,118 Z"/>
+          <rect class="scale sl" x="58" y="46" width="52" height="76" rx="6"/>
+          <rect class="scale sr2" x="130" y="46" width="52" height="76" rx="6"/>
+          <circle class="hp hp1" cx="120" cy="62" r="3.4"/>
+          <circle class="hp hp2" cx="120" cy="84" r="3.4"/>
+          <circle class="hp hp3" cx="120" cy="106" r="3.4"/>
+          <line class="base" x1="40" y1="132" x2="200" y2="132"/>
+        </svg>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= ESTIMATOR ================= -->
+<section class="on-parch" id="estimator">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">03 · Estimator</p>
+      <h2>Price a blade before you write to us</h2>
+      <p class="sec-note">Honest numbers, computed the same way we quote at the bench. The band is real — steel and heat-treat keep their own opinions.</p>
+    </header>
+    <div class="est-grid">
+      <form class="est-form" id="estForm" aria-label="Blade estimator">
+        <div class="field">
+          <div class="field-label"><label for="inLen">Blade length</label><output id="outLen" for="inLen">14 in</output></div>
+          <input type="range" id="inLen" min="8" max="24" step="0.5" value="14">
+          <div class="scale-marks"><span>8 in</span><span>12</span><span>16</span><span>20</span><span>24 in</span></div>
+        </div>
+
+        <fieldset>
+          <legend>Steel</legend>
+          <label class="opt"><input type="radio" name="steel" value="s1084" checked>
+            <span class="opt-row"><span class="opt-body"><span class="diamond" aria-hidden="true"></span></span>
+            <span class="opt-name">1084 high-carbon</span><span class="opt-tag">× 1.00</span></span>
+            <span class="opt-desc">The workhorse. Takes a keen edge and patinas dark and even.</span>
+          </label>
+          <label class="opt"><input type="radio" name="steel" value="s80">
+            <span class="opt-row"><span class="opt-body"><span class="diamond" aria-hidden="true"></span></span>
+            <span class="opt-name">80CrV2</span><span class="opt-tag">× 1.15</span></span>
+            <span class="opt-desc">Tougher alloy for hard use — camp and field blades.</span>
+          </label>
+          <label class="opt"><input type="radio" name="steel" value="o1">
+            <span class="opt-row"><span class="opt-body"><span class="diamond" aria-hidden="true"></span></span>
+            <span class="opt-name">O1 tool steel</span><span class="opt-tag">× 1.38</span></span>
+            <span class="opt-desc">Precision ground stock. Uniform, exacting, slower to finish.</span>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Handle</legend>
+          <label class="opt"><input type="radio" name="handle" value="walnut" checked>
+            <span class="opt-row"><span class="opt-body"><span class="diamond" aria-hidden="true"></span></span>
+            <span class="opt-name">Stabilized walnut</span><span class="opt-tag">+ $0</span></span>
+            <span class="opt-desc">Piedmont black walnut, vacuum-stabilized, brass pins.</span>
+          </label>
+          <label class="opt"><input type="radio" name="handle" value="micarta">
+            <span class="opt-row"><span class="opt-body"><span class="diamond" aria-hidden="true"></span></span>
+            <span class="opt-name">Black canvas micarta</span><span class="opt-tag">+ $45</span></span>
+            <span class="opt-desc">Grips when wet, outlives us all. Corby bolts.</span>
+          </label>
+          <label class="opt"><input type="radio" name="handle" value="stag">
+            <span class="opt-row"><span class="opt-body"><span class="diamond" aria-hidden="true"></span></span>
+            <span class="opt-name">Red stag antler</span><span class="opt-tag">+ $90</span></span>
+            <span class="opt-desc">Sourced from a friend’s farm, nickel-silver pinned.</span>
+          </label>
+        </fieldset>
+
+        <div class="field" style="margin-top:2.4rem">
+          <div class="field-label"><label for="inLines">Engraving lines</label><output id="outLines" for="inLines">0 lines — $0</output></div>
+          <input type="range" id="inLines" min="0" max="40" step="1" value="0">
+          <div class="scale-marks"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span></div>
+        </div>
+
+        <label class="rush-row">
+          <input type="checkbox" id="inRush" class="sr-only">
+          <span class="switch" aria-hidden="true"></span>
+          <span class="rush-text"><strong>Rush the queue</strong><span>× 1.35 on price — first heat this week, same steel.</span></span>
+        </label>
+
+        <details class="how">
+          <summary>How we quote</summary>
+          <div class="how-body">
+            <pre class="formula" aria-label="Quoting formula">
+quote = ( forge_fee + ( length_in − 8 ) × per_inch ) × steel_mult
+        + handle_add + lines × engraving_rate
+
+band   low = quote × 0.90   ·   high = quote × 1.22
+lead   5 wk + 0.4 × ( length_in − 8 ) + 1 wk per 8 lines
+rush   quote × 1.35  ·  lead × 0.60
+
+forge_fee  $320        per_inch   $18 / in over 8
+engraving $9 / line    steel      ×1.00 / ×1.15 / ×1.38
+handle     +$0 / +$45 / +$90</pre>
+            <p>The band covers heat-treat variance and steel availability. We confirm the final number before the first heat, and it doesn’t move after that.</p>
+            <p class="calc" id="outCalc"></p>
+          </div>
+        </details>
+      </form>
+
+      <aside class="ticket" aria-label="Estimate ticket">
+        <svg class="stamp" viewBox="0 0 90 90" role="img" aria-label="Shop stamp">
+          <circle cx="45" cy="45" r="40" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="45" cy="45" r="30" fill="none" stroke="currentColor" stroke-width="1"/>
+          <text x="45" y="43" text-anchor="middle" class="stamp-a">A·T</text>
+          <text x="45" y="57" text-anchor="middle" class="stamp-b">PIEDMONT</text>
+        </svg>
+        <div class="t-head"><span>Estimate</span><span id="tN">Nº 0000</span></div>
+        <div class="t-band">
+          <div class="t-band-row">
+            <div><p class="t-fig" id="outLow">$0</p><p class="t-cap">Low</p></div>
+            <div style="text-align:center"><p class="t-fig big" id="outLikely">$0</p><p class="t-cap">Likely</p></div>
+            <div style="text-align:right"><p class="t-fig" id="outHigh">$0</p><p class="t-cap">High</p></div>
+          </div>
+        </div>
+        <div class="t-lead">
+          <strong id="outLead">~7 weeks</strong>
+          <span id="outDate">ready the week of —</span>
+        </div>
+        <div class="t-mat">
+          <h3>Materials &amp; work</h3>
+          <ul id="outMaterials"></ul>
+        </div>
+        <p class="t-note">Per piece, sheath not included. Good for 60 days.</p>
+        <span class="sr-only" aria-live="polite" id="srSummary"></span>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOURNAL ================= -->
+<section id="journal">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">04 · Journal</p>
+      <h2>Notes from the forge</h2>
+    </header>
+
+    <article class="entry reveal">
+      <div class="entry-meta">
+        <p><span class="no">Entry 01</span></p>
+        <p>Filed February 2025</p>
+        <p>4 min read</p>
+      </div>
+      <div class="entry-body">
+        <h3>On Patina</h3>
+        <p>Stainless steel is a denial of time. Carbon steel is an agreement with it. A blade of 1084 leaves here bright, and from the first onion it meets, the steel begins to keep records — grays, blues, the bruised purple of a wet night in a leather sheath.</p>
+        <blockquote class="pull"><p>“A patina is a ledger. Every meal, every rain, every pocket it rode in — written there.”</p></blockquote>
+        <p>We force the first page: a warm vinegar bath, an even gray, so the later writing has lines to sit on. After that the blade belongs to its kitchen. Some owners wax it back to shine each spring. Most stop, once they see where the work happens.</p>
+        <p>Care is simple. Wash it. Dry it. A finger of oil before it goes in the drawer. Don’t grieve the marks — a knife that looks unused usually is.</p>
+      </div>
+    </article>
+
+    <article class="entry reveal">
+      <div class="entry-meta">
+        <p><span class="no">Entry 02</span></p>
+        <p>Filed April 2025</p>
+        <p>3 min read</p>
+      </div>
+      <div class="entry-body">
+        <h3>What the Grinder Takes</h3>
+        <p>Forging moves steel but never loses it; the bar that goes into the fire comes out the other side, rearranged. The grinder is different. It is the only honest aristocrat in the shop: it takes, and gives nothing back.</p>
+        <blockquote class="pull"><p>“The grinder only removes. What’s left standing is the knife you meant.”</p></blockquote>
+        <p>There is a moment — scribe line lit blue, belt humming at two thousand feet a minute — when the blade stops being a sketch. Everything on the wrong side of the line goes into the dust collector, and no heat will bring it back.</p>
+        <p>Restoration is the same promise in reverse. Rust is just steel that forgot itself; we grind back to the line the first smith intended, and stop there. Knowing where to stop is the whole trade.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="on-parch" id="contact">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">05 · Contact</p>
+      <h2>Start a conversation</h2>
+    </header>
+    <div class="contact-grid">
+      <div class="contact-prose reveal">
+        <p>Commissions are open through the summer. We take six blades a month so each one gets the fire time it deserves.</p>
+        <p>Tell us what you cut, how you hold it, and what steel you’ve loved before — the rest we work out together, usually over email and once in person.</p>
+        <dl class="contact-dl">
+          <div><dt>Studio</dt><dd>Pittsboro, NC — by appointment</dd></div>
+          <div><dt>Hours</dt><dd>Tue–Sat, 9–5</dd></div>
+          <div><dt>Write</dt><dd>forge@ashandtemper.com</dd></div>
+        </dl>
+      </div>
+      <div class="reveal">
+        <div id="formWrap">
+          <form id="contactForm" novalidate>
+            <div class="f-field" id="fw-name">
+              <label for="cName">Name</label>
+              <input type="text" id="cName" name="name" autocomplete="name">
+              <p class="f-err" id="errName">Tell us who the blade is for.</p>
+            </div>
+            <div class="f-field" id="fw-email">
+              <label for="cEmail">Email</label>
+              <input type="email" id="cEmail" name="email" autocomplete="email">
+              <p class="f-err" id="errEmail">That address doesn’t look right.</p>
+            </div>
+            <div class="f-field">
+              <label for="cType">What are we making?</label>
+              <select id="cType" name="type">
+                <option>A blade — I ran the estimator</option>
+                <option>Restoration or repair</option>
+                <option>Something else — rehandle, sheath, a question</option>
+              </select>
+            </div>
+            <div class="f-field" id="fw-msg">
+              <label for="cMsg">The project, in your own words</label>
+              <textarea id="cMsg" name="message" rows="4"></textarea>
+              <p class="f-err" id="errMsg">A sentence or two helps — what do you cut?</p>
+            </div>
+            <button type="submit" class="btn btn-solid" data-magnetic>Send it to the shop
+              <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M1 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </form>
+        </div>
+        <div class="sent" id="sentPanel" hidden>
+          <svg class="seal" viewBox="0 0 140 140" role="img" aria-label="Stamped seal reading received">
+            <circle class="seal-o" cx="70" cy="70" r="64"/>
+            <circle class="seal-i" cx="70" cy="70" r="50"/>
+            <text x="70" y="68" class="seal-big">A·T</text>
+            <text x="70" y="90" class="seal-small">RECEIVED</text>
+            <path class="seal-dia" d="M70 12 l4 7 -4 7 -4 -7 Z"/>
+            <path class="seal-dia" d="M70 114 l4 7 -4 7 -4 -7 Z"/>
+          </svg>
+          <h3>Received.</h3>
+          <p>We read everything ourselves. Expect an answer within two working days — sooner if the forge is cold.</p>
+          <button type="button" class="btn btn-ghost-ink" id="againBtn">Send another note</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <svg class="foot-mark" viewBox="0 0 120 120" role="img" aria-label="Ash and Temper monogram — the letters A and T separated by a temper line, inside a blade-shaped rhombus and ring">
+          <circle class="fm-ring" cx="60" cy="60" r="55"/>
+          <path class="fm-blade" d="M60 14 L82 60 L60 106 L38 60 Z"/>
+          <line class="fm-line" x1="14" y1="60" x2="106" y2="60"/>
+          <text class="fm-a" x="60" y="50">A</text>
+          <text class="fm-t" x="60" y="84">T</text>
+        </svg>
+        <p class="foot-word">Ash &amp; Temper
+          <small>Custom blades, restoration &amp; small-run metalwork.<br>Pittsboro, North Carolina — by appointment.</small>
+        </p>
+      </div>
+      <ul class="foot-nav" aria-label="Footer">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#estimator">Estimator</a></li>
+        <li><a href="#journal">Journal</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-fine">
+      <p>© 2025 Ash &amp; Temper Ironworks</p>
+      <p>35.9° N, 79.4° W — Steel is honest; measurements are close.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= MODAL ================= -->
+<div class="modal" id="workModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel">
+    <button class="modal-close" aria-label="Close spec sheet">
+      <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <p class="m-kicker" id="mPlate">Plate 01 — Spec sheet</p>
+    <h3 id="modalTitle">—</h3>
+    <p class="m-kind" id="mKind">—</p>
+    <div class="modal-fig" id="mFig"></div>
+    <p class="m-prov"><strong>Provenance</strong><span id="mProv">—</span></p>
+    <div class="m-cols">
+      <dl class="m-specs" id="mSpecs"></dl>
+      <div>
+        <div class="m-xsec-wrap" id="mXsec"></div>
+        <p class="m-edge" id="mEdge">—</p>
+      </div>
+    </div>
+    <div class="m-foot">
+      <p class="m-price"><small>Price</small><span id="mPrice">—</span></p>
+      <button type="button" class="btn btn-ghost-ink" id="mQuote" data-magnetic>Start a quote like this
+        <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M1 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const qs=(s,r)=>(r||document).querySelector(s);
+const qsa=(s,r)=>Array.from((r||document).querySelectorAll(s));
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- data: the six plates ---------- */
+const ARROW='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M1 8h12M9 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+const PIECES=[
+ {no:'01',name:'Piedmont Chef',kind:'Chef’s knife',steel:'1084 high-carbon',steelShort:'1084 HIGH-CARBON',steelKey:'s1084',
+  length:'8.2 in',lenNum:8.5,hardness:'59 HRC',edge:'Double bevel, 17° per side',handle:'Stabilized walnut, brass pins',
+  finish:'Forced patina, oil finish',price:680,section:{w:1.42,t:0.20},
+  provenance:'Forged for a Carrboro kitchen from a plowshare bought at the Pittsboro flea market.',
+  alt:'Technical drawing of the Piedmont Chef, an 8.2 inch chef’s knife in 1084 high-carbon steel with a walnut handle.',
+  blade:'M108,66 L296,57 C338,54 372,60 396,78 C388,100 352,118 300,124 C232,131 160,120 108,96 Z',
+  temper:'M124,76 C210,66 300,62 372,70',
+  handle:'M30,74 Q30,66 40,66 L102,68 Q110,69 110,76 L110,94 Q110,101 102,101 L40,103 Q30,103 30,95 Z',
+  pins:[[54,84],[82,84]],dim:{x1:108,x2:396,y:152,label:'8.2 IN'}},
+ {no:'02',name:'Eno Skinner',kind:'Drop-point skinner',steel:'80CrV2',steelShort:'80CRV2',steelKey:'s80',
+  length:'3.6 in',lenNum:8,hardness:'58 HRC',edge:'Full flat, 20° per side',handle:'Black canvas micarta, corby bolts',
+  finish:'Bead-blasted flats',price:520,section:{w:1.05,t:0.16},
+  provenance:'Made for a wildlife biologist who dresses deer along the Eno; the first one was lost to the river, so this is the second.',
+  alt:'Technical drawing of the Eno Skinner, a 3.6 inch drop-point skinner in 80CrV2 with a micarta handle.',
+  blade:'M152,66 L262,60 C296,58 322,66 336,80 C326,94 298,104 260,106 C216,108 180,98 152,88 Z',
+  temper:'M166,74 C230,66 290,66 322,74',
+  handle:'M30,72 Q30,64 40,64 L146,66 Q154,67 154,74 L154,94 Q154,101 146,101 L40,102 Q30,102 30,94 Z',
+  pins:[[56,82],[90,82],[124,82]],dim:{x1:152,x2:336,y:150,label:'3.6 IN'}},
+ {no:'03',name:'Longleaf Bowie',kind:'Clip-point bowie',steel:'1084 high-carbon',steelShort:'1084 HIGH-CARBON',steelKey:'s1084',
+  length:'9.4 in',lenNum:9.5,hardness:'59 HRC',edge:'Convex',handle:'Red stag antler, nickel-silver pins',
+  finish:'Satin, 400 grit',price:940,section:{w:1.55,t:0.22},
+  provenance:'Clipped point copied from a Fayetteville museum pattern; named for the pine that once covered the shop’s lot.',
+  alt:'Technical drawing of the Longleaf Bowie, a 9.4 inch clip-point bowie in 1084 high-carbon steel with a stag handle.',
+  blade:'M110,64 L316,52 C336,50 350,50 356,54 C358,62 372,66 398,74 C392,96 354,116 296,122 C216,129 152,112 110,92 Z',
+  temper:'M126,74 C220,62 300,58 348,62',
+  extra:'M358,57 Q376,62 392,72',
+  handle:'M30,72 Q30,64 40,64 L104,66 Q112,67 112,74 L112,96 Q112,103 104,103 L40,104 Q30,104 30,96 Z',
+  pins:[[54,84],[82,84]],dim:{x1:110,x2:398,y:154,label:'9.4 IN'}},
+ {no:'04',name:'Sextant',kind:'Camp utility',steel:'O1 tool steel',steelShort:'O1 TOOL STEEL',steelKey:'o1',
+  length:'5.8 in',lenNum:8,hardness:'62 HRC',edge:'Double bevel, 19° per side',handle:'Walnut, brass-pinned',
+  finish:'Satin, stonewashed spine',price:610,section:{w:1.25,t:0.19},
+  provenance:'A do-everything camp knife drawn on the back of a survey map, and named for the instrument that drew it.',
+  alt:'Technical drawing of the Sextant, a 5.8 inch spear-point camp knife in O1 tool steel with a walnut handle.',
+  blade:'M124,64 L292,60 C322,60 346,68 356,80 C346,92 322,98 292,98 L206,99 C170,99 142,92 124,82 Z',
+  temper:'M138,72 L280,68',
+  handle:'M30,72 Q30,64 40,64 L118,66 Q126,67 126,74 L126,94 Q126,101 118,101 L40,102 Q30,102 30,94 Z',
+  pins:[[56,82],[90,82],[118,82]],dim:{x1:124,x2:356,y:148,label:'5.8 IN'}},
+ {no:'05',name:'Marrow',kind:'Nakiri',steel:'1084 high-carbon',steelShort:'1084 HIGH-CARBON',steelKey:'s1084',
+  length:'6.5 in',lenNum:8,hardness:'59 HRC',edge:'Double bevel, 15° per side',handle:'Stabilized walnut, brass pins',
+  finish:'Hand-sanded, oil',price:640,section:{w:1.85,t:0.18},
+  provenance:'A rectangular blade for a vegetarian cook; the name is her joke, and it stuck to the steel.',
+  alt:'Technical drawing of Marrow, a 6.5 inch nakiri in 1084 high-carbon steel with a walnut handle.',
+  blade:'M124,58 L348,52 L366,62 L352,114 C296,122 184,122 126,108 Z',
+  temper:'M140,68 L340,62',
+  handle:'M30,74 Q30,66 40,66 L118,68 Q126,69 126,76 L126,94 Q126,101 118,101 L40,102 Q30,102 30,94 Z',
+  pins:[[56,84],[90,84],[118,84]],dim:{x1:124,x2:366,y:152,label:'6.5 IN'}},
+ {no:'06',name:'Tidewater Seax',kind:'Broken-back seax',steel:'80CrV2',steelShort:'80CRV2',steelKey:'s80',
+  length:'7.5 in',lenNum:8,hardness:'58 HRC',edge:'Full flat, 18° per side',handle:'Antler, hidden tang',
+  finish:'Bright polish, forced edge patina',price:760,section:{w:1.30,t:0.21},
+  provenance:'Broken-back pattern from an eastern Carolina drawing; the antler came off a friend’s farm the same winter.',
+  alt:'Technical drawing of the Tidewater Seax, a 7.5 inch broken-back seax in 80CrV2 with an antler handle.',
+  blade:'M120,66 L282,60 L386,48 C382,72 352,98 294,106 C226,114 160,102 120,90 Z',
+  temper:'M134,76 L270,68',
+  handle:'M30,74 Q30,66 40,66 L114,68 Q122,69 122,76 L122,94 Q122,101 114,101 L40,103 Q30,103 30,95 Z',
+  pins:[[54,84],[84,84]],dim:{x1:120,x2:386,y:152,label:'7.5 IN'}}
+];
+
+/* ---------- figure builder ---------- */
+function figureSVG(p){
+  const d=p.dim, mid=(d.x1+d.x2)/2;
+  return `<svg viewBox="0 0 440 180" role="img" aria-label="${p.alt}">
+    <title>${p.name} — technical drawing</title>
+    <g class="fig">
+      <path class="handle" d="${p.handle}"/>
+      ${p.pins.map(pt=>`<circle class="pin" cx="${pt[0]}" cy="${pt[1]}" r="3.1"/>`).join('')}
+      <path class="blade" d="${p.blade}"/>
+      ${p.extra?`<path class="extra" d="${p.extra}"/>`:''}
+      <path class="temper" d="${p.temper}"/>
+      <text class="tag-text" x="126" y="40">${p.steelShort}</text>
+      <line class="tag-leader" x1="126" y1="46" x2="148" y2="60"/>
+      <line class="dim-ext" x1="${d.x1}" y1="${d.y-9}" x2="${d.x1}" y2="${d.y+4}"/>
+      <line class="dim-ext" x1="${d.x2}" y1="${d.y-9}" x2="${d.x2}" y2="${d.y+4}"/>
+      <line class="dim-line" x1="${d.x1}" y1="${d.y}" x2="${d.x2}" y2="${d.y}"/>
+      <path class="dim-arrow" d="M${d.x1},${d.y} l7,-3.5 v7 z"/>
+      <path class="dim-arrow" d="M${d.x2},${d.y} l-7,-3.5 v7 z"/>
+      <text class="dim-text" x="${mid}" y="${d.y-7}" text-anchor="middle">${d.label}</text>
+    </g>
+  </svg>`;
+}
+function crossSVG(p){
+  const w=100, h=Math.max(8, p.section.t/p.section.w*100), cx=76, cy=44;
+  return `<svg viewBox="0 0 200 96" role="img" aria-label="Blade cross-section: ${p.section.w} inches wide, ${p.section.t} inches thick at the heel">
+    <title>Cross-section</title>
+    <path class="xsec" d="M${cx-w/2},${cy} L${cx},${cy-h/2} L${cx+w/2},${cy} L${cx},${cy+h/2} Z"/>
+    <line class="dim-ext" x1="${cx}" y1="${cy-h/2-8}" x2="${cx}" y2="${cy+h/2+8}"/>
+    <line class="dim-line" x1="${cx-w/2}" y1="${cy+26}" x2="${cx+w/2}" y2="${cy+26}"/>
+    <text class="dim-text" x="${cx}" y="${cy+40}" text-anchor="middle" style="font-size:9px">${p.section.w} IN</text>
+    <text class="dim-text" x="${cx+16}" y="${cy+3}" style="font-size:9px">${p.section.t} IN</text>
+  </svg>`;
+}
+
+/* ---------- work grid ---------- */
+const grid=qs('#workGrid');
+grid.innerHTML=PIECES.map((p,i)=>`
+  <article class="tile reveal">
+    <div class="tile-top mono"><span>${p.no}</span><span>${p.kind}</span></div>
+    <div class="tile-fig">${figureSVG(p)}</div>
+    <h3 class="tile-name">${p.name}</h3>
+    <p class="tile-prov">${p.provenance}</p>
+    <p class="tile-go mono" aria-hidden="true">Open spec sheet ${ARROW}</p>
+    <button class="tile-btn" data-piece="${i}"><span class="sr-only">Open spec sheet for ${p.name}</span></button>
+  </article>`).join('');
+
+/* ---------- modal ---------- */
+const modal=qs('#workModal'), panel=qs('.modal-panel',modal);
+let lastFocus=null, currentPiece=0;
+function openPiece(i){
+  currentPiece=i;
+  const p=PIECES[i];
+  qs('#mPlate').textContent=`Plate ${p.no} — Spec sheet`;
+  qs('#modalTitle').textContent=p.name;
+  qs('#mKind').textContent=`${p.kind} · ${p.steel} · ${p.length}`;
+  qs('#mFig').innerHTML=figureSVG(p);
+  qs('#mProv').textContent=p.provenance;
+  qs('#mSpecs').innerHTML=[
+    ['Steel',p.steel],['Length',p.length],['Thickness',`${p.section.t} in at heel`],
+    ['Edge',p.edge],['Hardness',p.hardness],['Handle',p.handle],['Finish',p.finish]
+  ].map(r=>`<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');
+  qs('#mXsec').innerHTML=crossSVG(p);
+  qs('#mEdge').textContent=`Edge ${p.edge.toLowerCase()} · tempered to ${p.hardness}`;
+  qs('#mPrice').textContent=`from $${p.price.toLocaleString('en-US')}`;
+  lastFocus=document.activeElement;
+  modal.hidden=false;
+  requestAnimationFrame(()=>modal.classList.add('open'));
+  document.body.style.overflow='hidden';
+  qs('.modal-close',modal).focus();
+  document.addEventListener('keydown',onModalKey);
+}
+function closeModal(){
+  modal.classList.remove('open');
+  document.body.style.overflow='';
+  document.removeEventListener('keydown',onModalKey);
+  setTimeout(()=>{modal.hidden=true; if(lastFocus)lastFocus.focus();},260);
+}
+function onModalKey(e){
+  if(e.key==='Escape'){closeModal();return;}
+  if(e.key!=='Tab')return;
+  const f=qsa('a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])',panel)
+    .filter(el=>el.offsetParent!==null);
+  if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+}
+qsa('.tile-btn').forEach(b=>b.addEventListener('click',()=>openPiece(+b.dataset.piece)));
+qs('.modal-close',modal).addEventListener('click',closeModal);
+qs('.modal-backdrop',modal).addEventListener('click',closeModal);
+qs('#mQuote').addEventListener('click',()=>{
+  const p=PIECES[currentPiece];
+  const len=clamp(p.lenNum,8,24);
+  qs('#inLen').value=len;
+  const sr=qs(`input[name="steel"][value="${p.steelKey}"]`); if(sr)sr.checked=true;
+  recalc();
+  closeModal();
+  qs('#estimator').scrollIntoView({behavior:reduced?'auto':'smooth'});
+});
+
+/* ---------- estimator ---------- */
+const STEEL={s1084:{name:'1084 high-carbon',mult:1.00,ht:'Foil quench, temper to 58–60 HRC'},
+             s80:{name:'80CrV2',mult:1.15,ht:'Oil quench, temper to 57–59 HRC'},
+             o1:{name:'O1 tool steel',mult:1.38,ht:'Oil quench, temper to 61–63 HRC'}};
+const HANDLES={walnut:{name:'Stabilized walnut scales',add:0,note:'brass pins',finish:'Hand-rubbed boiled-linseed finish'},
+               micarta:{name:'Black canvas micarta scales',add:45,note:'corby bolts',finish:'Sanded to 400 grit, waxed'},
+               stag:{name:'Red stag antler',add:90,note:'nickel-silver pins',finish:'Hand-rubbed boiled-linseed finish'}};
+const FEE=320, PER_IN=18, ENG=9;
+qs('#tN').textContent='Nº '+String(Math.floor(Math.random()*900)+100).padStart(4,'0');
+
+function round5(n){return Math.round(n/5)*5;}
+function recalc(){
+  const len=parseFloat(qs('#inLen').value);
+  const steelKey=qs('input[name="steel"]:checked').value;
+  const handleKey=qs('input[name="handle"]:checked').value;
+  const lines=parseInt(qs('#inLines').value,10);
+  const rush=qs('#inRush').checked;
+  const st=STEEL[steelKey], hd=HANDLES[handleKey];
+  const over=Math.max(0,len-8);
+  const body=(FEE+over*PER_IN)*st.mult;
+  const sub=body+hd.add+lines*ENG;
+  const q=rush?sub*1.35:sub;
+  const low=round5(q*0.90), likely=round5(q), high=round5(q*1.22);
+  let weeks=5+Math.round(over*0.4)+Math.ceil(lines/8);
+  if(rush)weeks=Math.max(3,Math.round(weeks*0.6));
+  const d=new Date(); d.setDate(d.getDate()+weeks*7);
+  const ready='ready the week of '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  const width=(1.1+len*0.022).toFixed(2), th=(0.16+len*0.003).toFixed(2);
+  const items=[
+    `${st.name} billet — ${len}″ × ${width}″ × ${th}″`,
+    `${hd.name}, ${hd.note}`,
+    st.ht,
+    hd.finish
+  ];
+  if(lines>0)items.push(`Hand-cut engraving — ${lines} line${lines>1?'s':''} (${fmt(lines*ENG)})`);
+  if(rush)items.push('Priority queue — first heat this week');
+  qs('#outLen').textContent=`${len} in`;
+  qs('#outLines').textContent=`${lines} line${lines===1?'':'s'} — ${fmt(lines*ENG)}`;
+  qs('#outLow').textContent=fmt(low);
+  qs('#outLikely').textContent=fmt(likely);
+  qs('#outHigh').textContent=fmt(high);
+  qs('#outLead').textContent=`~${weeks} week${weeks>1?'s':''}`;
+  qs('#outDate').textContent=ready;
+  qs('#outMaterials').innerHTML=items.map(t=>`<li>${t}</li>`).join('');
+  qs('#outCalc').textContent=`(${fmt(FEE)} + ${over} × ${fmt(PER_IN)}) × ${st.mult.toFixed(2)} + ${fmt(hd.add)} + ${lines} × ${fmt(ENG)}${rush?' × 1.35':''} = ${fmt(q)} → band ${fmt(low)}–${fmt(high)}`;
+  qs('#srSummary').textContent=`Likely price ${fmt(likely)}, band ${fmt(low)} to ${fmt(high)}, about ${weeks} weeks.`;
+  ['inLen','inLines'].forEach(id=>{
+    const el=qs('#'+id);
+    const pct=((el.value-el.min)/(el.max-el.min))*100;
+    el.style.setProperty('--p',pct+'%');
+  });
+}
+['inLen','inLines'].forEach(id=>qs('#'+id).addEventListener('input',recalc));
+qsa('input[name="steel"],input[name="handle"]').forEach(r=>r.addEventListener('change',recalc));
+qs('#inRush').addEventListener('change',recalc);
+recalc();
+
+/* ---------- contact form ---------- */
+const cform=qs('#contactForm');
+function setErr(id,bad){qs('#fw-'+id).classList.toggle('err',bad);return !bad;}
+function validate(){
+  let ok=true;
+  ok=setErr('name',qs('#cName').value.trim().length<2)&&ok;
+  ok=setErr('email',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(qs('#cEmail').value.trim()))&&ok;
+  ok=setErr('msg',qs('#cMsg').value.trim().length<10)&&ok;
+  return ok;
+}
+['cName','cEmail','cMsg'].forEach(id=>qs('#'+id).addEventListener('input',()=>{
+  const f=id.slice(1).toLowerCase();
+  if(qs('#fw-'+f).classList.contains('err'))validate();
+}));
+cform.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!validate())return;
+  qs('#formWrap').hidden=true;
+  const sent=qs('#sentPanel');
+  sent.hidden=false;
+  sent.classList.remove('show');
+  requestAnimationFrame(()=>sent.classList.add('show'));
+  qs('.sent h3').setAttribute('tabindex','-1');
+  qs('.sent h3').focus();
+});
+qs('#againBtn').addEventListener('click',()=>{
+  qs('#sentPanel').hidden=true;
+  qs('#sentPanel').classList.remove('show');
+  qs('#formWrap').hidden=false;
+  cform.reset();
+  qs('#cName').focus();
+});
+
+/* ---------- magnetic buttons ---------- */
+if(!reduced&&!matchMedia('(hover: none)').matches){
+  qsa('[data-magnetic]').forEach(btn=>{
+    btn.addEventListener('pointermove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
+      btn.style.transform=`translate(${x*0.18}px,${y*0.22}px)`;
+    });
+    btn.addEventListener('pointerleave',()=>{btn.style.transform='';});
+  });
+}
+
+/* ---------- nav: mobile toggle + scroll spy ---------- */
+const navToggle=qs('#navToggle');
+navToggle.addEventListener('click',()=>{
+  const open=document.body.classList.toggle('nav-open');
+  navToggle.setAttribute('aria-expanded',open);
+});
+qsa('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+  document.body.classList.remove('nav-open');
+  navToggle.setAttribute('aria-expanded','false');
+}));
+/* clear the menu state (and its scroll lock) when resizing back to desktop */
+const mqDesk=matchMedia('(min-width: 821px)');
+const clearNav=()=>{
+  if(mqDesk.matches){document.body.classList.remove('nav-open');navToggle.setAttribute('aria-expanded','false');}
+};
+if(mqDesk.addEventListener)mqDesk.addEventListener('change',clearNav);
+else if(mqDesk.addListener)mqDesk.addListener(clearNav);
+const spy=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    qsa('.nav-links a').forEach(x=>x.classList.remove('cur'));
+    const a=qs(`.nav-links a[href="#${e.target.id}"]`);
+    if(a)a.classList.add('cur');
+  });
+},{rootMargin:'-45% 0px -50% 0px'});
+['work','process','estimator','journal','contact'].forEach(id=>{
+  const s=document.getElementById(id); if(s)spy.observe(s);
+});
+
+/* ---------- reveal on scroll ---------- */
+if(!reduced){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:.12});
+  qsa('.reveal').forEach(el=>io.observe(el));
+}else{
+  qsa('.reveal').forEach(el=>el.classList.add('in'));
+}
+
+/* ---------- process: pinned horizontal scroll ---------- */
+const procOuter=qs('#process'), procTrack=qs('#procTrack'),
+      stepNow=qs('#stepNow'), stepName=qs('#stepName'), procFill=qs('#procFill');
+const stepNames=['Forge','Grind','Quench','Temper','Handle'];
+const procMobile=matchMedia('(max-width: 900px)');
+let procTick=false;
+function procUpdate(){
+  procTick=false;
+  if(procMobile.matches){procTrack.style.transform='';return;}
+  const rect=procOuter.getBoundingClientRect();
+  const total=procOuter.offsetHeight-innerHeight;
+  const p=clamp(-rect.top/total,0,1);
+  const max=Math.max(0,procTrack.scrollWidth-procTrack.parentElement.clientWidth);
+  procTrack.style.transform=`translate3d(${(-p*max).toFixed(1)}px,0,0)`;
+  const idx=Math.min(4,Math.floor(p*5));
+  stepNow.textContent='0'+(idx+1);
+  stepName.textContent=stepNames[idx];
+  procFill.style.transform=`scaleX(${p})`;
+}
+addEventListener('scroll',()=>{if(!procTick){procTick=true;requestAnimationFrame(procUpdate);}},{passive:true});
+addEventListener('resize',procUpdate);
+procUpdate();
+
+/* mobile: the track stacks vertically, so follow the steps with an observer */
+const stepEls=qsa('.step');
+if('IntersectionObserver' in window && stepEls.length){
+  const stepIO=new IntersectionObserver(es=>{
+    if(!procMobile.matches)return;
+    es.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const i=stepEls.indexOf(e.target);
+      stepNow.textContent='0'+(i+1);
+      stepName.textContent=stepNames[i];
+    });
+  },{rootMargin:'-40% 0px -40% 0px'});
+  stepEls.forEach(s=>stepIO.observe(s));
+}
+
+/* ---------- hero: cooling steel canvas ---------- */
+const cv=qs('#billet'), readout=qs('#tempReadout');
+if(cv&&cv.getContext){
+  const ctx=cv.getContext('2d');
+  const COLS=288, ROWS=56, AMB=72, PEAK=2150;
+  const off=document.createElement('canvas'); off.width=COLS; off.height=ROWS;
+  const octx=off.getContext('2d');
+  const frame=octx.createImageData(COLS,ROWS);
+  const temp=new Float32Array(COLS), coolK=new Float32Array(COLS);
+  for(let i=0;i<COLS;i++){
+    temp[i]=AMB+(PEAK-AMB)*(0.86+Math.random()*0.14);
+    coolK[i]=0.028+Math.random()*0.02;
+  }
+  coolK[60]*=2.4; coolK[190]*=2.0; /* tong marks cool faster */
+  /* ramp caps at saturated amber, not near-white — keeps the type over the bar legible */
+  const STOPS=[[2150,255,212,124],[1850,255,180,90],[1560,247,138,56],[1300,212,72,34],
+               [1060,150,36,24],[880,94,32,25],[790,77,56,49],[560,64,57,51],[AMB,44,39,34]];
+  let W=0,H=0,dpr=1,running=false,raf=0,last=0,strikeAcc=0,nextStrike=4,frameCount=0;
+  const embers=[];
+  const canFilter=(typeof ctx.filter==='string');
+  function resize(){
+    dpr=Math.min(2,devicePixelRatio||1);
+    W=cv.clientWidth; H=cv.clientHeight;
+    cv.width=Math.max(1,W*dpr); cv.height=Math.max(1,H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  function barRect(){
+    const bh=Math.max(54,H*0.15);
+    return {x:W*0.06,w:W*0.88,y:H*0.60-bh/2,h:bh};
+  }
+  function strike(xn,power){
+    const c=Math.round(xn*(COLS-1)), w=5;
+    for(let i=-w*2;i<=w*2;i++){
+      const j=c+i; if(j<0||j>=COLS)continue;
+      temp[j]=Math.min(PEAK,temp[j]+(PEAK-temp[j])*Math.exp(-i*i/(2*w*w))*power);
+    }
+    const B=barRect(), px=B.x+xn*B.w, py=B.y+B.h*0.5;
+    for(let k=0;k<Math.round(10*power);k++)
+      embers.push({x:px+(Math.random()-0.5)*30,y:py+(Math.random()-0.5)*8,
+        vx:(Math.random()-0.5)*22,vy:-(26+Math.random()*46),life:1,dk:0.7+Math.random()*0.8,s:Math.random()*6.28});
+  }
+  function heat(xn,amt,w){
+    const c=xn*(COLS-1);
+    for(let i=-w*3;i<=w*3;i++){
+      const j=Math.round(c+i); if(j<0||j>=COLS)continue;
+      temp[j]=Math.min(PEAK,temp[j]+amt*Math.exp(-i*i/(2*w*w)));
+    }
+  }
+  function render(dt){
+    for(let i=0;i<COLS;i++)temp[i]+=(AMB-temp[i])*coolK[i]*dt;
+    for(let i=1;i<COLS-1;i++)temp[i]+=(temp[i-1]+temp[i+1]-2*temp[i])*Math.min(1,dt*6);
+    const d=frame.data; let maxT=AMB;
+    for(let x=0;x<COLS;x++){
+      const tc=temp[x]; if(tc>maxT)maxT=tc;
+      for(let y=0;y<ROWS;y++){
+        /* steeper profile: thin bright coreline, cooler edges — reads as steel, not a tube */
+        const prof=0.24+0.76*Math.pow(Math.sin(Math.PI*y/(ROWS-1)),1.6);
+        let t=AMB+(tc-AMB)*prof;
+        t+=(((x*13+y*7)%9)-4)*2.2;
+        let r,g,b;
+        if(t>=STOPS[0][0]){r=255;g=212;b=124;}
+        else{
+          let done=false;
+          for(let i=0;i<STOPS.length-1;i++){
+            const a=STOPS[i],c=STOPS[i+1];
+            if(t<=a[0]&&t>=c[0]){
+              const k=(t-c[0])/(a[0]-c[0]);
+              r=c[1]+(a[1]-c[1])*k; g=c[2]+(a[2]-c[2])*k; b=c[3]+(a[3]-c[3])*k;
+              done=true;break;
+            }
+          }
+          if(!done){const l=STOPS[STOPS.length-1];r=l[1];g=l[2];b=l[3];}
+        }
+        const o=(y*COLS+x)*4;
+        d[o]=r;d[o+1]=g;d[o+2]=b;d[o+3]=255;
+      }
+    }
+    octx.putImageData(frame,0,0);
+    ctx.clearRect(0,0,W,H);
+    const B=barRect();
+    if(maxT>820){ /* incandescent glow — held back so it halos instead of blowing out */
+      const a=Math.min(0.34,(maxT-820)/1600);
+      ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.globalAlpha=a;
+      if(canFilter){
+        ctx.filter=`blur(${Math.round(12+H*0.016)}px)`;
+        ctx.drawImage(off,B.x-W*0.012,B.y-B.h*0.32,B.w*1.024,B.h*1.62);
+      }else{
+        ctx.globalAlpha=a*0.4;
+        ctx.drawImage(off,B.x-W*0.012,B.y-B.h*0.32,B.w*1.024,B.h*1.62);
+        ctx.globalAlpha=a*0.2;
+        ctx.drawImage(off,B.x-W*0.024,B.y-B.h*0.55,B.w*1.048,B.h*2.1);
+      }
+      ctx.restore();
+    }
+    ctx.drawImage(off,B.x,B.y,B.w,B.h);
+    ctx.strokeStyle='rgba(194,161,94,0.25)'; ctx.lineWidth=1;
+    ctx.strokeRect(B.x+0.5,B.y+0.5,B.w-1,B.h-1);
+    return maxT;
+  }
+  function drawEmbers(dt,now){
+    for(let i=embers.length-1;i>=0;i--){
+      const e=embers[i];
+      e.x+=e.vx*dt; e.y+=e.vy*dt;
+      e.vy-=10*dt; e.vx+=Math.sin(now*2+e.s)*14*dt;
+      e.life-=e.dk*dt;
+      if(e.life<=0){embers.splice(i,1);continue;}
+      ctx.strokeStyle=`rgba(255,${Math.round(150+80*e.life)},${Math.round(30+70*e.life)},${(e.life*0.9).toFixed(3)})`;
+      ctx.lineWidth=1.4;
+      ctx.beginPath();
+      ctx.moveTo(e.x,e.y);
+      ctx.lineTo(e.x-e.vx*0.06,e.y-e.vy*0.06);
+      ctx.stroke();
+    }
+    while(embers.length>70)embers.shift();
+  }
+  function updateReadout(maxT){
+    const v=Math.round(maxT/10)*10;
+    readout.textContent=(maxT<820?'BLACK HEAT — ':'BILLET SURFACE — ')+v.toLocaleString('en-US')+' °F';
+  }
+  function loop(ts){
+    if(!running)return;
+    raf=requestAnimationFrame(loop);
+    const now=ts/1000;
+    const dt=Math.min(0.05,last?now-last:0.016); last=now;
+    strikeAcc+=dt;
+    if(strikeAcc>nextStrike){ /* the shop keeps working: an automatic hammer strike */
+      strikeAcc=0; nextStrike=4.5+Math.random()*4;
+      strike(0.15+Math.random()*0.7,0.9+Math.random()*0.4);
+    }
+    const maxT=render(dt);
+    const B=barRect();
+    let hot=0;
+    for(let i=0;i<COLS;i++)if(temp[i]>1150)hot++;
+    if(hot&&Math.random()<hot*0.02*dt){
+      const cols=[];
+      for(let i=0;i<COLS;i++)if(temp[i]>1150)cols.push(i);
+      const c=cols[Math.floor(Math.random()*cols.length)];
+      embers.push({x:B.x+(c/COLS)*B.w,y:B.y+B.h*(0.3+Math.random()*0.4),
+        vx:(Math.random()-0.5)*22,vy:-(26+Math.random()*46),life:1,dk:0.7+Math.random()*0.8,s:Math.random()*6.28});
+    }
+    drawEmbers(dt,now);
+    if(++frameCount%8===0)updateReadout(maxT);
+  }
+  function start(){if(!running&&!reduced){running=true;last=0;raf=requestAnimationFrame(loop);}}
+  function stop(){running=false;cancelAnimationFrame(raf);}
+  resize();
+  if(reduced){
+    /* a single quiet frame: cooling left to right */
+    for(let i=0;i<COLS;i++)temp[i]=AMB+(PEAK-AMB)*(0.92-(i/COLS)*0.6);
+    render(0); updateReadout(1240);
+  }else{
+    new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()))
+      .observe(cv);
+    cv.addEventListener('pointermove',e=>{
+      const r=cv.getBoundingClientRect();
+      const xn=clamp((e.clientX-r.left)/r.width,0,1);
+      heat(xn,480,3);
+      if(Math.random()<0.1){
+        const B=barRect();
+        embers.push({x:B.x+xn*B.w,y:B.y+B.h*0.5,vx:(Math.random()-0.5)*20,vy:-(30+Math.random()*40),life:1,dk:0.9,s:Math.random()*6.28});
+      }
+    });
+    cv.addEventListener('pointerdown',e=>{
+      const r=cv.getBoundingClientRect();
+      strike(clamp((e.clientX-r.left)/r.width,0,1),1.15);
+    });
+    start();
+  }
+  /* resize in both modes; re-render the still frame when motion is reduced */
+  let rzQueued=false;
+  addEventListener('resize',()=>{
+    if(rzQueued)return; rzQueued=true;
+    requestAnimationFrame(()=>{rzQueued=false; resize(); if(reduced)render(0);});
+  });
+}
+})();
+</script>
+</body>
+</html>
