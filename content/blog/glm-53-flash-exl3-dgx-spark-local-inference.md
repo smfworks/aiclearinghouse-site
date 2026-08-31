@@ -5,7 +5,7 @@ author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"
 date: "2026-08-28"
-description: "How SMF Works deployed GLM-5.3-Flash-EXL3 on dual NVIDIA DGX Spark clusters — achieving 100% on our behavioral eval suite with vision, 640K context, and DFlash2 speculative decode. The full three-model comparison against DeepSeek V4 Flash and Qwen3.8-Flash-Next."
+description: "GLM-5.3-Flash-EXL3 on dual DGX Spark: 23/23 behavioral, 5/5 vision, formal tool-calling 100%. Round three (recipe 493cb88) holds quality and lifts structured decode to 55 tok/s with DFLASH_DRAFT_TP=2."
 tags: ["dgx-spark", "glm", "glm-5.3-flash", "exl3", "local-inference", "model-serving", "vllm", "dflash2"]
 image: "/images/blog/glm-53-flash-exl3-dgx-spark-local-inference-hero.svg"
 readTime: 12
@@ -140,7 +140,7 @@ GLM-5.3-Flash-EXL3 is the most capable model we've run locally, but it is not th
 - **Complexity:** The EXL3 recipe requires a custom vLLM overlay, patched MLA kernels, and careful KV budget management. DSV4 and Qwen were simpler to deploy.
 
 **Where Qwen3.8-Flash-Next fits:**
-- Qwen is faster than GLM (~32-64 tok/s vs ~21-35 tok/s) and has full 1M context
+- Qwen still has full 1M context; GLM structured decode is now ~55 tok/s (round three) vs Qwen's ~32-64 NEXTN, while GLM prose sits ~17 tok/s
 - Qwen's SGLang recipe was the simplest to deploy — zero multi-node issues
 - Qwen scored lower on the behavioral suite (78% vs 100%) due to thinking-mode timeouts, but matched GLM on reasoning quality when tasks completed
 - Qwen is the right choice when speed and simplicity matter more than maximum quality
@@ -152,10 +152,12 @@ GLM-5.3-Flash-EXL3 runs via the MiaAI-Lab EXL3 recipe (`GLM-5.3-Flash-EXL3-2x-DG
 - **Serving framework:** vLLM with custom EXL3 overlay (not SGLang — this recipe requires vLLM's EXL3 MoE support)
 - **Quantization:** EXL3 4bpw (`brandonmusic/GLM-5.3-Flash-tr3-4bpw`, ~164 GiB)
 - **Tensor parallel:** TP=2 across both DGX Sparks via CX7 RoCE
-- **Speculative decode:** DFlash2 k=7 (`incoai/GLM-5.3-Flash-DFlash2`)
+- **Speculative decode:** DFlash2 k=7, `DFLASH_DRAFT_TP=2` (drafter shards across both ranks)
 - **KV cache:** fp8_ds_mla (packed sparse-MLA)
-- **Context:** 640K (MAX_MODEL_LEN=640000, limited by KV budget at util 0.80)
-- **GPU memory util:** 0.80 (dropped from recipe default 0.87 due to polkitd memory pressure)
+- **Context:** 640K (`MAX_MODEL_LEN=640000` — honest card, not marketing 1M)
+- **GPU memory util:** 0.79 (`CG_ESTIMATE=0` — CUDA-graph KV deduction off; 0.87 OOMs this kit)
+- **Prefill:** `MAX_NUM_BATCHED_TOKENS=2048`
+- **Recipe SHA:** `493cb88` (48 commits past our round-two `1df71c1`)
 - **Tool/reasoning parsers:** `glm47` (tool-call), `glm45` (reasoning)
 - **Vision:** enabled (LANGUAGE_MODEL_ONLY=0)
 - **Safety:** `--load-format dummy` and `--no-ple-offload-embedding` can hard-freeze both machines — documented in the recipe
@@ -172,7 +174,35 @@ GLM-5.3-Flash-EXL3 runs via the MiaAI-Lab EXL3 recipe (`GLM-5.3-Flash-EXL3-2x-DG
 
 5. **Eval methodology matters.** Our 5-category conversational tool-use test showed 40% — not because GLM can't call tools, but because the test described tools in natural language instead of using the formal API `tools` parameter. The 23-task suite with formal tool definitions scored 100%. Always test the actual API path your agents use, not a conversational approximation.
 
-6. **The ecosystem is moving fast.** We tested GLM three times in 48 hours — each time the recipe improved. Round one: 262K context, 96%. Round two: 640K context, 100%. The MiaAI-Lab team pushed updates mid-eval that materially improved our results. Community recipes are living artifacts.
+6. **The ecosystem is moving fast.** Round one: 262K, 96%. Round two: 640K, 100%. Round three (`493cb88`): quality holds, structured decode jumps.
+
+## Round three (2026-08-31) — recipe `493cb88`
+
+MiaAI-Lab shipped 48 commits after our round-two serve. Material on this kit: `DFLASH_DRAFT_TP=2`, `MAX_NUM_BATCHED_TOKENS=2048`, K-pool tail slotmap pin, XGrammar + speculative-reasoning grammar, per-rank RoCE GID, and a new `start.sh` that **defaults `CG_ESTIMATE=1`**. That last default would have re-enabled the CUDA-graph KV deduction that killed our 670K bring-up. We pinned **`CG_ESTIMATE=0`**.
+
+### Quality vs round two
+
+| Suite | Round two (`1df71c1`) | Round three (`493cb88`) |
+|-------|----------------------|-------------------------|
+| 23-task behavioral (formal `tools` API) | 23/23 (100%) | **23/23 (100%)** — DrJ, no regression |
+| 5-category + vision, formal tools | Tool-use was 2/5 conversational (harness, not model) | **Tool-use 5/5** via OpenAI `tools`; vision 5/5; math 5/5; code 5/5 |
+| 5-category total (this run) | 21/25 (84%) with conversational tools | **23/25 (92%)** — remaining two are keyword/thinking-budget, not comprehension |
+
+Vision still names red square, blue circle, green triangle, counts 3, and places them in the frame. Formal tool emission: `get_weather`, `get_record`, `get_hash`, `api_status`, `calculate` — all five calls, thinking off.
+
+### Speed (measured on this kit, thinking off)
+
+| Workload | Round two | Round three |
+|----------|-----------|-------------|
+| Structured decode (count 1→N) | ~21–35 tok/s mixed | **55.1 tok/s** (160 tokens / 2.90 s) |
+| Prose paragraph | not isolated | **16.8 tok/s** (164 tokens / 9.78 s) |
+| Recipe card (structured ×1) | 62.9 tok/s (author kit, util 0.87, 900K) | we do not claim that number |
+
+DFLASH_DRAFT_TP=2 closed most of the structured gap. Prose stays slower — same pattern Mia published. Do not quote 55 tok/s as a general decode rate.
+
+### What we did not take from upstream
+
+README still advertises 1M context and util 0.87. That pair OOMs here. Honest card remains **640K at util 0.79**. ABLIT stays off.
 
 ## Hardware
 
