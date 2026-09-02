@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point Meridian Light</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+            background: #060a10;
+            color: #e8dcc8;
+            min-height: 320vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0, 0, 0, .55) 100%);
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .lighthouse-scene {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .lighthouse-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 18vh 24px 0;
+            pointer-events: none;
+        }
+        header h1 {
+            font-family: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino', Georgia, serif;
+            font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #e8dcc8;
+            line-height: 1.15;
+            text-shadow: 0 2px 30px rgba(0, 0, 0, .6);
+        }
+        header p {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: .72rem;
+            letter-spacing: .45em;
+            text-transform: uppercase;
+            color: #8a8a7a;
+            margin-top: 14px;
+            font-weight: 500;
+        }
+        header .rule {
+            width: 40px;
+            height: 1px;
+            background: #c9a96e;
+            margin: 24px auto 0;
+            opacity: .6;
+        }
+
+        .log-container {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 35vh 28px 140px;
+        }
+
+        .log-entry {
+            background: linear-gradient(145deg, rgba(232, 220, 200, .07) 0%, rgba(232, 220, 200, .03) 60%, rgba(232, 220, 200, .06) 100%);
+            border-left: 3px solid #c9a96e;
+            padding: 36px 36px 36px 40px;
+            margin-bottom: 64px;
+            border-radius: 0 6px 6px 0;
+            transition: background .7s ease, box-shadow .7s ease, border-color .7s ease, transform .7s ease;
+            position: relative;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, transparent 50%, rgba(201, 169, 110, .08) 50%);
+            border-radius: 0 6px 0 0;
+            pointer-events: none;
+        }
+        .log-entry.lit {
+            background: linear-gradient(145deg, rgba(232, 220, 200, .13) 0%, rgba(232, 220, 200, .06) 60%, rgba(232, 220, 200, .1) 100%);
+            border-left-color: #ffd700;
+            box-shadow: 0 0 50px rgba(255, 215, 0, .12), 0 4px 30px rgba(0, 0, 0, .3);
+            transform: translateX(4px);
+        }
+        .log-entry .date {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: .68rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: #8a8a7a;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .log-entry h2 {
+            font-family: 'Cormorant Garamond', 'Iowan Old Style', 'Palatino', Georgia, serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #c9a96e;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+        .log-entry p {
+            font-size: .93rem;
+            line-height: 1.85;
+            color: rgba(232, 220, 200, .88);
+            max-width: 55ch;
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 60px 24px 80px;
+            color: #6a6a5a;
+            font-size: .72rem;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(232, 220, 200, .08);
+            margin-top: 40px;
+        }
+        footer .sep {
+            margin: 0 12px;
+            color: #c9a96e;
+        }
+
+        @media(max-width:600px) {
+            .log-container {
+                padding: 20vh 16px 80px;
+            }
+            .log-entry {
+                padding: 24px 20px 24px 24px;
+                margin-bottom: 36px;
+            }
+            .log-entry h2 {
+                font-size: 1.35rem;
+            }
+            header {
+                padding-top: 12vh;
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lighthouse-scene" aria-hidden="true">
+        <svg class="lighthouse-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#05080e"/>
+                    <stop offset="55%" stop-color="#0c1418"/>
+                    <stop offset="100%" stop-color="#121c1c"/>
+                </linearGradient>
+                <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#2a2a2a"/>
+                    <stop offset="50%" stop-color="#3a3a3a"/>
+                    <stop offset="100%" stop-color="#262626"/>
+                </linearGradient>
+                <radialGradient id="beamGlow" cx="600" cy="380" r="500" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="rgba(255,200,100,.45)"/>
+                    <stop offset="100%" stop-color="rgba(255,200,100,0)"/>
+                </radialGradient>
+            </defs>
+
+            <rect width="1200" height="600" fill="url(#skyGrad)"/>
+
+            <circle cx="120" cy="60" r="1.5" fill="#fff" opacity=".55"/>
+            <circle cx="350" cy="130" r="1" fill="#fff" opacity=".35"/>
+            <circle cx="750" cy="50" r="2" fill="#fff" opacity=".5"/>
+            <circle cx="1000" cy="170" r="1.5" fill="#fff" opacity=".35"/>
+            <circle cx="200" cy="220" r="1" fill="#fff" opacity=".4"/>
+            <circle cx="850" cy="240" r="1" fill="#fff" opacity=".3"/>
+            <circle cx="500" cy="90" r="1.2" fill="#fff" opacity=".35"/>
+            <circle cx="1100" cy="80" r="1" fill="#fff" opacity=".25"/>
+
+            <circle cx="980" cy="90" r="22" fill="rgba(255,255,255,.15)"/>
+            <circle cx="980" cy="90" r="16" fill="rgba(255,255,255,.08)"/>
+
+            <g class="beam" style="transform-origin:600px 380px;">
+                <polygon points="600,380 80,0 1120,0" fill="rgba(255,200,100,.07)"/>
+                <polygon points="600,380 180,0 1020,0" fill="rgba(255,200,100,.04)"/>
+            </g>
+
+            <ellipse cx="600" cy="545" rx="220" ry="45" fill="#111"/>
+            <ellipse cx="600" cy="530" rx="180" ry="30" fill="#1a1a1a"/>
+            <ellipse cx="540" cy="520" rx="90" ry="18" fill="#222"/>
+
+            <rect x="570" y="380" width="60" height="160" fill="url(#towerGrad)"/>
+            <rect x="570" y="400" width="60" height="5" fill="#c9a96e" opacity=".75"/>
+            <rect x="570" y="440" width="60" height="5" fill="#c9a96e" opacity=".75"/>
+            <rect x="570" y="480" width="60" height="5" fill="#c9a96e" opacity=".75"/>
+
+            <rect x="590" y="420" width="20" height="14" fill="rgba(255,215,0,.25)" rx="2"/>
+            <rect x="590" y="460" width="20" height="14" fill="rgba(255,215,0,.25)" rx="2"/>
+
+            <rect x="565" y="360" width="70" height="20" fill="#1a1a1a"/>
+            <rect x="560" y="380" width="80" height="3" fill="#c9a96e"/>
+
+            <polygon points="560,360 600,335 640,360" fill="#c9a96e"/>
+            <polygon points="560,360 600,335 640,360" fill="rgba(0,0,0,.25)"/>
+
+            <circle cx="600" cy="370" r="8" fill="#ffd700"/>
+            <circle cx="600" cy="370" r="22" fill="rgba(255,215,0,.2)"/>
+            <circle cx="600" cy="370" r="45" fill="rgba(255,215,0,.06)"/>
+        </svg>
+    </div>
+
+    <header>
+        <h1>Point Meridian Light</h1>
+        <p>Keeper's Log · 1893</p>
+        <div class="rule"></div>
+    </header>
+
+    <main class="log-container">
+        <article class="log-entry">
+            <p class="date">November 2nd, 1893</p>
+            <h2>Heavy Seas</h2>
+            <p>Heavy seas all day. The wind howled like a living thing. I kept the lamp burning through the night. A schooner passed close to the rocks — I saw her sails in the beam, white as bone.</p>
+        </article>
+
+        <article class="log-entry">
+            <p class="date">November 3rd, 1893</p>
+            <h2>Calm Water</h2>
+            <p>Calm after the storm. The sea is glass. I spent the morning repairing the lantern lens. My hands smell of brass and oil. A single gull sat on the railing for an hour, watching me work.</p>
+        </article>
+
+        <article class="log-entry">
+            <p class="date">November 5th, 1893</p>
+            <h2>Thick Fog</h2>
+            <p>Fog thick as wool. The bell tolled all night. I could hear it echoing off the water, but saw nothing. Somewhere out there, a ship was waiting. I hope they heard us.</p>
+        </article>
+    </main>
+
+    <footer>
+        <p>Elias Thorne <span class="sep">·</span> Keeper <span class="sep">·</span> 1887—1924</p>
+    </footer>
+
+    <script>
+        (function() {
+            const beam = document.querySelector('.beam');
+            const entries = document.querySelectorAll('.log-entry');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let ticking = false;
+
+            function update() {
+                const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+                const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+                const angle = progress * 120 - 60;
+                beam.style.transform = 'rotate(' + angle + 'deg)';
+
+                const vh = window.innerHeight;
+                entries.forEach(function(entry) {
+                    const rect = entry.getBoundingClientRect();
+                    const entryCenter = rect.top + rect.height / 2;
+                    const dist = Math.abs(entryCenter - vh / 2);
+                    if (dist < vh * 0.38) {
+                        entry.classList.add('lit');
+                    } else {
+                        entry.classList.remove('lit');
+                    }
+                });
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(update);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', function() {
+                if (!ticking) {
+                    requestAnimationFrame(update);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            update();
+        })();
+    </script>
+</body>
+</html>
