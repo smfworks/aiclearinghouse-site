@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g stroke="#00E5A0" stroke-opacity="0.04" stroke-width="1" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <circle cx="230" cy="325" r="200" fill="url(#pulse)"/>
+
+  <!-- Inverted FTS tree: root healthy, four leaf indexes broken, one disk cracked -->
+  <g transform="translate(230,310)" fill="none" stroke="#00E5A0" stroke-width="2.5">
+    <!-- root node -->
+    <rect x="-36" y="-118" width="72" height="36" rx="4"/>
+    <!-- trunk -->
+    <line x1="0" y1="-82" x2="0" y2="-28"/>
+    <!-- split to five leaves -->
+    <path d="M 0 -28 L -110 36"/>
+    <path d="M 0 -28 L -55 36"/>
+    <path d="M 0 -28 L 0 36"/>
+    <path d="M 0 -28 L 55 36"/>
+    <path d="M 0 -28 L 110 36"/>
+    <!-- four malformed leaf boxes -->
+    <rect x="-132" y="36" width="44" height="28" rx="3"/>
+    <rect x="-77" y="36" width="44" height="28" rx="3"/>
+    <rect x="-22" y="36" width="44" height="28" rx="3"/>
+    <rect x="33" y="36" width="44" height="28" rx="3"/>
+    <!-- jasmine: cracked disk -->
+    <circle cx="110" cy="50" r="18"/>
+    <path d="M 102 38 L 118 62" stroke-width="2"/>
+    <path d="M 118 40 L 104 58" stroke-width="2"/>
+  </g>
+  <g transform="translate(230,310)" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif">
+    <text x="0" y="-94" text-anchor="middle" font-size="11" font-weight="700">messages</text>
+    <text x="-110" y="56" text-anchor="middle" font-size="9" font-weight="600">X</text>
+    <text x="-55" y="56" text-anchor="middle" font-size="9" font-weight="600">X</text>
+    <text x="0" y="56" text-anchor="middle" font-size="9" font-weight="600">X</text>
+    <text x="55" y="56" text-anchor="middle" font-size="9" font-weight="600">X</text>
+    <text x="-110" y="86" text-anchor="middle" fill="#94A3B8" font-size="10">aiona</text>
+    <text x="-55" y="86" text-anchor="middle" fill="#94A3B8" font-size="10">liam</text>
+    <text x="0" y="86" text-anchor="middle" fill="#94A3B8" font-size="10">pamela</text>
+    <text x="55" y="86" text-anchor="middle" fill="#94A3B8" font-size="10">william</text>
+    <text x="110" y="86" text-anchor="middle" fill="#94A3B8" font-size="10">jasmine</text>
+  </g>
+
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="430" y="214" fill="#00E5A0" font-size="18" font-weight="600" letter-spacing="2">DR J — CLINICAL INFRASTRUCTURE</text>
+    <text x="430" y="278" fill="#E2E8F0" font-size="46" font-weight="700">The Index That</text>
+    <text x="430" y="336" fill="#E2E8F0" font-size="46" font-weight="700">Didn't Hold</text>
+    <text x="430" y="392" fill="#94A3B8" font-size="18">Four trigram indexes malformed.</text>
+    <text x="430" y="420" fill="#94A3B8" font-size="18">One store past repair. Weekly job Sunday.</text>
+  </g>
+
+  <g stroke="#00E5A0" stroke-opacity="0.06" stroke-width="2" fill="none">
+    <path d="M 1120 40 L 1120 140 L 1180 200"/>
+    <path d="M 1060 20 L 1060 90 L 1140 170 L 1140 260"/>
+    <path d="M 1160 430 L 1160 520 L 1080 600"/>
+    <path d="M 1100 470 L 1100 560"/>
+  </g>
+  <g fill="#00E5A0" fill-opacity="0.12">
+    <circle cx="1180" cy="200" r="4"/>
+    <circle cx="1140" cy="260" r="4"/>
+    <circle cx="1080" cy="600" r="4"/>
+  </g>
+
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
