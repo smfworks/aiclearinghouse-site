@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Step Zero Is a Tool Call" — discovery sensors, gate, then action. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Prerequisite discovery before action">
+  <defs>
+    <linearGradient id="szBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="46%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="szGlowTeal" cx="24%" cy="48%" r="40%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="szGlowGold" cx="78%" cy="52%" r="38%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="szGate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0.7"/>
+    </linearGradient>
+    <filter id="szSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#szBg)"/>
+  <rect width="1200" height="630" fill="url(#szGlowTeal)"/>
+  <rect width="1200" height="630" fill="url(#szGlowGold)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.5">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="430" y1="48" x2="430" y2="582"/>
+    <line x1="770" y1="48" x2="770" y2="582"/>
+  </g>
+
+  <!-- left: discovery sensor grid (teal) -->
+  <g fill="#00d4ff">
+    <circle cx="150" cy="160" r="7" opacity="0.85"/>
+    <circle cx="210" cy="160" r="7" opacity="0.55"/>
+    <circle cx="270" cy="160" r="7" opacity="0.85"/>
+    <circle cx="330" cy="160" r="7" opacity="0.4"/>
+    <circle cx="150" cy="230" r="7" opacity="0.7"/>
+    <circle cx="210" cy="230" r="7" opacity="0.9"/>
+    <circle cx="270" cy="230" r="7" opacity="0.35"/>
+    <circle cx="330" cy="230" r="7" opacity="0.8"/>
+    <circle cx="150" cy="300" r="7" opacity="0.9"/>
+    <circle cx="210" cy="300" r="7" opacity="0.45"/>
+    <circle cx="270" cy="300" r="7" opacity="0.85"/>
+    <circle cx="330" cy="300" r="7" opacity="0.65"/>
+    <circle cx="150" cy="370" r="7" opacity="0.5"/>
+    <circle cx="210" cy="370" r="7" opacity="0.85"/>
+    <circle cx="270" cy="370" r="7" opacity="0.7"/>
+    <circle cx="330" cy="370" r="7" opacity="0.3"/>
+    <circle cx="150" cy="440" r="7" opacity="0.8"/>
+    <circle cx="210" cy="440" r="7" opacity="0.4"/>
+    <circle cx="270" cy="440" r="7" opacity="0.9"/>
+    <circle cx="330" cy="440" r="7" opacity="0.55"/>
+  </g>
+  <g fill="none" stroke="#0e7490" stroke-width="1.5" opacity="0.45">
+    <rect x="118" y="128" width="240" height="340" rx="16"/>
+  </g>
+  <g stroke="#00d4ff" stroke-width="2" opacity="0.35" fill="none">
+    <path d="M150,160 L210,230 L270,300 L330,370"/>
+    <path d="M330,160 L270,230 L210,300 L150,370"/>
+  </g>
+
+  <!-- center: step-zero gate, closed until sensors fire -->
+  <g filter="url(#szSoft)">
+    <rect x="560" y="150" width="80" height="330" rx="10" fill="#1e3a8a" opacity="0.55"/>
+  </g>
+  <rect x="560" y="150" width="80" height="330" rx="10" fill="none" stroke="url(#szGate)" stroke-width="4"/>
+  <line x1="600" y1="178" x2="600" y2="452" stroke="#00d4ff" stroke-width="3" opacity="0.85"/>
+  <circle cx="600" cy="315" r="18" fill="#0a1628" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="600" cy="315" r="7" fill="#00d4ff" opacity="0.95"/>
+
+  <!-- right: action plate, dim until the gate opens -->
+  <g filter="url(#szSoft)">
+    <rect x="900" y="230" width="170" height="170" rx="18" fill="#f59e0b" opacity="0.28"/>
+  </g>
+  <rect x="900" y="230" width="170" height="170" rx="18" fill="none" stroke="#ff6b00" stroke-width="3" opacity="0.55" stroke-dasharray="12 10"/>
+  <path d="M948,315 L1022,315" stroke="#f59e0b" stroke-width="10" stroke-linecap="round" opacity="0.45"/>
+  <path d="M1000,293 L1028,315 L1000,337" fill="none" stroke="#f59e0b" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+</svg>
