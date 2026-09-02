@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sallow Lock — Kelmer Navigation, Lock No. 7</title>
+<meta name="description" content="A stone lock chamber on the Kelmer Navigation, drawn at night. Wind the paddles and the water does the rest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --soot:#121311;        /* coal soot, the night itself */
+    --soot-2:#1a1c19;      /* damp soot, panels */
+    --stone:#3b3f3c;       /* wet sandstone */
+    --stone-2:#272a28;     /* mortar */
+    --water:#1b2e32;       /* chamber water */
+    --vellum:#e6dccb;      /* vellum, the text */
+    --vellum-dim:#aaa091;  /* foxed vellum, labels */
+    --brass:#c9962e;       /* the lamp, and everything the lamp touches */
+    --brass-dim:#7a5b1d;
+    --display:"Fraunces","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --text:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    --label:"Avenir Next","Gill Sans","Gill Sans MT","Helvetica Neue","Segoe UI",system-ui,sans-serif;
+    --measure:38em;
+    --gutter:clamp(1.25rem,4vw,4rem);
+  }
+  *{box-sizing:border-box}
+  html{background:var(--soot);color:var(--vellum);-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    font-family:var(--text);
+    font-size:clamp(1rem,0.95rem + 0.3vw,1.1875rem);
+    line-height:1.6;
+    min-height:100vh;
+    background:
+      radial-gradient(120% 70% at 50% -10%, #1c2024 0%, transparent 60%),
+      var(--soot);
+  }
+  ::selection{background:var(--brass);color:var(--soot)}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:4px;border-radius:2px}
+
+  .label{
+    font-family:var(--label);
+    font-size:.72rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--vellum-dim);
+    font-weight:500;
+    margin:0;
+  }
+
+  .mast{
+    padding:clamp(3rem,9vh,7rem) var(--gutter) clamp(1.5rem,4vh,3rem);
+    max-width:72rem;
+    margin:0 auto;
+  }
+  .mast .label{display:flex;gap:1.25em;flex-wrap:wrap}
+  .mast .label span+span::before{content:"·";margin-right:1.25em;color:var(--stone)}
+  h1{
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:300;
+    font-variation-settings:"opsz" 144,"SOFT" 0,"WONK" 1;
+    font-size:clamp(3.4rem,11vw,9.5rem);
+    line-height:.92;
+    letter-spacing:-.025em;
+    margin:.35em 0 .3em -.04em;
+    color:var(--vellum);
+  }
+  .dek{
+    font-family:var(--display);
+    font-weight:300;
+    font-variation-settings:"opsz" 24,"SOFT" 30,"WONK" 0;
+    font-size:clamp(1.15rem,1rem + 1vw,1.7rem);
+    line-height:1.35;
+    max-width:26em;
+    margin:0;
+    color:var(--vellum);
+  }
+
+  .scene{
+    position:relative;
+    border-top:1px solid var(--stone-2);
+    border-bottom:1px solid var(--stone-2);
+    background:#0d0f12;
+  }
+  canvas{
+    display:block;
+    width:100%;
+    height:clamp(380px,64vh,820px);
+  }
+
+  .bench{
+    max-width:72rem;
+    margin:0 auto;
+    padding:1.25rem var(--gutter) 1.5rem;
+    display:grid;
+    grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+    gap:1.5rem clamp(1.5rem,4vw,4rem);
+    align-items:end;
+  }
+  @media (max-width:760px){.bench{grid-template-columns:1fr}}
+
+  .windlass{display:block}
+  .windlass .scale{
+    display:flex;justify-content:space-between;
+    margin-bottom:.6rem;
+  }
+  .windlass .scale .label{color:var(--vellum-dim)}
+  .windlass .scale .label.on{color:var(--brass)}
+  .rod{position:relative;padding:.6rem 0}
+  .rod::before{
+    content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
+    background:var(--stone);transform:translateX(-.5px);
+  }
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;
+    width:100%;height:28px;margin:0;background:transparent;display:block;
+    cursor:ew-resize;
+  }
+  input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--stone);border-radius:1px}
+  input[type=range]::-moz-range-track{height:2px;background:var(--stone);border-radius:1px}
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;margin-top:-10px;border-radius:50%;
+    background:radial-gradient(circle at 38% 35%,#e6bf5c,var(--brass) 55%,var(--brass-dim));
+    border:1px solid #3a2c10;
+    box-shadow:0 2px 6px rgba(0,0,0,.6),0 0 0 3px rgba(201,150,46,.08);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;
+    background:radial-gradient(circle at 38% 35%,#e6bf5c,var(--brass) 55%,var(--brass-dim));
+    border:1px solid #3a2c10;
+    box-shadow:0 2px 6px rgba(0,0,0,.6),0 0 0 3px rgba(201,150,46,.08);
+  }
+  input[type=range]:focus-visible{outline:none}
+  input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 2px 6px rgba(0,0,0,.6),0 0 0 3px var(--soot),0 0 0 5px var(--brass)}
+  input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 2px 6px rgba(0,0,0,.6),0 0 0 3px var(--soot),0 0 0 5px var(--brass)}
+  .hint{margin:.5rem 0 0;color:var(--vellum-dim);font-size:.95rem;font-style:italic}
+  .hint button{
+    font:inherit;color:var(--vellum);background:none;border:0;padding:0;
+    border-bottom:1px solid var(--brass-dim);cursor:pointer;font-style:italic;
+  }
+  .hint button:hover{border-color:var(--brass)}
+
+  .readout{
+    display:grid;
+    grid-template-columns:repeat(3,auto);
+    gap:0 clamp(1rem,3vw,2.5rem);
+    margin:0;padding:0;
+  }
+  @media (max-width:400px){.readout{grid-template-columns:1fr 1fr}}
+  .readout div{display:contents}
+  .readout dt{grid-row:1}
+  .readout dd{
+    grid-row:2;margin:.25rem 0 0;
+    font-family:var(--display);font-weight:300;
+    font-variation-settings:"opsz" 72,"SOFT" 0,"WONK" 0;
+    font-size:clamp(1.6rem,1.2rem + 1.4vw,2.6rem);
+    line-height:1.05;letter-spacing:-.01em;
+    color:var(--vellum);font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+  }
+  .readout dd.brass{color:var(--brass)}
+  .readout dd small{font-size:.5em;color:var(--vellum-dim);letter-spacing:.02em;margin-left:.1em}
+
+  main section.copy{
+    max-width:72rem;margin:0 auto;
+    padding:clamp(3rem,8vh,6rem) var(--gutter);
+    display:grid;
+    grid-template-columns:minmax(0,14rem) minmax(0,var(--measure));
+    gap:1.5rem clamp(2rem,6vw,6rem);
+    border-top:1px solid var(--stone-2);
+  }
+  @media (max-width:760px){main section.copy{grid-template-columns:1fr}}
+  h2{
+    font-family:var(--display);font-weight:300;font-style:italic;
+    font-variation-settings:"opsz" 72,"SOFT" 0,"WONK" 1;
+    font-size:clamp(1.6rem,1.3rem + 1.2vw,2.4rem);
+    line-height:1.1;margin:0;letter-spacing:-.015em;
+  }
+  h2 .label{display:block;font-style:normal;margin-bottom:.9rem}
+  .copy p{margin:0 0 1.25em}
+  .copy p:last-child{margin-bottom:0}
+  .copy p:first-of-type::first-letter{
+    font-family:var(--display);font-weight:300;
+    font-variation-settings:"opsz" 144,"SOFT" 0,"WONK" 1;
+    float:left;font-size:3.6em;line-height:.8;padding:.08em .08em 0 0;color:var(--brass);
+  }
+  em{font-style:italic}
+
+  .keeping{margin:0;padding:0;list-style:none}
+  .keeping li{
+    display:grid;grid-template-columns:6ch 1fr;gap:1.5rem;
+    padding:1rem 0;border-top:1px solid var(--stone-2);
+  }
+  .keeping li:last-child{border-bottom:1px solid var(--stone-2)}
+  .keeping .yr{
+    font-family:var(--display);font-weight:300;
+    font-variation-settings:"opsz" 48,"SOFT" 0;
+    font-size:1.25em;line-height:1.3;color:var(--vellum-dim);font-variant-numeric:tabular-nums;
+  }
+  .keeping .yr.now{color:var(--brass)}
+  .keeping p{margin:0}
+
+  .note{
+    font-family:var(--display);font-weight:300;
+    font-variation-settings:"opsz" 24,"SOFT" 20;
+    font-size:clamp(1.15rem,1rem + .9vw,1.6rem);line-height:1.4;
+  }
+  .note p{margin:0 0 1em}
+  .sig{font-family:var(--label);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vellum-dim);margin-top:2rem}
+
+  footer{
+    max-width:72rem;margin:0 auto;
+    padding:2.5rem var(--gutter) 4rem;
+    border-top:1px solid var(--stone-2);
+    display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+    color:var(--vellum-dim);font-size:.95rem;
+  }
+  footer p{margin:0;max-width:34em}
+  footer .label{align-self:center}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <p class="label"><span>Kelmer Navigation</span><span>Lock No. 7</span><span>Fall 9 ft 4 in</span></p>
+  <h1>Sallow Lock</h1>
+  <p class="dek">A stone chamber, two pairs of oak gates, and one lamp that has been lit at dusk every evening since 1841.</p>
+</header>
+
+<main>
+  <section class="scene" aria-labelledby="scene-label">
+    <h2 id="scene-label" class="label" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">The lock, tonight</h2>
+    <canvas id="lock" role="img" aria-label="Cross-section of a canal lock at night. The upper pound on the left, the lower on the right, a narrowboat in the chamber between two gates, and a brass lamp on the coping."></canvas>
+
+    <div class="bench">
+      <div class="windlass">
+        <div class="scale" aria-hidden="true">
+          <span class="label" id="lab-lower">Lower paddles</span>
+          <span class="label" id="lab-shut">Shut</span>
+          <span class="label" id="lab-upper">Upper paddles</span>
+        </div>
+        <div class="rod">
+          <label for="windlass" class="label" style="position:absolute;left:-9999px">Windlass. Left opens the lower paddles and empties the chamber; right opens the upper paddles and fills it.</label>
+          <input type="range" id="windlass" min="-1" max="1" step="0.01" value="0" aria-valuetext="Paddles shut">
+        </div>
+        <p class="hint">Wind slowly. The water sets its own pace. <button type="button" id="shut">Drop the paddles.</button></p>
+      </div>
+
+      <dl class="readout">
+        <div><dt class="label">Chamber</dt><dd id="o-level" class="brass">3<small>ft</small> 6<small>in</small></dd></div>
+        <div><dt class="label">Head</dt><dd id="o-head">5<small>ft</small> 10<small>in</small></dd></div>
+        <div><dt class="label">Paddles</dt><dd id="o-state">Shut</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="copy" aria-labelledby="h-place">
+    <h2 id="h-place"><span class="label">The place</span>Where the Kelmer drops</h2>
+    <div>
+      <p>The chamber is sixty-eight feet long and seven feet two inches wide, cut into the bank where the Kelmer leaves the plateau and drops nine feet four to the water meadows. The stone is local — a grey sandstone that goes black when wet, which is most of the year. Two sallows stood on the towpath side when the navvies arrived. One of them is still there, leaning over the lower gates as if to check the level.</p>
+      <p>There is nothing else here. The road stopped coming in 1931 and the pub in the next village is a forty-minute walk along the cut. What you get instead is the sound of the paddles, which is the sound of a great deal of water being persuaded to go somewhere it did not intend, and the lamp on the coping, which the keeper lights by hand.</p>
+      <p>Boats still come. Three or four a week in summer, fewer in the dark months. They arrive to find the chamber at whatever level the last boat left it, and the lamp already burning.</p>
+    </div>
+  </section>
+
+  <section class="copy" aria-labelledby="h-keeping">
+    <h2 id="h-keeping"><span class="label">Keeping</span>Two hundred and thirty years, more or less</h2>
+    <ol class="keeping">
+      <li><span class="yr">1794</span><p>Chamber cut and gates hung. The navigation opens between Ashcombe wharf and the tidal basin at Wend.</p></li>
+      <li><span class="yr">1841</span><p>The cottage is built for a resident keeper, and a lamp bracket set into the coping on the lower side. The company pays for oil; the keeper supplies the match.</p></li>
+      <li><span class="yr">1889</span><p>Balance beams replaced after a laden barge misjudges the upper gates in fog. The scar in the top course of stone is still visible from the towpath.</p></li>
+      <li><span class="yr">1931</span><p>The last coal barge passes down. The company is wound up the following spring. The Hobbes family, who had kept the lock since 1876, stay on without pay.</p></li>
+      <li><span class="yr">1962</span><p>Gates re-hung in green oak by Wm. Hobbes and two sons over one dry August. Eleven tons a pair. They have not been off since.</p></li>
+      <li><span class="yr now">Tonight</span><p>Upper pound standing at nine feet four. Lamp lit at dusk. Chamber where you leave it.</p></li>
+    </ol>
+  </section>
+
+  <section class="copy" aria-labelledby="h-note">
+    <h2 id="h-note"><span class="label">Pinned inside the cottage door</span>For anyone coming through after dark</h2>
+    <div class="note">
+      <p>You will find the windlass on the hook. Wind the paddle a quarter at a time and wait for the boil to settle before you wind again — the water knows what to do, you are only giving it permission.</p>
+      <p>Do not open both ends. It has been tried.</p>
+      <p>When you are through, drop the paddles, shut the gates behind you, and leave the lamp. It goes out on its own around four.</p>
+      <p class="sig">— M. Hobbes, keeper</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="label">Drawn in one file · No photographs</p>
+  <p>The Kelmer Navigation is invented. The stone, the oak, the way water moves through a paddle — those are not. Set in Fraunces, or whatever old-style serif your machine keeps.</p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var cv = document.getElementById('lock');
+  var ctx = cv.getContext('2d', {alpha:false});
+  var input = document.getElementById('windlass');
+  var shutBtn = document.getElementById('shut');
+  var outLevel = document.getElementById('o-level');
+  var outHead = document.getElementById('o-head');
+  var outState = document.getElementById('o-state');
+  var labLower = document.getElementById('lab-lower');
+  var labShut = document.getElementById('lab-shut');
+  var labUpper = document.getElementById('lab-upper');
+
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var RM = mq.matches;
+  if (mq.addEventListener) mq.addEventListener('change', function(e){ RM = e.matches; dirty = true; });
+
+  /* ---------- state ---------- */
+  var HIGH = 9 + 4/12;        // feet, upper pound above lower
+  var L = 3.5;                // chamber level, feet above lower pound
+  var p = 0;                  // windlass position, -1..1
+  var turb = 0;               // turbulence, 0..1
+  var rate = 0;
+  var dirty = true;
+
+  /* ---------- fixed geometry seeds ---------- */
+  var seed = 1794;
+  function rnd(){ seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+
+  var NST = 110;
+  var stars = new Float32Array(NST * 3);
+  for (var i = 0; i < NST; i++) {
+    stars[i*3]   = rnd();
+    stars[i*3+1] = rnd() * rnd();
+    stars[i*3+2] = 0.5 + rnd() * 1.2;
+  }
+  var NTR = 180;
+  var trees = new Float32Array(NTR);
+  var th = 0.5;
+  for (i = 0; i < NTR; i++) {
+    th += (rnd() - 0.5) * 0.5;
+    if (th < 0.1) th = 0.1; if (th > 1) th = 1;
+    trees[i] = (i % 3 === 0) ? th : th * (0.55 + rnd() * 0.3);
+  }
+
+  /* ---------- layout ---------- */
+  var W = 0, H = 0, dpr = 1;
+  var G = {};
+
+  function resize(){
+    var r = cv.getBoundingClientRect();
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.max(1, Math.round(r.width));
+    H = Math.max(1, Math.round(r.height));
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    var narrow = W < 640;
+    G.gy = H * 0.55;
+    G.upY = G.gy + H * 0.045;
+    G.lowY = G.gy + H * 0.30;
+    G.floorY = G.gy + H * 0.37;
+    G.x0 = W * (narrow ? 0.15 : 0.29);
+    G.x1 = W * (narrow ? 0.85 : 0.71);
+    G.cw = G.x1 - G.x0;
+    G.gt = Math.max(5, W * 0.011);
+    G.lampX = G.x1 - G.cw * 0.14;
+    G.lampTop = G.gy - H * 0.20;
+    G.lampR = H * 0.46;
+    G.cotW = narrow ? W * 0.13 : W * 0.15;
+    G.cotX = narrow ? W * 0.005 : W * 0.06;
+    G.cotH = H * 0.11;
+    G.cotY = G.gy - G.cotH;
+    G.boardX = G.x0 + G.gt + Math.max(8, W * 0.012);
+    G.course = Math.max(7, H * 0.026);
+
+    G.sky = ctx.createLinearGradient(0, 0, 0, G.gy);
+    G.sky.addColorStop(0, '#0b0d10');
+    G.sky.addColorStop(0.55, '#111720');
+    G.sky.addColorStop(1, '#1d2b33');
+
+    G.dusk = ctx.createLinearGradient(0, G.gy - H * 0.24, 0, G.gy);
+    G.dusk.addColorStop(0, 'rgba(92,70,42,0)');
+    G.dusk.addColorStop(1, 'rgba(92,70,42,0.28)');
+
+    G.water = ctx.createLinearGradient(0, G.upY, 0, G.floorY);
+    G.water.addColorStop(0, '#1e353a');
+    G.water.addColorStop(0.35, '#15272b');
+    G.water.addColorStop(1, '#0a1315');
+
+    G.glow = ctx.createRadialGradient(G.lampX, G.lampTop, 2, G.lampX, G.lampTop, G.lampR);
+    G.glow.addColorStop(0, 'rgba(201,150,46,0.30)');
+    G.glow.addColorStop(0.25, 'rgba(201,150,46,0.12)');
+    G.glow.addColorStop(1, 'rgba(201,150,46,0)');
+
+    var wx = G.cotX + G.cotW * 0.62, wy = G.cotY + G.cotH * 0.55;
+    G.winX = wx; G.winY = wy;
+    G.winGlow = ctx.createRadialGradient(wx, wy, 1, wx, wy, H * 0.12);
+    G.winGlow.addColorStop(0, 'rgba(201,150,46,0.22)');
+    G.winGlow.addColorStop(1, 'rgba(201,150,46,0)');
+
+    dirty = true;
+  }
+
+  function levelY(l){ return G.lowY - (l / HIGH) * (G.lowY - G.upY); }
+
+  /* ---------- drawing ---------- */
+  function streak(x, yTop, yBot, w, t, baseAlpha){
+    var n = 26;
+    var step = (yBot - yTop) / n;
+    if (step <= 0) return;
+    ctx.fillStyle = '#c9962e';
+    for (var i = 0; i < n; i++) {
+      var f = i / n;
+      var off = RM ? 0 : Math.sin(i * 0.9 + t * 0.0022) * (1.5 + i * 0.35) * (0.4 + turb);
+      var a = baseAlpha * (1 - f) * (1 - f) * (0.55 + (RM ? 0.45 : 0.45 * Math.sin(i * 1.7 - t * 0.0031) * 0.5 + 0.22));
+      if (a < 0.004) continue;
+      ctx.globalAlpha = a;
+      var ww = w * (1 + f * 1.8);
+      ctx.fillRect(x + off - ww / 2, yTop + i * step, ww, Math.max(1, step * 0.55));
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function stone(x, y, w, h){
+    ctx.fillStyle = '#31363a';
+    ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = '#23272a';
+    var c = G.course;
+    var row = 0;
+    for (var yy = y + c; yy < y + h; yy += c, row++) {
+      ctx.fillRect(x, yy, w, 1);
+      var joint = c * 2.6;
+      var start = (row % 2) ? joint / 2 : 0;
+      for (var xx = x + start; xx < x + w; xx += joint) {
+        ctx.fillRect(xx, yy - c, 1, c);
+      }
+    }
+  }
+
+  function gate(x, t, open, isUpper){
+    var gt = G.gt;
+    // heel post and planking
+    ctx.fillStyle = '#17120e';
+    ctx.fillRect(x - gt / 2, G.gy - H * 0.012, gt, G.floorY - G.gy + H * 0.012);
+    ctx.fillStyle = '#2b2118';
+    for (var yy = G.gy; yy < G.floorY; yy += G.course * 0.9) ctx.fillRect(x - gt / 2, yy, gt, 1);
+    // balance beam, reaching back over its own pound
+    var dir = isUpper ? -1 : 1;
+    var bl = G.cw * 0.26;
+    ctx.strokeStyle = '#1c160f';
+    ctx.lineWidth = Math.max(3, gt * 0.55);
+    ctx.lineCap = 'butt';
+    ctx.beginPath();
+    ctx.moveTo(x, G.gy - H * 0.01);
+    ctx.lineTo(x + dir * bl, G.gy - H * 0.035);
+    ctx.stroke();
+    // paddle gear: brass rack rises as the paddle is drawn
+    var travel = H * 0.03 * open;
+    ctx.fillStyle = '#c9962e';
+    ctx.globalAlpha = 0.6 + open * 0.4;
+    ctx.fillRect(x - 1.5, G.gy - H * 0.035 - travel, 3, H * 0.035);
+    ctx.fillRect(x - gt * 0.7, G.gy - H * 0.04 - travel, gt * 1.4, 3);
+    ctx.globalAlpha = 1;
+  }
+
+  function draw(t){
+    var sy = levelY(L);
+    var flick = RM ? 1 : 0.9 + 0.1 * Math.sin(t * 0.0071) * Math.sin(t * 0.0023);
+
+    // sky
+    ctx.fillStyle = G.sky;
+    ctx.fillRect(0, 0, W, G.gy);
+    ctx.fillStyle = G.dusk;
+    ctx.fillRect(0, G.gy - H * 0.24, W, H * 0.24);
+
+    // stars
+    ctx.fillStyle = '#e6dccb';
+    var skyH = G.gy - H * 0.16;
+    for (var i = 0; i < NST; i++) {
+      var tw = RM ? 0.55 : 0.4 + 0.3 * Math.sin(t * 0.0009 * (1 + (i % 7)) + i);
+      ctx.globalAlpha = tw * 0.75;
+      var s = stars[i*3+2];
+      ctx.fillRect(stars[i*3] * W, stars[i*3+1] * skyH, s, s);
+    }
+    ctx.globalAlpha = 1;
+
+    // treeline
+    ctx.fillStyle = '#090b0a';
+    ctx.beginPath();
+    ctx.moveTo(0, G.gy);
+    var seg = W / (NTR - 1);
+    for (i = 0; i < NTR; i++) ctx.lineTo(i * seg, G.gy - trees[i] * H * 0.10 - H * 0.015);
+    ctx.lineTo(W, G.gy);
+    ctx.closePath();
+    ctx.fill();
+
+    // cottage on the upper bank
+    var cx = G.cotX, cw = G.cotW, cy = G.cotY, ch = G.cotH;
+    ctx.fillStyle = G.winGlow;
+    ctx.fillRect(cx - H * 0.12, cy - H * 0.12, cw + H * 0.24, ch + H * 0.24);
+    ctx.fillStyle = '#0e1010';
+    ctx.fillRect(cx, cy, cw, ch);
+    ctx.beginPath();
+    ctx.moveTo(cx - cw * 0.05, cy);
+    ctx.lineTo(cx + cw * 0.5, cy - ch * 0.55);
+    ctx.lineTo(cx + cw * 1.05, cy);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillRect(cx + cw * 0.72, cy - ch * 0.75, cw * 0.09, ch * 0.5);
+    ctx.fillStyle = '#c9962e';
+    ctx.globalAlpha = 0.85 * flick;
+    ctx.fillRect(G.winX - cw * 0.06, G.winY - ch * 0.12, cw * 0.12, ch * 0.24);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#0e1010';
+    ctx.fillRect(G.winX - 0.5, G.winY - ch * 0.12, 1, ch * 0.24);
+    ctx.fillRect(G.winX - cw * 0.06, G.winY - 0.5, cw * 0.12, 1);
+
+    // earth
+    ctx.fillStyle = '#141410';
+    ctx.fillRect(0, G.gy, W, H - G.gy);
+
+    // pounds
+    ctx.fillStyle = G.water;
+    ctx.fillRect(0, G.upY, G.x0 - G.gt / 2, G.floorY - G.upY + H * 0.02);
+    ctx.fillRect(G.x1 + G.gt / 2, G.lowY, W - G.x1, G.floorY - G.lowY + H * 0.02);
+    ctx.fillStyle = 'rgba(230,220,203,0.10)';
+    ctx.fillRect(0, G.upY, G.x0 - G.gt / 2, 1);
+    ctx.fillRect(G.x1 + G.gt / 2, G.lowY, W - G.x1, 1);
+    // bank faces
+    ctx.fillStyle = '#2b2f31';
+    ctx.fillRect(0, G.gy, G.x0 - G.gt / 2, G.upY - G.gy);
+    ctx.fillRect(G.x1 + G.gt / 2, G.gy, W - G.x1, G.lowY - G.gy);
+
+    // cottage window in the upper pound
+    streak(G.winX, G.upY + 2, G.upY + (G.floorY - G.upY) * 0.5, 4, t + 4000, 0.22 * flick);
+
+    // chamber walls and floor
+    stone(G.x0, G.gy, G.cw, G.floorY - G.gy);
+    ctx.fillStyle = '#1b1e20';
+    ctx.fillRect(G.x0, G.floorY - 2, G.cw, H - G.floorY + 2);
+
+    // wet stone above the water line
+    ctx.fillStyle = 'rgba(0,0,0,0.42)';
+    ctx.fillRect(G.x0, Math.max(G.gy, sy - H * 0.025), G.cw, Math.min(H * 0.025, sy - G.gy));
+
+    // chamber water
+    ctx.fillStyle = G.water;
+    ctx.beginPath();
+    var N = 72;
+    var dx = G.cw / N;
+    var a1 = (RM ? 0.35 : 0.7) + turb * 3.2, a2 = (RM ? 0 : 0.35) + turb * 2.4;
+    var srcX = p > 0 ? G.x0 : G.x1;
+    ctx.moveTo(G.x0, G.floorY);
+    for (i = 0; i <= N; i++) {
+      var x = G.x0 + i * dx;
+      var near = 1 - Math.min(1, Math.abs(x - srcX) / (G.cw * 0.45));
+      var y = sy;
+      if (!RM || turb > 0.01) {
+        y += Math.sin(x * 0.045 + t * 0.0016) * a1 * (0.5 + near)
+           + Math.sin(x * 0.11 - t * 0.0027) * a2 * (0.3 + near * 1.4);
+      }
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(G.x1, G.floorY);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = 'rgba(230,220,203,0.13)';
+    ctx.fillRect(G.x0, sy - 0.5, G.cw, 1);
+
+    // boil where the paddle is drawing
+    if (turb > 0.01) {
+      ctx.fillStyle = '#e6dccb';
+      var bx0 = p > 0 ? G.x0 + G.gt : G.x1 - G.gt;
+      var bdir = p > 0 ? 1 : -1;
+      for (i = 0; i < 7; i++) {
+        var ph = RM ? 0 : Math.sin(t * 0.004 + i * 1.9);
+        var ex = bx0 + bdir * (G.cw * 0.03 + i * G.cw * 0.028 + ph * 4);
+        var ew = G.cw * 0.03 * (1 + i * 0.15);
+        ctx.globalAlpha = turb * (0.28 - i * 0.035) * (0.7 + 0.3 * ph);
+        ctx.fillRect(ex - ew / 2, sy - 1 + ph * 1.5, ew, 1.5);
+        ctx.globalAlpha = turb * (0.10 - i * 0.012);
+        ctx.fillRect(ex - ew * 0.3, sy + H * 0.02 + i * H * 0.015, ew * 0.6, 1);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // lamp glow over stone and water
+    ctx.globalAlpha = flick;
+    ctx.fillStyle = G.glow;
+    ctx.fillRect(G.lampX - G.lampR, G.lampTop - G.lampR, G.lampR * 2, G.lampR * 2);
+    ctx.globalAlpha = 1;
+    // its reflection in the chamber
+    streak(G.lampX, sy + 1, G.floorY, 5, t, 0.5 * flick);
+
+    // depth board on the upper wall
+    ctx.fillStyle = '#d9d0bf';
+    ctx.globalAlpha = 0.78;
+    ctx.fillRect(G.boardX, G.upY - 6, 3, G.lowY - G.upY + 12);
+    for (i = 0; i <= 9; i++) {
+      var ty = levelY(i);
+      ctx.fillRect(G.boardX + 3, ty - 0.5, (i % 3 === 0) ? 10 : 6, 1);
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#c9962e';
+    ctx.beginPath();
+    ctx.moveTo(G.boardX - 2, sy);
+    ctx.lineTo(G.boardX - 9, sy - 5);
+    ctx.lineTo(G.boardX - 9, sy + 5);
+    ctx.closePath();
+    ctx.fill();
+
+    // the boat, riding the level
+    var bl = G.cw * 0.55;
+    var bx = G.x0 + (G.cw - bl) / 2;
+    var hh = Math.max(10, H * 0.032);
+    var bob = RM ? 0 : Math.sin(t * 0.0012) * (0.4 + turb * 2.2);
+    var by = sy + bob;
+    ctx.fillStyle = '#100e0c';
+    ctx.beginPath();
+    ctx.moveTo(bx, by - hh * 0.45);
+    ctx.lineTo(bx + bl * 0.93, by - hh * 0.45);
+    ctx.quadraticCurveTo(bx + bl * 1.02, by - hh * 0.2, bx + bl * 0.97, by + hh * 0.5);
+    ctx.lineTo(bx + bl * 0.04, by + hh * 0.5);
+    ctx.quadraticCurveTo(bx - bl * 0.01, by, bx, by - hh * 0.45);
+    ctx.closePath();
+    ctx.fill();
+    // cabin
+    ctx.fillStyle = '#1c1712';
+    ctx.fillRect(bx + bl * 0.1, by - hh * 1.5, bl * 0.72, hh * 1.1);
+    ctx.fillStyle = '#0d0b09';
+    ctx.fillRect(bx + bl * 0.1, by - hh * 1.55, bl * 0.72, 2);
+    // gunwale catching the lamp
+    ctx.fillStyle = 'rgba(201,150,46,0.35)';
+    ctx.fillRect(bx + bl * 0.55, by - hh * 0.45, bl * 0.38, 1);
+    // one lit porthole
+    ctx.fillStyle = '#c9962e';
+    ctx.globalAlpha = 0.85 * flick;
+    ctx.fillRect(bx + bl * 0.66, by - hh * 1.1, hh * 0.32, hh * 0.32);
+    ctx.globalAlpha = 1;
+    // chimney
+    ctx.fillStyle = '#0d0b09';
+    ctx.fillRect(bx + bl * 0.24, by - hh * 2.1, hh * 0.22, hh * 0.65);
+
+    // gates
+    gate(G.x0, t, Math.max(0, p), true);
+    gate(G.x1, t, Math.max(0, -p), false);
+
+    // coping
+    ctx.fillStyle = '#464b4a';
+    ctx.fillRect(0, G.gy - 2, G.x0 + G.gt, 3);
+    ctx.fillRect(G.x1 - G.gt, G.gy - 2, W - G.x1 + G.gt, 3);
+    ctx.fillStyle = '#3a3f3e';
+    ctx.fillRect(G.x0 + G.gt, G.gy - 2, G.cw - G.gt * 2, 3);
+
+    // the lamp itself
+    ctx.fillStyle = '#16161a';
+    ctx.fillRect(G.lampX - 1.5, G.lampTop, 3, G.gy - G.lampTop);
+    ctx.fillRect(G.lampX - 6, G.gy - 8, 12, 8);
+    ctx.fillStyle = '#c9962e';
+    ctx.globalAlpha = flick;
+    ctx.fillRect(G.lampX - 5, G.lampTop - 12, 10, 12);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#16161a';
+    ctx.fillRect(G.lampX - 7, G.lampTop - 15, 14, 3);
+    ctx.fillRect(G.lampX - 2, G.lampTop - 19, 4, 4);
+    ctx.fillStyle = 'rgba(230,220,203,0.9)';
+    ctx.fillRect(G.lampX - 1.5, G.lampTop - 9, 3, 6);
+
+    // the sallow, leaning over the lower gates
+    ctx.strokeStyle = '#0a0c0b';
+    ctx.lineCap = 'round';
+    var tx = G.x1 + Math.min(W - G.x1, G.cw * 0.22) * 0.9;
+    ctx.lineWidth = Math.max(4, W * 0.007);
+    ctx.beginPath();
+    ctx.moveTo(tx, G.gy);
+    ctx.quadraticCurveTo(tx - W * 0.02, G.gy - H * 0.16, tx - W * 0.055, G.gy - H * 0.27);
+    ctx.stroke();
+    ctx.lineWidth = Math.max(1.5, W * 0.0025);
+    for (i = 0; i < 9; i++) {
+      var f = i / 8;
+      var sway = RM ? 0 : Math.sin(t * 0.0009 + i) * 3;
+      ctx.beginPath();
+      var ox = tx - W * 0.055 + (f - 0.5) * W * 0.075;
+      ctx.moveTo(ox, G.gy - H * 0.27 + f * H * 0.04);
+      ctx.quadraticCurveTo(ox - W * 0.02 + sway, G.gy - H * 0.16, ox - W * 0.04 + sway * 1.6 + f * W * 0.03, G.gy - H * 0.04 - f * H * 0.05);
+      ctx.stroke();
+    }
+  }
+
+  /* ---------- physics ---------- */
+  function step(dt){
+    if (p > 0.02) rate = 0.52 * p * Math.sqrt(Math.max(0, HIGH - L));
+    else if (p < -0.02) rate = -0.52 * (-p) * Math.sqrt(Math.max(0, L));
+    else rate = 0;
+    var nl = L + rate * dt;
+    if (nl > HIGH) nl = HIGH;
+    if (nl < 0) nl = 0;
+    if (nl !== L) dirty = true;
+    L = nl;
+    var flow = Math.min(1, Math.abs(rate) / 1.1);
+    var k = Math.min(1, dt * (flow > turb ? 2.2 : 1.1));
+    var nt = turb + (flow - turb) * k;
+    if (Math.abs(nt - turb) > 0.0005) dirty = true;
+    turb = nt < 0.003 ? 0 : nt;
+  }
+
+  /* ---------- readouts ---------- */
+  var lastLevelKey = -1, lastHeadKey = -1, lastState = '';
+  function ftin(v){
+    var ft = Math.floor(v + 1e-6);
+    var inch = Math.round((v - ft) * 12);
+    if (inch === 12) { ft += 1; inch = 0; }
+    return ft + '<small>ft</small> ' + inch + '<small>in</small>';
+  }
+  function readout(){
+    var key = Math.round(L * 12);
+    if (key !== lastLevelKey) {
+      lastLevelKey = key;
+      outLevel.innerHTML = ftin(L);
+      outHead.innerHTML = ftin(HIGH - L);
+    }
+    var state;
+    if (p > 0.02) state = (L >= HIGH - 0.005) ? 'Level made' : 'Filling';
+    else if (p < -0.02) state = (L <= 0.005) ? 'Level made' : 'Emptying';
+    else state = 'Shut';
+    if (state !== lastState) {
+      lastState = state;
+      outState.textContent = state;
+      labUpper.className = 'label' + (p > 0.02 ? ' on' : '');
+      labLower.className = 'label' + (p < -0.02 ? ' on' : '');
+      labShut.className = 'label' + (Math.abs(p) <= 0.02 ? ' on' : '');
+      input.setAttribute('aria-valuetext', state === 'Shut' ? 'Paddles shut' :
+        (p > 0 ? 'Upper paddles ' : 'Lower paddles ') + Math.round(Math.abs(p) * 100) + ' percent, ' + state.toLowerCase());
+    }
+  }
+
+  /* ---------- loop ---------- */
+  var running = false, last = 0, visible = true, inView = true;
+  function frame(ts){
+    if (!running) return;
+    var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0.016;
+    last = ts;
+    step(dt);
+    if (!RM || dirty) { draw(ts); dirty = false; }
+    readout();
+    requestAnimationFrame(frame);
+  }
+  function setRunning(){
+    var want = visible && inView;
+    if (want && !running) { running = true; last = 0; requestAnimationFrame(frame); }
+    else if (!want) running = false;
+  }
+
+  /* ---------- input ---------- */
+  var pendingValue = null, inputScheduled = false;
+  function applyInput(){
+    inputScheduled = false;
+    var v = parseFloat(pendingValue);
+    if (isNaN(v)) v = 0;
+    if (Math.abs(v) < 0.06) { v = 0; if (input.value !== '0') input.value = '0'; }
+    p = v;
+    dirty = true;
+  }
+  input.addEventListener('input', function(){
+    pendingValue = input.value;
+    if (!inputScheduled) { inputScheduled = true; requestAnimationFrame(applyInput); }
+  }, {passive:true});
+  shutBtn.addEventListener('click', function(){
+    input.value = '0'; p = 0; dirty = true; input.focus();
+  }, {passive:true});
+
+  var resizeScheduled = false;
+  window.addEventListener('resize', function(){
+    if (resizeScheduled) return;
+    resizeScheduled = true;
+    requestAnimationFrame(function(){ resizeScheduled = false; resize(); if (RM) draw(performance.now()); });
+  }, {passive:true});
+
+  document.addEventListener('visibilitychange', function(){
+    visible = document.visibilityState !== 'hidden';
+    setRunning();
+  }, {passive:true});
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      inView = entries[0].isIntersecting;
+      setRunning();
+    }, {rootMargin:'80px'});
+    io.observe(cv);
+  }
+
+  resize();
+  draw(performance.now());
+  readout();
+  setRunning();
+})();
+</script>
+</body>
+</html>
