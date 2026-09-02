@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="52" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS</text>
+  <text x="48" y="102" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="700">DSV4 Vision-Exp on 2× DGX Spark</text>
+  <text x="48" y="140" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="18">Thinking-off 74.5% · math thinking-on 83.3% · 1M context that boots</text>
+  <!-- bars: DSV4 74.5 vs GLM 65.6 vs GLM52 cloud 77.1 vs Kimi 89.2 vs Grok 97.5 -->
+  <g font-family="SF Mono, Courier New, monospace" font-size="13">
+    <text x="48" y="210" fill="#9ab0a0">Official A pass rate</text>
+    <!-- DSV4 -->
+    <text x="48" y="248" fill="#e8eef4">DSV4 Vision-Exp local</text>
+    <rect x="280" y="232" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="232" width="521" height="22" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="812" y="248" fill="#76b900">74.5%</text>
+    <!-- GLM local -->
+    <text x="48" y="288" fill="#e8eef4">GLM-5.3 EXL3 local</text>
+    <rect x="280" y="272" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="272" width="458" height="22" fill="#5a8a6a" rx="2"/>
+    <text x="750" y="288" fill="#9ab0a0">65.6%</text>
+    <!-- GLM cloud -->
+    <text x="48" y="328" fill="#e8eef4">GLM-5.2 cloud</text>
+    <rect x="280" y="312" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="312" width="538" height="22" fill="#3d6a80" rx="2"/>
+    <text x="828" y="328" fill="#8ab4c4">77.1%</text>
+    <!-- Kimi -->
+    <text x="48" y="368" fill="#e8eef4">Kimi K3 cloud</text>
+    <rect x="280" y="352" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="352" width="623" height="22" fill="#3d6a80" rx="2"/>
+    <text x="912" y="368" fill="#8ab4c4">89.2%</text>
+    <!-- Grok -->
+    <text x="48" y="408" fill="#e8eef4">Grok 4.6 cloud</text>
+    <rect x="280" y="392" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="392" width="681" height="22" fill="#00d4aa" rx="2"/>
+    <text x="972" y="408" fill="#00d4aa">97.5%</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="548" width="1200" height="76" fill="#05080f"/>
+    <text x="48" y="578" fill="#5a8a6a" font-size="11">CONTEXT</text>
+    <text x="48" y="604" font-size="18" font-weight="700">1,048,576</text>
+    <text x="280" y="578" fill="#5a8a6a" font-size="11">MATH OFF → ON</text>
+    <text x="280" y="604" font-size="18" font-weight="700">13/30 → 25/30</text>
+    <text x="560" y="578" fill="#5a8a6a" font-size="11">TOOLS</text>
+    <text x="560" y="604" font-size="18" font-weight="700">2/2</text>
+    <text x="740" y="578" fill="#5a8a6a" font-size="11">WALL</text>
+    <text x="740" y="604" font-size="18" font-weight="700">25.4 min</text>
+    <text x="940" y="578" fill="#5a8a6a" font-size="11">ERRORS</text>
+    <text x="940" y="604" font-size="18" font-weight="700">0</text>
+  </g>
+</svg>
