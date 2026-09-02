@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hallerby Light — a skerry light on the outer fjärd</title>
+<meta name="description" content="Two flashes every twelve seconds since 1884. The clockwork still needs winding.">
+<style>
+  :root {
+    --soot: #090b0f;
+    --stone: #1b2026;
+    --stone-2: #2a3138;
+    --vellum: #e7dfcf;
+    --ash: #a89f8f;
+    --brass: #c9963a;
+    --brass-deep: #8a6421;
+    --water: #14262c;
+    --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "URW Palladio L", Georgia, "Times New Roman", serif;
+    --sans: "Helvetica Neue", Helvetica, "Nimbus Sans", Arial, "Liberation Sans", sans-serif;
+    --gutter: clamp(1.25rem, 7vw, 9rem);
+    --measure: 38rem;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--soot);
+    color: var(--vellum);
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.3rem);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--brass); color: var(--soot); }
+
+  :focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .skip {
+    position: absolute; left: 1rem; top: -4rem;
+    background: var(--brass); color: var(--soot);
+    padding: .5rem .9rem; font-family: var(--sans); font-size: .8rem;
+    letter-spacing: .12em; text-transform: uppercase; z-index: 100;
+    text-decoration: none;
+  }
+  .skip:focus { top: 1rem; }
+
+  canvas#scene {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+    z-index: 0;
+  }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--ash);
+    margin: 0 0 1.25rem;
+    font-weight: 500;
+  }
+  .eyebrow b { color: var(--brass); font-weight: 500; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--gutter) var(--gutter) clamp(7rem, 22vh, 12rem);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(3.2rem, 11vw, 9.5rem);
+    line-height: .92;
+    letter-spacing: -.025em;
+    margin: 0 0 1.5rem;
+    max-width: 12ch;
+    text-shadow: 0 2px 40px rgba(9,11,15,.6);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--brass);
+  }
+  .lede {
+    max-width: 30rem;
+    font-size: clamp(1.1rem, 1rem + .5vw, 1.45rem);
+    line-height: 1.4;
+    margin: 0;
+    text-shadow: 0 1px 24px rgba(9,11,15,.8);
+  }
+  .lede + .lede { margin-top: .6rem; color: var(--ash); }
+
+  /* ---------- prose ---------- */
+  .content {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(to bottom, rgba(9,11,15,0) 0, rgba(9,11,15,.86) 14rem, rgba(9,11,15,.94) 100%);
+    padding: 6rem var(--gutter) 10rem;
+  }
+  .content section {
+    max-width: var(--measure);
+    padding: 3.5rem 0 4rem;
+    border-top: 1px solid rgba(231,223,207,.14);
+  }
+  .content section:first-child { border-top: 0; padding-top: 0; }
+  .content h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem);
+    letter-spacing: -.015em;
+    line-height: 1.1;
+    margin: .5rem 0 1.5rem;
+  }
+  .content p { margin: 0 0 1.2em; max-width: 34rem; }
+  .content p:last-child { margin-bottom: 0; }
+  .content .mute { color: var(--ash); }
+
+  .keepers {
+    list-style: none; padding: 0; margin: 0;
+    max-width: 34rem;
+  }
+  .keepers li {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 1rem;
+    padding: .7rem 0;
+    border-top: 1px dotted rgba(231,223,207,.18);
+  }
+  .keepers li:first-child { border-top: 0; }
+  .keepers time, .log time {
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brass);
+    padding-top: .35rem;
+  }
+  .keepers span small {
+    display: block; color: var(--ash); font-size: .92em;
+  }
+
+  .log { list-style: none; padding: 0; margin: 0; max-width: 34rem; }
+  .log li {
+    padding: 1rem 0 1rem 1.25rem;
+    border-left: 1px solid rgba(201,150,58,.45);
+    margin-bottom: .5rem;
+  }
+  .log time { display: block; margin-bottom: .35rem; }
+  .log p { margin: 0; }
+
+  .visit dl { margin: 1.5rem 0 0; max-width: 34rem; }
+  .visit dt {
+    font-family: var(--sans); font-size: .72rem; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--ash); margin-top: 1rem;
+  }
+  .visit dd { margin: .2rem 0 0; }
+
+  footer {
+    position: relative; z-index: 1;
+    padding: 0 var(--gutter) 3rem;
+    background: rgba(9,11,15,.94);
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ash);
+    display: flex; flex-wrap: wrap; gap: .6rem 2.5rem;
+  }
+  footer p { margin: 0; }
+
+  /* ---------- instrument ---------- */
+  .instrument {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2.5rem);
+    bottom: clamp(1rem, 3vw, 2.5rem);
+    z-index: 5;
+    width: 15.5rem;
+    padding: 1.1rem 1.1rem 1rem;
+    background: rgba(14,17,22,.82);
+    border: 1px solid rgba(201,150,58,.35);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.8), inset 0 1px 0 rgba(231,223,207,.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: 1rem;
+    row-gap: .6rem;
+    font-family: var(--sans);
+  }
+  .instrument h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: .68rem;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--ash);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .instrument h2 .lamp {
+    width: .55rem; height: .55rem; border-radius: 50%;
+    background: var(--brass);
+    box-shadow: 0 0 10px 2px rgba(201,150,58,.6);
+    transition: opacity .6s ease, box-shadow .6s ease;
+  }
+  .instrument h2 .lamp.dark { opacity: .25; box-shadow: none; }
+
+  .gauge {
+    grid-row: 2 / 4;
+    position: relative;
+    width: 1.1rem;
+    height: 7.4rem;
+    background: linear-gradient(to right, #0a0c0f, #1b2026 45%, #0f1216);
+    border: 1px solid rgba(231,223,207,.12);
+    overflow: hidden;
+  }
+  .gauge::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, transparent 0 calc(10% - 1px), rgba(231,223,207,.18) calc(10% - 1px) 10%);
+    pointer-events: none;
+  }
+  .gauge-fill {
+    position: absolute; left: 3px; right: 3px; bottom: 0;
+    height: 34%;
+    background: linear-gradient(to top, var(--brass-deep), var(--brass));
+    box-shadow: 0 0 8px rgba(201,150,58,.35);
+  }
+  .weight-mark {
+    position: absolute; left: 0; right: 0; height: 2px;
+    background: var(--vellum);
+    bottom: 34%;
+  }
+
+  .readouts { margin: 0; display: grid; grid-template-columns: 1fr; gap: .55rem; }
+  .readouts div { display: flex; flex-direction: column; }
+  .readouts dt {
+    font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ash);
+  }
+  .readouts dd {
+    margin: .1rem 0 0;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--vellum);
+  }
+  .readouts dd.dark { color: var(--brass); font-style: italic; }
+
+  .wind {
+    grid-column: 2;
+    align-self: end;
+    appearance: none;
+    border: 1px solid var(--brass);
+    background: transparent;
+    color: var(--brass);
+    font-family: var(--sans);
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    padding: .7rem .8rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .wind:hover { background: rgba(201,150,58,.1); }
+  .wind.active, .wind:active {
+    background: var(--brass);
+    color: var(--soot);
+  }
+  .help {
+    grid-column: 1 / -1;
+    margin: .2rem 0 0;
+    font-size: .68rem;
+    line-height: 1.45;
+    color: var(--ash);
+    font-family: var(--serif);
+    font-style: italic;
+    letter-spacing: 0;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding-bottom: 12rem; }
+    .instrument {
+      left: .75rem; right: .75rem; bottom: .75rem; width: auto;
+      grid-template-columns: 1.1rem 1fr auto;
+      grid-template-rows: auto auto;
+      padding: .85rem .9rem;
+    }
+    .gauge { grid-row: 2; height: 4.2rem; }
+    .readouts { grid-column: 2; grid-template-columns: 1fr 1fr; }
+    .readouts dd { font-size: 1.15rem; }
+    .wind { grid-column: 3; grid-row: 2; align-self: center; }
+    .help { display: none; }
+    .keepers li { grid-template-columns: 1fr; gap: .1rem; }
+    .content { padding-bottom: 12rem; }
+    footer { padding-bottom: 8rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the story</a>
+
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <p class="eyebrow">A skerry light · Outer fjärd · <b>59°41′ N</b> · Lit 1884</p>
+  <h1>Hallerby <em>Light</em></h1>
+  <p class="lede">Two flashes every twelve seconds, since the autumn of 1884. The lens is turned by a falling weight, and the weight is falling now.</p>
+  <p class="lede">Tonight, winding it is your job.</p>
+</header>
+
+<main id="main" class="content">
+  <section id="reef" aria-labelledby="h-reef">
+    <p class="eyebrow">I · The reef</p>
+    <h2 id="h-reef">A tower paid for in bricks</h2>
+    <p>The <em>Ansgar</em> went onto the Hallerby reef in a November gale in 1881, carrying nine men and a hold full of bricks bound for the new grain elevators up the coast. Seven made it onto the rock and sat there for two days. The bricks are still down there; on a calm morning you can see them, a rust-coloured square on the bottom, neater than anything else in the water.</p>
+    <p>The county took three years to agree on a tower. When it came it was modest: twenty-two metres of granite, a second-order lens from Barbier &amp; Fenestre in Paris, and a keeper's cottage with a single stove and a window facing the wrong way.</p>
+    <p class="mute">The character of the light — two white flashes, a twelve-second period — was chosen so that it could not be confused with Gråskär to the south, which shows one long flash every fifteen. Fishermen say you can tell them apart by mood. Gråskär is patient. Hallerby is in a hurry.</p>
+  </section>
+
+  <section id="mechanism" aria-labelledby="h-mech">
+    <p class="eyebrow">II · The mechanism</p>
+    <h2 id="h-mech">A weight, a chain, a hollow tower</h2>
+    <p>The lens floats on a bath of mercury and is turned by clockwork. The clockwork is driven by a cast-iron cylinder of a hundred and forty kilograms that descends the hollow core of the tower on a chain. Fully wound, it runs a little over two hours. The keeper winds it at dusk, at midnight, and again before the false dawn, sixty turns of a brass crank each time.</p>
+    <p>There is no spring, no motor, no battery. If nobody winds it, the weight reaches the bottom of the shaft, the governor stalls, and the lens coasts to a stop. The flash goes from twelve seconds to twenty, to forty, to none.</p>
+    <p>Ships have learned to read that. A slow Hallerby means the keeper is asleep, or ill, or gone.</p>
+  </section>
+
+  <section id="keepers" aria-labelledby="h-keep">
+    <p class="eyebrow">III · The keepers</p>
+    <h2 id="h-keep">Five names in a hundred and forty years</h2>
+    <ol class="keepers">
+      <li><time datetime="1884/1911">1884 – 1911</time><span>Nils Åkerlund <small>Came from the pilot station at Varberg. Kept bees on the rock; none survived a winter.</small></span></li>
+      <li><time datetime="1911/1946">1911 – 1946</time><span>Ester and Vilhelm Broms <small>She held the post on paper after he lost a hand to the chain in 1929. The log changes handwriting mid-sentence.</small></span></li>
+      <li><time datetime="1946/1971">1946 – 1971</time><span>Gösta Lind <small>Painted the tower's seaward face white without asking anyone. It is still white.</small></span></li>
+      <li><time datetime="1971/1998">1971 – 1998</time><span>Maj Hallerby <small>No relation, she said, every time. Refused electrification twice.</small></span></li>
+      <li><time datetime="1998">1998 –</time><span>Volunteers, in fortnights <small>Mostly retired sailors, a few students, one composer who came for a week and stayed for three years.</small></span></li>
+    </ol>
+  </section>
+
+  <section id="log" aria-labelledby="h-log">
+    <p class="eyebrow">IV · From the log</p>
+    <h2 id="h-log">Entries, chosen for their honesty</h2>
+    <ol class="log">
+      <li><time datetime="1902-10-14">14 October 1902</time><p>Wind NNE, force 7. Weight run down at 02:10, my fault. Twenty-three minutes dark. The <em>Freja</em> passed at 02:40 and did not signal, so I think she did not notice. I have noted it anyway.</p></li>
+      <li><time datetime="1929-03-02">2 March 1929</time><p>V. caught in the chain while winding. Doctor from Hallerby by 09:00. I wound the clock myself at midnight and again at four. The light did not stop. — E.B.</p></li>
+      <li><time datetime="1963-12-24">24 December 1963</time><p>Ice on the gallery, half a hand thick. Mercury sluggish, lens slow, period fourteen seconds by my watch. Put the stove door open and the tower warmed a degree by dawn. Herring for supper.</p></li>
+      <li><time datetime="1998-05-11">11 May 1998</time><p>Last night as keeper. Wound the clock for the last time at 23:50 and then, because I could, again at 23:55. It made no difference to the light. It made a difference to me. — M.H.</p></li>
+    </ol>
+  </section>
+
+  <section id="visit" class="visit" aria-labelledby="h-visit">
+    <p class="eyebrow">V · Getting there</p>
+    <h2 id="h-visit">No scheduled boat</h2>
+    <p>The island lies 1.9 kilometres off the Hallerby jetty. Ask for Kjell at the fish shed. If the flag is up, he is going out; if it is not, he is not, and there is no use asking why.</p>
+    <dl>
+      <dt>Landing</dt><dd>Iron ladder on the lee side. Not in a westerly.</dd>
+      <dt>Stay</dt><dd>Two bunks in the cottage. Bring your own coal.</dd>
+      <dt>Duty</dt><dd>Wind at dusk, midnight, and before dawn. Write it down.</dd>
+    </dl>
+  </section>
+</main>
+
+<footer>
+  <p>Hallerby Light is an invention.</p>
+  <p>The reef is not on any chart.</p>
+</footer>
+
+<aside class="instrument" aria-labelledby="inst-title">
+  <h2 id="inst-title"><span>Clockwork</span><span class="lamp" id="lampDot"></span></h2>
+  <div class="gauge" aria-hidden="true"><div class="gauge-fill" id="gaugeFill"></div><div class="weight-mark" id="weightMark"></div></div>
+  <dl class="readouts">
+    <div><dt>Drive weight</dt><dd id="wOut">34%</dd></div>
+    <div><dt>Flash</dt><dd id="pOut">every 12 s</dd></div>
+  </dl>
+  <button class="wind" id="wind" type="button" aria-describedby="windHelp">Hold to wind</button>
+  <p class="help" id="windHelp">Press and hold. The weight climbs the shaft; the lens keeps its pace. Let it go, and it falls.</p>
+  <output class="sr-only" id="live" aria-live="polite"></output>
+</aside>
+
+<script>
+(function () {
+  'use strict';
+
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var canvas = document.getElementById('scene');
+  var ctx = canvas.getContext('2d', { alpha: false });
+
+  var W = 0, H = 0, dpr = 1;
+  var horizon = 0, lampX = 0, lampY = 0, baseX = 0, rockTop = 0, rockW = 0, towerH = 0, topW = 0, baseW = 0, Lmax = 1;
+
+  var skyGrad, waterGrad, beamGrad, flareGrad, coreGrad, vignette, glowGrad;
+  var rock = new Float32Array(20);
+
+  // stars
+  var NSTARS = 260;
+  var stars = new Float32Array(NSTARS * 4); // x, y, r, phase
+  for (var i = 0; i < NSTARS; i++) {
+    var yy = Math.pow(Math.random(), 0.7);
+    stars[i * 4] = Math.random();
+    stars[i * 4 + 1] = yy;
+    stars[i * 4 + 2] = 0.4 + Math.random() * 1.1;
+    stars[i * 4 + 3] = Math.random() * 6.283;
+  }
+
+  // water shimmer
+  var NLINES = 110;
+  var lines = new Float32Array(NLINES * 4); // x, yfrac, len, phase
+  for (var j = 0; j < NLINES; j++) {
+    var yf = Math.pow(Math.random(), 1.7);
+    lines[j * 4] = Math.random();
+    lines[j * 4 + 1] = yf;
+    lines[j * 4 + 2] = 6 + Math.random() * 40 * (1 + yf * 3);
+    lines[j * 4 + 3] = Math.random() * 6.283;
+  }
+
+  // ------ clockwork state ------
+  var OMEGA0 = Math.PI * 2 / 24;   // one revolution per 24 s -> two flashes per 12 s
+  var weight = 34;                  // percent of shaft
+  var omega = OMEGA0;
+  var theta = RM ? 0.42 : 0;
+  var winding = false;
+  var announcedDark = false;
+
+  var wOut = document.getElementById('wOut');
+  var pOut = document.getElementById('pOut');
+  var gaugeFill = document.getElementById('gaugeFill');
+  var weightMark = document.getElementById('weightMark');
+  var lampDot = document.getElementById('lampDot');
+  var live = document.getElementById('live');
+  var windBtn = document.getElementById('wind');
+
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    horizon = Math.round(H * 0.66);
+    baseX = W < 640 ? W * 0.6 : W * 0.66;
+    rockW = Math.max(150, Math.min(W * 0.24, 400));
+    towerH = Math.max(90, Math.min(H * 0.27, 270));
+    topW = towerH * 0.11;
+    baseW = towerH * 0.17;
+    rockTop = horizon - towerH * 0.09;
+    lampX = baseX;
+    lampY = rockTop - towerH - towerH * 0.055;
+    Lmax = Math.max(W, H) * 1.25;
+
+    // rock polygon (x, y pairs)
+    var r = rock, k = 0;
+    r[k++] = baseX - rockW * 0.62; r[k++] = horizon + H * 0.03;
+    r[k++] = baseX - rockW * 0.58; r[k++] = horizon + 2;
+    r[k++] = baseX - rockW * 0.44; r[k++] = horizon - towerH * 0.03;
+    r[k++] = baseX - rockW * 0.24; r[k++] = rockTop + towerH * 0.02;
+    r[k++] = baseX - rockW * 0.02; r[k++] = rockTop;
+    r[k++] = baseX + rockW * 0.16; r[k++] = rockTop + towerH * 0.01;
+    r[k++] = baseX + rockW * 0.36; r[k++] = rockTop + towerH * 0.05;
+    r[k++] = baseX + rockW * 0.5;  r[k++] = horizon - towerH * 0.02;
+    r[k++] = baseX + rockW * 0.6;  r[k++] = horizon + 2;
+    r[k++] = baseX + rockW * 0.64; r[k++] = horizon + H * 0.03;
+
+    skyGrad = ctx.createLinearGradient(0, 0, 0, horizon);
+    skyGrad.addColorStop(0, '#04060a');
+    skyGrad.addColorStop(0.55, '#0c1119');
+    skyGrad.addColorStop(0.88, '#1a1d22');
+    skyGrad.addColorStop(1, '#2b2822');
+
+    waterGrad = ctx.createLinearGradient(0, horizon, 0, H);
+    waterGrad.addColorStop(0, '#1b2b31');
+    waterGrad.addColorStop(0.25, '#101c21');
+    waterGrad.addColorStop(1, '#05070a');
+
+    beamGrad = ctx.createLinearGradient(0, 0, Lmax, 0);
+    beamGrad.addColorStop(0, 'rgba(255,224,160,0.95)');
+    beamGrad.addColorStop(0.08, 'rgba(240,200,120,0.55)');
+    beamGrad.addColorStop(0.45, 'rgba(220,175,90,0.14)');
+    beamGrad.addColorStop(1, 'rgba(200,150,60,0)');
+
+    var R = Math.max(W, H) * 0.7;
+    flareGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, R);
+    flareGrad.addColorStop(0, 'rgba(255,236,190,1)');
+    flareGrad.addColorStop(0.04, 'rgba(255,220,150,0.8)');
+    flareGrad.addColorStop(0.2, 'rgba(230,180,90,0.28)');
+    flareGrad.addColorStop(0.6, 'rgba(200,150,60,0.05)');
+    flareGrad.addColorStop(1, 'rgba(200,150,60,0)');
+
+    coreGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 36);
+    coreGrad.addColorStop(0, 'rgba(255,240,200,1)');
+    coreGrad.addColorStop(0.25, 'rgba(255,215,140,0.7)');
+    coreGrad.addColorStop(1, 'rgba(201,150,58,0)');
+
+    glowGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 14);
+    glowGrad.addColorStop(0, 'rgba(255,200,110,0.9)');
+    glowGrad.addColorStop(1, 'rgba(255,200,110,0)');
+
+    vignette = ctx.createRadialGradient(W * 0.5, H * 0.45, Math.min(W, H) * 0.3, W * 0.5, H * 0.5, Math.max(W, H) * 0.85);
+    vignette.addColorStop(0, 'rgba(9,11,15,0)');
+    vignette.addColorStop(1, 'rgba(9,11,15,0.75)');
+  }
+
+  var resizeQueued = false;
+  window.addEventListener('resize', function () {
+    if (resizeQueued) return;
+    resizeQueued = true;
+    requestAnimationFrame(function () { resizeQueued = false; resize(); });
+  }, { passive: true });
+
+  // ------ physics ------
+  function smoothstep(a, b, x) {
+    var t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  }
+
+  var lastReadout = -1, lastPeriod = -1;
+
+  function update(dt) {
+    if (winding) weight = Math.min(100, weight + 24 * dt);
+    else weight = Math.max(0, weight - (100 / 150) * dt);
+
+    var target = OMEGA0 * smoothstep(0, 7, weight);
+    var tau = target > omega ? 2.8 : 13;
+    omega += (target - omega) * (1 - Math.exp(-dt / tau));
+    if (omega < 0.0015 && target === 0) omega = 0;
+    if (!RM) theta += omega * dt;
+    if (theta > 6.283185) theta -= 6.283185;
+
+    // readouts (only touch DOM when values change)
+    var wr = Math.round(weight);
+    if (wr !== lastReadout) {
+      lastReadout = wr;
+      wOut.textContent = wr + '%';
+      gaugeFill.style.height = wr + '%';
+      weightMark.style.bottom = wr + '%';
+    }
+    var period = omega > 0.02 ? Math.round(Math.PI / omega) : 0;
+    if (period !== lastPeriod) {
+      lastPeriod = period;
+      if (period === 0) {
+        pOut.textContent = 'dark';
+        pOut.classList.add('dark');
+        lampDot.classList.add('dark');
+        if (!announcedDark) { announcedDark = true; live.textContent = 'The lens has stopped. Hallerby Light is dark.'; }
+      } else {
+        pOut.textContent = 'every ' + period + ' s';
+        pOut.classList.remove('dark');
+        lampDot.classList.remove('dark');
+        if (announcedDark && period <= 14) { announcedDark = false; live.textContent = 'The lens is turning again. Two flashes every twelve seconds.'; }
+      }
+    }
+  }
+
+  // ------ drawing ------
+  function drawBeam(ang, alphaMul) {
+    var fx = Math.cos(ang), d = Math.sin(ang);
+    var dp = d > 0 ? d : 0, dn = d < 0 ? -d : 0;
+    var ex = lampX + fx * Lmax * (1 - 0.35 * dn);
+    var ey = lampY + (horizon - lampY) * 0.9 * (1 - 0.4 * dn) + dp * dp * (H - horizon) * 0.8;
+    var dx = ex - lampX, dy = ey - lampY;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 4) return;
+    var phi = Math.atan2(dy, dx);
+    var widthScale = (1 - 0.4 * dn) * (1 + 2.5 * dp * dp);
+    var alpha = (0.5 * (1 - 0.55 * dn) + 0.35 * dp) * (1 - dp * dp * dp * dp) * alphaMul;
+    var wEnd = len * 0.035 * widthScale;
+    var s = len / Lmax;
+
+    ctx.save();
+    ctx.translate(lampX, lampY);
+    ctx.rotate(phi);
+    ctx.scale(s, 1);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = beamGrad;
+    ctx.beginPath();
+    ctx.moveTo(0, -2.5);
+    ctx.lineTo(Lmax, -wEnd);
+    ctx.lineTo(Lmax, wEnd);
+    ctx.lineTo(0, 2.5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function render(t) {
+    // sky
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, W, horizon + 1);
+
+    // stars
+    ctx.fillStyle = '#e7dfcf';
+    for (var i = 0; i < NSTARS; i++) {
+      var sx = stars[i * 4] * W;
+      var sy = stars[i * 4 + 1] * horizon;
+      var fade = 1 - stars[i * 4 + 1];
+      var tw = RM ? 0.6 : 0.5 + 0.5 * Math.sin(t * 0.0007 + stars[i * 4 + 3]);
+      ctx.globalAlpha = (0.2 + 0.55 * tw) * fade * fade;
+      ctx.fillRect(sx, sy, stars[i * 4 + 2], stars[i * 4 + 2]);
+    }
+
+    // water
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = waterGrad;
+    ctx.fillRect(0, horizon, W, H - horizon);
+
+    // beam intensities facing viewer
+    var d1 = Math.sin(theta), d2 = -d1;
+    var dp = Math.max(d1, d2, 0);
+    var facing = dp * dp * dp * dp * dp * dp;
+
+    // shimmer
+    ctx.strokeStyle = '#d7c9a6';
+    ctx.lineWidth = 1;
+    var wh = H - horizon;
+    for (var j = 0; j < NLINES; j++) {
+      var yf = lines[j * 4 + 1];
+      var ly = horizon + yf * wh;
+      var ph = lines[j * 4 + 3];
+      var mv = RM ? 0 : Math.sin(t * 0.0004 + ph) * 5;
+      var lx = lines[j * 4] * W + mv;
+      var ln = lines[j * 4 + 2];
+      var base = RM ? 0.5 : 0.5 + 0.5 * Math.sin(t * 0.0011 + ph * 2.3);
+      var near = 1 - Math.abs((lx + ln * 0.5) - lampX) / (W * 0.6);
+      if (near < 0) near = 0;
+      ctx.globalAlpha = (0.03 + 0.07 * base) * (1 + 5 * facing * near) * (1 - yf * 0.4);
+      ctx.beginPath();
+      ctx.moveTo(lx, ly + 0.5);
+      ctx.lineTo(lx + ln, ly + 0.5);
+      ctx.stroke();
+    }
+
+    // reflection of beams and lamp
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, horizon, W, H - horizon);
+    ctx.clip();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.translate(0, horizon * 2);
+    ctx.scale(1, -1);
+    drawBeam(theta, 0.22);
+    drawBeam(theta + Math.PI, 0.22);
+    ctx.translate(lampX, lampY);
+    ctx.globalAlpha = 0.25 + facing * 0.5;
+    ctx.fillStyle = coreGrad;
+    ctx.fillRect(-40, -40, 80, 80);
+    ctx.restore();
+
+    // rock
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#0b0d10';
+    ctx.beginPath();
+    ctx.moveTo(rock[0], rock[1]);
+    for (var k = 2; k < 20; k += 2) ctx.lineTo(rock[k], rock[k + 1]);
+    ctx.closePath();
+    ctx.fill();
+
+    // cottage
+    var cx = baseX + rockW * 0.24, cw = towerH * 0.22, ch = towerH * 0.13;
+    var cy = rockTop + towerH * 0.03;
+    ctx.fillStyle = '#0e1114';
+    ctx.fillRect(cx - cw / 2, cy - ch, cw, ch);
+    ctx.beginPath();
+    ctx.moveTo(cx - cw / 2 - 2, cy - ch);
+    ctx.lineTo(cx, cy - ch - ch * 0.55);
+    ctx.lineTo(cx + cw / 2 + 2, cy - ch);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#c9963a';
+    ctx.globalAlpha = 0.85;
+    ctx.fillRect(cx - cw * 0.12, cy - ch * 0.7, cw * 0.14, ch * 0.3);
+
+    // tower
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#13161a';
+    ctx.beginPath();
+    ctx.moveTo(baseX - baseW / 2, rockTop + 2);
+    ctx.lineTo(baseX - topW / 2, rockTop - towerH);
+    ctx.lineTo(baseX + topW / 2, rockTop - towerH);
+    ctx.lineTo(baseX + baseW / 2, rockTop + 2);
+    ctx.closePath();
+    ctx.fill();
+    // seaward face, painted white by Gösta Lind
+    ctx.fillStyle = '#2a2e33';
+    ctx.beginPath();
+    ctx.moveTo(baseX - baseW / 2, rockTop + 2);
+    ctx.lineTo(baseX - topW / 2, rockTop - towerH);
+    ctx.lineTo(baseX - topW / 2 + topW * 0.35, rockTop - towerH);
+    ctx.lineTo(baseX - baseW / 2 + baseW * 0.35, rockTop + 2);
+    ctx.closePath();
+    ctx.fill();
+    // gallery
+    var gy = rockTop - towerH;
+    ctx.fillStyle = '#0e1114';
+    ctx.fillRect(baseX - topW * 0.95, gy - towerH * 0.02, topW * 1.9, towerH * 0.035);
+    ctx.strokeStyle = 'rgba(201,150,58,0.55)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(baseX - topW * 0.95, gy - towerH * 0.06);
+    ctx.lineTo(baseX + topW * 0.95, gy - towerH * 0.06);
+    ctx.stroke();
+    // lantern
+    var lw = topW * 1.15, lh = towerH * 0.1;
+    var ltop = gy - towerH * 0.02 - lh;
+    ctx.fillStyle = 'rgba(255,200,110,0.18)';
+    ctx.fillRect(baseX - lw / 2, ltop, lw, lh);
+    ctx.strokeStyle = '#c9963a';
+    ctx.globalAlpha = 0.7;
+    ctx.strokeRect(baseX - lw / 2 + 0.5, ltop + 0.5, lw - 1, lh - 1);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#0e1114';
+    ctx.beginPath();
+    ctx.arc(baseX, ltop, lw * 0.55, Math.PI, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    // beams
+    ctx.globalCompositeOperation = 'lighter';
+    drawBeam(theta, 1);
+    drawBeam(theta + Math.PI, 1);
+
+    // lamp core + flare
+    ctx.save();
+    ctx.translate(lampX, lampY);
+    var lit = omega > 0.02 || RM ? 1 : 0.65;
+    ctx.globalAlpha = 0.9 * lit;
+    ctx.fillStyle = coreGrad;
+    ctx.fillRect(-40, -40, 80, 80);
+    ctx.globalAlpha = (0.05 + 0.85 * facing) * lit;
+    ctx.fillStyle = flareGrad;
+    var R = Math.max(W, H) * 0.7;
+    ctx.fillRect(-R, -R, R * 2, R * 2);
+    ctx.restore();
+
+    // vignette
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  var lastT = 0;
+  function frame(t) {
+    var dt = lastT ? (t - lastT) / 1000 : 0.016;
+    if (dt > 0.1) dt = 0.1;
+    lastT = t;
+    update(dt);
+    render(t);
+    requestAnimationFrame(frame);
+  }
+
+  // ------ winding controls ------
+  function setWinding(on) {
+    winding = on;
+    windBtn.classList.toggle('active', on);
+    windBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  windBtn.setAttribute('aria-pressed', 'false');
+
+  windBtn.addEventListener('pointerdown', function (e) {
+    if (windBtn.setPointerCapture) { try { windBtn.setPointerCapture(e.pointerId); } catch (err) {} }
+    setWinding(true);
+  }, { passive: true });
+  windBtn.addEventListener('pointerup', function () { setWinding(false); }, { passive: true });
+  windBtn.addEventListener('pointercancel', function () { setWinding(false); }, { passive: true });
+  windBtn.addEventListener('lostpointercapture', function () { setWinding(false); }, { passive: true });
+  window.addEventListener('blur', function () { setWinding(false); }, { passive: true });
+  windBtn.addEventListener('keydown', function (e) {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      if (!winding) setWinding(true);
+    }
+  });
+  windBtn.addEventListener('keyup', function (e) {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setWinding(false); }
+  });
+  // suppress synthetic click toggling anything
+  windBtn.addEventListener('click', function (e) { e.preventDefault(); });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) setWinding(false);
+    lastT = 0;
+  }, { passive: true });
+
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
