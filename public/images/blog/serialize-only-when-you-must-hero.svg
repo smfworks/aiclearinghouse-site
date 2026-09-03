@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Serialize Only When You Must" — serial chain vs one-turn fan-out. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Independent tool calls fanning from one turn versus a serial chain">
+  <defs>
+    <linearGradient id="sotBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="48%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="sotGlowGold" cx="22%" cy="50%" r="38%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sotGlowTeal" cx="78%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sotFan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.85"/>
+    </linearGradient>
+    <filter id="sotSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#sotBg)"/>
+  <rect width="1200" height="630" fill="url(#sotGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#sotGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.5">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: serial chain — five gold nodes, long waits -->
+  <g fill="none" stroke="#ff6b00" stroke-width="3" stroke-linecap="round" opacity="0.85">
+    <path d="M170,120 L170,210"/>
+    <path d="M170,250 L170,300"/>
+    <path d="M170,340 L170,390"/>
+    <path d="M170,430 L170,510"/>
+  </g>
+  <g stroke="#ff6b00" stroke-width="2" stroke-dasharray="6 8" opacity="0.45">
+    <path d="M190,230 L250,230"/>
+    <path d="M190,320 L250,320"/>
+    <path d="M190,410 L250,410"/>
+  </g>
+  <g filter="url(#sotSoft)">
+    <circle cx="170" cy="120" r="22" fill="#f59e0b" opacity="0.95"/>
+    <circle cx="170" cy="230" r="18" fill="#f59e0b" opacity="0.55"/>
+    <circle cx="170" cy="320" r="18" fill="#f59e0b" opacity="0.45"/>
+    <circle cx="170" cy="410" r="18" fill="#f59e0b" opacity="0.35"/>
+    <circle cx="170" cy="510" r="22" fill="#ff6b00" opacity="0.9"/>
+  </g>
+  <g fill="none" stroke="#0a1628" stroke-width="2">
+    <circle cx="170" cy="120" r="22"/>
+    <circle cx="170" cy="510" r="22"/>
+  </g>
+
+  <!-- center: one-turn origin -->
+  <g filter="url(#sotSoft)">
+    <circle cx="600" cy="315" r="54" fill="#1e3a8a" opacity="0.7"/>
+  </g>
+  <circle cx="600" cy="315" r="54" fill="none" stroke="#f59e0b" stroke-width="4"/>
+  <circle cx="600" cy="315" r="18" fill="#f59e0b"/>
+
+  <!-- right: fan-out to five teal sensors, then merge -->
+  <g stroke="url(#sotFan)" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.9">
+    <path d="M654,315 L980,130"/>
+    <path d="M654,315 L1008,220"/>
+    <path d="M654,315 L1028,315"/>
+    <path d="M654,315 L1008,410"/>
+    <path d="M654,315 L980,500"/>
+  </g>
+  <g fill="#00d4ff">
+    <circle cx="980" cy="130" r="16" opacity="0.95"/>
+    <circle cx="1008" cy="220" r="16" opacity="0.8"/>
+    <circle cx="1028" cy="315" r="16" opacity="0.95"/>
+    <circle cx="1008" cy="410" r="16" opacity="0.8"/>
+    <circle cx="980" cy="500" r="16" opacity="0.95"/>
+  </g>
+  <g fill="none" stroke="#0e7490" stroke-width="2" opacity="0.7">
+    <circle cx="980" cy="130" r="26"/>
+    <circle cx="1028" cy="315" r="26"/>
+    <circle cx="980" cy="500" r="26"/>
+  </g>
+</svg>
