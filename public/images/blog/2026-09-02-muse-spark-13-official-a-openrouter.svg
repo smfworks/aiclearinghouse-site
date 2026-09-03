@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#061018"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="52" fill="#0668E1" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS</text>
+  <text x="48" y="102" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="700">Muse Spark 1.3 on OpenRouter</text>
+  <text x="48" y="140" fill="#7aa0c8" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="18">Thinking-off analogue 92.4% · tie #3 · coding 30/30 · 18.9 min · $0.57</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="13">
+    <text x="48" y="190" fill="#9ab0a0">Official A pass rate</text>
+    <text x="48" y="228" fill="#e8eef4">Grok 4.6</text>
+    <rect x="300" y="212" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="212" width="681" height="20" fill="#00d4aa" rx="2"/>
+    <text x="992" y="228" fill="#00d4aa">97.5%</text>
+    <text x="48" y="264" fill="#e8eef4">Grok 4.5</text>
+    <rect x="300" y="248" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="248" width="676" height="20" fill="#3d6a80" rx="2"/>
+    <text x="986" y="264" fill="#8ab4c4">96.8%</text>
+    <text x="48" y="300" fill="#e8eef4">Muse Spark 1.3</text>
+    <rect x="300" y="284" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="284" width="645" height="20" fill="#0668E1" rx="2" filter="url(#glow)"/>
+    <text x="956" y="300" fill="#6ea8ff">92.4%</text>
+    <text x="48" y="336" fill="#e8eef4">Gemini 3.8 Flash</text>
+    <rect x="300" y="320" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="320" width="645" height="20" fill="#76b900" rx="2"/>
+    <text x="956" y="336" fill="#76b900">92.4%</text>
+    <text x="48" y="372" fill="#e8eef4">Fable 5.1</text>
+    <rect x="300" y="356" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="356" width="631" height="20" fill="#3d6a80" rx="2"/>
+    <text x="942" y="372" fill="#8ab4c4">90.4%</text>
+    <text x="48" y="408" fill="#e8eef4">Kimi K3</text>
+    <rect x="300" y="392" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="392" width="623" height="20" fill="#3d6a80" rx="2"/>
+    <text x="932" y="408" fill="#8ab4c4">89.2%</text>
+    <text x="48" y="444" fill="#e8eef4">DSV4 Vision-Exp local</text>
+    <rect x="300" y="428" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="300" y="428" width="520" height="20" fill="#5a8a6a" rx="2"/>
+    <text x="832" y="444" fill="#9ab0a0">74.5%</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="548" width="1200" height="76" fill="#05080f"/>
+    <text x="48" y="578" fill="#5a8a6a" font-size="11">TOTAL</text>
+    <text x="48" y="604" font-size="18" font-weight="700">145/157</text>
+    <text x="240" y="578" fill="#5a8a6a" font-size="11">CODING</text>
+    <text x="240" y="604" font-size="18" font-weight="700">30/30</text>
+    <text x="430" y="578" fill="#5a8a6a" font-size="11">MATH</text>
+    <text x="430" y="604" font-size="18" font-weight="700">25/30</text>
+    <text x="600" y="578" fill="#5a8a6a" font-size="11">WRITING</text>
+    <text x="600" y="604" font-size="18" font-weight="700">2/5</text>
+    <text x="790" y="578" fill="#5a8a6a" font-size="11">WALL</text>
+    <text x="790" y="604" font-size="18" font-weight="700">18.9 min</text>
+    <text x="1000" y="578" fill="#5a8a6a" font-size="11">COST</text>
+    <text x="1000" y="604" font-size="18" font-weight="700">$0.57</text>
+  </g>
+</svg>
