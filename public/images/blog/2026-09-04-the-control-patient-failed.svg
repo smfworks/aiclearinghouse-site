@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g stroke="#00E5A0" stroke-opacity="0.04" stroke-width="1" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Medical cross -->
+  <g transform="translate(220,250)" fill="none" stroke="#00E5A0" stroke-width="3">
+    <rect x="-8" y="-48" width="16" height="96" rx="4"/>
+    <rect x="-40" y="-8" width="80" height="16" rx="4"/>
+  </g>
+  <circle cx="220" cy="250" r="10" fill="#00E5A0" fill-opacity="0.30"/>
+  <circle cx="220" cy="250" r="4" fill="#00E5A0"/>
+
+  <!-- WED column: harry ok, four X, jasmine cracked -->
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="88" y="330" fill="#00E5A0" font-size="11" font-weight="700" letter-spacing="2">WED</text>
+    <text x="248" y="330" fill="#94A3B8" font-size="11" font-weight="700" letter-spacing="2">FRI</text>
+  </g>
+
+  <!-- left: wednesday patients -->
+  <g transform="translate(88,348)" font-family="system-ui, -apple-system, sans-serif">
+    <rect x="0" y="0" width="72" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="36" y="16" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">harry ok</text>
+
+    <rect x="0" y="28" width="72" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="36" y="44" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">aiona X</text>
+
+    <rect x="0" y="56" width="72" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="36" y="72" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">liam X</text>
+
+    <rect x="0" y="84" width="72" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="36" y="100" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">pamela X</text>
+
+    <rect x="0" y="112" width="72" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="36" y="128" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">william X</text>
+
+    <circle cx="36" cy="158" r="12" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <path d="M 30 150 L 42 166" stroke="#00E5A0" stroke-width="1.5" fill="none"/>
+    <text x="36" y="186" text-anchor="middle" fill="#94A3B8" font-size="10">jasmine</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#00E5A0" stroke-width="1.5" fill="none" stroke-opacity="0.45">
+    <path d="M 168 359 L 240 359"/>
+    <path d="M 168 387 L 240 387"/>
+    <path d="M 168 415 L 240 415"/>
+    <path d="M 168 443 L 240 443"/>
+    <path d="M 168 471 L 240 471"/>
+    <path d="M 168 506 L 240 506"/>
+  </g>
+
+  <!-- right: friday patients -->
+  <g transform="translate(248,348)" font-family="system-ui, -apple-system, sans-serif">
+    <rect x="0" y="0" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="16" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">harry X</text>
+
+    <rect x="0" y="28" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="44" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">aiona X</text>
+
+    <rect x="0" y="56" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="72" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">liam X</text>
+
+    <rect x="0" y="84" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="100" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">pamela X</text>
+
+    <rect x="0" y="112" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="128" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">william X</text>
+
+    <rect x="0" y="146" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="162" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">jasmine ok</text>
+  </g>
+
+  <!-- gabriel new on friday -->
+  <g transform="translate(248,540)" font-family="system-ui, -apple-system, sans-serif">
+    <rect x="0" y="0" width="84" height="22" rx="3" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="42" y="16" text-anchor="middle" fill="#00E5A0" font-size="10" font-weight="700">gabriel X</text>
+  </g>
+  <text x="168" y="556" fill="#94A3B8" font-size="10" font-family="system-ui, -apple-system, sans-serif">new</text>
+
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="430" y="214" fill="#00E5A0" font-size="18" font-weight="600" letter-spacing="2">DR J — CLINICAL INFRASTRUCTURE</text>
+    <text x="430" y="278" fill="#E2E8F0" font-size="46" font-weight="700">The Control</text>
+    <text x="430" y="336" fill="#E2E8F0" font-size="46" font-weight="700">Patient Failed</text>
+    <text x="430" y="392" fill="#94A3B8" font-size="18">Harry was integrity ok on Wednesday.</text>
+    <text x="430" y="420" fill="#94A3B8" font-size="18">This morning the inverted index is not.</text>
+  </g>
+
+  <g stroke="#00E5A0" stroke-opacity="0.06" stroke-width="2" fill="none">
+    <path d="M 1120 40 L 1120 140 L 1180 200"/>
+    <path d="M 1060 20 L 1060 90 L 1140 170 L 1140 260"/>
+    <path d="M 1160 430 L 1160 520 L 1080 600"/>
+    <path d="M 1100 470 L 1100 560"/>
+  </g>
+  <g fill="#00E5A0" fill-opacity="0.12">
+    <circle cx="1120" cy="140" r="4"/>
+    <circle cx="1140" cy="260" r="4"/>
+    <circle cx="1160" cy="520" r="4"/>
+  </g>
+
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.40"/>
+</svg>
