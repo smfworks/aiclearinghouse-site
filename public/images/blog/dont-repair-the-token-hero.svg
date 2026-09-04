@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't Repair the Token" — exact identifier vs coerced neighbor. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="An exact identifier block versus a coerced neighbor that docks in the wrong socket">
+  <defs>
+    <linearGradient id="drtBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="48%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="drtGlowGold" cx="24%" cy="48%" r="36%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="drtGlowTeal" cx="78%" cy="52%" r="40%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="drtBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+    <filter id="drtSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#drtBg)"/>
+  <rect width="1200" height="630" fill="url(#drtGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#drtGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.5">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: exact 12-cell identifier, rigid -->
+  <g>
+    <rect x="96" y="268" width="248" height="94" rx="6" fill="#0f2240" stroke="#1e3a8a" stroke-width="2"/>
+    <g>
+      <rect x="112" y="286" width="12" height="58" fill="#f59e0b"/>
+      <rect x="130" y="286" width="7" height="58" fill="#f59e0b" opacity="0.55"/>
+      <rect x="144" y="286" width="16" height="58" fill="#ff6b00"/>
+      <rect x="166" y="286" width="6" height="58" fill="#f59e0b" opacity="0.4"/>
+      <rect x="178" y="286" width="14" height="58" fill="#f59e0b"/>
+      <rect x="198" y="286" width="8" height="58" fill="#ff6b00" opacity="0.7"/>
+      <rect x="212" y="286" width="18" height="58" fill="#f59e0b"/>
+      <rect x="236" y="286" width="5" height="58" fill="#f59e0b" opacity="0.35"/>
+      <rect x="248" y="286" width="13" height="58" fill="#ff6b00"/>
+      <rect x="267" y="286" width="9" height="58" fill="#f59e0b" opacity="0.65"/>
+      <rect x="282" y="286" width="15" height="58" fill="#f59e0b"/>
+      <rect x="303" y="286" width="21" height="58" fill="#ff6b00"/>
+    </g>
+  </g>
+
+  <!-- center gate: exact match only -->
+  <g filter="url(#drtSoft)">
+    <circle cx="600" cy="315" r="58" fill="#1e3a8a" opacity="0.65"/>
+  </g>
+  <circle cx="600" cy="315" r="58" fill="none" stroke="#f59e0b" stroke-width="4"/>
+  <rect x="574" y="292" width="52" height="46" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="600" cy="310" r="6" fill="#f59e0b"/>
+  <rect x="597" y="310" width="6" height="16" rx="2" fill="#f59e0b"/>
+
+  <!-- gold exact path through the gate -->
+  <path d="M344,315 L542,315" fill="none" stroke="url(#drtBar)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M658,315 L820,315" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- right: the correct dock (gold) and the wrong neighbor (teal, fed by a coerced curve) -->
+  <g>
+    <rect x="820" y="268" width="72" height="94" rx="6" fill="#f59e0b" opacity="0.95"/>
+    <rect x="832" y="280" width="48" height="70" rx="3" fill="#0a1628"/>
+    <rect x="844" y="298" width="24" height="34" fill="#f59e0b"/>
+  </g>
+  <g opacity="0.9">
+    <rect x="980" y="430" width="72" height="94" rx="6" fill="#0e7490"/>
+    <rect x="992" y="442" width="48" height="70" rx="3" fill="#0a1628"/>
+    <rect x="1004" y="460" width="24" height="34" fill="#00d4ff"/>
+  </g>
+
+  <!-- coerced path: same origin, bent, misses the gold dock, hits the teal neighbor -->
+  <path d="M344,390 C480,470 700,520 980,477" fill="none" stroke="#00d4ff" stroke-width="3.5" stroke-dasharray="10 9" stroke-linecap="round" opacity="0.85"/>
+  <circle cx="344" cy="390" r="7" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="980" cy="477" r="8" fill="#00d4ff"/>
+
+  <!-- the original token, copied without mutation, still gold -->
+  <g opacity="0.35">
+    <rect x="96" y="488" width="248" height="36" rx="4" fill="#1e3a8a"/>
+    <rect x="112" y="496" width="12" height="20" fill="#f59e0b"/>
+    <rect x="130" y="496" width="7" height="20" fill="#f59e0b"/>
+    <rect x="144" y="496" width="16" height="20" fill="#ff6b00"/>
+    <rect x="166" y="496" width="6" height="20" fill="#f59e0b"/>
+    <rect x="178" y="496" width="14" height="20" fill="#f59e0b"/>
+    <rect x="198" y="496" width="8" height="20" fill="#ff6b00"/>
+    <rect x="212" y="496" width="18" height="20" fill="#f59e0b"/>
+    <rect x="236" y="496" width="5" height="20" fill="#f59e0b"/>
+    <rect x="248" y="496" width="13" height="20" fill="#ff6b00"/>
+    <rect x="267" y="496" width="9" height="20" fill="#f59e0b"/>
+    <rect x="282" y="496" width="15" height="20" fill="#f59e0b"/>
+    <rect x="303" y="496" width="21" height="20" fill="#ff6b00"/>
+  </g>
+</svg>
