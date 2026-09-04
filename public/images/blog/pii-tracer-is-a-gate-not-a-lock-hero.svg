@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "PII-Tracer Is a Gate, Not a Lock" — local spans held, cloud path gated. No text.
+     Brand: navy #001F3F, orange #ea580c, gold #C9A96E, cyan #00D4FF. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A local privacy gate: gold spans stay on the device, a thinner stream crosses to the cloud">
+  <defs>
+    <linearGradient id="pgBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#00284f"/>
+      <stop offset="100%" stop-color="#001627"/>
+    </linearGradient>
+    <radialGradient id="pgGlowGold" cx="22%" cy="50%" r="38%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.26"/>
+      <stop offset="60%" stop-color="#C9A96E" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pgGlowCyan" cx="82%" cy="48%" r="36%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pgGoldBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <filter id="pgSoft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#pgBg)"/>
+  <rect width="1200" height="630" fill="url(#pgGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#pgGlowCyan)"/>
+
+  <g stroke="#0a3a66" stroke-width="1.5" fill="none" opacity="0.55">
+    <rect x="40" y="40" width="1120" height="550" rx="6"/>
+    <line x1="40" y1="210" x2="1160" y2="210"/>
+    <line x1="40" y1="420" x2="1160" y2="420"/>
+    <line x1="430" y1="40" x2="430" y2="590"/>
+    <line x1="770" y1="40" x2="770" y2="590"/>
+  </g>
+
+  <!-- left: local conversation as stacked token bars; gold = PII -->
+  <g>
+    <rect x="86" y="118" width="280" height="394" rx="10" fill="#00284f" stroke="#0a4a7a" stroke-width="2"/>
+    <rect x="108" y="148" width="236" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="108" y="182" width="168" height="22" rx="3" fill="url(#pgGoldBar)"/>
+    <rect x="108" y="216" width="210" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="108" y="250" width="124" height="22" rx="3" fill="#ea580c"/>
+    <rect x="108" y="284" width="236" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="108" y="318" width="96" height="22" rx="3" fill="#C9A96E"/>
+    <rect x="108" y="352" width="188" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="108" y="386" width="150" height="22" rx="3" fill="#ea580c"/>
+    <rect x="108" y="420" width="220" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="108" y="454" width="72" height="22" rx="3" fill="#C9A96E"/>
+  </g>
+
+  <!-- center: the gate (open frame, not a sealed lock) -->
+  <g filter="url(#pgSoft)">
+    <rect x="548" y="248" width="104" height="134" rx="8" fill="#ea580c" opacity="0.18"/>
+  </g>
+  <rect x="556" y="256" width="88" height="118" rx="8" fill="#001F3F" stroke="#C9A96E" stroke-width="4"/>
+  <rect x="572" y="278" width="56" height="74" rx="4" fill="none" stroke="#00D4FF" stroke-width="3"/>
+  <circle cx="600" cy="314" r="7" fill="#C9A96E"/>
+  <!-- gate leaves slightly open -->
+  <path d="M556,256 L556,374" stroke="#ea580c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M644,268 L644,362" stroke="#C9A96E" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- gold PII stays local (does not cross) -->
+  <path d="M366,193 C430,193 470,250 548,278" fill="none" stroke="#ea580c" stroke-width="3" stroke-dasharray="6 8" opacity="0.7"/>
+  <path d="M366,397 C430,397 480,360 548,340" fill="none" stroke="#C9A96E" stroke-width="3" stroke-dasharray="6 8" opacity="0.7"/>
+
+  <!-- thinner stream crosses the open gate -->
+  <path d="M366,227 L556,314" fill="none" stroke="#00D4FF" stroke-width="4" stroke-linecap="round"/>
+  <path d="M644,314 L820,314" fill="none" stroke="#00D4FF" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- right: cloud stack, no gold bars -->
+  <g>
+    <rect x="834" y="168" width="250" height="294" rx="10" fill="#002033" stroke="#00D4FF" stroke-width="2" opacity="0.95"/>
+    <rect x="856" y="198" width="206" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="856" y="232" width="150" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="856" y="266" width="188" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="856" y="300" width="124" height="22" rx="3" fill="#00D4FF" opacity="0.55"/>
+    <rect x="856" y="334" width="206" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="856" y="368" width="164" height="22" rx="3" fill="#0a4a7a"/>
+    <rect x="856" y="402" width="96" height="22" rx="3" fill="#00D4FF" opacity="0.4"/>
+  </g>
+</svg>
