@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="48" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS</text>
+  <text x="48" y="96" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="700">Qwen3.8-Flash-Next on 1× DGX Spark</text>
+  <text x="48" y="132" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="17">Thinking-off 87.3% · coding 30/30 · TP=1 262k MTP=3</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="13">
+    <text x="48" y="188" fill="#9ab0a0">Official A pass rate</text>
+    <text x="48" y="228" fill="#e8eef4">Qwen Flash-Next 262k</text>
+    <rect x="310" y="212" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="310" y="212" width="609" height="22" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="930" y="228" fill="#76b900">87.3%</text>
+    <text x="48" y="268" fill="#e8eef4">Qwen Flash-Next 16k</text>
+    <rect x="310" y="252" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="310" y="252" width="591" height="22" fill="#5a8a6a" rx="2"/>
+    <text x="912" y="268" fill="#9ab0a0">84.7%</text>
+    <text x="48" y="308" fill="#e8eef4">GLM-5.3 IQ2 GGUF</text>
+    <rect x="310" y="292" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="310" y="292" width="538" height="22" fill="#3d6a80" rx="2"/>
+    <text x="858" y="308" fill="#8ab4c4">77.1%</text>
+    <text x="48" y="348" fill="#e8eef4">DSV4 Vision-Exp TP=2</text>
+    <rect x="310" y="332" width="698" height="22" fill="#123018" rx="2"/>
+    <rect x="310" y="332" width="520" height="22" fill="#4a6a38" rx="2"/>
+    <text x="840" y="348" fill="#9ab0a0">74.5%</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="520" width="1200" height="104" fill="#081018"/>
+    <text x="48" y="552" fill="#5a8a6a" font-size="11" letter-spacing="2">GB10</text>
+    <text x="48" y="578" font-size="20" font-weight="700">1× Spark</text>
+    <text x="48" y="600" fill="#666" font-size="11">TP=1 d369</text>
+    <text x="260" y="552" fill="#5a8a6a" font-size="11" letter-spacing="2">CONTEXT</text>
+    <text x="260" y="578" font-size="20" font-weight="700">262k</text>
+    <text x="260" y="600" fill="#666" font-size="11">MTP=3 · FP8 KV</text>
+    <text x="480" y="552" fill="#5a8a6a" font-size="11" letter-spacing="2">OFFICIAL A</text>
+    <text x="480" y="578" font-size="20" font-weight="700">137/157</text>
+    <text x="480" y="600" fill="#666" font-size="11">0 errors</text>
+    <text x="720" y="552" fill="#5a8a6a" font-size="11" letter-spacing="2">CODING</text>
+    <text x="720" y="578" font-size="20" font-weight="700">30/30</text>
+    <text x="720" y="600" fill="#666" font-size="11">0 SyntaxError</text>
+    <text x="940" y="552" fill="#5a8a6a" font-size="11" letter-spacing="2">DECODE</text>
+    <text x="940" y="578" font-size="20" font-weight="700">31 tok/s</text>
+    <text x="940" y="600" fill="#666" font-size="11">c=1 · 256 tok</text>
+  </g>
+</svg>
