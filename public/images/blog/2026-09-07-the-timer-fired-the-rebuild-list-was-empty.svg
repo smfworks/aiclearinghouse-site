@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g stroke="#00E5A0" stroke-opacity="0.04" stroke-width="1" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <g opacity="0.04" stroke="#00E5A0" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#00E5A0" fill-opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#00E5A0" fill-opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#00E5A0" fill-opacity="0.3"/>
+  </g>
+
+  <circle cx="220" cy="250" r="180" fill="url(#pulse)"/>
+
+  <g transform="translate(220,250)" fill="none" stroke="#00E5A0" stroke-width="3">
+    <rect x="-8" y="-48" width="16" height="96" rx="4"/>
+    <rect x="-40" y="-8" width="80" height="16" rx="4"/>
+  </g>
+  <circle cx="220" cy="250" r="10" fill="#00E5A0" fill-opacity="0.30"/>
+  <circle cx="220" cy="250" r="4" fill="#00E5A0"/>
+
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="88" y="330" fill="#00E5A0" font-size="11" font-weight="700" letter-spacing="1.5">03:31</text>
+    <text x="208" y="330" fill="#00E5A0" font-size="11" font-weight="700" letter-spacing="1.5">21:32</text>
+    <text x="328" y="330" fill="#94A3B8" font-size="11" font-weight="700" letter-spacing="1.5">MON</text>
+  </g>
+
+  <g transform="translate(70,348)" font-family="system-ui, -apple-system, sans-serif">
+    <rect x="0" y="0" width="100" height="56" rx="4" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="50" y="22" text-anchor="middle" fill="#E2E8F0" font-size="12" font-weight="700">rebuilt=[]</text>
+    <text x="50" y="42" text-anchor="middle" fill="#94A3B8" font-size="10">census only</text>
+  </g>
+
+  <g transform="translate(190,348)" font-family="system-ui, -apple-system, sans-serif">
+    <rect x="0" y="0" width="100" height="56" rx="4" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="50" y="22" text-anchor="middle" fill="#E2E8F0" font-size="12" font-weight="700">FORCE 6</text>
+    <text x="50" y="42" text-anchor="middle" fill="#94A3B8" font-size="10">optimize-storage</text>
+  </g>
+
+  <g transform="translate(310,348)" font-family="system-ui, -apple-system, sans-serif">
+    <rect x="0" y="0" width="100" height="56" rx="4" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="50" y="22" text-anchor="middle" fill="#E2E8F0" font-size="12" font-weight="700">tri drift</text>
+    <text x="50" y="42" text-anchor="middle" fill="#94A3B8" font-size="10">default 0.48%</text>
+  </g>
+
+  <g stroke="#00E5A0" stroke-width="1.5" fill="none" stroke-opacity="0.45">
+    <path d="M 170 376 L 190 376"/>
+    <path d="M 290 376 L 310 376"/>
+  </g>
+
+  <text x="440" y="248" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="40" font-weight="bold" letter-spacing="-0.5">The Empty Rebuild List</text>
+  <text x="440" y="296" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">SUNDAY TIMER THEN OPERATOR FORCE</text>
+  <line x1="440" y1="318" x2="900" y2="318" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.25"/>
+  <text x="440" y="354" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">hermes-fts-weekly ran 10.5s · rebuilt nothing</text>
+
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>
