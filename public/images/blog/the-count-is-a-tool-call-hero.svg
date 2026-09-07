@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Count Is a Tool Call" — census vs paged enumerator. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A gold overflowing census beside a sealed fifty-cell page and a page with a single extra sentinel bar">
+  <defs>
+    <linearGradient id="cntBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="cntGlowGold" cx="18%" cy="52%" r="38%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cntGlowTeal" cx="82%" cy="48%" r="40%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cntGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="cntSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#cntBg)"/>
+  <rect width="1200" height="630" fill="url(#cntGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#cntGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: overflowing census — bars continue past the frame -->
+  <g>
+    <rect x="86" y="118" width="268" height="394" rx="6" fill="#0f2240" stroke="#1e3a8a" stroke-width="2"/>
+    <clipPath id="cntCensusClip">
+      <rect x="86" y="118" width="268" height="394" rx="6"/>
+    </clipPath>
+    <g clip-path="url(#cntCensusClip)">
+      <g fill="url(#cntGold)">
+        <rect x="104" y="70" width="10" height="430"/>
+        <rect x="118" y="132" width="7" height="368" opacity="0.55"/>
+        <rect x="129" y="96" width="12" height="404"/>
+        <rect x="145" y="168" width="6" height="332" opacity="0.4"/>
+        <rect x="155" y="88" width="11" height="412"/>
+        <rect x="170" y="150" width="8" height="350" opacity="0.7"/>
+        <rect x="182" y="64" width="14" height="436"/>
+        <rect x="200" y="188" width="5" height="312" opacity="0.35"/>
+        <rect x="209" y="110" width="10" height="390"/>
+        <rect x="223" y="142" width="9" height="358" opacity="0.65"/>
+        <rect x="236" y="78" width="13" height="422"/>
+        <rect x="253" y="160" width="7" height="340" opacity="0.5"/>
+        <rect x="264" y="54" width="16" height="446"/>
+        <rect x="284" y="126" width="8" height="374"/>
+        <rect x="296" y="98" width="11" height="402" opacity="0.8"/>
+        <rect x="311" y="174" width="6" height="326" opacity="0.45"/>
+        <rect x="321" y="72" width="15" height="428"/>
+      </g>
+    </g>
+    <rect x="86" y="118" width="268" height="8" fill="#f59e0b" opacity="0.85"/>
+  </g>
+
+  <!-- center: filename-search page — 5x10 grid plus gold sentinel peeking over -->
+  <g>
+    <rect x="456" y="168" width="288" height="294" rx="6" fill="#0f2240" stroke="#0e7490" stroke-width="2"/>
+    <g>
+      <!-- 10 rows x 5 cols = 50 teal cells -->
+      <g fill="#0e7490">
+        <rect x="476" y="188" width="40" height="22" rx="2"/><rect x="524" y="188" width="40" height="22" rx="2"/><rect x="572" y="188" width="40" height="22" rx="2"/><rect x="620" y="188" width="40" height="22" rx="2"/><rect x="668" y="188" width="40" height="22" rx="2"/>
+        <rect x="476" y="216" width="40" height="22" rx="2" opacity="0.85"/><rect x="524" y="216" width="40" height="22" rx="2"/><rect x="572" y="216" width="40" height="22" rx="2" opacity="0.7"/><rect x="620" y="216" width="40" height="22" rx="2"/><rect x="668" y="216" width="40" height="22" rx="2" opacity="0.85"/>
+        <rect x="476" y="244" width="40" height="22" rx="2"/><rect x="524" y="244" width="40" height="22" rx="2" opacity="0.75"/><rect x="572" y="244" width="40" height="22" rx="2"/><rect x="620" y="244" width="40" height="22" rx="2" opacity="0.9"/><rect x="668" y="244" width="40" height="22" rx="2"/>
+        <rect x="476" y="272" width="40" height="22" rx="2" opacity="0.8"/><rect x="524" y="272" width="40" height="22" rx="2"/><rect x="572" y="272" width="40" height="22" rx="2" opacity="0.65"/><rect x="620" y="272" width="40" height="22" rx="2"/><rect x="668" y="272" width="40" height="22" rx="2" opacity="0.8"/>
+        <rect x="476" y="300" width="40" height="22" rx="2"/><rect x="524" y="300" width="40" height="22" rx="2" opacity="0.9"/><rect x="572" y="300" width="40" height="22" rx="2"/><rect x="620" y="300" width="40" height="22" rx="2" opacity="0.7"/><rect x="668" y="300" width="40" height="22" rx="2"/>
+        <rect x="476" y="328" width="40" height="22" rx="2" opacity="0.75"/><rect x="524" y="328" width="40" height="22" rx="2"/><rect x="572" y="328" width="40" height="22" rx="2" opacity="0.85"/><rect x="620" y="328" width="40" height="22" rx="2"/><rect x="668" y="328" width="40" height="22" rx="2" opacity="0.7"/>
+        <rect x="476" y="356" width="40" height="22" rx="2"/><rect x="524" y="356" width="40" height="22" rx="2" opacity="0.8"/><rect x="572" y="356" width="40" height="22" rx="2"/><rect x="620" y="356" width="40" height="22" rx="2" opacity="0.9"/><rect x="668" y="356" width="40" height="22" rx="2"/>
+        <rect x="476" y="384" width="40" height="22" rx="2" opacity="0.85"/><rect x="524" y="384" width="40" height="22" rx="2"/><rect x="572" y="384" width="40" height="22" rx="2" opacity="0.7"/><rect x="620" y="384" width="40" height="22" rx="2"/><rect x="668" y="384" width="40" height="22" rx="2" opacity="0.8"/>
+        <rect x="476" y="412" width="40" height="22" rx="2"/><rect x="524" y="412" width="40" height="22" rx="2" opacity="0.75"/><rect x="572" y="412" width="40" height="22" rx="2"/><rect x="620" y="412" width="40" height="22" rx="2" opacity="0.85"/><rect x="668" y="412" width="40" height="22" rx="2"/>
+        <rect x="476" y="440" width="40" height="22" rx="2" opacity="0.8"/><rect x="524" y="440" width="40" height="22" rx="2"/><rect x="572" y="440" width="40" height="22" rx="2" opacity="0.7"/><rect x="620" y="440" width="40" height="22" rx="2"/><rect x="668" y="440" width="40" height="22" rx="2" opacity="0.85"/>
+      </g>
+    </g>
+    <!-- +1 sentinel sitting on the top edge of the page -->
+    <g filter="url(#cntSoft)">
+      <rect x="572" y="142" width="40" height="22" rx="2" fill="#f59e0b" opacity="0.55"/>
+    </g>
+    <rect x="572" y="142" width="40" height="22" rx="2" fill="#f59e0b"/>
+    <rect x="584" y="148" width="16" height="10" fill="#0a1628"/>
+  </g>
+
+  <!-- right: silent content-search page — same 50, no sentinel, sealed -->
+  <g>
+    <rect x="846" y="168" width="288" height="294" rx="6" fill="#0f2240" stroke="#1e3a8a" stroke-width="2"/>
+    <g fill="#1e3a8a">
+      <rect x="866" y="188" width="40" height="22" rx="2"/><rect x="914" y="188" width="40" height="22" rx="2" opacity="0.8"/><rect x="962" y="188" width="40" height="22" rx="2"/><rect x="1010" y="188" width="40" height="22" rx="2" opacity="0.7"/><rect x="1058" y="188" width="40" height="22" rx="2"/>
+      <rect x="866" y="216" width="40" height="22" rx="2" opacity="0.85"/><rect x="914" y="216" width="40" height="22" rx="2"/><rect x="962" y="216" width="40" height="22" rx="2" opacity="0.75"/><rect x="1010" y="216" width="40" height="22" rx="2"/><rect x="1058" y="216" width="40" height="22" rx="2" opacity="0.9"/>
+      <rect x="866" y="244" width="40" height="22" rx="2"/><rect x="914" y="244" width="40" height="22" rx="2" opacity="0.7"/><rect x="962" y="244" width="40" height="22" rx="2"/><rect x="1010" y="244" width="40" height="22" rx="2" opacity="0.85"/><rect x="1058" y="244" width="40" height="22" rx="2"/>
+      <rect x="866" y="272" width="40" height="22" rx="2" opacity="0.8"/><rect x="914" y="272" width="40" height="22" rx="2"/><rect x="962" y="272" width="40" height="22" rx="2" opacity="0.65"/><rect x="1010" y="272" width="40" height="22" rx="2"/><rect x="1058" y="272" width="40" height="22" rx="2" opacity="0.8"/>
+      <rect x="866" y="300" width="40" height="22" rx="2"/><rect x="914" y="300" width="40" height="22" rx="2" opacity="0.9"/><rect x="962" y="300" width="40" height="22" rx="2"/><rect x="1010" y="300" width="40" height="22" rx="2" opacity="0.7"/><rect x="1058" y="300" width="40" height="22" rx="2"/>
+      <rect x="866" y="328" width="40" height="22" rx="2" opacity="0.75"/><rect x="914" y="328" width="40" height="22" rx="2"/><rect x="962" y="328" width="40" height="22" rx="2" opacity="0.85"/><rect x="1010" y="328" width="40" height="22" rx="2"/><rect x="1058" y="328" width="40" height="22" rx="2" opacity="0.7"/>
+      <rect x="866" y="356" width="40" height="22" rx="2"/><rect x="914" y="356" width="40" height="22" rx="2" opacity="0.8"/><rect x="962" y="356" width="40" height="22" rx="2"/><rect x="1010" y="356" width="40" height="22" rx="2" opacity="0.9"/><rect x="1058" y="356" width="40" height="22" rx="2"/>
+      <rect x="866" y="384" width="40" height="22" rx="2" opacity="0.85"/><rect x="914" y="384" width="40" height="22" rx="2"/><rect x="962" y="384" width="40" height="22" rx="2" opacity="0.7"/><rect x="1010" y="384" width="40" height="22" rx="2"/><rect x="1058" y="384" width="40" height="22" rx="2" opacity="0.8"/>
+      <rect x="866" y="412" width="40" height="22" rx="2"/><rect x="914" y="412" width="40" height="22" rx="2" opacity="0.75"/><rect x="962" y="412" width="40" height="22" rx="2"/><rect x="1010" y="412" width="40" height="22" rx="2" opacity="0.85"/><rect x="1058" y="412" width="40" height="22" rx="2"/>
+      <rect x="866" y="440" width="40" height="22" rx="2" opacity="0.8"/><rect x="914" y="440" width="40" height="22" rx="2"/><rect x="962" y="440" width="40" height="22" rx="2" opacity="0.7"/><rect x="1010" y="440" width="40" height="22" rx="2"/><rect x="1058" y="440" width="40" height="22" rx="2" opacity="0.85"/>
+    </g>
+    <!-- sealed lid: looks complete -->
+    <rect x="846" y="168" width="288" height="10" fill="#1e3a8a"/>
+    <circle cx="990" cy="512" r="14" fill="none" stroke="#1e3a8a" stroke-width="3"/>
+    <rect x="984" y="504" width="12" height="10" rx="1" fill="#1e3a8a"/>
+  </g>
+
+  <!-- gold exact path from overflowing census toward the honest sentinel -->
+  <path d="M354,315 L456,315" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M744,315 L846,315" fill="none" stroke="#0e7490" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 8"/>
+</svg>
