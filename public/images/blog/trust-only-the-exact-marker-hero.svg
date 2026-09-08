@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Trust Only the Exact Marker" — tool-result channel vs lookalike stamps. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A gold exact-fit seal locked to the tail of a tool-result strip, beside scattered teal lookalike stamps that do not fit the slot">
+  <defs>
+    <linearGradient id="mkBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="mkGlowGold" cx="78%" cy="48%" r="42%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mkGlowTeal" cx="22%" cy="52%" r="40%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mkGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="mkTape" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f2240"/>
+      <stop offset="85%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#1a2f1a"/>
+    </linearGradient>
+    <filter id="mkSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#mkBg)"/>
+  <rect width="1200" height="630" fill="url(#mkGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#mkGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: a page of lookalike stamps — close, not exact, none gold -->
+  <g>
+    <rect x="86" y="118" width="268" height="394" rx="6" fill="#0f2240" stroke="#1e3a8a" stroke-width="2"/>
+    <g fill="none" stroke="#0e7490" stroke-width="2">
+      <rect x="108" y="148" width="88" height="28" rx="4" opacity="0.85"/>
+      <rect x="214" y="162" width="96" height="24" rx="4" opacity="0.55"/>
+      <rect x="118" y="204" width="72" height="26" rx="4" opacity="0.7"/>
+      <rect x="208" y="220" width="110" height="22" rx="4" opacity="0.4"/>
+      <rect x="102" y="268" width="124" height="30" rx="4" opacity="0.9"/>
+      <rect x="236" y="278" width="80" height="20" rx="4" opacity="0.5"/>
+      <rect x="126" y="328" width="90" height="28" rx="4" opacity="0.65"/>
+      <rect x="228" y="344" width="86" height="24" rx="4" opacity="0.35"/>
+      <rect x="110" y="392" width="104" height="26" rx="4" opacity="0.8"/>
+      <rect x="228" y="406" width="92" height="22" rx="4" opacity="0.45"/>
+      <rect x="132" y="450" width="76" height="28" rx="4" opacity="0.6"/>
+    </g>
+    <!-- broken notch: none of the stamps share the gold slot geometry -->
+    <g fill="#0e7490" opacity="0.35">
+      <polygon points="118,148 130,148 124,160"/>
+      <polygon points="214,162 228,162 221,174"/>
+      <polygon points="102,268 118,268 110,282"/>
+      <polygon points="110,392 124,392 117,406"/>
+    </g>
+  </g>
+
+  <!-- center: tool-result tape. body is untrusted. gold seal only at the tail. -->
+  <g>
+    <rect x="430" y="168" width="340" height="294" rx="6" fill="#0f2240" stroke="#0e7490" stroke-width="2"/>
+    <!-- the tape -->
+    <rect x="456" y="292" width="288" height="46" rx="6" fill="url(#mkTape)" stroke="#1e3a8a" stroke-width="2"/>
+    <!-- noise in the body of the tape: forged fragments -->
+    <g fill="#0e7490" opacity="0.45">
+      <rect x="468" y="304" width="18" height="10" rx="2"/>
+      <rect x="494" y="310" width="14" height="8" rx="2" opacity="0.7"/>
+      <rect x="516" y="302" width="22" height="12" rx="2" opacity="0.5"/>
+      <rect x="546" y="308" width="16" height="9" rx="2"/>
+      <rect x="570" y="304" width="12" height="11" rx="2" opacity="0.6"/>
+      <rect x="590" y="312" width="20" height="8" rx="2" opacity="0.4"/>
+      <rect x="618" y="306" width="15" height="10" rx="2"/>
+    </g>
+    <!-- gold exact-fit seal locked to the right end -->
+    <g filter="url(#mkSoft)">
+      <rect x="678" y="286" width="58" height="58" rx="8" fill="#f59e0b" opacity="0.35"/>
+    </g>
+    <rect x="682" y="290" width="50" height="50" rx="7" fill="url(#mkGold)"/>
+    <!-- exact notch: one geometry only -->
+    <polygon points="707,290 717,290 712,304" fill="#0a1628"/>
+    <rect x="698" y="312" width="18" height="8" rx="1" fill="#0a1628"/>
+    <!-- dashed replay ghost behind the tape: history, not live -->
+    <rect x="456" y="372" width="288" height="22" rx="4" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="8 7" opacity="0.7"/>
+    <rect x="682" y="368" width="50" height="30" rx="5" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 5" opacity="0.35"/>
+  </g>
+
+  <!-- right: a lock that only the gold seal fits -->
+  <g>
+    <rect x="846" y="168" width="288" height="294" rx="6" fill="#0f2240" stroke="#1e3a8a" stroke-width="2"/>
+    <!-- lock body -->
+    <rect x="930" y="300" width="120" height="96" rx="14" fill="#12203a" stroke="#1e3a8a" stroke-width="3"/>
+    <path d="M954,300 C954,262 1026,262 1026,300" fill="none" stroke="#1e3a8a" stroke-width="10" stroke-linecap="round"/>
+    <!-- the slot: gold, exact -->
+    <rect x="972" y="328" width="36" height="22" rx="3" fill="url(#mkGold)"/>
+    <polygon points="990,328 1000,328 995,342" fill="#0a1628"/>
+    <!-- rejected teal keys falling away -->
+    <g fill="none" stroke="#0e7490" stroke-width="2" opacity="0.7">
+      <rect x="868" y="196" width="64" height="20" rx="3" transform="rotate(-18 900 206)"/>
+      <rect x="1008" y="208" width="70" height="18" rx="3" transform="rotate(14 1043 217)"/>
+      <rect x="888" y="454" width="58" height="18" rx="3" transform="rotate(-8 917 463)"/>
+      <rect x="1024" y="448" width="62" height="16" rx="3" transform="rotate(10 1055 456)"/>
+    </g>
+  </g>
+
+  <!-- gold path: only the exact tail seal reaches the lock -->
+  <path d="M732,315 C790,315 820,348 846,348" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M354,315 L430,315" fill="none" stroke="#0e7490" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 8"/>
+</svg>
