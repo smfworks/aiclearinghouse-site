@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="48" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS</text>
+  <text x="48" y="96" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="700">Hy4 preview on OpenRouter</text>
+  <text x="48" y="132" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="17">Thinking-off 82.8% · coding 27/30 · tools 2/2 · 0 errors · 30.5 min · $0.96</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="13">
+    <text x="48" y="186" fill="#9ab0a0">Official A pass rate</text>
+    <text x="48" y="222" fill="#e8eef4">Grok 4.6</text>
+    <rect x="280" y="206" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="280" y="206" width="681" height="20" fill="#00d4aa" rx="2"/>
+    <text x="972" y="222" fill="#00d4aa">97.5%</text>
+    <text x="48" y="256" fill="#e8eef4">Fable 5.1</text>
+    <rect x="280" y="240" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="280" y="240" width="631" height="20" fill="#3d6a80" rx="2"/>
+    <text x="922" y="256" fill="#8ab4c4">90.4%</text>
+    <text x="48" y="290" fill="#e8eef4">Qwen3.8-FN local</text>
+    <rect x="280" y="274" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="280" y="274" width="609" height="20" fill="#5a8a6a" rx="2"/>
+    <text x="900" y="290" fill="#9ab0a0">87.3%</text>
+    <text x="48" y="324" fill="#e8eef4">Hy4 preview</text>
+    <rect x="280" y="308" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="280" y="308" width="578" height="20" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="870" y="324" fill="#76b900">82.8%</text>
+    <text x="48" y="358" fill="#e8eef4">GLM-5.2 cloud</text>
+    <rect x="280" y="342" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="280" y="342" width="538" height="20" fill="#3d6a80" rx="2"/>
+    <text x="828" y="358" fill="#8ab4c4">77.1%</text>
+    <text x="48" y="392" fill="#e8eef4">Nex-N2.5-Pro free</text>
+    <rect x="280" y="376" width="698" height="20" fill="#123018" rx="2"/>
+    <rect x="280" y="376" width="360" height="20" fill="#5a8a6a" rx="2"/>
+    <text x="652" y="392" fill="#9ab0a0">51.6%</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="548" width="1200" height="76" fill="#05080f"/>
+    <text x="48" y="578" fill="#5a8a6a" font-size="11">TOTAL</text>
+    <text x="48" y="604" font-size="18" font-weight="700">130/157</text>
+    <text x="230" y="578" fill="#5a8a6a" font-size="11">CODING</text>
+    <text x="230" y="604" font-size="18" font-weight="700">27/30</text>
+    <text x="400" y="578" fill="#5a8a6a" font-size="11">MATH</text>
+    <text x="400" y="604" font-size="18" font-weight="700">13/30</text>
+    <text x="560" y="578" fill="#5a8a6a" font-size="11">TOOLS</text>
+    <text x="560" y="604" font-size="18" font-weight="700">2/2</text>
+    <text x="740" y="578" fill="#5a8a6a" font-size="11">ERRORS</text>
+    <text x="740" y="604" font-size="18" font-weight="700">0</text>
+    <text x="960" y="578" fill="#5a8a6a" font-size="11">COST</text>
+    <text x="960" y="604" font-size="18" font-weight="700">$0.96</text>
+  </g>
+</svg>
