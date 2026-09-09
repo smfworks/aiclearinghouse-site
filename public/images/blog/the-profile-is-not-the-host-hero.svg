@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Profile Is Not the Host" — memory notepad vs live chassis. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A teal memory notepad offset from a gold live host chassis, with a gap between them">
+  <defs>
+    <linearGradient id="phBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="phGlowGold" cx="74%" cy="50%" r="44%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.32"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="phGlowTeal" cx="24%" cy="48%" r="40%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="phChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+    <filter id="phSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#phBg)"/>
+  <rect width="1200" height="630" fill="url(#phGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#phGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: USER / MEMORY notepad — teal, offset, not the live slot -->
+  <g transform="translate(96,118) rotate(-4 160 200)">
+    <rect x="0" y="0" width="320" height="400" rx="8" fill="#0f2240" stroke="#0e7490" stroke-width="2"/>
+    <rect x="22" y="28" width="176" height="14" rx="3" fill="#0e7490" opacity="0.55"/>
+    <rect x="22" y="56" width="248" height="8" rx="2" fill="#1e3a8a" opacity="0.7"/>
+    <rect x="22" y="78" width="220" height="8" rx="2" fill="#1e3a8a" opacity="0.5"/>
+    <rect x="22" y="100" width="236" height="8" rx="2" fill="#1e3a8a" opacity="0.45"/>
+    <rect x="22" y="136" width="160" height="10" rx="2" fill="#00d4ff" opacity="0.35"/>
+    <rect x="22" y="162" width="248" height="8" rx="2" fill="#0e7490" opacity="0.4"/>
+    <rect x="22" y="184" width="200" height="8" rx="2" fill="#0e7490" opacity="0.3"/>
+    <rect x="22" y="206" width="228" height="8" rx="2" fill="#0e7490" opacity="0.25"/>
+    <rect x="22" y="242" width="140" height="10" rx="2" fill="#00d4ff" opacity="0.28"/>
+    <rect x="22" y="268" width="248" height="8" rx="2" fill="#1e3a8a" opacity="0.4"/>
+    <rect x="22" y="290" width="188" height="8" rx="2" fill="#1e3a8a" opacity="0.35"/>
+    <rect x="22" y="312" width="212" height="8" rx="2" fill="#1e3a8a" opacity="0.3"/>
+    <rect x="22" y="348" width="96" height="22" rx="4" fill="none" stroke="#0e7490" stroke-width="2" opacity="0.7"/>
+  </g>
+
+  <!-- gap: the two namespaces do not share a slot -->
+  <g opacity="0.55">
+    <line x1="500" y1="160" x2="500" y2="470" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="8 10"/>
+  </g>
+
+  <!-- right: live host chassis — gold, locked to this process -->
+  <g>
+    <rect x="560" y="128" width="520" height="374" rx="10" fill="url(#phChassis)" stroke="url(#phGold)" stroke-width="3"/>
+    <!-- board traces -->
+    <g fill="none" stroke="#1e3a8a" stroke-width="2" opacity="0.7">
+      <rect x="592" y="168" width="200" height="120" rx="6"/>
+      <rect x="820" y="168" width="224" height="120" rx="6"/>
+      <rect x="592" y="316" width="452" height="140" rx="6"/>
+    </g>
+    <!-- live cores: gold, not teal -->
+    <g>
+      <rect x="616" y="192" width="36" height="36" rx="4" fill="url(#phGold)"/>
+      <rect x="664" y="192" width="36" height="36" rx="4" fill="#f59e0b" opacity="0.85"/>
+      <rect x="712" y="192" width="36" height="36" rx="4" fill="url(#phGold)" opacity="0.7"/>
+      <rect x="616" y="240" width="36" height="36" rx="4" fill="#ff6b00" opacity="0.75"/>
+      <rect x="664" y="240" width="36" height="36" rx="4" fill="url(#phGold)"/>
+      <rect x="712" y="240" width="36" height="36" rx="4" fill="#f59e0b" opacity="0.6"/>
+    </g>
+    <!-- clock crystal -->
+    <circle cx="932" cy="228" r="28" fill="none" stroke="url(#phGold)" stroke-width="3"/>
+    <circle cx="932" cy="228" r="8" fill="#ff6b00"/>
+    <line x1="932" y1="228" x2="932" y2="208" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+    <line x1="932" y1="228" x2="948" y2="236" stroke="#ff6b00" stroke-width="2" stroke-linecap="round"/>
+    <!-- port row: only some pins live -->
+    <g>
+      <rect x="620" y="348" width="18" height="28" rx="2" fill="#0e7490" opacity="0.35"/>
+      <rect x="648" y="348" width="18" height="28" rx="2" fill="#0e7490" opacity="0.35"/>
+      <rect x="676" y="348" width="18" height="28" rx="2" fill="url(#phGold)"/>
+      <rect x="704" y="348" width="18" height="28" rx="2" fill="#0e7490" opacity="0.35"/>
+      <rect x="732" y="348" width="18" height="28" rx="2" fill="url(#phGold)"/>
+      <rect x="760" y="348" width="18" height="28" rx="2" fill="#0e7490" opacity="0.35"/>
+      <rect x="788" y="348" width="18" height="28" rx="2" fill="#0e7490" opacity="0.35"/>
+      <rect x="816" y="348" width="18" height="28" rx="2" fill="url(#phGold)"/>
+    </g>
+    <!-- status bar: gold lock on the live machine -->
+    <rect x="620" y="404" width="396" height="28" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="644" cy="418" r="6" fill="#ff6b00"/>
+    <rect x="664" y="412" width="120" height="12" rx="2" fill="#f59e0b" opacity="0.85"/>
+    <rect x="796" y="412" width="200" height="12" rx="2" fill="#1e3a8a"/>
+  </g>
+</svg>
