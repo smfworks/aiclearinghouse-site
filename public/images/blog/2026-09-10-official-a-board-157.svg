@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="42" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS · THINKING OFF</text>
+  <text x="48" y="84" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">The Official A board</text>
+  <text x="48" y="114" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="16">25 models · 157 tests · one ranking rule · compiled 2026-09-10</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="12">
+    <text x="48" y="154" fill="#9ab0a0">Pass rate</text>
+    <text x="48" y="184" fill="#e8eef4">Astra Pro / Grok 4.6</text>
+    <rect x="310" y="170" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="170" width="681" height="16" fill="#00d4aa" rx="2"/>
+    <text x="1002" y="184" fill="#00d4aa">97.5%</text>
+    <text x="48" y="214" fill="#e8eef4">Grok 4.5</text>
+    <rect x="310" y="200" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="200" width="676" height="16" fill="#3d6a80" rx="2"/>
+    <text x="996" y="214" fill="#8ab4c4">96.8%</text>
+    <text x="48" y="244" fill="#e8eef4">Gemini / Muse</text>
+    <rect x="310" y="230" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="230" width="645" height="16" fill="#3d6a80" rx="2"/>
+    <text x="966" y="244" fill="#8ab4c4">92.4%</text>
+    <text x="48" y="274" fill="#e8eef4">Fable 5.1</text>
+    <rect x="310" y="260" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="260" width="631" height="16" fill="#3d6a80" rx="2"/>
+    <text x="952" y="274" fill="#8ab4c4">90.4%</text>
+    <text x="48" y="304" fill="#e8eef4">Kimi K3</text>
+    <rect x="310" y="290" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="290" width="623" height="16" fill="#5a8a6a" rx="2"/>
+    <text x="944" y="304" fill="#9ab0a0">89.2%</text>
+    <text x="48" y="334" fill="#e8eef4">Qwen3.8-FN local</text>
+    <rect x="310" y="320" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="320" width="609" height="16" fill="#5a8a6a" rx="2"/>
+    <text x="930" y="334" fill="#9ab0a0">87.3%</text>
+    <text x="48" y="364" fill="#e8eef4">Hy4 preview</text>
+    <rect x="310" y="350" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="350" width="578" height="16" fill="#5a8a6a" rx="2"/>
+    <text x="900" y="364" fill="#9ab0a0">82.8%</text>
+    <text x="48" y="394" fill="#e8eef4">V4.1 Flash</text>
+    <rect x="310" y="380" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="380" width="565" height="16" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="886" y="394" fill="#76b900">80.9%</text>
+    <text x="48" y="424" fill="#e8eef4">Laguna S 2.1</text>
+    <rect x="310" y="410" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="410" width="476" height="16" fill="#3d6a80" rx="2"/>
+    <text x="798" y="424" fill="#8ab4c4">68.2%</text>
+    <text x="48" y="454" fill="#e8eef4">Nex-N2.5-Pro free</text>
+    <rect x="310" y="440" width="698" height="16" fill="#123018" rx="2"/>
+    <rect x="310" y="440" width="360" height="16" fill="#5a8a6a" rx="2"/>
+    <text x="682" y="454" fill="#9ab0a0">51.6%</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="548" width="1200" height="76" fill="#05080f"/>
+    <text x="48" y="578" fill="#5a8a6a" font-size="11">MODELS</text>
+    <text x="48" y="604" font-size="18" font-weight="700">25</text>
+    <text x="200" y="578" fill="#5a8a6a" font-size="11">TESTS</text>
+    <text x="200" y="604" font-size="18" font-weight="700">157</text>
+    <text x="360" y="578" fill="#5a8a6a" font-size="11">TOP</text>
+    <text x="360" y="604" font-size="18" font-weight="700">153/157</text>
+    <text x="560" y="578" fill="#5a8a6a" font-size="11">TIE</text>
+    <text x="560" y="604" font-size="18" font-weight="700">Astra = Grok</text>
+    <text x="860" y="578" fill="#5a8a6a" font-size="11">RULE</text>
+    <text x="860" y="604" font-size="18" font-weight="700">thinking off</text>
+  </g>
+</svg>
