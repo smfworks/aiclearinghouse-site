@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF6B00" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <g opacity="0.04" stroke="#FF6B00">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <g opacity="0.06" stroke="#FF6B00" fill="none" stroke-width="2">
+    <path d="M 950 80 L 1020 80 L 1020 160 L 1100 160"/>
+    <path d="M 950 200 L 1050 200 L 1050 280 L 1180 280"/>
+    <path d="M 980 380 L 1060 380 L 1060 460 L 1140 460"/>
+    <path d="M 960 520 L 1030 520 L 1030 580 L 1180 580"/>
+    <circle cx="1020" cy="80" r="3" fill="#FF6B00"/>
+    <circle cx="1050" cy="280" r="3" fill="#FF6B00"/>
+    <circle cx="1060" cy="460" r="3" fill="#FF6B00"/>
+    <circle cx="1030" cy="580" r="3" fill="#FF6B00"/>
+  </g>
+
+  <!-- Stage 1: CLIENT -->
+  <rect x="70" y="175" width="200" height="90" rx="10" fill="#FF6B00" fill-opacity="0.08" stroke="#FF6B00" stroke-width="1.5" stroke-opacity="0.55"/>
+  <text x="170" y="215" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700">CLIENT</text>
+  <text x="170" y="238" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11">your app / CI / curl</text>
+
+  <!-- Arrow 1 -->
+  <line x1="270" y1="220" x2="318" y2="220" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.7"/>
+  <polygon points="318,214 330,220 318,226" fill="#FF6B00" fill-opacity="0.8"/>
+
+  <!-- Stage 2: HTTP :8642 -->
+  <rect x="335" y="145" width="230" height="150" rx="10" fill="#FF6B00" fill-opacity="0.10" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.7"/>
+  <text x="450" y="178" text-anchor="middle" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">HTTP :8642</text>
+  <text x="450" y="204" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12">/v1/chat/completions</text>
+  <text x="450" y="224" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12">/v1/responses</text>
+  <text x="450" y="244" text-anchor="middle" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">/v1/runs</text>
+  <text x="450" y="272" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11">Bearer API_SERVER_KEY</text>
+
+  <!-- Arrow 2 -->
+  <line x1="565" y1="220" x2="613" y2="220" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.7"/>
+  <polygon points="613,214 625,220 613,226" fill="#FF6B00" fill-opacity="0.8"/>
+
+  <!-- Stage 3: AGENT RUNTIME -->
+  <rect x="630" y="145" width="250" height="150" rx="10" fill="#FF6B00" fill-opacity="0.08" stroke="#FF6B00" stroke-width="1.5" stroke-opacity="0.55"/>
+  <text x="755" y="178" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700">AGENT RUNTIME</text>
+  <text x="755" y="204" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="12">AIAgent on this host</text>
+  <text x="755" y="228" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12">terminal · files · browser</text>
+  <text x="755" y="248" text-anchor="middle" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12">skills · memory · MCP</text>
+  <text x="755" y="272" text-anchor="middle" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">not a model proxy</text>
+
+  <!-- Crossed-out CLI spawn -->
+  <rect x="70" y="330" width="810" height="54" rx="8" fill="#FF6B00" fill-opacity="0.04" stroke="#FF6B00" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="475" y="363" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="14">subprocess.run([hermes, chat, -q, ...])</text>
+  <line x1="200" y1="357" x2="750" y2="357" stroke="#FF6B00" stroke-width="2" stroke-opacity="0.55"/>
+
+  <!-- Title block -->
+  <text x="70" y="455" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="bold">Don't Wrap the CLI</text>
+  <text x="70" y="498" fill="#FF6B00" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="400" letter-spacing="2">HERMES API SERVER</text>
+  <line x1="70" y1="518" x2="400" y2="518" stroke="#FF6B00" stroke-width="1.5" stroke-opacity="0.25"/>
+  <text x="70" y="548" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15">an agent runtime, not a model proxy</text>
+
+  <rect x="0" y="627" width="1200" height="3" fill="#FF6B00" fill-opacity="0.4"/>
+</svg>
