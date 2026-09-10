@@ -14,36 +14,41 @@
     <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
     <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
   </g>
-  <text x="48" y="48" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS</text>
-  <text x="48" y="96" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="32" font-weight="700">DeepSeek V4.1 Flash on OpenRouter</text>
-  <text x="48" y="132" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="17">Thinking-off 80.9% · coding 23/30 · tools 2/2 · 0 errors · 9.3 min · $0.07</text>
+  <text x="48" y="44" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">SMF-BENCH OFFICIAL A · STRICT_V01 · 157 TESTS</text>
+  <text x="48" y="88" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">DeepSeek V4.1 Flash on OpenRouter</text>
+  <text x="48" y="120" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="16">Thinking-off 80.9% · coding 23/30 · tools 2/2 · 0 errors · 9.3 min · $0.07</text>
   <g font-family="SF Mono, Courier New, monospace" font-size="13">
-    <text x="48" y="186" fill="#9ab0a0">Official A pass rate</text>
-    <text x="48" y="222" fill="#e8eef4">Grok 4.6</text>
-    <rect x="280" y="206" width="698" height="20" fill="#123018" rx="2"/>
-    <rect x="280" y="206" width="681" height="20" fill="#00d4aa" rx="2"/>
-    <text x="972" y="222" fill="#00d4aa">97.5%</text>
-    <text x="48" y="256" fill="#e8eef4">Fable 5.1</text>
-    <rect x="280" y="240" width="698" height="20" fill="#123018" rx="2"/>
-    <rect x="280" y="240" width="631" height="20" fill="#3d6a80" rx="2"/>
-    <text x="922" y="256" fill="#8ab4c4">90.4%</text>
-    <text x="48" y="290" fill="#e8eef4">Hy4 preview</text>
-    <rect x="280" y="274" width="698" height="20" fill="#123018" rx="2"/>
-    <rect x="280" y="274" width="578" height="20" fill="#5a8a6a" rx="2"/>
-    <text x="870" y="290" fill="#9ab0a0">82.8%</text>
+    <text x="48" y="164" fill="#9ab0a0">Official A pass rate</text>
+    <text x="48" y="196" fill="#e8eef4">Astra Pro (batch)</text>
+    <rect x="300" y="180" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="180" width="681" height="18" fill="#00d4aa" rx="2"/>
+    <text x="992" y="196" fill="#00d4aa">97.5%</text>
+    <text x="48" y="228" fill="#e8eef4">Grok 4.6</text>
+    <rect x="300" y="212" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="212" width="681" height="18" fill="#00d4aa" rx="2"/>
+    <text x="992" y="228" fill="#00d4aa">97.5%</text>
+    <text x="48" y="260" fill="#e8eef4">Fable 5.1</text>
+    <rect x="300" y="244" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="244" width="631" height="18" fill="#3d6a80" rx="2"/>
+    <text x="942" y="260" fill="#8ab4c4">90.4%</text>
+    <text x="48" y="292" fill="#e8eef4">Hy4 preview</text>
+    <rect x="300" y="276" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="276" width="578" height="18" fill="#5a8a6a" rx="2"/>
+    <text x="890" y="292" fill="#9ab0a0">82.8%</text>
     <text x="48" y="324" fill="#e8eef4">V4.1 Flash</text>
-    <rect x="280" y="308" width="698" height="20" fill="#123018" rx="2"/>
-    <rect x="280" y="308" width="565" height="20" fill="#76b900" rx="2" filter="url(#glow)"/>
-    <text x="856" y="324" fill="#76b900">80.9%</text>
-    <text x="48" y="358" fill="#e8eef4">GLM-5.2 cloud</text>
-    <rect x="280" y="342" width="698" height="20" fill="#123018" rx="2"/>
-    <rect x="280" y="342" width="538" height="20" fill="#3d6a80" rx="2"/>
-    <text x="828" y="358" fill="#8ab4c4">77.1%</text>
-    <text x="48" y="392" fill="#e8eef4">DSV4 Vision-Exp</text>
-    <rect x="280" y="376" width="698" height="20" fill="#123018" rx="2"/>
-    <rect x="280" y="376" width="520" height="20" fill="#5a8a6a" rx="2"/>
-    <text x="812" y="392" fill="#9ab0a0">74.5%</text>
+    <rect x="300" y="308" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="308" width="565" height="18" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="876" y="324" fill="#76b900">80.9%</text>
+    <text x="48" y="356" fill="#e8eef4">GLM-5.2 cloud</text>
+    <rect x="300" y="340" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="340" width="538" height="18" fill="#3d6a80" rx="2"/>
+    <text x="848" y="356" fill="#8ab4c4">77.1%</text>
+    <text x="48" y="388" fill="#e8eef4">DSV4 Vision-Exp</text>
+    <rect x="300" y="372" width="698" height="18" fill="#123018" rx="2"/>
+    <rect x="300" y="372" width="520" height="18" fill="#5a8a6a" rx="2"/>
+    <text x="832" y="388" fill="#9ab0a0">74.5%</text>
   </g>
+  <text x="48" y="430" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="12">Astra Pro batch and Grok 4.6 tied at 153/157. Ranking is thinking-off Official A.</text>
   <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
     <rect x="0" y="548" width="1200" height="76" fill="#05080f"/>
     <text x="48" y="578" fill="#5a8a6a" font-size="11">TOTAL</text>
