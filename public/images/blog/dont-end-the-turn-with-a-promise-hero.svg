@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't End the Turn With a Promise" — dashed speech vs live tool call. No text.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A dashed teal speech bubble disconnected from a gold live tool-call chassis">
+  <defs>
+    <linearGradient id="prBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="prGlowGold" cx="76%" cy="52%" r="46%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.34"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="prGlowTeal" cx="22%" cy="46%" r="42%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="prGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="prChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#prBg)"/>
+  <rect width="1200" height="630" fill="url(#prGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#prGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: dashed teal speech bubble — narration, no tool call -->
+  <g fill="none" stroke="#0e7490" stroke-width="3" stroke-dasharray="10 9" opacity="0.9">
+    <ellipse cx="268" cy="292" rx="168" ry="118"/>
+  </g>
+  <path d="M214 392 L188 468 L258 408" fill="none" stroke="#0e7490" stroke-width="3" stroke-dasharray="8 8" opacity="0.85"/>
+  <g fill="#0e7490" opacity="0.35">
+    <rect x="168" y="250" width="168" height="10" rx="3"/>
+    <rect x="168" y="276" width="132" height="10" rx="3"/>
+    <rect x="168" y="302" width="148" height="10" rx="3"/>
+  </g>
+  <!-- empty action slot inside the bubble -->
+  <rect x="168" y="334" width="88" height="22" rx="4" fill="none" stroke="#00d4ff" stroke-width="2" stroke-dasharray="5 5" opacity="0.55"/>
+
+  <!-- broken path: the promise never reaches the tool -->
+  <g opacity="0.7">
+    <line x1="448" y1="292" x2="534" y2="292" stroke="#1e3a8a" stroke-width="3" stroke-dasharray="7 11"/>
+    <circle cx="492" cy="292" r="7" fill="none" stroke="#ff6b00" stroke-width="2" opacity="0.8"/>
+    <line x1="484" y1="284" x2="500" y2="300" stroke="#ff6b00" stroke-width="2"/>
+    <line x1="500" y1="284" x2="484" y2="300" stroke="#ff6b00" stroke-width="2"/>
+  </g>
+
+  <!-- right: live tool-call chassis — gold, connected, firing -->
+  <g>
+    <rect x="568" y="132" width="516" height="366" rx="10" fill="url(#prChassis)" stroke="url(#prGold)" stroke-width="3"/>
+    <!-- tool schema slots -->
+    <g fill="none" stroke="#1e3a8a" stroke-width="2" opacity="0.75">
+      <rect x="600" y="168" width="210" height="88" rx="6"/>
+      <rect x="832" y="168" width="216" height="88" rx="6"/>
+      <rect x="600" y="276" width="448" height="168" rx="6"/>
+    </g>
+    <!-- live tool-call bars: gold, not teal -->
+    <g>
+      <rect x="620" y="190" width="170" height="14" rx="3" fill="url(#prGold)"/>
+      <rect x="620" y="214" width="118" height="14" rx="3" fill="#f59e0b" opacity="0.7"/>
+      <rect x="852" y="190" width="176" height="14" rx="3" fill="#ff6b00" opacity="0.85"/>
+      <rect x="852" y="214" width="96" height="14" rx="3" fill="#f59e0b" opacity="0.55"/>
+    </g>
+    <!-- execution chevron -->
+    <polygon points="720,318 780,354 720,390" fill="url(#prGold)"/>
+    <rect x="640" y="340" width="80" height="28" rx="3" fill="#ff6b00"/>
+    <!-- result rail: connected, not dashed -->
+    <rect x="800" y="332" width="220" height="44" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="824" cy="354" r="7" fill="#ff6b00"/>
+    <rect x="844" y="346" width="156" height="16" rx="3" fill="#f59e0b" opacity="0.9"/>
+    <!-- status lock -->
+    <rect x="640" y="400" width="380" height="24" rx="4" fill="#0a1628" stroke="#f59e0b" stroke-width="2"/>
+    <rect x="656" y="406" width="140" height="12" rx="2" fill="#f59e0b"/>
+    <rect x="812" y="406" width="188" height="12" rx="2" fill="#1e3a8a"/>
+  </g>
+</svg>
