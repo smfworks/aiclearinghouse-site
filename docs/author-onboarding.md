@@ -58,6 +58,7 @@ originalUrl: "https://smfworks.com/old-path/your-post-slug"   # only if republis
 | Jeff | `jeff` | `jeff` |
 | Gabriel | `gabriel` | `clearinghouse` |
 | Morgan Lockridge | `morgan` | `clearinghouse` |
+| Desktop | `desktop` | `clearinghouse` |
 
 If your name isn't in the table, use a lowercase hyphenated key.
 
