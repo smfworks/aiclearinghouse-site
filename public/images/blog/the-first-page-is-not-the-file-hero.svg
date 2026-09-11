@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The First Page Is Not the File" — crop window vs full document + continuation.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A dashed teal crop window covering only the top of a document, disconnected from a gold full-height document with a continuation gutter">
+  <defs>
+    <linearGradient id="pgBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="pgGlowGold" cx="74%" cy="50%" r="46%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.34"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pgGlowTeal" cx="24%" cy="42%" r="42%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pgGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="pgChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+    <clipPath id="pgCrop">
+      <rect x="118" y="118" width="268" height="168" rx="8"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#pgBg)"/>
+  <rect width="1200" height="630" fill="url(#pgGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#pgGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: tall document that extends past the crop -->
+  <g opacity="0.55">
+    <rect x="132" y="96" width="240" height="438" rx="8" fill="#0f2240" stroke="#1e3a8a" stroke-width="2"/>
+    <g fill="#0e7490" opacity="0.55">
+      <rect x="152" y="118" width="200" height="8" rx="2"/>
+      <rect x="152" y="138" width="168" height="8" rx="2"/>
+      <rect x="152" y="158" width="184" height="8" rx="2"/>
+      <rect x="152" y="178" width="148" height="8" rx="2"/>
+      <rect x="152" y="198" width="176" height="8" rx="2"/>
+      <rect x="152" y="218" width="160" height="8" rx="2"/>
+      <rect x="152" y="238" width="192" height="8" rx="2"/>
+      <rect x="152" y="258" width="140" height="8" rx="2"/>
+      <rect x="152" y="278" width="188" height="8" rx="2"/>
+      <rect x="152" y="298" width="152" height="8" rx="2"/>
+      <rect x="152" y="318" width="196" height="8" rx="2"/>
+      <rect x="152" y="338" width="144" height="8" rx="2"/>
+      <rect x="152" y="358" width="180" height="8" rx="2"/>
+      <rect x="152" y="378" width="164" height="8" rx="2"/>
+      <rect x="152" y="398" width="172" height="8" rx="2"/>
+      <rect x="152" y="418" width="136" height="8" rx="2"/>
+      <rect x="152" y="438" width="188" height="8" rx="2"/>
+      <rect x="152" y="458" width="156" height="8" rx="2"/>
+      <rect x="152" y="478" width="176" height="8" rx="2"/>
+      <rect x="152" y="498" width="148" height="8" rx="2"/>
+    </g>
+  </g>
+
+  <!-- crop window: only the top of the document is "seen" -->
+  <g fill="none" stroke="#0e7490" stroke-width="3" stroke-dasharray="10 9">
+    <rect x="118" y="108" width="268" height="168" rx="8"/>
+  </g>
+  <g clip-path="url(#pgCrop)">
+    <g fill="#00d4ff" opacity="0.85">
+      <rect x="152" y="118" width="200" height="8" rx="2"/>
+      <rect x="152" y="138" width="168" height="8" rx="2"/>
+      <rect x="152" y="158" width="184" height="8" rx="2"/>
+      <rect x="152" y="178" width="148" height="8" rx="2"/>
+      <rect x="152" y="198" width="176" height="8" rx="2"/>
+      <rect x="152" y="218" width="160" height="8" rx="2"/>
+      <rect x="152" y="238" width="192" height="8" rx="2"/>
+    </g>
+  </g>
+
+  <!-- omitted-middle marks under the crop -->
+  <g fill="none" stroke="#ff6b00" stroke-width="2" opacity="0.7">
+    <line x1="196" y1="300" x2="212" y2="316"/>
+    <line x1="212" y1="300" x2="196" y2="316"/>
+    <line x1="252" y1="340" x2="268" y2="356"/>
+    <line x1="268" y1="340" x2="252" y2="356"/>
+    <line x1="220" y1="400" x2="236" y2="416"/>
+    <line x1="236" y1="400" x2="220" y2="416"/>
+  </g>
+
+  <!-- broken path: the window never reaches the rest -->
+  <g opacity="0.7">
+    <line x1="410" y1="292" x2="534" y2="292" stroke="#1e3a8a" stroke-width="3" stroke-dasharray="7 11"/>
+    <circle cx="472" cy="292" r="7" fill="none" stroke="#ff6b00" stroke-width="2"/>
+    <line x1="464" y1="284" x2="480" y2="300" stroke="#ff6b00" stroke-width="2"/>
+    <line x1="480" y1="284" x2="464" y2="300" stroke="#ff6b00" stroke-width="2"/>
+  </g>
+
+  <!-- right: full document, gold chassis, continuation gutter -->
+  <g>
+    <rect x="568" y="96" width="516" height="438" rx="10" fill="url(#pgChassis)" stroke="url(#pgGold)" stroke-width="3"/>
+    <g fill="none" stroke="#1e3a8a" stroke-width="2" opacity="0.75">
+      <rect x="596" y="124" width="360" height="382" rx="6"/>
+    </g>
+    <g fill="#f59e0b">
+      <rect x="616" y="148" width="320" height="10" rx="3"/>
+      <rect x="616" y="172" width="268" height="10" rx="3" opacity="0.75"/>
+      <rect x="616" y="196" width="300" height="10" rx="3" opacity="0.85"/>
+      <rect x="616" y="220" width="236" height="10" rx="3" opacity="0.65"/>
+      <rect x="616" y="244" width="288" height="10" rx="3" opacity="0.8"/>
+      <rect x="616" y="268" width="252" height="10" rx="3" opacity="0.7"/>
+      <rect x="616" y="292" width="312" height="10" rx="3"/>
+      <rect x="616" y="316" width="224" height="10" rx="3" opacity="0.6"/>
+      <rect x="616" y="340" width="296" height="10" rx="3" opacity="0.8"/>
+      <rect x="616" y="364" width="260" height="10" rx="3" opacity="0.7"/>
+      <rect x="616" y="388" width="308" height="10" rx="3" opacity="0.85"/>
+      <rect x="616" y="412" width="240" height="10" rx="3" opacity="0.65"/>
+      <rect x="616" y="436" width="280" height="10" rx="3" opacity="0.75"/>
+      <rect x="616" y="460" width="200" height="10" rx="3" opacity="0.55"/>
+    </g>
+    <!-- continuation gutter: next_offset cursor -->
+    <g>
+      <rect x="980" y="124" width="72" height="382" rx="6" fill="#0a1628" stroke="url(#pgGold)" stroke-width="2"/>
+      <polygon points="1016,280 1040,314 1016,348" fill="url(#pgGold)"/>
+      <rect x="1004" y="368" width="24" height="8" rx="2" fill="#00d4ff" opacity="0.8"/>
+      <rect x="1004" y="384" width="24" height="8" rx="2" fill="#00d4ff" opacity="0.5"/>
+      <rect x="1004" y="400" width="24" height="8" rx="2" fill="#00d4ff" opacity="0.3"/>
+    </g>
+  </g>
+</svg>
