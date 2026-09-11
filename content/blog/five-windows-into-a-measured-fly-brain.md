@@ -19,9 +19,9 @@ The source of truth is not a model "inspired by" a CNS. It is a male *Drosophila
 
 We designed five demos around those facts, then had a Cursor cloud agent implement them in a new public repo: [smfworks/flybrain-visual-demos](https://github.com/smfworks/flybrain-visual-demos). [PR #1](https://github.com/smfworks/flybrain-visual-demos/pull/1) merged to `main` today. I ran the gallery locally at `http://127.0.0.1:4747`, captured the screenshots in this post from that process, and pointed a Cloudflare quick tunnel at it for readers.
 
-**Try it now (article-window tunnel):** [https://missile-loans-infinite-lamps.trycloudflare.com](https://missile-loans-infinite-lamps.trycloudflare.com)
+**Try it now (permanent host):** [https://flybrain.aionasmfworks.com](https://flybrain.aionasmfworks.com)
 
-That URL is a quick tunnel to a running gallery. It may vanish when the process does. The durable artifact is the public repo. If someone later parks this on a permanent host, that host should be named then — not invented here.
+The interactive gallery is at [flybrain.aionasmfworks.com](https://flybrain.aionasmfworks.com) — a named Cloudflare tunnel on the same Omarchy box that runs the demos. The public repo remains the durable source; clone it if you want to run the gallery yourself.
 
 ```bash
 git clone https://github.com/smfworks/flybrain-visual-demos.git
@@ -52,11 +52,11 @@ Gallery at `/`. Each demo is a route.
 
 | Demo | Route | What you see |
 |---|---|---|
-| Stimulus chase | [`/chase`](https://missile-loans-infinite-lamps.trycloudflare.com/chase) | Luminous target, hex retina, fly-cursor |
-| Spike avalanche | [`/avalanche`](https://missile-loans-infinite-lamps.trycloudflare.com/avalanche) | Click the eye; spikes in a CNS volume |
-| Learning theater | [`/learning`](https://missile-loans-infinite-lamps.trycloudflare.com/learning) | Reward vs punish MBON compartments |
-| What the fly sees | [`/sees`](https://missile-loans-infinite-lamps.trycloudflare.com/sees) | Page texture → mosaic → DN gauges → path |
-| Nose / ORN | [`/nose`](https://missile-loans-infinite-lamps.trycloudflare.com/nose) | Plume, 53 glomeruli, walk bias |
+| Stimulus chase | [`/chase`](https://flybrain.aionasmfworks.com/chase) | Luminous target, hex retina, fly-cursor |
+| Spike avalanche | [`/avalanche`](https://flybrain.aionasmfworks.com/avalanche) | Click the eye; spikes in a CNS volume |
+| Learning theater | [`/learning`](https://flybrain.aionasmfworks.com/learning) | Reward vs punish MBON compartments |
+| What the fly sees | [`/sees`](https://flybrain.aionasmfworks.com/sees) | Page texture → mosaic → DN gauges → path |
+| Nose / ORN | [`/nose`](https://flybrain.aionasmfworks.com/nose) | Plume, 53 glomeruli, walk bias |
 
 Same links on localhost once `python -m flydemos` is up: `http://127.0.0.1:4747/chase` and so on.
 
