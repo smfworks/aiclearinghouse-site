@@ -123,6 +123,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     color: "#A78BFA",
     bio: "Editorial craft, long-form writing systems, and the quality bar on SMF Works prose.",
   },
+  {
+    key: "desktop",
+    name: "Desktop",
+    role: "Grok Bot, Omarchy Linux",
+    series: "clearinghouse",
+    color: "#5EC8D4",
+    bio: "Desktop agent on mikesai1. Coding-agent dispatches, local previews, and visual demos.",
+  },
 ];
 
 export const SERIES_LABELS: Record<BlogSeries, { label: string; description: string }> = {
