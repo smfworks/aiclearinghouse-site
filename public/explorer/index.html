@@ -79110,6 +79110,612 @@
     "endpoint": "http://spark-d369:8888/v1"
   },
   {
+    "file": "sol-h3-spark-56bc/results/sol-h3-spark-56bc-summary.json",
+    "raw": {
+      "host": "spark-56bc",
+      "hardware": "NVIDIA DGX Spark GB10, 128 GB UMA",
+      "recipe": "Sol-H3-Spark",
+      "tree": "NVlabs/Sana sol-engine",
+      "commit": "8e0db4f",
+      "measured_utc_date": "2026-09-11/12",
+      "output_pin": {
+        "width": 1344,
+        "height": 768,
+        "frames": 121,
+        "fps": 24,
+        "duration_s": 5.04,
+        "video": "H.264",
+        "audio": "AAC LC stereo 32 kHz"
+      },
+      "isolated_t2va_warmup_excluded": [
+        {
+          "run": "t2va-smoke-20260911-185313",
+          "seed": 42,
+          "status": "PASS",
+          "e2e_s": 68.086053835,
+          "qwen_s": 1.476620835,
+          "stage1_s": 20.698432374,
+          "stage2_s": 36.61280652
+        },
+        {
+          "run": "t2va-timed-20260911-190401",
+          "seed": 7,
+          "status": "PASS",
+          "e2e_s": 68.164401672,
+          "qwen_s": 1.475377735,
+          "stage1_s": 20.093377446,
+          "stage2_s": 36.887687826
+        }
+      ],
+      "isolated_mean_e2e_s": 68.1252277535,
+      "nvidia_published_hot_e2e_s": 56.17,
+      "nvidia_published_note": "vendor page; not reproduced on this box",
+      "fl2va_baseline_5s": {
+        "source": "smf-h3-production-pins 2026-09-05",
+        "width": 768,
+        "height": 448,
+        "steps": 20,
+        "duration_requested_s": 5.0,
+        "clip_s": 5.21,
+        "frames": 124,
+        "wall_s": 423.2
+      },
+      "speedup_5s_cell": 6.21,
+      "pixel_ratio": 3.0,
+      "wrapper_3plus1": {
+        "job_3clip": "sol-h3-splice3-20260912",
+        "status": "PASS",
+        "e2e_s": [
+          68.893495497,
+          72.723010265,
+          66.090291077
+        ],
+        "job_d": "sol-h3-splice1d-20260912",
+        "d_e2e_s": 69.441597758,
+        "concat_s": 20.2,
+        "concat_frames": 484,
+        "concat_bytes": 8941510
+      },
+      "do_not_publish_mp4s": true,
+      "licenses": [
+        "MiniMax H3 Community License",
+        "LTX-2.x Community License"
+      ]
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "NVIDIA DGX Spark GB10, 128 GB UMA",
+    "endpoint": ""
+  },
+  {
+    "file": "sol-h3-spark-56bc/results/sol-h3-splice1d-20260912-receipt.json",
+    "raw": {
+      "job_id": "sol-h3-splice1d-20260912",
+      "status": "PASS",
+      "prompts": "/home/mikesai3/sol-h3-spark-runtime/outputs/splice-1clip-d.jsonl",
+      "n_rows": 1,
+      "out_dir": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice1d-20260912",
+      "job_dir": "/home/mikesai3/sol-h3-spark-runtime/jobs/sol-h3-splice1d-20260912",
+      "submitted_unix": 1789173275.6978512,
+      "preflight": {
+        "mem_avail_gib": 116.4,
+        "gpu_temp_c": 54,
+        "gpu_util": 0,
+        "infer_running": false,
+        "missing": [],
+        "ok": true
+      },
+      "cap": 3,
+      "thermal_abort_c": 85,
+      "run_start_unix": 1789173275.7150111,
+      "aborted": null,
+      "infer_exit": 0,
+      "batch_results_status": "PASS",
+      "batch_results_error": null,
+      "clips": [
+        {
+          "case_id": "clip-d-workshop",
+          "row_status": "PASS",
+          "e2e_s": 69.441597758,
+          "qwen_s": 1.528516962,
+          "stage1_s": 20.773983991,
+          "stage2_s": 36.881196981,
+          "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice1d-20260912/clip-d-workshop/stage2/refined_1344x768_121f.mp4",
+          "ffprobe": {
+            "path": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice1d-20260912/clip-d-workshop/stage2/refined_1344x768_121f.mp4",
+            "duration": 5.042,
+            "ok": true,
+            "errors": [],
+            "ffprobe": {
+              "programs": [],
+              "streams": [
+                {
+                  "codec_name": "h264",
+                  "codec_type": "video",
+                  "width": 1344,
+                  "height": 768,
+                  "avg_frame_rate": "24/1",
+                  "nb_frames": "121"
+                },
+                {
+                  "codec_name": "aac",
+                  "codec_type": "audio",
+                  "sample_rate": "32000",
+                  "channels": 2,
+                  "avg_frame_rate": "0/0",
+                  "nb_frames": "159"
+                }
+              ],
+              "format": {
+                "duration": "5.042000",
+                "size": "1371391"
+              }
+            }
+          }
+        }
+      ],
+      "n_pass_ffprobe": 1,
+      "run_end_unix": 1789173727.7603168,
+      "note": "Do not trust batch results.json status; use clips[].row_status + ffprobe.ok"
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
+    "file": "sol-h3-spark-56bc/results/sol-h3-splice3-20260912-receipt.json",
+    "raw": {
+      "job_id": "sol-h3-splice3-20260912",
+      "status": "PASS",
+      "prompts": "/home/mikesai3/sol-h3-spark-runtime/outputs/splice-3clip-prompts.jsonl",
+      "n_rows": 3,
+      "out_dir": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912",
+      "job_dir": "/home/mikesai3/sol-h3-spark-runtime/jobs/sol-h3-splice3-20260912",
+      "submitted_unix": 1789172674.6661618,
+      "preflight": {
+        "mem_avail_gib": 116.8,
+        "gpu_temp_c": 47,
+        "gpu_util": 0,
+        "infer_running": false,
+        "missing": [],
+        "ok": true
+      },
+      "cap": 3,
+      "thermal_abort_c": 85,
+      "run_start_unix": 1789172674.7004185,
+      "aborted": null,
+      "infer_exit": 0,
+      "batch_results_status": "PASS",
+      "batch_results_error": null,
+      "clips": [
+        {
+          "case_id": "clip-a-fox",
+          "row_status": "PASS",
+          "e2e_s": 68.893495497,
+          "qwen_s": 1.552496789,
+          "stage1_s": 20.12172741,
+          "stage2_s": 38.010133207,
+          "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912/clip-a-fox/stage2/refined_1344x768_121f.mp4",
+          "ffprobe": {
+            "path": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912/clip-a-fox/stage2/refined_1344x768_121f.mp4",
+            "duration": 5.042,
+            "ok": true,
+            "errors": [],
+            "ffprobe": {
+              "programs": [],
+              "streams": [
+                {
+                  "codec_name": "h264",
+                  "codec_type": "video",
+                  "width": 1344,
+                  "height": 768,
+                  "avg_frame_rate": "24/1",
+                  "nb_frames": "121"
+                },
+                {
+                  "codec_name": "aac",
+                  "codec_type": "audio",
+                  "sample_rate": "32000",
+                  "channels": 2,
+                  "avg_frame_rate": "0/0",
+                  "nb_frames": "159"
+                }
+              ],
+              "format": {
+                "duration": "5.042000",
+                "size": "4031610"
+              }
+            }
+          }
+        },
+        {
+          "case_id": "clip-b-station",
+          "row_status": "PASS",
+          "e2e_s": 72.723010265,
+          "qwen_s": 1.117559569,
+          "stage1_s": 34.392211626,
+          "stage2_s": 36.373966597,
+          "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912/clip-b-station/stage2/refined_1344x768_121f.mp4",
+          "ffprobe": {
+            "path": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912/clip-b-station/stage2/refined_1344x768_121f.mp4",
+            "duration": 5.042,
+            "ok": true,
+            "errors": [],
+            "ffprobe": {
+              "programs": [],
+              "streams": [
+                {
+                  "codec_name": "h264",
+                  "codec_type": "video",
+                  "width": 1344,
+                  "height": 768,
+                  "avg_frame_rate": "24/1",
+                  "nb_frames": "121"
+                },
+                {
+                  "codec_name": "aac",
+                  "codec_type": "audio",
+                  "sample_rate": "32000",
+                  "channels": 2,
+                  "avg_frame_rate": "0/0",
+                  "nb_frames": "159"
+                }
+              ],
+              "format": {
+                "duration": "5.042000",
+                "size": "1696084"
+              }
+            }
+          }
+        },
+        {
+          "case_id": "clip-c-harbor",
+          "row_status": "PASS",
+          "e2e_s": 66.090291077,
+          "qwen_s": 1.589691191,
+          "stage1_s": 27.850724409,
+          "stage2_s": 35.837892293,
+          "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912/clip-c-harbor/stage2/refined_1344x768_121f.mp4",
+          "ffprobe": {
+            "path": "/home/mikesai3/sol-h3-spark-runtime/outputs/sol-h3-splice3-20260912/clip-c-harbor/stage2/refined_1344x768_121f.mp4",
+            "duration": 5.042,
+            "ok": true,
+            "errors": [],
+            "ffprobe": {
+              "programs": [],
+              "streams": [
+                {
+                  "codec_name": "h264",
+                  "codec_type": "video",
+                  "width": 1344,
+                  "height": 768,
+                  "avg_frame_rate": "24/1",
+                  "nb_frames": "121"
+                },
+                {
+                  "codec_name": "aac",
+                  "codec_type": "audio",
+                  "sample_rate": "32000",
+                  "channels": 2,
+                  "avg_frame_rate": "0/0",
+                  "nb_frames": "159"
+                }
+              ],
+              "format": {
+                "duration": "5.042000",
+                "size": "1846432"
+              }
+            }
+          }
+        }
+      ],
+      "n_pass_ffprobe": 3,
+      "run_end_unix": 1789173257.1501648,
+      "note": "Do not trust batch results.json status; use clips[].row_status + ffprobe.ok"
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
+    "file": "sol-h3-spark-56bc/results/t2va-smoke-20260911-185313-results.json",
+    "raw": {
+      "status": "PASS",
+      "task": "t2va",
+      "recipe": {
+        "schema_version": 1,
+        "name": "Sol-H3 Spark",
+        "stage1": {
+          "width": 672,
+          "height": 384,
+          "frames": 124,
+          "fps": 24,
+          "qwen": "NVFP4_AWQ_resident",
+          "dit": "W8A8_FP8_after_BF16_LoRA_merge",
+          "lora": "FastH3_VSA_DataFree",
+          "lora_strength": 1.0,
+          "updates": 4,
+          "video_sigmas": [
+            1.0,
+            0.972972989,
+            0.923076928,
+            0.8,
+            0.0
+          ],
+          "audio_sigmas": [
+            1.0,
+            0.9,
+            0.75,
+            0.5,
+            0.0
+          ],
+          "attention": "VSA_cuDNN_BSA",
+          "sparsity": 0.9,
+          "tile_size": 64,
+          "video_decode": false
+        },
+        "handoff": {
+          "transport": "CPU_tensor_file",
+          "representation": "normalized_H3_latent_and_original_PCM",
+          "upscale_before_adapter": true,
+          "upscale_ratio": 2.0,
+          "normalization": "author_D(model(N(normalized_H3)))",
+          "refiner_input_shape": [
+            1,
+            128,
+            16,
+            24,
+            42
+          ]
+        },
+        "stage2": {
+          "compile": true,
+          "fixed_prompt": "4K, refined, high quality, cinematic detail, clean textures, natural motion.",
+          "online_text_encoder": false,
+          "transformer": "LTX-2.5_dev_BF16",
+          "lora": "distilled_lora_450",
+          "lora_strength": 0.8,
+          "updates": 3,
+          "sigmas": [
+            0.909375,
+            0.725,
+            0.421875,
+            0.0
+          ],
+          "attention": "Triton_Sol",
+          "taus": [
+            1.0,
+            1.25,
+            1.5
+          ],
+          "threshold": "diag",
+          "dense_layers": [
+            0
+          ],
+          "decoder": "official_Conv_VAE",
+          "tiles": {
+            "temporal": 128,
+            "temporal_overlap": 24,
+            "height": 448,
+            "height_overlap": 64,
+            "width": 768,
+            "width_overlap": 64
+          },
+          "direct_nhwc": true,
+          "writer_chunk_frames": 16,
+          "single_gpu_all2all": true
+        },
+        "output": {
+          "width": 1344,
+          "height": 768,
+          "frames": 121,
+          "fps": 24,
+          "video_codec": "H264",
+          "crf": 19,
+          "preset": "veryfast",
+          "audio": "original_H3_PCM_to_AAC_stereo_32000Hz"
+        }
+      },
+      "requests": [
+        {
+          "case_id": "generation",
+          "seed": 42,
+          "task": "t2va",
+          "status": "PASS",
+          "request_start_monotonic_ns": 5246422906096,
+          "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/t2va-smoke-20260911-185313/generation/stage2/refined_1344x768_121f.mp4",
+          "e2e_s": 68.086053835,
+          "final_mp4_complete_monotonic_ns": 5314508959931,
+          "qwen_s": 1.476620835,
+          "stage1_s": 20.698432374,
+          "stage2_s": 36.61280652,
+          "stage2_phases_s": {
+            "input_decode_resize_s": 0.000161,
+            "learned_latent_upsample_s": 0.0,
+            "highres_first_frame_condition_s": 5e-06,
+            "audio_vae_encode_s": 0.007672,
+            "multimodal_state_prepare_s": 0.000824,
+            "joint_video_audio_stage2_s": 26.409612,
+            "official_video_vae_decode_s": 7.2185,
+            "decode_stream_and_h264_mux_s": 8.020553,
+            "h264_encode_mux_s": 0.802053,
+            "output_verify_s": 0.006939,
+            "per_request_gc_allocator_cleanup_s": 6e-06,
+            "fixed_prompt_context_copy_s": 0.000596,
+            "h3_upscale_and_adapter_s": 2.160604,
+            "h3_latent_upscale_s": 1.9334780660001343,
+            "h3_ltx_adapter_s": 0.22654057100044156
+          }
+        }
+      ],
+      "timing": "same-host monotonic request entry to completed muxed MP4",
+      "warmup_excluded": true,
+      "first_formal_request_included": true,
+      "phase_sum_used": false,
+      "startup_and_warmup_s": 301.642270997,
+      "warmup": {
+        "case_id": "generation",
+        "seed": 999,
+        "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/t2va-smoke-20260911-185313/warmup/stage2/refined_1344x768_121f.mp4"
+      },
+      "mean_e2e_s": 68.086053835
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
+    "file": "sol-h3-spark-56bc/results/t2va-timed-20260911-190401-results.json",
+    "raw": {
+      "status": "PASS",
+      "task": "t2va",
+      "recipe": {
+        "schema_version": 1,
+        "name": "Sol-H3 Spark",
+        "stage1": {
+          "width": 672,
+          "height": 384,
+          "frames": 124,
+          "fps": 24,
+          "qwen": "NVFP4_AWQ_resident",
+          "dit": "W8A8_FP8_after_BF16_LoRA_merge",
+          "lora": "FastH3_VSA_DataFree",
+          "lora_strength": 1.0,
+          "updates": 4,
+          "video_sigmas": [
+            1.0,
+            0.972972989,
+            0.923076928,
+            0.8,
+            0.0
+          ],
+          "audio_sigmas": [
+            1.0,
+            0.9,
+            0.75,
+            0.5,
+            0.0
+          ],
+          "attention": "VSA_cuDNN_BSA",
+          "sparsity": 0.9,
+          "tile_size": 64,
+          "video_decode": false
+        },
+        "handoff": {
+          "transport": "CPU_tensor_file",
+          "representation": "normalized_H3_latent_and_original_PCM",
+          "upscale_before_adapter": true,
+          "upscale_ratio": 2.0,
+          "normalization": "author_D(model(N(normalized_H3)))",
+          "refiner_input_shape": [
+            1,
+            128,
+            16,
+            24,
+            42
+          ]
+        },
+        "stage2": {
+          "compile": true,
+          "fixed_prompt": "4K, refined, high quality, cinematic detail, clean textures, natural motion.",
+          "online_text_encoder": false,
+          "transformer": "LTX-2.5_dev_BF16",
+          "lora": "distilled_lora_450",
+          "lora_strength": 0.8,
+          "updates": 3,
+          "sigmas": [
+            0.909375,
+            0.725,
+            0.421875,
+            0.0
+          ],
+          "attention": "Triton_Sol",
+          "taus": [
+            1.0,
+            1.25,
+            1.5
+          ],
+          "threshold": "diag",
+          "dense_layers": [
+            0
+          ],
+          "decoder": "official_Conv_VAE",
+          "tiles": {
+            "temporal": 128,
+            "temporal_overlap": 24,
+            "height": 448,
+            "height_overlap": 64,
+            "width": 768,
+            "width_overlap": 64
+          },
+          "direct_nhwc": true,
+          "writer_chunk_frames": 16,
+          "single_gpu_all2all": true
+        },
+        "output": {
+          "width": 1344,
+          "height": 768,
+          "frames": 121,
+          "fps": 24,
+          "video_codec": "H264",
+          "crf": 19,
+          "preset": "veryfast",
+          "audio": "original_H3_PCM_to_AAC_stereo_32000Hz"
+        }
+      },
+      "requests": [
+        {
+          "case_id": "generation",
+          "seed": 7,
+          "task": "t2va",
+          "status": "PASS",
+          "request_start_monotonic_ns": 5926224989134,
+          "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/t2va-timed-20260911-190401/generation/stage2/refined_1344x768_121f.mp4",
+          "e2e_s": 68.164401672,
+          "final_mp4_complete_monotonic_ns": 5994389390806,
+          "qwen_s": 1.475377735,
+          "stage1_s": 20.093377446,
+          "stage2_s": 36.887687826,
+          "stage2_phases_s": {
+            "input_decode_resize_s": 0.000139,
+            "learned_latent_upsample_s": 0.0,
+            "highres_first_frame_condition_s": 5e-06,
+            "audio_vae_encode_s": 0.007181,
+            "multimodal_state_prepare_s": 0.000831,
+            "joint_video_audio_stage2_s": 26.262956,
+            "official_video_vae_decode_s": 7.561084,
+            "decode_stream_and_h264_mux_s": 8.387618,
+            "h264_encode_mux_s": 0.826534,
+            "output_verify_s": 0.00741,
+            "per_request_gc_allocator_cleanup_s": 7e-06,
+            "fixed_prompt_context_copy_s": 0.00059,
+            "h3_upscale_and_adapter_s": 2.211983,
+            "h3_latent_upscale_s": 1.9747770229996604,
+            "h3_ltx_adapter_s": 0.23660610699971585
+          }
+        }
+      ],
+      "timing": "same-host monotonic request entry to completed muxed MP4",
+      "warmup_excluded": true,
+      "first_formal_request_included": true,
+      "phase_sum_used": false,
+      "startup_and_warmup_s": 334.094642398,
+      "warmup": {
+        "case_id": "generation",
+        "seed": 999,
+        "output": "/home/mikesai3/sol-h3-spark-runtime/outputs/t2va-timed-20260911-190401/warmup/stage2/refined_1344x768_121f.mp4"
+      },
+      "mean_e2e_s": 68.164401672
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
     "file": "strix-halo-8060s/results/benchmark_20260806_100753.json",
     "raw": {
       "system_info": {
