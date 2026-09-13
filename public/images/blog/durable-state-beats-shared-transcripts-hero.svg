@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: isolated workers write a durable ledger. No letters.
+     Brand: navy #001F3F, orange #ea580c, gold #C9A96E, cyan #00D4FF. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Isolated workers writing a durable store">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#012a52"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="glowGold" cx="50%" cy="62%" r="42%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowOrange" cx="18%" cy="28%" r="30%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowCyan" cx="82%" cy="26%" r="28%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowGold)"/>
+  <rect width="1200" height="630" fill="url(#glowOrange)"/>
+  <rect width="1200" height="630" fill="url(#glowCyan)"/>
+
+  <g stroke="#12365c" stroke-width="1" opacity="0.45" fill="none">
+    <rect x="40" y="40" width="1120" height="550" rx="6"/>
+    <line x1="40" y1="315" x2="1160" y2="315"/>
+  </g>
+
+  <!-- faint tangled transcript (anti-pattern), upper band -->
+  <g fill="none" stroke="#ea580c" stroke-width="2" opacity="0.18" stroke-linecap="round">
+    <path d="M90,90 C180,40 240,160 330,95 S480,40 560,110 S700,180 790,90 S980,40 1110,120"/>
+    <path d="M120,150 C220,200 310,80 410,160 S620,210 720,130 S900,70 1080,155"/>
+  </g>
+
+  <!-- three isolated workers: no edges between them -->
+  <g>
+    <rect x="120" y="118" width="132" height="132" rx="16" fill="#0a2f5c" stroke="#ea580c" stroke-width="3"/>
+    <rect x="148" y="146" width="76" height="10" rx="3" fill="#ea580c" opacity="0.9"/>
+    <rect x="148" y="168" width="52" height="8" rx="3" fill="#C9A96E" opacity="0.7"/>
+    <rect x="148" y="188" width="64" height="8" rx="3" fill="#C9A96E" opacity="0.45"/>
+  </g>
+  <g>
+    <rect x="534" y="92" width="132" height="132" rx="16" fill="#0a2f5c" stroke="#C9A96E" stroke-width="3"/>
+    <rect x="562" y="120" width="76" height="10" rx="3" fill="#C9A96E" opacity="0.95"/>
+    <rect x="562" y="142" width="48" height="8" rx="3" fill="#00D4FF" opacity="0.7"/>
+    <rect x="562" y="162" width="60" height="8" rx="3" fill="#C9A96E" opacity="0.4"/>
+  </g>
+  <g>
+    <rect x="948" y="118" width="132" height="132" rx="16" fill="#0a2f5c" stroke="#00D4FF" stroke-width="3"/>
+    <rect x="976" y="146" width="76" height="10" rx="3" fill="#00D4FF" opacity="0.9"/>
+    <rect x="976" y="168" width="44" height="8" rx="3" fill="#C9A96E" opacity="0.7"/>
+    <rect x="976" y="188" width="68" height="8" rx="3" fill="#ea580c" opacity="0.55"/>
+  </g>
+
+  <!-- one-way drops into the ledger; workers never connect -->
+  <g stroke="#C9A96E" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85">
+    <path d="M186,250 L186,360"/>
+    <path d="M176,348 L186,362 L196,348"/>
+    <path d="M600,224 L600,360"/>
+    <path d="M590,348 L600,362 L610,348"/>
+    <path d="M1014,250 L1014,360"/>
+    <path d="M1004,348 L1014,362 L1024,348"/>
+  </g>
+
+  <!-- durable store: stacked gold slabs (SQLite working set) -->
+  <g>
+    <rect x="330" y="392" width="540" height="46" rx="8" fill="#C9A96E" opacity="0.95"/>
+    <rect x="348" y="444" width="504" height="38" rx="8" fill="#ea580c" opacity="0.88"/>
+    <rect x="366" y="488" width="468" height="32" rx="8" fill="#00D4FF" opacity="0.55"/>
+    <rect x="384" y="526" width="432" height="22" rx="6" fill="#C9A96E" opacity="0.35"/>
+  </g>
+</svg>
