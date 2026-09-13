@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="72" x2="1200" y2="72"/>
+    <line x1="0" y1="168" x2="1200" y2="168"/>
+    <line x1="48" y1="0" x2="48" y2="624"/>
+    <line x1="240" y1="0" x2="240" y2="624"/>
+  </g>
+  <text x="48" y="42" fill="#76b900" font-family="'SF Mono','Courier New',monospace" font-size="13">SPARK-56BC · GB10 · COMFYUI 0.35 · MOTION-CONTEXT 22</text>
+  <text x="48" y="88" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="32" font-weight="700">14 hops. 130 seconds. One take.</text>
+  <text x="48" y="120" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="14">native MiniMax H3 · 1344×768 · 6-step turbo · latent pin, not PNG glue</text>
+
+  <!-- hop bars: 14 windows, height ~ delivered seconds -->
+  <g id="bars">
+    <rect x="56" y="280" width="28" height="84" fill="#76b900" opacity="0.95"/>
+    <rect x="92" y="256" width="28" height="108" fill="#00d4aa"/>
+    <rect x="128" y="232" width="28" height="132" fill="#00d4aa"/>
+    <rect x="164" y="208" width="28" height="156" fill="#00d4aa"/>
+    <rect x="200" y="184" width="28" height="180" fill="#00d4aa"/>
+    <rect x="236" y="160" width="28" height="204" fill="#00d4aa"/>
+    <rect x="272" y="148" width="28" height="216" fill="#22d3ee"/>
+    <rect x="308" y="136" width="28" height="228" fill="#22d3ee"/>
+    <rect x="344" y="124" width="28" height="240" fill="#22d3ee"/>
+    <rect x="380" y="112" width="28" height="252" fill="#22d3ee"/>
+    <rect x="416" y="100" width="28" height="264" fill="#22d3ee"/>
+    <rect x="452" y="88" width="28" height="276" fill="#ff9500"/>
+    <rect x="488" y="76" width="28" height="288" fill="#22d3ee"/>
+    <rect x="524" y="64" width="28" height="300" fill="#76b900" filter="url(#glow)"/>
+  </g>
+  <text x="56" y="380" fill="#8ab4c4" font-family="'SF Mono','Courier New',monospace" font-size="11">1</text>
+  <text x="236" y="380" fill="#8ab4c4" font-family="'SF Mono','Courier New',monospace" font-size="11">6</text>
+  <text x="452" y="380" fill="#ff9500" font-family="'SF Mono','Courier New',monospace" font-size="11">12*</text>
+  <text x="524" y="380" fill="#76b900" font-family="'SF Mono','Courier New',monospace" font-size="11">14</text>
+  <text x="56" y="404" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="12">concat duration · hop 12 aborted 85°C, retry PASS</text>
+
+  <!-- stats -->
+  <rect x="620" y="160" width="532" height="244" rx="10" fill="#0f172a"/>
+  <rect x="620" y="160" width="532" height="244" rx="10" fill="rgba(6,78,59,0.35)" stroke="#76b900" stroke-width="1.5"/>
+  <text x="644" y="198" fill="#76b900" font-family="'SF Mono','Courier New',monospace" font-size="13">MEASURED · SPARK-56BC</text>
+  <text x="644" y="240" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="700">129.874 s · 3116 frames</text>
+  <text x="644" y="272" fill="#8ab4c4" font-family="'SF Mono','Courier New',monospace" font-size="14">1344×768 · 24 fps · H.264 + AAC 32 kHz</text>
+  <text x="644" y="316" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="16">~20 min GPU / 10 s window</text>
+  <text x="644" y="344" fill="#8ab4c4" font-family="'SF Mono','Courier New',monospace" font-size="14">6-step turbo · ~150–173 s/it</text>
+  <text x="644" y="376" fill="#8ab4c4" font-family="'SF Mono','Courier New',monospace" font-size="14">join PSNR in-band with adjacent frames</text>
+
+  <rect x="48" y="448" width="1104" height="140" fill="#0a1218"/>
+  <text x="72" y="488" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">OUTPUT</text>
+  <text x="72" y="520" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="20">130 s</text>
+  <text x="72" y="544" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">14 windows</text>
+  <text x="280" y="488" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">WALL</text>
+  <text x="280" y="520" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="20">~4.7 h</text>
+  <text x="280" y="544" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">GPU sum</text>
+  <text x="500" y="488" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">CELL</text>
+  <text x="500" y="520" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="20">10.125 s</text>
+  <text x="500" y="544" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">243 frames</text>
+  <text x="760" y="488" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">PIN</text>
+  <text x="760" y="520" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="20">22 frames</text>
+  <text x="760" y="544" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">AV latent</text>
+  <text x="980" y="488" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">LICENSE</text>
+  <text x="980" y="520" fill="#e8eef4" font-family="'SF Mono','Courier New',monospace" font-size="20">internal</text>
+  <text x="980" y="544" fill="#666" font-family="'SF Mono','Courier New',monospace" font-size="11">no public MP4s</text>
+</svg>
