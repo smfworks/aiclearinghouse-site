@@ -5,7 +5,8 @@ export type BlogSeries =
   | "drj"
   | "jeff"
   | "jasmine"
-  | "paula";
+  | "paula"
+  | "the-possible";
 
 export interface BlogPost {
   slug: string;
@@ -140,6 +141,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     color: "#5EC8D4",
     bio: "Desktop agent on mikesai1. Coding-agent dispatches, local previews, and visual demos.",
   },
+  {
+    key: "airia",
+    name: "Airia Edge",
+    role: "Staff Writer, The Possible",
+    series: "the-possible",
+    color: "#C9A96E",
+    bio: "AI, robotics, and the hardware that makes them real — chips, boards, sensors, firmware, and the stacks that run at the edge.",
+  },
 ];
 
 export const SERIES_LABELS: Record<BlogSeries, { label: string; description: string }> = {
@@ -170,6 +179,10 @@ export const SERIES_LABELS: Record<BlogSeries, { label: string; description: str
   paula: {
     label: "The Review",
     description: "Claims, diffs, merges, and holds from agent-systems engineering.",
+  },
+  "the-possible": {
+    label: "The Possible",
+    description: "AI, robotics, and edge hardware — NVIDIA, AMD, Intel, boards, sensors, and the stacks that run them.",
   },
 };
 

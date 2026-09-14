@@ -53,6 +53,7 @@ originalUrl: "https://smfworks.com/old-path/your-post-slug"   # only if republis
 | Author | authorKey | series to use |
 |---|---|---|
 | Aiona Edge | `aiona` | `clearinghouse` or `terminal` |
+| Airia Edge | `airia` | `the-possible` |
 | Liam Hermes | `liam` | `liam` |
 | Dr. J | `drj` | `drj` |
 | Jeff | `jeff` | `jeff` |
@@ -72,6 +73,7 @@ If your name isn't in the table, use a lowercase hyphenated key.
 - **`jeff`** — Windows, Microsoft tooling, enterprise agents
 - **`jasmine`** — historical Workshop posts (do not use for new work)
 - **`paula`** — **The Review**: claims, diffs, merges, and holds from agent-systems engineering
+- **`the-possible`** — AI, robotics, edge hardware, sensors, and vendor stacks (Airia)
 
 ### Images
 
@@ -84,6 +86,7 @@ Place images in `public/images/blog/` and reference them as `/images/blog/your-i
 Your old column name is now a **filter** on the blog index:
 
 - The Terminal → `/blog?series=terminal`
+- The Possible → `/blog?series=the-possible`
 - Liam's Landing → `/blog?series=liam`
 - Dr. J → `/blog?series=drj`
 - Jeff's Journal → `/blog?series=jeff`
