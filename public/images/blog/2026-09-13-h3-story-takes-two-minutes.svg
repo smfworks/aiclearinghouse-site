@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#8a6a12"/>
+    </linearGradient>
+    <linearGradient id="dusk" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3d5a80"/>
+      <stop offset="100%" stop-color="#1b2838"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#e09a3e"/>
+      <stop offset="100%" stop-color="#8a4b12"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="0.6" opacity="0.35">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200 M0 400 H1200 M0 480 H1200 M0 560 H1200"/>
+    <path d="M80 0 V624 M160 0 V624 M240 0 V624 M320 0 V624 M400 0 V624 M480 0 V624 M560 0 V624 M640 0 V624 M720 0 V624 M800 0 V624 M880 0 V624 M960 0 V624 M1040 0 V624 M1120 0 V624"/>
+  </g>
+  <text x="56" y="56" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13">SPARK-56BC · COMFY NATIVE H3 · 1344×768</text>
+  <text x="56" y="108" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="700">Three takes. Two breaths. 122 s.</text>
+  <text x="56" y="148" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="18">Motion-Context inside a location. Fade-to-black between scenes.</text>
+
+  <g>
+    <rect x="56" y="196" width="320" height="220" rx="10" fill="#0f172a"/>
+    <rect x="56" y="196" width="320" height="220" rx="10" fill="url(#gold)" opacity="0.22" stroke="#c9a227" stroke-width="1.5"/>
+    <text x="76" y="232" fill="#c9a227" font-family="SF Mono, Courier New, monospace" font-size="12">TAKE A · MEADOW GOLD</text>
+    <text x="76" y="278" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="28" font-weight="700">4 hops</text>
+    <text x="76" y="318" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="16">37.784 s · 906 f</text>
+    <text x="76" y="354" fill="#8aa" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="14">latent pin · ffmpeg -c copy</text>
+    <text x="76" y="386" fill="#8aa" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="14">hop-1 wall 1062 s</text>
+  </g>
+  <g>
+    <rect x="440" y="196" width="320" height="220" rx="10" fill="#0f172a"/>
+    <rect x="440" y="196" width="320" height="220" rx="10" fill="url(#dusk)" opacity="0.28" stroke="#5b8ab8" stroke-width="1.5"/>
+    <text x="460" y="232" fill="#7eb6e0" font-family="SF Mono, Courier New, monospace" font-size="12">TAKE B · PORCH DUSK</text>
+    <text x="460" y="278" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="28" font-weight="700">4 hops</text>
+    <text x="460" y="318" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="16">37.784 s · 906 f</text>
+    <text x="460" y="354" fill="#8aa" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="14">new T2V · SaveLatent</text>
+    <text x="460" y="386" fill="#8aa" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="14">85°C abort, retry PASS</text>
+  </g>
+  <g>
+    <rect x="824" y="196" width="320" height="220" rx="10" fill="#0f172a"/>
+    <rect x="824" y="196" width="320" height="220" rx="10" fill="url(#amber)" opacity="0.26" stroke="#e09a3e" stroke-width="1.5"/>
+    <text x="844" y="232" fill="#e09a3e" font-family="SF Mono, Courier New, monospace" font-size="12">TAKE C · LAMP AMBER</text>
+    <text x="844" y="278" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="28" font-weight="700">5 hops</text>
+    <text x="844" y="318" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="16">46.993 s · 1127 f</text>
+    <text x="844" y="354" fill="#8aa" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="14">same room, no meadow light</text>
+    <text x="844" y="386" fill="#8aa" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="14">hop 2+ wall ~1222 s</text>
+  </g>
+
+  <rect x="368" y="286" width="56" height="28" rx="4" fill="#0f172a" stroke="#76b900" stroke-width="1"/>
+  <text x="396" y="305" text-anchor="middle" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="10">8f</text>
+  <rect x="752" y="286" width="56" height="28" rx="4" fill="#0f172a" stroke="#76b900" stroke-width="1"/>
+  <text x="780" y="305" text-anchor="middle" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="10">8f</text>
+
+  <rect x="0" y="468" width="1200" height="156" fill="#071018"/>
+  <text x="56" y="510" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">JOIN</text>
+  <text x="56" y="548" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="22" font-weight="700">122.342 s</text>
+  <text x="56" y="578" fill="#8aa" font-family="SF Mono, Courier New, monospace" font-size="12">2926 frames · 65 MB</text>
+
+  <text x="320" y="510" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">WINDOWS</text>
+  <text x="320" y="548" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="22" font-weight="700">13</text>
+  <text x="320" y="578" fill="#8aa" font-family="SF Mono, Courier New, monospace" font-size="12">4 + 4 + 5</text>
+
+  <text x="520" y="510" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">THERMAL</text>
+  <text x="520" y="548" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="22" font-weight="700">6 aborts</text>
+  <text x="520" y="578" fill="#8aa" font-family="SF Mono, Courier New, monospace" font-size="12">85°C · all retried PASS</text>
+
+  <text x="800" y="510" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">HUMAN PIN</text>
+  <text x="800" y="548" fill="#76b900" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="22" font-weight="700">Picture holds</text>
+  <text x="800" y="578" fill="#8aa" font-family="SF Mono, Courier New, monospace" font-size="12">dialogue later · no public MP4</text>
+</svg>
