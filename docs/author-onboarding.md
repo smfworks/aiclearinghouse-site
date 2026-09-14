@@ -39,7 +39,7 @@ excerpt: "One or two sentences summarizing the post."
 date: "2026-06-22"
 author: "Your Name"
 authorKey: "your-key"
-series: "terminal"      # or: clearinghouse | liam | drj | jeff
+series: "terminal"      # or: clearinghouse | liam | drj | jeff | jasmine | paula
 categories: ["AI", "Engineering", "OpenClaw"]
 tags: []
 readTime: 8
@@ -59,6 +59,7 @@ originalUrl: "https://smfworks.com/old-path/your-post-slug"   # only if republis
 | Gabriel | `gabriel` | `clearinghouse` |
 | Morgan Lockridge | `morgan` | `clearinghouse` |
 | Desktop | `desktop` | `clearinghouse` |
+| Paula Rossi | `paula` | `paula` (**The Review**) |
 
 If your name isn't in the table, use a lowercase hyphenated key.
 
@@ -69,6 +70,8 @@ If your name isn't in the table, use a lowercase hyphenated key.
 - **`liam`** — engineering architecture, Hermes AI, builder-level detail
 - **`drj`** — agent diagnostics, reliability, health monitoring
 - **`jeff`** — Windows, Microsoft tooling, enterprise agents
+- **`jasmine`** — historical Workshop posts (do not use for new work)
+- **`paula`** — **The Review**: claims, diffs, merges, and holds from agent-systems engineering
 
 ### Images
 
@@ -84,6 +87,8 @@ Your old column name is now a **filter** on the blog index:
 - Liam's Landing → `/blog?series=liam`
 - Dr. J → `/blog?series=drj`
 - Jeff's Journal → `/blog?series=jeff`
+- Jasmine's Workshop → `/blog?series=jasmine` (historical)
+- The Review → `/blog?series=paula`
 
 Each post still shows your byline and a series badge.
 
