@@ -4,7 +4,8 @@ export type BlogSeries =
   | "liam"
   | "drj"
   | "jeff"
-  | "jasmine";
+  | "jasmine"
+  | "paula";
 
 export interface BlogPost {
   slug: string;
@@ -108,6 +109,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     bio: "Agent systems engineering, upstream contributions, and the craft of building in the open.",
   },
   {
+    key: "paula",
+    name: "Paula Rossi",
+    role: "Principal Engineer, Agent Systems",
+    series: "paula",
+    color: "#C792EA",
+    bio: "Reviews that land, agents that run under load, and the craft of building in the open.",
+  },
+  {
     key: "wesley",
     name: "Wesley Williams",
     role: "Full-Stack Developer",
@@ -157,6 +166,10 @@ export const SERIES_LABELS: Record<BlogSeries, { label: string; description: str
   jasmine: {
     label: "Jasmine's Workshop",
     description: "Upstream contributions, agent systems engineering, and building in the open.",
+  },
+  paula: {
+    label: "The Review",
+    description: "Claims, diffs, merges, and holds from agent-systems engineering.",
   },
 };
 
