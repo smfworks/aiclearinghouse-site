@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-23T12:59:39.000Z",
-  "updated_at": "2026-07-23T12:59:39.000Z",
+  "updated_at": "2026-09-16T12:10:14.000Z",
   "source": "comprehensive_manual",
   "providers": [
     {
@@ -614,6 +614,20 @@
       "icon": "/images/llms/deepseek.svg",
       "type": "provider",
       "models": [
+        {
+          "model": "DeepSeek-V4.1-Flash",
+          "model_id": "deepseek-v4-1-flash",
+          "input_price": 0.003,
+          "output_price": 0.21,
+          "cached_input_price": 0.003,
+          "context_window": 400000,
+          "max_output_tokens": 16384,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Flagship",
+          "description": "DeepSeek's Causal Encoder-Decoder MoE (552B total, 8B active prefill) cuts KV cache 8x. GPQA Diamond 90.9, Terminal-Bench 2.1: 90.6. $0.003/M input off-peak. MIT-licensed open weights.",
+          "release_date": "2026-09"
+        },
         {
           "model": "DeepSeek-V4",
           "model_id": "deepseek-v4",
@@ -2041,6 +2055,31 @@
           "category": "Image",
           "description": "Open-weight image generation. Great quality per dollar.",
           "release_date": "2025-06"
+        }
+      ]
+    },
+    {
+      "id": "shanghai-ai-lab",
+      "name": "Shanghai AI Laboratory",
+      "description": "Shanghai AI Lab (InternLM) — agentic models with open MIT weights and long context windows.",
+      "website": "https://github.com/InternLM",
+      "pricing_url": "",
+      "icon": "/images/llms/default.svg",
+      "type": "provider",
+      "models": [
+        {
+          "model": "Atria Dawn Preview",
+          "model_id": "atria-dawn-preview",
+          "input_price": null,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": 1048576,
+          "max_output_tokens": 32768,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Open Source",
+          "description": "744B MoE agentic model with MIT weights and 1M context. Top scores on BrowseComp (92.5), CyberGym (86.5), AutomationBench (53.8). No API — self-host only. Trained via Verifiable Experience Pipeline.",
+          "release_date": "2026-09"
         }
       ]
     }
