@@ -24050,6 +24050,242 @@
     "endpoint": "https://ollama.com/v1"
   },
   {
+    "file": "comfy-h3-sigils-56bc/results/sigils-run-summary.json",
+    "raw": {
+      "job": "sigils",
+      "title": "Sigils in the Steel (Merovingian Axe)",
+      "node": "spark-56bc",
+      "gpu": "NVIDIA GB10",
+      "driver": "sigils-driver.py",
+      "log": "/home/mikesai3/comfyui-minimax-h3-dgx-spark/logs/sigils.jsonl",
+      "start_ts": "2026-09-14T11:32:13Z",
+      "end_ts": "2026-09-16T03:50:53Z",
+      "calendar_hours": 40.311,
+      "windows_pass": 28,
+      "windows_planned": 28,
+      "abort_thermal": 20,
+      "denoise_pass_wall_s": 33285.5,
+      "denoise_pass_wall_h": 9.25,
+      "final_mp4": "smf_sigil_4min.mp4",
+      "final_probe": {
+        "duration_s": 262.846,
+        "nb_frames": 6285,
+        "width": 1344,
+        "height": 768,
+        "fps": "24/1",
+        "video": "h264",
+        "audio": "aac",
+        "sample_rate": 32000,
+        "channels": 2,
+        "size_bytes": 169207079
+      },
+      "takes": [
+        {
+          "id": "A",
+          "scene": "charcoal forge night (title + verse 1)",
+          "hops": 5,
+          "duration_s": 47.0,
+          "size_bytes": 29622762,
+          "hop1_wall_s": 1082.1,
+          "peaks_c": [
+            84,
+            84,
+            84,
+            84,
+            84
+          ]
+        },
+        {
+          "id": "B",
+          "scene": "dawn throw (Lech/Loire + chorus 1)",
+          "hops": 4,
+          "duration_s": 37.784,
+          "size_bytes": 9765620,
+          "hop1_wall_s": 1062.0,
+          "peaks_c": [
+            84,
+            84,
+            84,
+            84
+          ]
+        },
+        {
+          "id": "C",
+          "scene": "Charlemagne / Saxon wars / Rhine",
+          "hops": 6,
+          "duration_s": 56.202,
+          "size_bytes": 27150123,
+          "hop1_wall_s": 1062.1,
+          "peaks_c": [
+            83,
+            83,
+            83,
+            84,
+            83,
+            84
+          ]
+        },
+        {
+          "id": "D",
+          "scene": "quench / etch bridge (forge, amber steam)",
+          "hops": 5,
+          "duration_s": 46.993,
+          "size_bytes": 12165311,
+          "hop1_wall_s": 1062.1,
+          "peaks_c": [
+            84,
+            82,
+            82,
+            83,
+            83
+          ]
+        },
+        {
+          "id": "E",
+          "scene": "dusk battle, big chorus",
+          "hops": 4,
+          "duration_s": 37.784,
+          "size_bytes": 14398114,
+          "hop1_wall_s": 1062.0,
+          "peaks_c": [
+            85,
+            84,
+            84,
+            84
+          ]
+        },
+        {
+          "id": "F",
+          "scene": "outro, Franks ride",
+          "hops": 4,
+          "duration_s": 37.784,
+          "size_bytes": 12874334,
+          "hop1_wall_s": 1062.1,
+          "peaks_c": [
+            84,
+            85,
+            83,
+            84
+          ]
+        }
+      ],
+      "aborts": [
+        {
+          "take": "A",
+          "hop": 3,
+          "n": 2
+        },
+        {
+          "take": "A",
+          "hop": 5,
+          "n": 1
+        },
+        {
+          "take": "B",
+          "hop": 1,
+          "n": 8
+        },
+        {
+          "take": "C",
+          "hop": 1,
+          "n": 2
+        },
+        {
+          "take": "C",
+          "hop": 6,
+          "n": 2
+        },
+        {
+          "take": "D",
+          "hop": 1,
+          "n": 1
+        },
+        {
+          "take": "D",
+          "hop": 3,
+          "n": 1
+        },
+        {
+          "take": "D",
+          "hop": 5,
+          "n": 1
+        },
+        {
+          "take": "E",
+          "hop": 1,
+          "n": 1
+        },
+        {
+          "take": "E",
+          "hop": 4,
+          "n": 1
+        }
+      ],
+      "graph": {
+        "unet": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+        "clip": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "video_vae": "minimax_h3_video_vae_fp16.safetensors",
+        "audio_vae": "minimax_h3_audio_vae_fp32.safetensors",
+        "lora": "minimax_h3_turbo_v4_step600_ema.safetensors",
+        "lora_strength": 1.0,
+        "width": 1344,
+        "height": 768,
+        "length": 243,
+        "fps": 24,
+        "steps": 6,
+        "scheduler": "simple",
+        "denoise": 1.0,
+        "context_length": 22,
+        "audio_context_length": 24,
+        "hop2_trim_frames": 22,
+        "comfyui": "0.35.0",
+        "pytorch": "2.14.0+cu130",
+        "listen": "127.0.0.1:8188",
+        "fast": "autotune"
+      },
+      "spark_idle_2026_09_16T10:15Z": {
+        "nvidia_smi": "580.173.02",
+        "cuda": "13.0",
+        "persistence": "Enabled",
+        "perf": "P0",
+        "temp_c": 49,
+        "power_w": 12.64,
+        "power_limit": null,
+        "clocks_mhz": {
+          "graphics": 2405,
+          "sm": 2405,
+          "video": 2073,
+          "max_graphics": 3003,
+          "apps_graphics": 2418
+        },
+        "cpu_governor": "performance",
+        "cpu_freq_khz": 2808000,
+        "nproc": 20,
+        "kernel": "6.17.0-1032-nvidia",
+        "mem_total_kb": 127600748
+      },
+      "desk_fan": {
+        "placed": "2026-09-15 morning EDT, before C1 attempt 2",
+        "c1_fan_off_aborts_c": [
+          85,
+          86
+        ],
+        "c1_fan_on_pass_peak_c": 83,
+        "c1_fan_on_wall_s": 1062.1
+      },
+      "join": {
+        "inside_take": "ffmpeg concat demuxer -c copy after 22-frame trim",
+        "between_takes": "xfade=fadeblack duration=0.333333 + acrossfade",
+        "music_in_prompt": "N/A"
+      },
+      "license": "MiniMax H3 Community; generated MP4s internal eval only"
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
     "file": "deepseek-v4-flash-0731-dspark-2x/results/stage1_cal-dsv4-flash-dspark-strict-v01-thinking-on_20260818_015954.json",
     "raw": {
       "tag": "cal-dsv4-flash-dspark-strict-v01-thinking-on",
