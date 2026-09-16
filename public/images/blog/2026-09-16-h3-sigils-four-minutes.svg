@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="160" x2="1200" y2="160"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="80" y1="0" x2="80" y2="624"/>
+    <line x1="160" y1="0" x2="160" y2="624"/>
+  </g>
+  <text x="48" y="52" fill="#e8eef4" font-family="'SF Pro Display', Helvetica, Arial, sans-serif" font-size="28" font-weight="700">Sigils in the Steel — 28 windows, one GB10</text>
+  <text x="48" y="82" fill="#5a8a6a" font-family="'SF Mono', 'Courier New', monospace" font-size="14">Comfy native H3 · 1344×768 · 6-step turbo · Motion-Context 22</text>
+  <g font-family="'SF Mono', 'Courier New', monospace">
+    <text x="48" y="140" fill="#76b900" font-size="13">A forge 5h</text>
+    <rect x="200" y="122" width="188" height="22" fill="#76b900" opacity="0.85"/>
+    <text x="48" y="180" fill="#00d4aa" font-size="13">B throw 4h</text>
+    <rect x="200" y="162" width="151" height="22" fill="#00d4aa" opacity="0.85"/>
+    <text x="48" y="220" fill="#ff9500" font-size="13">C Rhine 6h</text>
+    <rect x="200" y="202" width="225" height="22" fill="#ff9500" opacity="0.85"/>
+    <text x="48" y="260" fill="#76b900" font-size="13">D quench 5h</text>
+    <rect x="200" y="242" width="188" height="22" fill="#76b900" opacity="0.7"/>
+    <text x="48" y="300" fill="#00d4aa" font-size="13">E dusk 4h</text>
+    <rect x="200" y="282" width="151" height="22" fill="#00d4aa" opacity="0.7"/>
+    <text x="48" y="340" fill="#c8d4dc" font-size="13">F ride 4h</text>
+    <rect x="200" y="322" width="151" height="22" fill="#5a8a6a" opacity="0.9"/>
+    <text x="440" y="220" fill="#666" font-size="12">fadeblack-8f between takes · concat -c copy inside</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="48" y="400" width="1104" height="176" rx="8" fill="#0d1520" stroke="#1a2a3a"/>
+  </g>
+  <g font-family="'SF Mono', 'Courier New', monospace" fill="#e8eef4" text-anchor="middle">
+    <text x="160" y="448" font-size="12" fill="#5a8a6a">WINDOWS</text>
+    <text x="160" y="488" font-size="32" font-weight="700">28/28</text>
+    <text x="160" y="518" font-size="12" fill="#666">all_pass</text>
+    <text x="400" y="448" font-size="12" fill="#5a8a6a">JOIN</text>
+    <text x="400" y="488" font-size="32" font-weight="700">262.8s</text>
+    <text x="400" y="518" font-size="12" fill="#666">6285 f · 161 MB</text>
+    <text x="640" y="448" font-size="12" fill="#5a8a6a">DENOISE</text>
+    <text x="640" y="488" font-size="32" font-weight="700">9.25h</text>
+    <text x="640" y="518" font-size="12" fill="#666">PASS hops only</text>
+    <text x="880" y="448" font-size="12" fill="#5a8a6a">ABORTS</text>
+    <text x="880" y="488" font-size="32" font-weight="700" fill="#ff9500">20</text>
+    <text x="880" y="518" font-size="12" fill="#666">thermal · all retried</text>
+    <text x="1080" y="448" font-size="12" fill="#5a8a6a">IDLE CLOCK</text>
+    <text x="1080" y="488" font-size="28" font-weight="700">2405</text>
+    <text x="1080" y="518" font-size="12" fill="#666">MHz SM · max 3003</text>
+  </g>
+</svg>
