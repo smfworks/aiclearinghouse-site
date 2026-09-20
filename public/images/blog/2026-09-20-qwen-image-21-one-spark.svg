@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.35">
+    <path d="M0 104 H1200 M0 208 H1200 M0 312 H1200 M0 416 H1200 M0 520 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="56" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="14">spark-d369 · GB10 · ComfyUI 0.36.0</text>
+  <text x="48" y="118" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="42" font-weight="700">Qwen-Image-2.1</text>
+  <text x="48" y="158" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="20">7B DiT · INT8 ConvRot · one Spark · H3 kept</text>
+  <g filter="url(#glow)">
+    <rect x="48" y="200" width="210" height="88" rx="8" fill="#122018" stroke="#76b900" stroke-width="1.5"/>
+    <rect x="274" y="200" width="210" height="88" rx="8" fill="#122018" stroke="#00d4aa" stroke-width="1.5"/>
+    <rect x="500" y="200" width="210" height="88" rx="8" fill="#122018" stroke="#00d4aa" stroke-width="1.5"/>
+    <rect x="726" y="200" width="210" height="88" rx="8" fill="#122018" stroke="#ff9500" stroke-width="1.5"/>
+    <rect x="952" y="200" width="200" height="88" rx="8" fill="#122018" stroke="#76b900" stroke-width="1.5"/>
+  </g>
+  <text x="153" y="236" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="12">SUITE</text>
+  <text x="153" y="270" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="28" font-weight="700">23/23</text>
+  <text x="379" y="236" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="12">1024² / 25</text>
+  <text x="379" y="270" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="28" font-weight="700">20 s</text>
+  <text x="605" y="236" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="12">2048² / 25</text>
+  <text x="605" y="270" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="28" font-weight="700">128 s</text>
+  <text x="831" y="236" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="12">EDIT (SERIAL)</text>
+  <text x="831" y="270" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="28" font-weight="700">~28 s</text>
+  <text x="1052" y="236" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="12">PEAK DIE</text>
+  <text x="1052" y="270" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="28" font-weight="700">78°C</text>
+  <text x="48" y="360" fill="#8aa" font-family="SF Mono, Courier New, monospace" font-size="13">WEIGHTS ON DISK (Comfy-Org INT8 pin)</text>
+  <rect x="48" y="380" width="220" height="18" rx="3" fill="#1a3040"/>
+  <rect x="48" y="380" width="160" height="18" rx="3" fill="#00d4aa"/>
+  <text x="280" y="394" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="13">DiT INT8 7.26 GB</text>
+  <rect x="48" y="412" width="280" height="18" rx="3" fill="#1a3040"/>
+  <rect x="48" y="412" width="206" height="18" rx="3" fill="#76b900"/>
+  <text x="340" y="426" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="13">Qwen3-VL-8B INT8 9.35 GB</text>
+  <rect x="48" y="444" width="80" height="18" rx="3" fill="#ff9500"/>
+  <text x="140" y="458" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="13">VAE BF16 0.68 GB</text>
+  <rect x="0" y="540" width="1200" height="84" fill="#081018"/>
+  <text x="80" y="572" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">LAYERS</text>
+  <text x="80" y="598" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="18">32</text>
+  <text x="280" y="572" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">DIT PARAMS</text>
+  <text x="280" y="598" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="18">7.115B</text>
+  <text x="500" y="572" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">TE</text>
+  <text x="500" y="598" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="18">Qwen3-VL-8B</text>
+  <text x="740" y="572" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">SAMPLER</text>
+  <text x="740" y="598" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="18">euler/simple</text>
+  <text x="980" y="572" text-anchor="middle" fill="#5a8a6a" font-family="SF Mono, Courier New, monospace" font-size="11">OTHER BOX</text>
+  <text x="980" y="598" text-anchor="middle" fill="#e8eef4" font-family="SF Mono, Courier New, monospace" font-size="18">H3 stays</text>
+</svg>
