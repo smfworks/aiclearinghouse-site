@@ -73304,6 +73304,186 @@
     "endpoint": "http://spark-56bc:30000/v1"
   },
   {
+    "file": "qwen3.8-flash-next-tp1-d369/results/2026-09-19-24-7-kit.json",
+    "raw": {
+      "date": "2026-09-19",
+      "host": "spark-d369",
+      "recipe": "MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark",
+      "recipe_head": "6b50864",
+      "image": "vllm/vllm-openai:qwen38-flash-next",
+      "checkpoint": "Mia-AiLab/Qwen3.8-Flash-Next-NVFP4",
+      "served_id": "qwen3.8-flash-next",
+      "pins": {
+        "YARN": 0,
+        "MAX_MODEL_LEN": 262144,
+        "MTP_NUM_SPECULATIVE_TOKENS": 3,
+        "KV_TARGET_GIB": 16,
+        "HOST_RESERVE_GIB": 26,
+        "KV_CACHE_DTYPE": "fp8",
+        "MAMBA_SSM_CACHE_DTYPE": "bfloat16",
+        "MAX_NUM_SEQS": 2,
+        "MAX_NUM_BATCHED_TOKENS": 2048,
+        "ABLIT": 0,
+        "MTP_DRAFT_VOCAB": "files/draft_vocab_en_code_47k.txt",
+        "TP1_MODEL_ID": null,
+        "CHAT_TEMPLATE": null
+      },
+      "launch": {
+        "first_attempt": "watchdog_killed",
+        "reason": "MemAvailable under 6 GiB for 5 samples during graph capture; polkitd 7.5 GiB after 5d uptime; driver ~109 GiB",
+        "second_attempt": "ok",
+        "time_to_health_s": 671,
+        "kv_tokens": 1019286,
+        "max_concurrency_at_262144": 3.89,
+        "idle_memavailable_gib_after_smoke": 17.4
+      },
+      "smoke_test_sh": {
+        "passed": 8,
+        "failed": 0,
+        "decode_tok_s_smoke": 31.5,
+        "notes": "scripts/smoke-test.sh from recipe 6b50864; includes vision fixture"
+      },
+      "functional_from_workstation": [
+        {
+          "name": "models",
+          "status": "PASS",
+          "detail": "id=qwen3.8-flash-next max_model_len=262144"
+        },
+        {
+          "name": "math_thinking_off",
+          "status": "PASS",
+          "content": "391",
+          "completion_tokens": 4,
+          "wall_s": 0.53,
+          "tok_s": 7.6,
+          "note": "TTFT-dominated; ignore for throughput"
+        },
+        {
+          "name": "code_200tok",
+          "status": "PASS",
+          "completion_tokens": 130,
+          "wall_s": 2.38,
+          "tok_s": 54.7
+        },
+        {
+          "name": "decode_400_count",
+          "status": "PASS",
+          "completion_tokens": 310,
+          "wall_s": 4.97,
+          "tok_s": 62.4
+        },
+        {
+          "name": "tool_call",
+          "status": "PASS",
+          "function": "get_weather",
+          "args": {
+            "location": "Tokyo"
+          },
+          "completion_tokens": 27,
+          "wall_s": 0.89,
+          "tok_s": 30.5
+        }
+      ],
+      "structured_py": {
+        "script": "bench/structured.py",
+        "port": 8888,
+        "model": "qwen3.8-flash-next",
+        "max_tokens": 400,
+        "reps": 3,
+        "streams": [
+          1,
+          2
+        ],
+        "thinking": false,
+        "temperature": 0,
+        "rows": [
+          {
+            "streams": 1,
+            "rep": 0,
+            "per_stream_tok_s": 67.8,
+            "aggregate_tok_s": 64.8,
+            "ttft_ms": 272,
+            "wall_s": 6.2,
+            "tok": 400
+          },
+          {
+            "streams": 1,
+            "rep": 1,
+            "per_stream_tok_s": 68.3,
+            "aggregate_tok_s": 65.8,
+            "ttft_ms": 222,
+            "wall_s": 6.1,
+            "tok": 400
+          },
+          {
+            "streams": 1,
+            "rep": 2,
+            "per_stream_tok_s": 68.3,
+            "aggregate_tok_s": 65.2,
+            "ttft_ms": 271,
+            "wall_s": 6.1,
+            "tok": 400
+          },
+          {
+            "streams": 2,
+            "rep": 0,
+            "per_stream_tok_s": 62.2,
+            "aggregate_tok_s": 94.4,
+            "ttft_ms": 2043,
+            "wall_s": 8.5,
+            "tok": 800
+          },
+          {
+            "streams": 2,
+            "rep": 1,
+            "per_stream_tok_s": 62.3,
+            "aggregate_tok_s": 119.0,
+            "ttft_ms": 299,
+            "wall_s": 6.7,
+            "tok": 800
+          },
+          {
+            "streams": 2,
+            "rep": 2,
+            "per_stream_tok_s": 59.3,
+            "aggregate_tok_s": 101.3,
+            "ttft_ms": 939,
+            "wall_s": 7.9,
+            "tok": 800
+          }
+        ],
+        "means_last3_c1": {
+          "per_stream_tok_s": 68.1,
+          "aggregate_tok_s": 65.3,
+          "ttft_ms": 255
+        },
+        "means_c2": {
+          "per_stream_tok_s": 61.3,
+          "aggregate_tok_s": 104.9,
+          "ttft_ms": 1094
+        }
+      },
+      "published_2026_09_11_structured": {
+        "source": "MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark README 2026-09-11 row",
+        "caveat": "Their launch was MAX_NUM_SEQS=8, HOST_RESERVE_GIB=28, 512k YaRN. Ours is seqs=2, reserve=26, 262k native.",
+        "c1": {
+          "aggregate_tok_s": 65.2,
+          "per_stream_tok_s": 67.7,
+          "ttft_ms": 230
+        },
+        "c2": {
+          "aggregate_tok_s": 116.2,
+          "per_stream_tok_s": 60.7,
+          "ttft_ms": 290
+        }
+      }
+    },
+    "model": "unknown",
+    "timestamp": "",
+    "hardware": "",
+    "endpoint": ""
+  },
+  {
     "file": "qwen3.8-flash-next-tp1-d369/results/stage1_cal-glm53-flash-udiq2xxs-d369-strict-v01_20260905_010914.json",
     "raw": {
       "tag": "cal-glm53-flash-udiq2xxs-d369-strict-v01",
