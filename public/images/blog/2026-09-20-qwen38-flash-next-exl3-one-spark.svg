@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="44" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">CHAT.PY · GREEDY · 400 TOK · TOPK 1 · NO_THINK · MTP NDT=5</text>
+  <text x="48" y="90" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">Qwen3.8-Flash-Next EXL3 · 1× DGX Spark</text>
+  <text x="48" y="124" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="16">vcruz305 native engine @ 329e051 · 3.05 bpw · spark-d369 vs published 2026-09-17</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="13">
+    <text x="48" y="176" fill="#9ab0a0">Decode tok/s (quote the code rerun)</text>
+    <text x="48" y="216" fill="#e8eef4">code published</text>
+    <rect x="300" y="200" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="300" y="200" width="695" height="22" fill="#3d6a80" rx="2"/>
+    <text x="1010" y="216" fill="#8ab4c4">79</text>
+    <text x="48" y="256" fill="#e8eef4">code spark-d369</text>
+    <rect x="300" y="240" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="300" y="240" width="700" height="22" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="1010" y="256" fill="#76b900">79.53</text>
+    <text x="48" y="296" fill="#e8eef4">devops published / ours</text>
+    <rect x="300" y="280" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="300" y="280" width="546" height="22" fill="#3d6a80" rx="2"/>
+    <rect x="300" y="280" width="525" height="22" fill="#5a8a6a" rx="2" opacity="0.85"/>
+    <text x="860" y="296" fill="#9ab0a0">62 / 59.59</text>
+    <text x="48" y="336" fill="#e8eef4">prose published / ours</text>
+    <rect x="300" y="320" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="300" y="320" width="467" height="22" fill="#3d6a80" rx="2"/>
+    <rect x="300" y="320" width="481" height="22" fill="#76b900" rx="2" opacity="0.7"/>
+    <text x="860" y="336" fill="#9ab0a0">53 / 54.62</text>
+    <text x="48" y="376" fill="#e8eef4">code first pass (cold kernels)</text>
+    <rect x="300" y="360" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="300" y="360" width="229" height="22" fill="#8a4030" rx="2"/>
+    <text x="545" y="376" fill="#d08070">25.99 — do not quote</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="520" width="1200" height="104" fill="#081018"/>
+    <text x="48" y="552" fill="#76b900" font-size="12" letter-spacing="2">LIVE PIN</text>
+    <text x="48" y="578" font-size="14">native exllamav3 · 3.05bpw_h5_ng5 · MTP 5 / dds 0.6 · 8-bit KV</text>
+    <text x="48" y="602" fill="#5a8a6a" font-size="13">56bc H3 stayed 200. No resident API. vLLM path not run.</text>
+    <text x="780" y="578" font-size="14">load ~23 s</text>
+    <text x="780" y="602" fill="#5a8a6a" font-size="13">pack 78.64 GB in engine</text>
+  </g>
+</svg>
