@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AETHER — Sanctuary of Light</title>
+<style>
+  :root {
+    --ink: #e8f4ff;
+    --muted: rgba(232, 244, 255, 0.62);
+    --glass: rgba(255, 255, 255, 0.06);
+    --line: rgba(255, 255, 255, 0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: #04060d;
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  canvas#field {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: block;
+  }
+
+  .veil {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(1200px 700px at 50% 110%, rgba(4, 6, 13, 0.2), transparent 60%),
+      radial-gradient(900px 500px at 50% -10%, rgba(4, 6, 13, 0.55), transparent 55%),
+      linear-gradient(to bottom, rgba(4,6,13,0.35), transparent 18%, transparent 78%, rgba(4,6,13,0.55));
+  }
+
+  .cursor {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 20;
+    mix-blend-mode: difference;
+    transition: width .25s, height .25s, background .25s;
+  }
+  .cursor.hot {
+    width: 54px;
+    height: 54px;
+    background: rgba(255,255,255,0.08);
+  }
+  .cursor-dot {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 21;
+    mix-blend-mode: difference;
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 28px 40px 32px;
+  }
+
+  header, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  header .mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    letter-spacing: 0.42em;
+  }
+  .sigil {
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 50%;
+    position: relative;
+  }
+  .sigil::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9ae7ff, #c9a6ff 50%, #ffd6a8);
+    animation: pulse 3.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(0.7); opacity: 0.7; }
+    50% { transform: scale(1); opacity: 1; }
+  }
+
+  main {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero {
+    max-width: 980px;
+    padding: 0 20px;
+  }
+
+  .kicker {
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 22px;
+    animation: rise 1.4s ease both;
+  }
+
+  h1 {
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 148px);
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    background: linear-gradient(180deg, #ffffff 10%, #d7ecff 42%, #b9a6ff 78%, #ffd8b0 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 20px 40px rgba(80, 120, 255, 0.15));
+    animation: rise 1.6s 0.1s ease both;
+  }
+
+  .sub {
+    margin: 28px auto 0;
+    max-width: 560px;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.55;
+    color: rgba(232, 244, 255, 0.78);
+    font-style: italic;
+    animation: rise 1.8s 0.25s ease both;
+  }
+
+  .actions {
+    margin-top: 38px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: rise 2s 0.4s ease both;
+  }
+
+  button, .ghost {
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 11px;
+    border: 1px solid var(--line);
+    background: var(--glass);
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 999px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: none;
+    transition: transform .35s ease, background .35s ease, border-color .35s;
+  }
+  button.primary {
+    background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
+    border-color: rgba(255,255,255,0.35);
+  }
+  button:hover, .ghost:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .orbs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .panel {
+    position: absolute;
+    width: min(280px, 28vw);
+    padding: 22px 22px 20px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.18);
+    text-align: left;
+    animation: floaty 8s ease-in-out infinite;
+  }
+  .panel h3 {
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 10px;
+  }
+  .panel p {
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.88);
+  }
+  .panel .num {
+    margin-top: 14px;
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    letter-spacing: -0.04em;
+    background: linear-gradient(90deg, #fff, #b7d7ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .panel.left { left: 2vw; top: 18%; animation-delay: -2s; }
+  .panel.right { right: 2vw; bottom: 12%; animation-delay: -5s; }
+
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); filter: blur(8px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+
+  .clock {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.18em;
+  }
+
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    background: rgba(4, 6, 13, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .5s ease;
+  }
+  .modal.open { opacity: 1; pointer-events: auto; }
+  .card {
+    width: min(640px, calc(100% - 40px));
+    padding: 42px 40px 36px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(18, 22, 40, 0.72), rgba(10, 12, 24, 0.66));
+    border: 1px solid rgba(255,255,255,0.16);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: translateY(16px) scale(0.98);
+    transition: transform .55s cubic-bezier(.2,.8,.2,1);
+  }
+  .modal.open .card { transform: none; }
+  .card h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin: 8px 0 16px;
+  }
+  .card .eyebrow {
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+  }
+  .card p {
+    color: rgba(232,244,255,0.78);
+    font-size: 18px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .swatches {
+    display: flex;
+    gap: 10px;
+    margin-top: 26px;
+  }
+  .swatch {
+    flex: 1;
+    height: 64px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s;
+  }
+  .swatch:hover { transform: translateY(-3px); }
+  .swatch span {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    font-family: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .swatch.active { outline: 1px solid #fff; outline-offset: 3px; }
+
+  @media (max-width: 860px) {
+    .panel { display: none; }
+    .stage { padding: 20px 18px 22px; }
+    header, footer { letter-spacing: 0.16em; font-size: 10px; }
+    .cursor, .cursor-dot { display: none; }
+    body { cursor: auto; }
+    button, .ghost, .swatch { cursor: pointer; }
+  }
+</style>
+</head>
+<body>
+<canvas id="field"></canvas>
+<div class="veil"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-dot" id="dot"></div>
+
+<div class="stage">
+  <header>
+    <div class="mark"><span class="sigil"></span> AETHER</div>
+    <div>SANCTUARY · 00° LIGHT</div>
+    <div class="clock" id="clock">00:00:00</div>
+  </header>
+
+  <main>
+    <div class="panel left">
+      <h3>Atmosphere</h3>
+      <p>A living field of light, tuned to the quiet of your hand.</p>
+      <div class="num" id="density">12,480</div>
+    </div>
+    <div class="panel right">
+      <h3>Current hour</h3>
+      <p id="poem">Where silence learns the shape of color.</p>
+      <div class="num" id="phase">AURORA</div>
+    </div>
+
+    <div class="hero">
+      <div class="kicker">A private sky, rendered in motion</div>
+      <h1>Stillness,<br>illuminated.</h1>
+      <p class="sub">Drift through a cathedral of particles. The dark is not empty — it is waiting to become light.</p>
+      <div class="actions">
+        <button class="primary" id="enter" data-hot>Enter the veil</button>
+        <button id="shift" data-hot>Shift the sky</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div>LAT 47.6 · LON 122.3</div>
+    <div>MOVE TO CONDUCT THE LIGHT</div>
+    <div id="mode">MODE · NOCTURNE</div>
+  </footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="card">
+    <div class="eyebrow">Invitation</div>
+    <h2>Choose a climate of color.</h2>
+    <p>Each veil is a different weather of the mind. The field remembers your touch and answers in ribbons.</p>
+    <div class="swatches">
+      <div class="swatch active" data-theme="nocturne" style="background: linear-gradient(135deg,#1b2a6b,#7a4dff 55%,#ffb38a)"><span>Nocturne</span></div>
+      <div class="swatch" data-theme="aurora" style="background: linear-gradient(135deg,#063b3a,#3dffc8 50%,#7aa2ff)"><span>Aurora</span></div>
+      <div class="swatch" data-theme="ember" style="background: linear-gradient(135deg,#3a1020,#ff5d73 48%,#ffc56e)"><span>Ember</span></div>
+      <div class="swatch" data-theme="pearl" style="background: linear-gradient(135deg,#d7e6ff,#f7f1ff 45%,#ffe7c2)"><span>Pearl</span></div>
+    </div>
+    <div class="actions" style="justify-content:flex-start;margin-top:28px">
+      <button class="primary" id="close" data-hot>Remain here</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('field');
+const ctx = canvas.getContext('2d', { alpha: false });
+const cur = document.getElementById('cur');
+const dot = document.getElementById('dot');
+const clock = document.getElementById('clock');
+const densityEl = document.getElementById('density');
+const phaseEl = document.getElementById('phase');
+const poemEl = document.getElementById('poem');
+const modeEl = document.getElementById('mode');
+
+const themes = {
+  nocturne: {
+    name: 'NOCTURNE',
+    phase: 'AURORA',
+    poem: 'Where silence learns the shape of color.',
+    bg: [4, 6, 16],
+    colors: [[120, 170, 255], [176, 120, 255], [255, 186, 140], [90, 230, 220]]
+  },
+  aurora: {
+    name: 'AURORA',
+    phase: 'VEIL',
+    poem: 'Green fire walks the edge of night.',
+    bg: [3, 12, 16],
+    colors: [[70, 255, 196], [90, 180, 255], [180, 255, 220], [255, 255, 255]]
+  },
+  ember: {
+    name: 'EMBER',
+    phase: 'HEARTH',
+    poem: 'A small sun, kept carefully.',
+    bg: [16, 6, 8],
+    colors: [[255, 92, 120], [255, 160, 80], [255, 214, 140], [255, 80, 160]]
+  },
+  pearl: {
+    name: 'PEARL',
+    phase: 'DAWN',
+    poem: 'Light, before it remembers a name.',
+    bg: [18, 20, 28],
+    colors: [[255, 236, 214], [196, 214, 255], [255, 196, 220], [230, 255, 246]]
+  }
+};
+
+let theme = themes.nocturne;
+let mouse = { x: innerWidth / 2, y: innerHeight / 2, tx: innerWidth / 2, ty: innerHeight / 2 };
+let particles = [];
+let ribbons = [];
+let w = 0, h = 0, dpr = 1;
+let t = 0;
+
+function resize() {
+  dpr = Math.min(devicePixelRatio || 1, 2);
+  w = innerWidth; h = innerHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  seed();
+}
+
+function seed() {
+  const count = Math.min(220, Math.floor((w * h) / 9000));
+  particles = Array.from({ length: count }, (_, i) => spawn(i));
+  ribbons = Array.from({ length: 5 }, (_, i) => ({
+    phase: Math.random() * Math.PI * 2,
+    amp: 40 + Math.random() * 90,
+    speed: 0.15 + Math.random() * 0.25,
+    y: h * (0.18 + i * 0.15),
+    color: theme.colors[i % theme.colors.length],
+    width: 1.2 + Math.random() * 2.2
+  }));
+  densityEl.textContent = (count * 64).toLocaleString();
+}
+
+function spawn(i) {
+  return {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    z: Math.random(),
+    r: Math.random() * Math.PI * 2,
+    s: 0.15 + Math.random() * 0.55,
+    len: 8 + Math.random() * 26,
+    c: theme.colors[i % theme.colors.length]
+  };
+}
+
+function tickClock() {
+  const d = new Date();
+  clock.textContent = d.toLocaleTimeString([], { hour12: false });
+}
+
+const poems = [
+  'Where silence learns the shape of color.',
+  'Every particle is a remembered star.',
+  'Hold still. The sky will come to you.',
+  'Beauty is a kind of weather.',
+  'Light prefers the company of dark.'
+];
+
+addEventListener('resize', resize);
+addEventListener('pointermove', e => {
+  mouse.tx = e.clientX;
+  mouse.ty = e.clientY;
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+});
+
+document.querySelectorAll('[data-hot]').forEach(el => {
+  el.addEventListener('pointerenter', () => cur.classList.add('hot'));
+  el.addEventListener('pointerleave', () => cur.classList.remove('hot'));
+});
+
+document.getElementById('enter').onclick = () => document.getElementById('modal').classList.add('open');
+document.getElementById('close').onclick = () => document.getElementById('modal').classList.remove('open');
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+});
+
+document.querySelectorAll('.swatch').forEach(s => {
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.swatch').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+    applyTheme(s.dataset.theme);
+  });
+});
+
+let shift = 0;
+document.getElementById('shift').onclick = () => {
+  const keys = Object.keys(themes);
+  shift = (shift + 1) % keys.length;
+  document.querySelectorAll('.swatch').forEach(x => x.classList.toggle('active', x.dataset.theme === keys[shift]));
+  applyTheme(keys[shift]);
+};
+
+function applyTheme(key) {
+  theme = themes[key];
+  modeEl.textContent = 'MODE · ' + theme.name;
+  phaseEl.textContent = theme.phase;
+  poemEl.textContent = theme.poem;
+  particles.forEach((p, i) => p.c = theme.colors[i % theme.colors.length]);
+  ribbons.forEach((r, i) => r.color = theme.colors[i % theme.colors.length]);
+}
+
+function draw() {
+  t += 0.008;
+  mouse.x += (mouse.tx - mouse.x) * 0.08;
+  mouse.y += (mouse.ty - mouse.y) * 0.08;
+
+  const bg = theme.bg;
+  const g = ctx.createLinearGradient(0, 0, 0, h);
+  g.addColorStop(0, `rgb(${bg[0]},${bg[1]+6},${bg[2]+14})`);
+  g.addColorStop(1, `rgb(${bg[0]},${bg[1]},${bg[2]})`);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+
+  // soft luminous wells
+  for (let i = 0; i < 3; i++) {
+    const cx = w * (0.25 + 0.25 * i) + Math.sin(t * 0.6 + i) * 80;
+    const cy = h * (0.35 + 0.12 * Math.sin(t * 0.4 + i * 2));
+    const rad = 280 + 80 * Math.sin(t + i);
+    const col = theme.colors[i % theme.colors.length];
+    const rg = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+    rg.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},0.22)`);
+    rg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rg;
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  // mouse bloom
+  const bloom = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 220);
+  const mc = theme.colors[1];
+  bloom.addColorStop(0, `rgba(${mc[0]},${mc[1]},${mc[2]},0.28)`);
+  bloom.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = bloom;
+  ctx.fillRect(0, 0, w, h);
+
+  // aurora ribbons
+  ribbons.forEach((rb, idx) => {
+    ctx.beginPath();
+    const c = rb.color;
+    ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},0.35)`;
+    ctx.lineWidth = rb.width;
+    ctx.shadowColor = `rgba(${c[0]},${c[1]},${c[2]},0.8)`;
+    ctx.shadowBlur = 24;
+    for (let x = 0; x <= w; x += 8) {
+      const n = Math.sin(x * 0.004 + t * rb.speed + rb.phase)
+        + 0.45 * Math.sin(x * 0.01 - t * 0.7 + idx);
+      const pull = Math.exp(-Math.pow((x - mouse.x) / 280, 2)) * (mouse.y - rb.y) * 0.18;
+      const y = rb.y + n * rb.amp + pull + Math.sin(t * 0.3 + idx) * 20;
+      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  });
+
+  // particles
+  particles.forEach(p => {
+    const dx = mouse.x - p.x;
+    const dy = mouse.y - p.y;
+    const dist = Math.hypot(dx, dy) + 0.001;
+    const influence = Math.max(0, 1 - dist / 280);
+    p.x += Math.cos(p.r) * p.s + (dx / dist) * influence * 1.4;
+    p.y += Math.sin(p.r * 0.8 + t) * p.s * 0.6 + (dy / dist) * influence * 1.4;
+    p.r += 0.002 + influence * 0.02;
+    if (p.x < -20) p.x = w + 20;
+    if (p.x > w + 20) p.x = -20;
+    if (p.y < -20) p.y = h + 20;
+    if (p.y > h + 20) p.y = -20;
+    const alpha = 0.25 + p.z * 0.65;
+    const size = (0.6 + p.z * 1.8) * (1 + influence);
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${alpha})`;
+    ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+    ctx.fill();
+    if (p.z > 0.72) {
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${0.15 + influence * 0.4})`;
+      ctx.lineWidth = 1;
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x - Math.cos(p.r) * p.len, p.y - Math.sin(p.r) * p.len * 0.4);
+      ctx.stroke();
+    }
+  });
+
+  // vignette
+  const v = ctx.createRadialGradient(w/2, h/2, Math.min(w,h)*0.2, w/2, h/2, Math.max(w,h)*0.72);
+  v.addColorStop(0, 'rgba(0,0,0,0)');
+  v.addColorStop(1, 'rgba(0,0,0,0.45)');
+  ctx.fillStyle = v;
+  ctx.fillRect(0, 0, w, h);
+
+  requestAnimationFrame(draw);
+}
+
+setInterval(() => {
+  poemEl.textContent = poems[Math.floor(Math.random() * poems.length)];
+}, 7000);
+setInterval(tickClock, 1000);
+tickClock();
+resize();
+draw();
+</script>
+</body>
+</html>
