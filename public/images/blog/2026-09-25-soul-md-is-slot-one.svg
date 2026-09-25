@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: costume mask (dashed gold) vs slot-one identity slab (solid teal).
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A dashed gold theatrical mask on the left, a gold-to-teal probe in the middle, and a solid teal document occupying slot one on the right">
+  <defs>
+    <linearGradient id="soulBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="soulGlowGold" cx="22%" cy="40%" r="48%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.28"/>
+      <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="soulGlowTeal" cx="78%" cy="58%" r="44%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="soulGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="soulChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#soulBg)"/>
+  <rect width="1200" height="630" fill="url(#soulGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#soulGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: theatrical mask, dashed gold costume -->
+  <ellipse cx="244" cy="318" rx="118" ry="150" fill="url(#soulChassis)" stroke="#f59e0b" stroke-width="4" stroke-dasharray="14 10"/>
+  <ellipse cx="204" cy="290" rx="22" ry="16" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 5"/>
+  <ellipse cx="284" cy="290" rx="22" ry="16" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 5"/>
+  <path d="M214 370 Q244 400 274 370" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 6" stroke-linecap="round"/>
+  <path d="M244 168 L244 128" fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="6 8"/>
+  <circle cx="244" cy="118" r="14" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 5"/>
+
+  <!-- disconnected gold check: overlay selected -->
+  <g opacity="0.9">
+    <circle cx="430" cy="176" r="34" fill="url(#soulGold)"/>
+    <path d="M416 176 L426 186 L448 162" fill="none" stroke="#0a1628" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- gold-to-teal probe: leave the costume, occupy slot one -->
+  <g fill="none" stroke="url(#soulGold)" stroke-width="5" stroke-linecap="round">
+    <path d="M372 318 C520 318 560 250 720 250"/>
+    <path d="M700 232 L720 250 L700 268"/>
+  </g>
+
+  <!-- right: slot-one document, solid teal, seven bars, last gold-confirmed -->
+  <rect x="760" y="118" width="312" height="394" rx="12" fill="url(#soulChassis)" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="788" y="146" width="256" height="36" rx="4" fill="#00d4ff" opacity="0.95"/>
+  <rect x="788" y="198" width="256" height="22" rx="3" fill="#0e7490" opacity="0.88"/>
+  <rect x="788" y="232" width="220" height="22" rx="3" fill="#0e7490" opacity="0.74"/>
+  <rect x="788" y="266" width="240" height="22" rx="3" fill="#0e7490" opacity="0.60"/>
+  <rect x="788" y="300" width="200" height="22" rx="3" fill="#0e7490" opacity="0.48"/>
+  <rect x="788" y="334" width="230" height="22" rx="3" fill="#0e7490" opacity="0.36"/>
+  <rect x="788" y="380" width="168" height="28" rx="4" fill="url(#soulGold)"/>
+  <circle cx="996" cy="394" r="8" fill="#00d4ff"/>
+
+  <g fill="none" stroke="#00d4ff" stroke-width="4" stroke-linecap="round">
+    <path d="M788 456 L1044 456"/>
+  </g>
+</svg>
