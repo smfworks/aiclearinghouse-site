@@ -334,6 +334,21 @@
           "release_date": "2026-05"
         },
         {
+          "model": "Claude Opus 5.5",
+          "model_id": "claude-opus-5-5",
+          "input_price": 4.0,
+          "output_price": 20.0,
+          "cached_input_price": 0.20,
+          "context_window": 1000000,
+          "max_output_tokens": 128000,
+          "mmlu": 90.0,
+          "humaneval": 95.0,
+          "chatbot_arena": 1450,
+          "category": "Flagship",
+          "description": "First model in Anthropic's Claude 5.5 family (Sep 22, 2026). Fable 5.1-level performance at ~40% lower workload cost than Opus 5, with a 60% cache-read price cut. Targets long-running agentic coding, computer use, and knowledge work. BenchAlign v5.6 score 88.5.",
+          "release_date": "2026-09"
+        },
+        {
           "model": "Claude 4 Opus",
           "model_id": "claude-opus-4-20250514",
           "input_price": 15.0,
@@ -731,6 +746,21 @@
           "category": "Flagship",
           "description": "xAI flagship with real-time X data access.",
           "release_date": "2025-02"
+        },
+        {
+          "model": "Grok 4.7",
+          "model_id": "grok-4-7",
+          "input_price": 2.0,
+          "output_price": 6.0,
+          "cached_input_price": 0.50,
+          "context_window": 500000,
+          "max_output_tokens": 32768,
+          "mmlu": 88.0,
+          "humaneval": 93.0,
+          "chatbot_arena": 1410,
+          "category": "Flagship",
+          "description": "xAI's September 21, 2026 flagship for coding and knowledge work. Larger base model with longer RL training on multi-hour tasks. Held at Grok 4.6's $2/$6 token rates, but independent testing shows ~2.5x higher token use. Artificial Analysis Intelligence Index 46 (xHigh). 500K context, multimodal input.",
+          "release_date": "2026-09"
         },
         {
           "model": "Grok 3 Mini",
