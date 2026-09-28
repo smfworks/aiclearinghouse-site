@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't Collapse the Advisory" — gold collapsed stamp vs two teal predicates.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A dashed gold stamp covering a whole chassis on the left, a gold-to-teal split in the middle, and two solid teal predicate bars with a third gold confirmation on the right">
+  <defs>
+    <linearGradient id="advBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="advGlowGold" cx="26%" cy="44%" r="46%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="advGlowTeal" cx="76%" cy="56%" r="44%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="advGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="advChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#advBg)"/>
+  <rect width="1200" height="630" fill="url(#advGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#advGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: one gold stamp covering the whole chassis (collapsed advisory) -->
+  <rect x="108" y="128" width="272" height="374" rx="12" fill="url(#advChassis)" stroke="#f59e0b" stroke-width="3" stroke-dasharray="12 10"/>
+  <circle cx="244" cy="292" r="86" fill="none" stroke="#f59e0b" stroke-width="10" opacity="0.95"/>
+  <circle cx="244" cy="292" r="58" fill="url(#advGold)" opacity="0.88"/>
+  <rect x="214" y="278" width="60" height="28" rx="4" fill="#0a1628"/>
+
+  <!-- middle: the split — one gold conclusion, two teal predicates -->
+  <g fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7 8" opacity="0.55">
+    <path d="M380 292 C460 292 500 180 760 176"/>
+    <path d="M380 292 C460 292 500 400 760 404"/>
+  </g>
+  <g fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="round">
+    <path d="M430 292 L720 292"/>
+    <path d="M698 274 L720 292 L698 310"/>
+  </g>
+
+  <!-- right: two teal predicates + one gold confirmation (not a third collapse) -->
+  <rect x="760" y="118" width="312" height="394" rx="12" fill="url(#advChassis)" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="788" y="156" width="256" height="72" rx="8" fill="#0e7490" opacity="0.95"/>
+  <circle cx="828" cy="192" r="14" fill="#00d4ff"/>
+  <rect x="788" y="248" width="256" height="72" rx="8" fill="#0e7490" opacity="0.62"/>
+  <circle cx="828" cy="284" r="14" fill="#00d4ff"/>
+  <rect x="788" y="340" width="256" height="72" rx="8" fill="#0e7490" opacity="0.32"/>
+  <circle cx="828" cy="376" r="14" fill="none" stroke="#00d4ff" stroke-width="3"/>
+  <rect x="788" y="430" width="168" height="48" rx="6" fill="url(#advGold)"/>
+  <circle cx="996" cy="454" r="8" fill="#00d4ff"/>
+</svg>
