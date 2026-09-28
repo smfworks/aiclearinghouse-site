@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sigils in the Steel</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+html,body{margin:0;height:100%;background:#000;color:#eee;font-family:Georgia,serif;overflow:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#ui{position:absolute;left:0;right:0;bottom:0;padding:10px 16px;display:flex;gap:12px;align-items:center;background:linear-gradient(transparent,#000a);z-index:3}
+button{background:#b4491a;color:#fff;border:0;padding:8px 16px;font-size:16px;cursor:pointer;border-radius:3px}
+#bar{flex:1;height:6px;background:#442;cursor:pointer;position:relative}
+#fill{height:100%;background:#f90;width:0}
+#t{font-size:13px;min-width:90px;text-align:right}
+#start{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000d;text-align:center}
+#start h1{font-size:48px;margin:0;color:#f90;letter-spacing:4px}
+#start p{margin:6px}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="start"><h1>SIGILS IN THE STEEL</h1><p>(Merovingian Axe)</p><p style="font-size:14px;color:#aaa">Saint Michael's Forge, feat Aiona Edge<br>Written and Produced by Michael Gannotti</p><br><button id="go">▶ Play</button></div>
+<div id="ui"><button id="pp">Play</button><div id="bar"><div id="fill"></div></div><div id="t">0:00 / 4:12</div></div>
+<audio id="a" src="sigils-in-the-steel.mp3" preload="auto"></audio>
+<script>
+const a=document.getElementById('a'),cv=document.getElementById('c'),g=cv.getContext('2d');
+let W,H;function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();onresize=rs;
+const L=(t)=>t;
+// sections: start, end, name, lines
+const S=[
+{s:0,n:"Intro – The Forge Awakens",k:"forge",l:["Sigils in the Steel","(Merovingian Axe)","Saint Michael's Forge, feat Aiona Edge","Written and Produced by Michael Gannotti"]},
+{s:18,n:"Verse 1 – The Forge Awakens",k:"forge",l:["In the glow of the charcoal night,","Ash wood waits for the iron's bite,","Hammer falls like a war drum's roar,","Sparks take flight on the blacksmith's floor.","Square poll, teardrop eye, the socket's tight,","Edge curves like a crescent moon in fight,","Ten fingers carve the secret signs,","Sigils burned in the battle lines."]},
+{s:46,n:"Pre-Chorus",k:"march",l:["From Lech to Loire, the legends grow,","Where the Franks let the francisca throw,","One signal — shields explode,","And the enemy line's undone."]},
+{s:60,n:"Chorus",k:"chorus",l:["⚡ Sigils in the steel, blood on the ground,","Merovingian thunder, the war drum sound,","Six hundred grams of fate in flight,","Breaking the dawn with the edge of night."]},
+{s:77,n:"Verse 2 – The Axe in Battle",k:"battle",l:["Forty-five centimeters of wrath in hand,","A ten-centimeter bite to cut the stand,","Procopius wrote of the deadly rain,","Axes flying, men crying, shields in vain.","Charlemagne's riders, the Saxon wars,","Axes spinning through the shielded doors,","One throw to shatter, one throw to kill,","Then the sword comes out for the final will."]},
+{s:100,n:"Pre-Chorus",k:"march",l:["From the Rhine to the Pyrenees,","The francisca sings in the killing breeze,","One heartbeat — then the crash,","And the front line's torn apart."]},
+{s:114,n:"Chorus",k:"chorus",l:["⚡ Sigils in the steel, blood on the ground,","Merovingian thunder, the war drum sound,","Six hundred grams of fate in flight,","Breaking the dawn with the edge of night."]},
+{s:132,n:"Bridge – The Bladesmith's Oath",k:"oath",l:["I temper the soul in the quench's scream,","I sharpen the edge for the warrior's dream,","I etch the runes where no foe sees,","Only the dead will read these keys.","Ash haft bound to the iron's heart,","From my hands to the battle's start,","When you throw this axe, you throw my name,","And the world will never be the same."]},
+{s:160,n:"Solo – The Spinning Arc",k:"solo",l:["(Guitar mimics the spinning arc of the axe)"]},
+{s:180,n:"Final Chorus – Double Time",k:"final",l:["⚡ Sigils in the steel, blood on the ground,","Merovingian thunder, the war drum sound,","Six hundred grams of fate in flight,","Breaking the dawn with the edge of night.","⚡ From the forge to the field, from the hand to the sky,","Let the francisca fly, let the enemy die,","Sigils in the steel, carved in flame,","The axe and the thrower — one and the same."]},
+{s:211,n:"Outro – Spoken over fading feedback",k:"outro",l:["\"When the sigils burn, and the steel takes flight…","the Franks ride again.\""]}
+];
+function sec(t){let i=0;for(let j=0;j<S.length;j++)if(t>=S[j].s)i=j;return i}
+function end(i){return i+1<S.length?S[i+1].s:252}
+// particles
+let P=[];function spark(x,y,n,pw,col){for(let i=0;i<n;i++){const an=Math.random()*Math.PI*2,v=Math.random()*pw;P.push({x,y,vx:Math.cos(an)*v,vy:Math.sin(an)*v-pw*.4,l:1,c:col||'#fa3'})}}
+let rnd=(function(){let s=7;return()=>(s=s*16807%2147483647)/2147483647})();
+const stars=[...Array(80)].map(()=>[rnd(),rnd()*.6,rnd()]);
+const runes="ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ";
+function axe(x,y,sz,rot,glow){
+g.save();g.translate(x,y);g.rotate(rot);
+if(glow){g.shadowColor='#f80';g.shadowBlur=glow}
+g.fillStyle='#6b3d1c';g.fillRect(-sz*.06,-sz*.5,sz*.12,sz*1.1); // haft
+g.fillStyle='#b9c0c8';g.beginPath();
+g.moveTo(-sz*.06,-sz*.48);g.quadraticCurveTo(-sz*.45,-sz*.62,-sz*.5,-sz*.25);
+g.quadraticCurveTo(-sz*.35,-sz*.3,-sz*.06,-sz*.15);g.closePath();g.fill();
+g.fillStyle='#7d858e';g.fillRect(-sz*.1,-sz*.5,sz*.2,sz*.14);
+g.restore()}
+function figure(x,y,s,pose,col){ // simple warrior silhouette
+g.save();g.translate(x,y);g.scale(s,s);g.strokeStyle=col||'#000';g.fillStyle=col||'#000';g.lineWidth=7;g.lineCap='round';
+g.beginPath();g.arc(0,-70,10,0,7);g.fill();
+g.beginPath();g.moveTo(0,-60);g.lineTo(0,-20);g.moveTo(0,-20);g.lineTo(-12,20);g.moveTo(0,-20);g.lineTo(12,20);
+g.moveTo(0,-52);g.lineTo(-16+pose*0,-35);
+g.moveTo(0,-52);g.lineTo(20*Math.cos(pose),-52-20*Math.sin(pose)+8);g.stroke();g.restore()}
+let flash=0,lastBeat=-1,shake=0,thrown=[];
+function draw(){
+const t=a.currentTime,i=sec(t),s=S[i],k=s.k,lt=t-s.s,dur=end(i)-s.s;
+// 6/8 gallop; assume ~ 150bpm dotted: beat every 0.4s ; double time in final
+const bp=(k=='final')?0.2:0.4,beat=Math.floor(t/bp);
+const ph=(t/bp)%1;
+if(!a.paused&&beat!=lastBeat){lastBeat=beat;if(beat%2==0)shake=k=='final'||k=='battle'||k=='chorus'?6:3;}
+shake*=.85;
+g.save();g.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);
+// sky
+const night=(k=='forge'||k=='oath'||k=='outro');
+const gr=g.createLinearGradient(0,0,0,H);
+if(k=='forge'||k=='oath'){gr.addColorStop(0,'#0a0508');gr.addColorStop(1,'#3a1204')}
+else if(k=='outro'){gr.addColorStop(0,'#000');gr.addColorStop(1,'#1a0a08')}
+else if(k=='solo'){gr.addColorStop(0,'#110a2a');gr.addColorStop(1,'#5a1a30')}
+else{const d=Math.min(1,lt/dur);gr.addColorStop(0,`rgb(${20+d*30},${10+d*10},${40})`);gr.addColorStop(.7,`rgb(${120+d*80},${40+d*30},${20})`);gr.addColorStop(1,'#300a04')}
+g.fillStyle=gr;g.fillRect(-20,-20,W+40,H+40);
+stars.forEach(z=>{g.fillStyle=`rgba(255,255,255,${.3+.5*Math.abs(Math.sin(t+z[2]*9))})`;g.fillRect(z[0]*W,z[1]*H,2,2)});
+const gy=H*.78;
+if(k=='forge'||k=='oath')forge(t,lt,gy,k=='oath');
+else if(k=='march')march(t,lt,dur,gy,i);
+else if(k=='chorus'||k=='final')chorus(t,lt,gy,k=='final',ph);
+else if(k=='battle')battle(t,lt,gy);
+else if(k=='solo')solo(t,lt,dur);
+else if(k=='outro')outro(t,lt,dur,gy);
+// particles
+P=P.filter(p=>p.l>0);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.25;p.l-=.02;g.globalAlpha=Math.max(0,p.l);g.fillStyle=p.c;g.fillRect(p.x,p.y,3,3)});g.globalAlpha=1;
+if(flash>0){g.fillStyle=`rgba(255,240,200,${flash})`;g.fillRect(-20,-20,W+40,H+40);flash-=.06}
+g.restore();
+lyrics(t,i,lt,dur);
+// UI
+document.getElementById('fill').style.width=(t/252*100)+'%';
+const f=x=>Math.floor(x/60)+':'+String(Math.floor(x%60)).padStart(2,'0');
+document.getElementById('t').textContent=f(t)+' / 4:12';
+document.getElementById('pp').textContent=a.paused?'Play':'Pause';
+requestAnimationFrame(draw)}
+function ground(gy,c){g.fillStyle=c;g.fillRect(-20,gy,W+40,H)}
+function forge(t,lt,gy,oath){
+ground(gy,'#140806');
+// forge fire
+const fx=W*.25,fy=gy;
+const fl=g.createRadialGradient(fx,fy-40,10,fx,fy-40,W*.3);fl.addColorStop(0,'rgba(255,150,30,.7)');fl.addColorStop(1,'transparent');g.fillStyle=fl;g.fillRect(0,0,W,H);
+g.fillStyle='#2a1a14';g.fillRect(fx-90,fy-70,180,70);
+for(let j=0;j<14;j++){g.fillStyle=j%2?'#f60':'#fc3';const h=25+Math.sin(t*9+j)*12;g.beginPath();g.moveTo(fx-80+j*12,fy-70);g.lineTo(fx-74+j*12,fy-70-h);g.lineTo(fx-68+j*12,fy-70);g.fill()}
+// anvil
+const ax=W*.62,ay=gy;
+g.fillStyle='#222';g.fillRect(ax-70,ay-60,140,25);g.fillRect(ax-30,ay-35,60,35);g.beginPath();g.moveTo(ax+70,ay-60);g.lineTo(ax+120,ay-52);g.lineTo(ax+70,ay-40);g.fill();
+// axe head glowing on anvil grows
+const prog=Math.min(1,lt/26);
+g.globalAlpha=.4+.6*prog;axe(ax-10,ay-95,110+prog*30,Math.PI/2*1.0,30+20*Math.sin(t*6));g.globalAlpha=1;
+// hammer
+const cyc=(t*2.5)%1,ang=cyc<.7?-1.2+cyc*0.2:-1.06+(cyc-.7)/.3*1.7;
+const hit=cyc>=.98||cyc<.02;
+const hx=ax-30,hy=ay-110;
+g.save();g.translate(ax+90,ay-190);g.rotate(cyc<.75?-.9+cyc*.4:-.6+(cyc-.75)*-4.0*-1*-1);
+g.fillStyle='#5a3a1a';g.fillRect(-6,0,12,-1);g.restore();
+const swing=cyc<.75?cyc/.75:1-(cyc-.75)/.25; // 0..1 up, then down
+const hp=cyc<.8?(cyc/.8):(1-(cyc-.8)/.2);
+const hxA=ax-40-Math.max(0,hp)*40, hyA=ay-100-hp*120;
+g.strokeStyle='#6b3d1c';g.lineWidth=10;g.beginPath();g.moveTo(ax+40,ay-200+hp*60);g.lineTo(hxA,hyA);g.stroke();
+g.fillStyle='#889';g.fillRect(hxA-25,hyA-16,50,32);
+if(cyc>.97&&!forge.h){forge.h=1;spark(ax-30,ay-100,40,9);shake=8;flash=.08}
+if(cyc<.5)forge.h=0;
+// smith
+figure(ax+60,gy,1.7,cyc*2,'#050202');
+// sigils carved
+if(oath||lt>20){g.font='28px serif';g.fillStyle=`rgba(255,160,40,${.4+.3*Math.sin(t*3)})`;for(let j=0;j<8;j++){const rx=W*.08+j*W*.11,ry=H*.2+Math.sin(t+j)*10;g.fillText(runes[(j*3+Math.floor(t/2))%runes.length],rx,ry)}}
+if(oath){ // quench
+const q=(t*.5)%1;g.fillStyle='#234';g.fillRect(W*.85,gy-40,80,40);
+g.fillStyle=`rgba(200,220,230,${1-q})`;for(let j=0;j<5;j++){g.beginPath();g.arc(W*.85+15+j*13,gy-50-q*120+Math.sin(j+t*4)*8,8+q*10,0,7);g.fill()}}
+if(Math.random()<.3)spark(fx,fy-100,3,4);
+}
+function march(t,lt,dur,gy,i){
+ground(gy,'#1a0e08');
+// two lines of Franks, throw axe, shields explode
+const n=8,late=lt/dur;
+for(let j=0;j<n;j++){const x=W*.05+j*W*.05+lt*8;figure(x,gy,1.2+j*.02,1+Math.sin(t*3+j)*.3,'#000');
+g.fillStyle='#8a2a1a';g.beginPath();g.arc(x+14,gy-40,16,0,7);g.fill()}
+for(let j=0;j<8;j++){const x=W*.9-j*W*.045-lt*3;figure(x,gy,1.2,0,'#100');g.fillStyle='#456';g.beginPath();g.arc(x-14,gy-40,16,0,7);g.fill()}
+// signal
+const sig=(i==2)?0.55:0.5;
+const th=(late-sig)/.25;
+if(th>0&&th<1){const x=W*.3+th*W*.4,y=gy-60-Math.sin(th*Math.PI)*H*.3;axe(x,y,60,th*20,25);
+if(th>.95&&!march.b){march.b=1;flash=.7;for(let q=0;q<6;q++)spark(W*.7,gy-40,30,10,'#ccd');}}
+else if(th<=0)march.b=0;
+if(th>=1){for(let q=0;q<25;q++)if(Math.random()<.2)spark(W*.7,gy-40,4,8,'#bbc')}
+// banner text
+g.fillStyle='#c93';g.font='bold 18px Georgia';g.fillText(i==2?"LECH → LOIRE":"RHINE → PYRENEES",20,40);
+}
+function chorus(t,lt,gy,fin,ph){
+ground(gy,'#1a0806');
+// big axe spinning in center sky, drum ring
+const cx=W/2,cy=H*.4;
+const sp=fin?t*14:t*7;
+for(let r=0;r<3;r++){g.strokeStyle=`rgba(255,${120+r*40},40,${.5-r*.12})`;g.lineWidth=4;g.beginPath();g.arc(cx,cy,120+r*50+ph*40,0,7);g.stroke()}
+// sun/dawn edge
+const sun=g.createRadialGradient(cx,gy,10,cx,gy,W*.5);sun.addColorStop(0,'rgba(255,200,80,.6)');sun.addColorStop(1,'transparent');g.fillStyle=sun;g.fillRect(0,0,W,H);
+axe(cx,cy,190,sp,50);
+// motion trail
+for(let q=1;q<5;q++){g.globalAlpha=.15;axe(cx,cy,190,sp-q*.35,0)}g.globalAlpha=1;
+// lightning
+if(Math.random()<(fin?.25:.1)){flash=.25;g.strokeStyle='#ffe';g.lineWidth=3;g.beginPath();let x=Math.random()*W,y=0;g.moveTo(x,y);while(y<gy){x+=(Math.random()-.5)*60;y+=40;g.lineTo(x,y)}g.stroke()}
+// armies with drums / axes thrown
+const n=fin?14:9;
+for(let j=0;j<n;j++){const x=(j+.5)*W/n;const b=Math.abs(Math.sin(t*(fin?15:7.5)+j))*10;figure(x,gy-b,1.3,2+Math.sin(t*6+j),'#000')}
+if(Math.floor(t*(fin?10:5))!=chorus.l){chorus.l=Math.floor(t*(fin?10:5));spark(Math.random()*W,gy,8,7)}
+// bloody ground
+g.fillStyle='#600';g.fillRect(0,gy+H*.15,W,H);
+// war drum
+g.fillStyle='#742';g.beginPath();g.ellipse(W*.5,gy+50,60+ph*-8,22,0,0,7);g.fill();
+// final: sky flying axes
+if(fin){for(let q=0;q<6;q++){const u=((t*.6+q/6)%1);axe(u*W,H*.15+Math.sin(u*6+q)*40,50,t*16+q,15)}}
+}
+function battle(t,lt,gy){
+ground(gy,'#1a0c08');
+// volleys of axes: rain arcs left to right, shields shattering
+for(let q=0;q<9;q++){const u=((t*.35+q*.11)%1);const x=W*.1+u*W*.8,y=gy-60-Math.sin(u*Math.PI)*H*.5;axe(x,y,55,t*14+q,20);
+if(u>.97&&Math.random()<.7){spark(W*.9,gy-40,20,9,'#ccd')}}
+// shield wall right
+for(let j=0;j<6;j++){const x=W*.84+j*24,br=(Math.sin(t*2+j)>.9);g.fillStyle=br?'#333':'#456';g.beginPath();g.arc(x,gy-45,20,0,7);g.fill();figure(x+6,gy,1.2,0,'#000')}
+// riders left
+for(let j=0;j<4;j++){const x=W*.05+j*70+Math.sin(t*8+j)*4,y=gy-Math.abs(Math.sin(t*8+j))*8;
+g.fillStyle='#000';g.beginPath();g.ellipse(x,y-25,38,16,0,0,7);g.fill();g.fillRect(x+25,y-50,10,20);g.fillRect(x-30,y-15,5,20);g.fillRect(x+20,y-15,5,20);figure(x-5,y-30,.8,1,'#000')}
+// rain of axes text cue
+g.fillStyle='#e94';g.font='bold 18px Georgia';g.fillText("Procopius: the deadly rain",20,40);
+// final sword at end
+if(lt>18){const u=(lt-18)/5;g.save();g.translate(W*.5,H*.4);g.rotate(-.6);g.fillStyle='#dde';g.shadowColor='#fff';g.shadowBlur=20;g.globalAlpha=Math.min(1,u);g.fillRect(-6,-120,12,200);g.fillStyle='#a70';g.fillRect(-30,80,60,8);g.restore();g.globalAlpha=1}
+}
+function solo(t,lt,dur){
+const cx=W/2,cy=H*.45;
+// spiral arc
+g.strokeStyle='rgba(255,180,60,.5)';g.lineWidth=3;
+for(let r=0;r<5;r++){g.beginPath();for(let a2=0;a2<Math.PI*6;a2+=.1){const rad=20+a2*(12+r*3)+Math.sin(t*3)*6;const an=a2+t*(3+r*.5);const x=cx+Math.cos(an)*rad*1.6,y=cy+Math.sin(an)*rad*.8;a2?g.lineTo(x,y):g.moveTo(x,y)}g.stroke()}
+// axe orbiting
+for(let q=0;q<10;q++){const an=t*5-q*.14;const rad=Math.min(W,H)*.35;g.globalAlpha=1-q*.09;axe(cx+Math.cos(an)*rad*1.5,cy+Math.sin(an)*rad*.7,90-q*4,an*3,40)}g.globalAlpha=1;
+// sigils orbit
+g.font='36px serif';g.fillStyle='#fc6';for(let j=0;j<12;j++){const an=j/12*7+t*.8;g.fillText(runes[j],cx+Math.cos(an)*W*.4,cy+Math.sin(an)*H*.4)}
+if(Math.random()<.4)spark(cx+(Math.random()-.5)*W*.8,cy+(Math.random()-.5)*H*.6,3,3,'#fd8');
+// guitar neck silhouette
+g.fillStyle='#000';g.save();g.translate(W*.5,H*.95);g.rotate(-.3);g.fillRect(-W*.3,-10,W*.6,20);g.restore();
+}
+function outro(t,lt,dur,gy){
+const fade=Math.max(0,1-lt/dur*.7);
+ground(gy,'#0a0403');
+// feedback waves
+g.strokeStyle=`rgba(255,120,40,${.5*fade})`;g.lineWidth=2;
+for(let r=0;r<4;r++){g.beginPath();for(let x=0;x<=W;x+=8){const y=H*.3+r*30+Math.sin(x*.02+t*(6+r))*40*fade*Math.sin(x/W*3.14);x?g.lineTo(x,y):g.moveTo(x,y)}g.stroke()}
+// embers rising
+if(Math.random()<.3)P.push({x:Math.random()*W,y:gy,vx:0,vy:-2-Math.random()*2,l:1,c:'#f82'});
+// riders silhouettes on horizon
+const m=Math.min(1,lt/20);
+g.globalAlpha=m;for(let j=0;j<7;j++){const x=W*(.1+j*.13),y=gy-Math.abs(Math.sin(t*3+j))*4;g.fillStyle='#000';g.beginPath();g.ellipse(x,y-25,40,17,0,0,7);g.fill();g.fillRect(x+28,y-55,10,25);g.fillRect(x-32,y-15,5,20);g.fillRect(x+22,y-15,5,20);g.fillRect(x-4,y-60,4,30);
+g.fillStyle='#b44';g.fillRect(x-4,y-80,20,10);g.fillStyle='#000';g.fillRect(x-6,y-80,3,50)}
+g.globalAlpha=1;
+// rune glowing
+g.font='120px serif';g.fillStyle=`rgba(255,140,40,${.5*Math.sin(t*2)**2+.2})`;g.textAlign='center';g.fillText('ᚠ',W/2,H*.6);g.textAlign='left';
+}
+function lyrics(t,i,lt,dur){
+const s=S[i];
+g.save();g.textAlign='center';
+// section label
+g.font='bold 15px Georgia';g.fillStyle='#f90';g.fillText(s.n.toUpperCase(),W/2,28);
+if(i==0){g.font='bold '+Math.min(64,W/14)+'px Georgia';g.fillStyle='#fc6';g.shadowColor='#f60';g.shadowBlur=20;g.fillText("SIGILS IN THE STEEL",W/2,H*.35);
+g.font='24px Georgia';g.shadowBlur=0;g.fillStyle='#ddd';g.fillText("(Merovingian Axe)",W/2,H*.35+36);
+g.font='16px Georgia';g.fillText("Saint Michael's Forge, feat Aiona Edge",W/2,H*.35+70);g.fillText("Written and Produced by Michael Gannotti",W/2,H*.35+94);g.restore();return}
+const L2=s.l,n=L2.length;
+// current line index: distribute evenly across section (outro/final adjust)
+let span=dur;if(s.k=='outro')span=Math.min(dur,20);
+let li=Math.min(n-1,Math.floor(lt/span*n));
+if(s.k=='solo'){li=0}
+g.font='bold '+Math.min(34,W/24)+'px Georgia';g.shadowColor='#000';g.shadowBlur=8;
+const y0=H-110;
+// prev, current, next
+for(let d=-1;d<=1;d++){const j=li+d;if(j<0||j>=n)continue;
+g.globalAlpha=d==0?1:.4;g.fillStyle=d==0?'#ffe6a8':'#ccc';
+g.font=(d==0?'bold ':'')+Math.min(d==0?34:22,W/(d==0?24:34))+'px Georgia';
+g.fillText(L2[j],W/2,y0+d*(d==0?0:38)*(d<0?1:1)+(d>0?10:0)-(d<0?10:0))}
+g.restore()}
+const go=document.getElementById('go'),pp=document.getElementById('pp');
+go.onclick=()=>{document.getElementById('start').style.display='none';a.play()};
+pp.onclick=()=>a.paused?a.play():a.pause();
+document.getElementById('bar').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();a.currentTime=(e.clientX-r.left)/r.width*(a.duration||252)};
+addEventListener('keydown',e=>{if(e.code=='Space'){e.preventDefault();a.paused?a.play():a.pause()}});
+draw();
+</script>
+</body>
+</html>
