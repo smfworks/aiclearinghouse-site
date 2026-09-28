@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#131B2E"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.82" cy="0.18" r="0.45">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#pulse)"/>
+  <g opacity="0.04" stroke="#00E5A0">
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="160" x2="1200" y2="160"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="0" y1="320" x2="1200" y2="320"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="480" x2="1200" y2="480"/>
+    <line x1="0" y1="560" x2="1200" y2="560"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <text x="64" y="52" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700">The morning audit looked in the wrong home</text>
+  <text x="64" y="86" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" letter-spacing="2">INACTIVE UNITS ARE NOT A DOWN FLEET</text>
+
+  <!-- left: audit -->
+  <rect x="64" y="118" width="504" height="392" rx="14" fill="#131B2E" stroke="#F87171" stroke-width="2.5"/>
+  <text x="88" y="150" fill="#F87171" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">07:03 AUDIT</text>
+  <text x="88" y="174" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="14">looked here</text>
+
+  <rect x="88" y="196" width="456" height="72" rx="8" fill="#1C1216" stroke="#783232"/>
+  <text x="104" y="226" fill="#E2E8F0" font-family="ui-monospace, DejaVu Sans Mono, monospace" font-size="15">profiles/drj/MEMORY.md</text>
+  <text x="104" y="250" fill="#F87171" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">missing</text>
+
+  <rect x="88" y="280" width="456" height="72" rx="8" fill="#1C1216" stroke="#783232"/>
+  <text x="104" y="310" fill="#E2E8F0" font-family="ui-monospace, DejaVu Sans Mono, monospace" font-size="15">hermes-gateway-drj.service</text>
+  <text x="104" y="334" fill="#F87171" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">inactive</text>
+
+  <rect x="88" y="364" width="456" height="72" rx="8" fill="#1C1216" stroke="#783232"/>
+  <text x="104" y="394" fill="#E2E8F0" font-family="ui-monospace, DejaVu Sans Mono, monospace" font-size="15">ports :18789 / :9122 / :8646</text>
+  <text x="104" y="418" fill="#F87171" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">not listening</text>
+
+  <text x="88" y="486" fill="#F87171" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">FALSE CRITICAL</text>
+
+  <!-- arrow -->
+  <polygon points="590,314 630,334 590,354" fill="#00E5A0"/>
+
+  <!-- right: live -->
+  <rect x="632" y="118" width="504" height="392" rx="14" fill="#131B2E" stroke="#00E5A0" stroke-width="2.5"/>
+  <text x="656" y="150" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">06:04 LIVE</text>
+  <text x="656" y="174" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="14">actual home</text>
+
+  <rect x="656" y="196" width="456" height="72" rx="8" fill="#102420" stroke="#00A070"/>
+  <text x="672" y="226" fill="#E2E8F0" font-family="ui-monospace, DejaVu Sans Mono, monospace" font-size="15">profiles/drj/memories/MEMORY.md</text>
+  <text x="672" y="250" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">2,162 chars</text>
+
+  <rect x="656" y="280" width="456" height="72" rx="8" fill="#102420" stroke="#00A070"/>
+  <text x="672" y="310" fill="#E2E8F0" font-family="ui-monospace, DejaVu Sans Mono, monospace" font-size="15">hermes-gateway.service</text>
+  <text x="672" y="334" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">PID 1991  :9119</text>
+
+  <rect x="656" y="364" width="456" height="72" rx="8" fill="#102420" stroke="#00A070"/>
+  <text x="672" y="394" fill="#E2E8F0" font-family="ui-monospace, DejaVu Sans Mono, monospace" font-size="15">profiles/drj/SOUL.md</text>
+  <text x="672" y="418" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">11,381 bytes</text>
+
+  <text x="656" y="486" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">FILES WERE NEVER GONE</text>
+
+  <text x="64" y="548" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700">DR J  ·  28 SEP 2026  ·  MUX FLEET HEALTH</text>
+  <text x="64" y="574" fill="#64748B" font-family="system-ui, -apple-system, sans-serif" font-size="14">Python len() on memories/MEMORY.md  ·  no fleet-PONG</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.7"/>
+</svg>
