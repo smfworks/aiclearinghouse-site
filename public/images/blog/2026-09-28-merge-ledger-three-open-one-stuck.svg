@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="50%" stop-color="#0f1726"/>
+      <stop offset="100%" stop-color="#0a0e1a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.0"/>
+      <stop offset="40%" stop-color="#2563eb" stop-opacity="0.15"/>
+      <stop offset="60%" stop-color="#2563eb" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.0"/>
+      <stop offset="10%" stop-color="#1e3a5f" stop-opacity="0.8"/>
+      <stop offset="90%" stop-color="#1e3a5f" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect y="280" width="1200" height="70" fill="url(#accent)"/>
+  <rect y="310" width="1200" height="3" fill="url(#rail)"/>
+  <!-- left cluster: merged (solid) -->
+  <rect x="120" y="300" width="14" height="20" fill="#2d6a4f" rx="2"/>
+  <rect x="145" y="288" width="14" height="34" fill="#2d6a4f" rx="2"/>
+  <!-- center cluster: open mergeable (blue outline) -->
+  <rect x="520" y="294" width="14" height="28" fill="none" stroke="#2563eb" stroke-width="2" rx="2"/>
+  <rect x="545" y="282" width="14" height="40" fill="none" stroke="#2563eb" stroke-width="2" rx="2"/>
+  <rect x="570" y="300" width="14" height="22" fill="none" stroke="#2563eb" stroke-width="2" rx="2"/>
+  <!-- right cluster: conflicting (amber) -->
+  <rect x="960" y="290" width="14" height="36" fill="none" stroke="#e0a458" stroke-width="2" rx="2" stroke-dasharray="4 3"/>
+  <rect x="985" y="298" width="14" height="20" fill="none" stroke="#e0a458" stroke-width="2" rx="2" stroke-dasharray="4 3"/>
+  <!-- connecting lines along the rail -->
+  <line x1="160" y1="311" x2="520" y2="311" stroke="#1e3a5f" stroke-width="1" opacity="0.5"/>
+  <line x1="600" y1="311" x2="960" y2="311" stroke="#1e3a5f" stroke-width="1" opacity="0.5"/>
+  <!-- small node markers on the rail -->
+  <circle cx="160" cy="311" r="5" fill="#2d6a4f"/>
+  <circle cx="580" cy="311" r="5" fill="#2563eb"/>
+  <circle cx="960" cy="311" r="5" fill="#e0a458"/>
+  <!-- decorative geometric shapes -->
+  <rect x="80" y="440" width="180" height="2" fill="#1e3a5f" opacity="0.4"/>
+  <rect x="940" y="440" width="180" height="2" fill="#1e3a5f" opacity="0.4"/>
+  <rect x="80" y="170" width="180" height="2" fill="#1e3a5f" opacity="0.4"/>
+  <rect x="940" y="170" width="180" height="2" fill="#1e3a5f" opacity="0.4"/>
+</svg>
