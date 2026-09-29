@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="'SF Pro Display', 'Inter', -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="600" y="48" text-anchor="middle" fill="#f8fafc" font-size="24" font-weight="700" letter-spacing="0.5">Agentic Marketing Architecture</text>
+  <text x="600" y="72" text-anchor="middle" fill="#10B981" font-size="13" font-weight="500" letter-spacing="2">ORCHESTRATOR → SPECIALIST AGENTS → SHARED MEMORY</text>
+  
+  <!-- Orchestrator Node -->
+  <rect x="420" y="95" width="360" height="60" rx="30" fill="#10B981" fill-opacity="0.15" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.6"/>
+  <text x="600" y="122" text-anchor="middle" fill="#f8fafc" font-size="17" font-weight="700">Orchestrator</text>
+  <text x="600" y="142" text-anchor="middle" fill="#10B981" font-size="10" font-weight="500" letter-spacing="1">STRATEGIC COORDINATOR</text>
+  
+  <!-- Connection lines from Orchestrator to agents -->
+  <line x1="480" y1="155" x2="195" y2="235" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="520" y1="155" x2="435" y2="235" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="680" y1="155" x2="685" y2="235" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="720" y1="155" x2="945" y2="235" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.35"/>
+  
+  <!-- Agent: Research (Blue) -->
+  <rect x="80" y="235" width="230" height="130" rx="8" fill="#3B82F6" fill-opacity="0.1" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="115" cy="265" r="12" fill="#3B82F6" fill-opacity="0.3" stroke="#3B82F6" stroke-width="1"/>
+  <text x="133" y="270" fill="#3B82F6" font-size="13" font-weight="700">Research Agent</text>
+  <text x="105" y="295" fill="#94a3b8" font-size="11">• Web search &amp; data collection</text>
+  <text x="105" y="312" fill="#94a3b8" font-size="11">• Competitor analysis</text>
+  <text x="105" y="329" fill="#94a3b8" font-size="11">• Trend identification</text>
+  <text x="105" y="346" fill="#94a3b8" font-size="11">• Performance aggregation</text>
+  
+  <!-- Agent: Content (Emerald) -->
+  <rect x="320" y="235" width="230" height="130" rx="8" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="355" cy="265" r="12" fill="#10B981" fill-opacity="0.3" stroke="#10B981" stroke-width="1"/>
+  <text x="373" y="270" fill="#10B981" font-size="13" font-weight="700">Content Agent</text>
+  <text x="345" y="295" fill="#94a3b8" font-size="11">• Blog posts &amp; threads</text>
+  <text x="345" y="312" fill="#94a3b8" font-size="11">• Email &amp; landing pages</text>
+  <text x="345" y="329" fill="#94a3b8" font-size="11">• 25-45% editing protocol</text>
+  <text x="345" y="346" fill="#94a3b8" font-size="11">• Brand consistency checks</text>
+  
+  <!-- Agent: Design (Purple) -->
+  <rect x="570" y="235" width="230" height="130" rx="8" fill="#8B5CF6" fill-opacity="0.1" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="605" cy="265" r="12" fill="#8B5CF6" fill-opacity="0.3" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="623" y="270" fill="#8B5CF6" font-size="13" font-weight="700">Design Agent</text>
+  <text x="595" y="295" fill="#94a3b8" font-size="11">• Images &amp; video</text>
+  <text x="595" y="312" fill="#94a3b8" font-size="11">• Brand assets</text>
+  <text x="595" y="329" fill="#94a3b8" font-size="11">• Multi-format creative</text>
+  <text x="595" y="346" fill="#94a3b8" font-size="11">• Visual consistency</text>
+  
+  <!-- Agent: Distribution (Teal) -->
+  <rect x="820" y="235" width="230" height="130" rx="8" fill="#14B8A6" fill-opacity="0.1" stroke="#14B8A6" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="855" cy="265" r="12" fill="#14B8A6" fill-opacity="0.3" stroke="#14B8A6" stroke-width="1"/>
+  <text x="873" y="270" fill="#14B8A6" font-size="13" font-weight="700">Distribution Agent</text>
+  <text x="845" y="295" fill="#94a3b8" font-size="11">• X / LinkedIn / IG / TikTok</text>
+  <text x="845" y="312" fill="#94a3b8" font-size="11">• SEO &amp; analytics</text>
+  <text x="845" y="329" fill="#94a3b8" font-size="11">• A/B test hooks</text>
+  <text x="845" y="346" fill="#94a3b8" font-size="11">• Feed performance back</text>
+  
+  <!-- Connection lines from agents to Shared Memory -->
+  <line x1="195" y1="365" x2="195" y2="420" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="435" y1="365" x2="435" y2="420" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="685" y1="365" x2="685" y2="420" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.35"/>
+  <line x1="935" y1="365" x2="935" y2="420" stroke="#14B8A6" stroke-width="1.5" stroke-opacity="0.35"/>
+  
+  <!-- Shared Memory Layer -->
+  <rect x="80" y="420" width="970" height="65" rx="8" fill="#F59E0B" fill-opacity="0.08" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="600" y="448" text-anchor="middle" fill="#F59E0B" font-size="15" font-weight="700" letter-spacing="2">SHARED MEMORY</text>
+  <text x="600" y="470" text-anchor="middle" fill="#94a3b8" font-size="11">Brand Object · Performance Data · Pattern Library · Conversation History · Editorial Guidelines</text>
+  
+  <!-- Approval Gates -->
+  <rect x="300" y="520" width="240" height="50" rx="6" fill="#f8fafc" fill-opacity="0.05" stroke="#f8fafc" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="420" y="542" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="600">🛡 Quality Gate</text>
+  <text x="420" y="558" text-anchor="middle" fill="#94a3b8" font-size="10">Consistency ≥ 0.75 · Edit ratio 25-45%</text>
+  
+  <rect x="600" y="520" width="240" height="50" rx="6" fill="#f8fafc" fill-opacity="0.05" stroke="#f8fafc" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="720" y="542" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="600">✅ Final Approval</text>
+  <text x="720" y="558" text-anchor="middle" fill="#94a3b8" font-size="10">Human review · &lt; 2 min per piece</text>
+  
+  <!-- Stats bar -->
+  <rect x="80" y="590" width="170" height="28" rx="4" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="165" y="609" text-anchor="middle" fill="#10B981" font-size="11" font-weight="600">34% running agents</text>
+  
+  <rect x="270" y="590" width="190" height="28" rx="4" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="365" y="609" text-anchor="middle" fill="#10B981" font-size="11" font-weight="600">63% enterprise CMO budgets</text>
+  
+  <rect x="480" y="590" width="190" height="28" rx="4" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="575" y="609" text-anchor="middle" fill="#10B981" font-size="11" font-weight="600">17% budgets → orchestration</text>
+  
+  <rect x="690" y="590" width="170" height="28" rx="4" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="775" y="609" text-anchor="middle" fill="#10B981" font-size="11" font-weight="600">4-8× projected ROI</text>
+</svg>

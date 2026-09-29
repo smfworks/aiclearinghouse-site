@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="576" viewBox="0 0 1024 576">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <linearGradient id="leftBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="rightBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="576" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g opacity="0.05" stroke="#C9A96E" stroke-width="0.5">
+    <line x1="0" y1="96" x2="1024" y2="96"/>
+    <line x1="0" y1="192" x2="1024" y2="192"/>
+    <line x1="0" y1="288" x2="1024" y2="288"/>
+    <line x1="0" y1="384" x2="1024" y2="384"/>
+    <line x1="0" y1="480" x2="1024" y2="480"/>
+    <line x1="128" y1="0" x2="128" y2="576"/>
+    <line x1="256" y1="0" x2="256" y2="576"/>
+    <line x1="384" y1="0" x2="384" y2="576"/>
+    <line x1="512" y1="0" x2="512" y2="576"/>
+    <line x1="640" y1="0" x2="640" y2="576"/>
+    <line x1="768" y1="0" x2="768" y2="576"/>
+    <line x1="896" y1="0" x2="896" y2="576"/>
+  </g>
+
+  <!-- two score bars: 10% vs 93.8% -->
+  <g transform="translate(180, 200)">
+    <text x="80" y="-24" fill="#94a3b8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" text-anchor="middle">CODING</text>
+    <rect x="40" y="0" width="80" height="220" rx="6" fill="#0f2744" stroke="#1e3a5f"/>
+    <rect x="40" y="198" width="80" height="22" rx="4" fill="url(#leftBar)" filter="url(#glow)"/>
+    <text x="80" y="250" fill="#ea580c" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" font-weight="700" text-anchor="middle">10%</text>
+  </g>
+
+  <g transform="translate(420, 200)">
+    <text x="80" y="-24" fill="#94a3b8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" text-anchor="middle">AGENTIC</text>
+    <rect x="40" y="0" width="80" height="220" rx="6" fill="#0f2744" stroke="#1e3a5f"/>
+    <rect x="40" y="14" width="80" height="206" rx="4" fill="url(#rightBar)" filter="url(#glow)"/>
+    <text x="80" y="250" fill="#C9A96E" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" font-weight="700" text-anchor="middle">93.8%</text>
+  </g>
+
+  <!-- divider / equals-not symbol -->
+  <g transform="translate(340, 280)">
+    <circle cx="40" cy="40" r="36" fill="#001F3F" stroke="#ea580c" stroke-width="2"/>
+    <text x="40" y="48" fill="#ea580c" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" font-weight="700" text-anchor="middle">≠</text>
+  </g>
+
+  <!-- title -->
+  <text x="512" y="90" fill="#F8FAFC" font-family="ui-sans-serif, system-ui, sans-serif" font-size="42" font-weight="700" text-anchor="middle">The Number Is Not the Model</text>
+  <text x="512" y="130" fill="#C9A96E" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" text-anchor="middle">Same model. Same day. Same hardware. Different truth.</text>
+
+  <!-- footer -->
+  <text x="512" y="540" fill="#64748b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" text-anchor="middle">THE SIGNAL  ·  SMF WORKS</text>
+</svg>

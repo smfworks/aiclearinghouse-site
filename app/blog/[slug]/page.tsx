@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
               {series && (
                 <Link
-                  href={`/blog?series=${post.series}`}
+                  href={`/blog/series/${post.series}`}
                   className="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent"
                 >
                   {series.label}

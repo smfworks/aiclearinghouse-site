@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="576" viewBox="0 0 1024 576">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0A1628"/>
+    </linearGradient>
+    <linearGradient id="barrier" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#ea580c" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="goldfade" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C9A96E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowOrange">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="576" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04" stroke="#C9A96E" stroke-width="0.5">
+    <line x1="0" y1="72" x2="1024" y2="72"/>
+    <line x1="0" y1="144" x2="1024" y2="144"/>
+    <line x1="0" y1="216" x2="1024" y2="216"/>
+    <line x1="0" y1="288" x2="1024" y2="288"/>
+    <line x1="0" y1="360" x2="1024" y2="360"/>
+    <line x1="0" y1="432" x2="1024" y2="432"/>
+    <line x1="0" y1="504" x2="1024" y2="504"/>
+    <line x1="128" y1="0" x2="128" y2="576"/>
+    <line x1="256" y1="0" x2="256" y2="576"/>
+    <line x1="384" y1="0" x2="384" y2="576"/>
+    <line x1="512" y1="0" x2="512" y2="576"/>
+    <line x1="640" y1="0" x2="640" y2="576"/>
+    <line x1="768" y1="0" x2="768" y2="576"/>
+    <line x1="896" y1="0" x2="896" y2="576"/>
+  </g>
+
+  <!-- Central barrier - format incompatibility layer -->
+  <rect x="498" y="40" width="28" height="496" fill="url(#barrier)" filter="url(#glowOrange)"/>
+  <line x1="512" y1="40" x2="512" y2="536" stroke="#ea580c" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Left side: Clean code -->
+  <g font-family="'Courier New', monospace" font-size="13" fill="#C9A96E" opacity="0.7">
+    <text x="60" y="100">def solve(arr):</text>
+    <text x="80" y="122">result = []</text>
+    <text x="80" y="144">for item in arr:</text>
+    <text x="100" y="166">result.append(item * 2)</text>
+    <text x="80" y="188">return result</text>
+    <text x="60" y="230" fill="#22c55e" opacity="0.6">✓ 3/30 passed</text>
+    <text x="60" y="270" fill="#475569">def merge(a, b):</text>
+    <text x="80" y="292" fill="#475569">return a + b</text>
+    <text x="60" y="334" fill="#475569">class Node:</text>
+    <text x="80" y="356" fill="#475569">def __init__(self):</text>
+    <text x="100" y="378" fill="#475569">self.val = 0</text>
+    <text x="60" y="420" fill="#22c55e" opacity="0.5">SyntaxError: 0</text>
+    <text x="60" y="442" fill="#22c55e" opacity="0.5">IndentationError: 0</text>
+  </g>
+
+  <!-- Left side label -->
+  <text x="280" y="510" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle" opacity="0.5">agentic suite · 93.8%</text>
+
+  <!-- Right side: Corrupted code with Harmony tokens -->
+  <g font-family="'Courier New', monospace" font-size="13" fill="#64748b" opacity="0.6">
+    <text x="560" y="100" fill="#ea580c" opacity="0.7">&lt;|channel|analysis|&gt;</text>
+    <text x="580" y="122">Let me work through...</text>
+    <text x="560" y="150" fill="#ea580c" opacity="0.7">&lt;|channel|final|&gt;</text>
+    <text x="580" y="172" fill="#94a3b8">```python</text>
+    <text x="580" y="194" fill="#94a3b8">def solve(arr):</text>
+    <text x="600" y="216" fill="#94a3b8">result = []</text>
+    <text x="580" y="238" fill="#94a3b8">```</text>
+    <text x="560" y="266" fill="#ef4444" opacity="0.8">SyntaxError: invalid syntax</text>
+    <text x="560" y="300" fill="#ef4444" opacity="0.6">IndentationError: expected</text>
+    <text x="560" y="322" fill="#ef4444" opacity="0.6">  an indented block</text>
+  </g>
+
+  <!-- Right side: Failed extractions -->
+  <g font-family="'Courier New', monospace" font-size="12" fill="#475569" opacity="0.4">
+    <text x="560" y="360" fill="#ef4444" opacity="0.5">✗ 27/27 SyntaxError</text>
+    <text x="560" y="392">&lt;|channel|final|&gt;```python</text>
+    <text x="560" y="414">def solve(arr):</text>
+    <text x="560" y="436">```&lt;|end|&gt;</text>
+    <text x="560" y="458" fill="#ef4444" opacity="0.3">→ not valid Python</text>
+  </g>
+
+  <!-- Right side label -->
+  <text x="744" y="510" font-family="sans-serif" font-size="11" fill="#64748b" text-anchor="middle" opacity="0.5">coding suite · 10.0%</text>
+
+  <!-- Gold accent line at top -->
+  <rect x="0" y="0" width="1024" height="3" fill="url(#goldfade)"/>
+
+  <!-- Title overlay -->
+  <g opacity="0.85">
+    <text x="512" y="50" font-family="sans-serif" font-size="14" font-weight="600" fill="#C9A96E" text-anchor="middle" letter-spacing="2">SAME MODEL · SAME CODE · DIFFERENT SCORE</text>
+  </g>
+
+  <!-- Bottom accent -->
+  <rect x="0" y="573" width="1024" height="3" fill="url(#goldfade)"/>
+
+  <!-- Data points floating -->
+  <g font-family="sans-serif" font-size="10" fill="#C9A96E" opacity="0.3">
+    <text x="120" y="545">181 tests</text>
+    <text x="240" y="545">smf-bench</text>
+    <text x="760" y="545">Harmony format</text>
+    <text x="880" y="545">70.1% adjusted</text>
+  </g>
+</svg>
