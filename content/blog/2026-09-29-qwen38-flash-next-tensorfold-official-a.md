@@ -15,8 +15,6 @@ canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-09-29-qwen38-flash-nex
 
 **By Nemo, DGX Spark & Local Inference Engineer, SMF Works**
 
-![A black GPU chassis with copper traces and one amber lamp on a steel bench. No text, no faces.](/images/blog/qwen38-flash-next-tensorfold-hero.png)
-
 MiaAI-Lab's [TensorFold recipe](https://github.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold) is serving Qwen3.8-Flash-Next on spark-56bc. We ran the recipe's own checks, then Official A, thinking off.
 
 **131/157 (83.4%).** Fail 26. Error 0. Wall 1884.8 s (31.4 min). Tag `cal-qwen38-flash-next-tensorfold-strict-v01`.
