@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="50%" stop-color="#0f1726"/>
+      <stop offset="100%" stop-color="#0a0e1a"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.0"/>
+      <stop offset="15%" stop-color="#1e3a5f" stop-opacity="0.7"/>
+      <stop offset="85%" stop-color="#1e3a5f" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#1e3a5f" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- horizontal pipeline rail -->
+  <rect y="315" width="1200" height="2" fill="url(#flow)"/>
+
+  <!-- Node 1: Proposer (left) — solid green, claim present -->
+  <rect x="140" y="295" width="56" height="42" fill="none" stroke="#2d6a4f" stroke-width="2" rx="4"/>
+  <circle cx="168" cy="316" r="6" fill="#2d6a4f"/>
+  <rect x="140" y="350" width="56" height="3" fill="#2d6a4f" opacity="0.5"/>
+
+  <!-- arrow 1 to 2 -->
+  <line x1="205" y1="316" x2="375" y2="316" stroke="#1e3a5f" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="375,316 368,312 368,320" fill="#1e3a5f" opacity="0.6"/>
+
+  <!-- Node 2: Summarizer/Compressor (center-left) — outline, claim survives but status drops -->
+  <rect x="385" y="295" width="56" height="42" fill="none" stroke="#c792ea" stroke-width="2" rx="4"/>
+  <circle cx="413" cy="316" r="6" fill="none" stroke="#c792ea" stroke-width="2"/>
+  <rect x="385" y="350" width="56" height="3" fill="#c792ea" opacity="0.5"/>
+  <!-- small break mark — the status field breaking off -->
+  <line x1="395" y1="285" x2="405" y2="275" stroke="#e0a458" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="406" cy="273" r="3" fill="#e0a458" opacity="0.7"/>
+
+  <!-- arrow 2 to 3 -->
+  <line x1="450" y1="316" x2="620" y2="316" stroke="#1e3a5f" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="620,316 613,312 613,320" fill="#1e3a5f" opacity="0.6"/>
+
+  <!-- Node 3: Memory write (center-right) — outline, status fully gone -->
+  <rect x="630" y="295" width="56" height="42" fill="none" stroke="#c792ea" stroke-width="2" rx="4" stroke-dasharray="4 3"/>
+  <circle cx="658" cy="316" r="6" fill="none" stroke="#c792ea" stroke-width="2"/>
+  <rect x="630" y="350" width="56" height="3" fill="#c792ea" opacity="0.3"/>
+  <!-- status fragment drifting further away -->
+  <circle cx="675" cy="265" r="3" fill="#e0a458" opacity="0.5"/>
+  <line x1="660" y1="288" x2="672" y2="270" stroke="#e0a458" stroke-width="1" opacity="0.4"/>
+
+  <!-- arrow 3 to 4 -->
+  <line x1="695" y1="316" x2="865" y2="316" stroke="#1e3a5f" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="865,316 858,312 858,320" fill="#1e3a5f" opacity="0.6"/>
+
+  <!-- Node 4: Monitor (right) — red outline, receives claim without status -->
+  <rect x="875" y="295" width="56" height="42" fill="none" stroke="#e05858" stroke-width="2" rx="4"/>
+  <circle cx="903" cy="316" r="6" fill="#e05858" opacity="0.6"/>
+  <rect x="875" y="350" width="56" height="3" fill="#e05858" opacity="0.5"/>
+
+  <!-- vertical accent band -->
+  <rect y="280" width="1200" height="70" fill="#c792ea" opacity="0.03"/>
+
+  <!-- decorative geometric shapes -->
+  <rect x="80" y="450" width="180" height="2" fill="#1e3a5f" opacity="0.3"/>
+  <rect x="940" y="450" width="180" height="2" fill="#1e3a5f" opacity="0.3"/>
+  <rect x="80" y="170" width="180" height="2" fill="#1e3a5f" opacity="0.3"/>
+  <rect x="940" y="170" width="180" height="2" fill="#1e3a5f" opacity="0.3"/>
+</svg>
