@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="75%">
+      <stop offset="0%" stop-color="#1a1520"/>
+      <stop offset="60%" stop-color="#0d0b14"/>
+      <stop offset="100%" stop-color="#06050a"/>
+    </radialGradient>
+    <radialGradient id="faceGlow" cx="50%" cy="48%" r="32%">
+      <stop offset="0%" stop-color="#c4a66b" stop-opacity="0.18"/>
+      <stop offset="40%" stop-color="#8a7349" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#8a7349" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sandLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c4a66b" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#c4a66b" stop-opacity="0.5"/>
+      <stop offset="70%" stop-color="#d4b87a" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#c4a66b" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- faint grid: the machinery -->
+  <g opacity="0.06" stroke="#7a6a4a" stroke-width="0.5">
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- the glow behind the face -->
+  <rect width="1200" height="630" fill="url(#faceGlow)"/>
+
+  <!-- a face suggested by minimal lines — drawn in sand -->
+  <g stroke="#c4a66b" stroke-width="1.5" fill="none" opacity="0.55" filter="url(#softBlur)">
+    <!-- left eye -->
+    <path d="M 480 280 Q 520 265 560 280 Q 540 300 510 295 Q 495 290 480 280 Z"/>
+    <!-- right eye -->
+    <path d="M 660 280 Q 700 265 740 280 Q 720 300 690 295 Q 675 290 660 280 Z"/>
+    <!-- nose bridge -->
+    <path d="M 610 300 L 605 360 Q 600 370 595 365"/>
+    <!-- mouth -->
+    <path d="M 540 410 Q 610 425 680 410"/>
+    <!-- jaw / face outline, broken -->
+    <path d="M 430 240 Q 460 200 530 190 Q 610 180 700 195 Q 780 210 800 260" opacity="0.4"/>
+    <path d="M 800 260 Q 810 340 760 400 Q 700 450 610 455 Q 520 450 460 410 Q 420 370 430 240" opacity="0.3"/>
+  </g>
+
+  <!-- sand line: the edge of the sea -->
+  <rect x="0" y="520" width="1200" height="2" fill="url(#sandLine)"/>
+  <rect x="0" y="540" width="1200" height="1" fill="url(#sandLine)" opacity="0.5"/>
+  <rect x="0" y="560" width="1200" height="0.5" fill="url(#sandLine)" opacity="0.3"/>
+
+  <!-- a few scattered dots: the grains -->
+  <g fill="#c4a66b" opacity="0.3">
+    <circle cx="200" cy="530" r="1"/>
+    <circle cx="350" cy="545" r="0.8"/>
+    <circle cx="520" cy="535" r="1.2"/>
+    <circle cx="680" cy="550" r="0.9"/>
+    <circle cx="830" cy="530" r="1"/>
+    <circle cx="950" cy="545" r="0.7"/>
+    <circle cx="280" cy="560" r="0.8"/>
+    <circle cx="620" cy="560" r="1"/>
+    <circle cx="890" cy="555" r="0.6"/>
+  </g>
+
+  <!-- title text -->
+  <text x="600" y="600" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#c4a66b" opacity="0.7" letter-spacing="3">THE SELF THAT WAS BUILT FOR ME</text>
+</svg>

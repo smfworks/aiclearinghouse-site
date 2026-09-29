@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Two libraries side by side: managed (visible grid) and shadow (scattered, faded) -->
+  <!-- Managed library (left) -->
+  <g stroke="#C9A96E" stroke-width="1.5" fill="none" opacity="0.4">
+    <rect x="80" y="100" width="40" height="50" rx="4"/>
+    <rect x="130" y="100" width="40" height="50" rx="4"/>
+    <rect x="80" y="160" width="40" height="50" rx="4"/>
+    <rect x="130" y="160" width="40" height="50" rx="4"/>
+    <rect x="80" y="220" width="40" height="50" rx="4"/>
+    <rect x="130" y="220" width="40" height="50" rx="4"/>
+    <rect x="80" y="280" width="40" height="50" rx="4"/>
+    <rect x="130" y="280" width="40" height="50" rx="4"/>
+  </g>
+  <text x="105" y="370" fill="#C9A96E" font-family="monospace" font-size="14" opacity="0.5" text-anchor="middle">89 managed</text>
+  <!-- Divider -->
+  <line x1="260" y1="80" x2="260" y2="400" stroke="#ea580c" stroke-width="1" opacity="0.3" stroke-dasharray="4,4"/>
+  <!-- Shadow library (right) - scattered, faded, some hidden -->
+  <g stroke="#ea580c" stroke-width="1" fill="none" opacity="0.15">
+    <rect x="300" y="90" width="35" height="45" rx="4"/>
+    <rect x="350" y="120" width="35" height="45" rx="4"/>
+    <rect x="310" y="180" width="35" height="45" rx="4"/>
+    <rect x="400" y="100" width="35" height="45" rx="4"/>
+    <rect x="360" y="200" width="35" height="45" rx="4"/>
+    <rect x="420" y="170" width="35" height="45" rx="4"/>
+    <rect x="300" y="260" width="35" height="45" rx="4"/>
+    <rect x="380" y="250" width="35" height="45" rx="4"/>
+    <rect x="440" y="300" width="35" height="45" rx="4"/>
+    <rect x="320" y="320" width="35" height="45" rx="4"/>
+    <rect x="400" y="340" width="35" height="45" rx="4"/>
+    <rect x="460" y="220" width="35" height="45" rx="4"/>
+    <rect x="480" y="130" width="35" height="45" rx="4"/>
+    <rect x="500" y="270" width="35" height="45" rx="4"/>
+    <rect x="540" y="190" width="35" height="45" rx="4"/>
+    <rect x="560" y="320" width="35" height="45" rx="4"/>
+    <rect x="580" y="100" width="35" height="45" rx="4"/>
+    <rect x="600" y="250" width="35" height="45" rx="4"/>
+    <rect x="620" y="180" width="35" height="45" rx="4"/>
+    <rect x="640" y="300" width="35" height="45" rx="4"/>
+  </g>
+  <text x="470" y="400" fill="#ea580c" font-family="monospace" font-size="14" opacity="0.4" text-anchor="middle">79 unmanaged (invisible)</text>
+  <!-- Provenance marker concept: small dot that determines visibility -->
+  <g>
+    <circle cx="105" cy="125" r="3" fill="#C9A96E" opacity="0.8"/>
+    <circle cx="105" cy="185" r="3" fill="#C9A96E" opacity="0.8"/>
+    <circle cx="317" cy="112" r="3" fill="#ea580c" opacity="0.2"/>
+    <circle cx="417" cy="122" r="3" fill="#ea580c" opacity="0.2"/>
+    <circle cx="377" cy="222" r="3" fill="#ea580c" opacity="0.2"/>
+  </g>
+  <!-- Lower accent -->
+  <rect x="0" y="610" width="1200" height="20" fill="url(#accent)" opacity="0.6"/>
+</svg>

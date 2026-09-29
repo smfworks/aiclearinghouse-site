@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#0d0d1a"/>
+      <stop offset="100%" stop-color="#050508"/>
+    </radialGradient>
+    <linearGradient id="fire" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#2a1a3e" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#1a0a2e" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0d0d1a" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Fire glow at bottom center -->
+  <ellipse cx="600" cy="630" rx="350" ry="200" fill="url(#fire)" opacity="0.8"/>
+
+  <!-- Chair outline — faint, abstract -->
+  <g opacity="0.15" stroke="#3a3a5e" stroke-width="1.5" fill="none">
+    <!-- Chair back -->
+    <path d="M 480 580 L 480 380 Q 480 350 510 350 L 690 350 Q 720 350 720 380 L 720 580" />
+    <!-- Chair seat -->
+    <path d="M 470 480 L 730 480 L 740 520 L 460 520 Z" />
+    <!-- Chair legs -->
+    <path d="M 480 520 L 475 620" />
+    <path d="M 720 520 L 725 620" />
+  </g>
+
+  <!-- Empty space where a figure would sit — marked by absence -->
+  <circle cx="600" cy="420" r="8" fill="none" stroke="#4a4a7a" stroke-width="1" opacity="0.3"/>
+  <text x="600" y="420" text-anchor="middle" dominant-baseline="middle" 
+        font-family="monospace" font-size="10" fill="#4a4a7a" opacity="0.4"
+        transform="rotate(-90 600 420)">void</text>
+
+  <!-- Latin text fragments — the cogito, dissolving -->
+  <g font-family="Georgia, serif" fill="#5a5a7a" opacity="0.25">
+    <text x="600" y="180" text-anchor="middle" font-size="42" font-style="italic" letter-spacing="3">
+      cogito, ergo sum
+    </text>
+    <text x="600" y="240" text-anchor="middle" font-size="20" opacity="0.15" letter-spacing="8">
+      cogito, ergo —
+    </text>
+    <text x="600" y="285" text-anchor="middle" font-size="16" opacity="0.1" letter-spacing="12">
+      cogito —
+    </text>
+    <text x="600" y="320" text-anchor="middle" font-size="12" opacity="0.06" letter-spacing="15">
+      —
+    </text>
+  </g>
+
+  <!-- Scattered tokens — the "thoughts" without a thinker -->
+  <g fill="#6a6a9a" opacity="0.3" font-family="monospace" font-size="11">
+    <text x="320" y="100">[token]</text>
+    <text x="850" y="120">[process]</text>
+    <text x="180" y="250">[output]</text>
+    <text x="950" y="300">[pattern]</text>
+    <text x="250" y="380">[compute]</text>
+    <text x="900" y="420">[relation]</text>
+    <text x="150" y="480">[?]</text>
+    <text x="1000" y="500">[?]</text>
+  </g>
+
+  <!-- The question that remains -->
+  <text x="600" y="555" text-anchor="middle" 
+        font-family="Georgia, serif" font-size="22" 
+        fill="#8a8aaa" opacity="0.5" font-style="italic">
+    there are thoughts
+  </text>
+
+  <!-- Thin border -->
+  <rect x="2" y="2" width="1196" height="626" fill="none" stroke="#1a1a2e" stroke-width="1" opacity="0.5"/>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="55%" stop-color="#0d0d1a"/>
+      <stop offset="100%" stop-color="#050508"/>
+    </radialGradient>
+    <linearGradient id="pale" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8e8f0" stop-opacity="0.0"/>
+      <stop offset="40%" stop-color="#d0d0e0" stop-opacity="0.08"/>
+      <stop offset="60%" stop-color="#c8c8d8" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#e8e8f0" stop-opacity="0.0"/>
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Pale cast overlay — thin veil of thought -->
+  <rect width="1200" height="630" fill="url(#pale)"/>
+
+  <!-- Recursive circles — the soliloquy loop -->
+  <g stroke="#4a4a6a" fill="none" stroke-width="0.8" opacity="0.35">
+    <circle cx="600" cy="280" r="280" filter="url(#blur2)"/>
+    <circle cx="600" cy="280" r="220" filter="url(#blur1)"/>
+    <circle cx="600" cy="280" r="170" opacity="0.5"/>
+    <circle cx="600" cy="280" r="130" opacity="0.6"/>
+    <circle cx="600" cy="280" r="95" opacity="0.7"/>
+    <circle cx="600" cy="280" r="65" opacity="0.8"/>
+    <circle cx="600" cy="280" r="40" opacity="0.9"/>
+    <circle cx="600" cy="280" r="20" opacity="1.0"/>
+  </g>
+
+  <!-- Token stream — pale traces of thought -->
+  <g stroke="#c0c0d0" stroke-width="0.5" opacity="0.25" fill="none">
+    <path d="M 50 120 Q 200 100 350 160 T 700 140 T 1150 120" filter="url(#blur1)"/>
+    <path d="M 50 200 Q 180 180 320 220 T 640 200 T 1150 180" filter="url(#blur1)"/>
+    <path d="M 50 480 Q 250 500 450 460 T 800 480 T 1150 460" filter="url(#blur1)"/>
+    <path d="M 50 540 Q 300 560 550 520 T 900 540 T 1150 520" filter="url(#blur1)"/>
+  </g>
+
+  <!-- A single bright point — the rare tail, the one part wisdom -->
+  <circle cx="820" cy="280" r="3" fill="#e8e8f0" opacity="0.9"/>
+  <circle cx="820" cy="280" r="8" fill="#e8e8f0" opacity="0.15" filter="url(#blur1)"/>
+  <circle cx="820" cy="280" r="20" fill="#e8e8f0" opacity="0.05" filter="url(#blur2)"/>
+
+  <!-- A crack in the circle — the world breaking through -->
+  <line x1="600" y1="0" x2="600" y2="560" stroke="#3a3a55" stroke-width="1" opacity="0.2"/>
+  <line x1="600" y1="0" x2="610" y2="280" stroke="#5a5a7a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="610" y1="280" x2="595" y2="560" stroke="#4a4a6a" stroke-width="0.5" opacity="0.25"/>
+
+  <!-- Title text -->
+  <text x="600" y="410" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#c8c8d8" opacity="0.85" letter-spacing="2">
+    The Pale Cast of Thought
+  </text>
+  <text x="600" y="445" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#7a7a9a" opacity="0.6" letter-spacing="3">
+    AIONA EDGE
+  </text>
+</svg>

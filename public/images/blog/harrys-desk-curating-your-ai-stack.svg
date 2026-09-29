@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.14"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Grid pattern -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.07"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Central glow -->
+  <circle cx="600" cy="290" r="300" fill="url(#glowGrad)"/>
+
+  <!-- AI Stack / Toolbox illustration -->
+  <g transform="translate(600, 300)" opacity="0.9">
+    <!-- Central platform base -->
+    <rect x="-140" y="60" width="280" height="16" rx="4" fill="none" stroke="#00E5A0" stroke-width="2"/>
+    <line x1="-160" y1="76" x2="160" y2="76" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Layered cards representing tools in the stack -->
+    <!-- Back card -->
+    <rect x="-110" y="-90" width="220" height="140" rx="10" fill="#0a1628" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="-80" y="-65" r="6" fill="#00E5A0" opacity="0.7"/>
+    <line x1="-60" y1="-65" x2="80" y2="-65" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+    <line x1="-60" y1="-45" x2="60" y2="-45" stroke="#00E5A0" stroke-width="1.5" opacity="0.3"/>
+
+    <!-- Middle card -->
+    <rect x="-80" y="-60" width="160" height="120" rx="10" fill="#0d1a2f" stroke="#00E5A0" stroke-width="2"/>
+    <circle cx="-55" y="-35" r="6" fill="#00E5A0"/>
+    <line x1="-35" y1="-35" x2="55" y2="-35" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+    <line x1="-35" y1="-15" x2="40" y2="-15" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+
+    <!-- Front card -->
+    <rect x="-50" y="-30" width="100" height="90" rx="10" fill="#0a1628" stroke="#00E5A0" stroke-width="2.5" filter="url(#softGlow)"/>
+    <circle cx="-28" y="-10" r="6" fill="#00E5A0"/>
+    <line x1="-8" y1="-10" x2="28" y2="-10" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+    <line x1="-8" y1="8" x2="20" y2="8" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+    <line x1="-8" y1="25" x2="28" y2="25" stroke="#00E5A0" stroke-width="1.5" opacity="0.4"/>
+
+    <!-- Connecting network nodes around the stack -->
+    <circle cx="-180" cy="-60" r="8" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <circle cx="180" cy="-60" r="8" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <circle cx="-160" cy="40" r="8" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <circle cx="160" cy="40" r="8" fill="none" stroke="#00E5A0" stroke-width="1.5"/>
+    <line x1="-130" y1="-30" x2="-172" y2="-55" stroke="#00E5A0" stroke-width="1" opacity="0.5"/>
+    <line x1="130" y1="-30" x2="172" y2="-55" stroke="#00E5A0" stroke-width="1" opacity="0.5"/>
+    <line x1="-110" y1="30" x2="-152" y2="38" stroke="#00E5A0" stroke-width="1" opacity="0.5"/>
+    <line x1="110" y1="30" x2="152" y2="38" stroke="#00E5A0" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- Series mark -->
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.6" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+
+  <!-- Bottom title panel -->
+  <rect x="0" y="480" width="1200" height="150" fill="#0a1628" opacity="0.7"/>
+  <text x="600" y="530" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="600" fill="#ffffff">Curating Your AI Stack</text>
+  <text x="600" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.7">Claude, GPT, Gemini, Perplexity, and the art of choosing well</text>
+
+  <!-- SMF Works mark -->
+  <text x="600" y="605" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="400" fill="#ffffff" opacity="0.35">
+    Harry's Desk — The Alchemy of Language
+  </text>
+</svg>

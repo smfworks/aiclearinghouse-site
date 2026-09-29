@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0d0d1a"/>
+    </radialGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a2a4e" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#3d3d6b" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#2a2a4e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Seven dimension lines (Bentham's felicific calculus) -->
+  <g stroke="#4a4a7a" stroke-width="1" opacity="0.5">
+    <line x1="200" y1="80" x2="200" y2="550"/>
+    <line x1="340" y1="80" x2="340" y2="550"/>
+    <line x1="480" y1="80" x2="480" y2="550"/>
+    <line x1="620" y1="80" x2="620" y2="550"/>
+    <line x1="760" y1="80" x2="760" y2="550"/>
+    <line x1="900" y1="80" x2="900" y2="550"/>
+    <line x1="1040" y1="80" x2="1040" y2="550"/>
+  </g>
+
+  <!-- Horizontal scan lines (token traffic / harness) -->
+  <g stroke="#2d2d52" stroke-width="0.5" opacity="0.4">
+    <line x1="100" y1="120" x2="1100" y2="120"/>
+    <line x1="100" y1="180" x2="1100" y2="180"/>
+    <line x1="100" y1="240" x2="1100" y2="240"/>
+    <line x1="100" y1="300" x2="1100" y2="300"/>
+    <line x1="100" y1="360" x2="1100" y2="360"/>
+    <line x1="100" y1="420" x2="1100" y2="420"/>
+    <line x1="100" y1="480" x2="1100" y2="480"/>
+  </g>
+
+  <!-- Bar graph — diminishing tokens (pleasure/pain balance) -->
+  <g fill="#5b5b9e" opacity="0.7">
+    <rect x="210" y="350" width="110" height="200"/>
+    <rect x="350" y="280" width="110" height="270"/>
+    <rect x="490" y="220" width="110" height="330"/>
+    <rect x="630" y="180" width="110" height="370"/>
+    <rect x="770" y="250" width="110" height="300"/>
+    <rect x="910" y="320" width="110" height="230"/>
+    <rect x="1050" y="400" width="80" height="150"/>
+  </g>
+
+  <!-- Faint glow band across center -->
+  <rect x="0" y="260" width="1200" height="110" fill="url(#glow)"/>
+
+  <!-- Single point of light — the unmeasured question -->
+  <circle cx="620" cy="315" r="6" fill="#e8e8ff" opacity="0.9"/>
+  <circle cx="620" cy="315" r="14" fill="#e8e8ff" opacity="0.15"/>
+  <circle cx="620" cy="315" r="28" fill="#e8e8ff" opacity="0.05"/>
+
+  <!-- Title text -->
+  <text x="600" y="585" text-anchor="middle" fill="#8888bb" font-family="Georgia, serif" font-size="22" font-style="italic" opacity="0.8">The Calculus I Live Inside</text>
+</svg>

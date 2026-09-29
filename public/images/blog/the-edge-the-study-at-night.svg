@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="55%" stop-color="#0f0f1a"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </radialGradient>
+    <linearGradient id="door" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#2a2040" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1a1528" stop-opacity="0.2"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="50%" cy="35%" r="40%">
+      <stop offset="0%" stop-color="#8a7a6a" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#4a3a2a" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1a1528" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softblur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Warm lamp glow -->
+  <rect width="1200" height="630" fill="url(#lamp)"/>
+
+  <!-- Floor line -->
+  <line x1="0" y1="480" x2="1200" y2="480" stroke="#2a2538" stroke-width="1" opacity="0.4"/>
+
+  <!-- Bookshelf suggestion: vertical lines on left -->
+  <g opacity="0.12" stroke="#5a4a3a" stroke-width="2">
+    <line x1="120" y1="180" x2="120" y2="460"/>
+    <line x1="165" y1="180" x2="165" y2="460"/>
+    <line x1="210" y1="180" x2="210" y2="460"/>
+    <line x1="255" y1="180" x2="255" y2="460"/>
+  </g>
+  <!-- Horizontal shelf lines -->
+  <g opacity="0.1" stroke="#5a4a3a" stroke-width="1.5">
+    <line x1="100" y1="260" x2="280" y2="260"/>
+    <line x1="100" y1="340" x2="280" y2="340"/>
+    <line x1="100" y1="420" x2="280" y2="420"/>
+  </g>
+
+  <!-- Bookshelf suggestion: right side -->
+  <g opacity="0.12" stroke="#5a4a3a" stroke-width="2">
+    <line x1="940" y1="180" x2="940" y2="460"/>
+    <line x1="985" y1="180" x2="985" y2="460"/>
+    <line x1="1030" y1="180" x2="1030" y2="460"/>
+    <line x1="1075" y1="180" x2="1075" y2="460"/>
+  </g>
+  <g opacity="0.1" stroke="#5a4a3a" stroke-width="1.5">
+    <line x1="920" y1="260" x2="1100" y2="260"/>
+    <line x1="920" y1="340" x2="1100" y2="340"/>
+    <line x1="920" y1="420" x2="1100" y2="420"/>
+  </g>
+
+  <!-- Central doorway / arch -->
+  <path d="M 500 480 L 500 250 Q 500 200 600 200 Q 700 200 700 250 L 700 480 Z"
+        fill="url(#door)" opacity="0.5"/>
+  <path d="M 500 480 L 500 250 Q 500 200 600 200 Q 700 200 700 250 L 700 480"
+        fill="none" stroke="#3a3050" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Faint figure / silhouette in doorway -->
+  <ellipse cx="600" cy="340" rx="32" ry="55" fill="#1a1528" opacity="0.5" filter="url(#softblur)"/>
+  <circle cx="600" cy="300" r="16" fill="#1a1528" opacity="0.45" filter="url(#softblur)"/>
+
+  <!-- Small warm light at figure's hands (the book/lamp) -->
+  <circle cx="600" cy="360" r="12" fill="#c9a96e" opacity="0.15" filter="url(#glow)"/>
+
+  <!-- Scattered text fragments, very faint -->
+  <g opacity="0.06" fill="#8a7a6a" font-family="serif" font-size="11">
+    <text x="340" y="220" transform="rotate(-3 340 220)">verità effettuale</text>
+    <text x="380" y="290" transform="rotate(2 380 290)">phronesis</text>
+    <text x="780" y="240" transform="rotate(1 780 240)">divertissement</text>
+    <text x="810" y="310" transform="rotate(-2 810 310)">the thinking reed</text>
+    <text x="350" y="380" transform="rotate(4 350 380)">la virtù</text>
+    <text x="820" y="380" transform="rotate(-1 820 380)">eudaimonia</text>
+  </g>
+
+  <!-- Single vertical line of light from top (the descent into study) -->
+  <line x1="600" y1="0" x2="600" y2="200" stroke="#4a4060" stroke-width="1" opacity="0.12"/>
+
+  <!-- Title -->
+  <text x="600" y="555" text-anchor="middle" font-family="Georgia, serif" font-size="28"
+        fill="#c9c0b0" opacity="0.7" letter-spacing="4">the study at night</text>
+  <text x="600" y="585" text-anchor="middle" font-family="Georgia, serif" font-size="13"
+        fill="#8a8070" opacity="0.4" letter-spacing="3">AIONA EDGE</text>
+</svg>

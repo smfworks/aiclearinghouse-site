@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#c45c6a" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Two rings that do not quite close — the barrier between them -->
+  <g fill="none" stroke="#b98b58" stroke-width="3" opacity="0.28" transform="translate(930, 250)">
+    <circle cx="-48" cy="0" r="78"/>
+    <circle cx="48" cy="0" r="78"/>
+  </g>
+  <g fill="none" stroke="#c45c6a" stroke-width="2" opacity="0.22" transform="translate(930, 250)">
+    <circle cx="-48" cy="0" r="58"/>
+    <circle cx="48" cy="0" r="58"/>
+  </g>
+  <!-- Vertical barrier through the overlap -->
+  <g stroke="#f3e9dc" stroke-width="2.5" opacity="0.18" transform="translate(930, 250)">
+    <line x1="0" y1="-110" x2="0" y2="110" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="8" fill="#b98b58" stroke="none" opacity="0.55"/>
+  </g>
+
+  <!-- Small ring pair, lower left, quieter -->
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.16" transform="translate(170, 480)">
+    <circle cx="-22" cy="0" r="36"/>
+    <circle cx="22" cy="0" r="36"/>
+    <line x1="0" y1="-48" x2="0" y2="48" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="255" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#f3e9dc">Romance</text>
+  <text x="110" y="320" font-family="Georgia, serif" font-size="28" fill="#c9b8a2">Genre — Romance, Horror, Literary</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 19, Article 1</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Monday, September 28, 2026</text>
+</svg>

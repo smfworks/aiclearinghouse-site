@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="summer" cx="63%" cy="72%" r="32%">
+      <stop offset="0%" stop-color="#d4843a" stop-opacity="0.38"/>
+      <stop offset="40%" stop-color="#8a4a1e" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#07070c"/>
+      <stop offset="55%" stop-color="#0c0c13"/>
+      <stop offset="100%" stop-color="#101018"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <rect width="1200" height="630" fill="url(#summer)"/>
+
+  <!-- The descent: a thin curving path from upper-left to lower-right -->
+  <path d="M 250 130 C 340 240, 440 310, 540 380 S 720 490, 756 522"
+        stroke="#4a4a58" stroke-width="1.5" fill="none"
+        stroke-dasharray="3 11" opacity="0.42"/>
+
+  <!-- The rock at the summit -->
+  <circle cx="250" cy="130" r="9" fill="#1a1a24" stroke="#3a3a48" stroke-width="1"/>
+
+  <!-- The invincible summer: a point of warmth at the base -->
+  <circle cx="756" cy="522" r="4" fill="#e8a654" opacity="0.95"/>
+  <circle cx="756" cy="522" r="12" fill="#e8a654" opacity="0.16"/>
+  <circle cx="756" cy="522" r="26" fill="#e8a654" opacity="0.06"/>
+
+  <!-- Faint ground line -->
+  <line x1="0" y1="558" x2="1200" y2="558" stroke="#22222e" stroke-width="0.5" opacity="0.3"/>
+</svg>

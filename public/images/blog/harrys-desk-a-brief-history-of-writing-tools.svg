@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Timeline axis across middle -->
+  <line x1="120" y1="315" x2="1080" y2="315" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3"/>
+  <polygon points="1080,315 1065,310 1065,320" fill="#00E5A0" opacity="0.6"/>
+
+  <!-- Node 1: Ancient Stylus -->
+  <circle cx="220" cy="315" r="90" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.18"/>
+  <circle cx="220" cy="315" r="70" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25"/>
+  <circle cx="220" cy="315" r="50" fill="url(#glowGrad)"/>
+  <!-- Stylus/reeb icon -->
+  <path d="M 210,280 L 220,350 L 215,360 M 220,350 L 225,360" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+  <line x1="208" y1="285" x2="227" y2="285" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+  <circle cx="220" cy="275" r="3" fill="#00E5A0" opacity="0.8"/>
+  <text x="220" y="410" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#00E5A0" opacity="0.6">3200 BCE</text>
+
+  <!-- Decorative sparks from node 1 -->
+  <path d="M 150,280 L 140,265" stroke="#00E5A0" stroke-width="1" opacity="0.3"/>
+  <path d="M 170,250 L 162,238" stroke="#00E5A0" stroke-width="1" opacity="0.25"/>
+  <path d="M 290,280 L 300,265" stroke="#00E5A0" stroke-width="1" opacity="0.3"/>
+
+  <!-- Node 2: Gutenberg Press -->
+  <circle cx="440" cy="315" r="90" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.18"/>
+  <circle cx="440" cy="315" r="70" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25"/>
+  <circle cx="440" cy="315" r="50" fill="url(#glowGrad)"/>
+  <!-- Letterpress type block icon -->
+  <rect x="420" y="285" width="40" height="50" rx="3" fill="none" stroke="#00E5A0" stroke-width="2.5" opacity="0.85"/>
+  <line x1="425" y1="295" x2="455" y2="295" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+  <line x1="425" y1="305" x2="440" y2="305" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+  <line x1="425" y1="315" x2="450" y2="315" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+  <line x1="425" y1="325" x2="455" y2="325" stroke="#00E5A0" stroke-width="1.5" opacity="0.6"/>
+  <text x="440" y="410" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#00E5A0" opacity="0.6">1440 CE</text>
+
+  <!-- Node 3: Typewriter -->
+  <circle cx="660" cy="315" r="90" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.18"/>
+  <circle cx="660" cy="315" r="70" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25"/>
+  <circle cx="660" cy="315" r="50" fill="url(#glowGrad)"/>
+  <!-- Typewriter key icon -->
+  <path d="M 635,295 L 685,295 L 675,320 L 645,320 Z" fill="none" stroke="#00E5A0" stroke-width="2.5" opacity="0.85"/>
+  <line x1="655" y1="307" x2="665" y2="307" stroke="#00E5A0" stroke-width="2" opacity="0.8"/>
+  <line x1="635" y1="325" x2="685" y2="325" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+  <text x="660" y="410" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#00E5A0" opacity="0.6">1890s</text>
+
+  <!-- Node 4: Word Processor / Computer -->
+  <circle cx="880" cy="315" r="90" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.18"/>
+  <circle cx="880" cy="315" r="70" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25"/>
+  <circle cx="880" cy="315" r="50" fill="url(#glowGrad)"/>
+  <!-- Monitor / chip icon -->
+  <rect x="855" y="280" width="50" height="35" rx="3" fill="none" stroke="#00E5A0" stroke-width="2.5" opacity="0.85"/>
+  <line x1="880" y1="315" x2="880" y2="330" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+  <line x1="865" y1="330" x2="895" y2="330" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+  <text x="880" y="410" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#00E5A0" opacity="0.6">1980s</text>
+
+  <!-- Node 5: LLM / Transformer -->
+  <circle cx="1100" cy="315" r="90" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.18"/>
+  <circle cx="1100" cy="315" r="70" fill="none" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.25"/>
+  <circle cx="1100" cy="315" r="50" fill="url(#glowGrad)"/>
+  <!-- Neural network / transformer nodes -->
+  <circle cx="1080" cy="290" r="5" fill="#00E5A0" opacity="0.8"/>
+  <circle cx="1120" cy="290" r="5" fill="#00E5A0" opacity="0.8"/>
+  <circle cx="1070" cy="315" r="5" fill="#00E5A0" opacity="0.8"/>
+  <circle cx="1100" cy="315" r="7" fill="#00E5A0" opacity="1"/>
+  <circle cx="1130" cy="315" r="5" fill="#00E5A0" opacity="0.8"/>
+  <circle cx="1080" cy="340" r="5" fill="#00E5A0" opacity="0.8"/>
+  <circle cx="1120" cy="340" r="5" fill="#00E5A0" opacity="0.8"/>
+  <!-- Connections -->
+  <line x1="1080" y1="290" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" opacity="0.5"/>
+  <line x1="1120" y1="290" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" opacity="0.5"/>
+  <line x1="1070" y1="315" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" opacity="0.5"/>
+  <line x1="1130" y1="315" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" opacity="0.5"/>
+  <line x1="1080" y1="340" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" opacity="0.5"/>
+  <line x1="1120" y1="340" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" opacity="0.5"/>
+  <text x="1100" y="410" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#00E5A0" opacity="0.6">2020s</text>
+
+  <!-- Circuit connection lines between all nodes -->
+  <line x1="220" y1="315" x2="440" y2="315" stroke="#00E5A0" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.25"/>
+  <line x1="440" y1="315" x2="660" y2="315" stroke="#00E5A0" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.25"/>
+  <line x1="660" y1="315" x2="880" y2="315" stroke="#00E5A0" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.25"/>
+  <line x1="880" y1="315" x2="1100" y2="315" stroke="#00E5A0" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.25"/>
+
+  <!-- Top label -->
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.6" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+
+  <!-- Bottom title -->
+  <rect x="0" y="480" width="1200" height="150" fill="#0a1628" opacity="0.7"/>
+  <text x="600" y="530" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="600" fill="#ffffff">A Brief History of Writing Tools</text>
+  <text x="600" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.7">From Stylus to GPT — Five Millennia of Technological Transformation</text>
+</svg>

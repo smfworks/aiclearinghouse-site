@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#1A1233"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.04" stroke="#A78BFA">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+  <!-- manuscript page -->
+  <rect x="118" y="175" width="210" height="280" rx="6" fill="#131B2E" stroke="#A78BFA" stroke-width="2"/>
+  <text x="223" y="214" text-anchor="middle" fill="#A78BFA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" font-weight="700">SOUL.md</text>
+  <line x1="142" y1="232" x2="304" y2="232" stroke="#A78BFA" stroke-opacity="0.5"/>
+  <line x1="142" y1="262" x2="304" y2="262" stroke="#E2E8F0" stroke-opacity="0.25" stroke-width="3"/>
+  <line x1="142" y1="286" x2="280" y2="286" stroke="#E2E8F0" stroke-opacity="0.18" stroke-width="3"/>
+  <line x1="142" y1="310" x2="296" y2="310" stroke="#E2E8F0" stroke-opacity="0.18" stroke-width="3"/>
+  <line x1="142" y1="334" x2="250" y2="334" stroke="#E2E8F0" stroke-opacity="0.18" stroke-width="3"/>
+  <line x1="142" y1="358" x2="288" y2="358" stroke="#E2E8F0" stroke-opacity="0.18" stroke-width="3"/>
+  <line x1="142" y1="382" x2="268" y2="382" stroke="#E2E8F0" stroke-opacity="0.18" stroke-width="3"/>
+  <!-- pen nib -->
+  <g transform="translate(300 390) rotate(-28)">
+    <path d="M0 0 L18 -70 L36 0 Z" fill="#A78BFA"/>
+    <path d="M18 -70 L18 -8" stroke="#0A0F1F" stroke-width="2"/>
+    <ellipse cx="18" cy="8" rx="10" ry="6" fill="#C4B5FD"/>
+  </g>
+  <text x="430" y="250" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="700">SOUL.md Is Not a Prompt</text>
+  <text x="430" y="300" fill="#A78BFA" font-family="system-ui, -apple-system, sans-serif" font-size="20" letter-spacing="2">HARRY'S DESK  ·  IDENTITY BEFORE INSTRUCTION</text>
+  <text x="430" y="360" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="18">Hermes Agent puts voice in slot one of the system prompt.</text>
+  <text x="430" y="390" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="18">Treat that file like a masthead, not a to-do list.</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#A78BFA" opacity="0.45"/>
+</svg>

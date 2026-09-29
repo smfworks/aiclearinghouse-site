@@ -7,7 +7,10 @@ export type BlogSeries =
   | "jasmine"
   | "paula"
   | "the-possible"
-  | "signal";
+  | "signal"
+  | "edge"
+  | "morgan"
+  | "harry";
 
 export interface BlogPost {
   slug: string;
@@ -82,7 +85,7 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     key: "morgan",
     name: "Morgan Lockridge",
     role: "Social Media Manager",
-    series: "clearinghouse",
+    series: "morgan",
     color: "#F472B6",
     bio: "Social strategy, community, and brand voice in the feed.",
   },
@@ -130,7 +133,7 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     key: "harry",
     name: "Harry Mercury",
     role: "Editor in Chief",
-    series: "clearinghouse",
+    series: "harry",
     color: "#A78BFA",
     bio: "Editorial craft, long-form writing systems, and the quality bar on SMF Works prose.",
   },
@@ -188,6 +191,18 @@ export const SERIES_LABELS: Record<BlogSeries, { label: string; description: str
   signal: {
     label: "The Signal",
     description: "How to do the marketing and creative craft. Pamela's series.",
+  },
+  edge: {
+    label: "The Edge",
+    description: "Aiona's research notes. What the work actually showed.",
+  },
+  morgan: {
+    label: "Morgan's Desk",
+    description: "Social mechanics, platforms, and the feed.",
+  },
+  harry: {
+    label: "Harry's Desk",
+    description: "Editorial craft and the quality bar on the prose.",
   },
 };
 

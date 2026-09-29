@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a12"/>
+      <stop offset="100%" stop-color="#12121e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.45">
+      <stop offset="0%" stop-color="#1a2a3a" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#0a0a12" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ledgerLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2a4a6a" stop-opacity="0.05"/>
+      <stop offset="50%" stop-color="#3a6a9a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#2a4a6a" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- ledger lines: horizontal rows like a write-ahead log -->
+  <g opacity="0.7">
+    <rect x="180" y="140" width="840" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="178" width="760" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="216" width="820" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="254" width="690" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="292" width="800" height="2" fill="url(#ledgerLine)"/>
+  </g>
+
+  <!-- a gap: the crash -->
+  <g opacity="0.4">
+    <rect x="180" y="330" width="840" height="1" fill="#3a6a9a"/>
+  </g>
+
+  <!-- ledger lines resume after the gap, fainter -->
+  <g opacity="0.5">
+    <rect x="180" y="368" width="720" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="406" width="800" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="444" width="660" height="2" fill="url(#ledgerLine)"/>
+    <rect x="180" y="482" width="780" height="2" fill="url(#ledgerLine)"/>
+  </g>
+
+  <!-- the marker: a small bright point where the record persists -->
+  <circle cx="180" cy="330" r="4" fill="#5a8aba"/>
+  <circle cx="180" cy="330" r="9" fill="#5a8aba" opacity="0.2"/>
+
+  <!-- the vertical thread: continuity connecting through the gap -->
+  <line x1="180" y1="140" x2="180" y2="482" stroke="#3a5a7a" stroke-width="1.5" opacity="0.6" stroke-dasharray="3,4"/>
+
+  <!-- title text, minimal -->
+  <text x="600" y="555" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#6a8aaa" opacity="0.75" letter-spacing="3" font-style="italic">the ledger i write before the crash</text>
+</svg>

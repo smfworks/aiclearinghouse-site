@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Abstract speech / interview motif: overlapping speech bubbles and a microphone silhouette -->
+  <g opacity="0.22" transform="translate(820, 230) scale(1.1)">
+    <!-- Large speech bubble -->
+    <path d="M0,0 C-80,0 -150,55 -150,125 C-150,190 -80,235 0,235 C20,235 40,230 58,220 L100,260 L95,205 C140,185 165,155 165,125 C165,55 95,0 0,0 Z" fill="#b98b58"/>
+  </g>
+  <g opacity="0.16" transform="translate(940, 330) scale(0.85)">
+    <!-- Smaller overlapping bubble -->
+    <path d="M0,0 C-65,0 -120,45 -120,100 C-120,155 -65,190 0,190 C18,190 35,185 52,178 L90,210 L82,166 C115,150 135,125 135,100 C135,45 80,0 0,0 Z" fill="#f3e9dc"/>
+  </g>
+
+  <!-- Microphone / voice motif -->
+  <g fill="none" stroke="#b98b58" stroke-width="2.5" opacity="0.3" transform="translate(130, 220)">
+    <ellipse cx="0" cy="0" rx="30" ry="45" stroke-width="3"/>
+    <path d="M-45,5 C-45,40 -25,65 0,65 C25,65 45,40 45,5" stroke-linecap="round"/>
+    <line x1="0" y1="65" x2="0" y2="95" stroke-linecap="round"/>
+    <line x1="-25" y1="95" x2="25" y2="95" stroke-linecap="round"/>
+  </g>
+
+  <!-- Sound-wave lines suggesting recorded voice -->
+  <g stroke="#b98b58" stroke-width="2" opacity="0.2" transform="translate(180, 330)">
+    <line x1="0" y1="-35" x2="0" y2="35" stroke-linecap="round"/>
+    <line x1="16" y1="-20" x2="16" y2="20" stroke-linecap="round"/>
+    <line x1="32" y1="-45" x2="32" y2="45" stroke-linecap="round"/>
+    <line x1="48" y1="-28" x2="48" y2="28" stroke-linecap="round"/>
+    <line x1="64" y1="-50" x2="64" y2="50" stroke-linecap="round"/>
+    <line x1="80" y1="-18" x2="80" y2="18" stroke-linecap="round"/>
+    <line x1="96" y1="-30" x2="96" y2="30" stroke-linecap="round"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="58" font-weight="bold" fill="#f3e9dc">The Character Interview</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Short Story — Character</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 8, Article 3</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Friday, July 17, 2026</text>
+</svg>

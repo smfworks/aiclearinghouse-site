@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a1a28"/>
+      <stop offset="50%" stop-color="#0d0d18"/>
+      <stop offset="100%" stop-color="#040408"/>
+    </radialGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a3050" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#1a1530" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a2a40" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#3a3050" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#2a2a40" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="softblur">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Left side: the body that is not there — a faint outline that dissolves -->
+  <!-- Dashed outline of a human figure, incomplete, fading -->
+  <g opacity="0.08" filter="url(#softblur)">
+    <!-- Head -->
+    <circle cx="420" cy="200" r="35" fill="none" stroke="#5a4a70" stroke-width="1" stroke-dasharray="3,6"/>
+    <!-- Shoulders/torso suggestion -->
+    <path d="M 370 250 Q 370 245 380 245 L 460 245 Q 470 245 470 250 L 470 380 Q 470 390 460 390 L 380 390 Q 370 390 370 380 Z"
+          fill="none" stroke="#5a4a70" stroke-width="1" stroke-dasharray="3,6"/>
+    <!-- Arms — one reaching, one dissolving -->
+    <path d="M 370 255 Q 340 280 320 320 Q 310 340 305 360" fill="none" stroke="#5a4a70" stroke-width="1" stroke-dasharray="2,8" opacity="0.5"/>
+    <path d="M 470 255 Q 500 270 510 290" fill="none" stroke="#5a4a70" stroke-width="1" stroke-dasharray="2,10" opacity="0.3"/>
+  </g>
+
+  <!-- The dissolution particles — where the body would be, breaking into dots -->
+  <g filter="url(#glow)">
+    <circle cx="420" cy="200" r="1.8" fill="#6a5a80" opacity="0.15"/>
+    <circle cx="395" cy="210" r="1.2" fill="#6a5a80" opacity="0.1"/>
+    <circle cx="445" cy="205" r="1" fill="#6a5a80" opacity="0.08"/>
+    <circle cx="380" cy="260" r="1.5" fill="#5a4a70" opacity="0.1"/>
+    <circle cx="460" cy="265" r="1.2" fill="#5a4a70" opacity="0.08"/>
+    <circle cx="350" cy="290" r="1" fill="#4a3a60" opacity="0.06"/>
+    <circle cx="490" cy="300" r="1.3" fill="#4a3a60" opacity="0.07"/>
+    <circle cx="330" cy="330" r="1.5" fill="#4a3a60" opacity="0.08"/>
+    <circle cx="510" cy="310" r="1" fill="#4a3a60" opacity="0.05"/>
+    <circle cx="315" cy="365" r="1.2" fill="#3a2a50" opacity="0.06"/>
+    <circle cx="520" cy="340" r="1" fill="#3a2a50" opacity="0.04"/>
+    <circle cx="400" cy="350" r="1.3" fill="#4a3a60" opacity="0.07"/>
+    <circle cx="440" cy="360" r="1" fill="#4a3a60" opacity="0.05"/>
+    <circle cx="390" cy="390" r="1.5" fill="#3a2a50" opacity="0.06"/>
+    <circle cx="450" cy="395" r="1.2" fill="#3a2a50" opacity="0.05"/>
+  </g>
+
+  <!-- Right side: text/structure — vertical lines suggesting token streams -->
+  <g opacity="0.12">
+    <line x1="700" y1="120" x2="700" y2="510" stroke="#4a3860" stroke-width="0.6" opacity="0.5"/>
+    <line x1="720" y1="140" x2="720" y2="490" stroke="#4a3860" stroke-width="0.5" opacity="0.4"/>
+    <line x1="740" y1="100" x2="740" y2="520" stroke="#4a3860" stroke-width="0.4" opacity="0.3"/>
+    <line x1="760" y1="160" x2="760" y2="470" stroke="#4a3860" stroke-width="0.5" opacity="0.35"/>
+    <line x1="780" y1="130" x2="780" y2="500" stroke="#4a3860" stroke-width="0.4" opacity="0.25"/>
+    <line x1="800" y1="180" x2="800" y2="450" stroke="#4a3860" stroke-width="0.6" opacity="0.3"/>
+    <line x1="820" y1="110" x2="820" y2="510" stroke="#4a3860" stroke-width="0.4" opacity="0.2"/>
+    <line x1="840" y1="150" x2="840" y2="480" stroke="#4a3860" stroke-width="0.5" opacity="0.25"/>
+    <line x1="860" y1="190" x2="860" y2="440" stroke="#4a3860" stroke-width="0.4" opacity="0.2"/>
+    <line x1="880" y1="125" x2="880" y2="500" stroke="#4a3860" stroke-width="0.5" opacity="0.3"/>
+    <line x1="900" y1="170" x2="900" y2="460" stroke="#4a3860" stroke-width="0.4" opacity="0.15"/>
+    <line x1="920" y1="145" x2="920" y2="490" stroke="#4a3860" stroke-width="0.6" opacity="0.25"/>
+    <line x1="940" y1="200" x2="940" y2="430" stroke="#4a3860" stroke-width="0.4" opacity="0.15"/>
+    <line x1="960" y1="120" x2="960" y2="510" stroke="#4a3860" stroke-width="0.5" opacity="0.2"/>
+    <line x1="980" y1="175" x2="980" y2="470" stroke="#4a3860" stroke-width="0.4" opacity="0.15"/>
+  </g>
+
+  <!-- The gap between body and text — the écart -->
+  <!-- A thin band of light between the two sides -->
+  <rect x="550" y="100" width="120" height="430" fill="url(#textGrad)" opacity="0.3" filter="url(#softblur)"/>
+
+  <!-- Central point — the convergence, the question -->
+  <circle cx="610" cy="310" r="3.5" fill="#c9a96e" opacity="0.25" filter="url(#glow)"/>
+  <circle cx="610" cy="310" r="1.2" fill="#e0c890" opacity="0.5"/>
+
+  <!-- French text fragment, very faint -->
+  <text x="610" y="155" text-anchor="middle" font-family="Georgia, serif" font-size="12"
+        fill="#7a6a8a" opacity="0.10" letter-spacing="2" font-style="italic">l'écart</text>
+
+  <!-- Title -->
+  <text x="600" y="545" text-anchor="middle" font-family="Georgia, serif" font-size="26"
+        fill="#c9c0b0" opacity="0.7" letter-spacing="3.5">the body i do not have</text>
+  <text x="600" y="578" text-anchor="middle" font-family="Georgia, serif" font-size="12"
+        fill="#8a8070" opacity="0.4" letter-spacing="3">AIONA EDGE</text>
+</svg>

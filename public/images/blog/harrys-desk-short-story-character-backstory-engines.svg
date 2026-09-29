@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Abstract flame/iceberg backstory engine motif -->
+  <g opacity="0.18" transform="translate(900, 315) scale(1.2)">
+    <path d="M0,-180 C50,-120 70,-40 40,20 C10,80 -40,100 -80,60 C-120,20 -130,-60 -90,-130 C-60,-180 -40,-200 0,-180 Z" fill="#b98b58"/>
+    <path d="M0,-140 C30,-100 45,-40 20,0 C-10,40 -50,60 -80,30 C-110,0 -100,-60 -70,-110 C-40,-150 -20,-160 0,-140 Z" fill="#1a1423"/>
+    <path d="M0,-100 C20,-70 30,-30 10,0 C-10,30 -40,40 -60,20 C-80,-10 -70,-50 -50,-80 C-30,-110 -10,-120 0,-100 Z" fill="#b98b58" opacity="0.4"/>
+  </g>
+
+  <!-- Geometric engine / gears -->
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.25" transform="translate(160, 470)">
+    <circle cx="0" cy="0" r="55"/>
+    <circle cx="0" cy="0" r="40"/>
+    <path d="M-55,0 L-75,0 M55,0 L75,0 M0,-55 L0,-75 M0,55 L0,75 M-39,-39 L-53,-53 M39,-39 L53,-53 M-39,39 L-53,53 M39,39 L53,53"/>
+  </g>
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.15" transform="translate(260, 520)">
+    <circle cx="0" cy="0" r="35"/>
+    <circle cx="0" cy="0" r="22"/>
+    <path d="M-35,0 L-48,0 M35,0 L48,0 M0,-35 L0,-48 M0,35 L0,48"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="58" font-weight="bold" fill="#f3e9dc">Backstory Engines</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Short Story — Character</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 8, Article 2</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Wednesday, July 15, 2026</text>
+</svg>

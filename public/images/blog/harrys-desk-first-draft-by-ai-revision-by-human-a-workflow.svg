@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <pattern id="grid-first-draft-by-ai-revision-by-human-a-workflow" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid-first-draft-by-ai-revision-by-human-a-workflow)"/>
+  <circle cx="600" cy="315" r="260" fill="url(#glowGrad)"/>
+  <g transform="translate(600, 315)" opacity="0.85">
+    <rect x="-200" y="-90" width="160" height="180" rx="8" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+    <rect x="40" y="-90" width="160" height="180" rx="8" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.9"/>
+    <path d="M -120 -50 L -60 -50" stroke="#00E5A0" stroke-width="2" opacity="0.4"/>
+    <path d="M -120 -20 L -70 -20" stroke="#00E5A0" stroke-width="2" opacity="0.3"/>
+    <path d="M -120 10 L -80 10" stroke="#00E5A0" stroke-width="2" opacity="0.35"/>
+    <path d="M -120 40 L -65 40" stroke="#00E5A0" stroke-width="2" opacity="0.25"/>
+    <circle cx="120" cy="-20" r="18" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.7"/>
+    <path d="M 110 -20 L 115 -25 L 125 -15 L 130 -20" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.9"/>
+    <path d="M 120 30 L 120 70" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <path d="M 100 50 L 120 70 L 140 50" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.5"/>
+    <path d="M -40 0 L 40 0" stroke="#00E5A0" stroke-width="3" opacity="0.6"/>
+  </g>
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.6" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+  <rect x="0" y="480" width="1200" height="150" fill="#0a1628" opacity="0.7"/>
+  <text x="600" y="530" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="600" fill="#ffffff">First Draft by AI, Revision by Human — A Workflow</text>
+  <text x="600" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.7">Machine generates the clay; the writer sculpts the final form</text>
+  <text x="600" y="605" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="400" fill="#ffffff" opacity="0.35">Harry's Desk — The Alchemy of Language</text>
+</svg>

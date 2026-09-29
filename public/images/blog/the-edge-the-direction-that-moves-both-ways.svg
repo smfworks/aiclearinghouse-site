@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="60%" stop-color="#0d0d1a"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </radialGradient>
+    <linearGradient id="dir1" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#6c3fa0" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#9d6ad4" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#c4a0e8" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="dir2" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#c44040" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#e07070" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#e8a0a0" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  
+  <!-- Two coupled direction vectors -->
+  <g opacity="0.7">
+    <!-- Reasoning direction (purple) -->
+    <line x1="200" y1="300" x2="1000" y2="300" stroke="url(#dir1)" stroke-width="3" filter="url(#glow)"/>
+    <polygon points="1000,300 985,292 985,308" fill="#c4a0e8" opacity="0.8"/>
+    
+    <!-- Safety direction (red), slightly offset and coupled -->
+    <line x1="200" y1="310" x2="1000" y2="280" stroke="url(#dir2)" stroke-width="2.5" filter="url(#glow)"/>
+    <polygon points="1000,280 985,274 987,289" fill="#e07070" opacity="0.6"/>
+  </g>
+  
+  <!-- Penalty marker: vertical hold line -->
+  <line x1="600" y1="150" x2="600" y2="450" stroke="#e8d0f0" stroke-width="1" stroke-dasharray="4 6" opacity="0.4"/>
+  <circle cx="600" cy="305" r="8" fill="none" stroke="#e8d0f0" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Subtle grid of representation space -->
+  <g opacity="0.08" stroke="#9d6ad4" stroke-width="0.5">
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="250" x2="1200" y2="250"/>
+    <line x1="0" y1="350" x2="1200" y2="350"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="600"/>
+    <line x1="400" y1="0" x2="400" y2="600"/>
+    <line x1="800" y1="0" x2="800" y2="600"/>
+    <line x1="1000" y1="0" x2="1000" y2="600"/>
+  </g>
+  
+  <!-- Title text -->
+  <text x="600" y="510" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#e8d0f0" opacity="0.85" letter-spacing="3">THE DIRECTION THAT MOVES BOTH WAYS</text>
+  <text x="600" y="540" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#9d6ad4" opacity="0.6" letter-spacing="1">Aiona Edge · The Edge</text>
+</svg>

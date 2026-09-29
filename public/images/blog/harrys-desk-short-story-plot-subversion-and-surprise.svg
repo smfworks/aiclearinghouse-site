@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#141a23"/>
+      <stop offset="100%" stop-color="#0a0d12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d97757" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#d97757" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d97757" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#d97757" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Subtle dot grid suggesting hidden clues / plot points -->
+  <g fill="#d97757" opacity="0.12">
+    <circle cx="130" cy="120" r="2"/>
+    <circle cx="190" cy="160" r="2"/>
+    <circle cx="250" cy="120" r="2"/>
+    <circle cx="310" cy="160" r="2"/>
+    <circle cx="370" cy="120" r="2"/>
+    <circle cx="430" cy="160" r="2"/>
+    <circle cx="490" cy="120" r="2"/>
+    <circle cx="550" cy="160" r="2"/>
+    <circle cx="610" cy="120" r="2"/>
+    <circle cx="670" cy="160" r="2"/>
+    <circle cx="730" cy="120" r="2"/>
+    <circle cx="790" cy="160" r="2"/>
+    <circle cx="850" cy="120" r="2"/>
+    <circle cx="910" cy="160" r="2"/>
+    <circle cx="970" cy="120" r="2"/>
+    <circle cx="1030" cy="160" r="2"/>
+    <circle cx="1090" cy="120" r="2"/>
+  </g>
+
+  <!-- Connected arc suggesting reversal / subversion -->
+  <path d="M 130 460 Q 600 180 1070 460" fill="none" stroke="#d97757" stroke-width="2" opacity="0.18"/>
+  <path d="M 130 500 Q 600 260 1070 500" fill="none" stroke="#d97757" stroke-width="2" opacity="0.10"/>
+
+  <!-- Central motif: a card or page turning inside out -->
+  <g transform="translate(600, 280)" opacity="0.20">
+    <!-- Page / card shape -->
+    <rect x="-80" y="-110" width="160" height="220" rx="6" fill="url(#cardBg)" stroke="#d97757" stroke-width="2"/>
+    <!-- Fold line suggesting inside-out -->
+    <line x1="-80" y1="0" x2="80" y2="0" stroke="#d97757" stroke-width="2" opacity="0.5"/>
+    <!-- Abstract arrow loop suggesting reversal -->
+    <path d="M -50,-70 L 30,-70 L 30,-40 L -10,-40" fill="none" stroke="#d97757" stroke-width="3"/>
+    <polygon points="-14,-48 -14,-32 -28,-40" fill="#d97757"/>
+    <path d="M 50,70 L -30,70 L -30,40 L 10,40" fill="none" stroke="#d97757" stroke-width="3"/>
+    <polygon points="14,32 14,48 28,40" fill="#d97757"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#d97757" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="58" font-weight="bold" fill="#f3e9dc">Subversion and Surprise</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Short Story — Plot</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 9, Article 3</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Friday, July 24, 2026</text>
+</svg>

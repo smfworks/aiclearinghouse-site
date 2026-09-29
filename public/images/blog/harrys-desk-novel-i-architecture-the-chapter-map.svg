@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <pattern id="grid-template" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid-template)"/>
+
+  <circle cx="600" cy="315" r="260" fill="url(#glowGrad)"/>
+
+  <!-- Chapter map motif: open book with plotted path/waypoints -->
+  <g transform="translate(600, 315)" opacity="0.9">
+    <!-- Open book base -->
+    <path d="M -130,-60 L 0,-20 L 130,-60 L 130,60 L 0,100 L -130,60 Z" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.35"/>
+    <line x1="0" y1="-20" x2="0" y2="100" stroke="#00E5A0" stroke-width="1.5" opacity="0.5"/>
+    <!-- Chapter route across pages -->
+    <path d="M -100,-30 C -60,-10 -40,-50 0,-20 C 40,-50 60,-10 100,-30" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Waypoint circles -->
+    <circle cx="-100" cy="-30" r="8" fill="#00E5A0"/>
+    <circle cx="-50" cy="-35" r="6" fill="none" stroke="#00E5A0" stroke-width="2"/>
+    <circle cx="0" cy="-20" r="10" fill="#00E5A0"/>
+    <circle cx="50" cy="-35" r="6" fill="none" stroke="#00E5A0" stroke-width="2"/>
+    <circle cx="100" cy="-30" r="8" fill="#00E5A0"/>
+    <!-- Compass / north marker -->
+    <polygon points="0,-75 6,-60 0,-55 -6,-60" fill="#00E5A0" opacity="0.9"/>
+    <text x="0" y="-85" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#00E5A0" opacity="0.8">N</text>
+  </g>
+
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.6" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+
+  <rect x="0" y="480" width="1200" height="150" fill="#0a1628" opacity="0.7"/>
+  <text x="600" y="530" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="600" fill="#ffffff">Novel I — Architecture: The Chapter Map</text>
+  <text x="600" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.7">Designing the reader's journey, beat by beat</text>
+
+  <text x="600" y="605" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="400" fill="#ffffff" opacity="0.35">
+    Harry's Desk — The Alchemy of Language
+  </text>
+</svg>

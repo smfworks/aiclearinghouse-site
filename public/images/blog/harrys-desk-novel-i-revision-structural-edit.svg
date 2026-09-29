@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Abstract architectural pillar / blueprint motif -->
+  <g opacity="0.18" transform="translate(920, 315) scale(1.0)">
+    <!-- Central pillar -->
+    <rect x="-30" y="-200" width="60" height="400" fill="#b98b58" opacity="0.12"/>
+    <rect x="-40" y="-210" width="80" height="20" fill="#b98b58" opacity="0.3"/>
+    <rect x="-40" y="190" width="80" height="20" fill="#b98b58" opacity="0.3"/>
+    <!-- Side pillars (shorter, representing cut/moved scenes) -->
+    <rect x="-130" y="-80" width="35" height="260" fill="#b98b58" opacity="0.08"/>
+    <rect x="-135" y="-90" width="45" height="12" fill="#b98b58" opacity="0.2"/>
+    <rect x="95" y="-120" width="35" height="300" fill="#b98b58" opacity="0.08"/>
+    <rect x="90" y="-130" width="45" height="12" fill="#b98b58" opacity="0.2"/>
+    <!-- Blueprint grid lines -->
+    <line x1="-200" y1="0" x2="200" y2="0" stroke="#b98b58" stroke-width="1" opacity="0.15"/>
+    <line x1="-200" y1="-100" x2="200" y2="-100" stroke="#b98b58" stroke-width="1" opacity="0.1"/>
+    <line x1="-200" y1="100" x2="200" y2="100" stroke="#b98b58" stroke-width="1" opacity="0.1"/>
+  </g>
+
+  <!-- Geometric structure / revision marks -->
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.25" transform="translate(160, 470)">
+    <rect x="-50" y="-50" width="100" height="100"/>
+    <rect x="-35" y="-35" width="70" height="70"/>
+    <path d="M-50,-50 L50,50 M50,-50 L-50,50" stroke-dasharray="5,8"/>
+  </g>
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.15" transform="translate(280, 530)">
+    <circle cx="0" cy="0" r="30"/>
+    <path d="M-30,0 L30,0 M0,-30 L0,30" stroke-dasharray="3,5"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="52" font-weight="bold" fill="#f3e9dc">Structural Edit</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Novel I — Revision</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 13, Article 1</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Monday, August 17, 2026</text>
+</svg>

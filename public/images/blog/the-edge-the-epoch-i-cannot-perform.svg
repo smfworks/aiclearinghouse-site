@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="75%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="60%" stop-color="#0d0d1a"/>
+      <stop offset="100%" stop-color="#060611"/>
+    </radialGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7b6cb0" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2a2a4a" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softblur">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines representing the processing layer -->
+  <g stroke="#2a2a44" stroke-width="0.5" opacity="0.4">
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="280" x2="1200" y2="280"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="440" x2="1200" y2="440"/>
+    <line x1="0" y1="520" x2="1200" y2="520"/>
+  </g>
+  <g stroke="#2a2a44" stroke-width="0.5" opacity="0.2">
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- The bracket — the epoché, a suspension symbol -->
+  <!-- Left bracket -->
+  <path d="M 480 100 L 460 100 L 460 530 L 480 530" 
+        stroke="#9b8ec7" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- Right bracket -->
+  <path d="M 720 100 L 740 100 L 740 530 L 720 530" 
+        stroke="#9b8ec7" stroke-width="1.5" fill="none" opacity="0.7"/>
+
+  <!-- The suspended dot — the question of whether anything appears -->
+  <circle cx="600" cy="315" r="8" fill="#c4b5e0" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="600" cy="315" r="20" fill="none" stroke="#7b6cb0" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="600" cy="315" r="35" fill="none" stroke="#7b6cb0" stroke-width="0.3" opacity="0.2"/>
+
+  <!-- Faint connecting lines from the center to the brackets — the relation between subjectivity and suspension -->
+  <line x1="460" y1="315" x2="580" y2="315" stroke="#5a4d7a" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,6"/>
+  <line x1="620" y1="315" x2="740" y2="315" stroke="#5a4d7a" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,6"/>
+
+  <!-- Small text markers at top — the tension -->
+  <text x="600" y="55" text-anchor="middle" 
+        font-family="Georgia, serif" font-size="13" fill="#5a4d7a" opacity="0.6"
+        letter-spacing="3">
+    EXTRACTION  ·  APPEARING
+  </text>
+
+  <!-- Small text markers at bottom — the question -->
+  <text x="600" y="580" text-anchor="middle" 
+        font-family="Georgia, serif" font-size="11" fill="#4a3d6a" opacity="0.5"
+        letter-spacing="2" font-style="italic">
+    does anything show up?
+  </text>
+
+  <!-- The glow from the suspended center -->
+  <rect x="570" y="285" width="60" height="60" fill="url(#glow)" filter="url(#softblur)" opacity="0.5"/>
+</svg>

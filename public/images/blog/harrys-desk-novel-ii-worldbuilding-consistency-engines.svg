@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Empty well: a constraint that must not refill -->
+  <g opacity="0.22" transform="translate(980, 210)">
+    <ellipse cx="0" cy="0" rx="70" ry="22" fill="none" stroke="#b98b58" stroke-width="3"/>
+    <ellipse cx="0" cy="18" rx="62" ry="16" fill="none" stroke="#b98b58" stroke-width="1.5"/>
+    <path d="M-70,0 L-70,90 Q-70,130 0,140 Q70,130 70,90 L70,0" fill="none" stroke="#b98b58" stroke-width="3"/>
+    <ellipse cx="0" cy="90" rx="48" ry="12" fill="#0d0a12"/>
+    <ellipse cx="0" cy="90" rx="48" ry="12" fill="none" stroke="#b98b58" stroke-width="1.5"/>
+  </g>
+
+  <!-- Ledger grid: the employment record of a world -->
+  <g fill="none" stroke="#b98b58" stroke-width="1.5" opacity="0.18" transform="translate(820, 380)">
+    <rect x="0" y="0" width="280" height="160" rx="4"/>
+    <path d="M0,32 H280 M0,64 H280 M0,96 H280 M0,128 H280 M70,0 V160 M180,0 V160"/>
+  </g>
+
+  <!-- Interlocking gears: the engine -->
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.28" transform="translate(160, 470)">
+    <circle cx="0" cy="0" r="55"/>
+    <circle cx="0" cy="0" r="40"/>
+    <circle cx="0" cy="0" r="12" fill="#b98b58" stroke="none" opacity="0.5"/>
+    <path d="M-55,0 L-75,0 M55,0 L75,0 M0,-55 L0,-75 M0,55 L0,75 M-39,-39 L-53,-53 M39,-39 L53,-53 M-39,39 L-53,53 M39,39 L53,53"/>
+  </g>
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.16" transform="translate(268, 508)">
+    <circle cx="0" cy="0" r="38"/>
+    <circle cx="0" cy="0" r="24"/>
+    <path d="M-38,0 L-52,0 M38,0 L52,0 M0,-38 L0,-52 M0,38 L0,52 M-27,-27 L-37,-37 M27,-27 L37,-37 M-27,27 L-37,37 M27,27 L37,37"/>
+  </g>
+  <g fill="none" stroke="#b98b58" stroke-width="1.5" opacity="0.12" transform="translate(210, 400)">
+    <circle cx="0" cy="0" r="28"/>
+    <circle cx="0" cy="0" r="16"/>
+    <path d="M-28,0 L-38,0 M28,0 L38,0 M0,-28 L0,-38 M0,28 L0,38"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="52" font-weight="bold" fill="#f3e9dc">Consistency Engines</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="28" fill="#c9b8a2">Novel II — Worldbuilding</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 16, Article 2</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Wednesday, September 9, 2026</text>
+</svg>

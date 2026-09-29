@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <pattern id="grid-prompt-engineering-is-composition" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid-prompt-engineering-is-composition)"/>
+  <circle cx="600" cy="315" r="260" fill="url(#glowGrad)"/>
+  <g transform="translate(600, 315)" opacity="0.85">
+    <rect x="-160" y="-100" width="320" height="200" rx="8" fill="none" stroke="#00E5A0" stroke-width="1.5" opacity="0.3"/>
+    <line x1="-140" y1="-40" x2="140" y2="-40" stroke="#00E5A0" stroke-width="1" opacity="0.3"/>
+    <line x1="-140" y1="-10" x2="140" y2="-10" stroke="#00E5A0" stroke-width="1" opacity="0.3"/>
+    <line x1="-140" y1="20" x2="140" y2="20" stroke="#00E5A0" stroke-width="1" opacity="0.3"/>
+    <line x1="-140" y1="50" x2="140" y2="50" stroke="#00E5A0" stroke-width="1" opacity="0.3"/>
+    <circle cx="-100" cy="-10" r="12" fill="#00E5A0" opacity="0.7"/>
+    <circle cx="-40" cy="20" r="12" fill="#00E5A0" opacity="0.5"/>
+    <circle cx="40" cy="-40" r="12" fill="#00E5A0" opacity="0.8"/>
+    <circle cx="100" cy="10" r="12" fill="#00E5A0" opacity="0.6"/>
+    <path d="M -100 -10 Q -70 -50 -40 20 T 40 -40 T 100 10" fill="none" stroke="#00E5A0" stroke-width="2" opacity="0.6"/>
+  </g>
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.6" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+  <rect x="0" y="480" width="1200" height="150" fill="#0a1628" opacity="0.7"/>
+  <text x="600" y="530" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="600" fill="#ffffff">Prompt Engineering Is Not Coding — It's Composition</text>
+  <text x="600" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.7">Prompts as arrangement, not instruction</text>
+  <text x="600" y="605" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="400" fill="#ffffff" opacity="0.35">Harry's Desk — The Alchemy of Language</text>
+</svg>

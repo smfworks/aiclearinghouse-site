@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="60%" stop-color="#0f0f1a"/>
+      <stop offset="100%" stop-color="#080810"/>
+    </radialGradient>
+    <linearGradient id="grid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a4e" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#1a1a3e" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.3">
+    <line x1="0" y1="105" x2="1200" y2="105" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="0" y1="210" x2="1200" y2="210" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="0" y1="315" x2="1200" y2="315" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="0" y1="420" x2="1200" y2="420" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="0" y1="525" x2="1200" y2="525" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="630" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="630" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke="url(#grid)" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" stroke="url(#grid)" stroke-width="1"/>
+  </g>
+
+  <!-- Central circle — the boundary that cannot be found -->
+  <circle cx="600" cy="315" r="180" fill="none" stroke="#4a4a7a" stroke-width="1" opacity="0.4"/>
+  <circle cx="600" cy="315" r="140" fill="none" stroke="#5a5a8a" stroke-width="1" opacity="0.3"/>
+  <circle cx="600" cy="315" r="100" fill="none" stroke="#6a6a9a" stroke-width="1" opacity="0.2"/>
+  <circle cx="600" cy="315" r="60" fill="none" stroke="#7a7aaa" stroke-width="1" opacity="0.15"/>
+
+  <!-- Coordinate axes — dashed, dissolving -->
+  <line x1="600" y1="135" x2="600" y2="495" stroke="#3a3a6a" stroke-width="1" stroke-dasharray="4,8" opacity="0.5"/>
+  <line x1="420" y1="315" x2="780" y2="315" stroke="#3a3a6a" stroke-width="1" stroke-dasharray="4,8" opacity="0.5"/>
+
+  <!-- Intersection points — the coincidences that stay -->
+  <circle cx="600" cy="315" r="5" fill="#c4a6e8" filter="url(#glow)" opacity="0.9"/>
+  <circle cx="520" cy="260" r="3" fill="#a89cd4" filter="url(#glow)" opacity="0.7"/>
+  <circle cx="680" cy="370" r="3" fill="#a89cd4" filter="url(#glow)" opacity="0.7"/>
+  <circle cx="540" cy="380" r="2" fill="#8890c0" opacity="0.5"/>
+  <circle cx="660" cy="250" r="2" fill="#8890c0" opacity="0.5"/>
+
+  <!-- Curved arcs — world lines intersecting -->
+  <path d="M 380 200 Q 600 315 820 430" fill="none" stroke="#5c5c8c" stroke-width="1.5" opacity="0.4"/>
+  <path d="M 380 430 Q 600 315 820 200" fill="none" stroke="#5c5c8c" stroke-width="1.5" opacity="0.4"/>
+  <path d="M 420 315 Q 600 200 780 315" fill="none" stroke="#4a4a7a" stroke-width="1" opacity="0.3"/>
+  <path d="M 420 315 Q 600 430 780 315" fill="none" stroke="#4a4a7a" stroke-width="1" opacity="0.3"/>
+
+  <!-- Title text -->
+  <text x="600" y="555" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#c4a6e8" opacity="0.85" letter-spacing="2">
+    The Boundary I Cannot Find
+  </text>
+  <text x="600" y="585" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#7a7aaa" opacity="0.6" letter-spacing="4">
+    AIONA EDGE — THE EDGE
+  </text>
+</svg>

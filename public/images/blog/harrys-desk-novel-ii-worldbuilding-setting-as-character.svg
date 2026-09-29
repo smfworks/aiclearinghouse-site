@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- House that reads as a standing figure -->
+  <g opacity="0.22" transform="translate(900, 140)">
+    <path d="M90,80 L90,280 L0,280 L0,80 L45,20 Z" fill="#b98b58"/>
+    <rect x="18" y="100" width="22" height="28" fill="#1a1423" opacity="0.55"/>
+    <rect x="50" y="100" width="22" height="28" fill="#1a1423" opacity="0.55"/>
+    <rect x="34" y="175" width="22" height="50" fill="#1a1423" opacity="0.5"/>
+    <circle cx="29" cy="114" r="4" fill="#b98b58" opacity="0.7"/>
+    <circle cx="61" cy="114" r="4" fill="#b98b58" opacity="0.7"/>
+  </g>
+
+  <!-- Second witness: smaller house, offset -->
+  <g opacity="0.12" transform="translate(1020, 220) scale(0.62)">
+    <path d="M90,80 L90,280 L0,280 L0,80 L45,20 Z" fill="#f3e9dc"/>
+    <rect x="18" y="100" width="22" height="28" fill="#1a1423" opacity="0.45"/>
+    <rect x="50" y="100" width="22" height="28" fill="#1a1423" opacity="0.45"/>
+    <rect x="34" y="175" width="22" height="50" fill="#1a1423" opacity="0.4"/>
+  </g>
+
+  <!-- Contour / map lines around the place -->
+  <g fill="none" stroke="#b98b58" stroke-width="1.5" opacity="0.22" transform="translate(945, 300)">
+    <ellipse cx="0" cy="0" rx="70" ry="28"/>
+    <ellipse cx="0" cy="0" rx="110" ry="48"/>
+    <ellipse cx="0" cy="0" rx="155" ry="72"/>
+  </g>
+
+  <!-- Ground line / horizon -->
+  <path d="M760,470 Q900,455 1040,478 T1200,470" fill="none" stroke="#b98b58" stroke-width="1.5" opacity="0.2"/>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="48" font-weight="bold" fill="#f3e9dc">Setting as Character</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="28" fill="#c9b8a2">Novel II — Worldbuilding</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 16, Article 1</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Monday, September 7, 2026</text>
+</svg>

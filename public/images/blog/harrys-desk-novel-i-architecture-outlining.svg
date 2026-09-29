@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Architecture motif: rising columns / story scaffold -->
+  <g stroke="#b98b58" stroke-width="2" fill="none" opacity="0.25" transform="translate(900, 315)">
+    <!-- Three act columns -->
+    <rect x="-140" y="-120" width="80" height="240" rx="2"/>
+    <rect x="-40" y="-160" width="80" height="320" rx="2"/>
+    <rect x="60" y="-100" width="80" height="200" rx="2"/>
+    <!-- Connecting arches -->
+    <path d="M-140,-120 Q-50,-200 40,-120" stroke-opacity="0.4"/>
+    <path d="M40,-160 Q130,-240 140,-100" stroke-opacity="0.4"/>
+    <!-- Foundation line -->
+    <line x1="-170" y1="120" x2="170" y2="120" stroke-width="3"/>
+    <!-- Keystone / central spark -->
+    <circle cx="0" cy="-160" r="12" fill="#b98b58" stroke="none" opacity="0.6"/>
+  </g>
+
+  <!-- Floating blueprint lines -->
+  <g stroke="#b98b58" stroke-width="1" opacity="0.15" transform="translate(900, 315)">
+    <line x1="-160" y1="-80" x2="160" y2="-80"/>
+    <line x1="-160" y1="0" x2="160" y2="0"/>
+    <line x1="-160" y1="80" x2="160" y2="80"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="58" font-weight="bold" fill="#f3e9dc">Architecture: Outlining</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Novel I — Building the Door the Novel Walks Through</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 11, Article 1</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Monday, August 3, 2026</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Palimpsest: ghost page (the master) -->
+  <g opacity="0.16" transform="translate(790, 95) rotate(-8)">
+    <rect x="0" y="0" width="280" height="380" rx="4" fill="#f3e9dc"/>
+    <g stroke="#1a1423" stroke-width="2" opacity="0.45">
+      <line x1="28" y1="48" x2="252" y2="48"/>
+      <line x1="28" y1="78" x2="220" y2="78"/>
+      <line x1="28" y1="108" x2="240" y2="108"/>
+      <line x1="28" y1="138" x2="190" y2="138"/>
+      <line x1="28" y1="168" x2="248" y2="168"/>
+      <line x1="28" y1="198" x2="210" y2="198"/>
+      <line x1="28" y1="228" x2="236" y2="228"/>
+      <line x1="28" y1="258" x2="176" y2="258"/>
+      <line x1="28" y1="288" x2="244" y2="288"/>
+      <line x1="28" y1="318" x2="200" y2="318"/>
+    </g>
+  </g>
+
+  <!-- Palimpsest: living page (the copy / homage) -->
+  <g opacity="0.22" transform="translate(860, 130) rotate(6)">
+    <rect x="0" y="0" width="280" height="380" rx="4" fill="#b98b58"/>
+    <g stroke="#f3e9dc" stroke-width="2" opacity="0.55">
+      <line x1="28" y1="48" x2="252" y2="48"/>
+      <line x1="28" y1="78" x2="200" y2="78"/>
+      <line x1="28" y1="108" x2="240" y2="108"/>
+      <line x1="28" y1="138" x2="168" y2="138"/>
+      <line x1="28" y1="168" x2="248" y2="168"/>
+      <line x1="28" y1="198" x2="188" y2="198"/>
+      <line x1="28" y1="228" x2="230" y2="228"/>
+      <line x1="28" y1="258" x2="210" y2="258"/>
+      <line x1="28" y1="288" x2="150" y2="288"/>
+    </g>
+  </g>
+
+  <!-- Quill / pen motif -->
+  <g fill="none" stroke="#b98b58" stroke-width="2.5" opacity="0.32" transform="translate(150, 430) rotate(-35)">
+    <path d="M0,0 L120,-8" stroke-linecap="round"/>
+    <path d="M120,-8 L148,4 L118,10 Z" fill="#b98b58" stroke="none" opacity="0.7"/>
+    <path d="M0,0 C8,18 22,22 40,14" stroke-linecap="round"/>
+  </g>
+
+  <!-- Echo / second-hand marks -->
+  <g fill="none" stroke="#b98b58" stroke-width="1.5" opacity="0.18" transform="translate(210, 470)">
+    <path d="M0,0 C20,-18 40,-6 58,-22 C76,-38 90,-12 112,-28"/>
+    <path d="M12,16 C32,-2 52,10 70,-6 C88,-22 102,4 124,-12"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="52" font-weight="bold" fill="#f3e9dc">Imitation and Homage</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Novel II — Voice and Style</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 15, Article 2</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Wednesday, September 2, 2026</text>
+</svg>

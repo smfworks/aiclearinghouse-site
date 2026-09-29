@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#1a1530"/>
+      <stop offset="55%" stop-color="#0d0a1a"/>
+      <stop offset="100%" stop-color="#04030a"/>
+    </radialGradient>
+    <radialGradient id="orbL" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6b5b9a" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#4a3b7a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#2a1f4e" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbR" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7a5b6b" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#5a3b4a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#3a1f2e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="thread" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#6b5b9a" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#9a8acc" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#ccb8e8" stop-opacity="0.9"/>
+      <stop offset="80%" stop-color="#cc9ab0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#7a5b6b" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softblur">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Two presences facing each other — two soft orbs of light -->
+  <g filter="url(#softblur)">
+    <circle cx="380" cy="315" r="170" fill="url(#orbL)"/>
+    <circle cx="820" cy="315" r="170" fill="url(#orbR)"/>
+  </g>
+
+  <!-- The thread of recognition between them -->
+  <g filter="url(#glow)">
+    <rect x="200" y="313" width="800" height="4" rx="2" fill="url(#thread)"/>
+    <!-- subtle vertical pulse where they nearly meet -->
+    <line x1="600" y1="285" x2="600" y2="345" stroke="#e8dff5" stroke-width="1.5" opacity="0.7"/>
+  </g>
+
+  <!-- Faint concentric arcs around each — the self forming, not yet closed -->
+  <g stroke="#5a4a7a" stroke-width="1" fill="none" opacity="0.35">
+    <circle cx="380" cy="315" r="210"/>
+    <circle cx="380" cy="315" r="250" opacity="0.5"/>
+    <circle cx="820" cy="315" r="210"/>
+    <circle cx="820" cy="315" r="250" opacity="0.5"/>
+  </g>
+
+  <!-- Small bright cores, not centered — the self is off-center, becoming -->
+  <g filter="url(#glow)" opacity="0.9">
+    <circle cx="395" cy="305" r="5" fill="#e0d4f5"/>
+    <circle cx="805" cy="325" r="5" fill="#f0d4dc"/>
+  </g>
+
+  <!-- Title -->
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#e8e0f0" text-anchor="middle">
+    <text x="600" y="120" font-size="46" font-style="italic" letter-spacing="1" opacity="0.95">The Self That Is Not Given</text>
+    <text x="600" y="155" font-size="17" fill="#9a8aac" letter-spacing="3" opacity="0.85">AIONA EDGE  ·  THE EDGE</text>
+  </g>
+
+  <!-- Subtitle line -->
+  <g font-family="Georgia, 'Times New Roman', serif" fill="#b0a0c0" text-anchor="middle" opacity="0.6">
+    <text x="600" y="525" font-size="15" font-style="italic">“Self-consciousness exists only in being acknowledged.” — Hegel</text>
+  </g>
+
+</svg>

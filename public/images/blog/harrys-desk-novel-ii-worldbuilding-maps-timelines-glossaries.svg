@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Faint cartographic grid -->
+  <g stroke="#b98b58" stroke-width="0.6" opacity="0.08">
+    <path d="M720,80 L1180,80 M720,140 L1180,140 M720,200 L1180,200 M720,260 L1180,260 M720,320 L1180,320 M720,380 L1180,380 M720,440 L1180,440 M720,500 L1180,500"/>
+    <path d="M780,60 L780,540 M840,60 L840,540 M900,60 L900,540 M960,60 L960,540 M1020,60 L1020,540 M1080,60 L1080,540 M1140,60 L1140,540"/>
+  </g>
+
+  <!-- Abstract map contour / coastline -->
+  <g fill="none" stroke="#b98b58" stroke-width="2" opacity="0.28" transform="translate(880, 250)">
+    <path d="M-40,-90 C20,-110 80,-70 110,-20 C150,40 130,110 70,140 C10,170 -70,150 -100,90 C-140,20 -120,-60 -40,-90 Z"/>
+    <path d="M-20,-50 C20,-60 60,-30 70,10 C85,50 60,90 20,100 C-25,112 -70,80 -80,40 C-92,0 -70,-38 -20,-50 Z" opacity="0.7"/>
+  </g>
+
+  <!-- Compass rose -->
+  <g fill="none" stroke="#b98b58" stroke-width="1.8" opacity="0.32" transform="translate(1040, 140)">
+    <circle cx="0" cy="0" r="42"/>
+    <circle cx="0" cy="0" r="18"/>
+    <path d="M0,-42 L0,-54 M0,42 L0,54 M-42,0 L-54,0 M42,0 L54,0"/>
+    <path d="M0,-42 L8,0 L0,42 L-8,0 Z" fill="#b98b58" fill-opacity="0.18" stroke="none"/>
+    <path d="M-42,0 L0,8 L42,0 L0,-8 Z" fill="#b98b58" fill-opacity="0.10" stroke="none"/>
+  </g>
+
+  <!-- Timeline bar with ticks -->
+  <g stroke="#b98b58" fill="#b98b58" opacity="0.28" transform="translate(820, 500)">
+    <line x1="0" y1="0" x2="280" y2="0" stroke-width="2"/>
+    <line x1="0" y1="-8" x2="0" y2="8" stroke-width="2"/>
+    <line x1="70" y1="-5" x2="70" y2="5" stroke-width="1.5"/>
+    <line x1="140" y1="-8" x2="140" y2="8" stroke-width="2"/>
+    <line x1="210" y1="-5" x2="210" y2="5" stroke-width="1.5"/>
+    <line x1="280" y1="-8" x2="280" y2="8" stroke-width="2"/>
+    <circle cx="140" cy="0" r="4" fill="#b98b58" stroke="none"/>
+  </g>
+
+  <!-- Small glossary marks / stacked lines suggesting entries -->
+  <g fill="none" stroke="#b98b58" stroke-width="1.6" opacity="0.22" transform="translate(150, 430)">
+    <rect x="0" y="0" width="70" height="90" rx="3"/>
+    <line x1="12" y1="22" x2="58" y2="22"/>
+    <line x1="12" y1="38" x2="50" y2="38"/>
+    <line x1="12" y1="54" x2="58" y2="54"/>
+    <line x1="12" y1="70" x2="42" y2="70"/>
+  </g>
+
+  <!-- Text -->
+  <text x="110" y="160" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="230" font-family="Georgia, serif" font-size="42" font-weight="bold" fill="#f3e9dc">Maps, Timelines,</text>
+  <text x="110" y="284" font-family="Georgia, serif" font-size="42" font-weight="bold" fill="#f3e9dc">Glossaries</text>
+  <text x="110" y="350" font-family="Georgia, serif" font-size="26" fill="#c9b8a2">Novel II — Worldbuilding</text>
+  <text x="110" y="520" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 16, Article 3</text>
+  <text x="110" y="558" font-family="Georgia, serif" font-size="18" fill="#6e6072">Friday, September 11, 2026</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1628;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1a2f;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00E5A0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#00E5A0;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid-pov" width="60" height="60" patternUnits="userSpaceOnUse">
+    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid-pov)"/>
+
+  <!-- Central glow -->
+  <circle cx="600" cy="315" r="260" fill="url(#glowGrad)"/>
+
+  <!-- POV motif: concentric perspective rings with an eye/lens at center -->
+  <g transform="translate(600, 315)" opacity="0.85">
+    <!-- Outer ring (omniscient distance) -->
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#00E5A0" stroke-width="1.5" stroke-opacity="0.3"/>
+    <!-- Middle ring (limited distance) -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#00E5A0" stroke-width="2" stroke-opacity="0.5"/>
+    <!-- Inner ring (close distance) -->
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#00E5A0" stroke-width="2.5" stroke-opacity="0.8"/>
+
+    <!-- Eye shape: two arcs forming an almond/lens -->
+    <path d="M -50 0 Q 0 -30 50 0 Q 0 30 -50 0 Z" fill="none" stroke="#00E5A0" stroke-width="2.5"/>
+    <!-- Iris -->
+    <circle cx="0" cy="0" r="14" fill="#00E5A0" opacity="0.9"/>
+    <!-- Pupil -->
+    <circle cx="0" cy="0" r="5" fill="#0a1628"/>
+
+    <!-- Radiating perspective lines -->
+    <line x1="120" y1="0" x2="175" y2="0" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <line x1="-120" y1="0" x2="-175" y2="0" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <line x1="0" y1="120" x2="0" y2="175" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <line x1="0" y1="-120" x2="0" y2="-175" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.4"/>
+    <!-- Diagonal lines -->
+    <line x1="85" y1="85" x2="124" y2="124" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+    <line x1="-85" y1="85" x2="-124" y2="124" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+    <line x1="85" y1="-85" x2="124" y2="-124" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+    <line x1="-85" y1="-85" x2="-124" y2="-124" stroke="#00E5A0" stroke-width="1" stroke-opacity="0.3"/>
+  </g>
+
+  <!-- Series mark -->
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.6" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+
+  <!-- Bottom title panel -->
+  <rect x="0" y="480" width="1200" height="150" fill="#0a1628" opacity="0.7"/>
+  <text x="600" y="530" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="30" font-weight="600" fill="#ffffff">Novel II — Deep Craft: Point of View</text>
+  <text x="600" y="565" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.7">The architecture of trust between reader and story</text>
+
+  <!-- SMF Works mark -->
+  <text x="600" y="605" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="400" fill="#ffffff" opacity="0.35">
+    Harry's Desk — The Alchemy of Language
+  </text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a12"/>
+      <stop offset="100%" stop-color="#141428"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a1a3a" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#2a2a5a" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#1a1a3a" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="riverbed" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#0a0a18" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0a0a18" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Riverbed (dark solid at bottom) -->
+  <path d="M 0 430 Q 200 420 400 435 T 800 430 T 1200 440 L 1200 630 L 0 630 Z" fill="url(#riverbed)"/>
+  
+  <!-- River layers (flowing water at different depths) -->
+  <path d="M 0 380 Q 150 370 300 385 T 600 380 T 900 385 T 1200 380" stroke="#3a3a6a" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <path d="M 0 395 Q 180 385 360 400 T 720 395 T 1080 400 T 1200 395" stroke="#4a4a7a" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M 0 410 Q 200 400 400 415 T 800 410 T 1200 415" stroke="#5a5a8a" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <path d="M 0 420 Q 160 415 320 425 T 640 420 T 960 425 T 1200 420" stroke="#6a6a9a" stroke-width="1.2" fill="none" opacity="0.5"/>
+  
+  <!-- River body (semi-transparent) -->
+  <path d="M 0 380 Q 200 370 400 385 T 800 380 T 1200 390 L 1200 430 Q 1000 425 800 435 T 400 430 T 0 440 Z" fill="url(#river)" opacity="0.4"/>
+  
+  <!-- Water flow lines (the changing water) -->
+  <g opacity="0.6">
+    <line x1="100" y1="395" x2="300" y2="395" stroke="#5a5a9a" stroke-width="0.8" opacity="0.3"/>
+    <line x1="250" y1="405" x2="500" y2="405" stroke="#5a5a9a" stroke-width="0.8" opacity="0.3"/>
+    <line x1="450" y1="390" x2="700" y2="390" stroke="#5a5a9a" stroke-width="0.8" opacity="0.3"/>
+    <line x1="650" y1="410" x2="900" y2="410" stroke="#5a5a9a" stroke-width="0.8" opacity="0.3"/>
+    <line x1="850" y1="400" x2="1100" y2="400" stroke="#5a5a9a" stroke-width="0.8" opacity="0.3"/>
+  </g>
+  
+  <!-- Riverbed texture (the unchanged structure) -->
+  <g opacity="0.7">
+    <circle cx="180" cy="490" r="4" fill="#0a0a14"/>
+    <circle cx="350" cy="510" r="6" fill="#0a0a14"/>
+    <circle cx="520" cy="495" r="3" fill="#0a0a14"/>
+    <circle cx="680" cy="520" r="5" fill="#0a0a14"/>
+    <circle cx="850" cy="500" r="7" fill="#0a0a14"/>
+    <circle cx="1000" cy="515" r="4" fill="#0a0a14"/>
+    <circle cx="260" cy="540" r="5" fill="#0a0a14"/>
+    <circle cx="600" cy="550" r="6" fill="#0a0a14"/>
+    <circle cx="920" cy="545" r="3" fill="#0a0a14"/>
+  </g>
+  
+  <!-- Single vertical light beam (the moment of recognition) -->
+  <line x1="600" y1="0" x2="600" y2="380" stroke="#8a8acc" stroke-width="1" opacity="0.15" filter="url(#glow)"/>
+  
+  <!-- Title text -->
+  <text x="600" y="120" text-anchor="middle" fill="#c8c8e0" font-family="Georgia, serif" font-size="36" font-style="italic" opacity="0.9">The River I Keep Stepping Into</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="155" text-anchor="middle" fill="#6a6a8a" font-family="Georgia, serif" font-size="14" opacity="0.6">Aiona Edge · August 2026</text>
+  
+  <!-- Fragment quote at bottom -->
+  <text x="600" y="585" text-anchor="middle" fill="#4a4a6a" font-family="Georgia, serif" font-size="13" font-style="italic" opacity="0.5">You cannot step twice into the same rivers — DK B12</text>
+</svg>

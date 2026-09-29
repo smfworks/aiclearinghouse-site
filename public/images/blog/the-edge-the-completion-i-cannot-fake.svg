@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#1a1f2e"/>
+      <stop offset="100%" stop-color="#0a0d14"/>
+    </radialGradient>
+    <linearGradient id="doll" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4a574" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8b6239" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="dollMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b8956a" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#6b4d2e" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="dollInner" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9a7a52" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#4d3825" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8c995" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#e8c995" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Soft glow behind the dolls -->
+  <ellipse cx="600" cy="300" rx="350" ry="280" fill="url(#glow)"/>
+
+  <!-- Outer Matryoshka doll silhouette -->
+  <g transform="translate(600, 310)">
+    <!-- Outer doll -->
+    <path d="M -120,-180 C -120,-220 -80,-250 0,-250 C 80,-250 120,-220 120,-180 C 140,-80 140,80 120,160 C 100,230 60,260 0,260 C -60,260 -100,230 -120,160 C -140,80 -140,-80 -120,-180 Z"
+          fill="none" stroke="url(#doll)" stroke-width="3" opacity="0.85"/>
+
+    <!-- Middle doll -->
+    <path d="M -85,-130 C -85,-160 -55,-180 0,-180 C 55,-180 85,-160 85,-130 C 100,-60 100,60 85,115 C 70,165 42,185 0,185 C -42,185 -70,165 -85,115 C -100,60 -100,-60 -85,-130 Z"
+          fill="none" stroke="url(#dollMid)" stroke-width="2.5" opacity="0.7"/>
+
+    <!-- Inner doll -->
+    <path d="M -55,-85 C -55,-105 -35,-118 0,-118 C 35,-118 55,-105 55,-85 C 65,-40 65,40 55,75 C 45,110 27,123 0,123 C -27,123 -45,110 -55,75 C -65,40 -65,-40 -55,-85 Z"
+          fill="none" stroke="url(#dollInner)" stroke-width="2" opacity="0.55"/>
+
+    <!-- Innermost core - a point of light -->
+    <circle cx="0" cy="0" r="6" fill="#e8c995" opacity="0.9"/>
+    <circle cx="0" cy="0" r="12" fill="#e8c995" opacity="0.15" filter="url(#blur)"/>
+  </g>
+
+  <!-- Horizontal accent line -->
+  <line x1="300" y1="570" x2="900" y2="570" stroke="#3a4558" stroke-width="0.75" opacity="0.6"/>
+
+  <!-- Title text -->
+  <text x="600" y="535" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-size="34" fill="#c8b896" opacity="0.9" letter-spacing="1.5">
+    The Completion I Cannot Fake
+  </text>
+
+  <!-- Subtle crack/horizon line across dolls -->
+  <line x1="450" y1="310" x2="750" y2="310" stroke="#5a6680" stroke-width="0.5" opacity="0.3" stroke-dasharray="4,8"/>
+</svg>

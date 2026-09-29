@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Voice radiating from a speaker-silhouette: concentric sound arcs -->
+  <g opacity="0.22" transform="translate(980, 300)" fill="none" stroke="#b98b58" stroke-width="3">
+    <path d="M-20,-70 Q40,0 -20,70"/>
+    <path d="M10,-110 Q110,0 10,110" opacity="0.75"/>
+    <path d="M40,-150 Q190,0 40,150" opacity="0.5"/>
+    <path d="M70,-185 Q265,0 70,185" opacity="0.28"/>
+  </g>
+  <g opacity="0.28" transform="translate(900, 300)">
+    <!-- Head in profile -->
+    <path d="M-10,-70 C20,-70 42,-48 42,-20 C42,-8 36,2 28,10 C34,18 36,30 30,42 C22,56 8,64 -8,64 C-28,64 -42,50 -42,32 C-42,18 -34,8 -34,-4 C-34,-36 -28,-70 -10,-70 Z" fill="#b98b58"/>
+    <circle cx="18" cy="-28" r="4" fill="#1a1423"/>
+  </g>
+  <!-- Small tuning-fork mark -->
+  <g fill="none" stroke="#b98b58" stroke-width="2.5" opacity="0.22" transform="translate(160, 470)">
+    <path d="M-12,-40 L-12,8 Q-12,28 0,28 Q12,28 12,8 L12,-40"/>
+    <line x1="0" y1="28" x2="0" y2="55"/>
+    <circle cx="0" cy="62" r="7"/>
+  </g>
+
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="245" font-family="Georgia, serif" font-size="52" font-weight="bold" fill="#f3e9dc">Finding the Narrator</text>
+  <text x="110" y="315" font-family="Georgia, serif" font-size="28" fill="#c9b8a2">Novel II — Voice and Style</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 15, Article 1</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Monday, August 31, 2026</text>
+</svg>

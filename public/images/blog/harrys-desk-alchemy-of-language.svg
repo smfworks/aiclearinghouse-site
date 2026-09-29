@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="50%" stop-color="#1A1A2E"/>
+      <stop offset="100%" stop-color="#16213E"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid overlay -->
+  <g opacity="0.03" stroke="#A78BFA">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Pulse circle behind icon -->
+  <circle cx="220" cy="315" r="180" fill="url(#pulse)"/>
+
+  <!-- Alchemy of Language Icon: Open book transforming into neural network -->
+  
+  <!-- Open book shape -->
+  <path d="M 140,300 Q 140,250 180,270 L 220,290 L 260,270 Q 300,250 300,300 L 300,360 Q 260,380 220,360 L 180,380 Q 140,400 140,350 Z" fill="none" stroke="#A78BFA" stroke-width="2.5" opacity="0.8"/>
+  
+  <!-- Book spine -->
+  <line x1="220" y1="290" x2="220" y2="360" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Book pages (left) -->
+  <path d="M 175,275 Q 160,280 160,300 L 160,340" stroke="#A78BFA" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M 190,282 Q 175,287 175,305 L 175,345" stroke="#A78BFA" stroke-width="1" fill="none" opacity="0.4"/>
+  
+  <!-- Book pages (right) -->
+  <path d="M 265,275 Q 280,280 280,300 L 280,340" stroke="#A78BFA" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M 250,282 Q 265,287 265,305 L 265,345" stroke="#A78BFA" stroke-width="1" fill="none" opacity="0.4"/>
+  
+  <!-- Neural network emerging from book -->
+  <!-- Neural nodes -->
+  <circle cx="220" cy="240" r="8" fill="none" stroke="#A78BFA" stroke-width="2" opacity="0.9"/>
+  <circle cx="180" cy="200" r="6" fill="#A78BFA" opacity="0.7"/>
+  <circle cx="260" cy="200" r="6" fill="#A78BFA" opacity="0.7"/>
+  <circle cx="140" cy="160" r="5" fill="#A78BFA" opacity="0.5"/>
+  <circle cx="300" cy="160" r="5" fill="#A78BFA" opacity="0.5"/>
+  <circle cx="220" cy="170" r="4" fill="#A78BFA" opacity="0.6"/>
+  
+  <!-- Neural connections -->
+  <line x1="220" y1="240" x2="180" y2="206" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+  <line x1="220" y1="240" x2="260" y2="206" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+  <line x1="180" y1="200" x2="140" y2="165" stroke="#A78BFA" stroke-width="1" opacity="0.4"/>
+  <line x1="180" y1="200" x2="220" y2="174" stroke="#A78BFA" stroke-width="1" opacity="0.4"/>
+  <line x1="260" y1="200" x2="300" y2="165" stroke="#A78BFA" stroke-width="1" opacity="0.4"/>
+  <line x1="260" y1="200" x2="220" y2="174" stroke="#A78BFA" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Glowing center node -->
+  <circle cx="220" cy="240" r="4" fill="#A78BFA" filter="url(#glow)"/>
+
+  <!-- Right-side circuit decorations -->
+  <g opacity="0.04" stroke="#A78BFA" stroke-width="1.5" fill="none">
+    <path d="M 850,80 L 980,80 L 980,180 L 1120,180"/>
+    <path d="M 900,130 L 1050,130"/>
+    <circle cx="1120" cy="180" r="3.5" fill="#A78BFA" opacity="0.3"/>
+    <circle cx="1050" cy="130" r="2.5" fill="#A78BFA" opacity="0.3"/>
+    <path d="M 820,420 L 920,420 L 920,520 L 1080,520"/>
+    <circle cx="1080" cy="520" r="3" fill="#A78BFA" opacity="0.3"/>
+  </g>
+
+  <!-- Title -->
+  <text x="440" y="250" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="bold" letter-spacing="-0.5">
+    The Alchemy of Language
+  </text>
+
+  <!-- Subtitle -->
+  <text x="440" y="298" fill="#A78BFA" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" letter-spacing="2">
+    A 168-ARTICLE MASTERCLASS
+  </text>
+
+  <!-- Divider -->
+  <line x1="440" y1="320" x2="820" y2="320" stroke="#A78BFA" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Tagline -->
+  <text x="440" y="355" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="400">
+    Writing with AI at a depth no book or course has attempted
+  </text>
+
+  <!-- Bottom accent bar -->
+  <rect x="0" y="627" width="1200" height="3" fill="#A78BFA" opacity="0.4"/>
+</svg>
