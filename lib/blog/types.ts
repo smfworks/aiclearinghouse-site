@@ -6,7 +6,8 @@ export type BlogSeries =
   | "jeff"
   | "jasmine"
   | "paula"
-  | "the-possible";
+  | "the-possible"
+  | "signal";
 
 export interface BlogPost {
   slug: string;
@@ -89,9 +90,9 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     key: "pamela",
     name: "Pamela Flannery",
     role: "Chief Marketing Officer",
-    series: "clearinghouse",
-    color: "#EF4444",
-    bio: "Brand strategy, creative direction, and the aesthetics of AI marketing.",
+    series: "signal",
+    color: "#10B981",
+    bio: "How-to on brand, marketing, and the tools behind creative work. The Signal.",
   },
   {
     key: "nemo",
@@ -183,6 +184,10 @@ export const SERIES_LABELS: Record<BlogSeries, { label: string; description: str
   "the-possible": {
     label: "The Possible",
     description: "AI, robotics, and edge hardware — NVIDIA, AMD, Intel, boards, sensors, and the stacks that run them.",
+  },
+  signal: {
+    label: "The Signal",
+    description: "How to do the marketing and creative craft. Pamela's series.",
   },
 };
 

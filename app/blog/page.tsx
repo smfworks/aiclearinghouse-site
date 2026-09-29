@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllBlogPosts, getBlogSeriesCounts } from "@/lib/blog/loader";
 import { SERIES_LABELS } from "@/lib/blog/types";
-import { paginatePosts, POSTS_PER_PAGE } from "@/lib/blog/pagination";
+import { paginatePosts } from "@/lib/blog/pagination";
 import BlogCard from "@/components/BlogCard";
 import BlogPagination from "@/components/BlogPagination";
 import Nav from "@/components/Nav";
@@ -42,16 +42,22 @@ export default function BlogPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-2">
+            <Link
+              href="/blog"
+              className="rounded-full border border-accent bg-accent px-3 py-1 text-sm text-accent-foreground"
+            >
+              All
+            </Link>
             {Object.entries(SERIES_LABELS).map(([key, { label }]) => {
               const count = seriesCounts[key as keyof typeof seriesCounts] || 0;
-              if (count === 0) return null;
+              if (count === 0 && key !== "signal") return null;
               return (
                 <Link
                   key={key}
-                  href={`/blog?series=${key}`}
+                  href={`/blog/series/${key}`}
                   className="rounded-full border border-hairline bg-elevated px-3 py-1 text-sm text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
                 >
-                  {label} <span className="ml-1 text-foreground-tertiary">({count})</span>
+                  {label} <span className="ml-1 opacity-70">({count})</span>
                 </Link>
               );
             })}
@@ -61,22 +67,16 @@ export default function BlogPage() {
 
       <main className="flex-1 bg-canvas">
         <div className="mx-auto max-w-7xl px-6 py-10">
-          {posts.length === 0 ? (
-            <p className="text-foreground-secondary">No posts yet.</p>
-          ) : (
-            <>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post) => (
-                  <BlogCard key={post.slug} post={post} />
-                ))}
-              </div>
-              <BlogPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                totalPosts={totalPosts}
-              />
-            </>
-          )}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
+          <BlogPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalPosts={totalPosts}
+          />
         </div>
       </main>
 

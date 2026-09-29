@@ -2,16 +2,9 @@ import Link from "next/link";
 import { GitBranch, Sparkles } from "lucide-react";
 
 const links = [
-  { href: "/agents", label: "Agents" },
-  { href: "/llms", label: "LLMs" },
-  { href: "/services", label: "Services" },
-  { href: "/skills", label: "Skills" },
-  { href: "/tips", label: "Tips" },
-  { href: "/tests", label: "Tests" },
-  { href: "/deployment-recipes", label: "Recipes" },
-  { href: "/guides", label: "Guides" },
-  { href: "/blog", label: "Blog" },
-  { href: "/explorer", label: "SMF Benchmarks" },
+  { href: "/blog", label: "Read" },
+  { href: "/reference", label: "Reference" },
+  { href: "/lab", label: "Lab" },
   { href: "/about", label: "About" },
 ];
 

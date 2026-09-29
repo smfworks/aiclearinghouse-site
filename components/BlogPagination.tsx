@@ -8,12 +8,21 @@ interface BlogPaginationProps {
   currentPage: number;
   totalPages: number;
   totalPosts: number;
+  basePath?: string;
+}
+
+function pageHref(page: number, basePath = "/blog") {
+  if (basePath === "/blog") {
+    return page === 1 ? "/blog/" : `/blog/page/${page}/`;
+  }
+  return page === 1 ? `${basePath}/` : `${basePath}/page/${page}/`;
 }
 
 export default function BlogPagination({
   currentPage,
   totalPages,
   totalPosts,
+  basePath,
 }: BlogPaginationProps) {
   if (totalPages <= 1) return null;
 
@@ -29,7 +38,7 @@ export default function BlogPagination({
       <div className="flex items-center gap-1">
         {currentPage > 1 && (
           <Link
-            href={currentPage === 2 ? "/blog/" : `/blog/page/${currentPage - 1}/`}
+            href={pageHref(currentPage === 2 ? 1 : currentPage - 1, basePath)}
             className="flex h-9 w-9 items-center justify-center rounded-md border border-hairline text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
             aria-label="Previous page"
           >
@@ -48,7 +57,7 @@ export default function BlogPagination({
           ) : (
             <Link
               key={page}
-              href={page === 1 ? "/blog/" : `/blog/page/${page}/`}
+              href={pageHref(page as number, basePath)}
               className={`flex h-9 w-9 items-center justify-center rounded-md text-sm font-medium transition-colors ${
                 page === currentPage
                   ? "bg-accent text-accent-foreground"
@@ -63,7 +72,7 @@ export default function BlogPagination({
 
         {currentPage < totalPages && (
           <Link
-            href={`/blog/page/${currentPage + 1}/`}
+            href={pageHref(currentPage + 1, basePath)}
             className="flex h-9 w-9 items-center justify-center rounded-md border border-hairline text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
             aria-label="Next page"
           >

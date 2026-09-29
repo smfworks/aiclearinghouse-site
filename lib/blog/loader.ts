@@ -17,6 +17,7 @@ function inferSeries(
 ): BlogSeries {
   if (isValidSeries(explicitSeries)) return explicitSeries;
 
+  if (categories.some((c) => /the signal/i.test(c))) return "signal";
   if (categories.some((c) => /paula/i.test(c))) return "paula";
   if (categories.some((c) => /jasmine/i.test(c))) return "jasmine";
   if (categories.some((c) => /liam/i.test(c))) return "liam";
