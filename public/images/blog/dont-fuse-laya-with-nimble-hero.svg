@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't Fuse Laya With Nimble". No visible text.
+     One gold rail enters from the left and splits into three terminals
+     that do not share a shape: circle, diamond, square.
+     Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A single gold rail that splits into a teal circle, an orange diamond, and a gold square">
+  <defs>
+    <linearGradient id="nmBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="48%" stop-color="#0c1e38"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="nmGlowGold" cx="28%" cy="50%" r="42%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#ff6b00" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nmGlowTeal" cx="78%" cy="28%" r="36%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="nmRail" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="55%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="nmTeal" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#nmBg)"/>
+  <rect width="1200" height="630" fill="url(#nmGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#nmGlowTeal)"/>
+
+  <g stroke="#13243d" stroke-width="1" fill="none" opacity="0.55">
+    <rect x="48" y="48" width="1104" height="534" rx="6"/>
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- shared rail -->
+  <path d="M96 315 H430" fill="none" stroke="url(#nmRail)" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="96" cy="315" r="14" fill="#ff6b00"/>
+
+  <!-- fork node -->
+  <circle cx="448" cy="315" r="22" fill="#0a1628" stroke="#f59e0b" stroke-width="6"/>
+  <circle cx="448" cy="315" r="7" fill="#f59e0b"/>
+
+  <!-- three branches, three shapes -->
+  <path d="M470 315 C560 315 600 150 720 150 H860" fill="none" stroke="url(#nmTeal)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M470 315 C600 315 680 315 860 315" fill="none" stroke="#ff6b00" stroke-width="8" stroke-linecap="round"/>
+  <path d="M470 315 C560 315 600 480 720 480 H860" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- teal circle -->
+  <circle cx="960" cy="150" r="52" fill="none" stroke="#00d4ff" stroke-width="8"/>
+  <circle cx="960" cy="150" r="18" fill="#0e7490"/>
+
+  <!-- orange diamond -->
+  <g transform="translate(960 315)">
+    <rect x="-40" y="-40" width="80" height="80" rx="4" transform="rotate(45)" fill="none" stroke="#ff6b00" stroke-width="8"/>
+    <circle r="10" fill="#ff6b00"/>
+  </g>
+
+  <!-- gold square -->
+  <rect x="908" y="428" width="104" height="104" rx="8" fill="none" stroke="#f59e0b" stroke-width="8"/>
+  <rect x="944" y="464" width="32" height="32" rx="3" fill="#f59e0b"/>
+
+  <!-- small unjoined ticks so the three terminals stay visually separate -->
+  <g fill="none" stroke="#1e3a8a" stroke-width="3" opacity="0.7">
+    <path d="M1040 120 h48"/>
+    <path d="M1040 150 h64"/>
+    <path d="M1040 180 h40"/>
+    <path d="M1048 285 h36"/>
+    <path d="M1048 315 h56"/>
+    <path d="M1048 345 h32"/>
+    <path d="M1036 450 h44"/>
+    <path d="M1036 480 h60"/>
+    <path d="M1036 510 h36"/>
+  </g>
+</svg>
