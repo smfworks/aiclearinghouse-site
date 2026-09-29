@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't Ask the Empty Chair" — dashed gold chair vs solid teal probe.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Empty dashed gold chair on the left, a disconnected question ring above it, and a solid teal probe on the right that a gold path reaches by bypassing the chair">
+  <defs>
+    <linearGradient id="chairBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="chairGlowGold" cx="24%" cy="46%" r="48%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="chairGlowTeal" cx="78%" cy="54%" r="44%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chairGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="chairChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#chairBg)"/>
+  <rect width="1200" height="630" fill="url(#chairGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#chairGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: empty chair, dashed gold, nobody sitting -->
+  <g fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="14 12">
+    <path d="M168 430 L168 318"/>
+    <path d="M312 430 L312 318"/>
+    <path d="M156 318 L324 318"/>
+    <path d="M156 318 L156 250 L324 250 L324 318"/>
+    <path d="M168 250 L168 168 L300 168"/>
+  </g>
+  <circle cx="300" cy="168" r="10" fill="none" stroke="#ff6b00" stroke-width="4" stroke-dasharray="6 6"/>
+
+  <!-- disconnected question ring above the chair — a stall, not a tool -->
+  <g fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="8 10" opacity="0.85">
+    <circle cx="236" cy="118" r="36"/>
+  </g>
+  <circle cx="236" cy="118" r="8" fill="none" stroke="#ff6b00" stroke-width="3"/>
+
+  <!-- gold bypass: skip the chair, go to the live box -->
+  <g fill="none" stroke="url(#chairGold)" stroke-width="5" stroke-linecap="round">
+    <path d="M340 360 C470 360 520 250 640 250"/>
+    <path d="M640 250 L748 250"/>
+    <path d="M728 232 L748 250 L728 268"/>
+  </g>
+
+  <!-- right: live machine, solid teal probe -->
+  <rect x="760" y="150" width="312" height="330" rx="12" fill="url(#chairChassis)" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="788" y="178" width="256" height="42" rx="6" fill="#0e7490" opacity="0.90"/>
+  <rect x="788" y="236" width="256" height="42" rx="6" fill="#0e7490" opacity="0.58"/>
+  <rect x="788" y="294" width="256" height="42" rx="6" fill="#0e7490" opacity="0.32"/>
+  <rect x="788" y="352" width="168" height="42" rx="6" fill="url(#chairGold)"/>
+  <circle cx="996" cy="373" r="11" fill="#00d4ff"/>
+  <g fill="none" stroke="#00d4ff" stroke-width="4" stroke-linecap="round">
+    <path d="M996 373 L996 430 L430 430"/>
+    <path d="M454 414 L430 430 L454 446"/>
+  </g>
+  <circle cx="400" cy="430" r="9" fill="#00d4ff"/>
+</svg>

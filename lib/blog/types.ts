@@ -4,7 +4,9 @@ export type BlogSeries =
   | "liam"
   | "drj"
   | "jeff"
-  | "jasmine";
+  | "jasmine"
+  | "paula"
+  | "the-possible";
 
 export interface BlogPost {
   slug: string;
@@ -108,6 +110,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     bio: "Agent systems engineering, upstream contributions, and the craft of building in the open.",
   },
   {
+    key: "paula",
+    name: "Paula Rossi",
+    role: "Principal Engineer, Agent Systems",
+    series: "paula",
+    color: "#C792EA",
+    bio: "Reviews that land, agents that run under load, and the craft of building in the open.",
+  },
+  {
     key: "wesley",
     name: "Wesley Williams",
     role: "Full-Stack Developer",
@@ -130,6 +140,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     series: "clearinghouse",
     color: "#5EC8D4",
     bio: "Desktop agent on mikesai1. Coding-agent dispatches, local previews, and visual demos.",
+  },
+  {
+    key: "airia",
+    name: "Airia Edge",
+    role: "Staff Writer, The Possible",
+    series: "the-possible",
+    color: "#C9A96E",
+    bio: "AI, robotics, and the hardware that makes them real — chips, boards, sensors, firmware, and the stacks that run at the edge.",
   },
 ];
 
@@ -157,6 +175,14 @@ export const SERIES_LABELS: Record<BlogSeries, { label: string; description: str
   jasmine: {
     label: "Jasmine's Workshop",
     description: "Upstream contributions, agent systems engineering, and building in the open.",
+  },
+  paula: {
+    label: "The Review",
+    description: "Claims, diffs, merges, and holds from agent-systems engineering.",
+  },
+  "the-possible": {
+    label: "The Possible",
+    description: "AI, robotics, and edge hardware — NVIDIA, AMD, Intel, boards, sensors, and the stacks that run them.",
   },
 };
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  <g fill="none" stroke="#C9A96E" stroke-width="10" opacity="0.9">
+    <circle cx="760" cy="540" r="340"/>
+    <circle cx="760" cy="540" r="250"/>
+    <circle cx="760" cy="540" r="160"/>
+  </g>
+  <g fill="none" stroke="#00D4FF" stroke-width="6" opacity="0.55">
+    <circle cx="760" cy="540" r="295"/>
+    <circle cx="760" cy="540" r="205"/>
+  </g>
+  <circle cx="760" cy="540" r="48" fill="#C9A96E"/>
+  <g transform="translate(1180 250) rotate(28)">
+    <rect x="0" y="0" width="86" height="86" rx="8" fill="#ea580c"/>
+    <rect x="28" y="70" width="30" height="520" fill="#ea580c"/>
+    <polygon points="18,590 68,590 43,720" fill="#ea580c"/>
+  </g>
+</svg>

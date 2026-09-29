@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: numbered page controls feed one chooser. No letters.
+     Brand: navy #001F3F, orange #ea580c, gold #C9A96E, cyan #00D4FF. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Indexed page controls feeding a single chooser">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#012a52"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="glowGold" cx="72%" cy="58%" r="38%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowOrange" cx="22%" cy="32%" r="32%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowCyan" cx="50%" cy="18%" r="28%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowGold)"/>
+  <rect width="1200" height="630" fill="url(#glowOrange)"/>
+  <rect width="1200" height="630" fill="url(#glowCyan)"/>
+
+  <g stroke="#12365c" stroke-width="1" opacity="0.45" fill="none">
+    <rect x="40" y="40" width="1120" height="550" rx="6"/>
+  </g>
+
+  <!-- left: page as a stack of indexed chips -->
+  <g>
+    <rect x="90" y="90" width="420" height="450" rx="10" fill="#00162e" stroke="#1a4a78" stroke-width="2"/>
+    <rect x="120" y="130" width="360" height="58" rx="8" fill="#0a2a4a" stroke="#ea580c" stroke-width="2"/>
+    <circle cx="150" cy="159" r="12" fill="#ea580c"/>
+    <rect x="178" y="147" width="270" height="10" rx="3" fill="#6b8aa8"/>
+    <rect x="178" y="165" width="180" height="8" rx="3" fill="#3d5f7a"/>
+
+    <rect x="120" y="208" width="360" height="58" rx="8" fill="#0a2a4a" stroke="#C9A96E" stroke-width="3"/>
+    <circle cx="150" cy="237" r="12" fill="#C9A96E"/>
+    <rect x="178" y="225" width="250" height="10" rx="3" fill="#C9A96E"/>
+    <rect x="178" y="243" width="140" height="8" rx="3" fill="#7a6840"/>
+
+    <rect x="120" y="286" width="360" height="58" rx="8" fill="#0a2a4a" stroke="#1a4a78" stroke-width="2"/>
+    <circle cx="150" cy="315" r="12" fill="#00D4FF" opacity="0.7"/>
+    <rect x="178" y="303" width="220" height="10" rx="3" fill="#6b8aa8"/>
+    <rect x="178" y="321" width="160" height="8" rx="3" fill="#3d5f7a"/>
+
+    <rect x="120" y="364" width="360" height="58" rx="8" fill="#0a2a4a" stroke="#1a4a78" stroke-width="2"/>
+    <circle cx="150" cy="393" r="12" fill="#6b8aa8"/>
+    <rect x="178" y="381" width="200" height="10" rx="3" fill="#6b8aa8"/>
+    <rect x="178" y="399" width="120" height="8" rx="3" fill="#3d5f7a"/>
+
+    <rect x="120" y="442" width="360" height="58" rx="8" fill="#0a2a4a" stroke="#1a4a78" stroke-width="2"/>
+    <circle cx="150" cy="471" r="12" fill="#6b8aa8"/>
+    <rect x="178" y="459" width="240" height="10" rx="3" fill="#6b8aa8"/>
+    <rect x="178" y="477" width="90" height="8" rx="3" fill="#3d5f7a"/>
+  </g>
+
+  <!-- converging rays to chooser -->
+  <g fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.85" stroke-linecap="round">
+    <path d="M510,237 C620,237 680,300 760,315"/>
+  </g>
+  <g fill="none" stroke="#1a4a78" stroke-width="2" opacity="0.5" stroke-linecap="round">
+    <path d="M510,159 C600,180 680,250 760,315"/>
+    <path d="M510,315 C600,315 680,315 760,315"/>
+    <path d="M510,393 C600,360 680,330 760,315"/>
+    <path d="M510,471 C620,430 700,350 760,315"/>
+  </g>
+
+  <!-- chooser disc -->
+  <circle cx="820" cy="315" r="78" fill="#00162e" stroke="#C9A96E" stroke-width="4"/>
+  <circle cx="820" cy="315" r="48" fill="none" stroke="#ea580c" stroke-width="3"/>
+  <circle cx="820" cy="315" r="16" fill="#C9A96E"/>
+
+  <!-- execute arrow -->
+  <polygon points="910,315 980,290 980,305 1060,305 1060,325 980,325 980,340" fill="#00D4FF" opacity="0.9"/>
+  <rect x="1075" y="280" width="70" height="70" rx="12" fill="#0a2a4a" stroke="#00D4FF" stroke-width="3"/>
+  <circle cx="1110" cy="315" r="14" fill="#00D4FF"/>
+</svg>

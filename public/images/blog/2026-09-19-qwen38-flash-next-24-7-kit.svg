@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.35" stroke-width="1">
+    <path d="M0 120 H1200 M0 240 H1200 M0 360 H1200 M0 480 H1200"/>
+    <path d="M150 0 V624 M300 0 V624 M450 0 V624 M600 0 V624 M750 0 V624 M900 0 V624 M1050 0 V624"/>
+  </g>
+  <text x="48" y="48" fill="#76b900" font-family="SF Mono, Courier New, monospace" font-size="13" letter-spacing="3">BENCH/STRUCTURED.PY · 400 TOK · TEMP 0 · THINKING OFF</text>
+  <text x="48" y="96" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="32" font-weight="700">Qwen3.8-Flash-Next · 1× DGX Spark</text>
+  <text x="48" y="132" fill="#5a8a6a" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="17">MiaAI 24/7 kit @ 6b50864 · SMF pins · structured decode vs published</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="13">
+    <text x="48" y="188" fill="#9ab0a0">Aggregate tok/s (recipe protocol)</text>
+    <text x="48" y="228" fill="#e8eef4">S=1 published</text>
+    <rect x="280" y="212" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="212" width="393" height="22" fill="#3d6a80" rx="2"/>
+    <text x="688" y="228" fill="#8ab4c4">65.2</text>
+    <text x="48" y="268" fill="#e8eef4">S=1 spark-d369</text>
+    <rect x="280" y="252" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="252" width="393" height="22" fill="#76b900" rx="2" filter="url(#glow)"/>
+    <text x="688" y="268" fill="#76b900">65.3</text>
+    <text x="48" y="308" fill="#e8eef4">S=2 published</text>
+    <rect x="280" y="292" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="292" width="700" height="22" fill="#3d6a80" rx="2"/>
+    <text x="992" y="308" fill="#8ab4c4">116.2</text>
+    <text x="48" y="348" fill="#e8eef4">S=2 spark-d369</text>
+    <rect x="280" y="332" width="700" height="22" fill="#123018" rx="2"/>
+    <rect x="280" y="332" width="632" height="22" fill="#5a8a6a" rx="2"/>
+    <text x="924" y="348" fill="#9ab0a0">104.9</text>
+  </g>
+  <g font-family="SF Mono, Courier New, monospace" fill="#e8eef4">
+    <rect x="0" y="520" width="1200" height="104" fill="#081018"/>
+    <text x="48" y="552" fill="#76b900" font-size="12" letter-spacing="2">LIVE PIN</text>
+    <text x="48" y="578" font-size="14">TP=1 · 262k · MTP 3 · KV=16 · seqs=2 · 47k draft vocab</text>
+    <text x="48" y="602" fill="#5a8a6a" font-size="13">S=1 matched. S=2 per-stream matched. We do not serve 8 streams.</text>
+    <text x="780" y="578" font-size="14">671 s to /health</text>
+    <text x="780" y="602" fill="#5a8a6a" font-size="13">KV 1,019,286 tok · 3.89×</text>
+  </g>
+</svg>

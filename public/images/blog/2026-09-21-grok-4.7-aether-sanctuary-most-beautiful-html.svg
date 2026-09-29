@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="50%" stop-color="#0a1024"/>
+      <stop offset="100%" stop-color="#05060f"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="22%" cy="30%" r="46%">
+      <stop offset="0%" stop-color="#7af0ff" stop-opacity="0.70"/>
+      <stop offset="100%" stop-color="#7af0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="72%" cy="28%" r="44%">
+      <stop offset="0%" stop-color="#c084fc" stop-opacity="0.78"/>
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb3" cx="54%" cy="88%" r="48%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gold" cx="18%" cy="78%" r="24%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="240" cy="200" rx="320" ry="240" fill="url(#orb1)" filter="url(#soft)"/>
+  <ellipse cx="880" cy="180" rx="340" ry="250" fill="url(#orb2)" filter="url(#soft)"/>
+  <ellipse cx="640" cy="560" rx="400" ry="220" fill="url(#orb3)" filter="url(#soft)"/>
+  <ellipse cx="170" cy="520" rx="180" ry="140" fill="url(#gold)" filter="url(#soft)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#C9A96E" stroke-opacity="0.18" stroke-width="2"/>
+</svg>

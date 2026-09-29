@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Don't Answer From Memory" — dashed gold weights guessing vs teal instruments.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Seven dashed gold guess marks floating in a head-shaped chassis on the left, a gold-to-teal probe in the middle, and seven solid teal instrument bars filled on the right">
+  <defs>
+    <linearGradient id="memBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="memGlowGold" cx="24%" cy="42%" r="48%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="memGlowTeal" cx="78%" cy="58%" r="44%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="memGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="memChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#memBg)"/>
+  <rect width="1200" height="630" fill="url(#memGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#memGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: weights chassis — seven dashed gold guesses, two filled as fluent fakes -->
+  <rect x="110" y="128" width="268" height="374" rx="12" fill="url(#memChassis)" stroke="#f59e0b" stroke-width="3" stroke-dasharray="12 10"/>
+  <circle cx="244" cy="176" r="18" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 5" opacity="0.95"/>
+  <circle cx="244" cy="222" r="18" fill="url(#memGold)" opacity="0.85"/>
+  <circle cx="244" cy="268" r="18" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 5" opacity="0.70"/>
+  <circle cx="244" cy="314" r="18" fill="url(#memGold)" opacity="0.45"/>
+  <circle cx="244" cy="360" r="18" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 5" opacity="0.50"/>
+  <circle cx="244" cy="406" r="18" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 5" opacity="0.32"/>
+  <circle cx="244" cy="452" r="18" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="5 5" opacity="0.18"/>
+
+  <!-- disconnected gold check: concluded from the prefix -->
+  <g opacity="0.92">
+    <circle cx="430" cy="176" r="36" fill="url(#memGold)"/>
+    <path d="M416 176 L426 186 L448 162" fill="none" stroke="#0a1628" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 8" opacity="0.50">
+    <path d="M412 204 C380 250 330 300 244 314"/>
+  </g>
+
+  <!-- gold-to-teal probe: leave the weights, go to the instruments -->
+  <g fill="none" stroke="url(#memGold)" stroke-width="5" stroke-linecap="round">
+    <path d="M378 315 C520 315 560 250 720 250"/>
+    <path d="M700 232 L720 250 L700 268"/>
+  </g>
+
+  <!-- right: instrument rack, seven solid teal rows, last one gold-confirmed -->
+  <rect x="760" y="118" width="312" height="394" rx="12" fill="url(#memChassis)" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="788" y="146" width="256" height="28" rx="4" fill="#0e7490" opacity="0.95"/>
+  <rect x="788" y="184" width="256" height="28" rx="4" fill="#0e7490" opacity="0.82"/>
+  <rect x="788" y="222" width="256" height="28" rx="4" fill="#0e7490" opacity="0.70"/>
+  <rect x="788" y="260" width="256" height="28" rx="4" fill="#0e7490" opacity="0.58"/>
+  <rect x="788" y="298" width="256" height="28" rx="4" fill="#0e7490" opacity="0.46"/>
+  <rect x="788" y="336" width="256" height="28" rx="4" fill="#0e7490" opacity="0.34"/>
+  <rect x="788" y="374" width="168" height="28" rx="4" fill="url(#memGold)"/>
+  <circle cx="996" cy="388" r="8" fill="#00d4ff"/>
+
+  <g fill="none" stroke="#00d4ff" stroke-width="4" stroke-linecap="round">
+    <path d="M760 388 L430 388"/>
+    <path d="M454 372 L430 388 L454 404"/>
+  </g>
+  <circle cx="418" cy="388" r="9" fill="#00d4ff"/>
+</svg>

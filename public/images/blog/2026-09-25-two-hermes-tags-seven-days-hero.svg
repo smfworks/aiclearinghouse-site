@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: two release bars, one host gateway disc, deferred notes muted. No letters.
+     Brand: navy #001F3F / #0a1628, orange #ea580c / #ff6b00, gold #C9A96E / #f59e0b, teal #0e7490. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two release bars feeding one host gateway">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#001F3F"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="glowGold" cx="68%" cy="52%" r="42%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowOrange" cx="24%" cy="38%" r="34%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowTeal" cx="78%" cy="22%" r="26%">
+      <stop offset="0%" stop-color="#0e7490" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowGold)"/>
+  <rect width="1200" height="630" fill="url(#glowOrange)"/>
+  <rect width="1200" height="630" fill="url(#glowTeal)"/>
+
+  <g stroke="#12365c" stroke-width="1" opacity="0.45" fill="none">
+    <rect x="40" y="40" width="1120" height="550" rx="6"/>
+  </g>
+
+  <!-- two patch tags as stacked bars -->
+  <rect x="90" y="150" width="340" height="70" rx="10" fill="#0a2a4a" stroke="#ea580c" stroke-width="3"/>
+  <rect x="110" y="172" width="220" height="12" rx="3" fill="#ea580c"/>
+  <rect x="110" y="192" width="140" height="8" rx="3" fill="#7a3a18"/>
+
+  <rect x="90" y="250" width="340" height="70" rx="10" fill="#0a2a4a" stroke="#C9A96E" stroke-width="3"/>
+  <rect x="110" y="272" width="200" height="12" rx="3" fill="#C9A96E"/>
+  <rect x="110" y="292" width="110" height="8" rx="3" fill="#7a6840"/>
+
+  <!-- deferred notes: muted, dashed -->
+  <rect x="90" y="370" width="340" height="110" rx="10" fill="#081422" stroke="#3d5f7a" stroke-width="2" stroke-dasharray="8 6"/>
+  <rect x="120" y="400" width="280" height="10" rx="3" fill="#3d5f7a" opacity="0.7"/>
+  <rect x="120" y="422" width="200" height="8" rx="3" fill="#2a4560" opacity="0.7"/>
+  <rect x="120" y="442" width="240" height="8" rx="3" fill="#2a4560" opacity="0.5"/>
+
+  <!-- rays into host disc -->
+  <g fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.85" stroke-linecap="round">
+    <path d="M430,185 C540,185 620,280 700,315"/>
+    <path d="M430,285 C540,285 620,300 700,315"/>
+  </g>
+  <g fill="none" stroke="#3d5f7a" stroke-width="2" opacity="0.55" stroke-linecap="round" stroke-dasharray="6 8">
+    <path d="M430,425 C540,400 620,350 700,315"/>
+  </g>
+
+  <!-- host gateway disc -->
+  <circle cx="790" cy="315" r="92" fill="#00162e" stroke="#C9A96E" stroke-width="4"/>
+  <circle cx="790" cy="315" r="58" fill="none" stroke="#ea580c" stroke-width="3"/>
+  <circle cx="790" cy="315" r="18" fill="#C9A96E"/>
+
+  <!-- profile ticks around the disc -->
+  <g fill="#0e7490">
+    <circle cx="790" cy="205" r="8"/>
+    <circle cx="886" cy="260" r="8"/>
+    <circle cx="886" cy="370" r="8"/>
+    <circle cx="790" cy="425" r="8"/>
+    <circle cx="694" cy="370" r="8"/>
+    <circle cx="694" cy="260" r="8"/>
+  </g>
+
+  <!-- operating surface arrow -->
+  <polygon points="900,315 970,288 970,304 1070,304 1070,326 970,326 970,342" fill="#0e7490" opacity="0.95"/>
+  <rect x="1082" y="278" width="74" height="74" rx="12" fill="#0a2a4a" stroke="#0e7490" stroke-width="3"/>
+  <circle cx="1119" cy="315" r="16" fill="#f59e0b"/>
+</svg>

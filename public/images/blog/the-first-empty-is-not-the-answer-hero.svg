@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The First Empty Is Not the Answer" — dashed gold first-page vs teal full census.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A small dashed gold first-page window with a disconnected check on the left, a gold retry arc, and a solid teal census grid on the right that a probe actually fills">
+  <defs>
+    <linearGradient id="emptyBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="emptyGlowGold" cx="22%" cy="44%" r="46%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="emptyGlowTeal" cx="78%" cy="56%" r="44%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="emptyGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="emptyChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#emptyBg)"/>
+  <rect width="1200" height="630" fill="url(#emptyGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#emptyGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: first-page chassis, two gold bars, the rest empty dashes -->
+  <rect x="118" y="150" width="248" height="330" rx="10" fill="url(#emptyChassis)" stroke="#f59e0b" stroke-width="3" stroke-dasharray="12 10"/>
+  <rect x="142" y="178" width="200" height="36" rx="5" fill="url(#emptyGold)"/>
+  <rect x="142" y="226" width="200" height="36" rx="5" fill="#f59e0b" opacity="0.55"/>
+  <rect x="142" y="274" width="200" height="36" rx="5" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8 8" opacity="0.45"/>
+  <rect x="142" y="322" width="200" height="36" rx="5" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8 8" opacity="0.28"/>
+  <rect x="142" y="370" width="200" height="36" rx="5" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8 8" opacity="0.16"/>
+
+  <!-- disconnected gold check: concluded from the first page -->
+  <g opacity="0.92">
+    <circle cx="430" cy="168" r="38" fill="url(#emptyGold)"/>
+    <path d="M416 168 L426 178 L448 154" fill="none" stroke="#0a1628" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 8" opacity="0.50">
+    <path d="M412 196 C380 250 330 300 280 330"/>
+  </g>
+
+  <!-- gold retry arc: leave the first page, go to the census -->
+  <g fill="none" stroke="url(#emptyGold)" stroke-width="5" stroke-linecap="round">
+    <path d="M366 315 C520 315 560 250 720 250"/>
+    <path d="M700 232 L720 250 L700 268"/>
+  </g>
+
+  <!-- right: full census, solid teal rows -->
+  <rect x="760" y="118" width="312" height="394" rx="12" fill="url(#emptyChassis)" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="788" y="146" width="256" height="28" rx="4" fill="#0e7490" opacity="0.95"/>
+  <rect x="788" y="184" width="256" height="28" rx="4" fill="#0e7490" opacity="0.82"/>
+  <rect x="788" y="222" width="256" height="28" rx="4" fill="#0e7490" opacity="0.70"/>
+  <rect x="788" y="260" width="256" height="28" rx="4" fill="#0e7490" opacity="0.58"/>
+  <rect x="788" y="298" width="256" height="28" rx="4" fill="#0e7490" opacity="0.46"/>
+  <rect x="788" y="336" width="256" height="28" rx="4" fill="#0e7490" opacity="0.34"/>
+  <rect x="788" y="374" width="256" height="28" rx="4" fill="#0e7490" opacity="0.22"/>
+  <rect x="788" y="412" width="168" height="28" rx="4" fill="url(#emptyGold)"/>
+  <circle cx="996" cy="426" r="8" fill="#00d4ff"/>
+
+  <g fill="none" stroke="#00d4ff" stroke-width="4" stroke-linecap="round">
+    <path d="M760 426 L430 426"/>
+    <path d="M454 410 L430 426 L454 442"/>
+  </g>
+  <circle cx="418" cy="426" r="9" fill="#00d4ff"/>
+</svg>

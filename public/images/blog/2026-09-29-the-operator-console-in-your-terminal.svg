@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#001F3F"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.06" stroke="#C9A96E" stroke-width="1">
+    <line x1="0" y1="135" x2="1920" y2="135"/>
+    <line x1="0" y1="270" x2="1920" y2="270"/>
+    <line x1="0" y1="405" x2="1920" y2="405"/>
+    <line x1="0" y1="540" x2="1920" y2="540"/>
+    <line x1="0" y1="675" x2="1920" y2="675"/>
+    <line x1="0" y1="810" x2="1920" y2="810"/>
+    <line x1="0" y1="945" x2="1920" y2="945"/>
+    <line x1="240" y1="0" x2="240" y2="1080"/>
+    <line x1="480" y1="0" x2="480" y2="1080"/>
+    <line x1="720" y1="0" x2="720" y2="1080"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="1200" y1="0" x2="1200" y2="1080"/>
+    <line x1="1440" y1="0" x2="1440" y2="1080"/>
+    <line x1="1680" y1="0" x2="1680" y2="1080"/>
+  </g>
+
+  <!-- Terminal frame: top bar -->
+  <rect x="160" y="120" width="1600" height="8" rx="4" fill="#ea580c" opacity="0.7"/>
+
+  <!-- Dock zone markers (left rail) -->
+  <g>
+    <rect x="160" y="180" width="44" height="200" rx="6" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.35"/>
+    <rect x="160" y="400" width="44" height="120" rx="6" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.25"/>
+  </g>
+
+  <!-- Dock zone markers (bottom dock) -->
+  <g>
+    <rect x="160" y="800" width="1600" height="60" rx="6" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.4"/>
+    <rect x="160" y="800" width="6" height="60" rx="3" fill="#ea580c" opacity="0.6"/>
+    <rect x="1750" y="800" width="10" height="60" rx="3" fill="#ea580c" opacity="0.4"/>
+  </g>
+
+  <!-- Gantt-style timeline bars (the visual hook) -->
+  <g>
+    <!-- Ruler baseline -->
+    <line x1="240" y1="500" x2="1680" y2="500" stroke="#C9A96E" stroke-width="2" opacity="0.3"/>
+    <!-- Ruler ticks -->
+    <g stroke="#C9A96E" stroke-width="1.5" opacity="0.25">
+      <line x1="480" y1="494" x2="480" y2="510"/>
+      <line x1="720" y1="494" x2="720" y2="510"/>
+      <line x1="960" y1="494" x2="960" y2="510"/>
+      <line x1="1200" y1="494" x2="1200" y2="510"/>
+      <line x1="1440" y1="494" x2="1440" y2="510"/>
+      <line x1="1680" y1="494" x2="1680" y2="510"/>
+    </g>
+  </g>
+
+  <!-- Gantt bars: subagent timelines -->
+  <g>
+    <!-- Parent agent bar -->
+    <rect x="240" y="300" width="1440" height="36" rx="6" fill="#001F3F" stroke="#ea580c" stroke-width="2.5"/>
+    <rect x="246" y="306" width="1428" height="24" rx="4" fill="#ea580c" opacity="0.18"/>
+
+    <!-- Child 1 -->
+    <rect x="300" y="370" width="600" height="28" rx="5" fill="#C9A96E" opacity="0.75"/>
+    <!-- Child 2 -->
+    <rect x="320" y="410" width="880" height="28" rx="5" fill="#ea580c" opacity="0.55"/>
+    <!-- Child 3 (shorter, later) -->
+    <rect x="620" y="450" width="420" height="28" rx="5" fill="#C9A96E" opacity="0.5"/>
+    <!-- Child 4 (failed - darker tone) -->
+    <rect x="940" y="370" width="200" height="28" rx="5" fill="#C792EA" opacity="0.6"/>
+    <!-- Child 5 -->
+    <rect x="1000" y="410" width="480" height="28" rx="5" fill="#ea580c" opacity="0.35"/>
+  </g>
+
+  <!-- Connection lines (tree to gantt) -->
+  <g stroke="#C9A96E" stroke-width="1.5" opacity="0.2" fill="none">
+    <path d="M 540,336 L 540,360 L 600,370"/>
+    <path d="M 760,336 L 760,396 L 760,410"/>
+    <path d="M 1040,336 L 1040,360 L 1040,370"/>
+    <path d="M 1240,336 L 1240,396 L 1240,410"/>
+  </g>
+
+  <!-- Widget grid blocks (lower area) -->
+  <g>
+    <rect x="240" y="600" width="200" height="140" rx="8" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.3"/>
+    <rect x="460" y="600" width="200" height="140" rx="8" fill="none" stroke="#ea580c" stroke-width="2" opacity="0.25"/>
+    <rect x="680" y="600" width="200" height="140" rx="8" fill="none" stroke="#C792EA" stroke-width="2" opacity="0.3"/>
+
+    <!-- Sparkline inside first widget -->
+    <g stroke="#C9A96E" stroke-width="2" fill="none" opacity="0.5">
+      <polyline points="260,720 290,700 320,710 350,680 380,690 410,660 430,670"/>
+    </g>
+    <!-- Gauge inside second widget -->
+    <g>
+      <rect x="480" y="690" width="160" height="14" rx="3" fill="#001F3F" stroke="#ea580c" stroke-width="1.5" opacity="0.5"/>
+      <rect x="484" y="694" width="90" height="6" rx="2" fill="#ea580c" opacity="0.5"/>
+    </g>
+    <!-- Hbars inside third widget -->
+    <g fill="#C792EA" opacity="0.4">
+      <rect x="700" y="630" width="120" height="8" rx="2"/>
+      <rect x="700" y="650" width="80" height="8" rx="2"/>
+      <rect x="700" y="670" width="150" height="8" rx="2"/>
+      <rect x="700" y="690" width="60" height="8" rx="2"/>
+      <rect x="700" y="710" width="100" height="8" rx="2"/>
+    </g>
+  </g>
+
+  <!-- Status dots (glyph language reference) -->
+  <g>
+    <circle cx="250" cy="830" r="8" fill="#ea580c"/>
+    <circle cx="290" cy="830" r="8" fill="none" stroke="#C9A96E" stroke-width="2"/>
+    <circle cx="330" cy="830" r="8" fill="#C9A96E" opacity="0.6"/>
+    <circle cx="370" cy="830" r="8" fill="#C792EA" opacity="0.5"/>
+    <circle cx="410" cy="830" r="8" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.4"/>
+  </g>
+
+  <!-- Ambient glow accents -->
+  <circle cx="960" cy="540" r="400" fill="#ea580c" opacity="0.03"/>
+  <circle cx="960" cy="540" r="250" fill="#C9A96E" opacity="0.03"/>
+</svg>

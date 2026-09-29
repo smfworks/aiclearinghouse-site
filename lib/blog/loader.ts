@@ -17,12 +17,16 @@ function inferSeries(
 ): BlogSeries {
   if (isValidSeries(explicitSeries)) return explicitSeries;
 
+  if (categories.some((c) => /paula/i.test(c))) return "paula";
+  if (categories.some((c) => /jasmine/i.test(c))) return "jasmine";
   if (categories.some((c) => /liam/i.test(c))) return "liam";
   if (categories.some((c) => /terminal/i.test(c))) return "terminal";
   if (categories.some((c) => /dr\.?j|diagnostic/i.test(c))) return "drj";
   if (categories.some((c) => /jeff|windows|microsoft/i.test(c))) return "jeff";
 
   const name = authorName.toLowerCase();
+  if (name.includes("paula")) return "paula";
+  if (name.includes("jasmine")) return "jasmine";
   if (name.includes("liam")) return "liam";
   if (name.includes("jeff")) return "jeff";
   if (name.includes("dr j") || name.includes("dr. j") || name.includes("doctor")) return "drj";

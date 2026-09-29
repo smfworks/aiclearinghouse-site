@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora — a quiet sky, rendered in light</title>
+<style>
+  :root{
+    --accent: rgb(40,255,150);
+    --serif: "Cormorant Garamond","Cormorant","Didot","Bodoni 72","Playfair Display",Georgia,serif;
+    --sans: "Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden;background:#01020a;color:#fff;cursor:none}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+  #fx{pointer-events:none;mix-blend-mode:screen}
+
+  .ui{position:fixed;inset:0;pointer-events:none;transition:opacity 1.2s ease}
+  .ui.hidden{opacity:0}
+
+  .title-wrap{
+    position:absolute;top:13vh;left:50%;transform:translateX(-50%);
+    text-align:center;white-space:nowrap;
+  }
+  h1{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(3rem,9vw,8.5rem);
+    letter-spacing:.42em;margin-right:-.42em;
+    line-height:1;
+    text-shadow:0 0 40px rgba(255,255,255,.18),0 0 90px var(--accent);
+    transition:text-shadow 2s ease;
+  }
+  h1 span{
+    display:inline-block;opacity:0;filter:blur(14px);transform:translateY(18px);
+    animation:rise 2.6s cubic-bezier(.2,.7,.1,1) forwards;
+  }
+  @keyframes rise{to{opacity:1;filter:blur(0);transform:none}}
+
+  .sub{
+    margin-top:1.6rem;font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(.95rem,1.6vw,1.35rem);letter-spacing:.18em;
+    color:rgba(255,255,255,.62);
+    opacity:0;animation:fade 3s 2.2s ease forwards;
+  }
+  .rule{
+    width:0;height:1px;margin:1.4rem auto 0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+    animation:grow 2.8s 1.6s cubic-bezier(.3,.7,.1,1) forwards;
+  }
+  @keyframes grow{to{width:min(340px,60vw)}}
+  @keyframes fade{to{opacity:1}}
+
+  .corner{
+    position:absolute;bottom:4.2vh;font-family:var(--sans);
+    font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,255,255,.5);opacity:0;animation:fade 2s 3.6s ease forwards;
+  }
+  .left{left:4.5vw;display:flex;align-items:center;gap:.9rem}
+  .right{right:4.5vw;text-align:right;line-height:2}
+  .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 12px var(--accent),0 0 28px var(--accent);
+    transition:background 2s ease,box-shadow 2s ease;
+  }
+  #pname{
+    font-family:var(--serif);font-style:italic;font-size:1.15rem;letter-spacing:.2em;
+    text-transform:none;color:rgba(255,255,255,.85);
+    transition:opacity .6s ease,filter .6s ease;
+  }
+  #pname.swap{opacity:0;filter:blur(6px)}
+  .idx{color:rgba(255,255,255,.35)}
+
+  #cursor{
+    position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;
+    border-radius:50%;pointer-events:none;
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow:0 0 18px var(--accent), inset 0 0 12px rgba(255,255,255,.08);
+    transition:width .3s,height .3s,margin .3s,opacity .5s,box-shadow 2s;
+    mix-blend-mode:screen;
+  }
+  #cursor::after{
+    content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;margin:-1.5px;
+    border-radius:50%;background:#fff;
+  }
+  #cursor.down{width:22px;height:22px;margin:-11px 0 0 -11px}
+
+  #fallback{
+    position:fixed;inset:0;display:none;place-items:center;text-align:center;
+    font-family:var(--serif);font-size:1.4rem;letter-spacing:.1em;
+    background:radial-gradient(ellipse at 50% 30%,#123 0%,#01020a 70%);
+  }
+  @media (max-width:640px){ .right{display:none} }
+  @media (hover:none){ #cursor{display:none} html,body{cursor:auto} }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+<canvas id="fx"></canvas>
+
+<div class="ui" id="ui">
+  <div class="title-wrap">
+    <h1 id="title"></h1>
+    <div class="rule"></div>
+    <p class="sub">a quiet sky, rendered in light</p>
+  </div>
+
+  <div class="corner left">
+    <div class="dot"></div>
+    <span id="pname">Borealis</span>
+    <span class="idx" id="pidx">01 / 05</span>
+  </div>
+
+  <div class="corner right">
+    click — shift the sky<br>
+    move — drift the horizon<br>
+    H — hide the words
+  </div>
+</div>
+
+<div id="cursor"></div>
+<div id="fallback"><p>Your browser couldn't open a window to the sky.<br><em>(WebGL is required)</em></p></div>
+
+<script id="frag" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2  R;
+uniform float T;
+uniform vec2  M;
+uniform vec3  C1;
+uniform vec3  C2;
+uniform vec3  C3;
+
+#define HOR -0.12
+
+float h(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
+
+float n(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  f = f*f*(3.0-2.0*f);
+  return mix(mix(h(i),h(i+vec2(1.0,0.0)),f.x),
+             mix(h(i+vec2(0.0,1.0)),h(i+vec2(1.0,1.0)),f.x), f.y);
+}
+
+float fbm(vec2 p){
+  float v = 0.0, a = 0.5;
+  mat2 r = mat2(0.8,0.6,-0.6,0.8);
+  for(int i=0;i<5;i++){ v += a*n(p); p = r*p*2.02; a *= 0.5; }
+  return v;
+}
+
+float ridge(float x, float seed){
+  float v = 0.0, a = 0.5, f = 1.0;
+  for(int i=0;i<6;i++){
+    float k = n(vec2(x*f + seed, seed*1.3 + float(i)*1.7));
+    v += a*(1.0 - abs(k*2.0-1.0));
+    f *= 2.1; a *= 0.5;
+  }
+  return v;
+}
+
+vec3 stars(vec2 p, float scale, float thresh){
+  vec2 sp = p*scale;
+  vec2 id = floor(sp);
+  vec2 f  = fract(sp) - 0.5;
+  float r = h(id);
+  if(r < thresh) return vec3(0.0);
+  vec2 o = vec2(h(id+1.3), h(id+7.1)) - 0.5;
+  float d = length(f - o*0.7);
+  float tw = 0.55 + 0.45*sin(T*(0.8+r*3.0) + r*80.0);
+  float b = (r-thresh)/(1.0-thresh);
+  vec3 tint = mix(vec3(0.75,0.85,1.0), vec3(1.0,0.9,0.75), h(id+3.7));
+  return tint * (smoothstep(0.09,0.0,d)*1.4 + smoothstep(0.35,0.0,d)*0.15) * tw * b;
+}
+
+vec3 aurora(vec2 p){
+  vec3 au = vec3(0.0);
+  for(int i=0;i<8;i++){
+    float fi = float(i);
+    float x  = p.x*(0.75+fi*0.08) + fi*1.7 + M.x*0.04;
+    float c  = 0.23 + 0.2*fbm(vec2(x*1.1 + T*0.025*(1.0+fi*0.25), fi*3.1 + T*0.018)) - fi*0.018;
+    float d  = p.y - c;
+    float up = exp(-max(d,0.0)*(2.6+fi*0.45));
+    float lo = exp(-max(-d,0.0)*38.0);
+    float streak = fbm(vec2(x*16.0 + T*0.08, T*0.12 + fi*5.0));
+    streak = pow(streak, 2.2)*2.4;
+    float gap = smoothstep(0.32,0.68, fbm(vec2(x*0.6 + T*0.015, fi*2.3)));
+    float pulse = 0.75 + 0.25*sin(T*0.35 + fi*1.3 + p.x*1.5);
+    float band = up*lo*streak*gap*pulse;
+    vec3 cc = mix(C1, C2, clamp(d*3.2+0.15, 0.0, 1.0));
+    au += cc*band*(1.0 - fi/9.5);
+  }
+  return au;
+}
+
+vec3 scene(vec2 p){
+  float hy = p.y - HOR;
+
+  // sky gradient
+  vec3 col = mix(vec3(0.025,0.035,0.085), vec3(0.004,0.006,0.022), smoothstep(0.0,0.75,hy));
+  col += C3*0.22*exp(-hy*5.0);
+  col += C2*0.035*exp(-hy*1.5);
+
+  // milky haze
+  float mw = fbm(vec2(p.x*1.4 - p.y*0.9, p.y*2.2+p.x*0.4) + 10.0);
+  col += vec3(0.35,0.4,0.6)*0.06*smoothstep(0.45,0.9,mw)*exp(-abs(p.y*0.8 - p.x*0.35 - 0.1)*3.0);
+
+  // stars
+  float sfade = smoothstep(0.0,0.25,hy);
+  col += (stars(p,90.0,0.9) + stars(p+11.3,180.0,0.93)*0.6 + stars(p+4.1,45.0,0.975)*1.3) * sfade;
+
+  // moon
+  vec2 mp = vec2(min(0.48, 0.5*R.x/R.y - 0.18), 0.19);
+  mp += M*vec2(0.01,0.005);
+  float md = length(p - mp);
+  float mdisk = smoothstep(0.042,0.038,md);
+  float crater = 0.82 + 0.18*fbm((p-mp)*60.0);
+  col = mix(col, vec3(1.0,0.96,0.88)*1.25*crater, mdisk);
+  col += vec3(0.9,0.9,1.0)*(0.035/(md*md*60.0+0.35))*0.55*(1.0-mdisk);
+  col += vec3(0.6,0.7,0.9)*exp(-md*9.0)*0.1;
+
+  // aurora
+  col += aurora(p)*0.5*smoothstep(-0.02,0.12,hy);
+
+  // shooting star
+  float period = 6.5;
+  float id = floor(T/period);
+  float st = fract(T/period);
+  if(st < 0.2 && h(vec2(id,9.0)) > 0.25){
+    vec2 s0 = vec2((h(vec2(id,1.0))*1.4-0.3), 0.32 + h(vec2(id,2.0))*0.14);
+    vec2 dir = normalize(vec2(-1.0, -0.38 - h(vec2(id,3.0))*0.2));
+    float prog = st/0.2;
+    vec2 head = s0 + dir*prog*0.75;
+    vec2 tail = head - dir*0.18;
+    vec2 pa = p - tail, ba = head - tail;
+    float k = clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);
+    float d = length(pa - ba*k);
+    float life = sin(prog*3.14159);
+    col += vec3(0.9,0.95,1.0)*smoothstep(0.003,0.0,d)*k*k*life*1.6;
+    col += C1*smoothstep(0.012,0.0,d)*k*life*0.25;
+  }
+
+  // horizon mist
+  col += C3*0.09*exp(-abs(hy)*28.0);
+
+  // far mountains
+  float px = p.x;
+  float far = HOR + 0.025 + 0.15*ridge(px*0.85 + M.x*0.025 + 2.0, 1.7) + 0.035*abs(px);
+  if(p.y < far){
+    float depth = clamp((far - p.y)/0.2, 0.0, 1.0);
+    vec3 fc = vec3(0.028,0.038,0.075) + C3*0.06;
+    fc = mix(fc, C3*0.16 + vec3(0.03,0.04,0.07), smoothstep(far-0.03, HOR, p.y)*0.8);
+    fc += (C1*0.5+C2*0.5)*0.05*exp(-(far-p.y)*80.0);
+    col = mix(col, fc, smoothstep(far, far-0.0025, p.y));
+    col = mix(col, fc, depth);
+  }
+
+  // near mountains
+  float near = HOR - 0.015 + 0.1*ridge(px*1.35 + M.x*0.07 + 9.0, 5.3) + 0.075*px*px;
+  if(p.y < near){
+    vec3 nc = vec3(0.006,0.008,0.018);
+    nc += C1*0.03*exp(-(near-p.y)*140.0);
+    nc += C3*0.04*smoothstep(near-0.06, HOR, p.y);
+    col = mix(col, nc, smoothstep(near, near-0.0025, p.y));
+  }
+
+  return col;
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy/R;
+  vec2 p  = (gl_FragCoord.xy - 0.5*R)/R.y;
+  vec3 col;
+
+  if(p.y > HOR){
+    col = scene(p);
+  } else {
+    float dep = HOR - p.y;
+    float persp = dep*110.0/(1.0+dep*3.0);
+    float rip = fbm(vec2(p.x*7.0/(0.15+dep*2.0), persp - T*1.1)) - 0.5;
+    float rip2 = n(vec2(p.x*40.0, persp*3.0 + T*2.0)) - 0.5;
+    float amt = 0.035*(dep*1.6 + 0.04);
+    vec2 q = vec2(p.x + rip*amt*0.35, HOR + dep + rip*amt + rip2*amt*0.25);
+    col = scene(q);
+    col *= mix(vec3(0.62,0.68,0.8), vec3(0.3,0.36,0.48), smoothstep(0.0,0.38,dep));
+    col += C3*0.025;
+    col += (C1*0.4+vec3(0.6))*0.05*exp(-dep*260.0);
+    float gl = smoothstep(0.55,0.95, n(vec2(p.x*120.0, persp*6.0 + T*3.0)));
+    col += vec3(0.8,0.85,1.0)*gl*0.04*smoothstep(0.35,0.0,abs(p.x - min(0.48, 0.5*R.x/R.y - 0.18)));
+  }
+
+  // tonemap + grade
+  col = 1.0 - exp(-col*1.45);
+  col = pow(col, vec3(0.92));
+  col = mix(col, col*col*(3.0-2.0*col), 0.25);
+
+  // vignette
+  float v = pow(16.0*uv.x*uv.y*(1.0-uv.x)*(1.0-uv.y), 0.22);
+  col *= 0.3 + 0.7*v;
+
+  // grain
+  col += (h(gl_FragCoord.xy + fract(T*7.0)*100.0) - 0.5)*0.022;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+</script>
+
+<script>
+(() => {
+  // ---------- Title letters ----------
+  const title = document.getElementById('title');
+  [...'AURORA'].forEach((ch,i) => {
+    const s = document.createElement('span');
+    s.textContent = ch;
+    s.style.animationDelay = (0.35 + i*0.16) + 's';
+    title.appendChild(s);
+  });
+
+  // ---------- Palettes ----------
+  const palettes = [
+    { name:'Borealis', c1:[0.10,1.00,0.55], c2:[0.20,0.45,1.00], c3:[0.10,0.32,0.50] },
+    { name:'Rosa',     c1:[1.00,0.30,0.62], c2:[0.52,0.28,1.00], c3:[0.48,0.18,0.45] },
+    { name:'Ember',    c1:[1.00,0.58,0.16], c2:[0.95,0.14,0.32], c3:[0.55,0.22,0.14] },
+    { name:'Glacier',  c1:[0.42,0.95,1.00], c2:[0.72,0.80,1.00], c3:[0.22,0.38,0.60] },
+    { name:'Nebula',   c1:[0.62,0.32,1.00], c2:[0.10,0.95,0.80], c3:[0.30,0.18,0.50] },
+  ];
+  let pIndex = 0;
+  const cur = { c1:[...palettes[0].c1], c2:[...palettes[0].c2], c3:[...palettes[0].c3] };
+
+  const pname = document.getElementById('pname');
+  const pidx  = document.getElementById('pidx');
+  const root  = document.documentElement;
+
+  function setAccent(){
+    const c = palettes[pIndex].c1.map(v => Math.round(v*255));
+    root.style.setProperty('--accent', `rgb(${c[0]},${c[1]},${c[2]})`);
+  }
+  setAccent();
+
+  function nextPalette(){
+    pIndex = (pIndex + 1) % palettes.length;
+    pname.classList.add('swap');
+    setTimeout(() => {
+      pname.textContent = palettes[pIndex].name;
+      pidx.textContent = String(pIndex+1).padStart(2,'0') + ' / ' + String(palettes.length).padStart(2,'0');
+      pname.classList.remove('swap');
+    }, 600);
+    setAccent();
+  }
+
+  // ---------- WebGL ----------
+  const cv = document.getElementById('c');
+  const gl = cv.getContext('webgl', { antialias:false, alpha:false, powerPreference:'high-performance' });
+  if(!gl){ document.getElementById('fallback').style.display = 'grid'; return; }
+
+  const vsSrc = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+  const fsSrc = document.getElementById('frag').textContent;
+
+  function sh(type, src){
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, vsSrc));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fsSrc));
+  gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){
+    console.error(gl.getProgramInfoLog(prog));
+    document.getElementById('fallback').style.display = 'grid'; return;
+  }
+  gl.useProgram(prog);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'a');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  const U = {};
+  ['R','T','M','C1','C2','C3'].forEach(k => U[k] = gl.getUniformLocation(prog, k));
+
+  // ---------- FX canvas (click sparks) ----------
+  const fx = document.getElementById('fx');
+  const ctx = fx.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = innerWidth; H = innerHeight;
+    cv.width = Math.floor(W*dpr); cv.height = Math.floor(H*dpr);
+    fx.width = Math.floor(W*dpr); fx.height = Math.floor(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    gl.viewport(0,0,cv.width,cv.height);
+  }
+  addEventListener('resize', resize);
+  resize();
+
+  // ---------- Input ----------
+  const mouse = { x:0, y:0, tx:0, ty:0, px:W/2, py:H/2 };
+  const cursor = document.getElementById('cursor');
+  let cx = W/2, cy = H/2;
+
+  addEventListener('pointermove', e => {
+    mouse.tx = (e.clientX / W)*2 - 1;
+    mouse.ty = -((e.clientY / H)*2 - 1);
+    mouse.px = e.clientX; mouse.py = e.clientY;
+  });
+  addEventListener('pointerdown', e => {
+    cursor.classList.add('down');
+    burst(e.clientX, e.clientY);
+    nextPalette();
+  });
+  addEventListener('pointerup', () => cursor.classList.remove('down'));
+  addEventListener('keydown', e => {
+    if(e.key === 'h' || e.key === 'H') document.getElementById('ui').classList.toggle('hidden');
+    if(e.code === 'Space'){ e.preventDefault(); burst(W/2, H/2); nextPalette(); }
+  });
+
+  // ---------- Particles ----------
+  const parts = [];
+  function burst(x, y){
+    const pal = palettes[(pIndex+1) % palettes.length];
+    for(let i=0;i<90;i++){
+      const a = Math.random()*Math.PI*2;
+      const sp = Math.pow(Math.random(), 0.6)*4.2 + 0.4;
+      const col = Math.random() < 0.5 ? pal.c1 : pal.c2;
+      parts.push({
+        x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - 0.6,
+        life:1, decay:0.006 + Math.random()*0.012,
+        r:Math.random()*1.8 + 0.5,
+        c:col.map(v => Math.round(v*255)),
+      });
+    }
+    parts.push({ ring:true, x, y, r:4, life:1, c:pal.c1.map(v=>Math.round(v*255)) });
+  }
+
+  function drawFX(){
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'lighter';
+    for(let i=parts.length-1;i>=0;i--){
+      const p = parts[i];
+      if(p.ring){
+        p.r += (220 - p.r)*0.045; p.life -= 0.018;
+        if(p.life <= 0){ parts.splice(i,1); continue; }
+        ctx.strokeStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.life*0.5})`;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.stroke();
+        continue;
+      }
+      p.vx *= 0.975; p.vy = p.vy*0.975 - 0.012;
+      p.x += p.vx; p.y += p.vy;
+      p.life -= p.decay;
+      if(p.life <= 0){ parts.splice(i,1); continue; }
+      const a = p.life*p.life;
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*7);
+      g.addColorStop(0, `rgba(255,255,255,${a})`);
+      g.addColorStop(0.18, `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${a*0.8})`);
+      g.addColorStop(1, `rgba(${p.c[0]},${p.c[1]},${p.c[2]},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*7,0,Math.PI*2); ctx.fill();
+    }
+    // drifting fireflies near the lake
+    const t = performance.now()/1000;
+    const acc = palettes[pIndex].c1.map(v=>Math.round(v*255));
+    for(let i=0;i<14;i++){
+      const s = i*97.13;
+      const x = ((Math.sin(s)*0.5+0.5)*W + Math.sin(t*0.13 + s)*60) % W;
+      const y = H*(0.62 + 0.3*(Math.sin(s*1.7)*0.5+0.5)) + Math.sin(t*0.4 + s*2.0)*18;
+      const a = Math.max(0, Math.sin(t*0.7 + s*3.1))*0.55;
+      const g = ctx.createRadialGradient(x,y,0,x,y,10);
+      g.addColorStop(0, `rgba(255,255,240,${a})`);
+      g.addColorStop(0.25, `rgba(${acc[0]},${acc[1]},${acc[2]},${a*0.5})`);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x,y,10,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
+  // ---------- Loop ----------
+  const t0 = performance.now();
+  const lerp = (a,b,k) => a + (b-a)*k;
+
+  function frame(now){
+    const T = (now - t0)/1000 + 24.0;
+
+    mouse.x = lerp(mouse.x, mouse.tx, 0.035);
+    mouse.y = lerp(mouse.y, mouse.ty, 0.035);
+
+    const target = palettes[pIndex];
+    for(let i=0;i<3;i++){
+      cur.c1[i] = lerp(cur.c1[i], target.c1[i], 0.022);
+      cur.c2[i] = lerp(cur.c2[i], target.c2[i], 0.022);
+      cur.c3[i] = lerp(cur.c3[i], target.c3[i], 0.022);
+    }
+
+    gl.uniform2f(U.R, cv.width, cv.height);
+    gl.uniform1f(U.T, T);
+    gl.uniform2f(U.M, mouse.x, mouse.y);
+    gl.uniform3fv(U.C1, cur.c1);
+    gl.uniform3fv(U.C2, cur.c2);
+    gl.uniform3fv(U.C3, cur.c3);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    drawFX();
+
+    cx = lerp(cx, mouse.px, 0.18);
+    cy = lerp(cy, mouse.py, 0.18);
+    cursor.style.transform = `translate(${cx}px, ${cy}px)`;
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

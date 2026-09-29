@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract two-layer architecture: tiled desktop surface under a separate runtime ring">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#0f1a2e"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+    <linearGradient id="navyband" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="none" stroke="#1e3a8a" stroke-width="2" opacity="0.55">
+    <rect x="90" y="70" width="1020" height="490" rx="18"/>
+  </g>
+  <g fill="#12203a" stroke="#1e3a8a" stroke-width="2">
+    <rect x="130" y="110" width="220" height="140" rx="10"/>
+    <rect x="370" y="110" width="220" height="140" rx="10"/>
+    <rect x="610" y="110" width="220" height="140" rx="10"/>
+    <rect x="850" y="110" width="220" height="140" rx="10"/>
+    <rect x="130" y="270" width="340" height="140" rx="10"/>
+    <rect x="490" y="270" width="220" height="140" rx="10"/>
+    <rect x="730" y="270" width="340" height="140" rx="10"/>
+  </g>
+  <rect x="130" y="110" width="220" height="8" rx="2" fill="#0e7490"/>
+  <rect x="370" y="110" width="220" height="8" rx="2" fill="#0e7490"/>
+  <rect x="610" y="110" width="220" height="8" rx="2" fill="#0e7490"/>
+  <rect x="850" y="110" width="220" height="8" rx="2" fill="#ff6b00"/>
+  <circle cx="600" cy="430" r="92" fill="none" stroke="url(#gold)" stroke-width="10"/>
+  <circle cx="600" cy="430" r="48" fill="none" stroke="#f59e0b" stroke-width="3" opacity="0.9"/>
+  <circle cx="600" cy="430" r="14" fill="#ff6b00"/>
+  <g stroke="#f59e0b" stroke-width="3" opacity="0.85">
+    <line x1="600" y1="338" x2="600" y2="300"/>
+    <line x1="692" y1="430" x2="780" y2="430"/>
+    <line x1="508" y1="430" x2="420" y2="430"/>
+  </g>
+  <circle cx="600" cy="292" r="7" fill="#f59e0b"/>
+  <circle cx="788" cy="430" r="7" fill="#ff6b00"/>
+  <circle cx="412" cy="430" r="7" fill="#0e7490"/>
+</svg>

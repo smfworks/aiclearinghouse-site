@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="48%" stop-color="#1d2436"/>
+      <stop offset="100%" stop-color="#0d1017"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="72%" cy="18%" r="42%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gold" cx="22%" cy="78%" r="36%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f0a94b" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#f0a94b" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#f0a94b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="860" cy="90" rx="280" ry="140" fill="url(#warm)" filter="url(#soft)"/>
+  <ellipse cx="220" cy="520" rx="320" ry="160" fill="url(#gold)" filter="url(#soft)"/>
+  <ellipse cx="210" cy="210" rx="150" ry="95" fill="#001F3F" opacity="0.88"/>
+  <ellipse cx="470" cy="140" rx="120" ry="78" fill="#001F3F" opacity="0.82"/>
+  <ellipse cx="780" cy="200" rx="170" ry="100" fill="#001F3F" opacity="0.9"/>
+  <ellipse cx="1040" cy="160" rx="130" ry="85" fill="#001F3F" opacity="0.85"/>
+  <ellipse cx="160" cy="470" rx="140" ry="110" fill="#001F3F" opacity="0.9"/>
+  <ellipse cx="430" cy="430" rx="165" ry="95" fill="#001F3F" opacity="0.86"/>
+  <ellipse cx="720" cy="500" rx="150" ry="110" fill="#001F3F" opacity="0.88"/>
+  <ellipse cx="980" cy="460" rx="155" ry="100" fill="#001F3F" opacity="0.84"/>
+  <ellipse cx="580" cy="620" rx="190" ry="70" fill="#001F3F" opacity="0.9"/>
+  <ellipse cx="330" cy="175" rx="28" ry="28" fill="url(#lamp)"/>
+  <ellipse cx="860" cy="155" rx="34" ry="34" fill="url(#lamp)"/>
+  <ellipse cx="180" cy="430" rx="26" ry="26" fill="url(#lamp)"/>
+  <ellipse cx="1010" cy="420" rx="22" ry="22" fill="url(#lamp)"/>
+  <ellipse cx="610" cy="318" rx="18" ry="7" fill="#3a3029"/>
+  <ellipse cx="610" cy="318" rx="10" ry="10" fill="url(#lamp)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#C9A96E" stroke-opacity="0.18" stroke-width="2"/>
+</svg>

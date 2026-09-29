@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: thin index card, empty shelf, thick skill stack in a tray.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A thin index card, an empty shelf, and a thick stack of documents sitting in a tray">
+  <defs>
+    <linearGradient id="pasteBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="60%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="pasteGlowTeal" cx="78%" cy="42%" r="48%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pasteGlowGold" cx="42%" cy="55%" r="36%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pasteGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="pasteChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#pasteBg)"/>
+  <rect width="1200" height="630" fill="url(#pasteGlowTeal)"/>
+  <rect width="1200" height="630" fill="url(#pasteGlowGold)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="40" y="36" width="1120" height="558" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.4">
+    <line x1="40" y1="200" x2="1160" y2="200"/>
+    <line x1="40" y1="430" x2="1160" y2="430"/>
+    <line x1="280" y1="36" x2="280" y2="594"/>
+    <line x1="700" y1="36" x2="700" y2="594"/>
+  </g>
+
+  <!-- left: thin index card, short ticks only -->
+  <rect x="78" y="88" width="164" height="454" rx="10" fill="url(#pasteChassis)" stroke="#0e7490" stroke-width="3"/>
+  <g fill="#00d4ff">
+    <rect x="98" y="116" width="124" height="8" rx="2" opacity="0.9"/>
+    <rect x="98" y="140" width="96" height="6" rx="2" opacity="0.55"/>
+    <rect x="98" y="160" width="110" height="6" rx="2" opacity="0.45"/>
+    <rect x="98" y="180" width="78" height="6" rx="2" opacity="0.4"/>
+    <rect x="98" y="200" width="118" height="6" rx="2" opacity="0.35"/>
+    <rect x="98" y="220" width="88" height="6" rx="2" opacity="0.3"/>
+    <rect x="98" y="240" width="104" height="6" rx="2" opacity="0.28"/>
+    <rect x="98" y="260" width="70" height="6" rx="2" opacity="0.24"/>
+    <rect x="98" y="280" width="116" height="6" rx="2" opacity="0.22"/>
+    <rect x="98" y="300" width="84" height="6" rx="2" opacity="0.2"/>
+    <rect x="98" y="320" width="100" height="6" rx="2" opacity="0.18"/>
+    <rect x="98" y="340" width="62" height="6" rx="2" opacity="0.16"/>
+  </g>
+
+  <!-- center: empty shelf the stable-tier bullet names -->
+  <rect x="318" y="88" width="344" height="454" rx="12" fill="url(#pasteChassis)" stroke="#f59e0b" stroke-width="3" stroke-dasharray="12 9"/>
+  <rect x="346" y="118" width="120" height="10" rx="2" fill="#f59e0b" opacity="0.35"/>
+  <path d="M390 250 L470 330" fill="none" stroke="#ff6b00" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+  <path d="M470 250 L390 330" fill="none" stroke="#ff6b00" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- dashed probe that does not deliver the stack onto the empty shelf -->
+  <path d="M662 300 C690 300 700 360 730 420" fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="8 10" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- right: thick paste, one tall slab and three shorter ones, sitting in a tray -->
+  <rect x="748" y="488" width="390" height="54" rx="8" fill="url(#pasteGold)" opacity="0.95"/>
+  <rect x="768" y="108" width="118" height="368" rx="8" fill="#0e7490" stroke="#00d4ff" stroke-width="3"/>
+  <rect x="788" y="128" width="78" height="14" rx="2" fill="#00d4ff" opacity="0.85"/>
+  <rect x="788" y="154" width="78" height="8" rx="2" fill="#00d4ff" opacity="0.45"/>
+  <rect x="788" y="172" width="64" height="8" rx="2" fill="#00d4ff" opacity="0.35"/>
+  <rect x="902" y="248" width="96" height="228" rx="8" fill="#125e78" stroke="#00d4ff" stroke-width="2"/>
+  <rect x="1010" y="300" width="96" height="176" rx="8" fill="#0f4e66" stroke="#00d4ff" stroke-width="2"/>
+  <rect x="902" y="168" width="204" height="68" rx="8" fill="#147a96" stroke="#00d4ff" stroke-width="2"/>
+</svg>

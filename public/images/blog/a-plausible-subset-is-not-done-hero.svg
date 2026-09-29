@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "A Plausible Subset Is Not Done" — four gold plan bars vs one empty teal criterion.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Four gold filled criterion bars and one empty dashed teal bar, with a disconnected gold stamp and a teal probe pointing at the empty slot">
+  <defs>
+    <linearGradient id="subsetBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="50%" stop-color="#0c1a30"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="subsetGlowGold" cx="22%" cy="42%" r="46%">
+      <stop offset="0%" stop-color="#ff6b00" stop-opacity="0.30"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="subsetGlowTeal" cx="78%" cy="58%" r="44%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="subsetGold" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="subsetChassis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#122848"/>
+      <stop offset="100%" stop-color="#0f2240"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#subsetBg)"/>
+  <rect width="1200" height="630" fill="url(#subsetGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#subsetGlowTeal)"/>
+
+  <g stroke="#162236" stroke-width="2" fill="none">
+    <rect x="48" y="48" width="1104" height="534" rx="4"/>
+  </g>
+  <g stroke="#13243d" stroke-width="1" opacity="0.45">
+    <line x1="48" y1="210" x2="1152" y2="210"/>
+    <line x1="48" y1="420" x2="1152" y2="420"/>
+    <line x1="400" y1="48" x2="400" y2="582"/>
+    <line x1="800" y1="48" x2="800" y2="582"/>
+  </g>
+
+  <!-- left: checklist chassis, four gold bars, one empty teal -->
+  <rect x="118" y="118" width="296" height="394" rx="10" fill="url(#subsetChassis)" stroke="#1e3a8a" stroke-width="2"/>
+  <rect x="142" y="146" width="248" height="42" rx="6" fill="url(#subsetGold)"/>
+  <rect x="142" y="204" width="248" height="42" rx="6" fill="#f59e0b" opacity="0.85"/>
+  <rect x="142" y="262" width="248" height="42" rx="6" fill="#ff6b00" opacity="0.70"/>
+  <rect x="142" y="320" width="248" height="42" rx="6" fill="#f59e0b" opacity="0.50"/>
+  <rect x="142" y="378" width="248" height="42" rx="6" fill="none" stroke="#00d4ff" stroke-width="3" stroke-dasharray="10 8"/>
+  <circle cx="166" cy="399" r="8" fill="none" stroke="#00d4ff" stroke-width="3"/>
+
+  <!-- floating gold stamp: plan-complete, not in the empty slot -->
+  <g opacity="0.92">
+    <circle cx="470" cy="168" r="42" fill="url(#subsetGold)"/>
+    <circle cx="470" cy="168" r="42" fill="none" stroke="#ff6b00" stroke-width="2" opacity="0.7"/>
+    <path d="M454 168 L466 180 L490 152" fill="none" stroke="#0a1628" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 8" opacity="0.55">
+    <path d="M448 198 C420 240 390 300 360 378"/>
+  </g>
+
+  <!-- right: live-gate probe -->
+  <g>
+    <rect x="760" y="168" width="312" height="294" rx="12" fill="url(#subsetChassis)" stroke="#1e3a8a" stroke-width="2"/>
+    <rect x="788" y="196" width="256" height="42" rx="6" fill="#0e7490" opacity="0.85"/>
+    <rect x="788" y="254" width="256" height="42" rx="6" fill="#0e7490" opacity="0.55"/>
+    <rect x="788" y="312" width="256" height="42" rx="6" fill="#0e7490" opacity="0.32"/>
+    <rect x="788" y="370" width="168" height="42" rx="6" fill="url(#subsetGold)"/>
+  </g>
+  <g fill="none" stroke="#00d4ff" stroke-width="4" stroke-linecap="round">
+    <path d="M760 399 L430 399"/>
+    <path d="M430 399 L398 383"/>
+    <path d="M430 399 L398 415"/>
+  </g>
+  <circle cx="390" cy="399" r="10" fill="#00d4ff"/>
+</svg>

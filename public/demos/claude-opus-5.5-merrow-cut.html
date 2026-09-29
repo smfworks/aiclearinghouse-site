@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Merrow Cut</title>
+<meta name="description" content="A small evening game. Row the old fen canal and keep its nine lamps burning before night closes over the water.">
+<style>
+  :root{
+    --soot:#0d1017;
+    --dusk:#1d2436;
+    --stone:#3e4553;
+    --vellum:#ece3cc;
+    --vellum-dim:#bdb5a2;
+    --flame:#f0a94b;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:"Avenir Next","Gill Sans","Gill Sans MT","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--soot);color:var(--vellum);overflow:hidden}
+  body{font-family:var(--serif);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  canvas#world{position:fixed;inset:0;width:100vw;height:100vh;display:block;touch-action:none;outline:none}
+  canvas#world:focus-visible{outline:2px solid var(--flame);outline-offset:-4px}
+
+  .chrome{position:fixed;top:0;right:0;padding:clamp(12px,2.2vw,28px);z-index:5}
+  .quiet-btn{
+    font:600 0.72rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
+    color:var(--vellum-dim);background:rgba(13,16,23,.55);border:1px solid rgba(236,227,204,.22);
+    padding:.7em 1em;border-radius:2px;cursor:pointer;
+  }
+  .quiet-btn:hover{color:var(--vellum);border-color:rgba(236,227,204,.45)}
+  .quiet-btn:focus-visible,.go:focus-visible{outline:2px solid var(--flame);outline-offset:4px}
+
+  .best{
+    position:fixed;top:0;left:0;margin:0;padding:clamp(14px,2.2vw,30px);z-index:5;
+    font:600 .7rem/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--vellum-dim);
+    max-width:60vw;pointer-events:none;text-shadow:0 1px 8px rgba(13,16,23,.9)
+  }
+
+  main#overlay{
+    position:fixed;inset:0;z-index:4;display:flex;align-items:center;
+    padding:clamp(24px,6vw,120px);
+    background:linear-gradient(90deg,rgba(13,16,23,.9) 0%,rgba(13,16,23,.72) 42%,rgba(13,16,23,.15) 78%,rgba(13,16,23,0) 100%);
+    transition:opacity 1.6s ease, visibility 0s linear 0s;
+  }
+  main#overlay.gone{opacity:0;visibility:hidden;pointer-events:none;transition:opacity 1.2s ease, visibility 0s linear 1.2s}
+  .panel{max-width:34rem}
+  .panel[hidden]{display:none}
+  .eyebrow{
+    font:600 .72rem/1 var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--flame);
+    margin:0 0 1.6rem
+  }
+  h1,h2{font-weight:400;margin:0 0 1.8rem;line-height:.95;letter-spacing:-.012em}
+  h1{font-size:clamp(3rem,9vw,6.4rem)}
+  h1 em,h2 em{font-style:italic}
+  h2{font-size:clamp(2.2rem,6.4vw,4.4rem)}
+  .panel p{font-size:clamp(1rem,1.25vw,1.16rem);line-height:1.62;margin:0 0 1.1rem;color:var(--vellum)}
+  .panel p.aside{color:var(--vellum-dim);font-style:italic}
+  .how{
+    font:500 .74rem/1.9 var(--sans)!important;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--vellum-dim)!important;margin-top:1.8rem!important;
+    border-top:1px solid rgba(236,227,204,.16);padding-top:1.2rem
+  }
+  .how b{color:var(--vellum);font-weight:600}
+  .go{
+    margin-top:1.6rem;font:600 .8rem/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;
+    color:var(--soot);background:var(--flame);border:0;padding:1.15em 1.9em;border-radius:1px;cursor:pointer;
+    box-shadow:0 0 0 1px rgba(240,169,75,.3),0 10px 40px -10px rgba(240,169,75,.55);
+    transition:transform .3s ease, box-shadow .3s ease
+  }
+  .go:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(240,169,75,.5),0 14px 50px -10px rgba(240,169,75,.75)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  @media (max-width:640px){
+    main#overlay{align-items:flex-end;background:linear-gradient(0deg,rgba(13,16,23,.94) 0%,rgba(13,16,23,.82) 60%,rgba(13,16,23,.35) 100%)}
+    .eyebrow{margin-bottom:1rem}
+    h1,h2{margin-bottom:1.1rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    main#overlay,main#overlay.gone,.go{transition:none}
+  }
+</style>
+</head>
+<body>
+<canvas id="world" tabindex="-1" role="img" aria-label="Merrow Cut: a narrow canal through the fen at dusk, with nine lamps on its reed islands and a small rowing boat."></canvas>
+
+<header class="chrome">
+  <button id="mute" class="quiet-btn" aria-pressed="true" title="Toggle sound (M)">Sound on</button>
+</header>
+<p id="best" class="best"></p>
+
+<main id="overlay">
+  <section id="title" class="panel" aria-labelledby="t-h">
+    <p class="eyebrow">A fen canal &middot; the last hour of light</p>
+    <h1 id="t-h">Merrow <em>Cut</em></h1>
+    <p>The Cut was dug through the Merrow fen in 1841, so the peat barges could reach the river before the frost. Nine lamps were set along its reed islands, and a keeper rowed out to them every evening.</p>
+    <p>The barges stopped long ago. Someone still rows.</p>
+    <p class="aside">Gather the wick-light that drifts up out of the reeds and carry it to the lamps. Keep all nine burning at once before night closes over the water. Fog drinks the flame.</p>
+    <p class="how"><b>Row</b> &mdash; WASD or arrows, or hold the pointer where you mean to go<br><b>Carry</b> &mdash; up to three lights at a time<br><b>M</b> &mdash; sound</p>
+    <button id="start" class="go">Push off</button>
+  </section>
+  <section id="end" class="panel" hidden aria-labelledby="e-h" aria-live="polite">
+    <p class="eyebrow" id="endEye"></p>
+    <h2 id="e-h"></h2>
+    <p id="endText"></p>
+    <p class="aside" id="endStat"></p>
+    <button id="again" class="go">Row out again</button>
+  </section>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- palette ---------- */
+const SOOT="#0d1017", VELLUM="#ece3cc", FLAME="#f0a94b", ISLE="#191e28", ISLE2="#222835", REED="#5f6754", HULL="#3a3029";
+
+/* ---------- setup ---------- */
+const cvs=document.getElementById("world"), ctx=cvs.getContext("2d");
+const dk=document.createElement("canvas"), dctx=dk.getContext("2d");
+const RM=window.matchMedia("(prefers-reduced-motion: reduce)");
+let reduced=RM.matches;
+if(RM.addEventListener) RM.addEventListener("change",e=>{reduced=e.matches;});
+
+const W=2400,H=1600;
+let vw=0,vh=0,dpr=1,S=1;
+let waterGrad=null,warmGrad=null,vignette=null;
+
+function resize(){
+  vw=window.innerWidth; vh=window.innerHeight;
+  dpr=Math.min(2,window.devicePixelRatio||1);
+  cvs.width=Math.round(vw*dpr); cvs.height=Math.round(vh*dpr);
+  dk.width=Math.max(2,Math.ceil(vw*0.5)); dk.height=Math.max(2,Math.ceil(vh*0.5));
+  S=Math.max(0.36,Math.min(vw,vh)/860);
+  if(vw*vh>3000000) S=Math.min(S,Math.min(vw,vh)/900);
+  waterGrad=ctx.createLinearGradient(0,0,0,vh);
+  waterGrad.addColorStop(0,"#27304a"); waterGrad.addColorStop(.55,"#1d2436"); waterGrad.addColorStop(1,"#141a28");
+  warmGrad=ctx.createLinearGradient(0,0,0,vh);
+  warmGrad.addColorStop(0,"rgba(214,128,86,0.55)"); warmGrad.addColorStop(.35,"rgba(160,96,90,0.18)"); warmGrad.addColorStop(.7,"rgba(40,40,60,0)");
+  const r=Math.hypot(vw,vh)/2;
+  vignette=ctx.createRadialGradient(vw/2,vh/2,r*0.35,vw/2,vh/2,r*1.05);
+  vignette.addColorStop(0,"rgba(13,16,23,0)"); vignette.addColorStop(1,"rgba(8,10,15,0.82)");
+}
+window.addEventListener("resize",resize,{passive:true});
+resize();
+
+/* ---------- sprites ---------- */
+function sprite(size,stops){
+  const c=document.createElement("canvas"); c.width=c.height=size;
+  const g=c.getContext("2d"), gr=g.createRadialGradient(size/2,size/2,0,size/2,size/2,size/2);
+  for(let i=0;i<stops.length;i+=2) gr.addColorStop(stops[i],stops[i+1]);
+  g.fillStyle=gr; g.fillRect(0,0,size,size); return c;
+}
+const lightSpr=sprite(256,[0,"rgba(255,255,255,1)",.45,"rgba(255,255,255,.6)",1,"rgba(255,255,255,0)"]);
+const glowSpr=sprite(256,[0,"rgba(255,226,170,1)",.12,"rgba(250,190,110,.75)",.4,"rgba(240,169,75,.22)",1,"rgba(240,169,75,0)"]);
+const fogSpr=sprite(256,[0,"rgba(196,202,214,.9)",.5,"rgba(170,178,194,.35)",1,"rgba(160,168,186,0)"]);
+const moonSpr=sprite(256,[0,"rgba(214,222,240,.9)",.3,"rgba(170,186,214,.35)",1,"rgba(140,160,200,0)"]);
+
+/* ---------- seeded world ---------- */
+let seed=18410917;
+function rnd(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+
+const ISL=[[430,380,150,100,0.5],[960,250,120,80,2.3],[1560,430,180,110,2.1],[2050,300,130,90,1.3],
+           [330,1050,140,120,-0.5],[820,900,170,100,-1.3],[1420,1080,150,120,-2.3],[1980,950,160,110,2.9],[1150,1420,200,70,-1.6]];
+const islands=ISL.map(a=>{
+  const reeds=[]; const n=Math.round((a[2]+a[3])/7);
+  for(let i=0;i<n;i++){const ang=rnd()*Math.PI*2, rr=0.62+rnd()*0.42;
+    reeds.push({x:a[0]+Math.cos(ang)*a[2]*rr,y:a[1]+Math.sin(ang)*a[3]*rr,h:9+rnd()*16,lean:(rnd()-.5)*6,ph:rnd()*6.28});}
+  return {x:a[0],y:a[1],rx:a[2],ry:a[3],reeds};
+});
+const lanterns=ISL.map((a,i)=>({x:a[0]+Math.cos(a[4])*a[2]*0.84,y:a[1]+Math.sin(a[4])*a[3]*0.84,b:0,cd:0,i}));
+const ripples=[]; for(let i=0;i<300;i++) ripples.push({x:rnd()*W,y:rnd()*H,l:8+rnd()*26,p:rnd()*6.28});
+const stars=[]; for(let i=0;i<170;i++) stars.push({x:rnd()*W,y:rnd()*H,p:rnd()*6.28,s:.8+rnd()*1.4});
+const fogs=[]; for(let i=0;i<4;i++){const puffs=[];for(let k=0;k<6;k++)puffs.push({dx:(rnd()-.5)*1.1,dy:(rnd()-.5)*0.7,s:.55+rnd()*.6});
+  fogs.push({x:0,y:0,vx:0,vy:0,r:220+rnd()*90,puffs,ox:0,oy:0});}
+
+/* ---------- pools ---------- */
+const motes=[]; for(let i=0;i<24;i++) motes.push({on:false,x:0,y:0,vx:0,vy:0,life:0,ph:0});
+const sparks=[]; for(let i=0;i<90;i++) sparks.push({on:false,x:0,y:0,vx:0,vy:0,life:0,max:1});
+const wakes=[]; for(let i=0;i<40;i++) wakes.push({on:false,x:0,y:0,r:0,life:0});
+
+/* ---------- state ---------- */
+const boat={x:1200,y:700,px:1200,py:700,vx:0,vy:0,h:-0.5,ph:0,row:0};
+const cam={x:1200,y:700,px:1200,py:700};
+let state="title", dusk=0.8, carry=0, elapsed=0, T=0, endT=0, moteT=0, wakeT=0, audioT=0, overlayShown=true;
+const keys={up:false,down:false,left:false,right:false};
+let pAct=false, pX=0, pY=0;
+const TITLEB=[.9,0,.7,0,.35,.95,0,.6,0];
+
+function spawnMote(){
+  for(let i=0;i<motes.length;i++){const m=motes[i]; if(m.on) continue;
+    if(rnd()<.72){const is=islands[(rnd()*islands.length)|0], a=rnd()*6.283;
+      m.x=is.x+Math.cos(a)*is.rx*1.16; m.y=is.y+Math.sin(a)*is.ry*1.16; m.vx=Math.cos(a)*14; m.vy=Math.sin(a)*14;}
+    else {m.x=120+rnd()*(W-240); m.y=120+rnd()*(H-240); m.vx=0; m.vy=0;}
+    m.life=15+rnd()*6; m.ph=rnd()*6.28; m.on=true; return;}
+}
+function burst(x,y,n,up){
+  if(reduced) return;
+  for(let i=0,k=0;i<sparks.length&&k<n;i++){const s=sparks[i]; if(s.on) continue;
+    const a=rnd()*6.283, v=20+rnd()*60; s.x=x; s.y=y; s.vx=Math.cos(a)*v; s.vy=Math.sin(a)*v-(up?40:0);
+    s.max=s.life=.6+rnd()*.9; s.on=true; k++;}
+}
+function reset(play){
+  boat.x=boat.px=1200; boat.y=boat.py=700; boat.vx=boat.vy=0; boat.h=-0.5; boat.row=0;
+  cam.x=cam.px=1200; cam.y=cam.py=700;
+  carry=0; elapsed=0; endT=0; dusk=play?1:0.8;
+  for(let i=0;i<lanterns.length;i++){lanterns[i].b=play?((i===2||i===5)?0.85:0):TITLEB[i]; lanterns[i].cd=0;}
+  for(let i=0;i<motes.length;i++) motes[i].on=false;
+  for(let i=0;i<sparks.length;i++) sparks[i].on=false;
+  for(let i=0;i<6;i++) spawnMote();
+  const fp=[[700,560],[1700,760],[500,1350],[2100,1250]];
+  for(let i=0;i<fogs.length;i++){const f=fogs[i]; f.x=fp[i][0]; f.y=fp[i][1];
+    const a=rnd()*6.283, v=10+rnd()*10; f.vx=Math.cos(a)*v; f.vy=Math.sin(a)*v*.6;}
+  state=play?"play":"title";
+}
+
+/* ---------- audio ---------- */
+let AC=null, master=null, bedF=null, muted=false;
+function audioInit(){
+  if(AC){ if(AC.state==="suspended") AC.resume(); return; }
+  try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){AC=null;return;}
+  master=AC.createGain(); master.gain.value=0; master.connect(AC.destination);
+  master.gain.setTargetAtTime(muted?0:0.55,AC.currentTime,2);
+  bedF=AC.createBiquadFilter(); bedF.type="lowpass"; bedF.frequency.value=700; bedF.Q.value=.4;
+  const bg=AC.createGain(); bg.gain.value=.05; bedF.connect(bg); bg.connect(master);
+  const voices=[[55,"triangle",.55],[110.3,"sine",.32],[164.6,"sine",.16],[246.9,"sine",.06],[220.7,"sine",.07]];
+  for(const v of voices){const o=AC.createOscillator(); o.type=v[1]; o.frequency.value=v[0];
+    const g=AC.createGain(); g.gain.value=v[2]; o.connect(g); g.connect(bedF); o.start();
+    const l=AC.createOscillator(); l.frequency.value=.03+Math.random()*.07; const lg=AC.createGain(); lg.gain.value=v[2]*.6;
+    l.connect(lg); lg.connect(g.gain); l.start();}
+  const len=AC.sampleRate*4, buf=AC.createBuffer(1,len,AC.sampleRate), d=buf.getChannelData(0); let b0=0;
+  for(let i=0;i<len;i++){b0=.985*b0+.015*(Math.random()*2-1); d[i]=b0*5;}
+  const n=AC.createBufferSource(); n.buffer=buf; n.loop=true;
+  const nf=AC.createBiquadFilter(); nf.type="bandpass"; nf.frequency.value=340; nf.Q.value=.6;
+  const ng=AC.createGain(); ng.gain.value=.045; n.connect(nf); nf.connect(ng); ng.connect(master); n.start();
+  const nl=AC.createOscillator(); nl.frequency.value=.11; const nlg=AC.createGain(); nlg.gain.value=.03; nl.connect(nlg); nlg.connect(ng.gain); nl.start();
+}
+function tone(f,dur,vol,type,delay){
+  if(!AC||muted) return;
+  const t=AC.currentTime+(delay||0), o=AC.createOscillator(), g=AC.createGain();
+  o.type=type||"sine"; o.frequency.value=f;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.05);
+}
+const PENT=[659.3,784,880,987.8,1174.7];
+function sPick(){const f=PENT[(Math.random()*PENT.length)|0]; tone(f,1.5,.05); tone(f*2,.7,.012);}
+function sKindle(){tone(392,2.8,.06,"triangle"); tone(587.3,2.8,.045,"sine",.09); tone(784,3.2,.025,"sine",.2);}
+function sWin(){const n=[293.7,440,587.3,740,880,1174.7]; for(let i=0;i<n.length;i++) tone(n[i],5.5,.05,i%2?"sine":"triangle",i*.38);}
+function sLose(){tone(196,3.6,.05,"triangle"); tone(146.8,4.6,.045,"sine",.7); tone(98,5,.04,"sine",1.4);}
+
+const muteBtn=document.getElementById("mute");
+function setMute(m){
+  muted=m; muteBtn.setAttribute("aria-pressed",String(!m)); muteBtn.textContent=m?"Sound off":"Sound on";
+  if(AC&&master) master.gain.setTargetAtTime(m?0:.55,AC.currentTime,.4);
+}
+muteBtn.addEventListener("click",()=>{audioInit(); setMute(!muted);},{passive:true});
+
+/* ---------- best ---------- */
+const bestEl=document.getElementById("best");
+function fmt(s){s=Math.max(0,Math.round(s));const m=(s/60)|0, r=s%60;return m+":"+(r<10?"0":"")+r;}
+function getBest(){try{const v=parseFloat(localStorage.getItem("merrowcut.best"));return isFinite(v)?v:0;}catch(e){return 0;}}
+function setBest(v){try{localStorage.setItem("merrowcut.best",String(v));}catch(e){}}
+function showBest(){const b=getBest(); bestEl.textContent=b?("Best evening \u2014 all nine lit in "+fmt(b)):"No evening kept yet";}
+showBest();
+
+/* ---------- overlay ---------- */
+const overlay=document.getElementById("overlay"), titleSec=document.getElementById("title"), endSec=document.getElementById("end");
+const startBtn=document.getElementById("start"), againBtn=document.getElementById("again");
+function begin(){
+  audioInit(); reset(true);
+  overlay.classList.add("gone"); overlayShown=false;
+  cvs.focus({preventScroll:true});
+}
+startBtn.addEventListener("click",begin,{passive:true});
+againBtn.addEventListener("click",begin,{passive:true});
+function showEnd(won){
+  titleSec.hidden=true; endSec.hidden=false;
+  document.getElementById("endEye").textContent=won?"The Cut, restored":"The Cut, at night";
+  const h=document.getElementById("e-h");
+  if(won){
+    h.innerHTML="All nine <em>are burning.</em>";
+    document.getElementById("endText").textContent="For a moment the fen holds still. The water carries every flame twice, and the herons stop to look.";
+    const b=getBest();
+    document.getElementById("endStat").textContent="Lit in "+fmt(elapsed)+(b&&Math.round(b)===Math.round(elapsed)?", the best evening yet.":(b?". Your best is "+fmt(b)+".":"."));
+  } else {
+    h.innerHTML="The light <em>went under.</em>";
+    document.getElementById("endText").textContent="The last lamp gutters and the fen goes back to itself. The water keeps no grudges. There will be another dusk.";
+    let lit=0; for(const L of lanterns) if(L.b>.15) lit++;
+    document.getElementById("endStat").textContent=lit+" of nine still burning when the dark came.";
+  }
+  overlay.classList.remove("gone"); overlayShown=true;
+  againBtn.focus({preventScroll:true});
+}
+setTimeout(()=>startBtn.focus({preventScroll:true}),60);
+
+/* ---------- input ---------- */
+function keyset(e,v){
+  switch(e.key){
+    case "ArrowUp":case "w":case "W":keys.up=v;break;
+    case "ArrowDown":case "s":case "S":keys.down=v;break;
+    case "ArrowLeft":case "a":case "A":keys.left=v;break;
+    case "ArrowRight":case "d":case "D":keys.right=v;break;
+    default:return false;
+  }
+  return true;
+}
+window.addEventListener("keydown",e=>{
+  if(e.key==="m"||e.key==="M"){audioInit(); setMute(!muted); return;}
+  keyset(e,true);
+},{passive:true});
+window.addEventListener("keyup",e=>{keyset(e,false);},{passive:true});
+window.addEventListener("blur",()=>{keys.up=keys.down=keys.left=keys.right=false;pAct=false;},{passive:true});
+cvs.addEventListener("pointerdown",e=>{pAct=true;pX=e.clientX;pY=e.clientY; audioInit();},{passive:true});
+window.addEventListener("pointermove",e=>{if(pAct){pX=e.clientX;pY=e.clientY;}},{passive:true});
+window.addEventListener("pointerup",()=>{pAct=false;},{passive:true});
+window.addEventListener("pointercancel",()=>{pAct=false;},{passive:true});
+
+/* ---------- simulation ---------- */
+function fogAt(x,y){
+  let m=0; for(let i=0;i<fogs.length;i++){const f=fogs[i],d=Math.hypot(x-f.x,y-f.y),k=1-d/f.r; if(k>m)m=k;} return m;
+}
+function update(dt){
+  T+=dt;
+  const playing=state==="play"||state==="won";
+  let ax=0,ay=0;
+  if(playing){
+    if(keys.up)ay-=1; if(keys.down)ay+=1; if(keys.left)ax-=1; if(keys.right)ax+=1;
+    if(pAct){const wx=(pX-vw/2)/S+cam.x, wy=(pY-vh/2)/S+cam.y, dx=wx-boat.x, dy=wy-boat.y, d=Math.hypot(dx,dy);
+      if(d>18){const k=Math.min(1,d/160); ax+=dx/d*k; ay+=dy/d*k;}}
+    const l=Math.hypot(ax,ay); if(l>1){ax/=l;ay/=l;}
+  } else if(state==="title"){ ax=Math.cos(T*.13)*.18; ay=Math.sin(T*.17)*.12; }
+  const thrust=Math.hypot(ax,ay);
+  const fog=fogAt(boat.x,boat.y);
+  boat.vx+=ax*560*dt; boat.vy+=ay*560*dt;
+  const drag=Math.exp(-(1.6+fog*1.8)*dt); boat.vx*=drag; boat.vy*=drag;
+  let sp=Math.hypot(boat.vx,boat.vy); if(sp>270){boat.vx*=270/sp;boat.vy*=270/sp;sp=270;}
+  boat.x+=boat.vx*dt; boat.y+=boat.vy*dt;
+  if(boat.x<40){boat.x=40;boat.vx=Math.abs(boat.vx)*.3;} if(boat.x>W-40){boat.x=W-40;boat.vx=-Math.abs(boat.vx)*.3;}
+  if(boat.y<40){boat.y=40;boat.vy=Math.abs(boat.vy)*.3;} if(boat.y>H-40){boat.y=H-40;boat.vy=-Math.abs(boat.vy)*.3;}
+  for(let i=0;i<islands.length;i++){const is=islands[i], dx=(boat.x-is.x)/(is.rx+14), dy=(boat.y-is.y)/(is.ry+14), d=Math.hypot(dx,dy);
+    if(d<1&&d>0.0001){ boat.x=is.x+dx/d*(is.rx+14); boat.y=is.y+dy/d*(is.ry+14);
+      const nx=dx/d, ny=dy/d, vn=boat.vx*nx+boat.vy*ny; if(vn<0){boat.vx-=vn*nx*1.2;boat.vy-=vn*ny*1.2;} boat.vx*=.9;boat.vy*=.9; }}
+  if(sp>8){const tg=Math.atan2(boat.vy,boat.vx); let df=tg-boat.h; while(df>Math.PI)df-=6.2832; while(df<-Math.PI)df+=6.2832; boat.h+=df*Math.min(1,dt*5);}
+  boat.row+=(thrust-boat.row)*Math.min(1,dt*4); boat.ph+=dt*(1.5+boat.row*5);
+  wakeT-=dt;
+  if(sp>45&&wakeT<=0&&!reduced){ wakeT=.13;
+    for(let i=0;i<wakes.length;i++){const w=wakes[i]; if(w.on)continue; w.on=true; w.x=boat.x-Math.cos(boat.h)*20; w.y=boat.y-Math.sin(boat.h)*20; w.r=6; w.life=1.6; break;}}
+  for(let i=0;i<wakes.length;i++){const w=wakes[i]; if(!w.on)continue; w.life-=dt; w.r+=dt*22; if(w.life<=0)w.on=false;}
+
+  // camera
+  const hw=vw/(2*S), hh=vh/(2*S);
+  let tx=boat.x, ty=boat.y;
+  tx = (hw*2>=W)?W/2:Math.min(W-hw,Math.max(hw,tx));
+  ty = (hh*2>=H)?H/2:Math.min(H-hh,Math.max(hh,ty));
+  if(reduced){cam.x=tx;cam.y=ty;} else {const k=1-Math.exp(-dt*3.2); cam.x+=(tx-cam.x)*k; cam.y+=(ty-cam.y)*k;}
+
+  // fog
+  if(!reduced){ for(let i=0;i<fogs.length;i++){const f=fogs[i]; f.x+=f.vx*dt; f.y+=f.vy*dt;
+    if(f.x<100||f.x>W-100)f.vx=-f.vx; if(f.y<100||f.y>H-100)f.vy=-f.vy;
+    f.x=Math.min(W-100,Math.max(100,f.x)); f.y=Math.min(H-100,Math.max(100,f.y));}}
+
+  // motes
+  moteT-=dt; let active=0; for(let i=0;i<motes.length;i++) if(motes[i].on) active++;
+  if(moteT<=0&&active<15){spawnMote(); moteT=.75+rnd()*.5;}
+  for(let i=0;i<motes.length;i++){const m=motes[i]; if(!m.on)continue;
+    m.life-=dt;
+    if(!reduced){ m.vx+=Math.sin(T*1.3+m.ph)*10*dt; m.vy+=Math.cos(T*1.1+m.ph*1.7)*10*dt; }
+    const dx=boat.x-m.x, dy=boat.y-m.y, d=Math.hypot(dx,dy);
+    if(playing&&carry<3&&d<120&&d>0.01){ m.vx+=dx/d*240*dt*(1-d/120); m.vy+=dy/d*240*dt*(1-d/120); }
+    const dm=Math.exp(-1.2*dt); m.vx*=dm; m.vy*=dm; m.x+=m.vx*dt; m.y+=m.vy*dt;
+    if(playing&&carry<3&&d<30){ m.on=false; carry++; sPick(); burst(m.x,m.y,7,false); continue; }
+    if(m.life<=0) m.on=false;
+  }
+
+  // lanterns
+  let lit=0;
+  for(let i=0;i<lanterns.length;i++){const L=lanterns[i];
+    if(L.cd>0)L.cd-=dt;
+    if(state==="play"){ const f=fogAt(L.x,L.y); L.b=Math.max(0,L.b-dt*(1/64)*(1+f*2.6)); }
+    else if(state==="won"){ L.b=Math.min(1,L.b+dt*.35); }
+    else if(state==="lost"){ L.b=Math.max(0,L.b-dt*.5); }
+    if(playing&&carry>0&&L.b<.86&&L.cd<=0&&Math.hypot(boat.x-L.x,boat.y-L.y)<86){
+      L.b=1; L.cd=.6; carry--; if(state==="play")dusk=Math.min(1,dusk+.03); sKindle(); burst(L.x,L.y,16,true);}
+    if(L.b>.15)lit++;
+  }
+  // sparks
+  for(let i=0;i<sparks.length;i++){const s=sparks[i]; if(!s.on)continue; s.life-=dt; s.vx*=.96; s.vy=s.vy*.96-8*dt; s.x+=s.vx*dt; s.y+=s.vy*dt; if(s.life<=0)s.on=false;}
+
+  if(state==="play"){
+    elapsed+=dt;
+    dusk-=dt*(1/150)*(1-.7*lit/9);
+    if(lit===9){ state="won"; endT=0; const b=getBest(); if(!b||elapsed<b){setBest(elapsed);} showBest(); sWin(); }
+    else if(dusk<=0){ dusk=0; state="lost"; endT=0; sLose(); }
+  } else if(state==="won"){ endT+=dt; dusk=Math.min(1,dusk+dt*.2); if(endT>3.2&&!overlayShown) showEnd(true); }
+  else if(state==="lost"){ endT+=dt; if(endT>2.8&&!overlayShown) showEnd(false); }
+
+  audioT-=dt;
+  if(AC&&bedF&&audioT<=0){ audioT=.5; bedF.frequency.setTargetAtTime(state==="won"?1100:180+dusk*720,AC.currentTime,1.2); }
+}
+
+/* ---------- render ---------- */
+const ROMAN=["none","one","two","three","four","five","six","seven","eight","nine"];
+let hudKey=-1, hudText="";
+const HUDFONT='600 10.5px "Avenir Next","Gill Sans","Gill Sans MT","Segoe UI",Arial,sans-serif';
+const hasLS=("letterSpacing" in ctx);
+
+function flick(i){ return reduced?1:(.9+.1*Math.sin(T*11+i*3.1)*Math.sin(T*6.7+i*1.3)); }
+
+function render(a){
+  const bx=boat.px+(boat.x-boat.px)*a, by=boat.py+(boat.y-boat.py)*a;
+  const cx=cam.px+(cam.x-cam.px)*a, cy=cam.py+(cam.y-cam.py)*a;
+  const ox=vw/2-cx*S, oy=vh/2-cy*S;
+  const L0=cx-vw/(2*S)-240, R0=cx+vw/(2*S)+240, T0=cy-vh/(2*S)-240, B0=cy+vh/(2*S)+240;
+  const night=1-dusk;
+  const moon=state==="won"?Math.min(1,endT/3):0;
+  const sway=reduced?0:1;
+
+  // water
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.globalCompositeOperation="source-over"; ctx.globalAlpha=1;
+  ctx.fillStyle=SOOT; ctx.fillRect(0,0,vw,vh);
+  ctx.globalAlpha=.5+.5*dusk; ctx.fillStyle=waterGrad; ctx.fillRect(0,0,vw,vh);
+  ctx.globalAlpha=dusk*dusk*.55; ctx.fillStyle=warmGrad; ctx.fillRect(0,0,vw,vh);
+
+  ctx.setTransform(dpr*S,0,0,dpr*S,dpr*ox,dpr*oy);
+  // ripples
+  ctx.globalAlpha=.06+.04*dusk; ctx.strokeStyle=VELLUM; ctx.lineWidth=1.1/S*Math.max(1,S*.9);
+  ctx.beginPath();
+  for(let i=0;i<ripples.length;i++){const r=ripples[i]; if(r.x<L0||r.x>R0||r.y<T0||r.y>B0)continue;
+    const o=Math.sin(T*.6+r.p)*6*sway; ctx.moveTo(r.x+o,r.y); ctx.lineTo(r.x+o+r.l,r.y);}
+  ctx.stroke();
+  // wakes
+  ctx.lineWidth=1.2;
+  for(let i=0;i<wakes.length;i++){const w=wakes[i]; if(!w.on)continue; ctx.globalAlpha=w.life/1.6*.16;
+    ctx.beginPath(); ctx.ellipse(w.x,w.y,w.r,w.r*.6,boat.h,0,6.2832); ctx.stroke();}
+  // islands
+  for(let i=0;i<islands.length;i++){const is=islands[i]; if(is.x+is.rx<L0||is.x-is.rx>R0||is.y+is.ry<T0||is.y-is.ry>B0)continue;
+    ctx.globalAlpha=.45; ctx.fillStyle=SOOT; ctx.beginPath(); ctx.ellipse(is.x+6,is.y+10,is.rx+16,is.ry+14,0,0,6.2832); ctx.fill();
+    ctx.globalAlpha=1; ctx.fillStyle=ISLE; ctx.beginPath(); ctx.ellipse(is.x,is.y,is.rx,is.ry,0,0,6.2832); ctx.fill();
+    ctx.fillStyle=ISLE2; ctx.beginPath(); ctx.ellipse(is.x-is.rx*.08,is.y-is.ry*.1,is.rx*.72,is.ry*.66,0,0,6.2832); ctx.fill();
+    ctx.globalAlpha=.08; ctx.strokeStyle=VELLUM; ctx.lineWidth=1.4; ctx.beginPath(); ctx.ellipse(is.x,is.y,is.rx+3,is.ry+3,0,0,6.2832); ctx.stroke();
+    ctx.globalAlpha=.85; ctx.strokeStyle=REED; ctx.lineWidth=1.3; ctx.beginPath();
+    for(let k=0;k<is.reeds.length;k++){const r=is.reeds[k], s=Math.sin(T*1.4+r.ph)*3*sway;
+      ctx.moveTo(r.x,r.y); ctx.lineTo(r.x+r.lean+s,r.y-r.h);}
+    ctx.stroke();
+  }
+  // lantern posts & guide rings
+  for(let i=0;i<lanterns.length;i++){const L=lanterns[i]; if(L.x<L0||L.x>R0||L.y<T0||L.y>B0)continue;
+    if(L.b<.3&&state==="play"){ const p=reduced?.5:(.5+.5*Math.sin(T*2+i)); ctx.globalAlpha=(carry>0?.28:.12)*(.6+.4*p);
+      ctx.strokeStyle=VELLUM; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(L.x,L.y,30+p*8,0,6.2832); ctx.stroke(); }
+    ctx.globalAlpha=1; ctx.fillStyle=SOOT; ctx.fillRect(L.x-7,L.y-7,14,14);
+    ctx.strokeStyle="#9c7a45"; ctx.lineWidth=1.4; ctx.strokeRect(L.x-7,L.y-7,14,14);
+  }
+  // boat
+  ctx.save(); ctx.translate(bx,by); ctx.rotate(boat.h);
+  ctx.globalAlpha=.4; ctx.fillStyle=SOOT; ctx.beginPath(); ctx.ellipse(-1,5,25,10,0,0,6.2832); ctx.fill();
+  const oa=Math.sin(boat.ph)*.55*(.25+boat.row), oc=Math.cos(boat.ph);
+  ctx.globalAlpha=.7; ctx.strokeStyle=VELLUM; ctx.lineWidth=1.6; ctx.beginPath();
+  ctx.moveTo(-3,-6); ctx.lineTo(-3-Math.sin(oa)*20,-6-Math.cos(oa)*22);
+  ctx.moveTo(-3,6); ctx.lineTo(-3-Math.sin(oa)*20,6+Math.cos(oa)*22); ctx.stroke();
+  if(boat.row>.2&&oc>0&&!reduced){ ctx.globalAlpha=.18*boat.row; ctx.beginPath();
+    ctx.arc(-3-Math.sin(oa)*20,-6-Math.cos(oa)*22,4,0,6.2832); ctx.arc(-3-Math.sin(oa)*20,6+Math.cos(oa)*22,4,0,6.2832); ctx.stroke(); }
+  ctx.globalAlpha=1; ctx.fillStyle=HULL; ctx.beginPath();
+  ctx.moveTo(27,0); ctx.bezierCurveTo(15,-10,-12,-11,-20,-7); ctx.lineTo(-21,7); ctx.bezierCurveTo(-12,11,15,10,27,0); ctx.fill();
+  ctx.globalAlpha=.4; ctx.strokeStyle=VELLUM; ctx.lineWidth=1; ctx.stroke();
+  ctx.globalAlpha=.35; ctx.beginPath(); ctx.moveTo(8,-7); ctx.lineTo(8,7); ctx.stroke();
+  ctx.globalAlpha=1; ctx.fillStyle="#6b5d4e"; ctx.beginPath(); ctx.ellipse(-4,0,5.5,6.5,0,0,6.2832); ctx.fill();
+  ctx.fillStyle="#1b1816"; ctx.beginPath(); ctx.arc(-3,0,3.6,0,6.2832); ctx.fill();
+  ctx.fillStyle=FLAME; ctx.beginPath(); ctx.arc(22,0,2.2,0,6.2832); ctx.fill();
+  ctx.restore();
+
+  // darkness
+  let dark=.18+.74*Math.pow(night,.85); if(state==="lost") dark=Math.min(.97,dark+endT*.12);
+  dark*=(1-.55*moon);
+  dctx.setTransform(1,0,0,1,0,0); dctx.globalCompositeOperation="source-over"; dctx.clearRect(0,0,dk.width,dk.height);
+  dctx.globalAlpha=dark; dctx.fillStyle="#05070d"; dctx.fillRect(0,0,dk.width,dk.height);
+  dctx.globalCompositeOperation="destination-out";
+  dctx.setTransform(.5*S,0,0,.5*S,.5*ox,.5*oy);
+  for(let i=0;i<lanterns.length;i++){const L=lanterns[i]; if(L.b<=0)continue; const r=(80+270*L.b)*flick(i);
+    dctx.globalAlpha=Math.min(1,.35+L.b*.8); dctx.drawImage(lightSpr,L.x-r,L.y-r,r*2,r*2);}
+  const hx=bx+Math.cos(boat.h)*20, hy=by+Math.sin(boat.h)*20;
+  dctx.globalAlpha=.75; dctx.drawImage(lightSpr,hx-150,hy-150,300,300);
+  dctx.globalAlpha=.45;
+  for(let i=0;i<motes.length;i++){const m=motes[i]; if(!m.on)continue; dctx.drawImage(lightSpr,m.x-45,m.y-45,90,90);}
+  ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1; ctx.drawImage(dk,0,0,cvs.width,cvs.height);
+
+  // additive light
+  ctx.setTransform(dpr*S,0,0,dpr*S,dpr*ox,dpr*oy);
+  ctx.globalCompositeOperation="lighter";
+  // stars on the water
+  ctx.fillStyle=VELLUM;
+  const sa=night*.55+moon*.3;
+  if(sa>.02){ for(let i=0;i<stars.length;i++){const s=stars[i]; if(s.x<L0||s.x>R0||s.y<T0||s.y>B0)continue;
+    ctx.globalAlpha=sa*(reduced?.7:(.5+.5*Math.sin(T*.9+s.p))); ctx.fillRect(s.x,s.y,s.s,s.s);} }
+  for(let i=0;i<lanterns.length;i++){const L=lanterns[i]; if(L.b<=0.01||L.x<L0||L.x>R0||L.y<T0||L.y>B0)continue;
+    let f=flick(i); if(L.b<.2&&!reduced) f*= .6+.4*Math.abs(Math.sin(T*17+i));
+    const r=(34+100*L.b)*f;
+    ctx.globalAlpha=Math.min(1,L.b*1.1); ctx.drawImage(glowSpr,L.x-r,L.y-r,r*2,r*2);
+    ctx.globalAlpha=L.b*.32; ctx.drawImage(glowSpr,L.x-r*.3,L.y+4,r*.6,r*2.6);
+    ctx.globalAlpha=Math.min(1,L.b*1.3); ctx.fillStyle="#fff0d2"; ctx.beginPath(); ctx.arc(L.x,L.y,1.6+L.b*2.2,0,6.2832); ctx.fill();}
+  ctx.globalAlpha=.8; ctx.drawImage(glowSpr,hx-26,hy-26,52,52);
+  ctx.globalAlpha=.22; ctx.drawImage(glowSpr,hx-8,hy+2,16,46);
+  ctx.fillStyle="#fff0d2";
+  for(let i=0;i<motes.length;i++){const m=motes[i]; if(!m.on||m.x<L0||m.x>R0||m.y<T0||m.y>B0)continue;
+    const fade=Math.min(1,m.life/2,(21-m.life)*1.5), f=reduced?1:(.75+.25*Math.sin(T*5+m.ph));
+    ctx.globalAlpha=.75*fade*f; ctx.drawImage(glowSpr,m.x-14,m.y-14,28,28);
+    ctx.globalAlpha=fade; ctx.beginPath(); ctx.arc(m.x,m.y,1.7,0,6.2832); ctx.fill();}
+  for(let i=0;i<carry;i++){const an=(reduced?0:T*2.2)+i*2.094, x=bx+Math.cos(an)*17, y=by+Math.sin(an)*17;
+    ctx.globalAlpha=.85; ctx.drawImage(glowSpr,x-13,y-13,26,26); ctx.globalAlpha=1; ctx.beginPath(); ctx.arc(x,y,1.8,0,6.2832); ctx.fill();}
+  for(let i=0;i<sparks.length;i++){const s=sparks[i]; if(!s.on)continue; ctx.globalAlpha=s.life/s.max; ctx.fillRect(s.x-1,s.y-1,2,2);}
+
+  // fog
+  ctx.globalCompositeOperation="source-over";
+  for(let i=0;i<fogs.length;i++){const f=fogs[i]; if(f.x+f.r*1.3<L0||f.x-f.r*1.3>R0||f.y+f.r<T0||f.y-f.r>B0)continue;
+    for(let k=0;k<f.puffs.length;k++){const p=f.puffs[k], s=f.r*p.s*1.4, dx=f.x+p.dx*f.r+(reduced?0:Math.sin(T*.2+k)*14), dy=f.y+p.dy*f.r;
+      ctx.globalAlpha=.07+.05*dusk; ctx.drawImage(fogSpr,dx-s,dy-s*.7,s*2,s*1.4);}}
+
+  // screen space
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  if(moon>0){ ctx.globalCompositeOperation="lighter"; const ms=Math.max(vw,vh)*.9; ctx.globalAlpha=moon*.22;
+    ctx.drawImage(moonSpr,vw*.78-ms/2,vh*.12-ms/2,ms,ms); ctx.globalCompositeOperation="source-over"; }
+  ctx.globalAlpha=1; ctx.fillStyle=vignette; ctx.fillRect(0,0,vw,vh);
+
+  if(state!=="title") drawHUD();
+}
+
+function drawHUD(){
+  let lit=0; for(let i=0;i<lanterns.length;i++) if(lanterns[i].b>.15) lit++;
+  const key=lit*10+carry+(state==="won"?100:0);
+  if(key!==hudKey){ hudKey=key;
+    hudText = state==="won" ? "the cut is lit" : (ROMAN[lit]+" of nine burning"+(carry?" \u00b7 carrying "+ROMAN[carry]:"")); }
+  const w=Math.min(300,vw*.7), cx=vw/2, y=vh-Math.max(46,vh*.07), x0=cx-w/2;
+  ctx.globalAlpha=.5; ctx.strokeStyle=VELLUM; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(x0,y+.5); ctx.lineTo(x0+w,y+.5); ctx.stroke();
+  // sinking sun
+  ctx.save(); ctx.beginPath(); ctx.rect(x0-2,y-30,34,30); ctx.clip();
+  ctx.globalAlpha=.95; ctx.fillStyle=FLAME; ctx.beginPath(); ctx.arc(x0+14,y-9+(1-dusk)*20,8,0,6.2832); ctx.fill();
+  ctx.restore();
+  // nine lamps
+  const s0=x0+46, st=(w-56)/8;
+  for(let i=0;i<9;i++){const L=lanterns[i], lx=s0+i*st;
+    ctx.globalAlpha=.55; ctx.strokeStyle=VELLUM; ctx.beginPath(); ctx.moveTo(lx+.5,y); ctx.lineTo(lx+.5,y-8); ctx.stroke();
+    if(L.b>.15){ ctx.globalAlpha=Math.min(1,.35+L.b); ctx.fillStyle=FLAME; ctx.beginPath(); ctx.arc(lx+.5,y-12,3,0,6.2832); ctx.fill(); }
+    else { ctx.globalAlpha=.45; ctx.beginPath(); ctx.arc(lx+.5,y-12,2.6,0,6.2832); ctx.stroke(); }}
+  ctx.globalAlpha=.85; ctx.fillStyle=VELLUM; ctx.font=HUDFONT; ctx.textAlign="center"; ctx.textBaseline="top";
+  if(hasLS) ctx.letterSpacing="2.4px";
+  ctx.fillText(hudText.toUpperCase(),cx,y+10);
+  if(hasLS) ctx.letterSpacing="0px";
+  ctx.globalAlpha=1;
+}
+
+/* ---------- loop ---------- */
+const STEP=1/60; let acc=0,last=0;
+function frame(ts){
+  requestAnimationFrame(frame);
+  if(!last) last=ts;
+  let d=(ts-last)/1000; last=ts; if(d>.25) d=.25; if(d<0) d=0;
+  acc+=d;
+  let n=0;
+  while(acc>=STEP&&n<8){ boat.px=boat.x; boat.py=boat.y; cam.px=cam.x; cam.py=cam.y; update(STEP); acc-=STEP; n++; }
+  if(n>=8) acc=0;
+  render(acc/STEP);
+}
+reset(false);
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

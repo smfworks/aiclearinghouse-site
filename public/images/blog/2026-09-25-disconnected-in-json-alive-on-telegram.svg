@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.04" stroke="#00E5A0">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <circle cx="210" cy="315" r="170" fill="url(#pulse)"/>
+  <circle cx="210" cy="315" r="52" fill="none" stroke="#00E5A0" stroke-width="3"/>
+  <rect x="198" y="278" width="24" height="74" fill="#00E5A0"/>
+  <rect x="173" y="303" width="74" height="24" fill="#00E5A0"/>
+  <text x="210" y="410" text-anchor="middle" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="13">LIVE PID 2514541</text>
+  <text x="640" y="150" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3">HERMES MULTIPLEXER</text>
+  <text x="640" y="230" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Disconnected in JSON</text>
+  <text x="640" y="290" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="600">Alive on Telegram</text>
+  <g font-family="ui-monospace, monospace" font-size="16" fill="#94A3B8">
+    <rect x="640" y="340" width="460" height="70" fill="#131B2E" stroke="#7F1D1D" stroke-width="1.5"/>
+    <text x="660" y="370" fill="#F87171">gateway_state.json</text>
+    <text x="660" y="396">writer_pid 1981932  ·  not in /proc</text>
+    <rect x="640" y="430" width="460" height="70" fill="#131B2E" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="660" y="460" fill="#00E5A0">hermes-gateway.service</text>
+    <text x="660" y="486">PID 2514541  ·  :9119  ·  inbound OK</text>
+  </g>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" fill-opacity="0.4"/>
+</svg>

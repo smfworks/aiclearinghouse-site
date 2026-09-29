@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#151d20">
+<title>Merefold — The Tide Garden</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --soot: #151d20;
+    --stone: #263032;
+    --paper: #e1d5bc;
+    --brass: #d0a45c;
+    --muted: #b9b39f;
+    --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--soot);
+  }
+
+  body {
+    color: var(--paper);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  canvas {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+
+  .hud {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 700ms ease;
+  }
+
+  body.playing .hud,
+  body.ended .hud { opacity: 1; }
+
+  .hud-head {
+    position: absolute;
+    top: clamp(18px, 3.4vh, 34px);
+    left: clamp(18px, 3.5vw, 46px);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    text-shadow: 0 1px 8px #101719;
+  }
+
+  .hud-name {
+    font: 23px/1 var(--serif);
+    letter-spacing: .015em;
+  }
+
+  .hud-place {
+    color: #d0c7b4;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+  }
+
+  .instrument {
+    position: absolute;
+    top: clamp(18px, 3.1vh, 32px);
+    right: clamp(18px, 3.5vw, 46px);
+    width: min(230px, 38vw);
+    padding: 12px 14px 11px;
+    color: var(--paper);
+    background: rgba(21, 29, 32, .88);
+    border: 1px solid rgba(208, 164, 92, .48);
+    box-shadow: 0 8px 28px rgba(5, 10, 12, .18);
+  }
+
+  .instrument-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 9px;
+  }
+
+  .instrument-label,
+  .seed-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #d1c6ae;
+  }
+
+  .clock {
+    font: 19px/1 var(--serif);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .04em;
+  }
+
+  .time-track {
+    height: 2px;
+    background: #47504d;
+    overflow: hidden;
+  }
+
+  .time-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--brass);
+    transform-origin: left center;
+    transition: transform 350ms linear;
+  }
+
+  .instrument-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .seeds {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 16px/1 var(--serif);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .seed-mark {
+    width: 8px;
+    height: 11px;
+    display: inline-block;
+    background: var(--brass);
+    border-radius: 70% 15% 70% 15%;
+    transform: rotate(-36deg);
+    box-shadow: 0 0 8px rgba(208,164,92,.25);
+  }
+
+  .goal-mark { color: #d6c9b1; }
+
+  .best-line {
+    position: absolute;
+    left: clamp(18px, 3.5vw, 46px);
+    bottom: clamp(19px, 3.3vh, 34px);
+    color: #e0d5bf;
+    font-size: 10px;
+    letter-spacing: .09em;
+    text-shadow: 0 1px 8px #101719;
+  }
+
+  .best-line span { color: #f1c77d; }
+
+  .controls {
+    position: absolute;
+    right: clamp(18px, 3.5vw, 46px);
+    bottom: clamp(18px, 3.2vh, 32px);
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    color: #e0d5bf;
+    font-size: 10px;
+    letter-spacing: .045em;
+    text-shadow: 0 1px 8px #101719;
+  }
+
+  .key {
+    display: inline-block;
+    min-width: 19px;
+    padding: 4px 5px;
+    margin-right: 4px;
+    color: var(--paper);
+    text-align: center;
+    font: 10px/1 var(--sans);
+    border: 1px solid rgba(225,213,188,.62);
+    border-radius: 2px;
+    background: rgba(21,29,32,.6);
+  }
+
+  .quiet-button {
+    pointer-events: auto;
+    padding: 7px 9px;
+    color: var(--paper);
+    font: 9px/1 var(--sans);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    background: rgba(21,29,32,.84);
+    border: 1px solid rgba(225,213,188,.55);
+    cursor: pointer;
+  }
+
+  .quiet-button:hover { border-color: var(--brass); color: #f1c77d; }
+
+  button:focus-visible {
+    outline: 2px solid #f1c77d;
+    outline-offset: 4px;
+  }
+
+  .message {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(65px, 10vh, 94px);
+    transform: translateX(-50%);
+    padding: 8px 13px;
+    color: #f0dfbd;
+    font: 12px/1.4 var(--serif);
+    letter-spacing: .025em;
+    background: rgba(21,29,32,.88);
+    border-left: 1px solid var(--brass);
+    opacity: 0;
+    transition: opacity 250ms ease;
+    white-space: nowrap;
+  }
+
+  .message.visible { opacity: 1; }
+
+  .screen {
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(12, 18, 20, .46);
+    transition: opacity 650ms ease, visibility 650ms ease;
+  }
+
+  .screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .card {
+    width: min(490px, 100%);
+    padding: clamp(26px, 5vw, 47px);
+    background: rgba(21, 29, 32, .96);
+    border: 1px solid rgba(208,164,92,.48);
+    box-shadow: 0 24px 90px rgba(0,0,0,.3);
+  }
+
+  .eyebrow {
+    margin: 0 0 18px;
+    color: #e0b66e;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    color: #e5dac4;
+    font: normal clamp(54px, 11vw, 78px)/.94 var(--serif);
+    letter-spacing: -.045em;
+  }
+
+  .story {
+    max-width: 355px;
+    margin: 23px 0 0;
+    color: #d0c8b8;
+    font: 16px/1.65 var(--serif);
+  }
+
+  .how {
+    margin: 20px 0 0;
+    padding-top: 15px;
+    border-top: 1px solid rgba(225,213,188,.19);
+    color: #c3c0b4;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .how strong {
+    color: #e8d3ae;
+    font-weight: 500;
+  }
+
+  .primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 27px;
+    padding: 13px 16px;
+    color: #171d1c;
+    font: 600 10px/1 var(--sans);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: var(--brass);
+    border: 1px solid #e0b66e;
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+  }
+
+  .primary:hover { background: #e0b66e; transform: translateY(-1px); }
+  .primary .arrow { font-size: 16px; line-height: 8px; }
+
+  .ending-note {
+    margin: 17px 0 0;
+    color: #c1b9a8;
+    font: 11px/1.5 var(--sans);
+    letter-spacing: .04em;
+  }
+
+  @media (max-width: 560px) {
+    .hud-head { gap: 8px; align-items: flex-start; flex-direction: column; }
+    .hud-name { font-size: 20px; }
+    .hud-place { font-size: 8px; }
+    .instrument { top: 18px; width: 154px; padding: 10px; }
+    .instrument-label, .seed-label { font-size: 8px; }
+    .clock { font-size: 17px; }
+    .controls { gap: 10px; font-size: 9px; }
+    .controls .move-hint { display: none; }
+    .best-line { max-width: 145px; line-height: 1.5; }
+    .message { bottom: 76px; font-size: 11px; }
+    .card { padding: 27px; }
+    .story { font-size: 15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+<canvas id="world" aria-label="A twilight marsh garden. Walk among the shore lamps, gather wick-seeds, and mend the lamps before dusk."></canvas>
+
+<div class="hud" aria-hidden="false">
+  <div class="hud-head">
+    <span class="hud-name">Merefold</span>
+    <span class="hud-place">The tide garden</span>
+  </div>
+
+  <section class="instrument" aria-label="Garden keeping instruments">
+    <div class="instrument-top">
+      <span class="instrument-label">Last light</span>
+      <span class="clock" id="clock">01:32</span>
+    </div>
+    <div class="time-track" aria-hidden="true"><div class="time-fill" id="timeFill"></div></div>
+    <div class="instrument-bottom">
+      <span class="seed-label">Wick-seeds</span>
+      <span class="seeds"><i class="seed-mark" aria-hidden="true"></i><span id="seedCount">0</span><span class="goal-mark">/ 5</span></span>
+    </div>
+  </section>
+
+  <div class="best-line" id="bestLine">Best tending · <span>not yet kept</span></div>
+
+  <div class="controls">
+    <span class="move-hint"><span class="key">WASD</span> walk <span style="opacity:.55">·</span> click to wander</span>
+    <span><span class="key">SPACE</span> mend</span>
+    <button class="quiet-button" id="soundButton" type="button" aria-pressed="true">Sound · on</button>
+  </div>
+
+  <div class="message" id="message" role="status" aria-live="polite"></div>
+</div>
+
+<main class="screen" id="screen">
+  <section class="card" aria-labelledby="title">
+    <p class="eyebrow" id="eyebrow">A tide garden · Merefold</p>
+    <h1 id="title">Merefold</h1>
+    <p class="story" id="story">When the ferry stopped coming, the shore lamps went dark. The marsh still remembers the way home.</p>
+    <p class="how" id="how"><strong>Gather the fallen wick-seeds.</strong> Carry one to each of the five lamps. The dark comes early over the water.</p>
+    <button class="primary" id="startButton" type="button"><span id="buttonText">Take the lantern</span><span class="arrow" aria-hidden="true">↗</span></button>
+  </section>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const canvas = document.getElementById("world");
+  const ctx = canvas.getContext("2d", { alpha: false });
+  const screen = document.getElementById("screen");
+  const startButton = document.getElementById("startButton");
+  const buttonText = document.getElementById("buttonText");
+  const eyebrow = document.getElementById("eyebrow");
+  const title = document.getElementById("title");
+  const story = document.getElementById("story");
+  const how = document.getElementById("how");
+  const clockEl = document.getElementById("clock");
+  const fillEl = document.getElementById("timeFill");
+  const seedEl = document.getElementById("seedCount");
+  const bestLine = document.getElementById("bestLine");
+  const messageEl = document.getElementById("message");
+  const soundButton = document.getElementById("soundButton");
+
+  const W = 1000, H = 700;
+  const lamps = [
+    { x: 292, y: 255, lit: false, phase: .4 },
+    { x: 500, y: 185, lit: false, phase: 1.2 },
+    { x: 708, y: 255, lit: false, phase: 2.1 },
+    { x: 365, y: 438, lit: false, phase: 2.8 },
+    { x: 635, y: 438, lit: false, phase: 3.7 }
+  ];
+  const pods = [
+    { x: 397, y: 276, got: false, phase: .2 },
+    { x: 500, y: 305, got: false, phase: 1.1 },
+    { x: 603, y: 276, got: false, phase: 2.2 },
+    { x: 270, y: 376, got: false, phase: 3.3 },
+    { x: 730, y: 376, got: false, phase: 4.2 },
+    { x: 426, y: 510, got: false, phase: 5.1 },
+    { x: 574, y: 510, got: false, phase: 6.0 },
+    { x: 500, y: 445, got: false, phase: 1.8 }
+  ];
+  const reedBeds = [
+    { x: 196, y: 255, n: 9, seed: 1 }, { x: 805, y: 270, n: 10, seed: 5 },
+    { x: 239, y: 476, n: 8, seed: 9 }, { x: 762, y: 482, n: 9, seed: 14 },
+    { x: 415, y: 162, n: 6, seed: 19 }, { x: 593, y: 160, n: 7, seed: 24 },
+    { x: 470, y: 545, n: 6, seed: 29 }, { x: 530, y: 545, n: 6, seed: 35 },
+    { x: 335, y: 340, n: 7, seed: 41 }, { x: 664, y: 343, n: 7, seed: 48 }
+  ];
+
+  const player = { x: 500, y: 576, px: 500, py: 576, vx: 0, vy: 0, seeds: 0, step: 0 };
+  const particles = [];
+  for (let i = 0; i < 100; i++) particles.push({ x: 0, y: 0, vx: 0, vy: 0, life: 0, max: 0, size: 1, active: false });
+  const stars = [];
+  let seedRandom = 98217;
+  function rand() {
+    seedRandom = (seedRandom * 16807) % 2147483647;
+    return (seedRandom - 1) / 2147483646;
+  }
+  for (let i = 0; i < 100; i++) stars.push({ x: rand() * W, y: rand() * H, r: .35 + rand() * 1.1, a: .07 + rand() * .19, phase: rand() * 6.28 });
+
+  let dpr = 1, scale = 1, ox = 0, oy = 0, cssW = 0, cssH = 0;
+  let running = false, ended = false, won = false;
+  let remaining = 92, elapsed = 0, seedCount = 0, litCount = 0;
+  let gameTime = 0, messageUntil = 0, messageText = "";
+  let queuedLamp = -1;
+  let targetX = player.x, targetY = player.y, targetActive = false;
+  const keys = { up: false, down: false, left: false, right: false };
+  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let last = 0, accumulator = 0, frame = 0;
+  let audio = null, masterGain = null, soundOn = true;
+
+  function resize() {
+    cssW = window.innerWidth;
+    cssH = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    scale = Math.min(cssW / W, cssH / H);
+    ox = (cssW - W * scale) / 2;
+    oy = (cssH - H * scale) / 2;
+  }
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
+
+  function formatTime(s) {
+    const n = Math.max(0, Math.ceil(s));
+    return String(Math.floor(n / 60)).padStart(2, "0") + ":" + String(n % 60).padStart(2, "0");
+  }
+
+  function bestRead() {
+    try {
+      const value = localStorage.getItem("merefold-best");
+      return value ? Number(value) : 0;
+    } catch (_) { return 0; }
+  }
+
+  function updateBest() {
+    const best = bestRead();
+    bestLine.innerHTML = best > 0
+      ? "Best tending · <span>" + formatTime(best) + "</span>"
+      : "Best tending · <span>not yet kept</span>";
+  }
+  updateBest();
+
+  function setMessage(text, duration = 2.1) {
+    messageText = text;
+    messageEl.textContent = text;
+    messageEl.classList.add("visible");
+    messageUntil = gameTime + duration;
+  }
+
+  function initAudio() {
+    if (audio || !soundOn) return;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    try {
+      audio = new AudioContext();
+      masterGain = audio.createGain();
+      masterGain.gain.value = .25;
+      masterGain.connect(audio.destination);
+
+      const bedA = audio.createOscillator();
+      const bedB = audio.createOscillator();
+      const gainA = audio.createGain();
+      const gainB = audio.createGain();
+      const filter = audio.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.value = 360;
+      bedA.type = "sine";
+      bedB.type = "sine";
+      bedA.frequency.value = 110;
+      bedB.frequency.value = 164.81;
+      gainA.gain.value = .022;
+      gainB.gain.value = .009;
+      bedA.connect(gainA);
+      bedB.connect(gainB);
+      gainA.connect(filter);
+      gainB.connect(filter);
+      filter.connect(masterGain);
+      bedA.start();
+      bedB.start();
+    } catch (_) { audio = null; }
+  }
+
+  function tone(frequency, duration, volume, type) {
+    if (!audio || !soundOn) return;
+    try {
+      const now = audio.currentTime;
+      const osc = audio.createOscillator();
+      const gain = audio.createGain();
+      osc.type = type || "sine";
+      osc.frequency.setValueAtTime(frequency, now);
+      osc.frequency.exponentialRampToValueAtTime(frequency * .72, now + duration);
+      gain.gain.setValueAtTime(.0001, now);
+      gain.gain.exponentialRampToValueAtTime(volume, now + .035);
+      gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+      osc.connect(gain);
+      gain.connect(masterGain);
+      osc.start(now);
+      osc.stop(now + duration + .02);
+    } catch (_) {}
+  }
+
+  soundButton.addEventListener("click", () => {
+    soundOn = !soundOn;
+    soundButton.textContent = soundOn ? "Sound · on" : "Sound · off";
+    soundButton.setAttribute("aria-pressed", String(soundOn));
+    if (soundOn) {
+      initAudio();
+      if (audio && audio.state === "suspended") audio.resume();
+    } else if (masterGain) {
+      masterGain.gain.setTargetAtTime(0, audio.currentTime, .08);
+    }
+    if (soundOn && masterGain) masterGain.gain.setTargetAtTime(.25, audio.currentTime, .3);
+  });
+
+  function burst(x, y, count, strong) {
+    for (let i = 0; i < particles.length && count > 0; i++) {
+      const p = particles[i];
+      if (p.active) continue;
+      const angle = rand() * Math.PI * 2;
+      const speed = (strong ? 28 : 17) + rand() * (strong ? 64 : 38);
+      p.x = x; p.y = y;
+      p.vx = Math.cos(angle) * speed;
+      p.vy = Math.sin(angle) * speed - (strong ? 12 : 3);
+      p.max = p.life = .55 + rand() * .8;
+      p.size = .8 + rand() * (strong ? 2.2 : 1.3);
+      p.active = true;
+      count--;
+    }
+  }
+
+  function startGame() {
+    if (running) return;
+    initAudio();
+    if (audio && audio.state === "suspended") audio.resume();
+    running = true;
+    ended = false;
+    won = false;
+    remaining = 92;
+    elapsed = 0;
+    gameTime = 0;
+    seedCount = 0;
+    litCount = 0;
+    player.x = player.px = 500;
+    player.y = player.py = 576;
+    player.vx = player.vy = 0;
+    player.seeds = 0;
+    targetActive = false;
+    queuedLamp = -1;
+    for (let i = 0; i < lamps.length; i++) lamps[i].lit = false;
+    for (let i = 0; i < pods.length; i++) pods[i].got = false;
+    for (let i = 0; i < particles.length; i++) particles[i].active = false;
+    document.body.classList.add("playing");
+    screen.classList.add("hidden");
+    messageEl.classList.remove("visible");
+    last = performance.now();
+    accumulator = 0;
+  }
+
+  function finish(isWin) {
+    if (ended) return;
+    ended = true;
+    running = false;
+    won = isWin;
+    document.body.classList.remove("playing");
+    document.body.classList.add("ended");
+    screen.classList.remove("hidden");
+    eyebrow.textContent = isWin ? "The channel is clear · Merefold" : "The tide has turned · Merefold";
+    title.textContent = isWin ? "The way home." : "The water closes.";
+    story.textContent = isWin
+      ? "One by one, the shore lamps found their voices. Beyond the reeds, a boat answers with its own small light."
+      : "The wick-seeds will keep. The marsh will be here when the water draws back.";
+    how.textContent = isWin
+      ? "You left five small fires for whoever comes next."
+      : "There is no shame in a darkening shore. The keepers return with the next tide.";
+    const best = bestRead();
+    if (isWin && (!best || elapsed < best)) {
+      try { localStorage.setItem("merefold-best", String(Math.round(elapsed))); } catch (_) {}
+      updateBest();
+    }
+    buttonText.textContent = "Keep the next tide";
+    startButton.focus({ preventScroll: true });
+    tone(isWin ? 392 : 196, isWin ? 1.1 : .8, .07, "sine");
+    if (isWin) {
+      tone(523.25, 1.35, .045, "sine");
+      burst(500, 344, 38, true);
+    }
+  }
+
+  function findNearbyLamp(maxDist) {
+    let found = -1, best = maxDist * maxDist;
+    for (let i = 0; i < lamps.length; i++) {
+      if (lamps[i].lit) continue;
+      const dx = player.x - lamps[i].x, dy = player.y - lamps[i].y;
+      const d = dx * dx + dy * dy;
+      if (d < best) { best = d; found = i; }
+    }
+    return found;
+  }
+
+  function mend(index) {
+    const i = index >= 0 ? index : findNearbyLamp(56);
+    if (i < 0) {
+      setMessage("Come close to a dark shore lamp.");
+      return;
+    }
+    const lamp = lamps[i];
+    const dx = player.x - lamp.x, dy = player.y - lamp.y;
+    if (dx * dx + dy * dy > 56 * 56) {
+      setMessage("A little closer to the lamp.");
+      return;
+    }
+    if (seedCount < 1) {
+      setMessage("A lamp needs one wick-seed.");
+      return;
+    }
+    lamp.lit = true;
+    seedCount--;
+    litCount++;
+    remaining = Math.min(105, remaining + 7.5);
+    burst(lamp.x, lamp.y - 22, 18, true);
+    tone(330 + litCount * 33, .75, .07, "sine");
+    setMessage(litCount === lamps.length ? "The whole channel is breathing again." : "The light holds. The dark has eased.", 2.8);
+    if (litCount >= lamps.length) finish(true);
+  }
+
+  function worldPoint(clientX, clientY) {
+    return {
+      x: (clientX - ox) / scale,
+      y: (clientY - oy) / scale
+    };
+  }
+
+  canvas.addEventListener("pointerdown", (event) => {
+    if (!running || ended) return;
+    const p = worldPoint(event.clientX, event.clientY);
+    let selected = -1;
+    let nearest = 38 * 38;
+    for (let i = 0; i < lamps.length; i++) {
+      if (lamps[i].lit) continue;
+      const dx = p.x - lamps[i].x, dy = p.y - lamps[i].y;
+      const d = dx * dx + dy * dy;
+      if (d < nearest) { nearest = d; selected = i; }
+    }
+    if (selected >= 0) {
+      queuedLamp = selected;
+      targetX = lamps[selected].x;
+      targetY = lamps[selected].y + 25;
+      targetActive = true;
+      if (seedCount === 0) setMessage("Gather a wick-seed from the marsh first.");
+    } else {
+      queuedLamp = -1;
+      targetX = Math.max(92, Math.min(908, p.x));
+      targetY = Math.max(110, Math.min(610, p.y));
+      targetActive = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener("keydown", (event) => {
+    const key = event.key.toLowerCase();
+    if (key === "enter" && !running) {
+      event.preventDefault();
+      startGame();
+      return;
+    }
+    if (!running) return;
+    if (key === "arrowup" || key === "w") { keys.up = true; event.preventDefault(); }
+    if (key === "arrowdown" || key === "s") { keys.down = true; event.preventDefault(); }
+    if (key === "arrowleft" || key === "a") { keys.left = true; event.preventDefault(); }
+    if (key === "arrowright" || key === "d") { keys.right = true; event.preventDefault(); }
+    if (key === " " && !event.repeat) { event.preventDefault(); mend(-1); }
+  }, { passive: false });
+
+  window.addEventListener("keyup", (event) => {
+    const key = event.key.toLowerCase();
+    if (key === "arrowup" || key === "w") keys.up = false;
+    if (key === "arrowdown" || key === "s") keys.down = false;
+    if (key === "arrowleft" || key === "a") keys.left = false;
+    if (key === "arrowright" || key === "d") keys.right = false;
+  }, { passive: true });
+
+  window.addEventListener("blur", () => {
+    keys.up = keys.down = keys.left = keys.right = false;
+  }, { passive: true });
+
+  startButton.addEventListener("click", startGame);
+
+  function update(dt) {
+    if (!running) return;
+    gameTime += dt;
+    elapsed += dt;
+    remaining -= dt * Math.max(.48, 1 - litCount * .105);
+    if (remaining <= 0) {
+      remaining = 0;
+      finish(false);
+      return;
+    }
+
+    player.px = player.x;
+    player.py = player.y;
+
+    let ix = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+    let iy = (keys.down ? 1 : 0) - (keys.up ? 1 : 0);
+    const keyboard = ix !== 0 || iy !== 0;
+    if (keyboard) {
+      const len = Math.hypot(ix, iy);
+      ix /= len; iy /= len;
+      queuedLamp = -1;
+      targetActive = false;
+    } else if (targetActive) {
+      const dx = targetX - player.x, dy = targetY - player.y;
+      const d = Math.hypot(dx, dy);
+      if (d < 7) {
+        ix = 0; iy = 0;
+        targetActive = false;
+      } else {
+        ix = dx / d; iy = dy / d;
+      }
+    }
+
+    const speed = 185;
+    const desiredX = ix * speed, desiredY = iy * speed;
+    const ease = Math.min(1, dt * (keyboard ? 9 : 7));
+    player.vx += (desiredX - player.vx) * ease;
+    player.vy += (desiredY - player.vy) * ease;
+    if (!keyboard && !targetActive && Math.abs(player.vx) + Math.abs(player.vy) < 5) {
+      player.vx = 0; player.vy = 0;
+    }
+    player.x = Math.max(105, Math.min(895, player.x + player.vx * dt));
+    player.y = Math.max(115, Math.min(610, player.y + player.vy * dt));
+    if (Math.abs(player.vx) + Math.abs(player.vy) > 12) player.step += dt * 9;
+
+    for (let i = 0; i < pods.length; i++) {
+      const pod = pods[i];
+      if (pod.got) continue;
+      const dx = player.x - pod.x, dy = player.y - pod.y;
+      if (dx * dx + dy * dy < 24 * 24) {
+        pod.got = true;
+        seedCount++;
+        burst(pod.x, pod.y, 8, false);
+        tone(587.33, .32, .035, "triangle");
+        setMessage("A wick-seed, warm from the peat.");
+      }
+    }
+
+    if (queuedLamp >= 0) {
+      const lamp = lamps[queuedLamp];
+      const dx = player.x - lamp.x, dy = player.y - (lamp.y + 25);
+      if (dx * dx + dy * dy < 38 * 38) {
+        const index = queuedLamp;
+        queuedLamp = -1;
+        targetActive = false;
+        mend(index);
+      }
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      if (!p.active) continue;
+      p.life -= dt;
+      if (p.life <= 0) { p.active = false; continue; }
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.vx *= 1 - dt * .9;
+      p.vy = p.vy * (1 - dt * .35) + 10 * dt;
+    }
+    if (gameTime > messageUntil) messageEl.classList.remove("visible");
+  }
+
+  function drawWater(t) {
+    ctx.fillStyle = "#121b20";
+    ctx.fillRect(0, 0, W, H);
+
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
+      const pulse = reduced ? 1 : .74 + .26 * Math.sin(t * .35 + s.phase);
+      ctx.globalAlpha = s.a * pulse;
+      ctx.fillStyle = "#d6c9aa";
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    ctx.lineWidth = 1;
+    for (let row = 0; row < 16; row++) {
+      const y = 30 + row * 43;
+      for (let col = 0; col < 8; col++) {
+        const x = 22 + col * 139 + ((row % 2) * 49);
+        const wave = reduced ? 0 : Math.sin(t * .22 + row * .7 + col) * 4;
+        ctx.strokeStyle = row % 3 === 0 ? "rgba(122,145,143,.075)" : "rgba(122,145,143,.045)";
+        ctx.beginPath();
+        ctx.moveTo(x + wave, y);
+        ctx.quadraticCurveTo(x + 16 + wave, y - 2, x + 34 + wave, y);
+        ctx.stroke();
+      }
+    }
+
+    const haze = ctx.createRadialGradient(500, 350, 180, 500, 350, 600);
+    haze.addColorStop(0, "rgba(80,94,88,.13)");
+    haze.addColorStop(1, "rgba(14,21,25,0)");
+    ctx.fillStyle = haze;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawIsland() {
+    ctx.save();
+    ctx.shadowColor = "rgba(3,8,10,.58)";
+    ctx.shadowBlur = 28;
+    ctx.shadowOffsetY = 15;
+    ctx.fillStyle = "#293335";
+    ctx.beginPath();
+    ctx.moveTo(112, 355);
+    ctx.bezierCurveTo(117, 256, 183, 174, 274, 150);
+    ctx.bezierCurveTo(332, 111, 420, 124, 488, 111);
+    ctx.bezierCurveTo(585, 98, 676, 122, 731, 154);
+    ctx.bezierCurveTo(839, 174, 894, 253, 885, 343);
+    ctx.bezierCurveTo(911, 433, 839, 519, 767, 536);
+    ctx.bezierCurveTo(694, 592, 600, 578, 510, 599);
+    ctx.bezierCurveTo(404, 613, 312, 588, 252, 550);
+    ctx.bezierCurveTo(166, 526, 101, 451, 112, 355);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    ctx.fillStyle = "#303a38";
+    ctx.beginPath();
+    ctx.moveTo(126, 350);
+    ctx.bezierCurveTo(133, 264, 196, 192, 279, 168);
+    ctx.bezierCurveTo(351, 133, 428, 143, 492, 128);
+    ctx.bezierCurveTo(575, 116, 661, 138, 721, 170);
+    ctx.bezierCurveTo(816, 188, 872, 260, 869, 346);
+    ctx.bezierCurveTo(890, 427, 824, 503, 752, 521);
+    ctx.bezierCurveTo(681, 570, 593, 564, 507, 581);
+    ctx.bezierCurveTo(413, 591, 329, 572, 260, 536);
+    ctx.bezierCurveTo(180, 510, 121, 438, 126, 350);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(193,177,137,.14)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(140, 347);
+    ctx.bezierCurveTo(149, 260, 206, 205, 282, 178);
+    ctx.bezierCurveTo(356, 148, 428, 154, 492, 140);
+    ctx.bezierCurveTo(580, 129, 655, 151, 715, 182);
+    ctx.bezierCurveTo(807, 199, 855, 266, 854, 345);
+    ctx.stroke();
+
+    const ground = ctx.createRadialGradient(500, 350, 30, 500, 350, 450);
+    ground.addColorStop(0, "rgba(141,144,119,.055)");
+    ground.addColorStop(1, "rgba(9,15,16,.18)");
+    ctx.fillStyle = ground;
+    ctx.fill();
+  }
+
+  function drawPaths() {
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgba(191,180,151,.13)";
+    ctx.lineWidth = 15;
+    ctx.beginPath();
+    ctx.moveTo(500, 563);
+    ctx.bezierCurveTo(460, 530, 425, 497, 424, 450);
+    ctx.bezierCurveTo(424, 407, 471, 392, 500, 359);
+    ctx.bezierCurveTo(541, 321, 500, 275, 500, 194);
+    ctx.moveTo(425, 450);
+    ctx.bezierCurveTo(385, 406, 322, 366, 300, 265);
+    ctx.moveTo(500, 359);
+    ctx.bezierCurveTo(572, 335, 666, 324, 700, 264);
+    ctx.moveTo(424, 450);
+    ctx.bezierCurveTo(398, 443, 380, 441, 367, 438);
+    ctx.moveTo(500, 359);
+    ctx.bezierCurveTo(541, 395, 603, 417, 633, 438);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(213,200,168,.12)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([2, 9]);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.fillStyle = "rgba(191,178,146,.16)";
+    ctx.beginPath();
+    ctx.ellipse(500, 570, 24, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawReeds(t) {
+    for (let b = 0; b < reedBeds.length; b++) {
+      const bed = reedBeds[b];
+      for (let i = 0; i < bed.n; i++) {
+        const x = bed.x + (i - (bed.n - 1) / 2) * 5.2;
+        const y = bed.y + Math.sin(i * 4.7 + bed.seed) * 6;
+        const h = 19 + ((i * 13 + bed.seed) % 17);
+        const sway = reduced ? 0 : Math.sin(t * .42 + bed.seed + i * .8) * 3.3;
+        ctx.strokeStyle = i % 3 === 0 ? "rgba(111,126,105,.66)" : "rgba(86,105,91,.72)";
+        ctx.lineWidth = i % 4 === 0 ? 1.5 : 1;
+        ctx.beginPath();
+        ctx.moveTo(x, y + 5);
+        ctx.quadraticCurveTo(x + sway * .45, y - h * .48, x + sway, y - h);
+        ctx.stroke();
+
+        if (i % 3 === 0) {
+          ctx.strokeStyle = "rgba(135,134,103,.55)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x + sway, y - h);
+          ctx.lineTo(x + sway + .5, y - h - 8);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function drawLamp(lamp, index, t) {
+    const x = lamp.x, y = lamp.y;
+    if (lamp.lit) {
+      const breathe = reduced ? 1 : .94 + .06 * Math.sin(t * .8 + lamp.phase);
+      const glow = ctx.createRadialGradient(x, y - 22, 2, x, y - 22, 87 * breathe);
+      glow.addColorStop(0, "rgba(228,184,105,.26)");
+      glow.addColorStop(.32, "rgba(208,164,92,.12)");
+      glow.addColorStop(1, "rgba(208,164,92,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y - 22, 87 * breathe, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = "rgba(10,15,15,.28)";
+    ctx.beginPath();
+    ctx.ellipse(x, y + 3, 15, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = lamp.lit ? "#b7955c" : "#85908a";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y - 23);
+    ctx.stroke();
+
+    ctx.fillStyle = lamp.lit ? "#d0a45c" : "#6f7b76";
+    ctx.beginPath();
+    ctx.ellipse(x, y + 1, 8, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = lamp.lit ? "#c19a5c" : "#65736e";
+    ctx.fillRect(x - 6, y - 36, 12, 15);
+    ctx.fillStyle = lamp.lit ? "#e0c07e" : "#849087";
+    ctx.beginPath();
+    ctx.moveTo(x - 8, y - 36);
+    ctx.lineTo(x, y - 41);
+    ctx.lineTo(x + 8, y - 36);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = lamp.lit ? "#e8d19c" : "#394442";
+    ctx.fillRect(x - 4, y - 33, 8, 9);
+
+    if (lamp.lit) {
+      ctx.fillStyle = "#f1ce88";
+      ctx.beginPath();
+      ctx.arc(x, y - 29, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = .55;
+      ctx.fillStyle = "#f6d69b";
+      ctx.beginPath();
+      ctx.arc(x, y - 29, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    } else {
+      ctx.strokeStyle = "rgba(203,194,168,.34)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x - 2, y - 29);
+      ctx.lineTo(x + 2, y - 29);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = "rgba(211,199,171,.38)";
+    ctx.font = "8px Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(String(index + 1).padStart(2, "0"), x, y + 17);
+  }
+
+  function drawPods(t) {
+    for (let i = 0; i < pods.length; i++) {
+      const p = pods[i];
+      if (p.got) continue;
+      const bob = reduced ? 0 : Math.sin(t * .72 + p.phase) * 2.2;
+      const x = p.x, y = p.y + bob;
+      const halo = ctx.createRadialGradient(x, y, 1, x, y, 15);
+      halo.addColorStop(0, "rgba(208,164,92,.19)");
+      halo.addColorStop(1, "rgba(208,164,92,0)");
+      ctx.fillStyle = halo;
+      ctx.beginPath();
+      ctx.arc(x, y, 15, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(-.46);
+      ctx.fillStyle = "#c39a5c";
+      ctx.beginPath();
+      ctx.moveTo(0, -6);
+      ctx.bezierCurveTo(6, -2, 5, 4, 0, 6);
+      ctx.bezierCurveTo(-5, 4, -6, -2, 0, -6);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(239,211,157,.6)";
+      ctx.lineWidth = .7;
+      ctx.beginPath();
+      ctx.moveTo(0, -4);
+      ctx.lineTo(0, 4);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function drawKeeper(t) {
+    const moving = Math.abs(player.vx) + Math.abs(player.vy) > 12;
+    const step = reduced ? 0 : (moving ? Math.sin(player.step) * 2 : 0);
+    const x = player.x, y = player.y;
+    const light = ctx.createRadialGradient(x, y - 12, 1, x, y - 12, 36);
+    light.addColorStop(0, "rgba(208,164,92,.13)");
+    light.addColorStop(1, "rgba(208,164,92,0)");
+    ctx.fillStyle = light;
+    ctx.beginPath();
+    ctx.arc(x, y - 12, 36, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "rgba(8,13,14,.35)";
+    ctx.beginPath();
+    ctx.ellipse(x, y + 1, 10, 3.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#161e1f";
+    ctx.beginPath();
+    ctx.moveTo(x - 8, y - 3 + step);
+    ctx.quadraticCurveTo(x - 7, y - 18, x, y - 20);
+    ctx.quadraticCurveTo(x + 8, y - 16, x + 9, y - 3 - step);
+    ctx.quadraticCurveTo(x, y + 1, x - 8, y - 3 + step);
+    ctx.fill();
+
+    ctx.fillStyle = "#b6a98b";
+    ctx.beginPath();
+    ctx.arc(x, y - 19, 4.1, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#c49554";
+    ctx.beginPath();
+    ctx.moveTo(x + 7, y - 10);
+    ctx.lineTo(x + 13, y - 7);
+    ctx.lineTo(x + 9, y - 3);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#f0ca81";
+    ctx.beginPath();
+    ctx.arc(x + 12, y - 8, 1.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawParticles() {
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      if (!p.active) continue;
+      ctx.globalAlpha = Math.max(0, p.life / p.max) * .82;
+      ctx.fillStyle = "#e4bc77";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawBoat() {
+    ctx.save();
+    ctx.translate(500, 86);
+    ctx.rotate(-.08);
+    ctx.fillStyle = "#202b2d";
+    ctx.beginPath();
+    ctx.moveTo(-22, 0);
+    ctx.quadraticCurveTo(-14, 10, 15, 7);
+    ctx.lineTo(23, 0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "rgba(179,169,143,.38)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-17, 0);
+    ctx.lineTo(18, 0);
+    ctx.moveTo(0, -1);
+    ctx.lineTo(0, -20);
+    ctx.stroke();
+    ctx.fillStyle = "rgba(214,192,143,.68)";
+    ctx.beginPath();
+    ctx.moveTo(1, -18);
+    ctx.lineTo(12, -5);
+    ctx.lineTo(1, -5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function render(alpha) {
+    frame++;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = "#121b20";
+    ctx.fillRect(0, 0, cssW, cssH);
+    ctx.setTransform(dpr * scale, 0, 0, dpr * scale, ox * dpr, oy * dpr);
+
+    drawWater(gameTime);
+    drawIsland();
+    drawPaths();
+    drawBoat();
+    drawReeds(gameTime);
+    for (let i = 0; i < lamps.length; i++) drawLamp(lamps[i], i, gameTime);
+    drawPods(gameTime);
+    drawParticles();
+
+    const x = player.px + (player.x - player.px) * alpha;
+    const y = player.py + (player.y - player.py) * alpha;
+    const oldX = player.x, oldY = player.y;
+    player.x = x; player.y = y;
+    drawKeeper(gameTime);
+    player.x = oldX; player.y = oldY;
+
+    if (running || ended) {
+      clockEl.textContent = formatTime(remaining);
+      seedEl.textContent = String(seedCount);
+      fillEl.style.transform = "scaleX(" + Math.max(0, remaining / 92) + ")";
+    }
+  }
+
+  function loop(now) {
+    const delta = Math.min(.1, (now - last) / 1000 || 0);
+    last = now;
+    accumulator += delta;
+    const step = 1 / 60;
+    let steps = 0;
+    while (accumulator >= step && steps < 6) {
+      update(step);
+      accumulator -= step;
+      steps++;
+    }
+    if (steps >= 6) accumulator = 0;
+    render(accumulator / step);
+    requestAnimationFrame(loop);
+  }
+
+  last = performance.now();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

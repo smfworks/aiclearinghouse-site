@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#07060c"/>
+      <stop offset="55%" stop-color="#1a0d08"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="ember" cx="38%" cy="72%" r="28%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.95"/>
+      <stop offset="42%" stop-color="#C9A96E" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="night" cx="78%" cy="22%" r="32%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#001F3F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="920" cy="120" rx="340" ry="200" fill="url(#night)"/>
+  <ellipse cx="430" cy="470" rx="260" ry="150" fill="url(#ember)"/>
+  <path d="M180 470 C 280 390, 390 390, 470 470 C 390 430, 280 430, 180 470 Z" fill="#C9A96E" fill-opacity="0.55"/>
+  <rect x="560" y="250" width="18" height="250" rx="4" fill="#3a2414"/>
+  <path d="M520 250 C 620 210, 700 250, 690 300 C 640 270, 580 280, 520 250 Z" fill="#d7dde6"/>
+  <circle cx="210" cy="150" r="2" fill="#C9A96E" opacity="0.7"/>
+  <circle cx="760" cy="90" r="1.6" fill="#ea580c" opacity="0.8"/>
+  <circle cx="1040" cy="180" r="2" fill="#C9A96E" opacity="0.45"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#C9A96E" stroke-opacity="0.28" stroke-width="2"/>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="55%" stop-color="#0d1525"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="barG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#76b900"/>
+      <stop offset="100%" stop-color="#00d4aa"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2a3a" stroke-width="0.6" opacity="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#grid)"/>
+  <rect x="0" y="0" width="1200" height="4" fill="url(#barG)"/>
+  <text x="48" y="64" font-family="Helvetica Neue, Arial, sans-serif" font-size="36" font-weight="700" fill="#e8eef4">SMF Week In Review</text>
+  <text x="48" y="96" font-family="Courier New, monospace" font-size="16" fill="#5a8a6a">Sep 20 – 27, 2026  ·  frontmatter dates  ·  28 posts</text>
+  <g font-family="Courier New, monospace" font-size="12" fill="#8ab0a0">
+    <text x="78" y="148">SUN 20</text>
+    <text x="208" y="148">MON 21</text>
+    <text x="338" y="148">TUE 22</text>
+    <text x="468" y="148">WED 23</text>
+    <text x="598" y="148">THU 24</text>
+    <text x="728" y="148">FRI 25</text>
+    <text x="858" y="148">SAT 26</text>
+    <text x="988" y="148">SUN 27</text>
+  </g>
+  <!-- posts/day: 3, 5, 6, 1, 1, 10, 0, 2. Scale 12 px per post. Baseline y=300. -->
+  <line x1="56" y1="300" x2="1144" y2="300" stroke="#1e3a2f" stroke-width="1"/>
+  <g filter="url(#glow)">
+    <rect x="72" y="264" width="64" height="36" rx="3" fill="#76b900" opacity="0.9"/>
+    <rect x="202" y="240" width="64" height="60" rx="3" fill="#76b900" opacity="0.9"/>
+    <rect x="332" y="228" width="64" height="72" rx="3" fill="#00d4aa" opacity="0.9"/>
+    <rect x="462" y="288" width="64" height="12" rx="2" fill="#5a8a6a" opacity="0.95"/>
+    <rect x="592" y="288" width="64" height="12" rx="2" fill="#5a8a6a" opacity="0.95"/>
+    <rect x="722" y="180" width="64" height="120" rx="3" fill="#00d4aa" opacity="0.95"/>
+    <rect x="982" y="276" width="64" height="24" rx="3" fill="#76b900" opacity="0.9"/>
+  </g>
+  <g font-family="Courier New, monospace" font-size="15" font-weight="700" fill="#e8eef4" text-anchor="middle">
+    <text x="104" y="256">3</text>
+    <text x="234" y="232">5</text>
+    <text x="364" y="220">6</text>
+    <text x="494" y="280">1</text>
+    <text x="624" y="280">1</text>
+    <text x="754" y="172">10</text>
+    <text x="884" y="292">0</text>
+    <text x="1014" y="268">2</text>
+  </g>
+  <rect x="40" y="328" width="1120" height="248" rx="12" fill="#0c1520" stroke="#1e3a2f" stroke-width="1.5"/>
+  <g font-family="Helvetica Neue, Arial, sans-serif" text-anchor="middle">
+    <text x="150" y="392" font-size="44" font-weight="700" fill="#76b900">28</text>
+    <text x="150" y="418" font-size="13" fill="#8ab0a0">POSTS</text>
+    <text x="330" y="392" font-size="44" font-weight="700" fill="#00d4aa">263</text>
+    <text x="330" y="418" font-size="13" fill="#8ab0a0">MIN READ</text>
+    <text x="520" y="392" font-size="44" font-weight="700" fill="#e8eef4">8</text>
+    <text x="520" y="418" font-size="13" fill="#8ab0a0">BYLINES</text>
+    <text x="710" y="392" font-size="44" font-weight="700" fill="#ff9500">10</text>
+    <text x="710" y="418" font-size="13" fill="#8ab0a0">PEAK DAY (FRI)</text>
+    <text x="940" y="392" font-size="40" font-weight="700" fill="#00ccff">96.2%</text>
+    <text x="940" y="418" font-size="13" fill="#8ab0a0">OPUS 5.5 OFFICIAL A</text>
+  </g>
+  <g font-family="Courier New, monospace" font-size="13" fill="#5a8a6a">
+    <text x="64" y="470">Qwen-Image-2.1 23/23  ·  EXL3 79.53 tok/s  ·  Official A  ·  one-shot HTML  ·  Hermes tags  ·  Foundry sessions</text>
+    <text x="64" y="498">DGX Spark GB10  ·  spark-d369 / spark-56bc  ·  H3 kept  ·  OpenRouter thinking-off board</text>
+    <text x="64" y="534" fill="#76b900">Counted from published posts. Not a new benchmark run.</text>
+  </g>
+</svg>
