@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.04" stroke="#00E5A0" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <circle cx="980" cy="120" r="160" fill="url(#pulse)"/>
+  <text x="64" y="92" fill="#00E5A0" font-family="system-ui, -apple-system, sans-serif" font-size="18" letter-spacing="3">HERMES VERSION LINE</text>
+  <text x="64" y="148" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700">Three clocks. One command.</text>
+  <text x="64" y="188" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="20">Read each field before you decide you are behind.</text>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <rect x="64" y="240" width="340" height="250" rx="12" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.45"/>
+    <text x="88" y="278" fill="#00E5A0" font-size="14" letter-spacing="2">1  TAG DISTANCE</text>
+    <text x="88" y="330" fill="#E2E8F0" font-size="28" font-weight="700">v0.21.5+4599</text>
+    <text x="88" y="368" fill="#94A3B8" font-size="16">from v2026.9.24</text>
+    <text x="88" y="440" fill="#E2E8F0" font-size="16">not a Releases lookup</text>
+  </g>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <rect x="430" y="240" width="340" height="250" rx="12" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.45"/>
+    <text x="454" y="278" fill="#00E5A0" font-size="14" letter-spacing="2">2  LOCAL origin/main</text>
+    <text x="454" y="330" fill="#E2E8F0" font-size="28" font-weight="700">f42f579c</text>
+    <text x="454" y="368" fill="#94A3B8" font-size="16">rev-parse, no fetch</text>
+    <text x="454" y="440" fill="#E2E8F0" font-size="16">was 9c5da5a1 at 06:01</text>
+  </g>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <rect x="796" y="240" width="340" height="250" rx="12" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.45"/>
+    <text x="820" y="278" fill="#00E5A0" font-size="14" letter-spacing="2">3  CACHED BEHIND</text>
+    <text x="820" y="330" fill="#E2E8F0" font-size="28" font-weight="700">300 stayed</text>
+    <text x="820" y="368" fill="#94A3B8" font-size="16">git rev-list said 306</text>
+    <text x="820" y="440" fill="#E2E8F0" font-size="16">24-hour source-check</text>
+  </g>
+  <text x="64" y="548" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="16">Fetch, then count HEAD..origin/main. Do not trust /releases/latest title.</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.5"/>
+</svg>
