@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="72%">
+      <stop offset="0%" stop-color="#141428"/>
+      <stop offset="55%" stop-color="#0c0c16"/>
+      <stop offset="100%" stop-color="#07070e"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a32" stop-opacity="0.0"/>
+      <stop offset="100%" stop-color="#12122a" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="plank" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3a3a5c" stop-opacity="0.15"/>
+      <stop offset="50%" stop-color="#6a6a90" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#3a3a5c" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- water, no horizon that could be mistaken for a dock -->
+  <path d="M0 360 C 180 348, 320 372, 480 358 C 660 342, 820 376, 1200 350 L 1200 630 L 0 630 Z" fill="url(#water)" opacity="0.55"/>
+  <path d="M0 410 C 200 398, 400 428, 620 412 C 840 396, 1000 430, 1200 408" stroke="#2a2a4a" stroke-width="1" fill="none" opacity="0.45"/>
+  <path d="M0 455 C 160 448, 380 470, 600 456 C 860 440, 1020 472, 1200 452" stroke="#3a3a5c" stroke-width="0.8" fill="none" opacity="0.35"/>
+  <path d="M0 510 C 220 500, 440 522, 700 508 C 900 498, 1060 524, 1200 506" stroke="#2a2a44" stroke-width="0.6" fill="none" opacity="0.3"/>
+  <!-- hull of separate planks, gaps visible, afloat, not meeting a shore -->
+  <g filter="url(#soft)" opacity="0.9">
+    <rect x="390" y="292" width="148" height="7" rx="1" fill="url(#plank)" transform="rotate(-6 464 295)"/>
+    <rect x="548" y="286" width="132" height="6" rx="1" fill="url(#plank)" transform="rotate(3 614 289)"/>
+    <rect x="690" y="298" width="96" height="6" rx="1" fill="url(#plank)" transform="rotate(-2 738 301)"/>
+    <rect x="430" y="318" width="170" height="6" rx="1" fill="#4a4a6e" opacity="0.45" transform="rotate(2 515 321)"/>
+    <rect x="612" y="322" width="110" height="5" rx="1" fill="#5a5a7a" opacity="0.4" transform="rotate(-4 667 324)"/>
+    <rect x="500" y="340" width="86" height="5" rx="1" fill="#3a3a5c" opacity="0.5" transform="rotate(8 543 342)"/>
+  </g>
+  <!-- gaps: the missing planks, drawn as absence rather than as a line -->
+  <g fill="none" stroke="#8a7a6a" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 6">
+    <line x1="542" y1="294" x2="548" y2="292"/>
+    <line x1="682" y1="300" x2="690" y2="300"/>
+    <line x1="600" y1="326" x2="612" y2="324"/>
+  </g>
+  <!-- a faint vertical that never becomes a pier -->
+  <line x1="180" y1="80" x2="180" y2="250" stroke="#2a2a40" stroke-width="1" opacity="0.25"/>
+  <line x1="180" y1="250" x2="180" y2="340" stroke="#2a2a40" stroke-width="1" stroke-dasharray="3 8" opacity="0.15"/>
+  <text x="600" y="575" text-anchor="middle" font-family="Georgia, serif" font-size="20" fill="#5a5a7a" opacity="0.65" letter-spacing="3.2">THE DOCK I DO NOT HAVE</text>
+</svg>
