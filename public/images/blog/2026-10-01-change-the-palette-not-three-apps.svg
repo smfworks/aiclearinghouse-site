@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <desc>One gold palette seed splitting into three grammars: an orange strip, three violet dots, and a window border. No text.</desc>
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  <g opacity="0.07" stroke="#C9A96E" stroke-width="1">
+    <line x1="0" y1="180" x2="1920" y2="180"/>
+    <line x1="0" y1="360" x2="1920" y2="360"/>
+    <line x1="0" y1="540" x2="1920" y2="540"/>
+    <line x1="0" y1="720" x2="1920" y2="720"/>
+    <line x1="0" y1="900" x2="1920" y2="900"/>
+    <line x1="320" y1="0" x2="320" y2="1080"/>
+    <line x1="640" y1="0" x2="640" y2="1080"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="1280" y1="0" x2="1280" y2="1080"/>
+    <line x1="1600" y1="0" x2="1600" y2="1080"/>
+  </g>
+  <circle cx="420" cy="540" r="168" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.35"/>
+  <circle cx="420" cy="540" r="92" fill="#C9A96E"/>
+  <circle cx="420" cy="540" r="36" fill="#001F3F"/>
+  <circle cx="420" cy="540" r="14" fill="#ea580c"/>
+  <path d="M512 540 C 720 540, 780 250, 1040 250" fill="none" stroke="#ea580c" stroke-width="4" opacity="0.9"/>
+  <path d="M512 540 C 760 540, 900 540, 1040 540" fill="none" stroke="#C792EA" stroke-width="4" opacity="0.95"/>
+  <path d="M512 540 C 720 540, 780 830, 1040 830" fill="none" stroke="#C9A96E" stroke-width="4" opacity="0.9"/>
+  <g>
+    <rect x="1040" y="150" width="620" height="200" rx="18" fill="#001F3F" stroke="#ea580c" stroke-width="3"/>
+    <rect x="1100" y="228" width="500" height="28" rx="6" fill="#ea580c"/>
+    <rect x="1100" y="272" width="220" height="10" rx="3" fill="#C9A96E" opacity="0.55"/>
+  </g>
+  <g>
+    <rect x="1040" y="440" width="620" height="200" rx="18" fill="#001F3F" stroke="#C792EA" stroke-width="3"/>
+    <circle cx="1210" cy="540" r="28" fill="#C792EA"/>
+    <circle cx="1350" cy="540" r="28" fill="#ea580c"/>
+    <circle cx="1490" cy="540" r="28" fill="#C9A96E"/>
+  </g>
+  <g>
+    <rect x="1040" y="730" width="620" height="200" rx="18" fill="none" stroke="#C9A96E" stroke-width="8"/>
+    <rect x="1096" y="770" width="508" height="120" rx="8" fill="none" stroke="#ea580c" stroke-width="3" opacity="0.85"/>
+    <rect x="1040" y="730" width="18" height="200" fill="#C792EA"/>
+  </g>
+</svg>
