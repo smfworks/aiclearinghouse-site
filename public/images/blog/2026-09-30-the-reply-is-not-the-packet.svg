@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: a thick packet stays in the folder. A thin slip travels the rail. The slip is not the stack.
+     Brand palette: navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A thick packet stays in a folder while a thin slip travels a rail into an empty frame">
+  <defs>
+    <linearGradient id="replyBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="60%" stop-color="#0b1c32"/>
+      <stop offset="100%" stop-color="#081422"/>
+    </linearGradient>
+    <radialGradient id="replyTeal" cx="22%" cy="58%" r="38%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="replyGold" cx="78%" cy="42%" r="28%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="replyFolder" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#14586e"/>
+      <stop offset="100%" stop-color="#0c3d4e"/>
+    </linearGradient>
+    <linearGradient id="replyStack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a4570"/>
+      <stop offset="100%" stop-color="#102848"/>
+    </linearGradient>
+    <linearGradient id="replySlip" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#replyBg)"/>
+  <rect width="1200" height="630" fill="url(#replyTeal)"/>
+  <rect width="1200" height="630" fill="url(#replyGold)"/>
+
+  <rect x="56" y="48" width="1088" height="534" rx="8" fill="none" stroke="#162236" stroke-width="2"/>
+
+  <!-- rail -->
+  <line x1="250" y1="392" x2="1040" y2="392" stroke="#1e3a5f" stroke-width="6" stroke-linecap="round"/>
+  <line x1="250" y1="392" x2="1040" y2="392" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- folder, left, holding the packet -->
+  <path d="M120 168 h150 l28 32 h250 v250 h-428 z" fill="url(#replyFolder)"/>
+  <path d="M120 200 h428 v250 h-428 z" fill="#0e4a60" opacity="0.55"/>
+
+  <!-- thick stack, stays put -->
+  <rect x="168" y="214" width="292" height="196" rx="3" fill="#0c2744"/>
+  <rect x="180" y="202" width="292" height="196" rx="3" fill="url(#replyStack)"/>
+  <rect x="192" y="190" width="292" height="196" rx="3" fill="#163a62"/>
+  <rect x="204" y="178" width="292" height="196" rx="3" fill="#1b4674"/>
+  <rect x="228" y="214" width="168" height="8" rx="2" fill="#00d4ff" opacity="0.35"/>
+  <rect x="228" y="236" width="220" height="6" rx="2" fill="#8fb4d4" opacity="0.28"/>
+  <rect x="228" y="254" width="200" height="6" rx="2" fill="#8fb4d4" opacity="0.22"/>
+  <rect x="228" y="272" width="236" height="6" rx="2" fill="#8fb4d4" opacity="0.22"/>
+  <rect x="228" y="290" width="180" height="6" rx="2" fill="#8fb4d4" opacity="0.18"/>
+  <rect x="228" y="308" width="210" height="6" rx="2" fill="#8fb4d4" opacity="0.16"/>
+
+  <!-- empty frame, right, waiting -->
+  <rect x="860" y="168" width="220" height="280" rx="6" fill="none" stroke="#1e3a5f" stroke-width="3"/>
+  <rect x="876" y="184" width="188" height="248" rx="4" fill="#0a1628" stroke="#13243d" stroke-width="1"/>
+
+  <!-- thin slip on the rail, not the stack -->
+  <rect x="620" y="368" width="92" height="18" rx="2" fill="url(#replySlip)"/>
+  <rect x="632" y="374" width="48" height="3" rx="1" fill="#0a1628" opacity="0.35"/>
+</svg>
