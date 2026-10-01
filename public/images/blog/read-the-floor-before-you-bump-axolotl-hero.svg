@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "Read the Floor Before You Bump Axolotl". No visible text.
+     A gold threshold the old block does not clear. To the right, one
+     stream splits into three file shapes: the unquantized conversion
+     plus two quant outputs. A teal ring sits above, four nodes, not a label.
+     Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A gold floor line an old block fails to clear, with one stream splitting into three export files and a four-node ring above">
+  <defs>
+    <linearGradient id="flBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="48%" stop-color="#0c1e38"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="flGlowGold" cx="28%" cy="62%" r="36%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#ff6b00" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="flGlowTeal" cx="78%" cy="36%" r="30%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="flFloor" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="35%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#flBg)"/>
+  <rect width="1200" height="630" fill="url(#flGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#flGlowTeal)"/>
+
+  <g stroke="#13243d" stroke-width="1" fill="none" opacity="0.45">
+    <rect x="48" y="48" width="1104" height="534" rx="6"/>
+    <line x1="48" y1="220" x2="1152" y2="220"/>
+    <line x1="48" y1="430" x2="1152" y2="430"/>
+    <line x1="420" y1="48" x2="420" y2="582"/>
+    <line x1="820" y1="48" x2="820" y2="582"/>
+  </g>
+
+  <!-- floor: the new minimum, not a decoration -->
+  <path d="M90 430 H390" fill="none" stroke="url(#flFloor)" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- block that clears the floor -->
+  <rect x="150" y="250" width="110" height="180" rx="6" fill="#f59e0b" opacity="0.92"/>
+  <rect x="168" y="268" width="74" height="28" rx="3" fill="#0a1628" opacity="0.35"/>
+
+  <!-- old block, cut by the floor, does not stand on it -->
+  <rect x="290" y="390" width="88" height="120" rx="6" fill="#ff6b00" opacity="0.35"/>
+  <path d="M290 430 H378" fill="none" stroke="#ff6b00" stroke-width="4"/>
+
+  <!-- one stream into three export files -->
+  <path d="M460 300 H620" fill="none" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M620 300 L700 180" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.85"/>
+  <path d="M620 300 L760 300" fill="none" stroke="#f59e0b" stroke-width="3" opacity="0.9"/>
+  <path d="M620 300 L700 430" fill="none" stroke="#0e7490" stroke-width="3" opacity="0.9"/>
+
+  <rect x="700" y="120" width="92" height="118" rx="8" fill="none" stroke="#00d4ff" stroke-width="6"/>
+  <rect x="718" y="142" width="56" height="74" rx="3" fill="#0e7490"/>
+
+  <rect x="760" y="246" width="92" height="118" rx="8" fill="none" stroke="#f59e0b" stroke-width="6"/>
+  <rect x="778" y="268" width="56" height="74" rx="3" fill="#f59e0b" opacity="0.85"/>
+
+  <rect x="700" y="390" width="92" height="118" rx="8" fill="none" stroke="#ff6b00" stroke-width="6"/>
+  <rect x="718" y="412" width="56" height="74" rx="3" fill="#ff6b00" opacity="0.7"/>
+
+  <!-- four-node ring, context split, no caption -->
+  <g fill="none" stroke="#0e7490" stroke-width="3" opacity="0.8">
+    <circle cx="980" cy="168" r="18"/>
+    <circle cx="1068" cy="220" r="18"/>
+    <circle cx="1040" cy="320" r="18"/>
+    <circle cx="940" cy="280" r="18"/>
+    <path d="M998 176 L1050 214"/>
+    <path d="M1058 238 L1048 302"/>
+    <path d="M1022 318 L958 292"/>
+    <path d="M948 262 L968 184"/>
+  </g>
+  <g fill="#00d4ff" opacity="0.9">
+    <circle cx="980" cy="168" r="6"/>
+    <circle cx="1068" cy="220" r="6"/>
+    <circle cx="1040" cy="320" r="6"/>
+    <circle cx="940" cy="280" r="6"/>
+  </g>
+
+  <g fill="none" stroke="#1e3a8a" stroke-width="2" opacity="0.55">
+    <path d="M900 470 h160"/>
+    <path d="M930 498 h100"/>
+    <path d="M960 526 h70"/>
+  </g>
+</svg>
