@@ -31,7 +31,7 @@ export default function ReferencePage() {
             </p>
             <h1 className="text-4xl font-semibold tracking-tight">The shelf, not the feed</h1>
             <p className="mt-4 text-lg text-foreground-secondary">
-              These pages stay. They just leave the top of the site. Read is the blog. This is where you look something up.
+              These pages stay. They just leave the top of the site. Blog is the essay feed. This is where you look something up.
             </p>
           </div>
         </section>

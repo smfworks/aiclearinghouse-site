@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu, X, Search, Sparkles } from "lucide-react";
 
 const links = [
-  { href: "/blog", label: "Read" },
+  { href: "/blog", label: "Blog" },
   { href: "/reference", label: "Reference" },
   { href: "/lab", label: "Lab" },
   { href: "/about", label: "About" },
