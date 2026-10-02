@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Spark Line Is DSpark". No visible text.
+     Left: a gold speculative lattice (draft nodes, not a machine).
+     A broken bridge in the center: the name does not cross.
+     Right: one teal slab for unified memory, with a slow arc.
+     Bottom: three probability bars, unequal, not a generation stream.
+     Navy #0a1628 / #1e3a8a, gold #f59e0b / #ff6b00, teal #0e7490 / #00d4ff. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A gold draft lattice that does not cross a gap into a teal unified-memory slab, with three unequal probability bars below">
+  <defs>
+    <linearGradient id="spBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#0c1e38"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <radialGradient id="spGlowGold" cx="22%" cy="38%" r="32%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.20"/>
+      <stop offset="70%" stop-color="#ff6b00" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="spGlowTeal" cx="78%" cy="42%" r="28%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="spSlab" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#134e5e"/>
+    </linearGradient>
+    <linearGradient id="spBar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#spBg)"/>
+  <rect width="1200" height="630" fill="url(#spGlowGold)"/>
+  <rect width="1200" height="630" fill="url(#spGlowTeal)"/>
+
+  <g stroke="#13243d" stroke-width="1" fill="none" opacity="0.4">
+    <rect x="40" y="36" width="1120" height="558" rx="8"/>
+    <line x1="40" y1="470" x2="1160" y2="470"/>
+  </g>
+
+  <!-- speculative lattice, left -->
+  <g fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.9">
+    <path d="M180 250 L260 170"/>
+    <path d="M180 250 L260 250"/>
+    <path d="M180 250 L260 330"/>
+    <path d="M260 170 L340 130"/>
+    <path d="M260 170 L340 190"/>
+    <path d="M260 250 L340 250"/>
+    <path d="M260 330 L340 300"/>
+    <path d="M260 330 L340 360"/>
+  </g>
+  <g fill="#f59e0b">
+    <circle cx="180" cy="250" r="14"/>
+    <circle cx="260" cy="170" r="9"/>
+    <circle cx="260" cy="250" r="9"/>
+    <circle cx="260" cy="330" r="9"/>
+    <circle cx="340" cy="130" r="6"/>
+    <circle cx="340" cy="190" r="6"/>
+    <circle cx="340" cy="250" r="6"/>
+    <circle cx="340" cy="300" r="6"/>
+    <circle cx="340" cy="360" r="6"/>
+  </g>
+  <circle cx="180" cy="250" r="22" fill="none" stroke="#ff6b00" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- broken bridge: the name does not cross -->
+  <g stroke="#1e3a8a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M390 250 H500"/>
+    <path d="M620 250 H700" stroke-dasharray="10 8" opacity="0.55"/>
+  </g>
+  <g fill="#ff6b00">
+    <rect x="508" y="242" width="18" height="16" rx="2"/>
+    <rect x="534" y="242" width="18" height="16" rx="2" opacity="0.35"/>
+    <rect x="560" y="242" width="18" height="16" rx="2" opacity="0.15"/>
+  </g>
+
+  <!-- unified memory slab, right -->
+  <rect x="760" y="150" width="320" height="200" rx="10" fill="url(#spSlab)" opacity="0.92"/>
+  <rect x="760" y="150" width="320" height="200" rx="10" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.55"/>
+  <path d="M790 250 C860 190, 960 190, 1040 250" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.8"/>
+  <circle cx="1040" cy="250" r="6" fill="#00d4ff"/>
+  <g fill="#0a1628" opacity="0.35">
+    <rect x="788" y="292" width="264" height="10" rx="2"/>
+    <rect x="788" y="312" width="180" height="10" rx="2"/>
+  </g>
+
+  <!-- three unequal probability bars -->
+  <g>
+    <rect x="430" y="520" width="36" height="70" rx="3" fill="url(#spBar)" opacity="0.45"/>
+    <rect x="490" y="490" width="36" height="100" rx="3" fill="url(#spBar)"/>
+    <rect x="550" y="540" width="36" height="50" rx="3" fill="url(#spBar)" opacity="0.7"/>
+  </g>
+  <line x1="400" y1="590" x2="620" y2="590" stroke="#1e3a8a" stroke-width="2"/>
+</svg>
