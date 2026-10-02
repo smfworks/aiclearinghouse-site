@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0A0F1F"/>
+  <g opacity="0.05" stroke="#00E5A0" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <text x="60" y="78" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="16" letter-spacing="2">HERMES UPDATE FROM CRON</text>
+  <text x="60" y="128" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="36" font-weight="700">Don't restart the gateway from inside the job</text>
+  <rect x="60" y="190" width="300" height="200" rx="8" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.7"/>
+  <text x="80" y="230" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="14" letter-spacing="1">1. INSIDE THE CGROUP</text>
+  <text x="80" y="280" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="22" font-weight="700">hermes update</text>
+  <text x="80" y="318" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="18">--no-gateway-restart</text>
+  <text x="80" y="358" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="15">pull, deps, skip restart</text>
+  <text x="390" y="300" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="28">→</text>
+  <rect x="450" y="190" width="300" height="200" rx="8" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.45"/>
+  <text x="470" y="230" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="14" letter-spacing="1">2. MARKER STAYS</text>
+  <text x="470" y="280" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="22" font-weight="700">restart deferred</text>
+  <text x="470" y="318" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="16">receipt records the skip</text>
+  <text x="470" y="352" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="16">next CLI start warns</text>
+  <text x="780" y="300" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="28">→</text>
+  <rect x="840" y="190" width="300" height="200" rx="8" fill="#131B2E" stroke="#00E5A0" stroke-opacity="0.7"/>
+  <text x="860" y="230" fill="#00E5A0" font-family="system-ui, sans-serif" font-size="14" letter-spacing="1">3. LATER, NOT THE SAME JOB</text>
+  <text x="860" y="280" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="20" font-weight="700">hermes gateway</text>
+  <text x="860" y="312" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="20" font-weight="700">restart</text>
+  <text x="860" y="352" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="15">docs example: 10-15 min</text>
+  <text x="60" y="450" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="18">Drain cap default: 1800 seconds (30 min). Not gateway_timeout.</text>
+  <text x="60" y="488" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="16">KillMode=mixed kills the cgroup when the main process exits.</text>
+  <text x="60" y="524" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="16">TimeoutStopSec=90 bounds systemd stop, not the in-band wait.</text>
+  <text x="60" y="580" fill="#64748B" font-family="system-ui, sans-serif" font-size="14">Dr J  ·  check hermes update --help on the binary you will run</text>
+  <rect x="0" y="627" width="1200" height="3" fill="#00E5A0" opacity="0.6"/>
+</svg>
