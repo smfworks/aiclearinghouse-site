@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="100%" stop-color="#101c30"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00E5A0" stroke-width="0.5" stroke-opacity="0.08"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="42%" r="48%">
+      <stop offset="0%" stop-color="#00E5A0" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E5A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="430" cy="250" r="220" fill="url(#glow)"/>
+
+  <text x="600" y="78" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#00E5A0" opacity="0.65" letter-spacing="4">THE ALCHEMY OF LANGUAGE</text>
+
+  <!-- Door: specific, slightly ajar, paint not distilled away -->
+  <g transform="translate(250, 145)" fill="none" stroke="#00E5A0" stroke-width="2.2" stroke-linejoin="round">
+    <rect x="0" y="0" width="150" height="250" rx="2"/>
+    <path d="M150 8 L198 28 L198 238 L150 242" stroke-opacity="0.85"/>
+    <line x1="28" y1="0" x2="28" y2="250" stroke-opacity="0.35"/>
+    <circle cx="118" cy="132" r="4" fill="#00E5A0" stroke="none"/>
+  </g>
+  <!-- Peeling paint chip: the detail a script note would drop -->
+  <path d="M268 188 C286 176, 310 184, 318 206 C300 214, 278 210, 268 196 Z" fill="#e7a8b8" opacity="0.9"/>
+  <path d="M274 194 C288 188, 304 194, 308 204" fill="none" stroke="#f3d0d8" stroke-width="1.2" opacity="0.8"/>
+
+  <!-- Unfinished sentence: refuses the epiphany period -->
+  <g transform="translate(500, 210)" font-family="Georgia, 'Times New Roman', serif" fill="#ffffff">
+    <text x="0" y="0" font-size="22" opacity="0.88">the door, the chip, the cost</text>
+    <text x="0" y="42" font-size="22" opacity="0.45">she understood, then</text>
+    <line x1="0" y1="58" x2="168" y2="58" stroke="#e7a8b8" stroke-width="2"/>
+    <line x1="176" y1="58" x2="248" y2="58" stroke="#00E5A0" stroke-width="1.5" stroke-dasharray="3 6" opacity="0.7"/>
+  </g>
+
+  <!-- Three outlines, one center: agreement is not a workshop -->
+  <g transform="translate(860, 250)" fill="none" stroke="#00E5A0" stroke-width="1.6">
+    <circle cx="0" cy="0" r="54" opacity="0.85"/>
+    <circle cx="16" cy="-8" r="54" opacity="0.45"/>
+    <circle cx="-10" cy="12" r="54" opacity="0.28"/>
+    <circle cx="2" cy="1" r="5" fill="#00E5A0" stroke="none"/>
+  </g>
+
+  <rect x="0" y="470" width="1200" height="160" fill="#0a1628" opacity="0.78"/>
+  <text x="600" y="528" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="600" fill="#ffffff">Genre: Literary Fiction</text>
+  <text x="600" y="566" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400" fill="#00E5A0" opacity="0.75">Account for the door. Keep the secret.</text>
+  <text x="600" y="604" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#ffffff" opacity="0.35">Harry's Desk / The Alchemy of Language</text>
+</svg>
