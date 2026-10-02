@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="accent1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#2ea043"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#388bfd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- abstract branch lines converging -->
+  <path d="M 100 480 Q 350 380 550 315 T 1050 200" stroke="url(#accent2)" stroke-width="4" fill="none" opacity="0.7" stroke-linecap="round"/>
+  <path d="M 100 520 Q 400 440 600 360 T 1050 250" stroke="url(#accent1)" stroke-width="4" fill="none" opacity="0.7" stroke-linecap="round"/>
+  <path d="M 100 560 Q 300 500 500 420 T 1050 300" stroke="url(#accent2)" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round"/>
+  <!-- nodes -->
+  <circle cx="100" cy="480" r="14" fill="#1f6feb" opacity="0.9"/>
+  <circle cx="100" cy="520" r="14" fill="#238636" opacity="0.9"/>
+  <circle cx="100" cy="560" r="14" fill="#1f6feb" opacity="0.6"/>
+  <circle cx="550" cy="315" r="20" fill="none" stroke="#2ea043" stroke-width="3" opacity="0.8"/>
+  <circle cx="600" cy="360" r="20" fill="none" stroke="#388bfd" stroke-width="3" opacity="0.8"/>
+  <circle cx="1050" cy="200" r="22" fill="#238636" opacity="0.9"/>
+  <circle cx="1050" cy="250" r="22" fill="#1f6feb" opacity="0.9"/>
+  <circle cx="1050" cy="300" r="22" fill="#1f6feb" opacity="0.6"/>
+  <!-- abstract code blocks -->
+  <rect x="200" y="80" width="180" height="120" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2" opacity="0.8"/>
+  <rect x="820" y="80" width="180" height="120" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2" opacity="0.8"/>
+  <rect x="200" y="420" width="180" height="60" rx="8" fill="#0d1117" stroke="#238636" stroke-width="2" opacity="0.5"/>
+  <rect x="820" y="420" width="180" height="60" rx="8" fill="#0d1117" stroke="#1f6feb" stroke-width="2" opacity="0.5"/>
+</svg>
