@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: a sealed prompt card, a disk file, and a press that cracks the seal.
+     The wall plaque stays unconnected. Brand palette. No text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A press cracks the seal on a dark card while a line runs in from a file and a blank plaque stays unconnected">
+  <defs>
+    <linearGradient id="memBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#0c1e36"/>
+      <stop offset="100%" stop-color="#081018"/>
+    </linearGradient>
+    <radialGradient id="memTeal" cx="18%" cy="62%" r="36%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="memGold" cx="62%" cy="28%" r="26%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="memCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16345c"/>
+      <stop offset="100%" stop-color="#0c2240"/>
+    </linearGradient>
+    <linearGradient id="memPress" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff6b00"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="memDisk" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14708c"/>
+      <stop offset="100%" stop-color="#0c4458"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#memBg)"/>
+  <rect width="1200" height="630" fill="url(#memTeal)"/>
+  <rect width="1200" height="630" fill="url(#memGold)"/>
+  <rect x="48" y="40" width="1104" height="550" rx="8" fill="none" stroke="#162236" stroke-width="2"/>
+
+  <!-- blank plaque, unconnected -->
+  <rect x="860" y="168" width="210" height="268" rx="6" fill="#0d1a2c" stroke="#1e3a5f" stroke-width="2"/>
+  <rect x="888" y="204" width="154" height="8" rx="2" fill="#1a3050"/>
+  <rect x="888" y="228" width="122" height="8" rx="2" fill="#152844"/>
+  <rect x="888" y="252" width="140" height="8" rx="2" fill="#1a3050"/>
+  <rect x="888" y="276" width="96" height="8" rx="2" fill="#152844"/>
+
+  <!-- disk / file -->
+  <rect x="118" y="250" width="168" height="196" rx="8" fill="url(#memDisk)" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.55"/>
+  <rect x="118" y="250" width="168" height="28" rx="8" fill="#0e7490"/>
+  <rect x="118" y="268" width="168" height="10" fill="#0e7490"/>
+  <circle cx="146" cy="264" r="5" fill="#f59e0b"/>
+  <rect x="146" y="304" width="112" height="8" rx="2" fill="#9ae8f5" fill-opacity="0.45"/>
+  <rect x="146" y="326" width="88" height="8" rx="2" fill="#9ae8f5" fill-opacity="0.28"/>
+  <rect x="146" y="348" width="100" height="8" rx="2" fill="#9ae8f5" fill-opacity="0.28"/>
+  <rect x="146" y="390" width="36" height="22" rx="3" fill="#f59e0b" fill-opacity="0.85"/>
+
+  <!-- line from file into the cracked card -->
+  <path d="M286 348 H390" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+  <path d="M390 348 C430 348 438 300 470 268" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- prompt card -->
+  <rect x="470" y="188" width="280" height="250" rx="10" fill="url(#memCard)" stroke="#1e3a8a" stroke-width="2"/>
+  <!-- frost rim, broken at the top center -->
+  <path d="M490 198 H590" fill="none" stroke="#9ae8f5" stroke-width="3" stroke-linecap="round" stroke-opacity="0.7"/>
+  <path d="M640 198 H730" fill="none" stroke="#9ae8f5" stroke-width="3" stroke-linecap="round" stroke-opacity="0.7"/>
+  <path d="M480 208 V418" fill="none" stroke="#9ae8f5" stroke-width="3" stroke-linecap="round" stroke-opacity="0.35"/>
+  <path d="M740 208 V418" fill="none" stroke="#9ae8f5" stroke-width="3" stroke-linecap="round" stroke-opacity="0.35"/>
+  <!-- crack -->
+  <path d="M604 198 L592 228 L614 252 L598 286" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="508" y="250" width="150" height="10" rx="2" fill="#24507a"/>
+  <rect x="508" y="276" width="118" height="10" rx="2" fill="#1c4068"/>
+  <rect x="508" y="302" width="168" height="10" rx="2" fill="#24507a"/>
+  <rect x="508" y="328" width="96" height="10" rx="2" fill="#1c4068"/>
+  <rect x="508" y="372" width="72" height="22" rx="4" fill="#0e7490"/>
+
+  <!-- press -->
+  <rect x="574" y="72" width="72" height="18" rx="3" fill="url(#memPress)"/>
+  <rect x="604" y="90" width="12" height="78" fill="url(#memPress)"/>
+  <polygon points="586,168 634,168 620,198 600,198" fill="#f59e0b"/>
+</svg>
