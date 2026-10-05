@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624" role="img" aria-labelledby="title desc">
+  <title id="title">SMF Week In Review, 27 September to 4 October 2026</title>
+  <desc id="desc">Volume bars for 56 linked posts. Peak is Monday with 13. Read-time sum is 631 minutes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="100%" stop-color="#121a2e"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#c4843a"/>
+      <stop offset="100%" stop-color="#f0c27a"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g opacity="0.35" stroke="#243044" stroke-width="1">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200 M0 400 H1200 M0 480 H1200 M0 560 H1200"/>
+    <path d="M80 0 V624 M200 0 V624 M320 0 V624 M440 0 V624 M560 0 V624 M680 0 V624 M800 0 V624 M920 0 V624 M1040 0 V624"/>
+  </g>
+  <text x="64" y="72" fill="#f4efe6" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700">SMF Week In Review</text>
+  <text x="64" y="108" fill="#9aa6b8" font-family="ui-monospace, 'SF Mono', Consolas, monospace" font-size="16">27 Sep – 4 Oct 2026 · posts linked in this review</text>
+  <g font-family="ui-monospace, 'SF Mono', Consolas, monospace">
+    <rect x="64" y="136" width="168" height="78" rx="8" fill="#161e30" stroke="#2a384c"/>
+    <text x="80" y="164" fill="#8b97a8" font-size="12">POSTS LINKED</text>
+    <text x="80" y="196" fill="#f0c27a" font-size="28" font-weight="700">56</text>
+    <rect x="248" y="136" width="188" height="78" rx="8" fill="#161e30" stroke="#2a384c"/>
+    <text x="264" y="164" fill="#8b97a8" font-size="12">READ MINUTES</text>
+    <text x="264" y="196" fill="#7ee0d6" font-size="28" font-weight="700">631</text>
+    <rect x="452" y="136" width="220" height="78" rx="8" fill="#161e30" stroke="#2a384c"/>
+    <text x="468" y="164" fill="#8b97a8" font-size="12">PEAK DAY</text>
+    <text x="468" y="196" fill="#f4efe6" font-size="22" font-weight="700">Mon 28 · 13</text>
+    <rect x="688" y="136" width="168" height="78" rx="8" fill="#161e30" stroke="#2a384c"/>
+    <text x="704" y="164" fill="#8b97a8" font-size="12">BYLINES</text>
+    <text x="704" y="196" fill="#f4efe6" font-size="28" font-weight="700">15</text>
+  </g>
+  <text x="64" y="258" fill="#8b97a8" font-family="ui-monospace, 'SF Mono', Consolas, monospace" font-size="12">POSTS BY DAY</text>
+  <g font-family="ui-monospace, 'SF Mono', Consolas, monospace" text-anchor="middle">
+    <rect x="92" y="431" width="52" height="49" rx="4" fill="url(#bar)" filter="url(#soft)"/>
+    <text x="118" y="422" fill="#f4efe6" font-size="14">4</text>
+    <text x="118" y="500" fill="#9aa6b8" font-size="12">Su 27</text>
+    <rect x="196" y="320" width="52" height="160" rx="4" fill="url(#bar)" filter="url(#soft)"/>
+    <text x="222" y="311" fill="#f0c27a" font-size="14">13</text>
+    <text x="222" y="500" fill="#f0c27a" font-size="12">M 28</text>
+    <rect x="300" y="369" width="52" height="111" rx="4" fill="url(#bar)"/>
+    <text x="326" y="360" fill="#f4efe6" font-size="14">9</text>
+    <text x="326" y="500" fill="#9aa6b8" font-size="12">T 29</text>
+    <rect x="404" y="369" width="52" height="111" rx="4" fill="url(#bar)"/>
+    <text x="430" y="360" fill="#f4efe6" font-size="14">9</text>
+    <text x="430" y="500" fill="#9aa6b8" font-size="12">W 30</text>
+    <rect x="508" y="369" width="52" height="111" rx="4" fill="url(#bar)"/>
+    <text x="534" y="360" fill="#f4efe6" font-size="14">9</text>
+    <text x="534" y="500" fill="#9aa6b8" font-size="12">Th 1</text>
+    <rect x="612" y="382" width="52" height="98" rx="4" fill="url(#bar)"/>
+    <text x="638" y="373" fill="#f4efe6" font-size="14">8</text>
+    <text x="638" y="500" fill="#9aa6b8" font-size="12">F 2</text>
+    <rect x="716" y="443" width="52" height="37" rx="4" fill="url(#bar)"/>
+    <text x="742" y="434" fill="#f4efe6" font-size="14">3</text>
+    <text x="742" y="500" fill="#9aa6b8" font-size="12">Sa 3</text>
+    <rect x="820" y="468" width="52" height="12" rx="3" fill="#7ee0d6"/>
+    <text x="846" y="459" fill="#7ee0d6" font-size="14">1</text>
+    <text x="846" y="500" fill="#7ee0d6" font-size="12">Su 4</text>
+  </g>
+  <g font-family="ui-monospace, 'SF Mono', Consolas, monospace" font-size="13">
+    <rect x="64" y="536" width="248" height="36" rx="18" fill="#161e30" stroke="#3a4a32"/>
+    <text x="188" y="559" fill="#d7e2c8" text-anchor="middle">Don't add the percentages</text>
+    <rect x="328" y="536" width="200" height="36" rx="18" fill="#161e30" stroke="#2a4a52"/>
+    <text x="428" y="559" fill="#7ee0d6" text-anchor="middle">Stamp is not git</text>
+    <rect x="544" y="536" width="250" height="36" rx="18" fill="#161e30" stroke="#4a3a28"/>
+    <text x="669" y="559" fill="#f0c27a" text-anchor="middle">In range is not the use</text>
+    <rect x="810" y="536" width="280" height="36" rx="18" fill="#161e30" stroke="#2a384c"/>
+    <text x="950" y="559" fill="#f4efe6" text-anchor="middle">Session is not a conversation</text>
+  </g>
+</svg>
