@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: a fixed sentence bar that does not move, and a directory chip that
+     slides between two slots. The chip connects downward to a write, not upward
+     to the sentence. Brand palette. No visible text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A fixed bar stays put while a chip slides between two slots and connects only downward">
+  <defs>
+    <linearGradient id="schemaBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="58%" stop-color="#0c1e36"/>
+      <stop offset="100%" stop-color="#081018"/>
+    </linearGradient>
+    <radialGradient id="schemaTeal" cx="78%" cy="22%" r="34%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="schemaGold" cx="16%" cy="82%" r="28%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.11"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="schemaFill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#schemaBg)"/>
+  <rect width="1200" height="630" fill="url(#schemaTeal)"/>
+  <rect width="1200" height="630" fill="url(#schemaGold)"/>
+  <rect x="48" y="40" width="1104" height="550" rx="8" fill="none" stroke="#162236" stroke-width="2"/>
+
+  <rect x="160" y="118" width="880" height="72" rx="8" fill="#0d1a2c" stroke="#1e3a5f" stroke-width="2"/>
+  <rect x="188" y="142" width="620" height="12" rx="3" fill="url(#schemaFill)"/>
+  <rect x="188" y="164" width="280" height="8" rx="2" fill="#1a3050"/>
+
+  <rect x="160" y="268" width="250" height="64" rx="8" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="7 6" opacity="0.7"/>
+  <rect x="520" y="258" width="250" height="64" rx="8" fill="#0d1a2c" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="544" y="282" width="140" height="10" rx="2" fill="#f59e0b" opacity="0.85"/>
+
+  <path d="M410 300 H500" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="5 7"/>
+  <path d="M645 214 V258" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-dasharray="4 8"/>
+
+  <path d="M645 322 V400" fill="none" stroke="#00d4ff" stroke-width="2.5"/>
+  <path d="M639 392 L645 406 L651 392" fill="none" stroke="#00d4ff" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="560" y="406" width="170" height="88" rx="6" fill="#0d1a2c" stroke="#0e7490" stroke-width="2"/>
+  <rect x="584" y="430" width="96" height="8" rx="2" fill="#1a3050"/>
+  <rect x="584" y="448" width="122" height="8" rx="2" fill="#14263f"/>
+  <rect x="584" y="466" width="70" height="8" rx="2" fill="#00d4ff" opacity="0.55"/>
+</svg>
