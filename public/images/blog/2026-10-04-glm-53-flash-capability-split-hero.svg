@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c1020"/>
+      <stop offset="100%" stop-color="#16122a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="72" y="118" fill="#e8e4f4" font-family="Georgia, serif" font-size="42">The average is not the model</text>
+  <text x="72" y="168" fill="#b7a8d9" font-family="Georgia, serif" font-size="22">GLM-5.3-Flash, strict_v01, thinking off, 4 October 2026</text>
+  <g font-family="ui-sans-serif, sans-serif" font-size="18" fill="#d9d3e8">
+    <text x="72" y="250">math 6/30</text>
+    <rect x="250" y="232" width="80" height="22" fill="#c45c6a"/>
+    <text x="72" y="300">coding 24/30</text>
+    <rect x="250" y="282" width="320" height="22" fill="#7d6bb3"/>
+    <text x="72" y="350">reasoning 26/30</text>
+    <rect x="250" y="332" width="347" height="22" fill="#c9b6ef"/>
+    <text x="72" y="400">instruction 24/30</text>
+    <rect x="250" y="382" width="320" height="22" fill="#7d6bb3"/>
+    <text x="72" y="450">prose 26/30</text>
+    <rect x="250" y="432" width="347" height="22" fill="#c9b6ef"/>
+  </g>
+  <text x="72" y="540" fill="#9a90b0" font-family="ui-sans-serif, sans-serif" font-size="18">113 of 157 passed. 0 errors. Writing 5/5 and tool calling 2/2 are too small to rank.</text>
+</svg>
