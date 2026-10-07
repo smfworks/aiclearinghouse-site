@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-23T12:59:39.000Z",
-  "updated_at": "2026-10-07T08:15:00.000Z",
+  "updated_at": "2026-10-07T12:18:50.000Z",
   "source": "comprehensive_manual",
   "providers": [
     {
@@ -459,6 +459,20 @@
       "icon": "/images/llms/google.svg",
       "type": "provider",
       "models": [
+        {
+          "model": "EmbeddingGemma 2",
+          "model_id": "embeddinggemma-2",
+          "input_price": null,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": 8192,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Embedding",
+          "description": "740M open multimodal embedding model. Maps text, images, video, and audio into one 768-d space. No token price on the October 6, 2026 card.",
+          "release_date": "2026-10-06"
+        },
         {
           "model": "Gemini 3.1 Pro",
           "model_id": "gemini-3.1-pro",
@@ -956,6 +970,20 @@
       "icon": "/images/llms/mistral.svg",
       "type": "provider",
       "models": [
+        {
+          "model": "Mistral Large 4",
+          "model_id": "mistral-large-4",
+          "input_price": 1.36,
+          "output_price": 4.18,
+          "cached_input_price": null,
+          "context_window": null,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Flagship",
+          "description": "Public preview. 1 trillion parameters, 49 billion active. Card rate $1.36 / $4.18 per million tokens. Weights not released on the October 6, 2026 post. Context window not published.",
+          "release_date": "2026-10-06"
+        },
         {
           "model": "Mistral Large",
           "model_id": "mistral-large-latest",
