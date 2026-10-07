@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-23T12:59:39.000Z",
-  "updated_at": "2026-09-16T12:10:14.000Z",
+  "updated_at": "2026-10-07T08:15:00.000Z",
   "source": "comprehensive_manual",
   "providers": [
     {
@@ -2110,6 +2110,95 @@
           "category": "Open Source",
           "description": "744B MoE agentic model with MIT weights and 1M context. Top scores on BrowseComp (92.5), CyberGym (86.5), AutomationBench (53.8). No API — self-host only. Trained via Verifiable Experience Pipeline.",
           "release_date": "2026-09"
+        }
+      ]
+    },
+    {
+      "id": "aleph-alpha",
+      "name": "Aleph Alpha",
+      "description": "German AI lab. Kolibri 1 is an Apache 2.0 English-German mixture-of-experts model. No public token price was on the model card or the October 3, 2026 launch post.",
+      "website": "https://aleph-alpha.com/en/blog/kolibri-has-landed-a-sovereign-open-weight-model/",
+      "pricing_url": "",
+      "icon": "/images/llms/default.svg",
+      "type": "provider",
+      "models": [
+        {
+          "model": "Kolibri 1",
+          "model_id": "kolibri-1",
+          "input_price": null,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": 1048576,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Open Source",
+          "description": "78B total, 3.46B active. Card validates 1,048,576 tokens and recommends serving at or under 262,144. No public token price. Apache 2.0 weights only.",
+          "release_date": "2026-10-03"
+        }
+      ]
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "description": "Workers AI hosts Clef and Clef-flash. Both are decision models. The published unit is input tokens. No output token price is on the model pages.",
+      "website": "https://developers.cloudflare.com/workers-ai/models/clef/",
+      "pricing_url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+      "icon": "/images/llms/default.svg",
+      "type": "provider",
+      "models": [
+        {
+          "model": "Clef",
+          "model_id": "clef",
+          "input_price": 0.24,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": 65536,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Decision",
+          "description": "27B decision model at $0.24 per million input tokens. Scores a typed schema. Does not generate free-form text. No output price published.",
+          "release_date": "2026-10-01"
+        },
+        {
+          "model": "Clef-flash",
+          "model_id": "clef-flash",
+          "input_price": 0.09,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": 65536,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Decision",
+          "description": "9B decision model at $0.09 per million input tokens. Same request schema as Clef. No output price published.",
+          "release_date": "2026-10-01"
+        }
+      ]
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "description": "pplx-decider-v1-27b is an Apache 2.0 decision checkpoint. The model card publishes no token price and no context length.",
+      "website": "https://huggingface.co/perplexity-ai/pplx-decider-v1-27b",
+      "pricing_url": "",
+      "icon": "/images/llms/default.svg",
+      "type": "provider",
+      "models": [
+        {
+          "model": "pplx-decider-v1-27b",
+          "model_id": "pplx-decider-v1-27b",
+          "input_price": null,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": null,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Decision",
+          "description": "27B decision model. Hub record created 2026-10-01 and duplicated from denis-pplx/autojev-27b. No token price or context length on the card.",
+          "release_date": "2026-10-01"
         }
       ]
     }
