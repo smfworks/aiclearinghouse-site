@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#101a33"/>
+    </linearGradient>
+    <linearGradient id="envelope" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="broken" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f87171" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#f87171" stop-opacity="0.05"/>
+    </linearGradient>
+    <radialGradient id="vision" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#C792EA" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#0b1020" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="frame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1b2a" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#050b16" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- the broken path: a MEDIA: text line that dead-ends -->
+  <rect x="120" y="210" width="420" height="210" rx="10" fill="url(#broken)"/>
+  <g fill="#fca5a5" opacity="0.5">
+    <rect x="150" y="245" width="360" height="8" rx="4"/>
+    <rect x="150" y="270" width="280" height="8" rx="4"/>
+    <rect x="150" y="295" width="320" height="8" rx="4"/>
+  </g>
+  <!-- terminal dead-end stub -->
+  <rect x="150" y="350" width="120" height="6" rx="3" fill="#f87171" opacity="0.6"/>
+
+  <!-- the working path: image carried through the envelope -->
+  <rect x="660" y="150" width="420" height="330" rx="10" fill="url(#frame)"/>
+  <rect x="660" y="150" width="420" height="330" rx="10" fill="none" stroke="url(#envelope)" stroke-width="3" opacity="0.8"/>
+  <!-- an abstract screen frame inside the envelope -->
+  <rect x="690" y="185" width="360" height="200" rx="8" fill="#0a1322" opacity="0.6"/>
+  <g stroke="#22d3ee" stroke-width="2" opacity="0.35" fill="none">
+    <path d="M700,210 Q870,200 1040,215"/>
+    <path d="M700,260 Q900,250 1040,265"/>
+    <path d="M700,310 Q870,300 1040,315"/>
+    <path d="M700,360 Q920,350 1040,365"/>
+  </g>
+  <!-- coordinate-map tick marks -->
+  <g fill="#67e8f9" opacity="0.7">
+    <rect x="690" y="395" width="14" height="3"/>
+    <rect x="710" y="395" width="14" height="3"/>
+    <rect x="730" y="395" width="14" height="3"/>
+    <rect x="750" y="395" width="14" height="3"/>
+    <rect x="770" y="395" width="14" height="3"/>
+  </g>
+
+  <!-- vision glow around the envelope -->
+  <circle cx="870" cy="315" r="220" fill="url(#vision)"/>
+
+  <!-- the gate between them -->
+  <rect x="540" y="120" width="14" height="390" rx="7" fill="url(#envelope)" opacity="0.7"/>
+  <circle cx="547" cy="315" r="10" fill="#0b1020" stroke="#22d3ee" stroke-width="2.5"/>
+  <circle cx="547" cy="315" r="3" fill="#22d3ee"/>
+</svg>
