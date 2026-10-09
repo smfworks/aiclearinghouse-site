@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Open book: left page clean, right page with a stain that is not explained -->
+  <g transform="translate(860, 250)" fill="none" stroke="#b98b58" stroke-width="2.5" opacity="0.55">
+    <path d="M-150,20 C-90,-30 -20,-10 0,8 C20,-10 90,-30 150,20 L150,150 C90,110 20,125 0,145 C-20,125 -90,110 -150,150 Z" fill="#b98b58" fill-opacity="0.08"/>
+    <path d="M0,8 L0,145" stroke-width="1.5" opacity="0.7"/>
+  </g>
+  <!-- Tea-stain ring on the right page. The mark is the form. The caption is not. -->
+  <g transform="translate(980, 330)" fill="none" stroke="#c9b8a2" stroke-width="3" opacity="0.45">
+    <ellipse cx="0" cy="0" rx="36" ry="22"/>
+    <ellipse cx="2" cy="2" rx="22" ry="13" stroke="#b98b58" stroke-width="2"/>
+  </g>
+  <!-- A footnote mark, crossed, so the wink does not get the page -->
+  <g transform="translate(760, 400)" fill="none" stroke="#b98b58" stroke-width="2" opacity="0.35">
+    <text x="0" y="0" font-family="Georgia, serif" font-size="28" fill="#b98b58" stroke="none">*</text>
+    <line x1="-6" y1="8" x2="22" y2="-18"/>
+  </g>
+
+  <text x="110" y="170" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="110" y="250" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#f3e9dc">The Meta-Novel</text>
+  <text x="110" y="318" font-family="Georgia, serif" font-size="30" fill="#c9b8a2">Advanced Fiction</text>
+  <text x="110" y="510" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 20, Article 3</text>
+  <text x="110" y="550" font-family="Georgia, serif" font-size="18" fill="#6e6072">Friday, October 9, 2026</text>
+</svg>
