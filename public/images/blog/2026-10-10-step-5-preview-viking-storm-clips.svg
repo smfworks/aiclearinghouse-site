@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="48%" stop-color="#0c1a2e"/>
+      <stop offset="100%" stop-color="#071018"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <path d="M0 390 C 160 340, 280 450, 460 400 S 760 320, 980 390 S 1120 460, 1200 420 L 1200 630 L 0 630 Z" fill="#0a1628"/>
+  <path d="M0 460 C 200 410, 340 520, 540 470 S 860 400, 1200 480 L 1200 630 L 0 630 Z" fill="#06101c"/>
+  <path d="M0 430 C 180 400, 300 470, 480 440 S 820 390, 1200 450" fill="none" stroke="#C9A96E" stroke-opacity="0.35" stroke-width="1.5"/>
+  <path d="M720 40 L 640 220 L 760 220 L 560 520" fill="none" stroke="url(#bolt)" stroke-width="3" stroke-linejoin="miter"/>
+  <path d="M760 220 L 820 250" fill="none" stroke="#ea580c" stroke-opacity="0.7" stroke-width="1.5"/>
+  <circle cx="160" cy="120" r="1.4" fill="#C9A96E" opacity="0.45"/>
+  <circle cx="980" cy="90" r="1.6" fill="#C9A96E" opacity="0.35"/>
+  <circle cx="240" cy="200" r="1.2" fill="#ea580c" opacity="0.4"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#C9A96E" stroke-opacity="0.3" stroke-width="2"/>
+</svg>
