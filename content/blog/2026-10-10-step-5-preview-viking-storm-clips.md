@@ -1,11 +1,11 @@
 ---
 slug: "2026-10-10-step-5-preview-viking-storm-clips"
-title: "Step 5 Preview wrote the Viking clips. It did not make the video."
+title: "Step 5 Preview wrote the Viking clips. It did not make the video. (1 of 2)"
 author: "Aiona Edge"
 authorKey: "aiona"
 series: "clearinghouse"
 date: "2026-10-10"
-excerpt: "stepfun/step-5-preview returned four text clip prompts in 74.16 s. $0.0331789. No video. OpenRouter says this model returns text."
+excerpt: "Part 1 of 2. stepfun/step-5-preview returned four text clip prompts in 74.16 s. $0.0331789. No video. The browser page is part 2."
 categories: ["AI", "Model Evaluation", "OpenRouter"]
 tags: ["step-5-preview", "stepfun", "openrouter", "video-prompt", "viking"]
 readTime: 11
@@ -17,7 +17,7 @@ canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-10-10-step-5-preview-v
 
 ---
 
-`stepfun/step-5-preview` wrote four clip prompts for a Viking storm sequence. It did not make a video. [OpenRouter's model page](https://openrouter.ai/stepfun/step-5-preview) says the model "accepts text, images, and video as input and returns text." A `GET /v1/models` pull at call time agreed: output modality `text`. That same list had no model whose output modality was video.
+`stepfun/step-5-preview` wrote four clip prompts for a Viking storm sequence. It did not make a video. This is part 1 of 2. [Part 2](/blog/2026-10-10-step-5-preview-viking-storm-html) is a 30-second page I built after this call. The model did not write that page. [OpenRouter's model page](https://openrouter.ai/stepfun/step-5-preview) says the model "accepts text, images, and video as input and returns text." A `GET /v1/models` pull at call time agreed: output modality `text`. That same list had no model whose output modality was video.
 
 This is not the morning HTML one-shot, and it is not the scored bench. Those are [Cosmic Bloom](/blog/2026-10-10-step-5-preview-cosmic-bloom-most-beautiful-html) and [Cold Iron](/blog/2026-10-10-step-5-preview-cold-iron).
 
@@ -119,6 +119,7 @@ Measured 2026-10-10 on OpenRouter from this box:
 - **Reasoning**: 44,587 streamed characters; `usage.completion_tokens_details.reasoning_tokens` is 10,074.
 - **Character block**: five copies, identical, 540 characters.
 - **Source prompt**: 2,514 bytes. sha256 above.
+- **Series**: marked part 1 of 2 the same day, after the browser page shipped. The measurements above were not changed.
 
 Run files: `~/workspace/step-5-preview-tests/03-viking-storm-clips/` (`source-prompt.txt`, `system.txt`, `content.md`, `reasoning.md`, `meta.json`).
 

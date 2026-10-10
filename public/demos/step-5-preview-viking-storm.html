@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Viking storm — 30 seconds</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #05070b; overflow: hidden; }
+  #stage {
+    position: absolute; inset: 0; margin: auto;
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    background: #070b12; overflow: hidden;
+  }
+  #world { position: absolute; inset: 0; will-change: transform; }
+  svg { display: block; width: 100%; height: 100%; }
+  #rain, #flash, #vignette, #hold, #bar { position: absolute; inset: 0; pointer-events: none; }
+  #rain { width: 100%; height: 100%; }
+  #flash {
+    background: linear-gradient(180deg, rgba(236,244,255,.95), rgba(201,169,110,.22) 46%, transparent 78%);
+    opacity: 0; mix-blend-mode: screen;
+  }
+  #vignette { background: radial-gradient(ellipse at 50% 42%, transparent 46%, rgba(0,0,0,.58) 100%); }
+  #hold { background: #05070b; opacity: 0; }
+  #toggle {
+    position: absolute; inset: 0; z-index: 5; border: 0; padding: 0; margin: 0;
+    background: transparent; cursor: pointer;
+  }
+  #toggle:focus-visible { outline: 1px solid rgba(201,169,110,.85); outline-offset: -6px; }
+  #pause {
+    position: absolute; left: 22px; bottom: 18px; z-index: 4;
+    display: none; gap: 5px; pointer-events: none;
+  }
+  #stage.paused #pause { display: flex; }
+  #pause i { display: block; width: 5px; height: 16px; background: rgba(232,236,240,.9); }
+  #bar { top: auto; height: 2px; width: 0; background: #c9a96e; opacity: .75; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="world">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#060910"/>
+          <stop offset="55%" stop-color="#1a2940"/>
+          <stop offset="100%" stop-color="#4a5868"/>
+        </linearGradient>
+        <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f4f7f8"/>
+          <stop offset="40%" stop-color="#8e99a1"/>
+          <stop offset="100%" stop-color="#343c42"/>
+        </linearGradient>
+        <linearGradient id="mail" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c5ccd1"/>
+          <stop offset="100%" stop-color="#667078"/>
+        </linearGradient>
+        <linearGradient id="hull" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6a4a34"/>
+          <stop offset="100%" stop-color="#2c1c14"/>
+        </linearGradient>
+      </defs>
+      <rect width="1600" height="900" fill="url(#sky)"/>
+      <g id="clouds" fill="#1e2a3a" stroke="#0c1218" stroke-width="4">
+        <ellipse cx="220" cy="120" rx="210" ry="36"/>
+        <ellipse cx="390" cy="98" rx="120" ry="28"/>
+        <ellipse cx="980" cy="78" rx="260" ry="40"/>
+        <ellipse cx="1180" cy="108" rx="110" ry="24"/>
+        <ellipse cx="1420" cy="150" rx="150" ry="30"/>
+      </g>
+      <g id="sea"></g>
+      <g id="rocks" fill="#2c333c" stroke="#101418" stroke-width="4" stroke-linejoin="round">
+        <polygon points="1280,560 1360,430 1450,575"/>
+        <polygon points="1410,590 1510,470 1600,600"/>
+        <polygon points="1040,640 1100,575 1165,655"/>
+        <polygon points="1180,660 1235,600 1290,670"/>
+      </g>
+      <path id="beach" fill="#3e342c" stroke="none"
+        d="M 820,640 C 980,600 1180,615 1400,575 C 1500,558 1600,545 1600,545 L 1600,900 L 760,900 L 760,700 Z"/>
+      <path fill="#2a231e" stroke="none" d="M 900,655 C 1100,628 1360,640 1600,600 L 1600,690 L 900,730 Z"/>
+      <g id="ship">
+        <path d="M 30,70 C 80,130 280,145 560,110 C 700,90 760,50 790,20 L 760,8 C 700,40 520,70 240,55 C 120,48 60,30 30,8 Z" fill="url(#hull)" stroke="#140e0c" stroke-width="4"/>
+        <path d="M 70,40 C 220,78 480,72 730,28" fill="none" stroke="#1a120e" stroke-width="3"/>
+        <path d="M 90,58 C 240,96 500,90 740,42" fill="none" stroke="#7a5840" stroke-width="2"/>
+        <path d="M 748,24 C 800,-10 860,-70 900,-108 C 868,-78 850,-30 888,-8 C 860,-16 800,8 748,24 Z" fill="#5a3c2a" stroke="#140e0c" stroke-width="4"/>
+        <path d="M 860,-78 C 840,-120 878,-132 892,-96" fill="none" stroke="#140e0c" stroke-width="5"/>
+        <path d="M 878,-40 L 910,-28 L 882,-18 Z" fill="#3a2418" stroke="#140e0c" stroke-width="3"/>
+        <circle cx="874" cy="-62" r="5" fill="#c9a96e" stroke="#140e0c" stroke-width="2"/>
+        <g stroke="#140e0c" stroke-width="3">
+          <circle cx="150" cy="18" r="22" fill="#6e3a32"/>
+          <circle cx="210" cy="22" r="22" fill="#8a7040"/>
+          <circle cx="270" cy="20" r="22" fill="#3c4652"/>
+          <circle cx="330" cy="24" r="22" fill="#6e3a32"/>
+          <circle cx="390" cy="22" r="22" fill="#5c5348"/>
+          <circle cx="450" cy="18" r="22" fill="#8a7040"/>
+          <circle cx="510" cy="16" r="22" fill="#3c4652"/>
+        </g>
+        <g fill="#c9a96e" stroke="none">
+          <circle cx="150" cy="18" r="4"/>
+          <circle cx="210" cy="22" r="4"/>
+          <circle cx="270" cy="20" r="4"/>
+          <circle cx="330" cy="24" r="4"/>
+          <circle cx="390" cy="22" r="4"/>
+          <circle cx="450" cy="18" r="4"/>
+          <circle cx="510" cy="16" r="4"/>
+        </g>
+      </g>
+      <path id="foam" fill="none" stroke="#d7e2ea" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+      <g id="viking" stroke="#121418" stroke-linejoin="round" stroke-linecap="round">
+        <g id="cloak">
+          <path d="M 10,-250 C -90,-230 -160,-120 -140,10 C -70,-50 -20,-70 16,-40 Z" fill="#3a2a22" stroke-width="4"/>
+          <path d="M -10,-220 C -70,-180 -120,-90 -108,-10" fill="none" stroke="#6d5644" stroke-width="8" opacity=".35"/>
+        </g>
+        <path d="M -18,-150 L -36,-28 L -22,6 L 4,4 L 10,-36 L 8,-150 Z" fill="#2a221c" stroke-width="4"/>
+        <path d="M -40,-2 L -46,22 L 8,20 L 12,-4 Z" fill="#161310" stroke-width="3"/>
+        <path d="M -28,-268 L 54,-256 L 58,-138 L -22,-146 Z" fill="url(#mail)" stroke-width="4"/>
+        <g stroke="#3d474e" stroke-width="1.6" fill="none">
+          <path d="M -12,-250 V -150 M 0,-254 V -148 M 14,-250 V -150 M 28,-246 V -150 M 42,-242 V -152"/>
+        </g>
+        <path d="M -30,-262 C 8,-292 60,-274 50,-240 C 16,-256 -12,-248 -30,-260 Z" fill="#7a624c" stroke-width="3"/>
+        <rect x="-24" y="-152" width="82" height="12" fill="#3a2a1e" stroke-width="3"/>
+        <path d="M 18,-146 L 34,-24 L 52,8 L 78,4 L 58,-30 L 42,-146 Z" fill="#342a22" stroke-width="4"/>
+        <path d="M 28,2 L 24,26 L 84,22 L 82,-2 Z" fill="#161310" stroke-width="3"/>
+        <path d="M 40,-230 L 70,-160 L 92,-148 L 64,-214 Z" fill="#c4a882" stroke-width="4"/>
+        <path d="M 62,-172 L 88,-142 L 102,-154 L 76,-182 Z" fill="#4a4038" stroke-width="3"/>
+        <ellipse cx="96" cy="-136" rx="14" ry="11" fill="#c4a882" stroke-width="3"/>
+        <path d="M 90,-132 L 128,-268 L 140,-264 L 104,-126 Z" fill="#6b4a30" stroke-width="3"/>
+        <path d="M 122,-252 C 86,-272 78,-228 108,-208 C 114,-228 120,-246 126,-252 Z" fill="url(#steel)" stroke-width="3"/>
+        <path d="M 136,-250 C 174,-270 182,-226 152,-206 C 146,-226 140,-244 132,-250 Z" fill="url(#steel)" stroke-width="3"/>
+        <path d="M 108,-210 C 100,-192 116,-188 122,-206" fill="#b7c0c6" stroke-width="2"/>
+        <path d="M 152,-208 C 160,-190 144,-186 138,-204" fill="#b7c0c6" stroke-width="2"/>
+        <path d="M 96,-160 H 108 M 100,-148 H 112" stroke="#2a1c12" stroke-width="2" fill="none"/>
+        <g id="head" transform="translate(18,-310)">
+          <ellipse cx="4" cy="4" rx="36" ry="40" fill="#c4a882" stroke-width="4"/>
+          <path d="M -6,-4 C -18,16 -8,34 6,36" fill="#a68462" stroke="none" opacity=".5"/>
+          <path d="M 18,-2 L 40,8 L 20,16 Z" fill="#c4a882" stroke-width="3"/>
+          <path d="M 6,-14 L 28,-8" fill="none" stroke-width="4"/>
+          <ellipse cx="18" cy="0" rx="7" ry="4.2" fill="#f4f1ea" stroke="none"/>
+          <ellipse cx="20" cy="0" rx="2.8" ry="2.8" fill="#1d4e8f" stroke="none"/>
+          <path d="M 14,16 L 30,14" fill="none" stroke="#6a4030" stroke-width="2.6"/>
+          <g id="beard">
+            <path d="M -6,22 C -14,58 -36,96 -12,132 C 10,96 16,58 16,24 Z" fill="#6e5836" stroke-width="3"/>
+            <path d="M -2,52 C -18,82 -2,112 4,130" fill="none" stroke="#3a2c18" stroke-width="2.4"/>
+          </g>
+          <g id="hair">
+            <path d="M -8,-18 C -56,-6 -108,22 -128,52 C -74,22 -40,-2 -4,4 Z" fill="#7a623c" stroke-width="3"/>
+            <path d="M -2,-4 C -48,18 -88,52 -70,86 C -40,48 -20,14 0,10 Z" fill="#6a5434" stroke-width="3"/>
+          </g>
+          <path d="M -28,-18 C -20,-50 16,-58 32,-32 C 10,-44 -8,-40 -20,-18 Z" fill="#6e757c" stroke-width="3"/>
+          <path d="M -30,-16 L 8,-22" fill="none" stroke="#d0d7dc" stroke-width="2.5"/>
+        </g>
+      </g>
+      <g id="spray" fill="#e7eef3" stroke="none"></g>
+      <g id="bolts" fill="none" stroke-linejoin="miter" opacity="0">
+        <polyline points="300,30 268,150 330,180 276,340" stroke="#eaf3ff" stroke-width="5"/>
+        <polyline points="300,30 268,150 330,180 276,340" stroke="#c9a96e" stroke-width="1.6"/>
+        <polyline points="1240,20 1290,140 1210,176 1310,330" stroke="#eaf3ff" stroke-width="4"/>
+        <polyline points="1240,20 1290,140 1210,176 1310,330" stroke="#c9a96e" stroke-width="1.4"/>
+      </g>
+    </svg>
+  </div>
+  <canvas id="rain"></canvas>
+  <div id="flash"></div>
+  <div id="vignette"></div>
+  <div id="hold"></div>
+  <div id="pause" aria-hidden="true"><i></i><i></i></div>
+  <div id="bar"></div>
+  <button id="toggle" type="button" aria-label="Pause"></button>
+</div>
+<script>
+(function () {
+  var DUR = 30000;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var stage = document.getElementById("stage");
+  var world = document.getElementById("world");
+  var rain = document.getElementById("rain");
+  var ctx = rain.getContext("2d");
+  var flashEl = document.getElementById("flash");
+  var holdEl = document.getElementById("hold");
+  var bar = document.getElementById("bar");
+  var toggle = document.getElementById("toggle");
+  var ship = document.getElementById("ship");
+  var viking = document.getElementById("viking");
+  var cloak = document.getElementById("cloak");
+  var hair = document.getElementById("hair");
+  var beard = document.getElementById("beard");
+  var clouds = document.getElementById("clouds");
+  var foam = document.getElementById("foam");
+  var bolts = document.getElementById("bolts");
+  var sea = document.getElementById("sea");
+  var spray = document.getElementById("spray");
+  var NS = "http://www.w3.org/2000/svg";
+  var waveEls = [];
+  var i;
+  for (i = 0; i < 3; i++) {
+    var p = document.createElementNS(NS, "path");
+    p.setAttribute("stroke", "none");
+    sea.appendChild(p);
+    waveEls.push(p);
+  }
+  var specks = [];
+  for (i = 0; i < 18; i++) {
+    var e = document.createElementNS(NS, "ellipse");
+    spray.appendChild(e);
+    specks.push(e);
+  }
+  var drops = [];
+  for (i = 0; i < 240; i++) {
+    drops.push({
+      x: Math.random(), y: Math.random(),
+      len: 18 + Math.random() * 28,
+      spd: 0.012 + Math.random() * 0.02,
+      a: 0.16 + Math.random() * 0.3
+    });
+  }
+  var FLASHES = [
+    [1.1, 0.08, 0.75], [1.28, 0.05, 0.4],
+    [3.6, 0.09, 0.6], [6.2, 0.07, 0.5], [7.5, 0.1, 0.85],
+    [10.2, 0.08, 0.55], [13.4, 0.1, 0.7],
+    [17.8, 0.08, 0.5], [21.6, 0.09, 0.65], [25.2, 0.07, 0.45],
+    [29.05, 0.16, 1], [29.28, 0.24, 0.9]
+  ];
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function lerp(a, b, u) { return a + (b - a) * u; }
+  function smooth(u) { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); }
+  function seg(sec, a, b) { return smooth((sec - a) / (b - a)); }
+  function rot(x, y, deg) {
+    var r = deg * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+    return [x * c - y * s, x * s + y * c];
+  }
+  function flashAmt(sec) {
+    var a = 0, k;
+    for (k = 0; k < FLASHES.length; k++) {
+      var dt = sec - FLASHES[k][0];
+      if (dt >= 0 && dt < FLASHES[k][1]) {
+        var u = dt / FLASHES[k][1];
+        var env = u < 0.16 ? u / 0.16 : 1 - (u - 0.16) / 0.84;
+        a = Math.max(a, FLASHES[k][2] * clamp(env, 0, 1));
+      }
+    }
+    return a;
+  }
+  function shipAt(sec) {
+    var x = sec < 8 ? lerp(40, 280, seg(sec, 0, 8))
+      : sec < 16 ? lerp(280, 120, seg(sec, 8, 16)) : 80;
+    var bob = Math.sin(sec * 2.2) * (sec < 8 ? 16 : 9);
+    var rock = Math.sin(sec * 1.55) * (sec < 8 ? 2.8 : 1.8);
+    return { x: x, y: 500 + bob, rot: rock };
+  }
+  function deckAt(sec) {
+    var s = shipAt(sec);
+    var p = rot(700, 8, s.rot);
+    return { x: s.x + p[0], y: s.y + p[1] };
+  }
+  function waveD(base, amp, freq, phase) {
+    var d = "M -80 " + base.toFixed(1), x, y;
+    for (x = -80; x <= 1680; x += 36) {
+      y = base + Math.sin(x * freq + phase) * amp + Math.sin(x * freq * 0.45 + phase * 1.4) * amp * 0.28;
+      d += " L " + x + " " + y.toFixed(1);
+    }
+    return d + " L 1680 980 L -80 980 Z";
+  }
+  function foamD(base, phase) {
+    var d = "", x, y;
+    for (x = 0; x <= 1560; x += 64) {
+      y = base + Math.sin(x * 0.02 + phase) * 14;
+      d += "M " + x + " " + y.toFixed(1) + " q 16 -16 32 2";
+    }
+    return d;
+  }
+  function resize() {
+    var r = stage.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    rain.width = Math.max(1, Math.round(r.width * dpr));
+    rain.height = Math.max(1, Math.round(r.height * dpr));
+  }
+  function drawRain(dt) {
+    var w = rain.width, h = rain.height, k;
+    ctx.clearRect(0, 0, w, h);
+    ctx.lineWidth = Math.max(1, w / 800);
+    for (k = 0; k < drops.length; k++) {
+      var d = drops[k];
+      if (!reduce && playing) {
+        d.y += d.spd * (dt / 16.7);
+        d.x += d.spd * 0.7 * (dt / 16.7);
+        if (d.y > 1.08) { d.y = -0.05; d.x = Math.random(); }
+      }
+      var x = ((d.x % 1) + 1) % 1 * w;
+      var y = d.y * h;
+      ctx.strokeStyle = "rgba(206,220,232," + d.a + ")";
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + d.len * 0.78, y + d.len);
+      ctx.stroke();
+    }
+  }
+
+  var elapsed = reduce ? 24000 : 0;
+  var playing = !reduce;
+  var seek = location.hash.match(/t=([0-9]+(?:\.[0-9]+)?)/);
+  if (seek && !reduce) {
+    elapsed = Math.min(29.95, parseFloat(seek[1])) * 1000;
+    if (/pause=1/.test(location.hash)) {
+      playing = false;
+      stage.classList.add("paused");
+      toggle.setAttribute("aria-label", "Play");
+    }
+  }
+  var last = performance.now();
+
+  function render(sec, dt) {
+    var shipState = shipAt(sec);
+    ship.setAttribute("transform", "translate(" + shipState.x.toFixed(1) + " " + shipState.y.toFixed(1) + ") rotate(" + shipState.rot.toFixed(2) + ")");
+    clouds.setAttribute("transform", "translate(" + (Math.sin(sec * 0.1) * 24).toFixed(1) + " 0)");
+
+    var deck = deckAt(sec);
+    var start = deckAt(8);
+    var land = { x: deckAt(10.6).x + 40, y: 630 };
+    var shore = { x: 1040, y: 700 };
+    var stance = { x: 1080, y: 710 };
+    var vx, vy, sc, lean;
+    if (sec < 8) {
+      vx = deck.x; vy = deck.y; sc = 0.34; lean = 6;
+    } else if (sec < 10.6) {
+      var u = smooth((sec - 8) / 2.6);
+      vx = lerp(start.x, land.x, u);
+      vy = lerp(start.y, land.y, u) - Math.sin((sec - 8) / 2.6 * Math.PI) * 150;
+      sc = lerp(0.34, 0.62, u);
+      lean = -22 * Math.sin((sec - 8) / 2.6 * Math.PI);
+    } else if (sec < 16) {
+      var w = smooth((sec - 10.6) / 5.4);
+      vx = lerp(land.x, shore.x, w);
+      vy = lerp(land.y, shore.y, w);
+      sc = lerp(0.62, 0.82, w);
+      lean = 8;
+    } else {
+      var q = smooth((sec - 16) / 6);
+      vx = lerp(shore.x, stance.x, q);
+      vy = lerp(shore.y, stance.y, q);
+      sc = lerp(0.82, 1.05, q);
+      lean = 2 + Math.sin(sec * 2) * 1.1;
+    }
+    var bob = sec < 8 ? Math.sin(sec * 2.2) * 3 : Math.sin(sec * 6.5) * (sec < 16 ? 3 : 1.4);
+    viking.setAttribute("transform", "translate(" + vx.toFixed(1) + " " + (vy + bob).toFixed(1) + ") rotate(" + lean.toFixed(2) + ") scale(" + sc.toFixed(3) + ")");
+
+    var wind = Math.sin(sec * 5.2) * 9 + Math.sin(sec * 11) * 4;
+    cloak.setAttribute("transform", "rotate(" + (-6 + wind).toFixed(2) + " 10 -240)");
+    hair.setAttribute("transform", "rotate(" + (wind * 0.7).toFixed(2) + " -8 -8)");
+    beard.setAttribute("transform", "rotate(" + (wind * 0.35).toFixed(2) + " 0 24)");
+
+    var phase = sec * 1.8;
+    waveEls[0].setAttribute("fill", "#16344c");
+    waveEls[0].setAttribute("d", waveD(470, 22, 0.011, phase));
+    waveEls[1].setAttribute("fill", "#10283c");
+    waveEls[1].setAttribute("d", waveD(540, 28, 0.014, phase + 1.1));
+    waveEls[2].setAttribute("fill", "#0c2032");
+    waveEls[2].setAttribute("d", waveD(610, 18, 0.017, phase + 2));
+    foam.setAttribute("d", foamD(520, phase));
+
+    var bow = rot(860, -40, shipState.rot);
+    var bx = shipState.x + bow[0], by = shipState.y + bow[1];
+    var s;
+    for (s = 0; s < specks.length; s++) {
+      var ph = sec * 3 + s;
+      var ax = sec < 8 ? bx : vx;
+      var ay = sec < 8 ? by : vy - 8;
+      specks[s].setAttribute("cx", (ax + Math.sin(ph) * 34).toFixed(1));
+      specks[s].setAttribute("cy", (ay + ((ph * 17) % 28) - 6).toFixed(1));
+      specks[s].setAttribute("rx", String(2 + (s % 4)));
+      specks[s].setAttribute("ry", "1.7");
+      var burst = (sec > 10.3 && sec < 11.3) ? 0.85 : 0.35;
+      specks[s].setAttribute("opacity", String(sec < 17 ? burst : 0.15));
+    }
+
+    var zoom, fx, fy;
+    if (sec < 8) {
+      zoom = lerp(1.05, 1.16, seg(sec, 0, 8));
+      fx = shipState.x + 420;
+      fy = 520;
+    } else if (sec < 16) {
+      var c = seg(sec, 8, 16);
+      zoom = lerp(1.16, 1.7, c);
+      fx = lerp(shipState.x + 420, vx, c);
+      fy = lerp(520, vy - 80, c);
+    } else {
+      var d = seg(sec, 16, 28);
+      zoom = lerp(1.7, 2.05, d);
+      fx = vx - 30;
+      fy = vy - 120;
+    }
+    world.style.transformOrigin = (fx / 16).toFixed(2) + "% " + (fy / 9).toFixed(2) + "%";
+    world.style.transform = "scale(" + zoom.toFixed(3) + ")";
+
+    var flash = reduce ? 0 : flashAmt(sec);
+    flashEl.style.opacity = String(flash);
+    bolts.setAttribute("opacity", String(Math.min(1, flash)));
+    var dip = 0;
+    if (!reduce) {
+      if (sec > 29.74) dip = (sec - 29.74) / 0.26;
+      else if (sec < 0.15) dip = 1 - sec / 0.15;
+    }
+    holdEl.style.opacity = String(clamp(dip, 0, 1));
+    bar.style.width = (sec / 30 * 100).toFixed(2) + "%";
+    drawRain(dt);
+  }
+
+  function frame(now) {
+    var dt = Math.min(50, now - last);
+    last = now;
+    if (playing) elapsed = (elapsed + dt) % DUR;
+    render(elapsed / 1000, dt);
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  toggle.addEventListener("click", function () {
+    if (reduce) return;
+    playing = !playing;
+    stage.classList.toggle("paused", !playing);
+    toggle.setAttribute("aria-label", playing ? "Pause" : "Play");
+  });
+  window.addEventListener("keydown", function (ev) {
+    if (ev.code !== "Space") return;
+    ev.preventDefault();
+    toggle.click();
+  });
+  window.addEventListener("resize", resize);
+  resize();
+  if (reduce) {
+    stage.classList.add("paused");
+    render(24, 16);
+  } else {
+    requestAnimationFrame(frame);
+  }
+})();
+</script>
+</body>
+</html>
