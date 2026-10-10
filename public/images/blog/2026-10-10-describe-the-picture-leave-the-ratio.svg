@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <desc>A paragraph of bars on the left, a separate portrait frame on the right. The ratio sits outside the sentence. No text.</desc>
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  <g opacity="0.06" stroke="#C9A96E" stroke-width="1">
+    <line x1="0" y1="180" x2="1920" y2="180"/>
+    <line x1="0" y1="360" x2="1920" y2="360"/>
+    <line x1="0" y1="540" x2="1920" y2="540"/>
+    <line x1="0" y1="720" x2="1920" y2="720"/>
+    <line x1="0" y1="900" x2="1920" y2="900"/>
+    <line x1="320" y1="0" x2="320" y2="1080"/>
+    <line x1="640" y1="0" x2="640" y2="1080"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="1280" y1="0" x2="1280" y2="1080"/>
+    <line x1="1600" y1="0" x2="1600" y2="1080"/>
+  </g>
+  <rect x="140" y="168" width="760" height="744" rx="8" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.35"/>
+  <rect x="196" y="228" width="620" height="18" rx="4" fill="#C9A96E"/>
+  <rect x="196" y="270" width="540" height="14" rx="4" fill="#ea580c" opacity="0.9"/>
+  <rect x="196" y="308" width="600" height="14" rx="4" fill="#C9A96E" opacity="0.55"/>
+  <rect x="196" y="346" width="480" height="14" rx="4" fill="#C792EA" opacity="0.8"/>
+  <rect x="196" y="384" width="640" height="14" rx="4" fill="#C9A96E" opacity="0.7"/>
+  <rect x="196" y="422" width="390" height="14" rx="4" fill="#ea580c" opacity="0.75"/>
+  <rect x="196" y="478" width="580" height="14" rx="4" fill="#C9A96E" opacity="0.5"/>
+  <rect x="196" y="516" width="640" height="14" rx="4" fill="#C9A96E" opacity="0.85"/>
+  <rect x="196" y="554" width="510" height="14" rx="4" fill="#ea580c" opacity="0.65"/>
+  <rect x="196" y="592" width="600" height="14" rx="4" fill="#C792EA" opacity="0.55"/>
+  <rect x="196" y="630" width="440" height="14" rx="4" fill="#C9A96E" opacity="0.6"/>
+  <rect x="196" y="686" width="620" height="18" rx="4" fill="#C9A96E"/>
+  <rect x="196" y="728" width="360" height="14" rx="4" fill="#ea580c" opacity="0.85"/>
+  <circle cx="214" cy="820" r="10" fill="#ea580c"/>
+  <rect x="240" y="812" width="220" height="16" rx="4" fill="#C9A96E" opacity="0.4"/>
+  <line x1="980" y1="140" x2="980" y2="940" stroke="#C792EA" stroke-width="3" opacity="0.9"/>
+  <rect x="1128" y="168" width="560" height="744" rx="18" fill="none" stroke="#C9A96E" stroke-width="8"/>
+  <rect x="1188" y="228" width="440" height="560" rx="6" fill="#001F3F" stroke="#ea580c" stroke-width="3"/>
+  <rect x="1248" y="300" width="320" height="400" fill="#C792EA" opacity="0.18"/>
+  <circle cx="1408" cy="500" r="72" fill="none" stroke="#ea580c" stroke-width="6"/>
+  <circle cx="1408" cy="500" r="18" fill="#C9A96E"/>
+  <rect x="1568" y="188" width="96" height="64" rx="8" fill="#ea580c"/>
+  <rect x="1584" y="204" width="64" height="32" rx="4" fill="#001F3F"/>
+</svg>
