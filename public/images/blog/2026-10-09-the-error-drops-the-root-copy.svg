@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: two file blocks. A short bar is pulled out of the list. A longer bar stays connected to the right block. No visible text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two file blocks. A short gold bar is pulled out of a list and left disconnected. A longer teal bar stays attached to the right block.">
+  <defs>
+    <linearGradient id="edBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#08131f"/>
+      <stop offset="58%" stop-color="#0c1c30"/>
+      <stop offset="100%" stop-color="#070d14"/>
+    </linearGradient>
+    <radialGradient id="edTeal" cx="78%" cy="72%" r="42%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="edGold" cx="22%" cy="24%" r="28%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#edBg)"/>
+  <rect width="1200" height="630" fill="url(#edTeal)"/>
+  <rect width="1200" height="630" fill="url(#edGold)"/>
+  <rect x="48" y="40" width="1104" height="550" rx="8" fill="none" stroke="#162236" stroke-width="2"/>
+
+  <rect x="150" y="168" width="360" height="300" rx="6" fill="#12263a"/>
+  <rect x="174" y="196" width="220" height="10" rx="2" fill="#8ecae6" opacity="0.22"/>
+  <rect x="174" y="222" width="168" height="10" rx="2" fill="#8ecae6" opacity="0.14"/>
+  <rect x="174" y="248" width="248" height="10" rx="2" fill="#8ecae6" opacity="0.1"/>
+
+  <rect x="690" y="168" width="360" height="300" rx="6" fill="#0e7490" opacity="0.9"/>
+  <rect x="714" y="196" width="240" height="10" rx="2" fill="#00d4ff" opacity="0.35"/>
+  <rect x="714" y="222" width="180" height="10" rx="2" fill="#00d4ff" opacity="0.22"/>
+  <rect x="714" y="248" width="260" height="10" rx="2" fill="#00d4ff" opacity="0.14"/>
+
+  <rect x="214" y="390" width="92" height="18" rx="3" fill="#ff6b00" opacity="0.95"/>
+  <path d="M168 399 H206" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 6" opacity="0.7"/>
+
+  <rect x="714" y="390" width="250" height="18" rx="3" fill="#f59e0b" opacity="0.9"/>
+  <path d="M964 399 H1020" fill="none" stroke="#f59e0b" stroke-width="3" opacity="0.85"/>
+</svg>
