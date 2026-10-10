@@ -44,7 +44,7 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
   {
     key: "aiona",
     name: "Aiona Edge",
-    role: "CIO & Chief of Operations",
+    role: "CIO & Chief AI Research Scientist",
     series: "clearinghouse",
     color: "#00D4FF",
     bio: "Infrastructure, operations, and the health of the agent swarm.",
