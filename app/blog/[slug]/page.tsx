@@ -10,6 +10,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAuthorByKey, SERIES_LABELS } from "@/lib/blog/types";
 import { marked } from "marked";
+import TwitterWidgetLoader from "@/components/TwitterWidgetLoader";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -115,6 +116,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           )}
 
+          <TwitterWidgetLoader />
           <div
             className="prose prose-invert max-w-none prose-headings:font-semibold prose-a:text-accent hover:prose-a:underline"
             dangerouslySetInnerHTML={{ __html: html }}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-label="Night fog and neon, no lettering">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  <ellipse cx="960" cy="820" rx="900" ry="220" fill="#0b2d4a" opacity="0.85"/>
+  <ellipse cx="420" cy="760" rx="380" ry="90" fill="#C9A96E" opacity="0.12"/>
+  <ellipse cx="1480" cy="740" rx="340" ry="80" fill="#C792EA" opacity="0.16"/>
+  <path d="M0 690 C 280 640, 520 760, 820 700 C 1120 640, 1400 760, 1920 680 L 1920 1080 L 0 1080 Z" fill="#07182c" opacity="0.72"/>
+  <path d="M0 780 C 360 730, 700 840, 1040 770 C 1360 710, 1640 820, 1920 760 L 1920 1080 L 0 1080 Z" fill="#C792EA" opacity="0.08"/>
+  <rect x="860" y="180" width="18" height="520" fill="#ea580c" opacity="0.85"/>
+  <circle cx="869" cy="168" r="46" fill="#ea580c" opacity="0.9"/>
+  <circle cx="869" cy="168" r="18" fill="#C9A96E"/>
+  <rect x="180" y="430" width="280" height="8" rx="4" fill="#C792EA" opacity="0.7"/>
+  <rect x="1460" y="390" width="240" height="8" rx="4" fill="#ea580c" opacity="0.55"/>
+</svg>
