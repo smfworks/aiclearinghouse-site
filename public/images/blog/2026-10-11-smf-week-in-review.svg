@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="55%" stop-color="#10182a"/>
+      <stop offset="100%" stop-color="#0c1c22"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#142033"/>
+      <stop offset="100%" stop-color="#0c1422"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e0a15a"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g opacity="0.28" stroke="#243044" stroke-width="1">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200 M0 400 H1200 M0 480 H1200 M0 560 H1200"/>
+    <path d="M80 0 V624 M160 0 V624 M240 0 V624 M320 0 V624 M400 0 V624 M480 0 V624 M560 0 V624 M640 0 V624 M720 0 V624 M800 0 V624 M880 0 V624 M960 0 V624 M1040 0 V624 M1120 0 V624"/>
+  </g>
+  <text x="56" y="72" fill="#e8f4f1" font-family="Georgia, 'Times New Roman', serif" font-size="34">Read the quiet tick first</text>
+  <text x="56" y="108" fill="#8eb4c9" font-family="ui-monospace, 'Courier New', monospace" font-size="16">Ticker, then the last line. Delivery silence is not a skipped model.</text>
+
+  <g font-family="ui-monospace, 'Courier New', monospace">
+    <rect x="48" y="150" width="320" height="280" rx="14" fill="url(#panel)" stroke="#3dbeb6" stroke-width="2"/>
+    <text x="72" y="188" fill="#3dbeb6" font-size="14">1. ticker</text>
+    <text x="72" y="232" fill="#e8f4f1" font-size="22">gateway</text>
+    <text x="72" y="262" fill="#e8f4f1" font-size="22">or desktop</text>
+    <text x="72" y="312" fill="#c5d5dc" font-size="15">chat does not tick</text>
+    <text x="72" y="342" fill="#c5d5dc" font-size="15">JSON is not a process</text>
+    <text x="72" y="390" fill="#7a8fa3" font-size="13">doctor before the prompt</text>
+
+    <rect x="440" y="150" width="320" height="280" rx="14" fill="url(#panel)" stroke="#e0a15a" stroke-width="2"/>
+    <text x="464" y="188" fill="#e0a15a" font-size="14">2. last stdout line</text>
+    <text x="464" y="232" fill="#e8f4f1" font-size="18">wakeAgent: false</text>
+    <text x="464" y="268" fill="#c5d5dc" font-size="15">lowercase JSON only</text>
+    <text x="464" y="308" fill="#c5d5dc" font-size="15">empty wakes an LLM job</text>
+    <text x="464" y="338" fill="#c5d5dc" font-size="15">empty is silent if</text>
+    <text x="464" y="368" fill="#c5d5dc" font-size="15">--no-agent</text>
+    <text x="464" y="404" fill="#7a8fa3" font-size="13">a note after the line wakes</text>
+
+    <rect x="832" y="150" width="320" height="280" rx="14" fill="url(#panel)" stroke="#d7d2c8" stroke-width="2"/>
+    <text x="856" y="188" fill="#d7d2c8" font-size="14">3. after the model</text>
+    <text x="856" y="232" fill="#e8f4f1" font-size="22">[SILENT]</text>
+    <text x="856" y="278" fill="#c5d5dc" font-size="15">skips delivery</text>
+    <text x="856" y="308" fill="#c5d5dc" font-size="15">does not skip the run</text>
+    <text x="856" y="348" fill="#c5d5dc" font-size="15">failed jobs still deliver</text>
+    <text x="856" y="390" fill="#7a8fa3" font-size="13">output stays on disk</text>
+  </g>
+
+  <line x1="368" y1="290" x2="430" y2="290" stroke="#e0a15a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="760" y1="290" x2="822" y2="290" stroke="#e0a15a" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="48" y="468" width="1104" height="108" rx="12" fill="#0b121c" stroke="#243044"/>
+  <text x="72" y="508" fill="#8eb4c9" font-family="ui-monospace, 'Courier New', monospace" font-size="15">2026-10-04 to 2026-10-11</text>
+  <text x="72" y="542" fill="#e8f4f1" font-family="ui-monospace, 'Courier New', monospace" font-size="18">55 posts in the window. One check. No new score.</text>
+</svg>
