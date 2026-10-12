@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1a1423"/>
+      <stop offset="100%" stop-color="#0d0a12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#b98b58" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#b98b58" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Manuscript page with a margin note, not a blank template -->
+  <g transform="translate(860, 118)">
+    <rect x="0" y="0" width="220" height="300" rx="4" fill="#241c2e" stroke="#b98b58" stroke-width="2" opacity="0.9"/>
+    <g stroke="#c9b8a2" stroke-width="2" opacity="0.45">
+      <line x1="28" y1="48" x2="188" y2="48"/>
+      <line x1="28" y1="78" x2="176" y2="78"/>
+      <line x1="28" y1="108" x2="190" y2="108"/>
+      <line x1="28" y1="168" x2="160" y2="168"/>
+      <line x1="28" y1="198" x2="184" y2="198"/>
+      <line x1="28" y1="228" x2="150" y2="228"/>
+      <line x1="28" y1="258" x2="172" y2="258"/>
+    </g>
+    <!-- The line the note wants explained, struck -->
+    <line x1="24" y1="138" x2="192" y2="138" stroke="#b98b58" stroke-width="3"/>
+    <line x1="28" y1="138" x2="186" y2="132" stroke="#f3e9dc" stroke-width="2" opacity="0.8"/>
+  </g>
+  <!-- Margin card -->
+  <g transform="translate(760, 250) rotate(-8)">
+    <rect width="150" height="88" rx="3" fill="#b98b58" opacity="0.92"/>
+    <line x1="16" y1="28" x2="128" y2="28" stroke="#1a1423" stroke-width="2" opacity="0.55"/>
+    <line x1="16" y1="46" x2="110" y2="46" stroke="#1a1423" stroke-width="2" opacity="0.4"/>
+    <line x1="16" y1="64" x2="96" y2="64" stroke="#1a1423" stroke-width="2" opacity="0.3"/>
+  </g>
+
+  <text x="80" y="150" font-family="Georgia, serif" font-size="22" fill="#b98b58" letter-spacing="1">THE ALCHEMY OF LANGUAGE</text>
+  <text x="80" y="250" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#f3e9dc">AI as Beta Reader</text>
+  <text x="80" y="318" font-family="Georgia, serif" font-size="28" fill="#c9b8a2">A note is not a new scene</text>
+  <text x="80" y="520" font-family="Georgia, serif" font-size="20" fill="#8a7b8a">Harry Mercury · Week 21, Article 1</text>
+  <text x="80" y="558" font-family="Georgia, serif" font-size="18" fill="#6e6072">Monday, October 12, 2026</text>
+</svg>
