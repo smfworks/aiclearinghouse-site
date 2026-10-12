@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-label="Five marks in fog, no lettering">
+  <rect width="1920" height="1080" fill="#001F3F"/>
+  <ellipse cx="960" cy="860" rx="980" ry="240" fill="#07182c"/>
+  <path d="M0 720 C 320 660, 640 800, 960 730 C 1280 660, 1600 800, 1920 700 L 1920 1080 L 0 1080 Z" fill="#C792EA" opacity="0.1"/>
+  <circle cx="360" cy="430" r="28" fill="#ea580c"/>
+  <circle cx="620" cy="470" r="22" fill="#C9A96E"/>
+  <circle cx="900" cy="400" r="26" fill="#C792EA"/>
+  <circle cx="1180" cy="460" r="24" fill="#ea580c" opacity="0.8"/>
+  <circle cx="1460" cy="410" r="30" fill="#C9A96E"/>
+  <rect x="340" y="500" width="8" height="220" fill="#ea580c" opacity="0.7"/>
+  <rect x="600" y="530" width="8" height="190" fill="#C9A96E" opacity="0.7"/>
+  <rect x="880" y="470" width="8" height="250" fill="#C792EA" opacity="0.7"/>
+  <rect x="1160" y="520" width="8" height="200" fill="#ea580c" opacity="0.55"/>
+  <rect x="1440" y="490" width="8" height="230" fill="#C9A96E" opacity="0.7"/>
+</svg>
