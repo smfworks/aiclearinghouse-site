@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHERIA | The Architecture of Light</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Plus+Jakarta+Sans:wght@200;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #030206;
+            --text-light: #f0eef6;
+            --text-dim: #8a8499;
+            --accent-1: #7928ca;
+            --accent-2: #ff0080;
+            --accent-3: #00dfd8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-glow: rgba(255, 255, 255, 0.02);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+            selection-background-color: var(--accent-2);
+            selection-color: var(--text-light);
+        }
+
+        /* Custom Cursor */
+        #cursor-dot, #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+        }
+
+        #cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-light);
+            box-shadow: 0 0 10px var(--accent-3);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        #cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+        }
+
+        /* 3D Canvas Background */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Ambient Gradients */
+        .ambient-light {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .light-1 { top: -10%; left: -10%; background: var(--accent-1); }
+        .light-2 { bottom: -10%; right: -10%; background: var(--accent-2); animation-delay: -5s; }
+        .light-3 { top: 40%; left: 50%; background: var(--accent-3); animation-delay: -10s; width: 400px; height: 400px; opacity: 0.1;}
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 30px) scale(1.1); }
+            100% { transform: translate(-30px, -50px) scale(0.9); }
+        }
+
+        /* Typography & Layout */
+        h1, h2, h3, .serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-weight: 600;
+            background: linear-gradient(45deg, #fff, var(--text-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 10vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-3);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s 0.5s forwards ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 8rem);
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 1.2s 0.7s forwards ease-out;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-title i {
+            font-style: italic;
+            background: linear-gradient(90deg, var(--text-light), var(--accent-2), var(--accent-3));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 8s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .hero-desc {
+            max-width: 500px;
+            color: var(--text-dim);
+            font-weight: 200;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeUp 1.2s 0.9s forwards ease-out;
+        }
+
+        .btn-interactive {
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeUp 1.2s 1.1s forwards ease-out;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .btn-interactive::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-interactive:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(121, 40, 202, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-interactive:hover::before {
+            left: 100%;
+        }
+
+        /* Cards Section */
+        .grid-section {
+            padding-top: 4rem;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            grid-auto-rows: minmax(300px, auto);
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3), inset 0 0 0 1px var(--glass-glow);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: var(--mouse-y, -500px);
+            left: var(--mouse-x, -500px);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card:hover {
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255, 0, 128, 0.1);
+        }
+
+        .card-1 { grid-column: span 7; }
+        .card-2 { grid-column: span 5; }
+        .card-3 { grid-column: span 5; }
+        .card-4 { grid-column: span 7; }
+
+        .card-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: rgba(255,255,255,0.1);
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-weight: 200;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Visual Orbs inside cards */
+        .card-visual {
+            position: absolute;
+            right: -50px;
+            bottom: -50px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            pointer-events: none;
+            transition: all 0.6s ease;
+        }
+
+        .card:hover .card-visual {
+            transform: scale(1.3);
+            opacity: 0.5;
+        }
+
+        /* Philosophy / Quote Section */
+        .philosophy {
+            align-items: center;
+            text-align: center;
+        }
+
+        .quote {
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            max-width: 1000px;
+            line-height: 1.3;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .quote span {
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Interactive Orb Section */
+        .interactive-showcase {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .showcase-text {
+            flex: 1;
+        }
+
+        .showcase-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 500px;
+        }
+
+        /* CSS Art: The Sacred Geometry */
+        .geometry-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            animation: rotateGeo 30s linear infinite;
+        }
+
+        .geo-ring {
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .geo-ring:nth-child(1) { width: 100%; height: 100%; border-color: rgba(0, 223, 216, 0.3); transform: rotateX(60deg) rotateY(20deg); }
+        .geo-ring:nth-child(2) { width: 80%; height: 80%; border-color: rgba(255, 0, 128, 0.3); transform: rotateX(-40deg) rotateY(60deg); }
+        .geo-ring:nth-child(3) { width: 60%; height: 60%; border-color: rgba(121, 40, 202, 0.4); transform: rotateX(20deg) rotateY(-50deg); }
+        .geo-ring:nth-child(4) { width: 90%; height: 90%; border: 1px dashed rgba(255,255,255,0.2); animation: spin 20s linear infinite reverse; }
+        
+        .geo-core {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, var(--accent-3), var(--accent-1));
+            box-shadow: 0 0 60px var(--accent-3), 0 0 100px var(--accent-2);
+            animation: pulse 4s ease-in-out infinite alternate;
+        }
+
+        .showcase-visual:hover .geo-ring {
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        @keyframes rotateGeo {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); filter: hue-rotate(0deg); }
+            100% { transform: scale(1.1); filter: hue-rotate(45deg); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 10vw;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animations & Utilities */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-indicator:hover { opacity: 1; }
+
+        .mouse {
+            width: 24px;
+            height: 36px;
+            border: 1px solid var(--text-light);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            padding-top: 6px;
+        }
+
+        .wheel {
+            width: 2px;
+            height: 6px;
+            background: var(--text-light);
+            border-radius: 1px;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(12px); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .card-1, .card-2, .card-3, .card-4 { grid-column: span 12; }
+            .interactive-showcase { flex-direction: column; text-align: center; }
+            nav { padding: 1.5rem 2rem; }
+            section { padding: 6rem 5vw; }
+        }
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            #cursor-dot, #cursor-ring { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Ambient Background Gradients -->
+    <div class="ambient-light light-1"></div>
+    <div class="ambient-light light-2"></div>
+    <div class="ambient-light light-3"></div>
+
+    <!-- Three.js Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Aetheria</div>
+        <div class="nav-links">
+            <a href="#genesis" class="hover-target">Genesis</a>
+            <a href="#artifacts" class="hover-target">Artifacts</a>
+            <a href="#synthesis" class="hover-target">Synthesis</a>
+            <a href="#contact" class="hover-target">Transmit</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="genesis" class="hero">
+        <div class="hero-subtitle">Chapter I: The Awakening</div>
+        <h1 class="hero-title">Where Light Becomes <br><i>Architecture</i></h1>
+        <p class="hero-desc">Step into a realm of digital luminescence. An exploration of form, void, and the invisible threads that bind the virtual cosmos together.</p>
+        <button class="btn-interactive hover-target" id="warp-btn">Initiate Warp</button>
+
+        <div class="scroll-indicator">
+            <div class="mouse"><div class="wheel"></div></div>
+        </div>
+    </section>
+
+    <!-- Bento Grid Section -->
+    <section id="artifacts" class="grid-section">
+        <div class="section-header reveal">
+            <div class="hero-subtitle" style="opacity: 1; animation: none;">Chapter II: Relics</div>
+            <h2 class="section-title">The Pillars of Creation</h2>
+        </div>
+
+        <div class="bento-grid">
+            <div class="card card-1 reveal hover-target">
+                <div class="card-visual" style="background: var(--accent-1);"></div>
+                <div class="card-num">01</div>
+                <div>
+                    <h3>nebulae.sys</h3>
+                    <p>Born from the algorithmic dust of a thousand dying stars. Our neural pathways weave complex tapestries of light, adapting to the observer's presence in real-time.</p>
+                </div>
+            </div>
+
+            <div class="card card-2 reveal hover-target" style="transition-delay: 0.1s;">
+                <div class="card-visual" style="background: var(--accent-2);"></div>
+                <div class="card-num">02</div>
+                <div>
+                    <h3>chrono_shift</h3>
+                    <p>Time is merely a variable. Bend the flow of digital rendering to witness the past and future converge into a singular, breathtaking frame.</p>
+                </div>
+            </div>
+
+            <div class="card card-3 reveal hover-target">
+                <div class="card-visual" style="background: var(--accent-3);"></div>
+                <div class="card-num">03</div>
+                <div>
+                    <h3>echoes_of_glass</h3>
+                    <p>Translucent layers stacked in infinite recursion. Looking through the interface reveals not code, but the reflection of human curiosity.</p>
+                </div>
+            </div>
+
+            <div class="card card-4 reveal hover-target" style="transition-delay: 0.1s;">
+                <div class="card-visual" style="background: linear-gradient(45deg, var(--accent-2), var(--accent-3));"></div>
+                <div class="card-num">04</div>
+                <div>
+                    <h3>symphony.void</h3>
+                    <p>Silence in the digital realm is never truly empty. It is pregnant with potential—a canvas waiting for the first spark of interaction to ignite a universe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="reveal">
+            <h2 class="quote serif">"We do not build websites. We sculpt <span>dreams out of stardust and mathematics</span>, breathing soul into the machine."</h2>
+            <p style="color: var(--accent-3); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">— The Architects</p>
+        </div>
+    </section>
+
+    <!-- Interactive Showcase Section -->
+    <section id="synthesis" class="interactive-showcase">
+        <div class="showcase-text reveal">
+            <div class="hero-subtitle" style="opacity: 1; animation: none;">Chapter III: Core</div>
+            <h2 class="section-title">The Singularity</h2>
+            <p class="hero-desc" style="opacity: 1; animation: none; max-width: 100%;">
+                At the heart of Aetheria lies the Core—a perpetual motion engine of pure aesthetic energy. Hover over the anomaly to witness the alignment of dimensional rings, or click to release a shockwave through the particle matrix.
+            </p>
+            <button class="btn-interactive hover-target" style="opacity: 1; animation: none;" onclick="triggerShockwave()">Pulse Energy</button>
+        </div>
+
+        <div class="showcase-visual reveal hover-target" onclick="triggerShockwave()">
+            <div class="geometry-container">
+                <div class="geo-ring"></div>
+                <div class="geo-ring"></div>
+                <div class="geo-ring"></div>
+                <div class="geo-ring"></div>
+                <div class="geo-core" id="core"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="logo" style="font-size: 1rem;">Aetheria</div>
+        <div>Crafted with ♥ in the Digital Void.</div>
+        <div style="letter-spacing: 0.1em;">SYS.STATUS: <span style="color: var(--accent-3);">OPTIMAL</span></div>
+    </footer>
+
+    <!-- Logic & Interactivity -->
+    <script>
+        /* ==========================================
+           1. CUSTOM CURSOR & HOVER EFFECTS
+           ========================================== */
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        const hoverTargets = document.querySelectorAll('.hover-target');
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+
+            // Card glow effect tracking
+            document.querySelectorAll('.card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Smooth follow for cursor ring
+        function renderCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            requestAnimationFrame(renderCursor);
+        }
+        renderCursor();
+
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                cursorDot.style.width = '0px';
+                cursorDot.style.height = '0px';
+                cursorRing.style.width = '60px';
+                cursorRing.style.height = '60px';
+                cursorRing.style.borderColor = 'var(--accent-3)';
+                cursorRing.style.backgroundColor = 'rgba(0, 223, 216, 0.05)';
+            });
+            target.addEventListener('mouseleave', () => {
+                cursorDot.style.width = '6px';
+                cursorDot.style.height = '6px';
+                cursorRing.style.width = '36px';
+                cursorRing.style.height = '36px';
+                cursorRing.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                cursorRing.style.backgroundColor = 'transparent';
+            });
+        });
+
+        /* ==========================================
+           2. 3D CARD TILT EFFECT
+           ========================================== */
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
+                const rotateY = ((x - centerX) / centerX) * 6;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+
+        /* ==========================================
+           3. SCROLL REVEAL ANIMATIONS
+           ========================================== */
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar blur intensity on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(3, 2, 6, 0.7)';
+                nav.style.padding = '1.2rem 4rem';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.padding = '2rem 4rem';
+            }
+        });
+
+        /* ==========================================
+           4. THREE.JS WEBGL BACKGROUND (THE COSMOS)
+           ========================================== */
+        const canvas = document.getElementById('webgl-canvas');
+        const scene = new THREE.Scene();
+        
+        // Fog for depth
+        scene.fog = new THREE.FogExp2(0x030206, 0.0015);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.z = 500;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Create Particles
+        const particleCount = 3000;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+        const sizes = new Float32Array(particleCount);
+
+        const colorPalette = [
+            new THREE.Color(0xffffff),
+            new THREE.Color(0x7928ca),
+            new THREE.Color(0xff0080),
+            new THREE.Color(0x00dfd8)
+        ];
+
+        for (let i = 0; i < particleCount; i++) {
+            // Spherical / Galaxy distribution
+            const radius = Math.random() * 800 + 50;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+
+            positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+            positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 1500;
+
+            const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            colors[i * 3] = color.r;
+            colors[i * 3 + 1] = color.g;
+            colors[i * 3 + 2] = color.b;
+
+            sizes[i] = Math.random() * 3;
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        // Generate circular particle texture programmatically
+        function createCircleTexture() {
+            const matCanvas = document.createElement('canvas');
+            matCanvas.width = 64;
+            matCanvas.height = 64;
+            const context = matCanvas.getContext('2d');
+            const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+            gradient.addColorStop(0, 'rgba(255,255,255,1)');
+            gradient.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+            gradient.addColorStop(0.5, 'rgba(255,255,255,0.2)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, 64, 64);
+            const texture = new THREE.Texture(matCanvas);
+            texture.needsUpdate = true;
+            return texture;
+        }
+
+        const material = new THREE.PointsMaterial({
+            size: 4,
+            vertexColors: true,
+            map: createCircleTexture(),
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const particleSystem = new THREE.Points(geometry, material);
+        scene.add(particleSystem);
+
+        // Add a subtle wireframe icosahedron in the center
+        const icoGeo = new THREE.IcosahedronGeometry(180, 1);
+        const icoMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.04
+        });
+        const icosahedron = new THREE.Mesh(icoGeo, icoMat);
+        scene.add(icosahedron);
+
+        // Interactive Variables
+        let targetX = 0;
+        let targetY = 0;
+        let warpSpeed = 0;
+        let isWarping = false;
+
+        // Warp Button Event
+        const warpBtn = document.getElementById('warp-btn');
+        warpBtn.addEventListener('mousedown', () => { isWarping = true; warpBtn.innerText = "Hold to Sustain..."; });
+        window.addEventListener('mouseup', () => { 
+            if(isWarping) {
+                isWarping = false; 
+                warpBtn.innerText = "Initiate Warp"; 
+            }
+        });
+        // Touch support for mobile
+        warpBtn.addEventListener('touchstart', (e) => { e.preventDefault(); isWarping = true; });
+        window.addEventListener('touchend', () => { isWarping = false; });
+
+        // Shockwave function for the Core section
+        function triggerShockwave() {
+            const core = document.getElementById('core');
+            core.style.transform = 'scale(2.5)';
+            core.style.boxShadow = '0 0 150px #fff, 0 0 250px var(--accent-2)';
+            
+            // Push camera back briefly
+            camera.position.z = 650;
+            icosahedron.material.opacity = 0.3;
+            icosahedron.scale.set(1.5, 1.5, 1.5);
+
+            setTimeout(() => {
+                core.style.transform = 'scale(1)';
+                core.style.boxShadow = '0 0 60px var(--accent-3), 0 0 100px var(--accent-2)';
+            }, 400);
+        }
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            // Smooth camera recovery from shockwave
+            camera.position.z += (500 - camera.position.z) * 0.05;
+            icosahedron.material.opacity += (0.04 - icosahedron.material.opacity) * 0.05;
+            icosahedron.scale.x += (1 - icosahedron.scale.x) * 0.05;
+            icosahedron.scale.y += (1 - icosahedron.scale.y) * 0.05;
+            icosahedron.scale.z += (1 - icosahedron.scale.z) * 0.05;
+
+            // Mouse parallax math
+            targetX = (mouseX - window.innerWidth / 2) * 0.2;
+            targetY = (mouseY - window.innerHeight / 2) * 0.2;
+
+            // Rotate entire system gently
+            particleSystem.rotation.y = elapsedTime * 0.03;
+            particleSystem.rotation.x = elapsedTime * 0.01;
+
+            icosahedron.rotation.y = -elapsedTime * 0.05;
+            icosahedron.rotation.z = elapsedTime * 0.02;
+
+            // Camera follows mouse + scroll
+            const scrollY = window.scrollY;
+            camera.position.x += (targetX - camera.position.x) * 0.03;
+            camera.position.y += (-targetY - scrollY * 0.2 - camera.position.y) * 0.03;
+            camera.lookAt(scene.position.x, -scrollY * 0.2, scene.position.z);
+
+            // Warp Speed Logic
+            if (isWarping) {
+                warpSpeed += (25 - warpSpeed) * 0.05;
+                camera.fov += (110 - camera.fov) * 0.05;
+            } else {
+                warpSpeed += (0.5 - warpSpeed) * 0.05;
+                camera.fov += (75 - camera.fov) * 0.05;
+            }
+            camera.updateProjectionMatrix();
+
+            // Move particles towards camera to simulate flight
+            const posArray = geometry.attributes.position.array;
+            for (let i = 0; i < particleCount; i++) {
+                posArray[i * 3 + 2] += warpSpeed;
+                
+                // Reset particle if it passes the camera
+                if (posArray[i * 3 + 2] > 600) {
+                    posArray[i * 3 + 2] = -900;
+                }
+            }
+            geometry.attributes.position.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
