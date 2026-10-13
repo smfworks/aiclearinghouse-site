@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Abstract three-track branch on a navy field">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="48%" stop-color="#12243f"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <linearGradient id="navyline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g stroke="#1e3a8a" stroke-width="1" opacity="0.45">
+    <line x1="72" y1="0" x2="72" y2="630"/>
+    <line x1="1128" y1="0" x2="1128" y2="630"/>
+    <line x1="0" y1="64" x2="1200" y2="64"/>
+    <line x1="0" y1="566" x2="1200" y2="566"/>
+  </g>
+  <circle cx="168" cy="315" r="28" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="168" cy="315" r="8" fill="#ff6b00"/>
+  <path d="M196 315 H310" stroke="#f59e0b" stroke-width="3" fill="none"/>
+  <path d="M310 315 C390 315 390 168 470 168" stroke="url(#gold)" stroke-width="4" fill="none"/>
+  <path d="M310 315 H980" stroke="url(#teal)" stroke-width="4" fill="none"/>
+  <path d="M310 315 C390 315 390 462 470 462" stroke="url(#navyline)" stroke-width="4" fill="none"/>
+  <rect x="470" y="152" width="560" height="32" rx="16" fill="#1e3a8a"/>
+  <rect x="470" y="152" width="420" height="32" rx="16" fill="url(#gold)"/>
+  <rect x="470" y="299" width="510" height="32" rx="16" fill="#134e4a"/>
+  <rect x="470" y="299" width="250" height="32" rx="16" fill="url(#teal)"/>
+  <rect x="470" y="446" width="390" height="32" rx="16" fill="#1e3a8a" opacity="0.85"/>
+  <rect x="470" y="446" width="140" height="32" rx="16" fill="#0e7490"/>
+  <circle cx="890" cy="168" r="10" fill="#0a1628"/>
+  <circle cx="720" cy="315" r="10" fill="#0a1628"/>
+  <circle cx="610" cy="462" r="10" fill="#f59e0b"/>
+  <g fill="#2dd4bf" opacity="0.85">
+    <circle cx="160" cy="520" r="5"/>
+    <circle cx="188" cy="520" r="5"/>
+    <circle cx="216" cy="520" r="5"/>
+    <circle cx="244" cy="520" r="5"/>
+  </g>
+  <g fill="#f59e0b" opacity="0.7">
+    <rect x="980" y="96" width="18" height="72" rx="4"/>
+    <rect x="1008" y="118" width="18" height="50" rx="4"/>
+    <rect x="1036" y="140" width="18" height="28" rx="4"/>
+  </g>
+</svg>
