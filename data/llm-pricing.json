@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-23T12:59:39.000Z",
-  "updated_at": "2026-10-07T12:18:50.000Z",
+  "updated_at": "2026-10-14T08:11:07.000Z",
   "source": "comprehensive_manual",
   "providers": [
     {
@@ -459,6 +459,20 @@
       "icon": "/images/llms/google.svg",
       "type": "provider",
       "models": [
+        {
+          "model": "Gemini 4 Argon",
+          "model_id": "gemini-4-argon",
+          "input_price": 2.0,
+          "output_price": 10.0,
+          "cached_input_price": 0.1,
+          "context_window": 1048576,
+          "max_output_tokens": 65536,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Flagship",
+          "description": "Public id gemini-4-argon. Intro rate $2/$10 per million tokens through November 30, 2026, then $4/$20, from the Oct 13 blog footnote and the first Agent Platform table. Cached input on that table is $0.10, then $0.20. Two other Argon tables on the same page had no heading in the fetch. Explicit caching, image generation, and Live API are unsupported on the model docs page. Default sync output cap is 65,536; long decode can use the unified 1,048,576.",
+          "release_date": "2026-10-13"
+        },
         {
           "model": "EmbeddingGemma 2",
           "model_id": "embeddinggemma-2",
@@ -2169,7 +2183,7 @@
     {
       "id": "cloudflare",
       "name": "Cloudflare",
-      "description": "Workers AI hosts Clef and Clef-flash. Both are decision models. The published unit is input tokens. No output token price is on the model pages.",
+      "description": "Workers AI hosts Clef, Clef-flash, and Clef-Omni. All three are decision models. The published unit is input tokens. No output token price is on the model pages.",
       "website": "https://developers.cloudflare.com/workers-ai/models/clef/",
       "pricing_url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
       "icon": "/images/llms/default.svg",
@@ -2202,6 +2216,20 @@
           "category": "Decision",
           "description": "9B decision model at $0.09 per million input tokens. Same request schema as Clef. No output price published.",
           "release_date": "2026-10-01"
+        },
+        {
+          "model": "Clef-Omni",
+          "model_id": "clef-omni",
+          "input_price": 0.15,
+          "output_price": null,
+          "cached_input_price": null,
+          "context_window": 64000,
+          "max_output_tokens": null,
+          "mmlu": null,
+          "humaneval": null,
+          "category": "Decision",
+          "description": "30B-A3B decision model. Workers AI model page lists $0.15 per million input tokens and no output charge. The pricing table fetched 2026-10-14 did not list this row. Scores a typed schema over text, images, audio, or video. Does not generate free-form text.",
+          "release_date": "2026-10-09"
         }
       ]
     },
