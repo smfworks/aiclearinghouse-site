@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHER — Beyond the Horizon</title>
+  <style>
+    /* ============ RESET & VARIABLES ============ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #050508;
+      --text: #ffffff;
+      --muted: #94a3b8;
+      --accent: #8b5cf6;
+      --accent2: #ec4899;
+      --accent3: #06b6d4;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --radius: 24px;
+      --transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============ NOISE TEXTURE ============ */
+    .noise {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ============ ANIMATED BACKGROUND ============ */
+    .bg-mesh {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(139, 92, 246, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 80% 75%, rgba(236, 72, 153, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 45% 55%, rgba(6, 182, 212, 0.12) 0%, transparent 45%);
+      background-size: 200% 200%;
+      animation: meshFlow 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes meshFlow {
+      0% { background-position: 0% 0%; transform: scale(1); }
+      100% { background-position: 100% 100%; transform: scale(1.05); }
+    }
+
+    /* ============ PARTICLES CANVAS ============ */
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: -1;
+    }
+
+    /* ============ TYPOGRAPHY ============ */
+    h1, h2, h3 {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 10vw, 6rem);
+      background: linear-gradient(135deg, #ffffff 0%, var(--accent) 35%, var(--accent2) 65%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 300% auto;
+      animation: gradientShift 5s linear infinite;
+      filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.4));
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      max-width: 600px;
+    }
+
+    /* ============ NAVIGATION ============ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      padding: 1.5rem 5%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      background: linear-gradient(to right, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* ============ HERO ============ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+    }
+
+    .hero .intro {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.4s;
+    }
+
+    .hero p {
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.6s;
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards 0.8s;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 60px rgba(139, 92, 246, 0.55);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+    }
+
+    .magnetic {
+      transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ============ SCROLL INDICATOR ============ */
+    .scroll-down {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      animation: bounce 3s ease-in-out infinite;
+      opacity: 0;
+      animation: fadeInDown 1s ease forwards 1s, bounce 3s ease-in-out infinite 1s;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ============ SECTIONS ============ */
+    section {
+      padding: 120px 5%;
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(to right, var(--accent), var(--accent3));
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      margin-top: 1rem;
+      color: var(--muted);
+    }
+
+    /* ============ GRID & CARDS ============ */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(139, 92, 246, 0.03) 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* ============ ABOUT / SPLIT ============ */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .visual {
+      height: 400px;
+      border-radius: var(--radius);
+      background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+      border: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual::after {
+      content: 'AETHER';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(4rem, 15vw, 12rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -0.1em;
+      opacity: 0.5;
+    }
+
+    /* ============ REVEAL ANIMATIONS ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.9s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay { transition-delay: 0.2s; }
+    .reveal-delay-2 { transition-delay: 0.4s; }
+
+    /* ============ FOOTER ============ */
+    footer {
+      padding: 80px 5% 40px;
+      border-top: 1px solid var(--glass-border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .footer-links {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* ============ CUSTOM CURSOR ============ */
+    .cursor {
+      position: fixed;
+      top: 0; left: 0;
+      width: 20px; height: 20px;
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor.hovered {
+      width: 50px;
+      height: 50px;
+      background: rgba(139, 92, 246, 0.2);
+      border-color: transparent;
+    }
+
+    /* ============ MOBILE ============ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .split { grid-template-columns: 1fr; gap: 2rem; }
+      .visual { height: 250px; }
+      section { padding: 80px 5%; }
+      .hero { padding: 0 10%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Layers -->
+  <div class="noise"></div>
+  <div class="bg-mesh"></div>
+  <canvas id="particles"></canvas>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">AETHER</div>
+    <ul class="nav-links">
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#vision">Vision</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="intro">EXPERIENCE THE INFINITE</div>
+    <h1>AETHER</h1>
+    <p>A digital sanctuary where light, motion, and imagination converge into a single breathtaking interface.</p>
+    <div class="cta-group">
+      <a href="#capabilities" class="btn btn-primary magnetic">Explore</a>
+      <a href="#vision" class="btn btn-outline magnetic">Learn More</a>
+    </div>
+    <div class="scroll-down">scroll</div>
+  </header>
+
+  <!-- Origins Section -->
+  <section id="origins">
+    <div class="section-title reveal">
+      <h2>Origins</h2>
+      <p>Born from a desire to transcend the ordinary, Aether is an experiment in beauty without compromise.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal reveal-delay">
+        <span class="card-icon">✦</span>
+        <h3>Light</h3>
+        <p>Every gradient is hand-crafted to evoke emotion, using only code and mathematics.</p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <span class="card-icon">☁</span>
+        <h3>Motion</h3>
+        <p>Fluid transitions and physics-based interactions make the interface feel alive.</p>
+      </div>
+      <div class="card reveal">
+        <span class="card-icon">◆</span>
+        <h3>Space</h3>
+        <p>Negative space is treated as a design element, allowing content to breathe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Section -->
+  <section id="capabilities" style="background: rgba(0,0,0,0.2);">
+    <div class="section-title reveal">
+      <h2>Capabilities</h2>
+      <p>Engineered for performance, designed for wonder.</p>
+    </div>
+    <div class="split">
+      <div class="visual reveal reveal-delay"></div>
+      <div class="reveal reveal-delay-2">
+        <h2>Interactive Canvas</h2>
+        <p>A real-time particle system responds to your cursor, creating constellations that follow your movement across the screen.</p>
+        <br>
+        <h2>Glassmorphism</h2>
+        <p>Backdrop-filter blur and semi-transparent borders create depth and hierarchy without heavy imagery.</p>
+        <br>
+        <h2>Scroll Reveals</h2>
+        <p>Content gracefully fades into view as you descend, guided by an Intersection Observer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision Section -->
+  <section id="vision">
+    <div class="section-title reveal">
+      <h2>Vision</h2>
+      <p>The future of the web is not flat. It is immersive, tactile, and deeply human.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal">
+        <span class="card-icon">▲</span>
+        <h3>Accessibility</h3>
+        <p>Stunning visuals should never come at the cost of usability. Built with semantic HTML and keyboard navigation in mind.</p>
+      </div>
+      <div class="card reveal reveal-delay">
+        <span class="card-icon">●</span>
+        <h3>Performance</h3>
+        <p>Zero external dependencies. No heavy frameworks. Just pure, optimized HTML, CSS, and JavaScript.</p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <span class="card-icon">★</span>
+        <h3>Simplicity</h3>
+        <p>One file. Infinite possibilities. Everything you need is contained right here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Twitter</a>
+      <a href="#">GitHub</a>
+      <a href="#">Contact</a>
+    </div>
+    <p>&nbsp; <span style="color: var(--accent);">AETHER</span> &nbsp;·&nbsp; Designed with code.</p>
+  </footer>
+
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+
+  <script>
+    /* ============ PARTICLE SYSTEM ============ */
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const particleCount = 80;
+    const mouse = { x: null, y: null };
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce off edges
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // Mouse interaction
+        if (mouse.x != null) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 150) {
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const force = (150 - distance) / 150;
+            this.x -= forceDirectionX * force * 2;
+            this.y -= forceDirectionY * force * 2;
+          }
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(139, 92, 246, 0.6)';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Draw connections
+        for (let j = i; j < particles.length; j++) {
+          let dx = particles[i].x - particles[j].x;
+          let dy = particles[i].y - particles[j].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 - distance / 1200})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* ============ SCROLL REVEAL ============ */
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ============ MAGNETIC BUTTONS ============ */
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0,0)';
+      });
+    });
+
+    /* ============ CUSTOM CURSOR ============ */
+    const cursor = document.querySelector('.cursor');
+    const interactables = document.querySelectorAll('a, button, .btn');
+
+    window.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    interactables.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+    });
+
+    /* Hide cursor on leave */
+    window.addEventListener('mouseout', e => {
+      if (e.relatedTarget === null) cursor.style.opacity = '0';
+    });
+    window.addEventListener('mouseover', () => {
+      cursor.style.opacity = '1';
+    });
+  </script>
+</body>
+</html>
