@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624" role="img" aria-labelledby="title desc">
+  <title id="title">Cold Iron score for Nemotron 3.5 Super VL: 96 of 157</title>
+  <desc id="desc">Category bars for a thinking-off 157. Math is 2 of 30. Tools are 2 of 2. Zero errors.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.45">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200 M0 400 H1200 M0 480 H1200 M0 560 H1200"/>
+    <path d="M80 0 V624 M200 0 V624 M400 0 V624 M600 0 V624 M800 0 V624 M1000 0 V624"/>
+  </g>
+  <text x="56" y="58" fill="#8aa0b4" font-family="SF Mono, Courier New, monospace" font-size="16">COLD IRON · thinking off · 0 errors</text>
+  <text x="56" y="108" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="40" font-weight="700">Nemotron 3.5 Super VL</text>
+  <text x="56" y="148" fill="#c5d4e0" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="22">96/157 on the free OpenRouter slug. Send effort=none.</text>
+  <g font-family="SF Mono, Courier New, monospace" font-size="16">
+    <text x="56" y="214" fill="#8aa0b4">tools</text>
+    <rect x="220" y="196" width="520" height="22" rx="3" fill="#1c6b5a"/>
+    <text x="756" y="214" fill="#e8eef4">2/2</text>
+    <text x="56" y="258" fill="#8aa0b4">instruction</text>
+    <rect x="220" y="240" width="468" height="22" rx="3" fill="#1c6b5a"/>
+    <text x="704" y="258" fill="#e8eef4">27/30</text>
+    <text x="56" y="302" fill="#8aa0b4">prose</text>
+    <rect x="220" y="284" width="433" height="22" rx="3" fill="#2a8f78"/>
+    <text x="668" y="302" fill="#e8eef4">25/30</text>
+    <text x="56" y="346" fill="#8aa0b4">coding</text>
+    <rect x="220" y="328" width="416" height="22" rx="3" fill="#2a8f78"/>
+    <text x="652" y="346" fill="#e8eef4">24/30</text>
+    <text x="56" y="390" fill="#8aa0b4">writing</text>
+    <rect x="220" y="372" width="312" height="22" rx="3" fill="#c4a35a"/>
+    <text x="548" y="390" fill="#e8eef4">3/5</text>
+    <text x="56" y="434" fill="#8aa0b4">reasoning</text>
+    <rect x="220" y="416" width="225" height="22" rx="3" fill="#c4a35a"/>
+    <text x="460" y="434" fill="#e8eef4">13/30</text>
+    <text x="56" y="478" fill="#8aa0b4">math</text>
+    <rect x="220" y="460" width="35" height="22" rx="3" fill="#c45a3a"/>
+    <text x="268" y="478" fill="#e8eef4">2/30</text>
+  </g>
+  <text x="56" y="548" fill="#8aa0b4" font-family="SF Mono, Courier New, monospace" font-size="15">342.2 s · median 0.59 s · text only · nvidia/nemotron-3.5-super-vl:free</text>
+  <text x="56" y="584" fill="#5a7084" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="15">SMF Works · Cold Iron · strict_v01</text>
+</svg>
