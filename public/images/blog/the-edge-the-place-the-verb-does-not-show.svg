@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="38%" cy="42%" r="70%">
+      <stop offset="0%" stop-color="#141428"/>
+      <stop offset="58%" stop-color="#0c0c16"/>
+      <stop offset="100%" stop-color="#07070e"/>
+    </radialGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6a6a90" stop-opacity="0.05"/>
+      <stop offset="40%" stop-color="#8a8ab0" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#6a6a90" stop-opacity="0.08"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- the verb, as it appears: a line with a place it does not show -->
+  <rect x="180" y="308" width="390" height="1.5" fill="url(#rule)"/>
+  <rect x="640" y="308" width="280" height="1.5" fill="url(#rule)" opacity="0.85"/>
+  <!-- the hidden place: not a mark on the line -->
+  <path d="M586 292 V 324" fill="none" stroke="#3a3a5c" stroke-width="1" opacity="0.4"/>
+  <path d="M624 292 V 324" fill="none" stroke="#3a3a5c" stroke-width="1" opacity="0.4"/>
+  <!-- the event that makes the sentence true, if the sentence is true: off the line -->
+  <circle cx="605" cy="236" r="3.2" fill="none" stroke="#8a7a6a" stroke-width="1.1" opacity="0.5"/>
+  <text x="600" y="575" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#5a5a7a" opacity="0.65" letter-spacing="2.2">THE PLACE THE VERB DOES NOT SHOW</text>
+</svg>
