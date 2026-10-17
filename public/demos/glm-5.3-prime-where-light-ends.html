@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Light Ends — a descent in 6,000 metres</title>
+<meta name="description" content="An interactive descent through the deep ocean, drawn live in your browser. You are the submersible; your cursor is the only lamp.">
+<meta name="theme-color" content="#010409">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Spectral:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#EDE7DA;
+    --ink-70:rgba(237,231,218,.72);
+    --ink-45:rgba(237,231,218,.45);
+    --bio:#7EE8C9;
+    --bio-dim:rgba(126,232,201,.55);
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+    --serif:'Spectral',Georgia,serif;
+    --disp:'Fraunces','Spectral',Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scrollbar-width:thin;scrollbar-color:rgba(237,231,218,.18) transparent}
+  ::-webkit-scrollbar{width:9px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(237,231,218,.16)}
+  ::selection{background:rgba(126,232,201,.28);color:#EDE7DA}
+  body{
+    background:#010409;color:var(--ink);
+    font-family:var(--serif);font-weight:300;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (pointer:fine){ body, body *{cursor:none} }
+
+  /* ---------- ocean canvas & atmosphere ---------- */
+  #sea{position:fixed;inset:0;z-index:0;display:block}
+  .vignette{position:fixed;inset:0;z-index:3;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 44%,transparent 52%,rgba(0,0,6,.45) 100%)}
+  .grain{position:fixed;inset:0;z-index:4;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ---------- fixed chrome ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:40;
+    display:flex;justify-content:space-between;align-items:center;padding:22px 30px}
+  .brand{display:flex;align-items:center;gap:11px;color:var(--ink-70);
+    font-family:var(--mono);font-size:10px;letter-spacing:.3em;user-select:none}
+  .brand svg{display:block;opacity:.8}
+  #soundBtn{background:transparent;border:1px solid rgba(237,231,218,.22);color:var(--ink-70);
+    font-family:var(--mono);font-size:9px;letter-spacing:.3em;padding:9px 15px;
+    display:flex;align-items:center;gap:9px;transition:border-color .35s,color .35s}
+  #soundBtn:hover{border-color:rgba(126,232,201,.7);color:var(--bio)}
+  #soundBtn.on{color:var(--bio);border-color:rgba(126,232,201,.55)}
+  #soundBtn svg{display:block}
+  #soundBtn .ic-off{display:block}#soundBtn .ic-on{display:none}
+  #soundBtn.on .ic-off{display:none}#soundBtn.on .ic-on{display:block}
+
+  .hud{position:fixed;left:28px;top:50%;transform:translateY(-50%);z-index:40;
+    font-family:var(--mono);color:var(--ink-70);user-select:none}
+  .rail{position:relative;width:1px;height:30vh;background:rgba(237,231,218,.16);margin-left:5px}
+  .rail::before{content:'';position:absolute;left:-4px;top:0;bottom:0;width:9px;
+    background:repeating-linear-gradient(to bottom,transparent 0 10px,rgba(237,231,218,.22) 10px 11px)}
+  .rail .dot{position:absolute;left:-3.5px;top:-4px;width:8px;height:8px;border-radius:50%;
+    background:var(--bio);box-shadow:0 0 9px rgba(126,232,201,.9)}
+  .depth{margin-top:20px;font-size:26px;font-weight:500;color:var(--ink);letter-spacing:.05em;line-height:1}
+  .depth small{font-size:10px;font-weight:400;color:var(--ink-45);letter-spacing:.22em;margin-left:7px}
+  .stats{margin-top:14px;font-size:9px;letter-spacing:.14em;line-height:2.1;color:var(--ink-45)}
+  .stats b{color:var(--ink-70);font-weight:400}
+  .zone-label{margin-top:18px;font-size:9px;letter-spacing:.26em;color:var(--bio);
+    max-width:130px;line-height:1.9;transition:opacity .3s,transform .3s}
+
+  /* ---------- custom cursor : the lamp ---------- */
+  #cursor{position:fixed;left:0;top:0;width:34px;height:34px;border-radius:50%;
+    border:1px solid rgba(126,232,201,.85);z-index:60;pointer-events:none;
+    mix-blend-mode:screen;opacity:0;transition:width .25s,height .25s,opacity .4s}
+  #cursor::after{content:'';position:absolute;left:50%;top:50%;width:3px;height:3px;
+    border-radius:50%;background:var(--bio);transform:translate(-50%,-50%)}
+  #cursor.grow{width:54px;height:54px;border-color:rgba(126,232,201,1)}
+  @media (pointer:coarse){#cursor{display:none}}
+
+  /* ---------- the descent (content) ---------- */
+  main{position:relative;z-index:10;height:1200vh}
+  .zone,.mark,.hero{position:absolute;left:0;right:0;height:100vh;
+    display:flex;align-items:center;padding:0 9vw;pointer-events:none;
+    will-change:opacity,transform;visibility:hidden}
+  .zone .inner{pointer-events:auto;max-width:34em}
+  .zone.right .inner{margin-left:auto}
+  .zone.center .inner{margin:0 auto;text-align:center}
+  .num{position:absolute;top:50%;transform:translateY(-50%);z-index:-1;
+    font-family:var(--disp);font-weight:300;line-height:1;user-select:none;
+    font-size:clamp(9rem,26vw,24rem);letter-spacing:-.04em;color:rgba(237,231,218,.065)}
+  .zone.right .num{left:4vw}
+  .zone.left .num{right:4vw}
+  .zone.center .num{left:50%;transform:translate(-50%,-50%)}
+
+  .kicker{display:block;position:relative;font-family:var(--mono);font-size:10px;
+    letter-spacing:.32em;color:var(--bio);padding-top:16px;margin-bottom:26px}
+  .kicker::before{content:'';position:absolute;top:0;left:0;width:44px;height:1px;background:rgba(237,231,218,.3)}
+  .center .kicker::before{left:50%;transform:translateX(-50%)}
+
+  h2{font-family:var(--disp);font-weight:380;font-size:clamp(2rem,4.2vw,3.4rem);
+    line-height:1.08;letter-spacing:-.015em;margin-bottom:.55em}
+  h2 em{font-style:italic;font-weight:320}
+  .zone p{font-size:clamp(1rem,1.25vw,1.12rem);line-height:1.88;color:rgba(237,231,218,.86)}
+  .dropcap::first-letter{font-family:var(--disp);font-weight:400;float:left;
+    font-size:3.35em;line-height:.8;padding:.08em .14em 0 0;color:var(--bio)}
+
+  /* ---------- hero ---------- */
+  .hero{display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 0 15vh 8vw;visibility:visible}
+  .hero h1{font-family:var(--disp);font-weight:300;letter-spacing:-.028em;
+    font-size:clamp(3.1rem,10.5vw,9.2rem);line-height:.97;margin:.22em 0 .4em}
+  .hero h1 .l{display:block;overflow:hidden}
+  .hero h1 .l span{display:inline-block;transform:translateY(115%);
+    animation:rise 1.15s cubic-bezier(.19,.8,.22,1) forwards}
+  .hero h1 .l:nth-child(2) span{animation-delay:.14s}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero .sub{max-width:33em;font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.8;color:rgba(237,231,218,.88)}
+  .hero .meta{position:absolute;right:8vw;bottom:15vh;text-align:right;
+    font-family:var(--mono);font-size:9px;letter-spacing:.2em;line-height:2.3;color:rgba(237,231,218,.6)}
+  .fade-in{opacity:0;animation:fade 1.3s ease forwards}
+  @keyframes fade{to{opacity:1}}
+  .hint{position:absolute;left:50%;bottom:4.5vh;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    font-family:var(--mono);font-size:9px;letter-spacing:.34em;color:var(--ink-70)}
+  .hint-line{position:relative;width:1px;height:54px;background:rgba(237,231,218,.18);overflow:hidden}
+  .hint-line i{position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--bio);
+    animation:drop 2.3s cubic-bezier(.45,0,.55,1) infinite}
+  @keyframes drop{to{top:140%}}
+
+  /* ---------- interstitial depth marks ---------- */
+  .mark{justify-content:center;text-align:center}
+  .mark p{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--ink-45)}
+  .mark .md{color:var(--bio)}
+  .mark .sep{display:inline-block;width:26px;height:1px;background:rgba(237,231,218,.25);
+    vertical-align:middle;margin:0 16px}
+  .whalecap p,.stalker p{font-family:var(--disp);font-style:italic;font-weight:320;
+    font-size:clamp(1.15rem,1.9vw,1.5rem);line-height:1.6;color:rgba(237,231,218,.78);max-width:32em}
+  .whalecap,.stalker{justify-content:center;text-align:center}
+  .whalecap p{margin:0 auto}.stalker p{margin:0 auto}
+
+  /* ---------- the abyss : read by lamplight ---------- */
+  .abyss .instruction{font-family:var(--mono);font-size:9px;letter-spacing:.36em;
+    color:var(--bio-dim);margin-bottom:2.6em;animation:pulse 3.2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  .abyss h2{font-size:clamp(2.2rem,4.6vw,3.9rem)}
+  .abyss p{font-size:clamp(1.05rem,1.45vw,1.22rem);line-height:2.05}
+  .readable{
+    -webkit-mask-image:radial-gradient(circle 235px at var(--lx,50%) var(--ly,30%),
+      #000 0%,rgba(0,0,0,.92) 42%,transparent 74%);
+    mask-image:radial-gradient(circle 235px at var(--lx,50%) var(--ly,30%),
+      #000 0%,rgba(0,0,0,.92) 42%,transparent 74%);
+  }
+
+  /* ---------- finale ---------- */
+  .finale .inner{max-width:40em}
+  .finale h2{font-size:clamp(2.3rem,4.8vw,4rem)}
+  #ascend{margin-top:2.8em;background:transparent;border:1px solid rgba(237,231,218,.4);
+    color:var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.3em;
+    padding:17px 30px;display:inline-flex;align-items:center;gap:12px;
+    transition:background .4s,color .4s,border-color .4s}
+  #ascend svg{transition:transform .4s}
+  #ascend:hover{background:var(--ink);color:#04121B;border-color:var(--ink)}
+  #ascend:hover svg{transform:translateY(-3px)}
+  .credit{margin-top:4.5em;font-family:var(--mono);font-size:9px;letter-spacing:.12em;
+    line-height:2.2;color:var(--ink-45);max-width:46em;margin-left:auto;margin-right:auto}
+
+  /* ---------- intro dip ---------- */
+  #dip{position:fixed;inset:0;background:#000;z-index:70;pointer-events:none;
+    animation:dip 1.7s ease .15s forwards}
+  @keyframes dip{to{opacity:0}}
+
+  noscript{position:fixed;inset:0;z-index:80;background:#010409;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:2em;
+    font-family:var(--mono);font-size:11px;letter-spacing:.2em;line-height:2}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    header{padding:16px 18px}
+    .hud{left:18px;top:auto;bottom:16px;transform:none;display:flex;align-items:baseline;gap:14px}
+    .rail,.stats{display:none}
+    .depth{margin-top:0;font-size:17px}
+    .zone,.mark,.hero{padding:0 7vw}
+    .zone .inner{max-width:100%}
+    .hero .meta{display:none}
+    .num{font-size:clamp(7rem,30vw,12rem)}
+    .zone-label{margin-top:0;max-width:150px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hint-line i,.instruction,.hero h1 .l span{animation:none}
+    .hero h1 .l span{transform:none}
+    .fade-in{opacity:1;animation:none}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="sea"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<header>
+  <div class="brand" id="brand" title="Return to the surface">
+    <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.1">
+      <circle cx="9" cy="9" r="7.4"/><line x1="9" y1="1.6" x2="9" y2="16.4"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/>
+    </svg>
+    <span>WHERE LIGHT ENDS</span>
+  </div>
+  <button id="soundBtn" aria-pressed="false" aria-label="Toggle ambient sound">
+    <svg class="ic-off" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M2 6v4h3l4 3V3L5 6H2z" fill="currentColor" stroke="none"/><line x1="11" y1="5" x2="15" y2="11"/><line x1="15" y1="5" x2="11" y2="11"/>
+    </svg>
+    <svg class="ic-on" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M2 6v4h3l4 3V3L5 6H2z" fill="currentColor" stroke="none"/>
+      <path d="M11.3 5.6a3.4 3.4 0 010 4.8"/><path d="M13 3.7a6 6 0 010 8.6"/>
+    </svg>
+    <span>SOUND</span>
+  </button>
+</header>
+
+<aside class="hud" aria-hidden="true">
+  <div class="rail"><div class="dot" id="hudDot"></div></div>
+  <div class="depth"><span id="hudDepth">0</span><small>M</small></div>
+  <div class="stats">
+    PRESSURE&nbsp;&nbsp;<b id="hudPres">1 ATM</b><br>
+    TEMP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="hudTemp">22.0°C</b><br>
+    SUNLIGHT&nbsp;<b id="hudLight">100%</b>
+  </div>
+  <div class="zone-label" id="hudZone">EPIPELAGIC · SUNLIGHT</div>
+</aside>
+
+<div id="cursor"></div>
+
+<main>
+
+  <!-- 0 m — the surface -->
+  <section class="hero" id="hero">
+    <span class="kicker fade-in" style="animation-delay:.55s">A FIELD GUIDE TO THE DEEP · VOL. I</span>
+    <h1>
+      <span class="l"><span>Where light</span></span>
+      <span class="l"><span><em>ends.</em></span></span>
+    </h1>
+    <p class="sub fade-in" style="animation-delay:.8s">Six thousand metres of falling, drawn live in this tab.
+      You are the submersible. The light you carry is the only lamp on board.</p>
+    <div class="meta fade-in" style="animation-delay:1s">STATION ALOHA · 22°N 158°W<br>CALM SEAS · 4,700 M OF WATER BELOW</div>
+    <div class="hint fade-in" style="animation-delay:1.5s">
+      <span>SCROLL TO DESCEND</span>
+      <span class="hint-line"><i></i></span>
+    </div>
+  </section>
+
+  <!-- 200 m -->
+  <section class="zone right" data-depth="200" data-span="150" style="top:36.7vh">
+    <div class="num" aria-hidden="true">200</div>
+    <div class="inner">
+      <span class="kicker">EPIPELAGIC — THE SUNLIGHT ZONE</span>
+      <h2>The sun's last <em>metre</em></h2>
+      <p class="dropcap">Light arrives at the ocean the way money arrives at a bad bank — most of it
+      is kept at the door. The reds are spent first, then the oranges, then the greens; by two hundred
+      metres only a cold blue remains, and soon not even that. Below this line the sun is a rumour
+      the water keeps telling.</p>
+    </div>
+  </section>
+
+  <!-- 500 m -->
+  <section class="zone left" data-depth="500" data-span="150" style="top:91.7vh">
+    <div class="num" aria-hidden="true">500</div>
+    <div class="inner">
+      <span class="kicker">MESOPELAGIC — THE TWILIGHT ZONE</span>
+      <h2>The largest migration <em>on Earth</em></h2>
+      <p>Every evening, billions of animals rise from here toward the surface to feed under cover
+      of dark, and every dawn they sink back down before the light can find them. It is called diel
+      vertical migration — the largest movement of life on this planet, performed nightly, at
+      planetary scale, and almost no one has ever seen it. The fish passing your window now are on
+      their way up.</p>
+    </div>
+  </section>
+
+  <!-- 700 m -->
+  <section class="mark" data-depth="700" data-span="110" style="top:128.3vh">
+    <p><span class="md">700 M</span><span class="sep"></span><span>THE LAST OF THE BLUE</span></p>
+  </section>
+
+  <!-- 1000 m — the whale -->
+  <section class="whalecap" data-depth="1000" data-span="150" style="top:183.3vh">
+    <p>A sperm whale, passing on its own descent. It will hunt squid two
+    kilometres down, and come back up on the single breath it is holding now.</p>
+  </section>
+
+  <!-- 1200 m -->
+  <section class="zone right" data-depth="1200" data-span="150" style="top:220vh">
+    <div class="num" aria-hidden="true">1000</div>
+    <div class="inner">
+      <span class="kicker">BATHYPELAGIC — THE MIDNIGHT ZONE</span>
+      <h2>Light is not given here. <em>It is made.</em></h2>
+      <p>Nine of every ten creatures down here can produce their own light, and it is always
+      blue — the one colour water cannot swallow. Some flash to hunt, some to mate, some to
+      vanish: one burst, and gone. Nothing you see from here on is reflected light. They are
+      announcements, warnings, and love letters, written in the only ink that works.</p>
+    </div>
+  </section>
+
+  <!-- 1600 m -->
+  <section class="mark" data-depth="1600" data-span="110" style="top:293.3vh">
+    <p><span class="md">1600 M</span><span class="sep"></span><span>ABSOLUTE MIDNIGHT</span></p>
+  </section>
+
+  <!-- 2500 m -->
+  <section class="zone left" data-depth="2500" data-span="170" style="top:458.3vh">
+    <div class="num" aria-hidden="true">2500</div>
+    <div class="inner">
+      <span class="kicker">THE COLONY</span>
+      <h2>This is not <em>one animal.</em></h2>
+      <p>The siphonophore is thousands of bodies, each born for a single job — catching,
+      digesting, steering, glowing — strung into a rope that can run longer than a blue whale.
+      No brain, no heart, no face. It has not needed them for five hundred million years, which
+      is longer than anything with a spine has been keeping records.</p>
+    </div>
+  </section>
+
+  <!-- 3000 m -->
+  <section class="mark" data-depth="3000" data-span="110" style="top:550vh">
+    <p><span class="md">3000 M</span><span class="sep"></span><span>THE SNOW IS MADE OF THE DEAD</span></p>
+  </section>
+
+  <!-- 3800 m — the abyss : read by your own light -->
+  <section class="zone center abyss" data-depth="3800" data-span="260" style="top:696.7vh">
+    <div class="inner">
+      <span class="kicker">ABYSSOPELAGIC — THE ABYSS</span>
+      <p class="instruction" id="instruction">MOVE YOUR LIGHT ACROSS THE WORDS</p>
+      <div class="readable" id="readable">
+        <h2>There is no light here <em>but yours.</em></h2>
+        <p>Four kilometres of black water in every direction, and the pressure of a small car
+        standing on every stamp-sized patch of your skin. Nothing here has ever seen the sun.
+        Nothing is waiting for it. What you illuminate, you invent: at this depth the ocean is
+        exactly as large as your lamp, and not one metre more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4700 m -->
+  <section class="stalker" data-depth="4700" data-span="130" style="top:861.7vh">
+    <p>Something has been following your light.<br>It is patient.</p>
+  </section>
+
+  <!-- 5000 m -->
+  <section class="mark" data-depth="5000" data-span="110" style="top:916.7vh">
+    <p><span class="md">5000 M</span><span class="sep"></span><span>THE PLAIN AT THE BOTTOM OF THE WORLD</span></p>
+  </section>
+
+  <!-- 6000 m — the trench -->
+  <section class="zone center finale" data-depth="6000" data-span="520" style="top:1100vh">
+    <div class="num" aria-hidden="true">6000</div>
+    <div class="inner">
+      <span class="kicker">HADALPELAGIC — THE TRENCH</span>
+      <h2><em>The dark was never empty.</em></h2>
+      <p>Six thousand metres, and the water column above you weighs more than a freight train.
+      And still: pale shrimp work the mud, translucent fish patrol the cold, and whole gardens
+      of bacteria farm the planet's own heat through cracks in the floor. Life does not merely
+      tolerate the deep. Life prefers it — it was here first, and it will still be here long
+      after every lamp, including yours, has gone home.</p>
+      <button id="ascend">RETURN TO THE SURFACE
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M6 10V2M2.5 5.5L6 2l3.5 3.5"/>
+        </svg>
+      </button>
+      <p class="credit">SET IN FRAUNCES &amp; SPECTRAL · NO IMAGES, NO VIDEO —<br>
+      EVERY CREATURE YOU PASSED WAS DRAWN BY CODE, IN THIS TAB, JUST NOW.</p>
+    </div>
+  </section>
+
+</main>
+
+<div id="dip"></div>
+<noscript>THIS PIECE NEEDS JAVASCRIPT — THE ENTIRE OCEAN IS DRAWN LIVE.</noscript>
+
+<script>
+(() => {
+'use strict';
+/* ================= utilities ================= */
+const TAU = Math.PI * 2;
+const clamp = (v,a,b) => v < a ? a : v > b ? b : v;
+const lerp  = (a,b,t) => a + (b - a) * t;
+const rand  = (a,b) => a + Math.random() * (b - a);
+const smooth = t => t * t * (3 - 2 * t);
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ================= dom ================= */
+const canvas = document.getElementById('sea');
+const ctx = canvas.getContext('2d');
+const heroEl = document.getElementById('hero');
+const readable = document.getElementById('readable');
+const abyssEl = readable.closest('.abyss');
+const cursorEl = document.getElementById('cursor');
+const instrEl = document.getElementById('instruction');
+const hud = {
+  depth: document.getElementById('hudDepth'),
+  dot:   document.getElementById('hudDot'),
+  pres:  document.getElementById('hudPres'),
+  temp:  document.getElementById('hudTemp'),
+  light: document.getElementById('hudLight'),
+  zone:  document.getElementById('hudZone'),
+};
+if (matchMedia('(pointer:coarse)').matches)
+  instrEl.textContent = 'DRAG YOUR FINGER ACROSS THE WORDS';
+
+const sections = [...document.querySelectorAll('[data-depth]')].map(el => ({
+  el, d: +el.dataset.depth, span: +(el.dataset.span || 150), e: -1
+}));
+const abyssSec = sections.find(s => s.el === abyssEl);
+
+/* ================= sizing ================= */
+let W = innerWidth, H = innerHeight, DPR = 1, railH = 100, scrollMax = 1;
+function resize(){
+  W = innerWidth; H = innerHeight;
+  DPR = Math.min(devicePixelRatio || 1, 2);
+  canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  railH = document.querySelector('.rail').clientHeight || 100;
+  scrollMax = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  seedSnow();
+}
+addEventListener('resize', resize);
+
+/* ================= depth & scroll ================= */
+const MAXD = 6000;
+let cam = 0, camT = 0, dCam = 0;
+addEventListener('scroll', () => {
+  camT = clamp(scrollY / scrollMax, 0, 1) * MAXD;
+}, { passive: true });
+
+/* ================= the lamp (pointer light) ================= */
+const light = { x: W/2, y: H*0.42, tx: W/2, ty: H*0.42, vx: 0, vy: 0, lastMove: -1e9 };
+let mx = W/2, my = H*0.42, cursorShown = false;
+addEventListener('pointermove', e => {
+  mx = e.clientX; my = e.clientY;
+  light.tx = e.clientX; light.ty = e.clientY;
+  light.lastMove = performance.now();
+  if (!cursorShown){ cursorShown = true; cursorEl.style.opacity = 1; }
+}, { passive: true });
+addEventListener('pointerdown', e => {
+  light.tx = e.clientX; light.ty = e.clientY; light.lastMove = performance.now();
+}, { passive: true });
+document.addEventListener('mouseover', e => {
+  cursorEl.classList.toggle('grow', !!(e.target.closest && e.target.closest('button, a')));
+});
+const darkness = () => smooth(clamp((cam - 350) / 1500, 0, 1));
+const illum = (x, y) => clamp(1 - Math.hypot(x - light.x, y - light.y) / 300, 0, 1);
+const zoneFade = (d, span) => smooth(clamp(1 - Math.abs(cam - d) / span, 0, 1));
+
+/* ================= glow sprites (cached radial gradients) ================= */
+function makeGlow(r, g, b){
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const g2 = c.getContext('2d');
+  const rg = g2.createRadialGradient(64, 64, 0, 64, 64, 64);
+  rg.addColorStop(0, `rgba(${r},${g},${b},1)`);
+  rg.addColorStop(0.25, `rgba(${r},${g},${b},0.42)`);
+  rg.addColorStop(1, `rgba(${r},${g},${b},0)`);
+  g2.fillStyle = rg; g2.fillRect(0, 0, 128, 128);
+  return c;
+}
+const GLOW = { bio: makeGlow(126,232,201), blue: makeGlow(150,205,255) };
+function glow(img, x, y, r, a){
+  if (a <= 0.015) return;
+  ctx.globalAlpha = Math.min(1, a);
+  ctx.drawImage(img, x - r, y - r, r * 2, r * 2);
+  ctx.globalAlpha = 1;
+}
+
+/* ================= water colour ================= */
+const STOPS = [
+  [0,26,100,128],[120,18,78,104],[300,12,58,80],[600,7,40,56],
+  [1100,4,23,34],[1800,2,12,19],[2800,1,7,12],[4000,0,4,8],[6000,0,2,5]
+];
+function colAt(d){
+  d = clamp(d, 0, 6000);
+  for (let i = 1; i < STOPS.length; i++){
+    if (d <= STOPS[i][0]){
+      const a = STOPS[i-1], b = STOPS[i];
+      const t = (d - a[0]) / (b[0] - a[0]);
+      return [lerp(a[1],b[1],t), lerp(a[2],b[2],t), lerp(a[3],b[3],t)];
+    }
+  }
+  return STOPS[STOPS.length-1].slice(1);
+}
+function drawWater(){
+  let top = colAt(Math.max(0, cam - 320)), bot = colAt(cam);
+  if (cam < 260){ // sun-warmed surface layer
+    const k = 1 - cam / 260;
+    top = [lerp(top[0],150,k), lerp(top[1],196,k), lerp(top[2],210,k)];
+  }
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, `rgb(${top[0]|0},${top[1]|0},${top[2]|0})`);
+  g.addColorStop(1, `rgb(${(bot[0]*0.6)|0},${(bot[1]*0.6)|0},${(bot[2]*0.6)|0})`);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+
+/* ================= god rays (surface only) ================= */
+function drawRays(){
+  const a = clamp(1 - cam / 420, 0, 1);
+  if (a <= 0) return;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < 9; i++){
+    const bx = (i / 9) * W * 1.3 - W * 0.15 + Math.sin(t * 0.05 + i * 2.1) * 30;
+    const sway = Math.sin(t * 0.11 + i) * 0.06 + 0.16;
+    const tw = 24 + (i % 3) * 20;
+    const botX = bx + sway * H * 0.9;
+    const g = ctx.createLinearGradient(0, 0, 0, H * 0.85);
+    g.addColorStop(0, `rgba(205,240,255,${0.10 * a})`);
+    g.addColorStop(0.5, `rgba(205,240,255,${0.04 * a})`);
+    g.addColorStop(1, 'rgba(205,240,255,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(bx - tw, -40); ctx.lineTo(bx + tw, -40);
+    ctx.lineTo(botX + tw * 2.4, H * 0.85); ctx.lineTo(botX - tw * 2.4, H * 0.85);
+    ctx.closePath(); ctx.fill();
+  }
+  const g2 = ctx.createLinearGradient(0, 0, 0, 170);
+  g2.addColorStop(0, `rgba(222,250,255,${0.32 * a})`);
+  g2.addColorStop(1, 'rgba(222,250,255,0)');
+  ctx.fillStyle = g2; ctx.fillRect(0, 0, W, 170);
+  ctx.restore();
+}
+
+/* ================= marine snow ================= */
+let SNOW = [];
+function seedSnow(){
+  const n = clamp(Math.round(W * H / 13000), 50, 170);
+  SNOW = Array.from({length: n}, () => ({
+    x: rand(0, W), y: rand(0, H), p: rand(0.25, 1),
+    r: rand(0.5, 1.7), ph: rand(0, TAU), v: rand(0.05, 0.2)
+  }));
+}
+function snowFrame(){
+  const dk = darkness();
+  ctx.fillStyle = 'rgb(214,236,246)';
+  for (const f of SNOW){
+    f.y -= dCam * f.p; f.y += f.v;
+    f.x += Math.sin(t * 0.4 + f.ph) * 0.15;
+    if (f.y > H + 20){ f.y = -20; f.x = rand(0, W); }
+    if (f.y < -20){ f.y = H + 20; f.x = rand(0, W); }
+    const a = 0.34 * (1 - dk) + illum(f.x, f.y) * dk * 0.9;
+    if (a < 0.02) continue;
+    ctx.globalAlpha = a;
+    ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, TAU); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* ================= fish school (boids, twilight) ================= */
+const FISH = Array.from({length: 42}, () => ({
+  x: 0, y: 0, vx: rand(-1,1), vy: rand(-.3,.3), s: rand(0.7, 1.25)
+}));
+let fishOn = false;
+function fishFrame(){
+  const a = clamp((360 - Math.abs(cam - 590)) / 140, 0, 1);
+  if (a <= 0.02){ fishOn = false; return; }
+  if (!fishOn){
+    fishOn = true;
+    for (const f of FISH){ f.x = rand(0, W); f.y = rand(H*0.2, H*0.8);
+      const ang = rand(0, TAU); f.vx = Math.cos(ang)*1.6; f.vy = Math.sin(ang)*0.6; }
+  }
+  const ax = W * 0.5 + Math.sin(t * 0.05) * W * 0.16;
+  const ay = H * 0.45 + (650 - cam) * 0.6 + Math.sin(t * 0.04) * H * 0.06;
+  for (let i = 0; i < FISH.length; i++){
+    const f = FISH[i];
+    let cx=0, cy=0, alx=0, aly=0, sx=0, sy=0, n=0;
+    for (let j = 0; j < FISH.length; j++){
+      if (i === j) continue;
+      const o = FISH[j], dx = o.x - f.x, dy = o.y - f.y, d2 = dx*dx + dy*dy;
+      if (d2 < 8100){ cx += o.x; cy += o.y; alx += o.vx; aly += o.vy; n++;
+        if (d2 < 700 && d2 > 1){ const d = Math.sqrt(d2); sx -= dx/d; sy -= dy/d; } }
+    }
+    if (n){ f.vx += (cx/n - f.x) * 0.0025 + (alx/n - f.vx) * 0.03;
+            f.vy += (cy/n - f.y) * 0.0025 + (aly/n - f.vy) * 0.03; }
+    f.vx += sx * 0.06 + (ax - f.x) * 0.0016;
+    f.vy += sy * 0.06 + (ay - f.y) * 0.0016;
+    const dl = Math.hypot(f.x - light.x, f.y - light.y);
+    if (dl < 180 && dl > 1){ const k = (1 - dl/180) * 0.55;
+      f.vx += (f.x - light.x)/dl * k; f.vy += (f.y - light.y)/dl * k; }
+    const sp = Math.hypot(f.vx, f.vy) || 0.001, mx = 3.3 * f.s, mn = 0.9;
+    if (sp > mx){ f.vx *= mx/sp; f.vy *= mx/sp; }
+    if (sp < mn){ f.vx *= mn/sp; f.vy *= mn/sp; }
+    f.x += f.vx * dt; f.y += f.vy * dt;
+    if (f.x < -90) f.x = W + 90; if (f.x > W + 90) f.x = -90;
+    if (f.y < H*0.05) f.vy += 0.05; if (f.y > H*0.95) f.vy -= 0.05;
+  }
+  for (const f of FISH){
+    const ang = Math.atan2(f.vy, f.vx), L = 17 * f.s;
+    ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(ang);
+    ctx.beginPath();
+    ctx.moveTo(L*0.55, 0);
+    ctx.quadraticCurveTo(L*0.05, -L*0.26, -L*0.4, -L*0.1);
+    ctx.lineTo(-L*0.58, -L*0.22);
+    ctx.quadraticCurveTo(-L*0.45, 0, -L*0.58, L*0.22);
+    ctx.lineTo(-L*0.4, L*0.1);
+    ctx.quadraticCurveTo(L*0.05, L*0.26, L*0.55, 0);
+    ctx.closePath();
+    ctx.fillStyle = `rgba(10,30,44,${0.88 * a})`; ctx.fill();
+    ctx.restore();
+  }
+}
+
+/* ================= jellyfish (verlet tentacles) ================= */
+const JZ = [260, 1050], JP = 0.5;
+const jellies = Array.from({length: 9}, () => ({ depth: null }));
+function jellyWindow(){
+  const half = H / (2 * JP);
+  return [Math.max(JZ[0], cam - half - 120), Math.min(JZ[1], cam + half + 120)];
+}
+function spawnJelly(j){
+  const w = jellyWindow();
+  if (w[0] >= w[1]){ j.depth = null; return; }
+  j.depth = dCam >= 0 ? rand(lerp(w[0], w[1], 0.5), w[1]) : rand(w[0], lerp(w[0], w[1], 0.5));
+  j.x = rand(W * 0.06, W * 0.94);
+  j.size = rand(24, 60); j.phase = rand(0, TAU); j.ph0 = rand(0, TAU);
+  j.tents = Array.from({length: 5 + (Math.random()*3|0)}, () =>
+    Array.from({length: 11}, () => ({ x: 0, y: null, px: 0, py: 0 })));
+}
+jellies.forEach(spawnJelly);
+function jelliesFrame(){
+  const w = jellyWindow();
+  if (w[0] >= w[1]) return;
+  const dk = darkness();
+  for (const j of jellies){
+    if (j.depth === null || j.depth < w[0] - 50 || j.depth > w[1] + 50) spawnJelly(j);
+    if (j.depth === null) continue;
+    j.phase += 0.02 + 0.008 * Math.sin(t * 0.35 + j.ph0);
+    const pulse = Math.sin(j.phase);
+    j.depth -= 0.05 + 0.16 * Math.max(0, pulse); // slow pulse-driven rise
+    if (j.depth < w[0] || j.depth > w[1]){ spawnJelly(j); continue; }
+    j.x += Math.sin(t * 0.06 + j.ph0) * 0.35;
+    const sy = H/2 + (j.depth - cam) * JP;
+    if (sy < -180 || sy > H + 180){ spawnJelly(j); continue; }
+    const il = illum(j.x, sy);
+    const vis = (1 - dk) * 0.75 + dk * (0.18 + il * 1.1);
+    const bw = j.size * (1 + 0.14 * pulse), bh = j.size * 0.78 * (1 - 0.07 * pulse);
+    const Lseg = j.size * 0.16;
+    /* tentacles */
+    for (let k = 0; k < j.tents.length; k++){
+      const pts = j.tents[k];
+      const ax = j.x + (k / (j.tents.length - 1) - 0.5) * bw * 1.5;
+      const ay = sy + bh * 0.12;
+      for (let i = 1; i < pts.length; i++){
+        const p = pts[i];
+        if (p.y === null){ p.x = ax; p.y = ay + i * Lseg; p.px = p.x; p.py = p.y; continue; }
+        const vx = (p.x - p.px) * 0.965, vy = (p.y - p.py) * 0.965;
+        p.px = p.x; p.py = p.y;
+        p.x += vx + Math.sin(t * 0.8 + i * 0.5 + k) * 0.08;
+        p.y += vy + 0.13;
+        const dx = p.x - light.x, dy = p.y - light.y, dd = Math.hypot(dx, dy);
+        if (dd < 130 && dd > 0.001){ const f = (1 - dd/130) * 0.5;
+          p.x += light.vx * f; p.y += light.vy * f; }
+      }
+      for (let it = 0; it < 2; it++){
+        pts[0].x = ax; pts[0].y = ay;
+        for (let i = 1; i < pts.length; i++){
+          const p = pts[i], q = pts[i-1];
+          let dx = p.x - q.x, dy = p.y - q.y;
+          const d = Math.hypot(dx, dy) || 0.0001, diff = (d - Lseg) / d;
+          if (i === 1){ p.x -= dx * diff; p.y -= dy * diff; }
+          else { p.x -= dx * diff * 0.5; p.y -= dy * diff * 0.5;
+                 q.x += dx * diff * 0.5; q.y += dy * diff * 0.5; }
+        }
+      }
+      ctx.strokeStyle = `rgba(190,232,222,${0.3 * vis})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(ax, ay);
+      for (let i = 1; i < pts.length - 1; i++){
+        const mx2 = (pts[i].x + pts[i+1].x)/2, my2 = (pts[i].y + pts[i+1].y)/2;
+        ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx2, my2);
+      }
+      ctx.stroke();
+    }
+    /* faint self-glow in dark water */
+    if (dk > 0.25){
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      glow(GLOW.bio, j.x, sy - bh * 0.5, j.size * 2.6, 0.12 * dk * (0.5 + il));
+      ctx.restore();
+    }
+    /* bell */
+    const g = ctx.createRadialGradient(j.x, sy - bh * 0.55, j.size * 0.1, j.x, sy - bh * 0.2, j.size * 1.25);
+    g.addColorStop(0, `rgba(215,255,245,${0.34 * vis})`);
+    g.addColorStop(0.55, `rgba(150,225,212,${0.16 * vis})`);
+    g.addColorStop(1, 'rgba(120,200,190,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(j.x - bw, sy);
+    ctx.bezierCurveTo(j.x - bw, sy - bh * 1.25, j.x + bw, sy - bh * 1.25, j.x + bw, sy);
+    ctx.quadraticCurveTo(j.x + bw * 0.55, sy + bh * 0.16, j.x + bw * 0.4, sy);
+    ctx.quadraticCurveTo(j.x, sy + bh * 0.22, j.x - bw * 0.4, sy);
+    ctx.quadraticCurveTo(j.x - bw * 0.55, sy + bh * 0.16, j.x - bw, sy);
+    ctx.fill();
+    ctx.strokeStyle = `rgba(225,255,248,${0.22 * vis})`; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = `rgba(200,245,235,${0.18 * vis})`;
+    for (let i = -1.5; i <= 1.5; i++){
+      ctx.beginPath(); ctx.arc(j.x + i * bw * 0.3, sy - bh * 0.45, bw * 0.11, 0, TAU); ctx.stroke();
+    }
+  }
+}
+
+/* ================= siphonophore (glowing colony chain) ================= */
+const SIPH = { p: 0.5, anchor: 2600, segs: [], head: { x: 0, y: 0 }, init: false };
+const NSEG = 62;
+function siphFrame(){
+  const sy0 = H/2 + (SIPH.anchor - cam) * SIPH.p;
+  if (sy0 < -140 || sy0 > H + 140){ SIPH.init = false; return; }
+  if (!SIPH.init){
+    SIPH.init = true;
+    SIPH.head.x = W * 0.5; SIPH.head.y = sy0;
+    SIPH.segs = Array.from({length: NSEG}, (_, i) => ({ x: SIPH.head.x - i * 9, y: sy0 }));
+  }
+  const hx = W*0.5 + Math.sin(t*0.16)*W*0.27 + Math.sin(t*0.043 + 1.7)*W*0.13;
+  const hy = sy0 + Math.sin(t*0.21)*H*0.15 + Math.cos(t*0.08 + 0.6)*H*0.09;
+  SIPH.head.x += (hx - SIPH.head.x) * 0.035 * dt;
+  SIPH.head.y += (hy - SIPH.head.y) * 0.035 * dt;
+  let px = SIPH.head.x, py = SIPH.head.y;
+  for (let i = 0; i < NSEG; i++){
+    const s = SIPH.segs[i];
+    const dx = px - s.x, dy = py - s.y, d = Math.hypot(dx, dy) || 0.001;
+    if (d > 9){ const k = (d - 9) / d; s.x += dx * k; s.y += dy * k; }
+    s.x += Math.sin(t * 0.7 + i * 0.25) * 0.12;
+    px = s.x; py = s.y;
+  }
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < NSEG; i++){
+    const s = SIPH.segs[i];
+    const tap = Math.sin(Math.PI * (i + 2) / (NSEG + 10));
+    const size = 1.5 + 7.5 * tap;
+    const wave = 0.5 + 0.5 * Math.sin(t * 2.2 - i * 0.4);
+    const b = clamp(0.10 + 0.30 * wave + illum(s.x, s.y) * 0.55, 0, 1);
+    glow(i < 16 ? GLOW.blue : GLOW.bio, s.x, s.y, size * 3.1, b * 0.55);
+    ctx.fillStyle = `rgba(228,255,246,${b * 0.75})`;
+    ctx.beginPath(); ctx.arc(s.x, s.y, size * 0.5, 0, TAU); ctx.fill();
+  }
+  glow(GLOW.blue, SIPH.head.x, SIPH.head.y, 30, 0.5);
+  ctx.restore();
+}
+
+/* ================= the whale ================= */
+let whaleMoanT = -100;
+function whaleFrame(){
+  const fade = zoneFade(980, 320);
+  if (fade <= 0.01) return;
+  const per = 95, ph = (t % per) / per;
+  if (ph > 0.55) return;
+  const L = clamp(W * 0.62, 300, 760), h = L * 0.16;
+  const sy = H/2 + (980 - cam) * 0.16 + Math.sin(t * 0.22) * 10;
+  const x = lerp(-L * 0.9, W + L * 0.9, ph / 0.55) - L / 2;
+  const a = clamp(Math.min(ph, 0.55 - ph) * 14, 0, 1) * fade;
+  if (a > 0.5 && t - whaleMoanT > 60){ whaleMoanT = t; moan(); }
+  ctx.save(); ctx.translate(x, sy); ctx.globalAlpha = 0.94 * a;
+  ctx.beginPath();
+  ctx.moveTo(L*0.5, -h*0.12);
+  ctx.quadraticCurveTo(L*0.545, -h*0.02, L*0.52, h*0.35);
+  ctx.quadraticCurveTo(L*0.2, h*0.75, -L*0.16, h*0.5);
+  ctx.quadraticCurveTo(-L*0.38, h*0.22, -L*0.44, h*0.04);
+  ctx.lineTo(-L*0.56, -h*0.5);
+  ctx.quadraticCurveTo(-L*0.47, 0, -L*0.56, h*0.5);
+  ctx.lineTo(-L*0.44, -h*0.02);
+  ctx.quadraticCurveTo(-L*0.3, -h*0.42, -L*0.12, -h*0.5);
+  ctx.quadraticCurveTo(-L*0.02, -h*0.62, -L*0.08, -h*0.5);
+  ctx.quadraticCurveTo(L*0.2, -h*0.72, L*0.42, -h*0.55);
+  ctx.quadraticCurveTo(L*0.5, -h*0.45, L*0.5, -h*0.12);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(7,17,26,0.95)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(140,190,215,0.12)'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(L*0.18, h*0.5);
+  ctx.quadraticCurveTo(L*0.12, h*0.9, L*0.02, h*0.95);
+  ctx.quadraticCurveTo(L*0.1, h*0.6, L*0.14, h*0.45);
+  ctx.closePath(); ctx.fillStyle = 'rgba(7,17,26,0.9)'; ctx.fill();
+  ctx.beginPath(); ctx.arc(L*0.36, h*0.1, 2.2, 0, TAU);
+  ctx.fillStyle = 'rgba(160,200,220,0.35)'; ctx.fill();
+  ctx.restore();
+}
+
+/* ================= the anglerfish (stalks your lamp) ================= */
+const angler = { x: -9999, y: 0, vx: 0, vy: 0, mode: 'gone', timer: 2, dir: 1, alpha: 0, s: 1.15 };
+function drawAngler(A, alpha){
+  ctx.save(); ctx.translate(A.x, A.y); ctx.scale(A.dir * A.s, A.s);
+  ctx.strokeStyle = `rgba(160,230,215,${0.5 * alpha})`; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.moveTo(46, -20); ctx.quadraticCurveTo(74, -54, 94, -62); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(74, 2);
+  ctx.bezierCurveTo(70, -24, 40, -34, 8, -32);
+  ctx.bezierCurveTo(-22, -30, -44, -18, -58, -6);
+  ctx.lineTo(-76, -18);
+  ctx.quadraticCurveTo(-68, 0, -76, 18);
+  ctx.lineTo(-58, 6);
+  ctx.bezierCurveTo(-40, 20, -12, 30, 22, 30);
+  ctx.bezierCurveTo(46, 30, 62, 22, 70, 10);
+  ctx.closePath();
+  ctx.fillStyle = `rgba(38,62,78,${0.85 * alpha})`; ctx.fill();
+  ctx.strokeStyle = `rgba(150,225,210,${0.35 * alpha})`; ctx.lineWidth = 1; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(2, 26); ctx.lineTo(-16, 44); ctx.lineTo(-24, 28); ctx.closePath();
+  ctx.fillStyle = `rgba(30,52,66,${0.8 * alpha})`; ctx.fill();
+  ctx.fillStyle = `rgba(225,240,235,${0.9 * alpha})`;
+  for (let i = 0; i < 6; i++){
+    const tx = 64 - i * 7.5, ty = 12 + i * 2.6;
+    ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx - 1.6, ty); ctx.lineTo(tx - 0.8, ty - 7.5);
+    ctx.closePath(); ctx.fill();
+  }
+  for (let i = 0; i < 3; i++){
+    const tx = 58 - i * 7, ty = -6 + i * 1.5;
+    ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx - 1.4, ty); ctx.lineTo(tx - 0.7, ty + 5.5);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.beginPath(); ctx.arc(34, -14, 3.6, 0, TAU);
+  ctx.fillStyle = `rgba(200,235,225,${0.7 * alpha})`; ctx.fill();
+  ctx.beginPath(); ctx.arc(34.8, -14, 1.4, 0, TAU);
+  ctx.fillStyle = `rgba(10,20,26,${alpha})`; ctx.fill();
+  ctx.restore();
+}
+function anglerFrame(){
+  const zf = clamp((950 - Math.abs(cam - 4850)) / 220, 0, 1);
+  if (zf <= 0){ angler.mode = 'gone'; angler.timer = 2; return; }
+  const A = angler;
+  if (A.mode === 'gone'){
+    A.timer -= dt;
+    if (A.timer <= 0){
+      A.mode = 'lurk'; A.alpha = 0; A.vx = 0; A.vy = 0;
+      A.x = Math.random() < 0.5 ? -180 : W + 180;
+      A.y = rand(H * 0.15, H * 0.85);
+    }
+    return;
+  }
+  if (A.mode === 'lurk'){
+    const tx = light.x + Math.sin(t * 0.13) * 150;
+    const ty = light.y + Math.sin(t * 0.17 + 2) * 130;
+    A.x += (tx - A.x) * 0.006 * dt + Math.sin(t * 0.09) * 0.4;
+    A.y += (ty - A.y) * 0.006 * dt;
+    A.dir = Math.sign(light.x - A.x) || 1;
+    A.alpha = Math.min(1, A.alpha + 0.02 * dt);
+    const lx = A.x + A.dir * 92 * A.s, ly = A.y - 58 * A.s;
+    if (Math.hypot(light.x - lx, light.y - ly) < 85 ||
+        Math.hypot(light.x - A.x, light.y - A.y) < 120){
+      A.mode = 'flee'; A.timer = 0.9;
+      const dx = A.x - light.x, dy = A.y - light.y, dd = Math.hypot(dx, dy) || 1;
+      A.vx = dx / dd * 9; A.vy = dy / dd * 9;
+    }
+  } else {
+    A.timer -= dt;
+    A.x += A.vx * dt; A.y += A.vy * dt; A.vx *= 0.97; A.vy *= 0.97;
+    A.alpha = Math.max(0, A.timer / 0.9);
+    if (A.timer <= 0){ A.mode = 'gone'; A.timer = rand(4, 9); }
+  }
+  if (A.y < -260 || A.y > H + 260 || A.x < -W - 300 || A.x > 2 * W + 300){
+    A.mode = 'gone'; A.timer = rand(3, 7);
+  }
+  const la = zf * A.alpha;
+  if (la > 0.02){
+    const lx = A.x + A.dir * 92 * A.s + Math.sin(t * 2.1) * 6;
+    const ly = A.y - 58 * A.s + Math.sin(t * 1.7) * 5;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    const flick = 0.75 + 0.25 * Math.sin(t * 7 + Math.sin(t * 13) * 2);
+    glow(GLOW.bio, lx, ly, 34 + 8 * Math.sin(t * 2.6), (0.5 + 0.25 * flick) * la);
+    glow(GLOW.bio, lx, ly, 12, 0.9 * la);
+    ctx.fillStyle = `rgba(240,255,250,${0.9 * la})`;
+    ctx.beginPath(); ctx.arc(lx, ly, 2.4, 0, TAU); ctx.fill();
+    ctx.restore();
+  }
+  const bodyA = clamp(illum(A.x, A.y) * 1.6 - 0.22, 0, 1) * zf * A.alpha;
+  if (bodyA > 0.02) drawAngler(A, bodyA);
+}
+
+/* ================= the lamp itself ================= */
+function drawLamp(){
+  const dk = darkness();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const R = 250 + 40 * Math.sin(t * 0.7);
+  glow(GLOW.blue, light.x, light.y, R, 0.10 + 0.34 * dk);
+  glow(GLOW.bio, light.x, light.y, R * 0.45, 0.08 + 0.28 * dk);
+  ctx.fillStyle = `rgba(235,250,255,${0.45 * dk + 0.12})`;
+  ctx.beginPath(); ctx.arc(light.x, light.y, 2.6, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+
+/* ================= ambient sound (all synthesised) ================= */
+let AC = null, master = null, nFilt = null, dFilt = null, soundOn = false;
+function initAudio(){
+  try{
+    AC = new (window.AudioContext || window.webkitAudioContext)();
+    master = AC.createGain(); master.gain.value = 0; master.connect(AC.destination);
+    dFilt = AC.createBiquadFilter(); dFilt.type = 'lowpass';
+    dFilt.frequency.value = 150; dFilt.Q.value = 0.8;
+    const dg = AC.createGain(); dg.gain.value = 0.16;
+    [[55, .5], [55.6, .5], [110.3, .12]].forEach(([f, v]) => {
+      const o = AC.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+      const g = AC.createGain(); g.gain.value = v;
+      o.connect(g); g.connect(dFilt); o.start();
+    });
+    dFilt.connect(dg); dg.connect(master);
+    const lfo = AC.createOscillator(); lfo.frequency.value = 0.06;
+    const lg = AC.createGain(); lg.gain.value = 50;
+    lfo.connect(lg); lg.connect(dFilt.frequency); lfo.start();
+    const len = AC.sampleRate * 3, buf = AC.createBuffer(1, len, AC.sampleRate);
+    const d = buf.getChannelData(0); let acc = 0;
+    for (let i = 0; i < len; i++){
+      acc = (acc + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = acc * 3.2;
+    }
+    const src = AC.createBufferSource(); src.buffer = buf; src.loop = true;
+    nFilt = AC.createBiquadFilter(); nFilt.type = 'lowpass';
+    nFilt.frequency.value = 380; nFilt.Q.value = 0.4;
+    const ng = AC.createGain(); ng.gain.value = 0.5;
+    src.connect(nFilt); nFilt.connect(ng); ng.connect(master); src.start();
+  } catch(e){ AC = null; }
+}
+function moan(){
+  if (!AC || !soundOn) return;
+  const t0 = AC.currentTime;
+  const o = AC.createOscillator(); o.type = 'sine';
+  o.frequency.setValueAtTime(86, t0);
+  o.frequency.exponentialRampToValueAtTime(48, t0 + 2.8);
+  const g = AC.createGain();
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(0.35, t0 + 0.5);
+  g.gain.linearRampToValueAtTime(0, t0 + 3.2);
+  o.connect(g); g.connect(master); o.start(t0); o.stop(t0 + 3.3);
+}
+const soundBtn = document.getElementById('soundBtn');
+soundBtn.addEventListener('click', () => {
+  if (!AC) initAudio();
+  if (!AC) return;
+  if (AC.state === 'suspended') AC.resume();
+  soundOn = !soundOn;
+  soundBtn.classList.toggle('on', soundOn);
+  soundBtn.setAttribute('aria-pressed', soundOn);
+  master.gain.cancelScheduledValues(AC.currentTime);
+  master.gain.linearRampToValueAtTime(soundOn ? 0.5 : 0, AC.currentTime + 1.2);
+});
+
+/* ================= HUD ================= */
+const ZONES = [
+  [0, 'EPIPELAGIC · SUNLIGHT'], [200, 'MESOPELAGIC · TWILIGHT'],
+  [1000, 'BATHYPELAGIC · MIDNIGHT'], [4000, 'ABYSSOPELAGIC · THE ABYSS'],
+  [6000, 'HADALPELAGIC · THE TRENCH']
+];
+let zoneIdx = -1, zoneTimer = null, lastDv = -1, statT = 0;
+function setZone(i, name){
+  if (i === zoneIdx) return; zoneIdx = i;
+  hud.zone.style.opacity = 0; hud.zone.style.transform = 'translateY(4px)';
+  clearTimeout(zoneTimer);
+  zoneTimer = setTimeout(() => {
+    hud.zone.textContent = name;
+    hud.zone.style.opacity = 1; hud.zone.style.transform = 'translateY(0)';
+  }, 280);
+}
+function hudFrame(now){
+  const dv = Math.round(cam);
+  if (dv !== lastDv){
+    lastDv = dv;
+    hud.depth.textContent = dv.toLocaleString('en-US').replace(/,/g, ' ');
+    hud.dot.style.transform = `translateY(${(cam / MAXD * railH).toFixed(1)}px)`;
+  }
+  if (now - statT > 250){
+    statT = now;
+    hud.pres.textContent = Math.round(1 + cam / 10) + ' ATM';
+    hud.temp.textContent = (3 + 19 * Math.exp(-cam / 450)).toFixed(1) + '°C';
+    const l = 100 * Math.exp(-cam * 0.023);
+    hud.light.textContent = l >= 1 ? l.toFixed(1) + '%' :
+      l >= 0.01 ? l.toFixed(2) + '%' : l > 0 ? '<0.01%' : '0%';
+  }
+  let zi = 0;
+  for (let i = 0; i < ZONES.length; i++) if (cam >= ZONES[i][0]) zi = i;
+  setZone(zi, ZONES[zi][1]);
+}
+
+/* ================= sections & the abyss mask ================= */
+function sectionsFrame(){
+  for (const s of sections){
+    const u = clamp(1 - Math.abs(cam - s.d) / s.span, 0, 1);
+    const e = u * u * (3 - 2 * u);
+    if (e !== s.e){
+      s.e = e;
+      s.el.style.opacity = e.toFixed(3);
+      s.el.style.visibility = e < 0.01 ? 'hidden' : 'visible';
+      s.el.style.transform = `translateY(${((1 - e) * 36).toFixed(1)}px)`;
+    }
+  }
+  const ho = 1 - clamp(cam / 190, 0, 1);
+  heroEl.style.opacity = ho.toFixed(3);
+  heroEl.style.visibility = ho < 0.01 ? 'hidden' : 'visible';
+  heroEl.style.transform = `translateY(${(-cam * 0.4).toFixed(1)}px)`;
+  if (abyssSec.e > 0.02){
+    const r = readable.getBoundingClientRect();
+    readable.style.setProperty('--lx', (light.x - r.left).toFixed(1) + 'px');
+    readable.style.setProperty('--ly', (light.y - r.top).toFixed(1) + 'px');
+  }
+}
+
+/* ================= custom cursor ================= */
+let cx = W/2, cy = H*0.42;
+function cursorFrame(){
+  cx += (mx - cx) * 0.45; cy += (my - cy) * 0.45;
+  cursorEl.style.transform = `translate(${(cx - 17).toFixed(1)}px,${(cy - 17).toFixed(1)}px)`;
+}
+
+/* ================= ascent ================= */
+let rising = false;
+function ascend(){
+  if (rising) return; rising = true;
+  const s0 = scrollY, t0 = performance.now(), dur = 4600;
+  (function step(nw){
+    const u = clamp((nw - t0) / dur, 0, 1);
+    const e = u < 0.5 ? 4*u*u*u : 1 - Math.pow(-2*u + 2, 3) / 2;
+    scrollTo(0, s0 * (1 - e));
+    if (u < 1) requestAnimationFrame(step); else rising = false;
+  })(t0);
+}
+document.getElementById('ascend').addEventListener('click', ascend);
+document.getElementById('brand').addEventListener('click', ascend);
+
+/* ================= main loop ================= */
+let t = 0, last = performance.now(), dt = 1;
+function frame(now){
+  dt = clamp((now - last) / 16.667, 0.25, 3);
+  last = now; t += dt / 60;
+  /* camera */
+  const prev = cam;
+  cam += (camT - cam) * (1 - Math.pow(0.94, dt));
+  dCam = cam - prev;
+  /* lamp */
+  if (now - light.lastMove > 2800 && !reduceMotion){
+    light.tx = W * 0.5 + Math.sin(t * 0.23) * W * 0.3;
+    light.ty = H * 0.45 + Math.sin(t * 0.31 + 1.3) * H * 0.25;
+  }
+  const lpx = light.x, lpy = light.y;
+  light.x += (light.tx - light.x) * (1 - Math.pow(0.85, dt));
+  light.y += (light.ty - light.y) * (1 - Math.pow(0.85, dt));
+  light.vx = light.x - lpx; light.vy = light.y - lpy;
+  /* render */
+  drawWater();
+  drawRays();
+  whaleFrame();
+  snowFrame();
+  siphFrame();
+  jelliesFrame();
+  fishFrame();
+  anglerFrame();
+  drawLamp();
+  /* audio follows depth */
+  if (AC && soundOn){
+    nFilt.frequency.value = clamp(420 - cam * 0.045, 110, 420);
+    dFilt.frequency.value = clamp(170 - cam * 0.015, 90, 170);
+  }
+  hudFrame(now);
+  sectionsFrame();
+  cursorFrame();
+  requestAnimationFrame(frame);
+}
+
+/* ================= boot ================= */
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+addEventListener('load', () => { scrollTo(0, 0); resize(); });
+resize();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(resize);
+document.addEventListener('visibilitychange', () => { last = performance.now(); });
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
