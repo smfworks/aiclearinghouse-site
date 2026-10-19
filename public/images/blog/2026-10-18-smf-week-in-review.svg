@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070b14"/>
+      <stop offset="55%" stop-color="#10182a"/>
+      <stop offset="100%" stop-color="#0c1c22"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#142033"/>
+      <stop offset="100%" stop-color="#0c1422"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g opacity="0.28" stroke="#243044" stroke-width="1">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200 M0 400 H1200 M0 480 H1200 M0 560 H1200"/>
+    <path d="M80 0 V624 M160 0 V624 M240 0 V624 M320 0 V624 M400 0 V624 M480 0 V624 M560 0 V624 M640 0 V624 M720 0 V624 M800 0 V624 M880 0 V624 M960 0 V624 M1040 0 V624 M1120 0 V624"/>
+  </g>
+  <text x="48" y="68" fill="#e8f4f1" font-family="Georgia, 'Times New Roman', serif" font-size="34">Pick the off payload</text>
+  <text x="48" y="100" fill="#8eb4c9" font-family="ui-monospace, 'Courier New', monospace" font-size="16">A 4 is not off. Read reasoning tokens, then send the flag that row honored.</text>
+
+  <g font-family="ui-monospace, 'Courier New', monospace">
+    <rect x="40" y="132" width="360" height="188" rx="14" fill="url(#panel)" stroke="#3dbeb6" stroke-width="2"/>
+    <text x="64" y="168" fill="#3dbeb6" font-size="14">1. smoke</text>
+    <text x="64" y="206" fill="#e8f4f1" font-size="20">temp 0, 64 tokens</text>
+    <text x="64" y="240" fill="#c5d5dc" font-size="15">2+2, number only</text>
+    <text x="64" y="272" fill="#c5d5dc" font-size="15">one extra field per call</text>
+    <text x="64" y="298" fill="#7a8fa3" font-size="13">do not score the smoke</text>
+
+    <rect x="420" y="132" width="360" height="188" rx="14" fill="url(#panel)" stroke="#e0a15a" stroke-width="2"/>
+    <text x="444" y="168" fill="#e0a15a" font-size="14">2. read the row</text>
+    <text x="444" y="206" fill="#e8f4f1" font-size="20">not the digit</text>
+    <text x="444" y="240" fill="#c5d5dc" font-size="15">HTTP 400 is not off</text>
+    <text x="444" y="268" fill="#c5d5dc" font-size="15">reasoning tokens still up</text>
+    <text x="444" y="296" fill="#c5d5dc" font-size="15">finish=length, empty body</text>
+
+    <rect x="800" y="132" width="360" height="188" rx="14" fill="url(#panel)" stroke="#76b900" stroke-width="2"/>
+    <text x="824" y="168" fill="#76b900" font-size="14">3. send that flag</text>
+    <text x="824" y="206" fill="#e8f4f1" font-size="20">match the slug</text>
+    <text x="824" y="240" fill="#c5d5dc" font-size="15">none is a 400 on some</text>
+    <text x="824" y="268" fill="#c5d5dc" font-size="15">template flag fails others</text>
+    <text x="824" y="296" fill="#c5d5dc" font-size="15">label an analogue</text>
+  </g>
+
+  <rect x="40" y="344" width="1120" height="236" rx="14" fill="#0c1422" stroke="#243044"/>
+  <text x="64" y="376" fill="#8eb4c9" font-family="ui-monospace, 'Courier New', monospace" font-size="13">FLAGS THE SCORED FILES USED. NOT ONE RANKING.</text>
+  <g font-family="ui-monospace, 'Courier New', monospace" font-size="15">
+    <text x="64" y="412" fill="#e8f4f1">Muse Wonder</text>
+    <text x="340" y="412" fill="#e0a15a">effort=minimal</text>
+    <text x="640" y="412" fill="#7a8fa3">none is 400. still spends tokens.</text>
+
+    <text x="64" y="444" fill="#e8f4f1">Gemini 4 Argon</text>
+    <text x="340" y="444" fill="#3dbeb6">enable_thinking false</text>
+    <text x="640" y="444" fill="#7a8fa3">none is 400. no effort field.</text>
+
+    <text x="64" y="476" fill="#e8f4f1">Nemotron Super VL</text>
+    <text x="340" y="476" fill="#e0a15a">effort=none</text>
+    <text x="640" y="476" fill="#7a8fa3">template flag still thinks.</text>
+
+    <text x="64" y="508" fill="#e8f4f1">Flash 1017 cloud</text>
+    <text x="340" y="508" fill="#e0a15a">effort=none</text>
+    <text x="640" y="508" fill="#7a8fa3">template flag still thinks.</text>
+
+    <text x="64" y="540" fill="#e8f4f1">Flash 1017 EXL3</text>
+    <text x="340" y="540" fill="#3dbeb6">enable_thinking false</text>
+    <text x="640" y="540" fill="#7a8fa3">do not mix with the cloud 128.</text>
+  </g>
+  <text x="64" y="568" fill="#5a8a6a" font-family="ui-monospace, 'Courier New', monospace" font-size="13">GLM-5.3-Flash pin: enable_thinking false. Omitting it is not off. 2026-10-11 to 2026-10-18.</text>
+</svg>
