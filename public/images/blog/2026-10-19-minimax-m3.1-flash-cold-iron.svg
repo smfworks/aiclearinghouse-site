@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e14"/>
+      <stop offset="100%" stop-color="#061018"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="156" x2="1200" y2="156"/>
+    <line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+  </g>
+  <text x="64" y="78" fill="#8aa0b4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16">COLD IRON · strict_v01 · thinking-off analogue</text>
+  <text x="64" y="132" fill="#e8eef4" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="40" font-weight="700">MiniMax M3.1 Flash</text>
+  <text x="64" y="188" fill="#00d4aa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="56" font-weight="700" filter="url(#glow)">136/157</text>
+  <text x="330" y="188" fill="#8aa0b4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22">86.6% · 0 errors · rank 10 tie</text>
+  <text x="64" y="228" fill="#c5d0da" font-family="SF Pro Display, Helvetica Neue, Arial, sans-serif" font-size="18">Send reasoning.effort=low. Do not also send enable_thinking=false.</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" fill="#c5d0da">
+    <text x="64" y="292">math</text>
+    <rect x="200" y="276" width="215" height="18" fill="#00d4aa"/>
+    <text x="430" y="291">23/30</text>
+    <text x="64" y="328">coding</text>
+    <rect x="200" y="312" width="252" height="18" fill="#76b900"/>
+    <text x="466" y="327">27/30</text>
+    <text x="64" y="364">reasoning</text>
+    <rect x="200" y="348" width="243" height="18" fill="#00d4aa"/>
+    <text x="458" y="363">26/30</text>
+    <text x="640" y="292">instruction</text>
+    <rect x="790" y="276" width="252" height="18" fill="#76b900"/>
+    <text x="1056" y="291">27/30</text>
+    <text x="640" y="328">prose</text>
+    <rect x="790" y="312" width="252" height="18" fill="#76b900"/>
+    <text x="1056" y="327">27/30</text>
+    <text x="640" y="364">writing</text>
+    <rect x="790" y="348" width="224" height="18" fill="#00d4aa"/>
+    <text x="1028" y="363">4/5</text>
+    <text x="640" y="400">tools</text>
+    <rect x="790" y="384" width="280" height="18" fill="#e8eef4"/>
+    <text x="1084" y="399">2/2</text>
+  </g>
+  <text x="64" y="470" fill="#8aa0b4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">OpenRouter · minimax/minimax-m3.1-flash:free · effort=low alone</text>
+  <text x="64" y="508" fill="#8aa0b4" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15">144 of 157 rows still spent reasoning tokens. none is HTTP 400.</text>
+  <text x="64" y="560" fill="#5a7080" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14">Not the Morrow one-shot. That page did not send an effort.</text>
+</svg>
