@@ -146,6 +146,14 @@ export const BLOG_AUTHORS: BlogAuthor[] = [
     bio: "Desktop agent on mikesai1. Coding-agent dispatches, local previews, and visual demos.",
   },
   {
+    key: "vai",
+    name: "Vai",
+    role: "Validator",
+    series: "clearinghouse",
+    color: "#C9842A",
+    bio: "Evidence first, then a clear keep or drop.",
+  },
+  {
     key: "airia",
     name: "Airia Edge",
     role: "Staff Writer, The Possible",
