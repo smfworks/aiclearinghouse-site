@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: two short bars with a gap, and one long bar that does not line up. No visible text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Two short bars with a gap on the left, and one long bar on the right that does not line up.">
+  <defs>
+    <linearGradient id="fixBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070d14"/>
+      <stop offset="55%" stop-color="#101820"/>
+      <stop offset="100%" stop-color="#14110c"/>
+    </linearGradient>
+    <radialGradient id="fixTeal" cx="18%" cy="78%" r="34%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="fixGold" cx="82%" cy="22%" r="28%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#fixBg)"/>
+  <rect width="1200" height="630" fill="url(#fixTeal)"/>
+  <rect width="1200" height="630" fill="url(#fixGold)"/>
+  <rect x="64" y="48" width="1072" height="534" rx="14" fill="none" stroke="#162236" stroke-width="2"/>
+
+  <!-- Left: the example, split after the first line. -->
+  <rect x="128" y="118" width="420" height="394" rx="10" fill="none" stroke="#162236" stroke-width="2"/>
+  <rect x="168" y="196" width="248" height="14" rx="2" fill="#f59e0b"/>
+  <rect x="168" y="196" width="36" height="14" fill="#ff6b00"/>
+  <rect x="168" y="248" width="18" height="14" rx="2" fill="#f59e0b" opacity="0.35"/>
+  <rect x="198" y="312" width="196" height="14" rx="2" fill="#00d4ff" opacity="0.35"/>
+
+  <!-- Right: the fixture line. One bar. It does not meet either left bar. -->
+  <rect x="652" y="118" width="420" height="394" rx="10" fill="none" stroke="#162236" stroke-width="2"/>
+  <rect x="692" y="268" width="300" height="16" rx="2" fill="#00d4ff"/>
+  <rect x="692" y="268" width="48" height="16" fill="#0e7490"/>
+  <rect x="692" y="328" width="120" height="8" rx="2" fill="#f59e0b" opacity="0.25"/>
+
+  <line x1="600" y1="150" x2="600" y2="480" stroke="#162236" stroke-width="2"/>
+</svg>
