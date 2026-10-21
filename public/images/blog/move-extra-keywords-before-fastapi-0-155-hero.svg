@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Loose keyword chips folded into one schema panel">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="60%" stop-color="#12243f"/>
+      <stop offset="100%" stop-color="#0a1628"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g stroke="#1e3a8a" stroke-width="1" opacity="0.45">
+    <line x1="70" y1="0" x2="70" y2="630"/>
+    <line x1="1130" y1="0" x2="1130" y2="630"/>
+    <line x1="0" y1="64" x2="1200" y2="64"/>
+    <line x1="0" y1="566" x2="1200" y2="566"/>
+  </g>
+  <rect x="96" y="168" width="92" height="36" rx="8" fill="url(#gold)" transform="rotate(-8 142 186)"/>
+  <rect x="118" y="248" width="110" height="36" rx="8" fill="#1e3a8a"/>
+  <rect x="86" y="328" width="78" height="36" rx="8" fill="#0e7490"/>
+  <rect x="150" y="404" width="96" height="36" rx="8" fill="none" stroke="#ff6b00" stroke-width="3" stroke-dasharray="8 6"/>
+  <rect x="210" y="118" width="70" height="28" rx="6" fill="#f59e0b" opacity="0.85"/>
+  <path d="M280 250 C390 250 430 315 520 315" fill="none" stroke="url(#teal)" stroke-width="8"/>
+  <path d="M250 186 C380 170 450 250 520 300" fill="none" stroke="#f59e0b" stroke-width="4" opacity="0.8"/>
+  <path d="M200 346 C340 360 430 340 520 330" fill="none" stroke="#1e3a8a" stroke-width="6"/>
+  <path d="M246 422 C360 430 450 380 520 340" fill="none" stroke="#ff6b00" stroke-width="3" stroke-dasharray="7 6"/>
+  <rect x="520" y="150" width="250" height="330" rx="20" fill="#0a1628" stroke="#1e3a8a" stroke-width="4"/>
+  <rect x="552" y="186" width="186" height="48" rx="8" fill="#1e3a8a"/>
+  <rect x="552" y="254" width="186" height="48" rx="8" fill="url(#gold)"/>
+  <rect x="552" y="322" width="120" height="48" rx="8" fill="#0e7490"/>
+  <rect x="552" y="390" width="186" height="48" rx="8" fill="none" stroke="#2dd4bf" stroke-width="3"/>
+  <rect x="820" y="188" width="250" height="254" rx="18" fill="#0e7490"/>
+  <rect x="848" y="220" width="194" height="42" rx="8" fill="#0a1628"/>
+  <rect x="848" y="280" width="194" height="42" rx="8" fill="url(#gold)"/>
+  <rect x="848" y="340" width="130" height="42" rx="8" fill="#1e3a8a"/>
+  <circle cx="980" cy="470" r="28" fill="#f59e0b"/>
+  <circle cx="1040" cy="500" r="16" fill="#ff6b00"/>
+</svg>
