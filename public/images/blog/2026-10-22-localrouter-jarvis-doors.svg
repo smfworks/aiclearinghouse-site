@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" width="1200" height="280">
+  <rect width="1200" height="280" fill="#0a0e1a"/>
+  <text x="40" y="42" fill="#8aa0b4" font-family="Courier New, monospace" font-size="14">FOUR DOORS ON 127.0.0.1:8190</text>
+  <g font-family="Helvetica, Arial, sans-serif">
+    <rect x="40" y="70" width="260" height="160" rx="8" fill="#121820" stroke="#76b900"/>
+    <text x="60" y="110" fill="#76b900" font-size="18" font-weight="700">/voice</text>
+    <text x="60" y="146" fill="#e8eef4" font-size="15">Talk in the browser.</text>
+    <text x="60" y="172" fill="#8aa0b4" font-size="14">Six voices. Interrupt it.</text>
+    <rect x="326" y="70" width="260" height="160" rx="8" fill="#121820" stroke="#00d4aa"/>
+    <text x="346" y="110" fill="#00d4aa" font-size="18" font-weight="700">/v1</text>
+    <text x="346" y="146" fill="#e8eef4" font-size="15">OpenAI-style API.</text>
+    <text x="346" y="172" fill="#8aa0b4" font-size="14">Chat, speech, image, video.</text>
+    <rect x="612" y="70" width="260" height="160" rx="8" fill="#121820" stroke="#e8eef4"/>
+    <text x="632" y="110" fill="#e8eef4" font-size="18" font-weight="700">/mcp</text>
+    <text x="632" y="146" fill="#e8eef4" font-size="15">Same tools, for an agent.</text>
+    <text x="632" y="172" fill="#8aa0b4" font-size="14">Wire the URL first.</text>
+    <rect x="898" y="70" width="260" height="160" rx="8" fill="#121820" stroke="#5a8a6a"/>
+    <text x="918" y="110" fill="#5a8a6a" font-size="18" font-weight="700">weights</text>
+    <text x="918" y="146" fill="#e8eef4" font-size="15">Stay on the Spark.</text>
+    <text x="918" y="172" fill="#8aa0b4" font-size="14">No API key. No public bind.</text>
+  </g>
+</svg>
