@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero: twenty marks on the long track, eight on the short one, and empty track after the eight. No visible text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A long track of twenty marks, and a shorter track of eight that does not reach the edge.">
+  <defs>
+    <linearGradient id="floorBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070d14"/>
+      <stop offset="55%" stop-color="#101820"/>
+      <stop offset="100%" stop-color="#14110c"/>
+    </linearGradient>
+    <radialGradient id="floorTeal" cx="16%" cy="20%" r="36%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="floorGold" cx="84%" cy="80%" r="30%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ff6b00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#floorBg)"/>
+  <rect width="1200" height="630" fill="url(#floorTeal)"/>
+  <rect width="1200" height="630" fill="url(#floorGold)"/>
+  <rect x="56" y="48" width="1088" height="534" rx="14" fill="none" stroke="#162236" stroke-width="2"/>
+
+  <!-- Claimed track. Twenty marks. The last twelve are only outlines. -->
+  <rect x="120" y="188" width="960" height="8" rx="2" fill="#f59e0b" opacity="0.18"/>
+  <rect x="120" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="164" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="208" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="252" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="296" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="340" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="384" y="168" width="28" height="48" rx="3" fill="#f59e0b"/>
+  <rect x="428" y="168" width="28" height="48" rx="3" fill="#ff6b00"/>
+  <rect x="472" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.45"/>
+  <rect x="516" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.4"/>
+  <rect x="560" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.36"/>
+  <rect x="604" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.32"/>
+  <rect x="648" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.28"/>
+  <rect x="692" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.24"/>
+  <rect x="736" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.22"/>
+  <rect x="780" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.2"/>
+  <rect x="824" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.18"/>
+  <rect x="868" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.16"/>
+  <rect x="912" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.14"/>
+  <rect x="956" y="176" width="28" height="32" rx="3" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.12"/>
+
+  <!-- Floor track. Eight marks, then empty rail. The eight does not reach the edge. -->
+  <rect x="120" y="360" width="960" height="8" rx="2" fill="#00d4ff" opacity="0.12"/>
+  <rect x="120" y="340" width="28" height="48" rx="3" fill="#00d4ff" opacity="0.9"/>
+  <rect x="164" y="340" width="28" height="48" rx="3" fill="#00d4ff" opacity="0.82"/>
+  <rect x="208" y="340" width="28" height="48" rx="3" fill="#00d4ff" opacity="0.76"/>
+  <rect x="252" y="340" width="28" height="48" rx="3" fill="#00d4ff" opacity="0.7"/>
+  <rect x="296" y="340" width="28" height="48" rx="3" fill="#0e7490"/>
+  <rect x="340" y="340" width="28" height="48" rx="3" fill="#0e7490"/>
+  <rect x="384" y="340" width="28" height="48" rx="3" fill="#0e7490"/>
+  <rect x="428" y="340" width="28" height="48" rx="3" fill="#00d4ff" opacity="0.55"/>
+  <rect x="488" y="348" width="220" height="32" rx="4" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8 10" opacity="0.35"/>
+</svg>
