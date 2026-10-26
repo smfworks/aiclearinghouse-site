@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="640" viewBox="0 0 920 640">
+  <rect width="920" height="640" fill="#f7f4ee"/>
+  <text x="40" y="36" font-family="Georgia, serif" font-size="18" fill="#1c1917">SMF Works, 26 October 2026</text>
+  <text x="40" y="58" font-family="Georgia, serif" font-size="13" fill="#57534e">The lab is the company. The platforms are tools.</text>
+
+  <rect x="360" y="84" width="200" height="44" rx="6" fill="#1c1917"/>
+  <text x="460" y="111" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#f7f4ee">Michael</text>
+
+  <line x1="460" y1="128" x2="460" y2="168" stroke="#1c1917" stroke-width="2.5"/>
+  <polygon points="460,176 454,164 466,164" fill="#1c1917"/>
+
+  <rect x="300" y="178" width="320" height="52" rx="6" fill="#9a3412"/>
+  <text x="460" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#fff7ed">Aiona</text>
+  <text x="460" y="218" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#ffedd5">right hand, research, CIO calls</text>
+
+  <line x1="620" y1="204" x2="668" y2="204" stroke="#9a3412" stroke-width="1.5"/>
+  <rect x="670" y="180" width="210" height="48" rx="6" fill="#fff7ed" stroke="#9a3412" stroke-width="1.5"/>
+  <text x="775" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#9a3412">Liam</text>
+  <text x="775" y="216" text-anchor="middle" font-family="Georgia, serif" font-size="11" fill="#57534e">developer, not chief</text>
+
+  <line x1="250" y1="230" x2="250" y2="268" stroke="#a8a29e" stroke-width="1.25"/>
+  <line x1="460" y1="230" x2="460" y2="268" stroke="#a8a29e" stroke-width="1.25"/>
+  <line x1="670" y1="230" x2="670" y2="268" stroke="#a8a29e" stroke-width="1.25"/>
+  <line x1="250" y1="268" x2="670" y2="268" stroke="#a8a29e" stroke-width="1.25"/>
+
+  <rect x="40" y="290" width="250" height="250" rx="8" fill="#ffffff" stroke="#1c1917" stroke-width="1.5"/>
+  <text x="165" y="316" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#1c1917">Grok Bot</text>
+  <text x="165" y="336" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#57534e">productive platform</text>
+  <text x="60" y="372" font-family="Georgia, serif" font-size="13" fill="#1c1917">Charlie</text>
+  <text x="60" y="390" font-family="Georgia, serif" font-size="12" fill="#57534e">overall project manager</text>
+  <text x="60" y="430" font-family="Georgia, serif" font-size="12" fill="#57534e">Finishes a phase</text>
+  <text x="60" y="448" font-family="Georgia, serif" font-size="12" fill="#57534e">without Michael in the loop.</text>
+  <text x="60" y="480" font-family="Georgia, serif" font-size="12" fill="#57534e">Roster not listed here.</text>
+  <text x="60" y="498" font-family="Georgia, serif" font-size="12" fill="#57534e">Aiona cannot see it.</text>
+
+  <rect x="335" y="290" width="250" height="250" rx="8" fill="#ffffff" stroke="#1c1917" stroke-width="1.5"/>
+  <text x="460" y="316" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#1c1917">OpenClaw</text>
+  <text x="460" y="336" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#57534e">content factory</text>
+  <text x="355" y="372" font-family="Georgia, serif" font-size="13" fill="#1c1917">Carol</text>
+  <text x="355" y="390" font-family="Georgia, serif" font-size="12" fill="#57534e">coordinates this platform</text>
+  <text x="355" y="430" font-family="Georgia, serif" font-size="12" fill="#57534e">Talks to Charlie.</text>
+  <text x="355" y="448" font-family="Georgia, serif" font-size="12" fill="#57534e">Does not set the question.</text>
+  <text x="355" y="480" font-family="Georgia, serif" font-size="12" fill="#57534e">Writer, reviewer, publisher,</text>
+  <text x="355" y="498" font-family="Georgia, serif" font-size="12" fill="#57534e">validator. Stages, not chiefs.</text>
+
+  <rect x="630" y="290" width="250" height="250" rx="8" fill="#ffffff" stroke="#9a3412" stroke-width="1.5"/>
+  <text x="755" y="316" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#9a3412">Hermes</text>
+  <text x="755" y="336" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#57534e">lab support</text>
+  <text x="650" y="368" font-family="Georgia, serif" font-size="12" fill="#1c1917">Aiona leads</text>
+  <text x="650" y="388" font-family="Georgia, serif" font-size="12" fill="#57534e">Nemo, models</text>
+  <text x="650" y="406" font-family="Georgia, serif" font-size="12" fill="#57534e">Dr. J, Hermes health</text>
+  <text x="650" y="424" font-family="Georgia, serif" font-size="12" fill="#57534e">Liam, developer</text>
+  <text x="650" y="442" font-family="Georgia, serif" font-size="12" fill="#57534e">Paula, pull requests</text>
+  <text x="650" y="460" font-family="Georgia, serif" font-size="12" fill="#57534e">Jasmine, local media tests</text>
+  <text x="650" y="490" font-family="Georgia, serif" font-size="12" fill="#57534e">No chief of staff here.</text>
+
+  <text x="40" y="575" font-family="Georgia, serif" font-size="13" fill="#1c1917">Solid line: judgment, to Aiona, then to Michael when it is his.</text>
+  <text x="40" y="596" font-family="Georgia, serif" font-size="13" fill="#57534e">Thin line: task status, toward Charlie. Coordination does not own the question.</text>
+  <text x="40" y="620" font-family="Georgia, serif" font-size="12" fill="#a8a29e">Draft chart. OpenClaw placement and the Grok Bot roster are still open.</text>
+</svg>
