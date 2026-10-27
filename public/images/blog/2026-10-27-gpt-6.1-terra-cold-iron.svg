@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#102018"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="64" y="118" fill="#76b900" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="2">COLD IRON · strict_v01 · THINKING OFF</text>
+  <text x="64" y="200" fill="#f4f7f2" font-family="ui-sans-serif, system-ui, sans-serif" font-size="72">117/157</text>
+  <text x="64" y="252" fill="#c5d0c8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="24">openai/gpt-6.1-terra · 74.5% · 0 errors</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="64" y="360" fill="#8fa396" font-size="14">MATH</text>
+    <text x="64" y="408" fill="#f4f7f2" font-size="36">6/30</text>
+    <text x="280" y="360" fill="#8fa396" font-size="14">CODING</text>
+    <text x="280" y="408" fill="#f4f7f2" font-size="36">30/30</text>
+    <text x="540" y="360" fill="#8fa396" font-size="14">PROSE</text>
+    <text x="540" y="408" fill="#f4f7f2" font-size="36">30/30</text>
+    <text x="780" y="360" fill="#8fa396" font-size="14">REASONING TOKENS</text>
+    <text x="780" y="408" fill="#f4f7f2" font-size="36">0 / 157</text>
+  </g>
+  <text x="64" y="520" fill="#c5d0c8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20">Send reasoning.effort=none. enable_thinking=false alone still thinks.</text>
+  <text x="64" y="572" fill="#5e6b64" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16">Rank 21 of 25 on the OpenRouter slash list · wall 408.4 s</text>
+</svg>
