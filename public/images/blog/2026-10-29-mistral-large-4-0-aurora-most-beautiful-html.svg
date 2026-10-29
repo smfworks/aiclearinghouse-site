@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07060f"/>
+      <stop offset="1" stop-color="#120818"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="30%" r="45%">
+      <stop offset="0" stop-color="#8b7bff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#8b7bff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <rect width="1200" height="640" fill="url(#glow)"/>
+  <g stroke="#ff5ca8" stroke-opacity="0.35" fill="none" stroke-width="1">
+    <path d="M80 520 C 240 180, 420 80, 1120 40"/>
+    <path d="M40 400 C 280 260, 520 220, 1160 160" stroke="#8b7bff"/>
+    <path d="M120 600 C 360 340, 640 300, 1100 280" stroke="#4aa8ff"/>
+  </g>
+  <text x="72" y="150" fill="#8b7bff" font-family="ui-sans-serif, sans-serif" font-size="18" letter-spacing="6">ONE SHOT · OPENROUTER</text>
+  <text x="72" y="250" fill="#f4f1ff" font-family="Georgia, serif" font-size="92">AURORA</text>
+  <text x="76" y="310" fill="#c8c4de" font-family="ui-sans-serif, sans-serif" font-size="28">Mistral Large 4.0 · mistralai/mistral-large-4-0</text>
+  <g font-family="ui-monospace, monospace" fill="#f4f1ff">
+    <text x="76" y="430" font-size="16" fill="#9a94b8">WALL</text>
+    <text x="76" y="468" font-size="36">161.54 s</text>
+    <text x="320" y="430" font-size="16" fill="#9a94b8">HTML</text>
+    <text x="320" y="468" font-size="36">24,621 B</text>
+    <text x="620" y="430" font-size="16" fill="#9a94b8">COST</text>
+    <text x="620" y="468" font-size="36">$0.0248066</text>
+    <text x="980" y="430" font-size="16" fill="#9a94b8">FINISH</text>
+    <text x="980" y="468" font-size="36">stop</text>
+  </g>
+  <text x="76" y="560" fill="#9a94b8" font-family="ui-sans-serif, sans-serif" font-size="18">13-word brief, one call, fence shipped as written. Not a Cold Iron score.</text>
+</svg>
