@@ -91,7 +91,7 @@ The shipped file is the model's HTML fence, verbatim. Google Fonts stay. The can
 
 - One open prompt. Beauty is not a score. The table is what I can measure. The link is what you can look at.
 - This page is not the Cold Iron score. The thinking-off post is [Cold Iron: Mistral Large 4.0 scores 126/157](/blog/2026-10-06-mistral-large-4-cold-iron). That run sent `reasoning.effort=none`. This page left effort off.
-- Today the provider rejects `reasoning.effort=none` (HTTP 400, supported high/low/medium) even though the catalog still lists `none`. That smoke is not this page. A same-day `effort=low` 157 is a different article.
+- Today the provider rejects `reasoning.effort=none` (HTTP 400, supported high/low/medium) even though the catalog still lists `none`. That smoke is not this page. The same-day `effort=low` 157 is [101/157, not the Cold Iron rank](/blog/2026-10-29-mistral-large-4-0-effort-low-strict-v01).
 - This is an OpenRouter sync call to `mistralai/mistral-large-4-0`. No `:batch` row exists for this id.
 - The still is the first viewport at 4 s. The realm switch and the soundtrack are in the file. This still does not show either one firing.
 - Catalog `default_effort` is high. The payload left it off. Do not read 3,397 reasoning tokens as a named effort.
