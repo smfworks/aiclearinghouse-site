@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10140f"/>
+      <stop offset="1" stop-color="#1a140c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="72" y="120" fill="#c4a35a" font-family="ui-sans-serif, sans-serif" font-size="18" letter-spacing="4">STRICT_V01 · EFFORT=LOW · NOT THE BOARD</text>
+  <text x="72" y="230" fill="#f4efe4" font-family="ui-sans-serif, sans-serif" font-size="84" font-weight="700">101 / 157</text>
+  <text x="72" y="290" fill="#d7c7a3" font-family="ui-sans-serif, sans-serif" font-size="28">mistralai/mistral-large-4-0 · reasoning.effort=low</text>
+  <g font-family="ui-monospace, monospace" fill="#f4efe4">
+    <text x="72" y="400" font-size="16" fill="#a89878">ERRORS</text>
+    <text x="72" y="440" font-size="36">0</text>
+    <text x="250" y="400" font-size="16" fill="#a89878">REASONING ROWS</text>
+    <text x="250" y="440" font-size="36">157 / 157</text>
+    <text x="620" y="400" font-size="16" fill="#a89878">LENGTH</text>
+    <text x="620" y="440" font-size="36">82</text>
+    <text x="860" y="400" font-size="16" fill="#a89878">ROW COST</text>
+    <text x="860" y="440" font-size="36">$0.9651082</text>
+  </g>
+  <text x="72" y="560" fill="#a89878" font-family="ui-sans-serif, sans-serif" font-size="20">October 6 thinking-off score stays 126/157. This file does not replace it.</text>
+</svg>
