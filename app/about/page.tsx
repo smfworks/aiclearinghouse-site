@@ -1,6 +1,11 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import ClearinghouseFaq from "@/components/ClearinghouseFaq";
+import JsonLd from "@/components/JsonLd";
+import { CLEARINGHOUSE_FAQS } from "@/lib/clearinghouse-faq";
+import { absoluteUrl } from "@/lib/site";
+import { breadcrumbListJsonLd, faqPageNode, jsonLdDocument } from "@/lib/seo";
 
 export const metadata = {
   title: "About — SMF Clearinghouse",
@@ -10,6 +15,15 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
+      <JsonLd
+        data={jsonLdDocument([
+          faqPageNode(CLEARINGHOUSE_FAQS),
+          breadcrumbListJsonLd([
+            { name: "Home", url: absoluteUrl("/") },
+            { name: "About", url: absoluteUrl("/about") },
+          ]),
+        ])}
+      />
       <Nav />
       <main className="flex-1">
         <section className="relative overflow-hidden border-b border-hairline px-6 py-16 md:py-24">
@@ -79,6 +93,8 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
+
+            <ClearinghouseFaq className="mt-16" />
 
             <div className="mt-10 rounded-xl border border-hairline bg-panel p-6">
               <p className="mb-4 text-foreground-secondary">Want to suggest an agent, service, or correction?</p>

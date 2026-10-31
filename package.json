@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "test:secrets": "node scripts/scan-secrets.mjs"
   },
   "dependencies": {

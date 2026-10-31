@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { GETTING_STARTED_ANSWER } from "@/lib/clearinghouse-faq";
 import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
 import XVideoEmbed from "@/components/XVideoEmbed";
@@ -391,7 +392,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
           <div className="flex-1 text-center sm:text-left">
             <p className="text-xs font-semibold uppercase tracking-wider text-accent font-mono">Start here</p>
             <h2 className="mt-0.5 text-lg font-medium text-foreground">New to AI agents? Follow the getting-started path.</h2>
-            <p className="text-sm text-foreground-secondary">Six steps from your first prompt to a working local setup — no hype, no vendor lock-in.</p>
+            <p className="text-sm text-foreground-secondary">{GETTING_STARTED_ANSWER}</p>
           </div>
           <div className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent">
             Begin the path

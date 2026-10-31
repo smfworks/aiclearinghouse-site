@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SITE_ORIGIN, siteJsonLdHtml } from "@/lib/site";
+import { DEFAULT_OG_IMAGE, SITE_ORIGIN, siteJsonLdHtml } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
@@ -25,20 +25,13 @@ export const metadata: Metadata = {
     url: `${SITE_ORIGIN}/`,
     siteName: "SMF Clearinghouse",
     type: "website",
-    images: [
-      {
-        url: "https://smfclearinghouse.com/images/clearinghouse-og.png",
-        width: 1200,
-        height: 630,
-        alt: "SMF Clearinghouse — AI tools directory",
-      },
-    ],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "SMF Clearinghouse",
     description: "Compare autonomous AI agents, LLM pricing, and self-hosting recipes.",
-    images: ["https://smfclearinghouse.com/images/clearinghouse-og.png"],
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 
