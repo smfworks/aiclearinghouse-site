@@ -12,13 +12,14 @@ const {
   extractQuestionAnswers,
   fitPageTitle,
   guideArticleJsonLd,
+  guidePageMetadata,
   isoDate,
   omitDuplicateTitleHeading,
   selectRelatedPosts,
   truncateMetaDescription,
   wordCount,
 } = await import("../lib/seo.ts");
-const { ORG_NAME, siteJsonLd } = await import("../lib/site.ts");
+const { DEFAULT_OG_IMAGE, ORG_NAME, siteJsonLd } = await import("../lib/site.ts");
 const { getBlogCatalog, getBlogPostBySlug } = await import("../lib/blog/loader.ts");
 const { markdownToHtml } = await import("../lib/markdown.ts");
 
@@ -239,6 +240,67 @@ describe("guide pages", () => {
     assert.equal(posting.datePublished, undefined);
     assert.equal(posting.dateModified, undefined);
     assert.equal(data["@graph"].some((node) => node["@type"] === "FAQPage"), false);
+  });
+
+  test("emits og:image and a matching twitter card for every guide", () => {
+    const sampled = ["turn-on-jev-images", "opt-out-of-chatgpt-ad-rewrites"];
+    for (const slug of sampled) {
+      const guide = guides.find((item) => item.slug === slug);
+      assert.ok(guide, slug);
+      assert.equal(guide.image, undefined);
+    }
+
+    for (const guide of guides) {
+      const meta = guidePageMetadata(guide);
+      const image = meta.openGraph.images[0];
+      assert.match(image.url, /^https:\/\//);
+      assert.equal(meta.twitter.card, "summary_large_image");
+      assert.equal(meta.twitter.images[0], image.url);
+      assert.equal(meta.title, fitPageTitle(guide.title));
+      assert.equal(meta.description, truncateMetaDescription(guide.excerpt));
+      assert.equal(meta.openGraph.url, `https://www.smfclearinghouse.com/guides/${guide.slug}/`);
+      if (!guide.image) {
+        assert.equal(image.url, DEFAULT_OG_IMAGE.url);
+        assert.equal(image.width, DEFAULT_OG_IMAGE.width);
+        assert.equal(image.height, DEFAULT_OG_IMAGE.height);
+        assert.equal(image.alt, DEFAULT_OG_IMAGE.alt);
+      }
+    }
+
+    for (const slug of sampled) {
+      const meta = guidePageMetadata(guides.find((item) => item.slug === slug));
+      assert.equal(meta.openGraph.images[0].url, "https://smfclearinghouse.com/images/clearinghouse-og.png");
+      assert.equal(meta.twitter.images[0], meta.openGraph.images[0].url);
+    }
+  });
+
+  test("uses a guide image for og:image and twitter:image when one is set", () => {
+    const meta = guidePageMetadata({
+      slug: "example-guide",
+      title: "Turn on Jev images before you send a box",
+      excerpt: "Images and box questions are off until the request carries the header.",
+      image: "/images/guides/example.png",
+      date: "2026-10-21",
+    });
+    assert.equal(
+      meta.openGraph.images[0].url,
+      "https://www.smfclearinghouse.com/images/guides/example.png",
+    );
+    assert.equal(meta.openGraph.images[0].alt, "Turn on Jev images before you send a box");
+    assert.equal(meta.openGraph.images[0].width, undefined);
+    assert.equal(meta.twitter.card, "summary_large_image");
+    assert.equal(meta.twitter.images[0], meta.openGraph.images[0].url);
+    assert.equal(meta.openGraph.publishedTime, "2026-10-21");
+
+    const absolute = guidePageMetadata({
+      slug: "example-guide",
+      title: "Turn on Jev images before you send a box",
+      excerpt: "Images and box questions are off until the request carries the header.",
+      image: "https://cdn.example.com/guide.png",
+    });
+    assert.equal(absolute.openGraph.images[0].url, "https://cdn.example.com/guide.png");
+    assert.equal(absolute.openGraph.publishedTime, undefined);
+    assert.equal(absolute.twitter.images[0], "https://cdn.example.com/guide.png");
   });
 
   test("reads an unquoted YAML date after it has been stringified", () => {

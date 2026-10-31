@@ -5,8 +5,7 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import SectionDetail from "@/components/SectionDetail";
 import { getAllItems, getItemBySlug, getSectionTitle } from "@/lib/marketplace/loader";
-import { fitPageTitle, guideArticleJsonLd, isoDate, truncateMetaDescription } from "@/lib/seo";
-import { absoluteUrl } from "@/lib/site";
+import { guideArticleJsonLd, guidePageMetadata } from "@/lib/seo";
 
 const section = "guides";
 
@@ -19,29 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const item = getItemBySlug(section, slug);
   if (!item) return {};
 
-  const title = fitPageTitle(item.title);
-  const description = truncateMetaDescription(item.excerpt);
-  const url = absoluteUrl(`/guides/${item.slug}`);
-  const published = isoDate(item.last_verified);
-
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName: "SMF Clearinghouse",
-      type: "article",
-      ...(published ? { publishedTime: published } : {}),
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description,
-    },
-  };
+  return guidePageMetadata({
+    slug: item.slug,
+    title: item.title,
+    excerpt: item.excerpt,
+    date: item.last_verified,
+    image: item.image,
+  });
 }
 
 export default async function GuidePage({ params }: { params: Promise<{ slug: string }> }) {
