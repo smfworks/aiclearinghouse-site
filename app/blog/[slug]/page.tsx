@@ -1,19 +1,20 @@
-import { getAllBlogPosts, getBlogPostBySlug } from "@/lib/blog/loader";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { marked } from "marked";
+import TwitterWidgetLoader from "@/components/TwitterWidgetLoader";
+import JsonLd from "@/components/JsonLd";
+import { getAllBlogPosts, getBlogCatalog, getBlogPostBySlug } from "@/lib/blog/loader";
+import { getAuthorByKey, SERIES_LABELS } from "@/lib/blog/types";
+import { blogPostJsonLd, selectRelatedPosts, truncateMetaDescription } from "@/lib/seo";
+
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
+}
 
 export async function generateStaticParams() {
   const posts = getAllBlogPosts();
   return posts.map((post) => ({ slug: post.slug }));
-}
-
-import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getAuthorByKey, SERIES_LABELS } from "@/lib/blog/types";
-import { marked } from "marked";
-import TwitterWidgetLoader from "@/components/TwitterWidgetLoader";
-
-interface BlogPostPageProps {
-  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
@@ -21,13 +22,15 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const post = getBlogPostBySlug(slug);
   if (!post) return { title: "Not Found | SMF Clearinghouse" };
 
+  const description = truncateMetaDescription(post.excerpt);
+
   return {
     title: `${post.title} | SMF Clearinghouse`,
-    description: post.excerpt,
+    description,
     alternates: { canonical: post.canonicalUrl },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
       url: post.canonicalUrl,
       siteName: "SMF Clearinghouse",
       type: "article",
@@ -38,7 +41,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.excerpt,
+      description,
       images: post.image ? [`https://www.smfclearinghouse.com${post.image}`] : undefined,
     },
   };
@@ -51,10 +54,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const author = getAuthorByKey(post.authorKey);
   const series = SERIES_LABELS[post.series];
+  const related = selectRelatedPosts(post, getBlogCatalog());
   const html = await marked(post.content);
 
   return (
     <div className="flex min-h-screen flex-col">
+      <JsonLd data={blogPostJsonLd(post)} />
       <article className="flex-1 bg-canvas">
         <header className="border-b border-hairline bg-panel">
           <div className="mx-auto max-w-3xl px-6 py-12">
@@ -131,6 +136,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               .
             </div>
           )}
+
+          <nav aria-label="More from the blog" className="mt-12 border-t border-hairline pt-8">
+            {related.length > 0 && (
+              <>
+                <h2 className="text-xl font-semibold tracking-tight">Related posts</h2>
+                <ul className="mt-4 space-y-3">
+                  {related.map((item) => (
+                    <li key={item.slug}>
+                      <Link href={`/blog/${item.slug}`} className="font-medium text-accent hover:underline">
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              <Link href="/blog" className="text-accent hover:underline">
+                Back to the blog
+              </Link>
+              {series && (
+                <Link href={`/blog/series/${post.series}`} className="text-accent hover:underline">
+                  More in {series.label}
+                </Link>
+              )}
+            </p>
+          </nav>
         </div>
       </article>
     </div>

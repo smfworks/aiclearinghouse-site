@@ -7,6 +7,25 @@ export const ORG_NAME = "SMF Works";
 export const SITE_DESCRIPTION =
   "Compare autonomous AI agents, LLM pricing, open-source tools, vendor services, and tested self-hosting recipes.";
 
+/** Default share image already used by the root layout. Absolute, per the Metadata API. */
+export const DEFAULT_OG_IMAGE = {
+  url: "https://smfclearinghouse.com/images/clearinghouse-og.png",
+  width: 1200,
+  height: 630,
+  alt: "SMF Clearinghouse — AI tools directory",
+} as const;
+
+/**
+ * Public profiles already cited on this site.
+ * LinkedIn is omitted: the repo has no company or person LinkedIn URL.
+ */
+export const ORG_SAME_AS = [
+  "https://github.com/smfworks",
+  "https://github.com/smfworks/aiclearinghouse-site",
+  "https://x.com/smfworks",
+  "https://x.com/MichaelGannotti",
+] as const;
+
 /** Search and assistant crawlers. Allow rules only — never block these agents. */
 export const AI_SEARCH_BOTS = [
   "OAI-SearchBot",
@@ -43,10 +62,7 @@ export const siteJsonLd = {
         "@type": "ImageObject",
         url: `${SITE_ORIGIN}/images/clearinghouse-og.png`,
       },
-      sameAs: [
-        "https://github.com/smfworks/aiclearinghouse-site",
-        `${SITE_ORIGIN}/`,
-      ],
+      sameAs: [...ORG_SAME_AS],
     },
     {
       "@type": "WebSite",

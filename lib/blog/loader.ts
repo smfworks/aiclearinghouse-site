@@ -1,7 +1,14 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { BlogPost, BlogSeries, getAuthorByKey, getAuthorByName, getSeriesLabel, getAllSeries } from "./types";
+import {
+  getAllSeries,
+  getAuthorByKey,
+  getAuthorByName,
+  getSeriesLabel,
+  type BlogPost,
+  type BlogSeries,
+} from "./types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
 
@@ -164,6 +171,30 @@ export function getBlogCategories(): string[] {
     }
   }
   return Array.from(cats).sort();
+}
+
+export interface BlogCatalogEntry {
+  slug: string;
+  title: string;
+  date: string;
+  series: BlogSeries;
+  tags: string[];
+}
+
+let catalogCache: BlogCatalogEntry[] | undefined;
+
+/** Slim index for related-post lookup. Cached in production so each post page does not re-read the corpus. */
+export function getBlogCatalog(): BlogCatalogEntry[] {
+  if (catalogCache && process.env.NODE_ENV === "production") return catalogCache;
+  const catalog = getAllBlogPosts().map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    date: post.date,
+    series: post.series,
+    tags: post.tags,
+  }));
+  if (process.env.NODE_ENV === "production") catalogCache = catalog;
+  return catalog;
 }
 
 export function getBlogSeriesCounts(): Record<BlogSeries, number> {

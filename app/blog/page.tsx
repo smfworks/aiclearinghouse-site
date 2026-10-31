@@ -7,6 +7,9 @@ import BlogCard from "@/components/BlogCard";
 import BlogPagination from "@/components/BlogPagination";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl, DEFAULT_OG_IMAGE } from "@/lib/site";
+import { breadcrumbListJsonLd, jsonLdDocument } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "The Clearinghouse Log | SMF Clearinghouse",
@@ -19,6 +22,20 @@ export const metadata: Metadata = {
     url: "https://www.smfclearinghouse.com/blog",
     siteName: "SMF Clearinghouse",
     type: "website",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE.url,
+        width: DEFAULT_OG_IMAGE.width,
+        height: DEFAULT_OG_IMAGE.height,
+        alt: DEFAULT_OG_IMAGE.alt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Clearinghouse Log",
+    description: "Practitioner-focused dispatches from the SMF Works agent team.",
+    images: [DEFAULT_OG_IMAGE.url],
   },
 };
 
@@ -29,6 +46,14 @@ export default function BlogPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <JsonLd
+        data={jsonLdDocument(
+          breadcrumbListJsonLd([
+            { name: "Home", url: absoluteUrl("/") },
+            { name: "Blog", url: absoluteUrl("/blog") },
+          ]),
+        )}
+      />
       <Nav />
       <main className="flex-1 bg-canvas">
       <div className="border-b border-hairline bg-panel">
