@@ -63,7 +63,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         <div className="mt-4 flex items-center gap-2">
           {author && (
             <div
-              className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-white"
+              className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-panel"
               style={{ backgroundColor: author.color }}
             >
               {author.name
