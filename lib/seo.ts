@@ -380,6 +380,61 @@ export interface GuideArticleSource {
   authorName?: string;
 }
 
+export interface GuideShareImage {
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
+/**
+ * Share image for a guide. A guide-specific image wins.
+ * Otherwise the site default is used, with its known size.
+ * Dimensions are omitted for a guide image whose size is not in the repo.
+ */
+export function guideShareImage(image: string | undefined, title: string): GuideShareImage {
+  const specific = image?.trim();
+  if (specific) {
+    return { url: absolutePostImage(specific), alt: title };
+  }
+  return {
+    url: DEFAULT_OG_IMAGE.url,
+    width: DEFAULT_OG_IMAGE.width,
+    height: DEFAULT_OG_IMAGE.height,
+    alt: DEFAULT_OG_IMAGE.alt,
+  };
+}
+
+/** Document title, description, and social tags for one guide. */
+export function guidePageMetadata(guide: GuideArticleSource) {
+  const title = fitPageTitle(guide.title);
+  const description = truncateMetaDescription(guide.excerpt);
+  const url = absoluteUrl(`/guides/${guide.slug}`);
+  const published = isoDate(guide.date);
+  const image = guideShareImage(guide.image, guide.title);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "SMF Clearinghouse",
+      type: "article" as const,
+      ...(published ? { publishedTime: published } : {}),
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title,
+      description,
+      images: [image.url],
+    },
+  };
+}
+
 /** BlogPosting + breadcrumbs for a guide. FAQPage is added only from visible answers. */
 export function guideArticleJsonLd(guide: GuideArticleSource) {
   const pageUrl = absoluteUrl(`/guides/${guide.slug}`);
