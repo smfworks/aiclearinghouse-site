@@ -14,13 +14,17 @@ last_verified: "2026-10-21"
 
 # Opt out of ChatGPT ad rewrites before October 29
 
-## The decision
+## Should you opt out before October 29?
+
+Opt out before Thursday, October 29, 2026, if the account should not rewrite its own ads. That date is the help page's auto-enable date. Do not wait for a preview of every variation. The same page says the experience does not provide one. This guide did not open an ads account, so the steps stop where the help page stops.
 
 If an account should not rewrite its own ads, opt out before the auto-enable date on the help page. That date is Thursday, October 29, 2026. Do not wait for a preview of every variation. The same page says the experience does not provide one.
 
 This guide did not open an ads account. The clicks stop where the help page stops.
 
-## What can change without a per-ad approval
+## What can change without a per-ad approval?
+
+Creative enhancements use the existing ad and the landing page. They can update headlines and descriptions, resize images, optimize the destination URL, and translate the ad. Variations may be prepared in advance or created from the conversation. When the setting is on, those ads can run without a review of each version. Ads stay labeled and separate from ChatGPT's answers.
 
 OpenAI's help page says creative enhancements use the existing ad and the landing page. They can include new or updated headlines and descriptions, image resizing, destination-URL optimization, and translation into other languages. Variations may be prepared in advance or created in real time from the conversation. When the setting is on, those ads can run without a review of each version.
 
@@ -28,7 +32,9 @@ The page also says ads do not influence ChatGPT's answers, and that ads are sepa
 
 Keep prices, promotions, product details, and availability current on the ad and the landing page. The page says that is how the enhancement gets accurate source material. A stale price on the landing page is a bad input, whether you opt out or not.
 
-## The two dates
+## Which date should you follow?
+
+Follow the help page. Creative enhancements turn on automatically for new and existing campaigns on Thursday, October 29, 2026. A Search Engine Roundtable post quotes an advertiser email that uses Friday, October 30, 2026, for new and existing self-serve campaigns. Those are different sentences. October 30 does not correct October 29, so keep the email as a conflict.
 
 Use the help page's date for the action.
 
@@ -40,7 +46,9 @@ Those are different sentences. October 30 is not a correction of October 29. **N
 
 Existing account-level and campaign-level opt-outs are preserved, on both pages. Campaign-specific settings take priority over the account default. If you already opted out, do not assume a new default wiped it. Check anyway if you can see the setting.
 
-## How to do it
+## How do you opt out?
+
+Open Ads Manager for the account that should not rewrite headlines, translate text, resize images, or change the destination URL. Select Manage settings. The help page names that control and does not print the next click. If Manage settings is missing, stop. Do not invent a toggle name. Opt out before October 29 if enhanced versions should not run.
 
 1. Open Ads Manager for the account that should not rewrite headlines, translate text, resize images, or change the destination URL on its own.
 2. Find **Manage settings**. The help page says Select Manage settings. It does not print the next click.
@@ -48,7 +56,9 @@ Existing account-level and campaign-level opt-outs are preserved, on both pages.
 4. Opt out before October 29 if the account should not run enhanced versions automatically. You can change it later. The help page says that. It does not say a later change recalls variations that already ran.
 5. If someone forwards the October 30 email, do not move the deadline on the strength of that forward. The help page still says October 29. The email is a different page's quotation.
 
-## What this is not
+## What is this setting not?
+
+This is not a new campaign type. It automatically rewrites ads you already have. It does not promise that every new line will match the offer. The help page's example turns Fresh groceries delivered into Groceries for quick weeknight dinners and says wording may vary. If the landing page cannot support that line, fix the page or opt out.
 
 This is not a new campaign type. It is an automatic rewrite of ads you already have.
 

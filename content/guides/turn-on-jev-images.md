@@ -13,7 +13,9 @@ last_verified: "2026-10-21"
 
 # Turn on Jev images before you send a box
 
-## The switch
+## How do you turn on Jev images?
+
+Images and box questions stay off until the request includes TypeSafe-Danger-Zone-Images set to true. The models page still lists Jev 1.14 input as text, and both sentences are on official pages. The October 14 blog enables the box type only for jev-1.14.0. A 1.13 client that copies a box question is not on that path.
 
 Jev 1.14 can take an image. It will not, until the request says so.
 
@@ -23,7 +25,9 @@ The October 14 blog says the `box` type, one bounding box, is enabled only for `
 
 This guide did not upload a photo. The curl is the docs' example.
 
-## Send the image as its own part
+## How do you send the image?
+
+Send the image as its own multipart file part. Name the first part request with content type application/json. Each image is a separate file part, and the part field inside assets must match that file part's name. Part names are unique and not empty. The name request is reserved for the JSON body. Any other image content type returns 400.
 
 The recommended upload is multipart. The first part is named `request`, content type `application/json`. Each image is its own file part. The image's `part` field inside `assets` must match that file part's name.
 
@@ -35,7 +39,9 @@ Rules from the same page:
 
 The blog says you can put images in `state`, `instructions`, or `criteria`. The curl below puts one image in `state`. That is the example I fetched, not a claim that the other two slots were exercised.
 
-## The curl
+## What curl should you run?
+
+Put a TypeSafe API key in TYPESAFE_API_KEY and a JPEG named door-camera.jpg beside the command, then run curl. Pin jev-1.14.0 when you need the box type the October 14 blog names. The docs sample jev-latest, and this guide did not check whether that alias has moved. The sample asks if a person is present. That is not a box question.
 
 You need a TypeSafe API key in `TYPESAFE_API_KEY`, a JPEG named `door-camera.jpg` in the working directory, and `curl`. The model in the example is `jev-latest`, not a pinned `jev-1.14.0`. If you need the 1.14 box behavior, pin `jev-1.14.0`. The blog said `jev-latest` would move to 1.14.0 a week after October 14. This guide did not check whether that alias move has happened.
 
@@ -58,7 +64,9 @@ The docs' sample model string is `jev-latest`. The curl above pins `jev-1.14.0` 
 
 The question in that example is not a box question. It asks whether a person is present. A box question is a different type. The box docs page I opened did not return a request body, only a heading. Don't invent the box schema from the word "bounding box." Use the images header, pin 1.14.0, and read https://docs.typesafe.ai/go/box before you add `"type": "box"`.
 
-## Don't confuse this header with long context
+## Is the images header the same as long context?
+
+No. Long context uses TypeSafe-Danger-Zone-Long-Context set to true. The models page says that header raises both limits to 262k tokens on 1.14 and on 1.13. Without it, the limits are 64k per request and 32k per question. An image request does not need that header unless the state plus the question no longer fits.
 
 Long context is a different header: `TypeSafe-Danger-Zone-Long-Context: true`. The models page says it raises both the per-request and per-question limits to 262k tokens, on 1.14 and on 1.13. Default without it is 64k per request and 32k per question. It costs the same per token and the page says it is slower and less accurate.
 

@@ -1,14 +1,44 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import { register } from "node:module";
 import { describe, test } from "node:test";
+import matter from "gray-matter";
 register("./resolve-ts.mjs", import.meta.url);
 
 const { CLEARINGHOUSE_FAQS, GETTING_STARTED_ANSWER } = await import("../lib/clearinghouse-faq.ts");
-const { blogPostJsonLd, selectRelatedPosts, truncateMetaDescription, wordCount } = await import(
-  "../lib/seo.ts"
-);
+const {
+  blogPostJsonLd,
+  extractQuestionAnswers,
+  fitPageTitle,
+  guideArticleJsonLd,
+  isoDate,
+  omitDuplicateTitleHeading,
+  selectRelatedPosts,
+  truncateMetaDescription,
+  wordCount,
+} = await import("../lib/seo.ts");
 const { ORG_NAME, siteJsonLd } = await import("../lib/site.ts");
 const { getBlogCatalog, getBlogPostBySlug } = await import("../lib/blog/loader.ts");
+const { markdownToHtml } = await import("../lib/markdown.ts");
+
+function loadGuides() {
+  const dir = path.join(process.cwd(), "content", "guides");
+  return fs
+    .readdirSync(dir)
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => {
+      const parsed = matter(fs.readFileSync(path.join(dir, file), "utf8"));
+      return {
+        slug: String(parsed.data.slug || file.replace(/\.md$/, "")),
+        title: String(parsed.data.title || ""),
+        excerpt: String(parsed.data.excerpt || ""),
+        content: parsed.content.trimStart(),
+        date: parsed.data.last_verified,
+        image: parsed.data.image ? String(parsed.data.image) : undefined,
+      };
+    });
+}
 
 const LONG_EXCERPT =
   "A clipboard that is only a picture is /paste in the CLI. The badge above the input is that picture. A new picture is text, hermes tools, and image_gen. In Desktop, drop the file on the chat.";
@@ -124,6 +154,97 @@ describe("audited blog posts", () => {
       assert.ok(related.length >= 3 && related.length <= 4, `${slug} related ${related.length}`);
       assert.equal(related.some((item) => item.slug === slug), false);
     }
+  });
+});
+
+describe("guide pages", () => {
+  const guides = loadGuides();
+  const sampled = ["turn-on-jev-images", "opt-out-of-chatgpt-ad-rewrites"];
+
+  test("fits every guide title to 30–60 characters with the topic first", () => {
+    assert.ok(guides.length > 50);
+    for (const guide of guides) {
+      const title = fitPageTitle(guide.title);
+      assert.ok(title.length >= 30 && title.length <= 60, `${guide.slug} title ${title.length}: ${title}`);
+      assert.equal(guide.title.startsWith(title), true, `${guide.slug} dropped the topic: ${title}`);
+    }
+    const jev = guides.find((guide) => guide.slug === "turn-on-jev-images");
+    const ads = guides.find((guide) => guide.slug === "opt-out-of-chatgpt-ad-rewrites");
+    assert.equal(fitPageTitle(jev.title), jev.title);
+    assert.equal(fitPageTitle(ads.title), ads.title);
+  });
+
+  test("keeps guide meta descriptions between 70 and 160 characters", () => {
+    for (const guide of guides) {
+      const description = truncateMetaDescription(guide.excerpt);
+      assert.ok(description.length >= 70 && description.length <= 160, `${guide.slug} description ${description.length}`);
+    }
+  });
+
+  test("emits BlogPosting, breadcrumbs, and no invented image on the sampled guides", () => {
+    for (const slug of sampled) {
+      const guide = guides.find((item) => item.slug === slug);
+      assert.ok(guide, slug);
+      const data = guideArticleJsonLd({
+        ...guide,
+        date: guide.date instanceof Date ? String(guide.date) : guide.date,
+      });
+      const posting = data["@graph"].find((node) => node["@type"] === "BlogPosting");
+      const crumbs = data["@graph"].find((node) => node["@type"] === "BreadcrumbList");
+      const faq = data["@graph"].find((node) => node["@type"] === "FAQPage");
+
+      assert.equal(posting.headline, guide.title);
+      assert.ok(posting.description.length >= 70 && posting.description.length <= 160);
+      assert.equal(posting.image, undefined);
+      assert.deepEqual(posting.author, {
+        "@type": "Person",
+        name: "Pamela Flannery",
+        url: "https://www.smfclearinghouse.com/about/",
+      });
+      assert.equal(posting.author.worksFor, undefined);
+      assert.equal(posting.datePublished, "2026-10-21");
+      assert.equal(posting.dateModified, "2026-10-21");
+      assert.equal(posting.publisher["@type"], "Organization");
+      assert.equal(posting.publisher.name, "SMF Works");
+      assert.equal(posting.publisher.worksFor, undefined);
+      assert.equal(posting.mainEntityOfPage["@id"], `https://www.smfclearinghouse.com/guides/${slug}/`);
+      assert.deepEqual(
+        crumbs.itemListElement.map((item) => item.name),
+        ["Home", "How-To Guides", guide.title],
+      );
+
+      const answers = extractQuestionAnswers(guide.content);
+      assert.ok(answers.length >= 4, `${slug} questions ${answers.length}`);
+      assert.ok(faq, `${slug} is missing FAQPage for its visible answers`);
+      assert.equal(faq.mainEntity.length, answers.length);
+      for (const answer of answers) {
+        assert.match(answer.question, /\?$/);
+        const count = wordCount(answer.answer);
+        assert.ok(count >= 40 && count <= 60, `${answer.question} has ${count} words`);
+        const matched = faq.mainEntity.find((node) => node.name === answer.question);
+        assert.equal(matched.acceptedAnswer.text, answer.answer);
+      }
+
+      const html = markdownToHtml(omitDuplicateTitleHeading(guide.content, guide.title));
+      assert.equal(/<h1[\s>]/i.test(html), false, `${slug} markdown still has an H1`);
+      assert.match(html, /<h2[\s>]/i);
+    }
+  });
+
+  test("omits dates and FAQPage when the guide has neither", () => {
+    const quiet = guides.find((guide) => extractQuestionAnswers(guide.content).length === 0 && !guide.date);
+    assert.ok(quiet, "expected a guide with no question answers and no date");
+    const data = guideArticleJsonLd(quiet);
+    const posting = data["@graph"].find((node) => node["@type"] === "BlogPosting");
+    assert.equal(posting.datePublished, undefined);
+    assert.equal(posting.dateModified, undefined);
+    assert.equal(data["@graph"].some((node) => node["@type"] === "FAQPage"), false);
+  });
+
+  test("reads an unquoted YAML date after it has been stringified", () => {
+    const guide = guides.find((item) => item.slug === "choosing-your-first-agent");
+    assert.ok(guide.date instanceof Date);
+    assert.equal(isoDate(String(guide.date)), "2026-06-15");
   });
 });
 
