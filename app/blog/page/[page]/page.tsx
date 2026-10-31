@@ -56,7 +56,8 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
-      <header className="border-b border-hairline bg-panel">
+      <main className="flex-1 bg-canvas">
+      <div className="border-b border-hairline bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
             SMF Clearinghouse
@@ -83,9 +84,8 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
             })}
           </div>
         </div>
-      </header>
+      </div>
 
-      <main className="flex-1 bg-canvas">
         <div className="mx-auto max-w-7xl px-6 py-10">
           {posts.length === 0 ? (
             <p className="text-foreground-secondary">No posts on this page.</p>

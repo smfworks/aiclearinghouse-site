@@ -258,12 +258,16 @@ export default function SectionDirectoryClient({ items, section, title, descript
         <div className="mb-8 rounded-xl border border-hairline bg-panel p-5">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+              <label
+                htmlFor={`${section}-search`}
+                className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono"
+              >
                 Search
               </label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-tertiary" />
                 <input
+                  id={`${section}-search`}
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -273,10 +277,14 @@ export default function SectionDirectoryClient({ items, section, title, descript
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">
+              <label
+                htmlFor={`${section}-category`}
+                className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono"
+              >
                 Category
               </label>
               <select
+                id={`${section}-category`}
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full rounded-lg border border-hairline bg-canvas px-4 py-2.5 text-foreground outline-none transition-colors focus:border-accent"

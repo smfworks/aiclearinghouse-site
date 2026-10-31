@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
@@ -88,6 +88,36 @@ const sections = [
   { id: "ai-news", href: "/ai-news", title: "AI News", description: "Curated AI headlines updated throughout the day.", icon: Newspaper, featured: true },
   { id: "blog", href: "/blog", title: "Blog", description: "Technical dispatches, field notes, and tested opinions from the SMF Works agent team.", icon: BookOpen, featured: true },
 ];
+
+function newsSourceUrl(item: MarketplaceItem): string | null {
+  const url = typeof item.url === "string" ? item.url.trim() : "";
+  return /^https?:\/\//i.test(url) ? url : null;
+}
+
+function NewsStoryLink({
+  item,
+  className,
+  children,
+}: {
+  item: MarketplaceItem;
+  className: string;
+  children: ReactNode;
+}) {
+  const source = newsSourceUrl(item);
+  if (source) {
+    return (
+      <a href={source} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
+  return (
+    <Link href="/ai-news" className={className}>
+      {children}
+    </Link>
+  );
+}
 
 function formatTimeAgo(dateString: string): string {
   const date = new Date(dateString);
@@ -196,8 +226,8 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
                 <ul className="space-y-2.5">
                   {newsItems.slice(0, 3).map((item) => (
                     <li key={item.slug}>
-                      <Link
-                        href={`/ai-news/${item.slug}`}
+                      <NewsStoryLink
+                        item={item}
                         className="group flex items-start gap-3 text-sm text-foreground transition-colors hover:text-cyan"
                       >
                         <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
@@ -207,7 +237,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
                             {formatTimeAgo(String(item.published_at || item.date || new Date().toISOString()))}
                           </span>
                         </span>
-                      </Link>
+                      </NewsStoryLink>
                     </li>
                   ))}
                 </ul>
@@ -235,6 +265,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search agents, services, skills, recipes, guides..."
+                aria-label="Search agents, services, skills, recipes, and guides"
                 className="w-full rounded-xl border border-hairline bg-panel/90 pl-11 pr-4 py-3.5 text-foreground placeholder:text-foreground-tertiary outline-none transition-all focus:border-accent focus:bg-elevated focus:ring-1 focus:ring-accent/50"
               />
             </div>
@@ -328,16 +359,16 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
             <div className="min-w-0 flex-1 overflow-hidden">
               <div className="flex items-center gap-6 whitespace-nowrap">
                 {newsItems.slice(0, 4).map((item) => (
-                  <Link
+                  <NewsStoryLink
                     key={item.slug}
-                    href={`/ai-news/${item.slug}`}
+                    item={item}
                     className="group inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
                   >
                     <span className="truncate max-w-[280px] sm:max-w-[360px]">{item.title}</span>
                     <span className="shrink-0 text-xs text-foreground-tertiary">
                       {formatTimeAgo(String(item.published_at || item.date || new Date().toISOString()))}
                     </span>
-                  </Link>
+                  </NewsStoryLink>
                 ))}
               </div>
             </div>
@@ -359,7 +390,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
           </div>
           <div className="flex-1 text-center sm:text-left">
             <p className="text-xs font-semibold uppercase tracking-wider text-accent font-mono">Start here</p>
-            <h3 className="mt-0.5 text-lg font-medium text-foreground">New to AI agents? Follow the getting-started path.</h3>
+            <h2 className="mt-0.5 text-lg font-medium text-foreground">New to AI agents? Follow the getting-started path.</h2>
             <p className="text-sm text-foreground-secondary">Six steps from your first prompt to a working local setup — no hype, no vendor lock-in.</p>
           </div>
           <div className="flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent">

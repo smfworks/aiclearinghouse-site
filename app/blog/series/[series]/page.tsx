@@ -43,7 +43,8 @@ export default async function SeriesPage({
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
-      <header className="border-b border-hairline bg-panel">
+      <main className="flex-1 bg-canvas">
+      <div className="border-b border-hairline bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
             SMF Clearinghouse
@@ -71,14 +72,14 @@ export default async function SeriesPage({
                       : "border-hairline bg-elevated text-foreground-secondary hover:border-accent hover:text-foreground"
                   }`}
                 >
-                  {label} <span className="ml-1 opacity-70">({count})</span>
+                  {label} <span className="ml-1">({count})</span>
                 </Link>
               );
             })}
           </div>
         </div>
-      </header>
-      <main className="flex-1 bg-canvas">
+      </div>
+
         <div className="mx-auto max-w-7xl px-6 py-10">
           {posts.length === 0 ? (
             <p className="text-foreground-secondary">
