@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SITE_ORIGIN, siteJsonLdHtml } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_ORIGIN),
+  alternates: { canonical: "./" },
   title: "SMF Clearinghouse — Find the Right AI Agent",
   description:
     "Compare autonomous AI agents, LLM pricing, open-source tools, and self-hosting recipes. Built for builders, enthusiasts, and small businesses.",
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SMF Clearinghouse",
     description: "Compare autonomous AI agents, LLM pricing, and self-hosting recipes.",
-    url: "https://smfclearinghouse.com",
+    url: `${SITE_ORIGIN}/`,
     siteName: "SMF Clearinghouse",
     type: "website",
     images: [
@@ -46,7 +49,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col bg-canvas">{children}</body>
+      <body className="min-h-full flex flex-col bg-canvas">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: siteJsonLdHtml() }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
