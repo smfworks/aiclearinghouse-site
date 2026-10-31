@@ -30,7 +30,8 @@ export default function BlogPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
-      <header className="border-b border-hairline bg-panel">
+      <main className="flex-1 bg-canvas">
+      <div className="border-b border-hairline bg-panel">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
             SMF Clearinghouse
@@ -57,15 +58,14 @@ export default function BlogPage() {
                   href={`/blog/series/${key}`}
                   className="rounded-full border border-hairline bg-elevated px-3 py-1 text-sm text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
                 >
-                  {label} <span className="ml-1 opacity-70">({count})</span>
+                  {label} <span className="ml-1">({count})</span>
                 </Link>
               );
             })}
           </div>
         </div>
-      </header>
+      </div>
 
-      <main className="flex-1 bg-canvas">
         <div className="mx-auto max-w-7xl px-6 py-10">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (

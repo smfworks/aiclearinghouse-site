@@ -15,7 +15,8 @@
 
   --foreground: #f5f6fa;
   --foreground-secondary: #9aa0b0;
-  --foreground-tertiary: #5e6680;
+  /* ~5.3:1 on #11121a and #0a0b0f; #5e6680 was ~3.3:1 */
+  --foreground-tertiary: #8088a0;
 
   /* Electric copper + deep teal accent system */
   --accent: #f5a623;
