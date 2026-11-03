@@ -34,6 +34,14 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+          <a
+            href="https://agentshootout.com/#board"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md px-3 py-1.5 text-foreground-secondary transition-colors hover:bg-elevated hover:text-foreground"
+          >
+            Agent Shootout ↗
+          </a>
           <Link
             href="/"
             className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border border-hairline text-foreground-secondary transition-colors hover:border-accent hover:text-accent"
@@ -65,6 +73,15 @@ export default function Nav() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href="https://agentshootout.com/#board"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="rounded-md px-3 py-2 text-foreground-secondary transition-colors hover:bg-elevated hover:text-foreground"
+            >
+              Agent Shootout ↗
+            </a>
           </div>
         </div>
       )}
