@@ -18,14 +18,13 @@
  *   5. Leaves source files untouched
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require("fs");
 const path = require("path");
 
 const SOURCE_DIR = "/home/mikesai3/.openclaw/agents/aiona/workspace/smfworks-site";
 const TARGET_DIR = "/home/mikesai3/.openclaw/agents/pamela/workspace/clearinghouse-site/content/blog";
 const PUBLIC_TARGET = "/home/mikesai3/.openclaw/agents/pamela/workspace/clearinghouse-site/public/images/blog";
-const BLOG_PUBLIC = "/home/mikesai3/.openclaw/agents/pamela/workspace/clearinghouse-site/public/blog";
-
 const SOURCE_CONTENT = path.join(SOURCE_DIR, "content");
 const SOURCE_PUBLIC = path.join(SOURCE_DIR, "public");
 
@@ -208,13 +207,13 @@ function main() {
 
   const results = [];
   const sourceDirs = [
-    { dir: "blog", migrateAll: true },
-    { dir: "the-terminal", migrateAll: true },
-    { dir: "drj", migrateAll: true },
-    { dir: "jeffs-journal", migrateAll: true },
+    { dir: "blog" },
+    { dir: "the-terminal" },
+    { dir: "drj" },
+    { dir: "jeffs-journal" },
   ];
 
-  for (const { dir, migrateAll } of sourceDirs) {
+  for (const { dir } of sourceDirs) {
     const fullDir = path.join(SOURCE_CONTENT, dir);
     if (!fs.existsSync(fullDir)) continue;
 

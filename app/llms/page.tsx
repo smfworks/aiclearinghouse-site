@@ -41,7 +41,7 @@ export default function LLMsPage() {
           <div className="bg-grid-faint absolute inset-0 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
           <div className="relative mx-auto max-w-7xl px-6">
-            <Link href="/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
+            <Link href="/" prefetch={false} className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
               ← Home
             </Link>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">LLM Directory</h1>
@@ -60,7 +60,7 @@ export default function LLMsPage() {
                 Updated 2026-06-15
               </span>
               <Link
-                href="/llms/compare"
+                href="/llms/compare/"
                 className="rounded-full border border-accent bg-accent/10 px-3 py-1 font-mono text-accent transition-colors hover:bg-accent/20"
               >
                 Compare models →
@@ -82,7 +82,7 @@ export default function LLMsPage() {
               return (
                 <Link
                   key={p.id}
-                  href={`/llms/${p.id}`}
+                  href={`/llms/${p.id}/`}
                   className="group rounded-xl border border-hairline bg-panel p-6 transition-all hover:border-foreground-secondary hover:shadow-lg"
                 >
                   <div className="flex items-start gap-4">
@@ -130,7 +130,7 @@ export default function LLMsPage() {
               return (
                 <Link
                   key={p.id}
-                  href={`/llms/${p.id}`}
+                  href={`/llms/${p.id}/`}
                   className="group rounded-xl border border-hairline bg-panel p-6 transition-all hover:border-foreground-secondary hover:shadow-lg"
                 >
                   <div className="flex items-start gap-4">
@@ -208,7 +208,7 @@ export default function LLMsPage() {
                       <tr key={`${p.id}-${m.model_id}`} className="transition-colors hover:bg-elevated/50">
                         {i === 0 ? (
                           <td className="px-4 py-3 font-medium text-foreground align-top" rowSpan={p.models.length}>
-                            <Link href={`/llms/${p.id}`} className="hover:underline">{p.name}</Link>
+                            <Link href={`/llms/${p.id}/`} className="hover:underline">{p.name}</Link>
                           </td>
                         ) : null}
                         <td className="px-4 py-3">

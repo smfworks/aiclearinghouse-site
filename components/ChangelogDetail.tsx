@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import { markdownToHtml } from "@/lib/markdown";
+import { demoteLeadingH1 } from "@/lib/seo";
 import { ArrowLeft, Calendar, Bot, ExternalLink, Tag } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
@@ -14,7 +15,7 @@ export default function ChangelogDetail({ item }: Props) {
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
       <Link
-        href="/changelog"
+        href="/changelog/"
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -46,7 +47,7 @@ export default function ChangelogDetail({ item }: Props) {
 
         <div
           className="prose prose-invert max-w-none px-8 py-10 md:px-12"
-          dangerouslySetInnerHTML={{ __html: markdownToHtml(item.content) }}
+          dangerouslySetInnerHTML={{ __html: markdownToHtml(demoteLeadingH1(item.content)) }}
         />
 
         <div className="border-t border-hairline bg-elevated px-8 py-4 md:px-12">

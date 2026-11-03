@@ -4,9 +4,10 @@ import Image from "next/image";
 import { useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { GETTING_STARTED_ANSWER } from "@/lib/clearinghouse-faq";
-import type { AgentProfile, MarketplaceItem } from "@/lib/marketplace/types";
+import type { AgentListItem, MarketplaceCard } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
 import XVideoEmbed from "@/components/XVideoEmbed";
+import RelativeTime from "@/components/RelativeTime";
 import {
   Bot,
   Wrench,
@@ -31,14 +32,13 @@ import {
   Flame,
   Radio,
   Newspaper,
-  Clock,
   PenTool,
 } from "lucide-react";
 
 interface Props {
-  agents: AgentProfile[];
-  genericItems: Record<string, MarketplaceItem[]>;
-  newsItems: MarketplaceItem[];
+  agents: AgentListItem[];
+  genericItems: Record<string, MarketplaceCard[]>;
+  newsItems: MarketplaceCard[];
 }
 
 type SectionColor = {
@@ -69,28 +69,28 @@ const sectionColors: Record<string, SectionColor> = {
 };
 
 const sections = [
-  { id: "getting-started", href: "/getting-started", title: "Getting Started", description: "A learning path from your first agent to local self-hosting.", icon: Rocket, featured: true },
-  { id: "agents", href: "/agents", title: "Agent Directory", description: "Compare autonomous AI agents side-by-side.", icon: Bot, featured: true },
-  { id: "llms", href: "/llms", title: "LLM Pricing", description: "Pricing, context windows, and benchmark scores.", icon: Cpu, featured: true },
-  { id: "services", href: "/services", title: "Services", description: "Hosting, security, data, and observability vendors.", icon: Wrench },
-  { id: "skills", href: "/skills", title: "Skills \u0026 Addons", description: "Reusable skills, MCP servers, plugins, and extensions.", icon: Puzzle },
-  { id: "guides", href: "/guides", title: "How-To Guides", description: "Curated starting points and deep dives.", icon: BookOpen },
-  { id: "tips", href: "/tips", title: "Tips \u0026 Tricks", description: "Bite-sized advice to level up your agent workflow.", icon: Lightbulb },
-  { id: "tests", href: "/tests", title: "Test Results", description: "Real-world benchmark reports from the community.", icon: BarChart3 },
-  { id: "self-hosting", href: "/self-hosting", title: "Self-Hosting", description: "Hardware and OS guides for local agents and LLMs.", icon: Home },
-  { id: "use-cases", href: "/use-cases", title: "Use Cases", description: "Find agents for code review, UI building, debugging, research, and security.", icon: Target },
-  { id: "alternatives", href: "/alternatives", title: "Alternatives", description: "Top replacements for Copilot, Cursor, ChatGPT, Claude, and more.", icon: ArrowLeftRight },
-  { id: "deployment-recipes", href: "/deployment-recipes", title: "Deployment Recipes", description: "Copy-paste recipes for Ollama, Open WebUI, Cline, and more.", icon: FlaskConical, featured: true },
-  { id: "deals", href: "/deals", title: "Vendor Deals", description: "Credits, startup programs, and free tiers.", icon: Tag },
-  { id: "safety", href: "/safety", title: "AI Safety", description: "Permission models, prompt injection defenses, and trust checklists.", icon: Shield },
-  { id: "lab", href: "/lab", title: "The Lab", description: "Experiments on AI hardware, software, applications, and devices.", icon: Microscope },
-  { id: "changelog", href: "/changelog", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: ScrollText },
-  { id: "reviews", href: "/reviews", title: "SMF Reviews", description: "Hands-on reviews of AI agents, tools, services, and hardware.", icon: PenTool, featured: true },
-  { id: "ai-news", href: "/ai-news", title: "AI News", description: "Curated AI headlines updated throughout the day.", icon: Newspaper, featured: true },
-  { id: "blog", href: "/blog", title: "Blog", description: "Technical dispatches, field notes, and tested opinions from the SMF Works agent team.", icon: BookOpen, featured: true },
+  { id: "getting-started", href: "/getting-started/", title: "Getting Started", description: "A learning path from your first agent to local self-hosting.", icon: Rocket, featured: true },
+  { id: "agents", href: "/agents/", title: "Agent Directory", description: "Compare autonomous AI agents side-by-side.", icon: Bot, featured: true },
+  { id: "llms", href: "/llms/", title: "LLM Pricing", description: "Pricing, context windows, and benchmark scores.", icon: Cpu, featured: true },
+  { id: "services", href: "/services/", title: "Services", description: "Hosting, security, data, and observability vendors.", icon: Wrench },
+  { id: "skills", href: "/skills/", title: "Skills \u0026 Addons", description: "Reusable skills, MCP servers, plugins, and extensions.", icon: Puzzle },
+  { id: "guides", href: "/guides/", title: "How-To Guides", description: "Curated starting points and deep dives.", icon: BookOpen },
+  { id: "tips", href: "/tips/", title: "Tips \u0026 Tricks", description: "Bite-sized advice to level up your agent workflow.", icon: Lightbulb },
+  { id: "tests", href: "/tests/", title: "Test Results", description: "Real-world benchmark reports from the community.", icon: BarChart3 },
+  { id: "self-hosting", href: "/self-hosting/", title: "Self-Hosting", description: "Hardware and OS guides for local agents and LLMs.", icon: Home },
+  { id: "use-cases", href: "/use-cases/", title: "Use Cases", description: "Find agents for code review, UI building, debugging, research, and security.", icon: Target },
+  { id: "alternatives", href: "/alternatives/", title: "Alternatives", description: "Top replacements for Copilot, Cursor, ChatGPT, Claude, and more.", icon: ArrowLeftRight },
+  { id: "deployment-recipes", href: "/deployment-recipes/", title: "Deployment Recipes", description: "Copy-paste recipes for Ollama, Open WebUI, Cline, and more.", icon: FlaskConical, featured: true },
+  { id: "deals", href: "/deals/", title: "Vendor Deals", description: "Credits, startup programs, and free tiers.", icon: Tag },
+  { id: "safety", href: "/safety/", title: "AI Safety", description: "Permission models, prompt injection defenses, and trust checklists.", icon: Shield },
+  { id: "lab", href: "/lab/", title: "The Lab", description: "Experiments on AI hardware, software, applications, and devices.", icon: Microscope },
+  { id: "changelog", href: "/changelog/", title: "Agent Changelog", description: "Recent releases and notable updates from major agents.", icon: ScrollText },
+  { id: "reviews", href: "/reviews/", title: "SMF Reviews", description: "Hands-on reviews of AI agents, tools, services, and hardware.", icon: PenTool, featured: true },
+  { id: "ai-news", href: "/ai-news/", title: "AI News", description: "Curated AI headlines updated throughout the day.", icon: Newspaper, featured: true },
+  { id: "blog", href: "/blog/", title: "Blog", description: "Technical dispatches, field notes, and tested opinions from the SMF Works agent team.", icon: BookOpen, featured: true },
 ];
 
-function newsSourceUrl(item: MarketplaceItem): string | null {
+function newsSourceUrl(item: MarketplaceCard): string | null {
   const url = typeof item.url === "string" ? item.url.trim() : "";
   return /^https?:\/\//i.test(url) ? url : null;
 }
@@ -100,7 +100,7 @@ function NewsStoryLink({
   className,
   children,
 }: {
-  item: MarketplaceItem;
+  item: MarketplaceCard;
   className: string;
   children: ReactNode;
 }) {
@@ -114,24 +114,10 @@ function NewsStoryLink({
     );
   }
   return (
-    <Link href="/ai-news" className={className}>
+    <Link href="/ai-news/" className={className}>
       {children}
     </Link>
   );
-}
-
-function formatTimeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.max(0, Math.floor((now.getTime() - date.getTime()) / 1000));
-  if (seconds < 60) return "just now";
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days < 7) return `${days}d ago`;
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
 function colorFor(sectionId: string): SectionColor {
@@ -161,7 +147,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
   const genericResults = useMemo(() => {
     if (!q) return [];
     const all = Object.entries(genericItems).flatMap(([section, items]) =>
-      items.map((i) => ({ ...i, section, href: `/${section}/${i.slug}` }))
+      items.map((i) => ({ ...i, section, href: `/${section}/${i.slug}/` }))
     );
     return all
       .filter((i) =>
@@ -234,16 +220,17 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
                         <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
                         <span className="flex-1 leading-snug">
                           <span className="font-medium">{item.title}</span>
-                          <span className="ml-2 text-xs text-foreground-tertiary">
-                            {formatTimeAgo(String(item.published_at || item.date || new Date().toISOString()))}
-                          </span>
+                          <RelativeTime
+                            date={item.published_at || item.date}
+                            className="ml-2 text-xs text-foreground-tertiary"
+                          />
                         </span>
                       </NewsStoryLink>
                     </li>
                   ))}
                 </ul>
                 <Link
-                  href="/ai-news"
+                  href="/ai-news/"
                   className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-cyan transition-colors hover:underline"
                 >
                   See all headlines <ArrowRight className="h-3 w-3" />
@@ -295,7 +282,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
                   <p className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Agents</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {topAgents.map((a) => (
-                      <Link key={a.id} href={`/agents/${a.id}`} className="rounded-md border border-hairline bg-elevated px-3 py-1.5 text-sm text-foreground transition-all hover:border-cyan hover:text-cyan hover:shadow-[0_0_16px_-6px_var(--cyan-glow)]">
+                      <Link key={a.id} href={`/agents/${a.id}/`} className="rounded-md border border-hairline bg-elevated px-3 py-1.5 text-sm text-foreground transition-all hover:border-cyan hover:text-cyan hover:shadow-[0_0_16px_-6px_var(--cyan-glow)]">
                         {a.name}
                       </Link>
                     ))}
@@ -366,15 +353,16 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
                     className="group inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
                   >
                     <span className="truncate max-w-[280px] sm:max-w-[360px]">{item.title}</span>
-                    <span className="shrink-0 text-xs text-foreground-tertiary">
-                      {formatTimeAgo(String(item.published_at || item.date || new Date().toISOString()))}
-                    </span>
+                    <RelativeTime
+                      date={item.published_at || item.date}
+                      className="shrink-0 text-xs text-foreground-tertiary"
+                    />
                   </NewsStoryLink>
                 ))}
               </div>
             </div>
             <Link
-              href="/ai-news"
+              href="/ai-news/"
               className="hidden shrink-0 items-center gap-1 text-xs font-medium text-cyan transition-colors hover:underline sm:inline-flex"
             >
               All news <ArrowRight className="h-3 w-3" />
@@ -385,7 +373,7 @@ export default function HubClient({ agents, genericItems, newsItems }: Props) {
 
       {/* Featured spotlight — sit below Live AI News (no negative margin / z-index overlay) */}
       <section className="mx-auto w-full max-w-7xl px-6 mt-8 md:mt-10">
-        <Link href="/getting-started" className="group flex flex-col sm:flex-row items-center gap-5 rounded-xl border border-accent/30 bg-gradient-to-r from-panel via-elevated to-panel p-5 shadow-[0_0_40px_-16px_var(--accent-glow)] transition-all hover:border-accent/60 hover:shadow-[0_0_50px_-14px_var(--accent-glow)]">
+        <Link href="/getting-started/" className="group flex flex-col sm:flex-row items-center gap-5 rounded-xl border border-accent/30 bg-gradient-to-r from-panel via-elevated to-panel p-5 shadow-[0_0_40px_-16px_var(--accent-glow)] transition-all hover:border-accent/60 hover:shadow-[0_0_50px_-14px_var(--accent-glow)]">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-accent">
             <Flame className="h-6 w-6" />
           </div>

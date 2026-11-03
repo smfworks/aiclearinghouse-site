@@ -4,7 +4,15 @@ import { DEFAULT_OG_IMAGE, SITE_ORIGIN, siteJsonLdHtml } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
-  alternates: { canonical: "./" },
+  alternates: {
+    canonical: "./",
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
+  icons: {
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   title: "SMF Clearinghouse — Find the Right AI Agent",
   description:
     "Compare autonomous AI agents, LLM pricing, open-source tools, and self-hosting recipes. Built for builders, enthusiasts, and small businesses.",

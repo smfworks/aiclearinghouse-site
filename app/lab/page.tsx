@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllItems, getSectionTitle } from "@/lib/marketplace/loader";
+import { getAllCards, getSectionTitle } from "@/lib/marketplace/loader";
 import SectionDirectoryClient from "@/components/SectionDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -10,14 +10,14 @@ export const metadata = {
 };
 
 const doors = [
-  { href: "/tests", label: "Tests", note: "What we ran, and what we will not claim we ran." },
-  { href: "/explorer", label: "Benchmarks", note: "The SMF benchmark explorer." },
-  { href: "/agents", label: "Agents", note: "Tools in the directory. Not a hire-us page." },
-  { href: "/llms", label: "Models", note: "Pricing, context, and the public numbers." },
+  { href: "/tests/", label: "Tests", note: "What we ran, and what we will not claim we ran." },
+  { href: "/explorer/", label: "Benchmarks", note: "The SMF benchmark explorer." },
+  { href: "/agents/", label: "Agents", note: "Tools in the directory. Not a hire-us page." },
+  { href: "/llms/", label: "Models", note: "Pricing, context, and the public numbers." },
 ];
 
 export default function Page() {
-  const items = getAllItems("lab");
+  const items = getAllCards("lab");
   const title = getSectionTitle("lab");
   return (
     <div className="flex min-h-screen flex-col">
@@ -50,6 +50,7 @@ export default function Page() {
             section="lab"
             title={title}
             description="Filed lab notes already on this site."
+            titleAs="h2"
           />
         )}
       </main>

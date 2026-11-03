@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Page not found | SMF Clearinghouse",
+  description: "That address is not on the SMF Clearinghouse.",
+};
 
 export default function NotFound() {
   return (
@@ -15,12 +21,13 @@ export default function NotFound() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-medium">
           <Link
             href="/"
+            prefetch={false}
             className="rounded-lg bg-accent px-4 py-2 text-accent-foreground transition-colors hover:bg-accent-hover"
           >
             Home
           </Link>
           <Link
-            href="/ai-news"
+            href="/ai-news/"
             className="rounded-lg border border-hairline px-4 py-2 text-foreground transition-colors hover:border-accent hover:text-accent"
           >
             AI News

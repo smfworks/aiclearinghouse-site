@@ -30,7 +30,35 @@ export interface MarketplaceItem {
   results?: TestResult[];
   x_embed?: string;
   x_post_url?: string;
+  // Section front matter adds fields that are not on every item.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
+}
+
+/** Directory and homepage payload. No article body. */
+export interface MarketplaceCard {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date?: string;
+  tags: string[];
+  image?: string;
+  category: string;
+  last_verified?: string;
+  published_at?: string;
+  url?: string;
+  source?: string;
+  readingTime?: number;
+  wordCount?: number;
+  difficulty?: string;
+  estimated_time?: string;
+  rating?: number;
+  pricing_model?: string;
+  pricing?: string;
+  winner?: string;
+  agents?: string[];
+  resultCount?: number;
+  order?: number;
 }
 
 export interface AgentProfile {
@@ -55,6 +83,9 @@ export interface AgentProfile {
   lastVerified?: string;
   crossLinks?: { label: string; url: string }[];
 }
+
+/** Agent fields used by directories and compare. Omits the markdown description. */
+export type AgentListItem = Omit<AgentProfile, "description">;
 
 export interface LLMModel {
   model: string;

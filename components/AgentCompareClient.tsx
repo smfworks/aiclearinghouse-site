@@ -2,25 +2,25 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import type { AgentProfile } from "@/lib/marketplace/types";
+import type { AgentListItem } from "@/lib/marketplace/types";
 import { Check, ArrowLeft, Scale, Sparkles } from "lucide-react";
 
 interface Props {
-  agents: AgentProfile[];
+  agents: AgentListItem[];
 }
 
 const MAX_COMPARE = 4;
 
 const rows = [
-  { key: "company", label: "Company", format: (a: AgentProfile) => a.company },
-  { key: "pricing", label: "Pricing", format: (a: AgentProfile) => a.pricing },
-  { key: "runtime", label: "Runtime", format: (a: AgentProfile) => a.runtime },
-  { key: "openSource", label: "Open source", format: (a: AgentProfile) => (a.openSource ? "Yes" : "No") },
-  { key: "multiPlatform", label: "Multi-platform", format: (a: AgentProfile) => (a.multiPlatform ? "Yes" : "No") },
-  { key: "providerAgnostic", label: "Provider-agnostic", format: (a: AgentProfile) => (a.providerAgnostic ? "Yes" : "No") },
-  { key: "model", label: "Default model", format: (a: AgentProfile) => a.model || "—" },
-  { key: "platforms", label: "Platforms", format: (a: AgentProfile) => a.platforms.join(", ") || "—" },
-  { key: "releaseYear", label: "Release year", format: (a: AgentProfile) => String(a.releaseYear) },
+  { key: "company", label: "Company", format: (a: AgentListItem) => a.company },
+  { key: "pricing", label: "Pricing", format: (a: AgentListItem) => a.pricing },
+  { key: "runtime", label: "Runtime", format: (a: AgentListItem) => a.runtime },
+  { key: "openSource", label: "Open source", format: (a: AgentListItem) => (a.openSource ? "Yes" : "No") },
+  { key: "multiPlatform", label: "Multi-platform", format: (a: AgentListItem) => (a.multiPlatform ? "Yes" : "No") },
+  { key: "providerAgnostic", label: "Provider-agnostic", format: (a: AgentListItem) => (a.providerAgnostic ? "Yes" : "No") },
+  { key: "model", label: "Default model", format: (a: AgentListItem) => a.model || "—" },
+  { key: "platforms", label: "Platforms", format: (a: AgentListItem) => a.platforms.join(", ") || "—" },
+  { key: "releaseYear", label: "Release year", format: (a: AgentListItem) => String(a.releaseYear) },
 ];
 
 export default function AgentCompareClient({ agents }: Props) {
@@ -32,14 +32,17 @@ export default function AgentCompareClient({ agents }: Props) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const ids = params.get("ids");
-    if (ids) {
-      const validIds = ids
-        .split(",")
-        .map((s) => s.trim())
-        .filter((id) => agents.some((a) => a.id === id));
-      setSelectedIds(new Set(validIds));
-    }
-    setIsClient(true);
+    const validIds = ids
+      ? ids
+          .split(",")
+          .map((s) => s.trim())
+          .filter((id) => agents.some((a) => a.id === id))
+      : [];
+    const timer = window.setTimeout(() => {
+      if (validIds.length > 0) setSelectedIds(new Set(validIds));
+      setIsClient(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [agents]);
 
   const selectedAgents = useMemo(
@@ -86,7 +89,7 @@ export default function AgentCompareClient({ agents }: Props) {
         <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6">
           <Link
-            href="/agents"
+            href="/agents/"
             className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -159,7 +162,7 @@ export default function AgentCompareClient({ agents }: Props) {
                   key={agent.id}
                   className="border-b border-r border-hairline bg-elevated p-4 last:border-r-0"
                 >
-                  <Link href={`/agents/${agent.id}`} className="group">
+                  <Link href={`/agents/${agent.id}/`} className="group">
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-canvas text-sm font-medium text-foreground">
                         {agent.name.charAt(0)}

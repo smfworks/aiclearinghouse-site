@@ -1,4 +1,4 @@
-import { getAllItems } from "@/lib/marketplace/loader";
+import { getAllCards } from "@/lib/marketplace/loader";
 import TestsDirectoryClient from "@/components/TestsDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function TestsPage() {
-  const items = getAllItems("tests");
+  const items = getAllCards("tests");
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />

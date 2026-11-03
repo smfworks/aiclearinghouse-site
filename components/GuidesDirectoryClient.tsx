@@ -2,15 +2,15 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { MarketplaceItem } from "@/lib/marketplace/types";
+import { MarketplaceCard } from "@/lib/marketplace/types";
 import { Search, ArrowRight, Clock, BookOpen, Compass, Shield, Cpu, BarChart3 } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
-  items: MarketplaceItem[];
+  items: MarketplaceCard[];
 }
 
-const paths: { id: string; label: string; icon: React.ReactNode; description: string; filter: (item: MarketplaceItem) => boolean }[] = [
+const paths: { id: string; label: string; icon: React.ReactNode; description: string; filter: (item: MarketplaceCard) => boolean }[] = [
   {
     id: "start",
     label: "Start here",
@@ -86,7 +86,7 @@ export default function GuidesDirectoryClient({ items }: Props) {
 
   const featured = allSorted.find((item) => item.slug === "choosing-your-first-agent") || allSorted[0];
 
-  function getGuideNumber(item: MarketplaceItem): number {
+  function getGuideNumber(item: MarketplaceCard): number {
     const idx = allSorted.findIndex((i) => i.slug === item.slug);
     return idx + 1;
   }
@@ -97,7 +97,7 @@ export default function GuidesDirectoryClient({ items }: Props) {
         <div className="bg-grid-faint absolute inset-0 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6">
-          <Link href="/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
+          <Link href="/" prefetch={false} className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
             ← Home
           </Link>
           <div className="mt-4 flex items-center gap-3">
@@ -145,7 +145,7 @@ export default function GuidesDirectoryClient({ items }: Props) {
                     </span>
                   </div>
                   <Link
-                    href={`/guides/${featured.slug}`}
+                    href={`/guides/${featured.slug}/`}
                     className="mt-5 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
                   >
                     Read the decision tree
@@ -215,7 +215,7 @@ export default function GuidesDirectoryClient({ items }: Props) {
           {filteredItems.map((item) => (
             <Link
               key={item.slug}
-              href={`/guides/${item.slug}`}
+              href={`/guides/${item.slug}/`}
               className="group flex flex-col rounded-xl border border-hairline bg-panel p-6 transition-all hover:border-hairline-strong hover:bg-elevated sm:flex-row sm:items-start sm:gap-6"
             >
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-elevated text-xl font-semibold text-foreground transition-colors group-hover:bg-accent/10 group-hover:text-accent">

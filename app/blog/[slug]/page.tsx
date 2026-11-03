@@ -60,13 +60,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <JsonLd data={blogPostJsonLd(post)} />
-      <article className="flex-1 bg-canvas">
+      <main className="flex-1 bg-canvas">
+      <article>
         <header className="border-b border-hairline bg-panel">
           <div className="mx-auto max-w-3xl px-6 py-12">
             <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
               {series && (
                 <Link
-                  href={`/blog/series/${post.series}`}
+                  href={`/blog/series/${post.series}/`}
                   className="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent"
                 >
                   {series.label}
@@ -144,7 +145,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <ul className="mt-4 space-y-3">
                   {related.map((item) => (
                     <li key={item.slug}>
-                      <Link href={`/blog/${item.slug}`} className="font-medium text-accent hover:underline">
+                      <Link href={`/blog/${item.slug}/`} className="font-medium text-accent hover:underline">
                         {item.title}
                       </Link>
                     </li>
@@ -153,11 +154,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </>
             )}
             <p className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
-              <Link href="/blog" className="text-accent hover:underline">
+              <Link href="/blog/" className="text-accent hover:underline">
                 Back to the blog
               </Link>
               {series && (
-                <Link href={`/blog/series/${post.series}`} className="text-accent hover:underline">
+                <Link href={`/blog/series/${post.series}/`} className="text-accent hover:underline">
                   More in {series.label}
                 </Link>
               )}
@@ -165,6 +166,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </nav>
         </div>
       </article>
+      </main>
     </div>
   );
 }

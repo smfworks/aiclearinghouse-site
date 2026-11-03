@@ -1,10 +1,12 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import {
+import type {
+  AgentListItem,
   AgentPricing,
   AgentProfile,
   AgentRuntime,
+  MarketplaceCard,
   MarketplaceItem,
 } from "./types";
 
@@ -56,6 +58,47 @@ function loadItem(section: string, slug: string): MarketplaceItem | undefined {
   }
 
   return item;
+}
+
+function asText(value: unknown, mode: "date" | "instant" = "date"): string | undefined {
+  if (value == null || value === "") return undefined;
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return mode === "instant" ? value.toISOString() : value.toISOString().slice(0, 10);
+  }
+  const text = String(value).trim();
+  return text || undefined;
+}
+
+/** Card fields for list pages and the homepage. The markdown body stays on the detail page. */
+export function toMarketplaceCard(item: MarketplaceItem): MarketplaceCard {
+  return {
+    slug: item.slug,
+    title: item.title,
+    excerpt: item.excerpt,
+    date: asText(item.date),
+    tags: item.tags ?? [],
+    image: item.image,
+    category: item.category,
+    last_verified: asText(item.last_verified),
+    published_at: asText(item.published_at, "instant"),
+    url: asText(item.url),
+    source: typeof item.source === "string" ? item.source : undefined,
+    readingTime: item.readingTime,
+    wordCount: item.wordCount,
+    difficulty: asText(item.difficulty),
+    estimated_time: asText(item.estimated_time),
+    rating: typeof item.rating === "number" ? item.rating : undefined,
+    pricing_model: asText(item.pricing_model),
+    pricing: asText(item.pricing),
+    winner: asText(item.winner),
+    agents: Array.isArray(item.agents) ? item.agents.map(String) : undefined,
+    resultCount: Array.isArray(item.results) ? item.results.length : undefined,
+    order: typeof item.order === "number" ? item.order : undefined,
+  };
+}
+
+export function getAllCards(section: string): MarketplaceCard[] {
+  return getAllItems(section).map(toMarketplaceCard);
 }
 
 export function getAllItems(section: string): MarketplaceItem[] {
@@ -131,6 +174,34 @@ export function getAllAgents(): AgentProfile[] {
   }));
 }
 
+export function toAgentListItem(agent: AgentProfile): AgentListItem {
+  return {
+    id: agent.id,
+    name: agent.name,
+    tagline: agent.tagline,
+    website: agent.website,
+    repository: agent.repository,
+    logo: agent.logo,
+    categories: agent.categories,
+    pricing: agent.pricing,
+    runtime: agent.runtime,
+    openSource: agent.openSource,
+    multiPlatform: agent.multiPlatform,
+    providerAgnostic: agent.providerAgnostic,
+    model: agent.model,
+    platforms: agent.platforms,
+    features: agent.features,
+    releaseYear: agent.releaseYear,
+    company: agent.company,
+    lastVerified: agent.lastVerified,
+    crossLinks: agent.crossLinks,
+  };
+}
+
+export function getAgentList(): AgentListItem[] {
+  return getAllAgents().map(toAgentListItem);
+}
+
 export function getAgentBySlug(slug: string): AgentProfile | null {
   const item = getItemBySlug("agents", slug);
   if (!item) return null;
@@ -174,4 +245,11 @@ export function getAgentPlatforms(): string[] {
 }
 
 export { getSectionTitle, sectionNames } from "./types";
-export type { AgentProfile, AgentPricing, AgentRuntime, MarketplaceItem } from "./types";
+export type {
+  AgentListItem,
+  AgentProfile,
+  AgentPricing,
+  AgentRuntime,
+  MarketplaceCard,
+  MarketplaceItem,
+} from "./types";

@@ -6,10 +6,10 @@ import AgentCard from "@/components/AgentCard";
 import AgentComparison from "@/components/AgentComparison";
 import SuggestAgentCTA from "@/components/SuggestAgentCTA";
 import XVideoEmbed from "@/components/XVideoEmbed";
-import { AgentProfile } from "@/lib/marketplace/types";
+import { AgentListItem } from "@/lib/marketplace/types";
 
 interface Props {
-  agents: AgentProfile[];
+  agents: AgentListItem[];
   categories: string[];
   runtimes: string[];
   pricings: string[];
@@ -19,12 +19,14 @@ interface Props {
 
 const MAX_COMPARE = 3;
 
-function useHydratedCompare(agents: AgentProfile[]) {
+function useHydratedCompare(agents: AgentListItem[]) {
   const [compareParam, setCompareParam] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setCompareParam(params.get("compare"));
+    const compare = params.get("compare");
+    const timer = window.setTimeout(() => setCompareParam(compare), 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   return useMemo(() => {
@@ -53,9 +55,12 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
   const initialSelected = useHydratedCompare(agents);
 
   useEffect(() => {
-    setSelected(initialSelected);
-    setCompareOpen(initialSelected.size > 0);
-    setIsClient(true);
+    const timer = window.setTimeout(() => {
+      setSelected(initialSelected);
+      setCompareOpen(initialSelected.size > 0);
+      setIsClient(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [initialSelected]);
 
   // Update URL when selection changes
@@ -156,8 +161,9 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Category</label>
+              <label htmlFor="agent-category" className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Category</label>
               <select
+                id="agent-category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full rounded-lg border border-hairline bg-canvas px-4 py-2.5 text-foreground outline-none transition-all focus:border-cyan focus:ring-1 focus:ring-cyan/50"
@@ -169,8 +175,9 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Runtime</label>
+              <label htmlFor="agent-runtime" className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Runtime</label>
               <select
+                id="agent-runtime"
                 value={runtime}
                 onChange={(e) => setRuntime(e.target.value)}
                 className="w-full rounded-lg border border-hairline bg-canvas px-4 py-2.5 text-foreground outline-none transition-all focus:border-cyan focus:ring-1 focus:ring-cyan/50"
@@ -182,8 +189,9 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Pricing</label>
+              <label htmlFor="agent-pricing" className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Pricing</label>
               <select
+                id="agent-pricing"
                 value={pricing}
                 onChange={(e) => setPricing(e.target.value)}
                 className="w-full rounded-lg border border-hairline bg-canvas px-4 py-2.5 text-foreground outline-none transition-all focus:border-cyan focus:ring-1 focus:ring-cyan/50"
@@ -213,7 +221,7 @@ export default function AgentsDirectoryClient({ agents, categories, runtimes, pr
           <div className="flex items-center gap-3">
             {selected.size > 1 && (
               <Link
-                href={`/agents/compare?ids=${Array.from(selected).join(",")}`}
+                href={`/agents/compare/?ids=${Array.from(selected).join(",")}`}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-hairline bg-canvas px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-cyan/50 hover:text-cyan"
               >
                 Full comparison

@@ -329,7 +329,7 @@ Start simple. Best first workflows:
 
 I've built workflows for businesses across industries. The pattern is always the same: identify the time sink, connect the apps, automate the flow, reclaim the hours.
 
-**[Book a free 20-minute call](/contact)** and I'll help you identify your highest-ROI workflow opportunity.
+**[Book a free 20-minute call](https://smfworks.com/contact)** and I'll help you identify your highest-ROI workflow opportunity.
 
 Or **[subscribe to SMF AI Weekly](/#newsletter)** for weekly workflow templates and automation strategies.
 

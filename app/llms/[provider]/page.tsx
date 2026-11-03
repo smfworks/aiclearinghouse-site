@@ -62,7 +62,7 @@ export default async function ProviderPage({ params }: { params: Promise<{ provi
           <div className="bg-grid-faint absolute inset-0 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
           <div className="relative mx-auto max-w-7xl px-6">
-            <Link href="/llms" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
+            <Link href="/llms/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
               ← LLM Directory
             </Link>
             <div className="mt-6 flex items-start gap-6">
@@ -82,7 +82,7 @@ export default async function ProviderPage({ params }: { params: Promise<{ provi
                     {provider.models.length} models
                   </span>
                   <Link
-                    href="/llms/compare"
+                    href="/llms/compare/"
                     className="rounded-full border border-accent bg-accent/10 px-3 py-1 font-mono text-accent transition-colors hover:bg-accent/20"
                   >
                     Compare models →
@@ -207,7 +207,7 @@ export default async function ProviderPage({ params }: { params: Promise<{ provi
             {allProviders.filter(p => p.id !== providerId).map((p) => (
               <Link
                 key={p.id}
-                href={`/llms/${p.id}`}
+                href={`/llms/${p.id}/`}
                 className="rounded-full border border-hairline bg-panel px-4 py-2 text-sm text-foreground-secondary hover:text-foreground hover:border-foreground-secondary transition-colors"
               >
                 {p.name}

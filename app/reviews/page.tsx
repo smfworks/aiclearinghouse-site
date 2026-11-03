@@ -1,4 +1,4 @@
-import { getAllItems } from "@/lib/marketplace/loader";
+import { getAllCards } from "@/lib/marketplace/loader";
 import ReviewsDirectoryClient from "@/components/ReviewsDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function ReviewsPage() {
-  const items = getAllItems("reviews");
+  const items = getAllCards("reviews");
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />

@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HeroBackground from "@/components/HeroBackground";
-import { MarketplaceItem } from "@/lib/marketplace/types";
+import RelativeTime from "@/components/RelativeTime";
+import { MarketplaceCard } from "@/lib/marketplace/types";
 import {
   Newspaper,
   ExternalLink,
@@ -20,7 +21,7 @@ import {
 } from "lucide-react";
 
 interface Props {
-  items: MarketplaceItem[];
+  items: MarketplaceCard[];
 }
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -76,27 +77,12 @@ function ShieldNews({ className }: { className?: string }) {
   );
 }
 
-function formatTimeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMin = Math.floor(diffMs / 60000);
-  const diffHr = Math.floor(diffMin / 60);
-  const diffDay = Math.floor(diffHr / 24);
-
-  if (diffMin < 5) return "just now";
-  if (diffMin < 60) return `${diffMin}m ago`;
-  if (diffHr < 24) return `${diffHr}h ago`;
-  if (diffDay < 7) return `${diffDay}d ago`;
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
-
 export default function AINewsClient({ items }: Props) {
   const grouped = useMemo(() => {
     const sorted = [...items].sort(
       (a, b) => new Date(String(b.published_at)).getTime() - new Date(String(a.published_at)).getTime()
     );
-    const map = new Map<string, MarketplaceItem[]>();
+    const map = new Map<string, MarketplaceCard[]>();
     for (const item of sorted) {
       const cat = item.category || "News";
       if (!map.has(cat)) map.set(cat, []);
@@ -114,7 +100,7 @@ export default function AINewsClient({ items }: Props) {
         overlayOpacity={0.82}
       >
         <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <Link href="/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
+          <Link href="/" prefetch={false} className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
             ← Home
           </Link>
           <div className="mt-4 flex items-center gap-3">
@@ -127,7 +113,12 @@ export default function AINewsClient({ items }: Props) {
           <div className="mt-4 flex items-center gap-2 text-xs text-foreground-tertiary font-mono"
           >
             <Clock className="h-3.5 w-3.5" />
-            {items.length} stories · updated {grouped[0]?.[1][0]?.published_at ? formatTimeAgo(String(grouped[0][1][0].published_at)) : "recently"}
+            {items.length} stories · updated{" "}
+            {grouped[0]?.[1][0]?.published_at ? (
+              <RelativeTime date={String(grouped[0][1][0].published_at)} />
+            ) : (
+              "recently"
+            )}
           </div>
         </div>
       </HeroBackground>
@@ -171,7 +162,7 @@ export default function AINewsClient({ items }: Props) {
                             <span className="flex items-center gap-1"
                             >
                               <Clock className="h-3 w-3" />
-                              {formatTimeAgo(String(story.published_at))}
+                              <RelativeTime date={story.published_at} />
                             </span>
                           </div>
                         </div>
@@ -213,7 +204,7 @@ export default function AINewsClient({ items }: Props) {
                       </p>
                       <p className="mt-0.5 text-xs text-foreground-tertiary"
                       >
-                        {story.source} · {formatTimeAgo(String(story.published_at))}
+                        {story.source} · <RelativeTime date={story.published_at} />
                       </p>
                     </a>
                   ))}
@@ -229,7 +220,7 @@ export default function AINewsClient({ items }: Props) {
                 Headlines are curated by an autonomous agent and reviewed before publishing. Each link goes to the original source. We do not rewrite or summarize the stories.
               </p>
               <Link
-                href="/agents"
+                href="/agents/"
                 className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-hover"
               >
                 Browse agent directory

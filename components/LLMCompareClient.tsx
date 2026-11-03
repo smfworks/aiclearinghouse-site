@@ -87,14 +87,17 @@ export default function LLMCompareClient({ models, providers }: Props) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const ids = params.get("ids");
-    if (ids) {
-      const validIds = ids
-        .split(",")
-        .map((s) => s.trim())
-        .filter((id) => models.some((m) => `${m.providerId}:${m.model_id}` === id));
-      setSelectedIds(new Set(validIds));
-    }
-    setIsClient(true);
+    const validIds = ids
+      ? ids
+          .split(",")
+          .map((s) => s.trim())
+          .filter((id) => models.some((m) => `${m.providerId}:${m.model_id}` === id))
+      : [];
+    const timer = window.setTimeout(() => {
+      if (validIds.length > 0) setSelectedIds(new Set(validIds));
+      setIsClient(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [models]);
 
   const categories = useMemo(
@@ -151,7 +154,7 @@ export default function LLMCompareClient({ models, providers }: Props) {
         <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6">
           <Link
-            href="/llms"
+            href="/llms/"
             className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -180,8 +183,9 @@ export default function LLMCompareClient({ models, providers }: Props) {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Provider</label>
+              <label htmlFor="llm-provider" className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Provider</label>
               <select
+                id="llm-provider"
                 value={providerFilter}
                 onChange={(e) => setProviderFilter(e.target.value)}
                 className="w-full rounded-lg border border-hairline bg-canvas px-4 py-2.5 text-foreground outline-none transition-colors focus:border-accent"
@@ -193,8 +197,9 @@ export default function LLMCompareClient({ models, providers }: Props) {
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Category</label>
+              <label htmlFor="llm-category" className="text-xs font-medium uppercase tracking-wider text-foreground-tertiary font-mono">Category</label>
               <select
+                id="llm-category"
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
                 className="w-full rounded-lg border border-hairline bg-canvas px-4 py-2.5 text-foreground outline-none transition-colors focus:border-accent"

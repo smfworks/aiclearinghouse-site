@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MarketplaceItem } from "@/lib/marketplace/types";
 import { markdownToHtml } from "@/lib/markdown";
-import { omitDuplicateTitleHeading } from "@/lib/seo";
+import { demoteLeadingH1, omitDuplicateTitleHeading } from "@/lib/seo";
 import { ArrowLeft } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
@@ -113,7 +113,7 @@ export default function SectionDetail({ item, section, sectionTitle, backHref }:
           )}
           <div
             dangerouslySetInnerHTML={{
-              __html: markdownToHtml(omitDuplicateTitleHeading(item.content, item.title)),
+              __html: markdownToHtml(demoteLeadingH1(omitDuplicateTitleHeading(item.content, item.title))),
             }}
           />
         </div>

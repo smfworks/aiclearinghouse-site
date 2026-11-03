@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { BlogPost } from "@/lib/blog/types";
+import { BlogCardData } from "@/lib/blog/types";
 import { getAuthorByKey, SERIES_LABELS } from "@/lib/blog/types";
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: BlogCardData;
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
@@ -16,7 +16,7 @@ export default function BlogCard({ post }: BlogCardProps) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel transition-colors hover:border-accent/50">
       {post.image && (
-        <Link href={`/blog/${post.slug}`} className="relative block h-44 overflow-hidden">
+        <Link href={`/blog/${post.slug}/`} className="relative block h-44 overflow-hidden">
           <Image
             src={post.image}
             alt={post.title}
@@ -32,7 +32,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs text-foreground-tertiary">
           {series && (
             <Link
-              href={`/blog?series=${post.series}`}
+              href={`/blog/?series=${post.series}`}
               className="rounded-full bg-accent/10 px-2 py-0.5 font-medium text-accent"
             >
               {series.label}
@@ -49,7 +49,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         </div>
 
         <h2 className="text-lg font-semibold leading-snug tracking-tight">
-          <Link href={`/blog/${post.slug}`} className="hover:text-accent">
+          <Link href={`/blog/${post.slug}/`} className="hover:text-accent">
             {post.title}
           </Link>
         </h2>

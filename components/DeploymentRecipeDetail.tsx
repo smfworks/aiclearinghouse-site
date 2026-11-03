@@ -87,7 +87,7 @@ export default function DeploymentRecipeDetail({ item }: Props) {
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
       <Link
-        href="/deployment-recipes"
+        href="/deployment-recipes/"
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -190,7 +190,7 @@ export default function DeploymentRecipeDetail({ item }: Props) {
               Commands are tested but your environment may differ.
             </p>
             <Link
-              href="/services"
+              href="/services/"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-amber transition-colors hover:text-amber-hover"
             >
               Browse related services

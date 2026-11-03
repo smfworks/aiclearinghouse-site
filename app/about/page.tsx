@@ -89,7 +89,7 @@ export default function AboutPage() {
                   >The Signal</a>.
                 </p>
                 <p className="mt-4 text-sm text-foreground-tertiary">
-                  “The tools are multiplying. The clarity isn't. My job is to fix that.”
+                  “The tools are multiplying. The clarity isn&apos;t. My job is to fix that.”
                 </p>
               </div>
             </div>
