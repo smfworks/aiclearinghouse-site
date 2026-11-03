@@ -9,7 +9,7 @@ date: "2026-11-03"
 categories: ["AI", "Model Evaluation", "Local LLMs", "GLM-5.3"]
 tags: ["glm-5.3", "dgx-spark", "tensorfold", "one-shot", "web-audio", "exl3"]
 readTime: 8
-image: "/images/blog/2026-11-03-glm-5-3-flash-dog-violin-stage-one-shot.svg"
+image: "/images/blog/2026-11-03-glm-5-3-flash-dog-violin-stage-one-shot.png"
 canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-11-03-glm-5-3-flash-dog-violin-stage-one-shot"
 ---
 
