@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether | Where light learns to linger</title>
+  
+  <!-- Elegant Serif + Clean Geometric Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       VARIABLES & RESET
+       ========================================= */
+    :root {
+      --bg: #030308;
+      --text: #e2e2ee;
+      --indigo: #a5b4fc;
+      --rose: #f9a8d4;
+      --cyan: #00d2ff;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      height: 100vh; width: 100vw;
+      overflow: hidden;
+      display: grid; 
+      place-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* =========================================
+       ATMOSPHERE (Aurora, Grain, Vignette)
+       ========================================= */
+    .aurora, canvas, .orbit-container, .cursor-glow, .noise, .vignette {
+      position: fixed; inset: 0;
+      pointer-events: none;
+    }
+
+    .aurora { z-index: 0; overflow: hidden; }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.45;
+      animation: drift 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+    .blob-1 { background: #4f0088; width: 55vw; height: 55vw; top: -15%; left: -10%; }
+    .blob-2 { background: #0066ff; width: 45vw; height: 45vw; bottom: -15%; right: -10%; animation-delay: -8s; }
+    .blob-3 { background: #ff2a7a; width: 35vw; height: 35vw; top: 30%; left: 45%; animation-delay: -15s; opacity: 0.25; }
+
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(6vw, 12vh) scale(1.15); }
+      66%  { transform: translate(-6vw, -6vh) scale(0.85); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    canvas { z-index: 1; }
+
+    .cursor-glow {
+      position: fixed;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 65%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      mix-blend-mode: screen;
+      will-change: left, top;
+    }
+
+    .vignette {
+      z-index: 5;
+      background: radial-gradient(circle at 50% 50%, transparent 25%, rgba(3,3,8,0.85) 100%);
+    }
+
+    /* Cinematic SVG Film Grain */
+    .noise {
+      z-index: 999;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* =========================================
+       ORBITAL MECHANICS (Pure SVG)
+       ========================================= */
+    .orbit-container {
+      display: grid; place-items: center;
+      z-index: 3;
+      opacity: 0;
+      animation: fadeIn 2.5s 0.5s forwards ease-out;
+    }
+    .orbit-container svg { width: min(110vw, 850px); height: min(110vw, 850px); overflow: visible; }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* =========================================
+       THE GLASS CARD
+       ========================================= */
+    .card-wrapper {
+      perspective: 1200px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card {
+      width: min(90vw, 580px);
+      padding: 4.5rem 4rem;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.01));
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 
+        0 50px 100px -20px rgba(0,0,0,0.8),
+        inset 0 1px 1px rgba(255,255,255,0.3),
+        inset 0 -1px 1px rgba(255,255,255,0.05);
+      transform-style: preserve-3d;
+      will-change: transform;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dynamic light reflection tracking the mouse */
+    .card-shine {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.12) 0%, transparent 55%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .card:hover .card-shine { opacity: 1; }
+
+    /* Pops the content out in 3D space */
+    .card-content { transform: translateZ(50px); }
+
+    /* Typography */
+    .overline {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--indigo);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 45%, #f9a8d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.8rem;
+    }
+    h1 em { font-style: italic; font-weight: 300; opacity: 0.9; }
+
+    p {
+      font-weight: 200;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(226, 226, 238, 0.65);
+      max-width: 420px;
+    }
+
+    /* Staggered Reveal Animation */
+    .card-content > * {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: var(--d);
+    }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+    /* =========================================
+       INTERACTIVE BUTTON
+       ========================================= */
+    button {
+      margin-top: 3rem;
+      padding: 0.95rem 1.9rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      display: inline-flex; align-items: center; gap: 12px;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Light sweep */
+    button::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: translateX(-120%) skewX(-20deg);
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    button:hover {
+      border-color: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 0 25px rgba(165, 180, 252, 0.25);
+      transform: translateY(-2px);
+    }
+    button:hover::before { transform: translateX(120%) skewX(-20deg); }
+    button svg { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0.8; }
+    button:hover svg { transform: translate(3px, -3px); opacity: 1; }
+
+    /* =========================================
+       RESPONSIVE & ACCESSIBILITY
+       ========================================= */
+    @media (max-width: 600px) {
+      .card { padding: 3.5rem 2.2rem; }
+      h1 { font-size: 3.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .card { transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Layers -->
+  <div class="aurora">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <canvas id="stars"></canvas>
+  <div class="cursor-glow" id="glow"></div>
+  <div class="vignette"></div>
+  <div class="noise"></div>
+
+  <!-- Animated SVG Orbits -->
+  <div class="orbit-container">
+    <svg viewBox="0 0 800 800">
+      <defs>
+        <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#8a2be2" stop-opacity="0" />
+          <stop offset="50%" stop-color="#00d2ff" stop-opacity="0.7" />
+          <stop offset="100%" stop-color="#ff7eb3" stop-opacity="0" />
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <circle cx="400" cy="400" r="370" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="1" />
+      
+      <circle cx="400" cy="400" r="330" fill="none" stroke="url(#orbitGrad)" stroke-width="1.5" stroke-dasharray="2 18" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" from="0 400 400" to="360 400 400" dur="45s" repeatCount="indefinite" />
+      </circle>
+      
+      <rect x="270" y="270" width="260" height="260" rx="50" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1">
+        <animateTransform attributeName="transform" type="rotate" from="45 400 400" to="405 400 400" dur="70s" repeatCount="indefinite" />
+      </rect>
+
+      <!-- Traveling Comet -->
+      <circle cx="400" cy="70" r="3.5" fill="#fff" filter="url(#glow)">
+        <animateMotion dur="11s" repeatCount="indefinite" path="M 400,70 A 330,330 0 1,1 399.9,70" />
+      </circle>
+    </svg>
+  </div>
+
+  <!-- Foreground Content -->
+  <main class="card-wrapper" id="wrapper">
+    <article class="card" id="card">
+      <div class="card-shine"></div>
+      <div class="card-content">
+        <span class="overline" style="--d: 0.2s">✦ &nbsp; A Moment in the Ether &nbsp; ✦</span>
+        <h1 style="--d: 0.4s">Where light<br><em>learns to linger.</em></h1>
+        <p style="--d: 0.6s">Between the silence of the stars and the rhythm of the code, there is a space crafted purely for wonder. Breathe. Observe. Drift.</p>
+        
+        <button style="--d: 0.8s" id="btn">
+          <span>Enter the Aura</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H8M17 7V16"/>
+          </svg>
+        </button>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    /* =========================================
+       1. FLUID PARALLAX, TILT & AURA (Lerp)
+       ========================================= */
+    const glow = document.getElementById('glow');
+    const card = document.getElementById('card');
+    
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let gx = mx, gy = my; // Glow coordinates
+    let tx = 0, ty = 0, ctx = 0, cty = 0; // Target & Current tilt
+    let time = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      
+      // Calculate 3D Tilt (Max 8 degrees)
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      tx = ((my - cy) / cy) * -8; 
+      ty = ((mx - cx) / cx) * 8;
+
+      // Calculate dynamic shine position inside the card
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${((mx - rect.left) / rect.width) * 100}%`);
+      card.style.setProperty('--my', `${((my - rect.top) / rect.height) * 100}%`);
+    });
+
+    function renderMotion() {
+      time += 0.015;
+      
+      // Linear interpolation for buttery smoothness
+      gx += (mx - gx) * 0.07;
+      gy += (my - gy) * 0.07;
+      glow.style.left = `${gx}px`;
+      glow.style.top  = `${gy}px`;
+
+      ctx += (tx - ctx) * 0.06;
+      cty += (ty - cty) * 0.06;
+      
+      // Subtle idle breathing/floating combined with mouse tilt
+      const floatY = Math.sin(time) * 6;
+      card.style.transform = `translateY(${floatY}px) rotateX(${ctx}deg) rotateY(${cty}deg)`;
+
+      requestAnimationFrame(renderMotion);
+    }
+    renderMotion();
+
+    /* =========================================
+       2. INTERACTIVE CONSTELLATION CANVAS
+       ========================================= */
+    const canvas = document.getElementById('stars');
+    const ctx2d = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Star {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.vx = (Math.random() - 0.5) * 0.25;
+        this.vy = (Math.random() - 0.5) * 0.25;
+        this.r = Math.random() * 1.4 + 0.4;
+        this.baseAlpha = Math.random() * 0.4 + 0.1;
+        this.phase = Math.random() * Math.PI * 2;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        this.phase += 0.015;
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+      }
+      draw() {
+        const a = Math.max(0, this.baseAlpha + Math.sin(this.phase) * 0.25);
+        ctx2d.beginPath();
+        ctx2d.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx2d.fillStyle = `rgba(255, 255, 255, ${a})`;
+        ctx2d.fill();
+      }
+    }
+
+    for (let i = 0; i < 130; i++) particles.push(new Star());
+
+    function renderCanvas() {
+      ctx2d.clearRect(0, 0, w, h);
+      
+      particles.forEach(p => { p.update(); p.draw(); });
+
+      // Draw delicate connecting threads
+      for (let i = 0; i < particles.length; i++) {
+        // Star-to-Star connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distSq = dx*dx + dy*dy;
+          if (distSq < 16000) {
+            ctx2d.beginPath();
+            ctx2d.moveTo(particles[i].x, particles[i].y);
+            ctx2d.lineTo(particles[j].x, particles[j].y);
+            ctx2d.strokeStyle = `rgba(165, 180, 252, ${0.10 * (1 - distSq/16000)})`;
+            ctx2d.lineWidth = 0.5;
+            ctx2d.stroke();
+          }
+        }
+        // Star-to-Cursor magnetic reach
+        const dx = particles[i].x - mx;
+        const dy = particles[i].y - my;
+        const distSq = dx*dx + dy*dy;
+        if (distSq < 45000) {
+          ctx2d.beginPath();
+          ctx2d.moveTo(particles[i].x, particles[i].y);
+          ctx2d.lineTo(mx, my);
+          ctx2d.strokeStyle = `rgba(249, 168, 212, ${0.22 * (1 - distSq/45000)})`;
+          ctx2d.lineWidth = 0.6;
+          ctx2d.stroke();
+        }
+      }
+      requestAnimationFrame(renderCanvas);
+    }
+    renderCanvas();
+
+    /* =========================================
+       3. MICRO-INTERACTION (Button Burst)
+       ========================================= */
+    const btn = document.getElementById('btn');
+    const originalBtn = btn.innerHTML;
+    
+    btn.addEventListener('click', () => {
+      // Pulse the rose nebula
+      const nebula = document.querySelector('.blob-3');
+      nebula.style.transform = 'scale(1.6)';
+      nebula.style.opacity = '0.65';
+      
+      btn.innerHTML = '<span>Drifting...</span> ✦';
+      
+      setTimeout(() => {
+        nebula.style.transform = '';
+        nebula.style.opacity = '';
+        btn.innerHTML = originalBtn;
+      }, 2200);
+    });
+  </script>
+</body>
+</html>
