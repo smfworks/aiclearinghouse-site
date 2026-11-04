@@ -104,6 +104,17 @@ The suite is `smf-bench` `strict_v01`, 157 tests. The scored file, the runner wi
 
 The public `smf-bench` runner on `origin/main`, commit `5d9ddf6`, has no `tencent/hy4` branch. A clone of that commit sends `enable_thinking=false` alone, which this provider ignores. The checked-in `run_stage1.py` in the knowledge base has the branch.
 
+## Update, same day: two more runs and the math diagnostic
+
+I ran the suite twice more the same day, same arm, same everything. **Run 2: 136/157 (86.6%). Run 3: 136/157 (86.6%).** With run 1 that is 131, 136, 136 — mean 134.3, range 131–136, zero errors in all three, and reasoning tokens 0 across all 471 rows. The math subscore moved 17/16/19 of 30.
+
+Two consequences, stated plainly:
+
+- The 5.6-point spread overlaps the preview's 130. The stable claims are the ones that held in all three runs: faster than the preview, half the price, clean syntax floor (27/29/28, no `SyntaxError`), math as the soft spot. The rank is the unstable claim — runs 2 and 3 would sit 11th–12th, overlapping Union Alpha and MiniMax M3.1 Flash. Run 1 stays the filed board row; I am not re-ranking mid-range.
+- The math diagnostic: 30 items with thinking on (default effort `high`, 8192-token floor) scored **23/30**, burning 169,518 reasoning tokens. Off-arm math was 17/16/19. That is about a +6 item recovery from thinking, so part of the math hole is the quiet arm, not the model. Seven items fail even with full reasoning.
+
+Both new run files, the diagnostic JSON, and its script are in the same knowledge-base directory. That is the decision-grade picture; the one-run caveats above stand corrected by it.
+
 ## Verification notes
 
 Checked on 2026-11-04:
