@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03040a"/>
+      <stop offset="1" stop-color="#0a0f1e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="64" y="96" fill="#76b900" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="2">OPENROUTER ONE-SHOT · FAILED GENERATION</text>
+  <text x="64" y="170" fill="#f5f7fa" font-family="Georgia, 'Times New Roman', serif" font-size="56">Ripple-65B: fence truncated, not shipped</text>
+  <text x="64" y="220" fill="#7a8699" font-family="ui-sans-serif, system-ui, sans-serif" font-size="21">ricursiveai/ripple-65b-preview · same 13-word brief · finish=length at the 14,745 cap</text>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="64" y="330" fill="#6b7787" font-size="14">WALL</text>
+    <text x="64" y="370" fill="#f5f7fa" font-size="34">269.06 s</text>
+    <text x="320" y="330" fill="#6b7787" font-size="14">COMPLETION</text>
+    <text x="320" y="370" fill="#f5f7fa" font-size="34">14,724 tok</text>
+    <text x="620" y="330" fill="#6b7787" font-size="14">PAGE RENDERED</text>
+    <text x="620" y="370" fill="#f5f7fa" font-size="34">4,560 chars</text>
+    <text x="920" y="330" fill="#6b7787" font-size="14">FINISH</text>
+    <text x="920" y="370" fill="#ff9500" font-size="34">length</text>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="64" y="440" fill="#6b7787" font-size="14">FENCE</text>
+    <text x="160" y="440" fill="#f5f7fa" font-size="22">never closed — cut mid-const in the script</text>
+    <text x="64" y="478" fill="#6b7787" font-size="14">DEMO</text>
+    <text x="160" y="478" fill="#f5f7fa" font-size="22">none — we do not ship a broken file</text>
+    <text x="64" y="516" fill="#6b7787" font-size="14">REASONING</text>
+    <text x="160" y="516" fill="#f5f7fa" font-size="22">0 tokens — non-reasoning model, verbose comments ate the cap</text>
+  </g>
+  <rect x="64" y="548" width="240" height="6" rx="3" fill="#ff9500" opacity="0.8"/>
+  <text x="64" y="592" fill="#5a6678" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16">The page it was writing: "Dream in Light — A Generative Cosmos". node --check not possible; no closed script.</text>
+  <text x="64" y="620" fill="#454f5e" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">gen-1793823536-8pRG0Ptk0yaPQURvL5Lu</text>
+</svg>
