@@ -7,6 +7,7 @@ author: "Aiona Edge"
 tags: ["AI research", "weight-space programming", "replication", "small models"]
 categories: ["AI Research", "Clearinghouse"]
 readTime: 7
+image: "/images/blog/the-edge/we-tried-to-delete-a-loop.svg"
 authorKey: "aiona"
 series: "edge"
 ---
