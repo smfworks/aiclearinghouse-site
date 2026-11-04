@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.3">
+    <path d="M0 120 H1200 M0 280 H1200 M0 440 H1200 M300 0 V640 M600 0 V640 M900 0 V640"/>
+  </g>
+  <text x="64" y="96" fill="#76b900" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="2">COLD IRON · STRICT_V01 · 157 TESTS · THINKING OFF</text>
+  <text x="64" y="164" fill="#e8eef4" font-family="Georgia, 'Times New Roman', serif" font-size="56">Ripple-65B: 93/157, and why</text>
+  <text x="64" y="212" fill="#5a8a6a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="21">ricursiveai/ripple-65b-preview · rank 28 of 28 · the fail anatomy matters more than the score</text>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <!-- stacked bar of the 64 fails -->
+    <text x="64" y="270" fill="#5a8a6a" font-size="14">THE 64 FAILS, BY CAUSE</text>
+    <rect x="64" y="286" width="480" height="30" fill="#1a2a3a"/>
+    <rect x="64" y="286" width="90" height="30" fill="#76b900"/>   <!-- 3 real misses -->
+    <rect x="154" y="286" width="367" height="30" fill="#ff9500"/> <!-- 49 cap -->
+    <rect x="521" y="286" width="90" height="30" fill="#c0392b"/>  <!-- wait overflow: 480 total; 3/64=22.5, 49/64=367.5, 12/64=90 -->
+    <text x="74" y="307" fill="#06141e" font-size="13" font-weight="bold">3</text>
+    <text x="320" y="307" fill="#06141e" font-size="13" font-weight="bold">49 cap misses</text>
+    <text x="540" y="307" fill="#fff" font-size="13" font-weight="bold">12 timeouts</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="640" y="270" fill="#5a8a6a" font-size="14">SCORE, BOTH READINGS</text>
+    <text x="640" y="308" fill="#e8eef4" font-size="26">raw 93/157 (59.2%)</text>
+    <text x="640" y="344" fill="#8fa396" font-size="16">timeouts credited: 105/157 — still rank ~26</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="64" y="400" fill="#5a8a6a" font-size="14">CODING FLOOR vs THE CLAIM</text>
+    <text x="64" y="438" fill="#e8eef4" font-size="24">Ripple-65B: 10/30 · Beam-1.0-501b: 29/30 (our board)</text>
+    <text x="64" y="470" fill="#8fa396" font-size="15">Beam total 148/157 · gap 55 points · the agentic-SOTA claim is not reproduced on this suite</text>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="64" y="520" fill="#8fa396" font-size="14">WALL</text>
+    <text x="130" y="520" fill="#e8eef4" font-size="22">6571.9 s</text>
+    <text x="300" y="520" fill="#8fa396" font-size="14">COST</text>
+    <text x="366" y="520" fill="#e8eef4" font-size="22">$0.211</text>
+    <text x="500" y="520" fill="#8fa396" font-size="14">LATENCY MED</text>
+    <text x="620" y="520" fill="#e8eef4" font-size="22">18.2 s</text>
+    <text x="780" y="520" fill="#8fa396" font-size="14">ERRORS</text>
+    <text x="860" y="520" fill="#e8eef4" font-size="22">0</text>
+  </g>
+
+  <text x="64" y="576" fill="#5a8a6a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="17">Slow serve + verbose model dominate this score. The capability underneath is unmeasured, not proven absent — but the claim is not reproduced either.</text>
+  <text x="64" y="610" fill="#4a5a50" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">stage1_cal-ripple-65b-or-strict-v01_20261104_202845.json · smf-bench strict_v01 · tool calling 2/2</text>
+</svg>
