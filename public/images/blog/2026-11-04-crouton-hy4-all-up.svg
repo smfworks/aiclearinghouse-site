@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.3">
+    <path d="M0 120 H1200 M0 300 H1200 M0 480 H1200 M300 0 V640 M600 0 V640 M900 0 V640"/>
+  </g>
+  <text x="64" y="96" fill="#76b900" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" letter-spacing="2">TWO NEW MODELS · ONE-SHOT + COLD IRON · 2026-11-03/04</text>
+  <text x="64" y="164" fill="#e8eef4" font-family="Georgia, 'Times New Roman', serif" font-size="54">Crouton Alpha and Hy4, all up</text>
+  <text x="64" y="212" fill="#5a8a6a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="21">27 models on the thinking-off board · 4 blog posts · 5 Cold Iron runs · 2 one-shots · 2 math diagnostics</text>
+
+  <!-- Crouton column -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="64" y="290" fill="#76b900" font-size="17">stealth/crouton-alpha</text>
+    <text x="64" y="330" fill="#8fa396" font-size="13">COLD IRON</text>
+    <text x="64" y="362" fill="#e8eef4" font-size="28">140/157 (89.2%)</text>
+    <text x="64" y="392" fill="#5a8a6a" font-size="13">rank 10 · effort=minimal ANALOGUE (no none)</text>
+    <text x="64" y="430" fill="#8fa396" font-size="13">ONE-SHOT (LUMINA)</text>
+    <text x="64" y="462" fill="#e8eef4" font-size="28">13.06 s · $0.00</text>
+    <text x="64" y="492" fill="#5a8a6a" font-size="13">fastest one-shot this series has recorded</text>
+    <text x="64" y="530" fill="#8fa396" font-size="13">CODING FLOOR</text>
+    <text x="64" y="562" fill="#e8eef4" font-size="28">30/30 · 0 SyntaxErrors</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="580" y1="270" x2="580" y2="580" stroke="#1a2a3a" stroke-width="2"/>
+
+  <!-- Hy4 column -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+    <text x="640" y="290" fill="#76b900" font-size="17">tencent/hy4 (official)</text>
+    <text x="640" y="330" fill="#8fa396" font-size="13">COLD IRON n=3</text>
+    <text x="640" y="362" fill="#e8eef4" font-size="28">131/136/136</text>
+    <text x="640" y="392" fill="#5a8a6a" font-size="13">true off · mean 134.3 · range overlaps preview 130</text>
+    <text x="640" y="430" fill="#8fa396" font-size="13">ONE-SHOT (AETHER)</text>
+    <text x="640" y="462" fill="#e8eef4" font-size="28">97.13 s · $0.015856</text>
+    <text x="640" y="492" fill="#5a8a6a" font-size="13">4.7x faster, 1/4 the cost of the preview</text>
+    <text x="640" y="530" fill="#8fa396" font-size="13">MATH THINKING-ON</text>
+    <text x="640" y="562" fill="#e8eef4" font-size="28">23/30 vs 17.3/30 off</text>
+  </g>
+
+  <text x="64" y="616" fill="#4a5a50" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">smf-bench strict_v01 · olympic rank recomputed 2026-11-04 · run 1 stays the filed hy4 row</text>
+</svg>
