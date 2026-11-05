@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A gold selected voice chip among teal chips, feeding a short waveform">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1628"/>
+      <stop offset="55%" stop-color="#12243f"/>
+      <stop offset="100%" stop-color="#0b1c33"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ff6b00"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0e7490"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g stroke="#1e3a8a" stroke-width="1.5" opacity="0.45">
+    <line x1="72" y1="0" x2="72" y2="630"/>
+    <line x1="1128" y1="0" x2="1128" y2="630"/>
+    <line x1="0" y1="78" x2="1200" y2="78"/>
+    <line x1="0" y1="552" x2="1200" y2="552"/>
+  </g>
+  <rect x="110" y="150" width="430" height="330" rx="28" fill="#0a1628" stroke="#1e3a8a" stroke-width="5"/>
+  <circle cx="178" cy="230" r="28" fill="#0e7490" opacity="0.85"/>
+  <circle cx="258" cy="230" r="28" fill="#12243f" stroke="#0e7490" stroke-width="3"/>
+  <circle cx="338" cy="230" r="34" fill="url(#gold)"/>
+  <circle cx="338" cy="230" r="12" fill="#0a1628"/>
+  <circle cx="418" cy="230" r="28" fill="#12243f" stroke="#2dd4bf" stroke-width="3"/>
+  <circle cx="498" cy="230" r="28" fill="#0e7490" opacity="0.55"/>
+  <circle cx="178" cy="330" r="28" fill="#12243f" stroke="#1e3a8a" stroke-width="3"/>
+  <circle cx="258" cy="330" r="28" fill="#0e7490" opacity="0.7"/>
+  <circle cx="418" cy="330" r="28" fill="#12243f" stroke="#f59e0b" stroke-width="3" opacity="0.7"/>
+  <circle cx="498" cy="330" r="28" fill="#0e7490" opacity="0.4"/>
+  <rect x="168" y="400" width="314" height="18" rx="9" fill="#1e3a8a"/>
+  <rect x="168" y="434" width="220" height="14" rx="7" fill="#0e7490" opacity="0.8"/>
+  <path d="M540 230 C620 230 660 230 720 230" fill="none" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+  <rect x="720" y="150" width="370" height="330" rx="28" fill="#0a1628" stroke="url(#gold)" stroke-width="8"/>
+  <g fill="url(#teal)">
+    <rect x="770" y="300" width="18" height="70" rx="9"/>
+    <rect x="804" y="250" width="18" height="170" rx="9"/>
+    <rect x="838" y="210" width="18" height="250" rx="9"/>
+    <rect x="872" y="270" width="18" height="130" rx="9"/>
+    <rect x="906" y="190" width="18" height="290" rx="9"/>
+    <rect x="940" y="240" width="18" height="190" rx="9"/>
+    <rect x="974" y="280" width="18" height="110" rx="9"/>
+    <rect x="1008" y="220" width="18" height="230" rx="9"/>
+  </g>
+  <circle cx="1040" cy="400" r="18" fill="#ff6b00"/>
+</svg>
