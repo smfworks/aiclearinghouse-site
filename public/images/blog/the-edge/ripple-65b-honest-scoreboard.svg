@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="46%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#14141f"/>
+      <stop offset="55%" stop-color="#0d0d16"/>
+      <stop offset="100%" stop-color="#07070c"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#9db4c8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#9db4c8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="titlefade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c3cbd6"/>
+      <stop offset="100%" stop-color="#8f9aab"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#b08d4f" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#b08d4f" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="600" cy="280" rx="440" ry="280" fill="url(#glow)"/>
+
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <!-- QUALITY row: identical bars = tie -->
+    <text x="150" y="180" font-size="22" fill="#8b9aab" letter-spacing="2">QUALITY</text>
+    <text x="330" y="180" font-size="19" fill="#b08d4f">Ripple-65B</text>
+    <rect x="530" y="163" width="300" height="24" fill="#b08d4f" opacity="0.75"/>
+    <text x="845" y="181" font-size="19" fill="#d9b878">4 / 4</text>
+    <text x="330" y="225" font-size="19" fill="#8fb0c6">Qwen3-Coder-30B</text>
+    <rect x="530" y="208" width="300" height="24" fill="#8fb0c6" opacity="0.75"/>
+    <text x="845" y="226" font-size="19" fill="#9fc4dd">4 / 4</text>
+
+    <!-- SPEED row: ripple long slow bar vs qwen short fast -->
+    <text x="150" y="330" font-size="22" fill="#8b9aab" letter-spacing="2">SPEED</text>
+    <text x="330" y="330" font-size="19" fill="#b08d4f">Ripple-65B</text>
+    <rect x="530" y="313" width="300" height="24" fill="url(#gold)"/>
+    <text x="845" y="331" font-size="19" fill="#d9b878">5.7 tok/s</text>
+    <text x="330" y="375" font-size="19" fill="#8fb0c6">Qwen3-Coder-30B</text>
+    <rect x="835" y="358" width="22" height="24" fill="#8fb0c6" opacity="0.95"/>
+    <text x="530" y="376" font-size="19" fill="#9fc4dd">92 tok/s  (16x faster)  &#9654;</text>
+
+    <!-- 118k context row: also tie -->
+    <text x="150" y="470" font-size="22" fill="#8b9aab" letter-spacing="2">128K CTX</text>
+    <text x="330" y="470" font-size="19" fill="#b08d4f">Ripple-65B</text>
+    <rect x="530" y="453" width="300" height="24" fill="#b08d4f" opacity="0.75"/>
+    <text x="845" y="471" font-size="19" fill="#d9b878">4 / 4</text>
+    <text x="330" y="515" font-size="19" fill="#8fb0c6">Qwen3-Coder-30B</text>
+    <rect x="530" y="498" width="300" height="24" fill="#8fb0c6" opacity="0.75"/>
+    <text x="845" y="516" font-size="19" fill="#9fc4dd">4 / 4</text>
+  </g>
+
+  <text x="600" y="572" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="32" letter-spacing="3" fill="url(#titlefade)">The 65B "Local" Model, on Our Desk</text>
+  <text x="600" y="606" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" letter-spacing="6" fill="#5a6a7a">A N   H O N E S T   S C O R E B O A R D</text>
+</svg>
