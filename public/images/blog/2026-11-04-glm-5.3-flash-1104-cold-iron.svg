@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <rect width="1200" height="640" fill="#0a0e1a"/>
+  <text x="64" y="88" fill="#e8eef4" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="700">Cold Iron, this boot</text>
+  <text x="64" y="128" fill="#8aa396" font-family="ui-monospace, Menlo, monospace" font-size="18">GLM-5.3-Flash · 1104 Zig · DFlash2 · thinking off</text>
+  <text x="64" y="230" fill="#76b900" font-family="Helvetica, Arial, sans-serif" font-size="92" font-weight="700">77/157</text>
+  <text x="64" y="268" fill="#c5d0c8" font-family="Helvetica, Arial, sans-serif" font-size="22">49.0% · 0 errors · 0 reasoning tokens on every row</text>
+  <g font-family="ui-monospace, Menlo, monospace" font-size="16" fill="#c5d0c8">
+    <text x="640" y="180">coding 12/30</text>
+    <rect x="820" y="164" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="164" width="96" height="16" fill="#76b900"/>
+    <text x="640" y="214">instruction 15/30</text>
+    <rect x="820" y="198" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="198" width="120" height="16" fill="#76b900"/>
+    <text x="640" y="248">math 14/30</text>
+    <rect x="820" y="232" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="232" width="112" height="16" fill="#76b900"/>
+    <text x="640" y="282">prose 15/30</text>
+    <rect x="820" y="266" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="266" width="120" height="16" fill="#76b900"/>
+    <text x="640" y="316">reasoning 15/30</text>
+    <rect x="820" y="300" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="300" width="120" height="16" fill="#76b900"/>
+    <text x="640" y="350">writing 4/5</text>
+    <rect x="820" y="334" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="334" width="192" height="16" fill="#76b900"/>
+    <text x="640" y="384">tools 2/2</text>
+    <rect x="820" y="368" width="240" height="16" fill="#1a2a3a"/>
+    <rect x="820" y="368" width="240" height="16" fill="#76b900"/>
+  </g>
+  <text x="64" y="580" fill="#5a8a6a" font-family="Helvetica, Arial, sans-serif" font-size="18">Do not file this next to the October MTP 113. Different port, different id, different drafter.</text>
+</svg>
