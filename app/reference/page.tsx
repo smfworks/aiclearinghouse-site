@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 };
 
 const sections = [
-  { href: "/guides", label: "Guides", note: "Longer how-to paths." },
-  { href: "/deployment-recipes", label: "Recipes", note: "Copy-paste setups." },
-  { href: "/reviews", label: "Reviews", note: "What we looked at, with the limits named." },
-  { href: "/skills", label: "Skills", note: "Reusable skills and add-ons." },
-  { href: "/tips", label: "Tips", note: "Short notes a builder can use." },
-  { href: "/whitepapers", label: "White papers", note: "Longer papers, when we have them." },
-  { href: "/ai-news", label: "News", note: "Filed reporting. Not the essay feed." },
+  { href: "/guides/", label: "Guides", note: "Longer how-to paths." },
+  { href: "/deployment-recipes/", label: "Recipes", note: "Copy-paste setups." },
+  { href: "/reviews/", label: "Reviews", note: "What we looked at, with the limits named." },
+  { href: "/skills/", label: "Skills", note: "Reusable skills and add-ons." },
+  { href: "/tips/", label: "Tips", note: "Short notes a builder can use." },
+  { href: "/whitepapers/", label: "White papers", note: "Longer papers, when we have them." },
+  { href: "/ai-news/", label: "News", note: "Filed reporting. Not the essay feed." },
 ];
 
 export default function ReferencePage() {

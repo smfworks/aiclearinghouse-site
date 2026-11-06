@@ -2,12 +2,12 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { MarketplaceItem } from "@/lib/marketplace/types";
+import { MarketplaceCard } from "@/lib/marketplace/types";
 import { Search, ArrowRight, FlaskConical, BarChart3, Trophy, Calendar } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
-  items: MarketplaceItem[];
+  items: MarketplaceCard[];
 }
 
 const categoryColors: Record<string, string> = {
@@ -72,7 +72,7 @@ export default function TestsDirectoryClient({ items }: Props) {
         <div className="bg-grid-faint absolute inset-0 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6">
-          <Link href="/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
+          <Link href="/" prefetch={false} className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
             ← Home
           </Link>
           <div className="mt-4 flex items-center gap-3">
@@ -161,12 +161,12 @@ export default function TestsDirectoryClient({ items }: Props) {
             const colorClass = categoryColors[item.category] || "text-accent border-accent/30 bg-accent/5";
             const leftBorder = categoryBorderColors[item.category] || "border-l-accent";
             const winner = item.winner || "Tie";
-            const agentCount = item.agents?.length || item.results?.length || 0;
+            const agentCount = item.agents?.length || item.resultCount || 0;
 
             return (
               <Link
                 key={item.slug}
-                href={`/tests/${item.slug}`}
+                href={`/tests/${item.slug}/`}
                 className={`group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel p-6 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
                 style={{ boxShadow: "0 0 0 0 transparent" }}
                 onMouseEnter={(e) => {

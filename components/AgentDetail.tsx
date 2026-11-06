@@ -4,6 +4,7 @@ import type { AgentProfile } from "@/lib/marketplace/types";
 import { ExternalLink, GitBranch, Check, ArrowRight, Target, Sparkles, AlertTriangle, Users, Layers, Zap, Cpu, Globe, Calendar, DollarSign } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 import { getAgentColor } from "@/lib/agent-colors";
+import { readableTextOn } from "@/lib/contrast";
 import { getCrossLinks } from "@/lib/cross-links";
 import { markdownToHtml } from "@/lib/markdown";
 
@@ -73,7 +74,7 @@ export default function AgentDetail({ agent }: Props) {
   return (
     <div className="mx-auto max-w-4xl">
       <Link
-        href="/agents"
+        href="/agents/"
         className="mb-6 inline-flex items-center text-sm text-foreground-secondary transition-colors hover:text-foreground"
       >
         ← Back to directory
@@ -146,8 +147,8 @@ export default function AgentDetail({ agent }: Props) {
                 href={agent.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white transition-all hover:opacity-90"
-                style={{ backgroundColor: color }}
+                className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all hover:opacity-90"
+                style={{ backgroundColor: color, color: readableTextOn(color) }}
               >
                 Visit Website
                 <ExternalLink className="h-4 w-4" />
@@ -308,7 +309,7 @@ export default function AgentDetail({ agent }: Props) {
               {links.map((link) => (
                 <Link
                   key={link.targetId}
-                  href={`/agents/${link.targetId}`}
+                  href={`/agents/${link.targetId}/`}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-hairline bg-canvas px-3 py-2 text-sm text-foreground transition-all hover:border-cyan/50 hover:text-cyan"
                 >
                   {link.label}{" "}

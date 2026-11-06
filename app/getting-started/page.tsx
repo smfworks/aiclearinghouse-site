@@ -1,4 +1,4 @@
-import { getAllItems, getSectionTitle } from "@/lib/marketplace/loader";
+import { getAllCards, getSectionTitle } from "@/lib/marketplace/loader";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import GettingStartedClient from "@/components/GettingStartedClient";
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function Page() {
-  const items = getAllItems("getting-started");
+  const items = getAllCards("getting-started");
   const title = getSectionTitle("getting-started");
   return (
     <div className="flex min-h-screen flex-col">

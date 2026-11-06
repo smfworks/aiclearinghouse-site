@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllBlogPosts, getBlogSeriesCounts } from "@/lib/blog/loader";
+import { getAllBlogPosts, getBlogSeriesCounts, toBlogCard } from "@/lib/blog/loader";
 import { SERIES_LABELS } from "@/lib/blog/types";
 import { paginatePosts } from "@/lib/blog/pagination";
 import BlogCard from "@/components/BlogCard";
@@ -75,7 +75,7 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
               return (
                 <Link
                   key={key}
-                  href={`/blog?series=${key}`}
+                  href={`/blog/?series=${key}`}
                   className="rounded-full border border-hairline bg-elevated px-3 py-1 text-sm text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
                 >
                   {label} <span className="ml-1 text-foreground-tertiary">({count})</span>
@@ -93,7 +93,7 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
             <>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {posts.map((post) => (
-                  <BlogCard key={post.slug} post={post} />
+                  <BlogCard key={post.slug} post={toBlogCard(post)} />
                 ))}
               </div>
               <BlogPagination

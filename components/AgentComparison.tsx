@@ -1,9 +1,9 @@
 "use client";
 
-import type { AgentProfile } from "@/lib/marketplace/types";
+import type { AgentListItem } from "@/lib/marketplace/types";
 
 interface Props {
-  agents: AgentProfile[];
+  agents: AgentListItem[];
   onClose: () => void;
 }
 
@@ -30,14 +30,14 @@ export default function AgentComparison({ agents, onClose }: Props) {
           </thead>
           <tbody className="divide-y divide-hairline">
             {[
-              { label: "Company", value: (a: AgentProfile) => a.company },
-              { label: "Pricing", value: (a: AgentProfile) => a.pricing },
-              { label: "Runtime", value: (a: AgentProfile) => a.runtime },
-              { label: "Open source", value: (a: AgentProfile) => (a.openSource ? "Yes" : "No") },
-              { label: "Multi-platform", value: (a: AgentProfile) => (a.multiPlatform ? "Yes" : "No") },
-              { label: "Provider-agnostic", value: (a: AgentProfile) => (a.providerAgnostic ? "Yes" : "No") },
-              { label: "Platforms", value: (a: AgentProfile) => a.platforms.join(", ") || "—" },
-              { label: "Model", value: (a: AgentProfile) => a.model || "—" },
+              { label: "Company", value: (a: AgentListItem) => a.company },
+              { label: "Pricing", value: (a: AgentListItem) => a.pricing },
+              { label: "Runtime", value: (a: AgentListItem) => a.runtime },
+              { label: "Open source", value: (a: AgentListItem) => (a.openSource ? "Yes" : "No") },
+              { label: "Multi-platform", value: (a: AgentListItem) => (a.multiPlatform ? "Yes" : "No") },
+              { label: "Provider-agnostic", value: (a: AgentListItem) => (a.providerAgnostic ? "Yes" : "No") },
+              { label: "Platforms", value: (a: AgentListItem) => a.platforms.join(", ") || "—" },
+              { label: "Model", value: (a: AgentListItem) => a.model || "—" },
             ].map((row) => (
               <tr key={row.label}>
                 <td className="py-2 pr-3 text-foreground-secondary font-mono text-xs">{row.label}</td>

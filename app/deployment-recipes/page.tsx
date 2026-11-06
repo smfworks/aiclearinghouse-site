@@ -1,4 +1,4 @@
-import { getAllItems, getSectionTitle } from "@/lib/marketplace/loader";
+import { getAllCards } from "@/lib/marketplace/loader";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import DeploymentRecipesClient from "@/components/DeploymentRecipesClient";
@@ -11,7 +11,7 @@ export const metadata = {
 const VIDEO_TWEET_URL = "https://x.com/MichaelGannotti/status/2066926652773314798";
 
 export default function DeploymentRecipesPage() {
-  const items = getAllItems("deployment-recipes");
+  const items = getAllCards("deployment-recipes");
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />

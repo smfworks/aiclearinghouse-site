@@ -6,6 +6,7 @@ import {
   getAuthorByKey,
   getAuthorByName,
   getSeriesLabel,
+  type BlogCardData,
   type BlogPost,
   type BlogSeries,
 } from "./types";
@@ -48,7 +49,7 @@ function inferSeries(
   return "clearinghouse";
 }
 
-function parseFrontmatter(raw: string): Record<string, any> {
+function parseFrontmatter(raw: string): Record<string, unknown> {
   const parsed = matter(raw);
   return { ...parsed.data, content: parsed.content };
 }
@@ -148,6 +149,22 @@ export function getAllBlogPosts(): BlogPost[] {
     .map((slug) => loadPost(slug))
     .filter((p): p is BlogPost => p !== undefined)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export function toBlogCard(post: BlogPost): BlogCardData {
+  return {
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    date: post.date,
+    author: post.author,
+    authorKey: post.authorKey,
+    series: post.series,
+    seriesLabel: post.seriesLabel,
+    tags: post.tags,
+    image: post.image,
+    readTime: post.readTime,
+  };
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {

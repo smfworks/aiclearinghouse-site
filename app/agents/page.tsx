@@ -1,4 +1,4 @@
-import { getAllAgents, getAgentCategories, getAgentPricings, getAgentRuntimes } from "@/lib/marketplace/loader";
+import { getAgentList, getAgentCategories, getAgentPricings, getAgentRuntimes } from "@/lib/marketplace/loader";
 import AgentsDirectoryClient from "@/components/AgentsDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function AgentsDirectoryPage() {
-  const agents = getAllAgents();
+  const agents = getAgentList();
   const categories = getAgentCategories();
   const runtimes = getAgentRuntimes();
   const pricings = getAgentPricings();

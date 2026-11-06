@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MarketplaceItem } from "@/lib/marketplace/types";
+import { MarketplaceCard } from "@/lib/marketplace/types";
 import { getSectionTitle } from "@/lib/marketplace/types";
 import XVideoEmbed from "@/components/XVideoEmbed";
 import { ArrowRight, Search, Layers, Server, Database, Shield, Zap, Bot, Wrench, Beaker, FileText, Terminal, Lightbulb } from "lucide-react";
@@ -40,11 +40,13 @@ const categoryIcons: Record<string, React.ReactNode> = {
 import FreshnessBadge from "@/components/FreshnessBadge";
 
 interface Props {
-  items: MarketplaceItem[];
+  items: MarketplaceCard[];
   section: string;
   title: string;
   description: string;
   videoTweetUrl?: string;
+  /** Use h2 when the page already has an h1. */
+  titleAs?: "h1" | "h2";
 }
 
 const categoryColors: Record<string, string> = {
@@ -173,7 +175,7 @@ const vendorColors: Record<string, { text: string; border: string; glow: string;
   },
 };
 
-function getVendorStyle(section: string, item: MarketplaceItem) {
+function getVendorStyle(section: string, item: MarketplaceCard) {
   if (section !== "self-hosting") return null;
   const text = (item.title + " " + item.slug + " " + item.tags.join(" ")).toLowerCase();
   if (text.includes("nvidia") || text.includes("rtx") || text.includes("dgx") || text.includes("cuda")) {
@@ -218,7 +220,8 @@ function getBorderColor(category: string) {
   return categoryBorderColors[category] || "border-l-accent";
 }
 
-export default function SectionDirectoryClient({ items, section, title, description, videoTweetUrl }: Props) {
+export default function SectionDirectoryClient({ items, section, title, description, videoTweetUrl, titleAs = "h1" }: Props) {
+  const TitleTag = titleAs === "h2" ? "h2" : "h1";
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const categories = Array.from(new Set(items.map((i) => i.category))).sort();
@@ -240,10 +243,10 @@ export default function SectionDirectoryClient({ items, section, title, descript
         <div className="bg-grid-faint absolute inset-0 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-canvas via-canvas/80 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-6">
-          <Link href="/" className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
+          <Link href="/" prefetch={false} className="text-sm text-foreground-secondary transition-colors hover:text-foreground">
             ← Home
           </Link>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
+          <TitleTag className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">{title}</TitleTag>
           <p className="mt-4 max-w-2xl text-lg text-foreground-secondary">{description}</p>
 
           {videoTweetUrl && (
@@ -316,7 +319,7 @@ export default function SectionDirectoryClient({ items, section, title, descript
             return (
               <Link
                 key={item.slug}
-                href={`/${section}/${item.slug}`}
+                href={`/${section}/${item.slug}/`}
                 className={`group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-panel p-5 transition-all hover:-translate-y-0.5 hover:bg-elevated/50 border-l-4 ${leftBorder}`}
                 style={{ boxShadow: "0 0 0 0 transparent" }}
                 onMouseEnter={(e) => {

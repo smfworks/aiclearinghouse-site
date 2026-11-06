@@ -1,4 +1,4 @@
-import { getAllItems, getSectionTitle } from "@/lib/marketplace/loader";
+import { getAllCards, getSectionTitle } from "@/lib/marketplace/loader";
 import SectionDirectoryClient from "@/components/SectionDirectoryClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -11,7 +11,7 @@ export const metadata = {
 const VIDEO_TWEET_URL = "https://x.com/MichaelGannotti/status/2066926652773314798";
 
 export default function Page() {
-  const items = getAllItems("self-hosting");
+  const items = getAllCards("self-hosting");
   const title = getSectionTitle("self-hosting");
   return (
     <div className="flex min-h-screen flex-col">

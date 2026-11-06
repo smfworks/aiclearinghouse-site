@@ -47,7 +47,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       />
       <Nav />
       <main className="flex-1">
-        <SectionDetail item={item} section={section} sectionTitle={getSectionTitle(section)} backHref="/guides" />
+        <SectionDetail item={item} section={section} sectionTitle={getSectionTitle(section)} backHref="/guides/" />
       </main>
       <Footer />
     </div>

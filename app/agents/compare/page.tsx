@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import AgentCompareClient from "@/components/AgentCompareClient";
-import { getAllAgents } from "@/lib/marketplace/loader";
+import { getAgentList } from "@/lib/marketplace/loader";
 
 export const metadata: Metadata = {
   title: "Compare Agents — SMF Clearinghouse",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function AgentComparePage() {
-  const agents = getAllAgents();
+  const agents = getAgentList();
 
   return (
     <div className="flex min-h-screen flex-col">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MarketplaceItem } from "@/lib/marketplace/types";
+import { MarketplaceCard } from "@/lib/marketplace/types";
 import XVideoEmbed from "@/components/XVideoEmbed";
 import {
   ArrowRight,
@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 interface Props {
-  items: MarketplaceItem[];
+  items: MarketplaceCard[];
   videoTweetUrl?: string;
 }
 
@@ -58,7 +58,7 @@ export default function DeploymentRecipesClient({ items, videoTweetUrl }: Props)
         <div className="bg-grid-glow absolute inset-0 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-canvas/40 via-canvas/90 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-4xl px-6 text-center">
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-accent">
+          <Link href="/" prefetch={false} className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-accent">
             <ArrowLeft className="h-4 w-4" />
             Back to directory
           </Link>
@@ -70,7 +70,7 @@ export default function DeploymentRecipesClient({ items, videoTweetUrl }: Props)
             Deployment Recipes
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-foreground-secondary md:text-xl">
-            Copy-paste setups that actually work. No marketing, no missing prerequisites, no "it should work on your machine." Just the commands, the expected output, and the fixes when something goes wrong.
+            Copy-paste setups that actually work. No marketing, no missing prerequisites, no &quot;it should work on your machine.&quot; Just the commands, the expected output, and the fixes when something goes wrong.
           </p>
 
           {videoTweetUrl && (
@@ -149,7 +149,7 @@ export default function DeploymentRecipesClient({ items, videoTweetUrl }: Props)
             return (
               <Link
                 key={item.slug}
-                href={`/deployment-recipes/${item.slug}`}
+                href={`/deployment-recipes/${item.slug}/`}
                 className="group flex flex-col rounded-xl border border-hairline bg-panel p-5 card-glow transition-all hover:-translate-y-0.5 hover:border-amber/60 hover:shadow-[0_0_30px_-10px_rgba(245,158,11,0.25)]"
               >
                 {item.image && (

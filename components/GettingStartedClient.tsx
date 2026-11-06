@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MarketplaceItem } from "@/lib/marketplace/types";
+import { MarketplaceCard } from "@/lib/marketplace/types";
 import XVideoEmbed from "@/components/XVideoEmbed";
 import {
   ArrowRight,
@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 interface Props {
-  items: MarketplaceItem[];
+  items: MarketplaceCard[];
   title: string;
   videoTweetUrl?: string;
 }
@@ -39,7 +39,7 @@ const steps = [
     title: "Try a cloud agent",
     body: "Use a cloud-hosted agent so you can learn the workflow before worrying about hardware. Match the interface to how you already work.",
     cta: "Browse the Agent Directory",
-    href: "/agents",
+    href: "/agents/",
   },
   {
     number: "03",
@@ -47,7 +47,7 @@ const steps = [
     title: "Define done and guardrails",
     body: "Before prompting, write down what 'done' looks like, which files the agent can touch, which commands it can run, and what a human must approve. This habit separates useful workflows from chaotic ones.",
     cta: "Read the safety checklist",
-    href: "/safety/agent-safety-checklist",
+    href: "/safety/agent-safety-checklist/",
   },
   {
     number: "04",
@@ -55,7 +55,7 @@ const steps = [
     title: "Compare tools side-by-side",
     body: "Once you know your task, compare 2–3 agents. Match pricing, runtime, and platform to your stack. Use our comparison pages to keep the evaluation honest.",
     cta: "Compare agents",
-    href: "/agents/compare",
+    href: "/agents/compare/",
   },
   {
     number: "05",
@@ -63,7 +63,7 @@ const steps = [
     title: "Go local for privacy or cost control",
     body: "When data cannot leave your machine, move to local models and open-source agents. We publish tested recipes that get you from zero to running without reading ten READMEs.",
     cta: "See deployment recipes",
-    href: "/deployment-recipes",
+    href: "/deployment-recipes/",
   },
   {
     number: "06",
@@ -71,7 +71,7 @@ const steps = [
     title: "Stay current",
     body: "Agents and models change fast. Bookmark the changelog, tips, tests, and pricing sections — or check back here. We update entries as the landscape shifts.",
     cta: "Browse the changelog",
-    href: "/changelog",
+    href: "/changelog/",
   },
 ];
 
@@ -102,7 +102,7 @@ export default function GettingStartedClient({ items, title, videoTweetUrl }: Pr
         <div className="bg-grid-glow absolute inset-0 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-canvas/40 via-canvas/90 to-canvas pointer-events-none" />
         <div className="relative mx-auto max-w-4xl text-center px-6">
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-accent">
+          <Link href="/" prefetch={false} className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-accent">
             <ArrowLeft className="h-4 w-4" />
             Back to directory
           </Link>
@@ -179,7 +179,7 @@ export default function GettingStartedClient({ items, title, videoTweetUrl }: Pr
           {items.map((item) => (
             <Link
               key={item.slug}
-              href={`/getting-started/${item.slug}`}
+              href={`/getting-started/${item.slug}/`}
               className="group flex flex-col rounded-xl border border-hairline bg-panel p-5 card-glow transition-all hover:border-accent/50 hover:shadow-[0_0_30px_-10px_var(--accent-glow)]"
             >
               <span className="text-xs font-medium uppercase tracking-wider text-accent font-mono">{item.category}</span>

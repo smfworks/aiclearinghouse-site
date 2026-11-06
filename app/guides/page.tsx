@@ -1,7 +1,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import { getAllItems } from "@/lib/marketplace/loader";
+import { getAllCards } from "@/lib/marketplace/loader";
 import GuidesDirectoryClient from "@/components/GuidesDirectoryClient";
 import { absoluteUrl } from "@/lib/site";
 import { GUIDE_SECTION_LABEL, breadcrumbListJsonLd, jsonLdDocument } from "@/lib/seo";
@@ -13,7 +13,7 @@ export const metadata = {
 };
 
 export default function GuidesPage() {
-  const items = getAllItems("guides");
+  const items = getAllCards("guides");
   return (
     <div className="flex min-h-screen flex-col">
       <JsonLd

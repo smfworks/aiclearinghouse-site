@@ -1,4 +1,4 @@
-import { getAllItems } from "@/lib/marketplace/loader";
+import { getAllCards } from "@/lib/marketplace/loader";
 import AINewsClient from "@/components/AINewsClient";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function AINewsPage() {
-  const items = getAllItems("ai-news");
+  const items = getAllCards("ai-news");
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />

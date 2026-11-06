@@ -31,6 +31,22 @@ export interface BlogPost {
   originalUrl?: string;
 }
 
+/** Fields a blog index card renders. The markdown body is not included. */
+export type BlogCardData = Pick<
+  BlogPost,
+  | "slug"
+  | "title"
+  | "excerpt"
+  | "date"
+  | "author"
+  | "authorKey"
+  | "series"
+  | "seriesLabel"
+  | "tags"
+  | "image"
+  | "readTime"
+>;
+
 export interface BlogAuthor {
   key: string;
   name: string;

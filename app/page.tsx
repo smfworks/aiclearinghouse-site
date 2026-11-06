@@ -3,9 +3,8 @@ import Footer from "@/components/Footer";
 import HubClient from "@/components/HubClient";
 import ClearinghouseFaq from "@/components/ClearinghouseFaq";
 import JsonLd from "@/components/JsonLd";
-import { getAllAgents, getAllItems, getSections } from "@/lib/marketplace/loader";
-import type { MarketplaceItem } from "@/lib/marketplace/types";
 import { CLEARINGHOUSE_FAQS } from "@/lib/clearinghouse-faq";
+import { loadHomeDirectory } from "@/lib/home-directory";
 import { faqPageNode, jsonLdDocument } from "@/lib/seo";
 
 export const metadata = {
@@ -14,14 +13,7 @@ export const metadata = {
 };
 
 export default function Home() {
-  const agents = getAllAgents();
-  const sections = getSections();
-  const genericItems: Record<string, MarketplaceItem[]> = {};
-  for (const section of sections) {
-    if (section === "agents") continue;
-    genericItems[section] = getAllItems(section);
-  }
-  const newsItems = (genericItems["ai-news"] || []).slice(0, 4);
+  const { agents, genericItems, newsItems } = loadHomeDirectory();
 
   return (
     <div className="flex min-h-screen flex-col">

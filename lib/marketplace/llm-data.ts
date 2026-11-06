@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { LLMPricingData, LLMProvider, LLMModel } from "./types";
 
 const dataDir = process.cwd();
@@ -6,8 +8,6 @@ let _cached: LLMPricingData | null = null;
 
 export function getLLMPricingData(): LLMPricingData {
   if (_cached) return _cached;
-  const fs = require("fs");
-  const path = require("path");
   const raw = fs.readFileSync(path.join(dataDir, "data", "llm-pricing.json"), "utf-8");
   _cached = JSON.parse(raw) as LLMPricingData;
   return _cached;

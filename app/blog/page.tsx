@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllBlogPosts, getBlogSeriesCounts } from "@/lib/blog/loader";
+import { getAllBlogPosts, getBlogSeriesCounts, toBlogCard } from "@/lib/blog/loader";
 import { SERIES_LABELS } from "@/lib/blog/types";
 import { paginatePosts } from "@/lib/blog/pagination";
 import BlogCard from "@/components/BlogCard";
@@ -69,7 +69,7 @@ export default function BlogPage() {
 
           <div className="mt-8 flex flex-wrap gap-2">
             <Link
-              href="/blog"
+              href="/blog/"
               className="rounded-full border border-accent bg-accent px-3 py-1 text-sm text-accent-foreground"
             >
               All
@@ -80,7 +80,7 @@ export default function BlogPage() {
               return (
                 <Link
                   key={key}
-                  href={`/blog/series/${key}`}
+                  href={`/blog/series/${key}/`}
                   className="rounded-full border border-hairline bg-elevated px-3 py-1 text-sm text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
                 >
                   {label} <span className="ml-1">({count})</span>
@@ -94,7 +94,7 @@ export default function BlogPage() {
         <div className="mx-auto max-w-7xl px-6 py-10">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+              <BlogCard key={post.slug} post={toBlogCard(post)} />
             ))}
           </div>
           <BlogPagination

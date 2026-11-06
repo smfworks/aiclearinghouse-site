@@ -2,10 +2,15 @@ import Link from "next/link";
 import { GitBranch, Sparkles } from "lucide-react";
 
 const links = [
-  { href: "/blog", label: "Blog" },
-  { href: "/reference", label: "Reference" },
-  { href: "/lab", label: "Lab" },
-  { href: "/about", label: "About" },
+  { href: "/blog/", label: "Blog" },
+  { href: "/reference/", label: "Reference" },
+  { href: "/lab/", label: "Lab" },
+  { href: "/about/", label: "About" },
+];
+
+const resources = [
+  { href: "/llms.txt", label: "llms.txt" },
+  { href: "/feed.xml", label: "RSS" },
 ];
 
 export default function Footer() {
@@ -14,7 +19,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
           <div className="max-w-sm">
-            <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight">
+            <Link href="/" prefetch={false} className="flex items-center gap-2 text-lg font-semibold tracking-tight">
               <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-accent to-accent-hover text-[10px] font-bold text-accent-foreground shadow-[0_0_14px_-4px_var(--accent-glow)]">
                 <Sparkles className="h-3 w-3" />
               </span>
@@ -30,10 +35,20 @@ export default function Footer() {
               <Link
                 key={l.href}
                 href={l.href}
+                prefetch={false}
                 className="text-foreground-secondary transition-colors hover:text-foreground"
               >
                 {l.label}
               </Link>
+            ))}
+            {resources.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-foreground-secondary transition-colors hover:text-foreground"
+              >
+                {l.label}
+              </a>
             ))}
           </div>
         </div>

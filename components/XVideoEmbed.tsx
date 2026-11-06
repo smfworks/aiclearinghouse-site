@@ -3,6 +3,13 @@
 import { useEffect, useRef } from "react";
 import Script from "next/script";
 
+type XWidgets = { load?: (el?: HTMLElement | null) => void };
+
+function xWidgets(): XWidgets | undefined {
+  if (typeof window === "undefined") return undefined;
+  return (window as Window & { twttr?: { widgets?: XWidgets } }).twttr?.widgets;
+}
+
 interface XVideoEmbedProps {
   tweetUrl: string;
   className?: string;
@@ -24,9 +31,8 @@ export default function XVideoEmbed({
   useEffect(() => {
     const process = () => {
       try {
-        if (typeof window !== "undefined" && (window as any).twttr?.widgets?.load) {
-          (window as any).twttr.widgets.load(containerRef.current);
-        }
+        const widgets = xWidgets();
+        widgets?.load?.(containerRef.current);
       } catch {
         // Fail silently if X widget API is unavailable
       }
@@ -62,9 +68,7 @@ export default function XVideoEmbed({
         charSet="utf-8"
         onLoad={() => {
           try {
-            if ((window as any).twttr?.widgets?.load) {
-              (window as any).twttr.widgets.load(containerRef.current);
-            }
+            xWidgets()?.load?.(containerRef.current);
           } catch {
             // Ignore
           }

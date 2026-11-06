@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata = {
   title: "What is the SMF Clearinghouse?",
   description:
-    "The SMF AI Clearinghouse is an independent directory for autonomous agents, LLM pricing, open-source tools, vendor services, and tested self-hosting recipes.",
+    "The SMF Clearinghouse is an independent directory for autonomous agents, LLM pricing, open-source tools, vendor services, and tested self-hosting recipes.",
 };
 
 const pillars = [
@@ -62,7 +62,7 @@ export default function WhatIsTheClearinghousePage() {
                 The tools are multiplying. The clarity isn&apos;t.
               </p>
               <p className="mt-4 text-foreground-secondary">
-                The SMF AI Clearinghouse is an independent directory that gathers agents,
+                The SMF Clearinghouse is an independent directory that gathers agents,
                 LLM pricing, open-source tools, vendor services, and tested self-hosting
                 recipes — then makes them searchable and comparable.
               </p>
@@ -76,14 +76,14 @@ export default function WhatIsTheClearinghousePage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/agents"
+                  href="/agents/"
                   className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-accent/90"
                 >
                   Browse agents
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/getting-started"
+                  href="/getting-started/"
                   className="inline-flex items-center gap-2 rounded-lg border border-hairline bg-panel px-4 py-2.5 text-sm font-medium text-foreground transition-all hover:bg-elevated"
                 >
                   Start learning
@@ -189,7 +189,7 @@ export default function WhatIsTheClearinghousePage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
-                href="/lab"
+                href="/lab/"
                 className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-accent/90"
               >
                 <FlaskConical className="h-4 w-4" />
@@ -198,6 +198,7 @@ export default function WhatIsTheClearinghousePage() {
               </Link>
               <Link
                 href="/"
+                prefetch={false}
                 className="inline-flex items-center gap-2 rounded-lg border border-hairline bg-panel px-5 py-2.5 text-sm font-medium text-foreground transition-all hover:bg-elevated"
               >
                 <Bot className="h-4 w-4 text-cyan" />

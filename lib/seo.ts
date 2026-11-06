@@ -284,6 +284,18 @@ export const GUIDE_AUTHOR_NAME = "Pamela Flannery";
 export const GUIDE_SECTION_LABEL = "How-To Guides";
 
 /** Drop the markdown H1 when the page template already renders that title. */
+/** Turn a leading markdown H1 into an H2 when the page already renders its own H1. */
+export function demoteLeadingH1(markdown: string): string {
+  const lines = markdown.split("\n");
+  let index = 0;
+  while (index < lines.length && lines[index].trim() === "") index += 1;
+  if (index >= lines.length) return markdown;
+  if (/^#\s+/.test(lines[index]) && !/^##/.test(lines[index])) {
+    lines[index] = lines[index].replace(/^#(\s+)/, "##$1");
+  }
+  return lines.join("\n");
+}
+
 export function omitDuplicateTitleHeading(markdown: string, title: string): string {
   const normalizedTitle = title.replace(/\s+/g, " ").trim().toLowerCase();
   const lines = markdown.split("\n");

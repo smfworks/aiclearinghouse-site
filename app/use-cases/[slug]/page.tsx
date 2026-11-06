@@ -31,7 +31,7 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: s
           item={item}
           section={section}
           sectionTitle={getSectionTitle(section)}
-          backHref={"/" + section}
+          backHref={`/${section}/`}
         />
       </main>
       <Footer />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { AgentProfile } from "@/lib/marketplace/types";
+import type { AgentListItem } from "@/lib/marketplace/types";
 import { Cpu, Globe } from "lucide-react";
 import FreshnessBadge from "@/components/FreshnessBadge";
 
@@ -9,7 +9,7 @@ function avatarUrl(id: string): string {
 }
 
 interface AgentCardProps {
-  agent: AgentProfile;
+  agent: AgentListItem;
   compare?: {
     selected: boolean;
     onToggle: () => void;
@@ -47,7 +47,7 @@ export default function AgentCard({ agent, compare }: AgentCardProps) {
         </label>
       )}
 
-      <Link href={`/agents/${agent.id}`} className="block">
+      <Link href={`/agents/${agent.id}/`} className="block">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-hairline bg-gradient-to-br from-elevated to-panel group-hover:border-cyan/40 transition-colors"
