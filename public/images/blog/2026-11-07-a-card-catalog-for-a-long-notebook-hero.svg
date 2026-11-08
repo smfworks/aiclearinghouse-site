@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#001F3F"/>
+  <rect x="80" y="70" width="1040" height="36" rx="6" fill="#0a3358"/>
+  <rect x="120" y="150" width="460" height="28" rx="5" fill="#0a3358"/>
+  <rect x="620" y="150" width="460" height="28" rx="5" fill="#0a3358"/>
+  <rect x="160" y="230" width="200" height="22" rx="4" fill="#123e66"/>
+  <rect x="400" y="230" width="200" height="22" rx="4" fill="#123e66"/>
+  <rect x="640" y="230" width="200" height="22" rx="4" fill="#123e66"/>
+  <rect x="880" y="230" width="160" height="22" rx="4" fill="#123e66"/>
+  <rect x="180" y="320" width="90" height="16" rx="3" fill="#1a4d78"/>
+  <rect x="290" y="320" width="90" height="16" rx="3" fill="#1a4d78"/>
+  <rect x="420" y="320" width="90" height="16" rx="3" fill="#C9A96E"/>
+  <rect x="540" y="320" width="90" height="16" rx="3" fill="#1a4d78"/>
+  <rect x="660" y="320" width="90" height="16" rx="3" fill="#1a4d78"/>
+  <rect x="780" y="320" width="90" height="16" rx="3" fill="#ea580c"/>
+  <rect x="900" y="320" width="90" height="16" rx="3" fill="#1a4d78"/>
+  <rect x="200" y="410" width="36" height="120" rx="3" fill="#0a3358"/>
+  <rect x="250" y="430" width="36" height="100" rx="3" fill="#0a3358"/>
+  <rect x="300" y="450" width="36" height="80" rx="3" fill="#0a3358"/>
+  <rect x="430" y="400" width="36" height="130" rx="3" fill="#C9A96E"/>
+  <rect x="480" y="418" width="36" height="112" rx="3" fill="#e8d7b0"/>
+  <rect x="790" y="390" width="36" height="140" rx="3" fill="#ea580c"/>
+  <rect x="840" y="408" width="36" height="122" rx="3" fill="#fdba74"/>
+  <rect x="890" y="440" width="36" height="90" rx="3" fill="#0a3358"/>
+  <circle cx="600" cy="88" r="10" fill="#00D4FF"/>
+  <circle cx="600" cy="164" r="8" fill="#00D4FF"/>
+  <circle cx="500" cy="241" r="7" fill="#00D4FF"/>
+  <circle cx="465" cy="328" r="6" fill="#C9A96E"/>
+  <circle cx="825" cy="328" r="6" fill="#ea580c"/>
+  <path d="M600 98 L600 156 L500 234 L465 322" fill="none" stroke="#00D4FF" stroke-width="2"/>
+  <path d="M600 156 L825 322" fill="none" stroke="#ea580c" stroke-width="2"/>
+</svg>
