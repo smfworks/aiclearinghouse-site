@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00d4aa"/>
+      <stop offset="1" stop-color="#f7931a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="60" y="80" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700">Muse Ember — Cold Iron (157, effort=minimal)</text>
+  <text x="60" y="120" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="18">142 / 157 · 90.4% · 0 errors · 4.8 min wall · $0.05 · 66× cheaper than Fable 5.2</text>
+
+  <text x="60" y="180" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="16">CATEGORY</text>
+  <text x="760" y="180" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="16">SCORE</text>
+  <text x="60" y="215" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">coding</text>
+  <rect x="200" y="200" width="480" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="215" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">30/30</text>
+  <text x="60" y="250" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">instruction</text>
+  <rect x="200" y="235" width="448" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="250" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">28/30</text>
+  <text x="60" y="285" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">prose</text>
+  <rect x="200" y="270" width="448" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="285" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">28/30</text>
+  <text x="60" y="320" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">reasoning</text>
+  <rect x="200" y="305" width="432" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="320" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">27/30</text>
+  <text x="60" y="355" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">math</text>
+  <rect x="200" y="340" width="384" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="355" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">24/30</text>
+  <text x="60" y="390" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">writing</text>
+  <rect x="200" y="375" width="384" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="390" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">3/5</text>
+  <text x="60" y="425" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">tool calling</text>
+  <rect x="200" y="410" width="480" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="425" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">2/2</text>
+
+  <text x="60" y="480" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="16">VALUE: SCORE PER DOLLAR (same suite, n=1 each)</text>
+  <text x="60" y="515" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">Muse Ember   142 tests / $0.05</text>
+  <rect x="420" y="500" width="480" height="18" rx="4" fill="url(#bar)"/>
+  <text x="915" y="514" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="14">2,840 tests/$</text>
+  <text x="60" y="555" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">Fable 5.2    142.7 avg / $3.35</text>
+  <rect x="420" y="540" width="7" height="18" rx="2" fill="#5a8a6a"/>
+  <text x="440" y="554" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="14">43 tests/$</text>
+
+  <text x="60" y="610" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="15">Same tier as Fable 5.1 (142) at 1/66th the run cost. Wall: 4.8 min vs Fable 5.2's 17.8-18.2 min.</text>
+  <text x="60" y="628" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="13">smf-bench strict_v01 · meta/muse-ember via OpenRouter · 2026-11-09 · SMF Works · n=1</text>
+</svg>
