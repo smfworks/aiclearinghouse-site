@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="bg" cx="46%" cy="42%" r="78%">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="60%" stop-color="#001530"/>
+      <stop offset="100%" stop-color="#000b1c"/>
+    </radialGradient>
+    <linearGradient id="scanline" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00D4FF" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#ea580c" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- code wall: abstract file grid being scanned -->
+  <g fill="#0e3a5c" opacity="0.9">
+    <rect x="90"  y="110" width="150" height="70" rx="6"/>
+    <rect x="260" y="110" width="150" height="70" rx="6"/>
+    <rect x="430" y="110" width="150" height="70" rx="6"/>
+    <rect x="90"  y="200" width="150" height="70" rx="6"/>
+    <rect x="260" y="200" width="150" height="70" rx="6"/>
+    <rect x="430" y="200" width="150" height="70" rx="6"/>
+    <rect x="90"  y="290" width="150" height="70" rx="6"/>
+    <rect x="260" y="290" width="150" height="70" rx="6"/>
+    <rect x="430" y="290" width="150" height="70" rx="6"/>
+    <rect x="90"  y="380" width="150" height="70" rx="6"/>
+    <rect x="260" y="380" width="150" height="70" rx="6"/>
+    <rect x="430" y="380" width="150" height="70" rx="6"/>
+  </g>
+
+  <!-- two flagged files glow orange: findings -->
+  <rect x="260" y="200" width="150" height="70" rx="6" fill="#ea580c" opacity="0.55"/>
+  <rect x="430" y="380" width="150" height="70" rx="6" fill="#ea580c" opacity="0.35"/>
+  <circle cx="335" cy="235" r="10" fill="#C9A96E"/>
+  <circle cx="505" cy="415" r="8" fill="#C9A96E" opacity="0.85"/>
+
+  <!-- scanner sweep -->
+  <rect x="60" y="250" width="560" height="90" fill="url(#scanline)" opacity="0.5"/>
+  <rect x="60" y="340" width="560" height="3" fill="#00D4FF" opacity="0.8"/>
+
+  <!-- magnifier over the code wall -->
+  <g transform="translate(600,240)">
+    <circle cx="0" cy="0" r="150" fill="none" stroke="#C9A96E" stroke-width="14" opacity="0.9"/>
+    <circle cx="0" cy="0" r="150" fill="#00243f" opacity="0.35"/>
+    <line x1="106" y1="106" x2="215" y2="215" stroke="#C9A96E" stroke-width="18" stroke-linecap="round" opacity="0.9"/>
+    <!-- inside the lens: a lock, closed -->
+    <g fill="#00D4FF">
+      <rect x="-46" y="-12" width="92" height="70" rx="12"/>
+      <path d="M -26 -12 v-16 a26 26 0 0 1 52 0 v16" fill="none" stroke="#00D4FF" stroke-width="12"/>
+      <circle cx="0" cy="22" r="10" fill="#001F3F"/>
+    </g>
+  </g>
+
+  <!-- spark cluster: the local GPUs doing the work -->
+  <g transform="translate(930,470)">
+    <rect x="-150" y="-40" width="130" height="80" rx="10" fill="#0e3a5c" stroke="#00D4FF" stroke-width="3"/>
+    <rect x="20"  y="-40" width="130" height="80" rx="10" fill="#0e3a5c" stroke="#00D4FF" stroke-width="3"/>
+    <circle cx="-85" cy="0" r="16" fill="#ea580c"/>
+    <circle cx="85"  cy="0" r="16" fill="#ea580c"/>
+    <line x1="-20" y1="0" x2="20" y2="0" stroke="#00D4FF" stroke-width="4" stroke-dasharray="8 6"/>
+  </g>
+
+  <!-- connecting arcs: workers converging on the lens -->
+  <path d="M 930 430 Q 800 380 740 320" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.5"/>
+  <path d="M 1015 430 Q 900 340 760 280" fill="none" stroke="#C9A96E" stroke-width="3" opacity="0.4"/>
+</svg>
