@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00d4aa"/>
+      <stop offset="1" stop-color="#76b900"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="60" y="80" fill="#e8eef4" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700">Claude Fable 5.2 — Cold Iron (thinking-off 157)</text>
+  <text x="60" y="120" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="18">141 / 157 · 89.8% · 0 errors · effort=low analogue · 17.8 min wall · $3.32</text>
+
+  <!-- per-category bars -->
+  <text x="60" y="180" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="16">CATEGORY</text>
+  <text x="760" y="180" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="16">SCORE</text>
+  <!-- rows: category, pass, total, y -->
+  <!-- scale: x 60..700 = 640px for 100% -->
+  <!-- coding 30/30 -->
+  <text x="60" y="215" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">coding</text>
+  <rect x="200" y="200" width="480" height="20" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="200" width="480" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="215" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">30/30</text>
+  <text x="60" y="250" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">reasoning</text>
+  <rect x="200" y="235" width="480" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="250" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">30/30</text>
+  <text x="60" y="285" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">tool calling</text>
+  <rect x="200" y="270" width="480" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="285" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="16">2/2</text>
+  <text x="60" y="320" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">math</text>
+  <rect x="200" y="305" width="480" height="20" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="305" width="400" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="320" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="16">25/30</text>
+  <text x="60" y="355" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">instruction</text>
+  <rect x="200" y="340" width="480" height="20" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="340" width="416" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="355" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="16">26/30</text>
+  <text x="60" y="390" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">prose</text>
+  <rect x="200" y="375" width="480" height="20" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="375" width="384" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="390" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="16">24/30</text>
+  <text x="60" y="425" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">writing</text>
+  <rect x="200" y="410" width="480" height="20" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="410" width="384" height="20" rx="4" fill="url(#bar)"/>
+  <text x="760" y="425" fill="#e8eef4" font-family="'SF Mono',monospace" font-size="16">4/5</text>
+
+  <!-- 5.1 vs 5.2 -->
+  <text x="60" y="490" fill="#5a8a6a" font-family="'SF Mono','Courier New',monospace" font-size="16">FABLE 5.1 → 5.2 (n=1 each)</text>
+  <text x="60" y="525" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">total</text>
+  <rect x="200" y="510" width="480" height="18" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="510" width="434" height="18" rx="4" fill="#5a8a6a"/>
+  <text x="650" y="524" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="14">142/157 (90.4%)</text>
+  <rect x="200" y="534" width="480" height="18" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="534" width="431" height="18" rx="4" fill="url(#bar)"/>
+  <text x="650" y="548" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="14">141/157 (89.8%)</text>
+  <text x="60" y="580" fill="#e8eef4" font-family="'SF Pro Display',Arial,sans-serif" font-size="17">wall</text>
+  <rect x="200" y="566" width="480" height="18" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="566" width="480" height="18" rx="4" fill="#5a8a6a"/>
+  <text x="695" y="580" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="14">35.0 min</text>
+  <rect x="200" y="590" width="480" height="18" rx="4" fill="#1a2a3a"/>
+  <rect x="200" y="590" width="245" height="18" rx="4" fill="url(#bar)"/>
+  <text x="455" y="604" fill="#00d4aa" font-family="'SF Mono',monospace" font-size="14">17.8 min</text>
+
+  <text x="60" y="628" fill="#5a8a6a" font-family="'SF Mono',monospace" font-size="13">smf-bench strict_v01 · anthropic/claude-fable-5.2 via OpenRouter · 2026-11-09 · SMF Works</text>
+</svg>
