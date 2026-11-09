@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#02060c">
+<title>Aurora — a night sky imagined in real time</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2302060c'/%3E%3Cpath d='M4 22c6-14 10 2 14-9s6 3 10-5' fill='none' stroke='%237dffc8' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:rgba(238,248,245,.94);
+  --dim:rgba(220,240,236,.56);
+  --line:rgba(220,240,236,.2);
+  --glow:125,255,200;
+  --serif:"Cormorant Garamond","Cormorant","Didot","Bodoni 72","Bodoni MT","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:"Avenir Next","Avenir","Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#02060c;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+#sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}
+
+/* ---------- title ---------- */
+.title{position:fixed;left:50%;top:33%;transform:translate(-50%,-50%);width:min(94vw,1300px);text-align:center;z-index:2;pointer-events:none;transition:opacity 3s ease,filter 3s ease,transform 4.5s ease}
+body.live .title{opacity:0;filter:blur(12px);transform:translate(-50%,-56%) scale(1.05)}
+.eyebrow{font-size:clamp(9px,1.02vw,12px);letter-spacing:.46em;text-transform:uppercase;color:var(--dim);padding-left:.46em;opacity:0;animation:fadeUp 2.6s ease .8s forwards}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(50px,11.5vw,176px);line-height:1.05;letter-spacing:.24em;padding-left:.24em;margin:.16em 0 .2em;color:#f5fffb;text-shadow:0 0 .3em rgba(130,255,205,.38),0 0 1.3em rgba(90,200,255,.2)}
+h1 span{display:inline-block;opacity:0;animation:rise 2.6s cubic-bezier(.2,.7,.1,1) forwards;animation-delay:calc(1.3s + var(--i)*.15s)}
+.sub{font-family:var(--serif);font-style:italic;font-size:clamp(15px,1.75vw,23px);letter-spacing:.06em;color:rgba(236,250,245,.8);opacity:0;animation:fadeUp 2.8s ease 3.2s forwards}
+@keyframes rise{from{opacity:0;filter:blur(16px);transform:translateY(.22em) scale(1.08)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- hud ---------- */
+.hud{position:fixed;z-index:3;font-size:10.5px;line-height:2;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);opacity:0;transition:opacity 1.8s ease;pointer-events:none}
+body.live .hud{opacity:1}
+body.live.idle .hud{opacity:0}
+body.bare .hud,body.bare .title,body.bare .cursor{display:none}
+.tl{top:calc(26px + env(safe-area-inset-top));left:calc(30px + env(safe-area-inset-left));display:flex;align-items:center}
+.tl b{font-weight:500;color:var(--ink);letter-spacing:.52em}
+.rule{display:inline-block;width:40px;height:1px;background:var(--line);margin:0 16px 0 10px}
+.bl{left:calc(30px + env(safe-area-inset-left));bottom:calc(24px + env(safe-area-inset-bottom))}
+.bl span{display:block}
+.bl em{font-style:normal;color:var(--ink)}
+.br{right:calc(26px + env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom));display:flex;gap:10px}
+body.live .br{pointer-events:auto}
+body.live.idle .br{pointer-events:none}
+.ctl{height:46px;min-width:46px;border-radius:23px;border:1px solid var(--line);background:rgba(8,18,24,.3);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);color:var(--ink);display:flex;align-items:center;justify-content:center;gap:12px;cursor:pointer;font:inherit;letter-spacing:.32em;text-transform:uppercase;transition:border-color .5s,box-shadow .5s,transform .5s,background .5s}
+.ctl:hover,.ctl:focus-visible{outline:none;border-color:rgba(var(--glow),.65);box-shadow:0 0 26px rgba(var(--glow),.2),inset 0 0 14px rgba(var(--glow),.08);transform:translateY(-1px)}
+.pill{padding:0 20px 0 18px}
+.pill.beckon{animation:beckon 2.8s ease-in-out infinite}
+@keyframes beckon{0%,100%{box-shadow:0 0 0 rgba(var(--glow),0)}50%{box-shadow:0 0 26px rgba(var(--glow),.28);border-color:rgba(var(--glow),.55)}}
+.bars{display:flex;align-items:center;gap:3px;height:16px}
+.bars i{display:block;width:2px;height:3px;border-radius:1px;background:currentColor;transition:height .5s}
+#snd[aria-pressed="true"] .bars i{animation:eq 1.1s ease-in-out infinite alternate}
+#snd[aria-pressed="true"] .bars i:nth-child(1){animation-delay:-.9s}
+#snd[aria-pressed="true"] .bars i:nth-child(2){animation-delay:-.3s}
+#snd[aria-pressed="true"] .bars i:nth-child(3){animation-delay:-.6s}
+#snd[aria-pressed="true"] .bars i:nth-child(4){animation-delay:-.1s}
+@keyframes eq{from{height:3px}to{height:15px}}
+
+/* ---------- cursor ---------- */
+.cursor{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;z-index:5;pointer-events:none;opacity:0;transition:opacity .5s;display:none}
+.cursor::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(235,255,248,.5);transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s}
+.cursor::after{content:"";position:absolute;left:50%;top:50%;width:3px;height:3px;margin:-1.5px;border-radius:50%;background:rgba(235,255,248,.9)}
+.cursor.press::before{transform:scale(.55);border-color:rgba(var(--glow),.95)}
+@media (hover:hover) and (pointer:fine){
+  #sky{cursor:none}
+  .cursor{display:block}
+  .cursor.on{opacity:1}
+  body.idle .cursor{opacity:0}
+}
+
+/* ---------- fallback ---------- */
+.nogl{display:none;position:fixed;inset:0;z-index:1;align-items:flex-end;justify-content:center;padding:12vh 8vw;text-align:center;font-family:var(--serif);font-style:italic;font-size:18px;color:var(--dim);background:radial-gradient(120% 80% at 50% 110%,#0b3a3a 0%,#06202c 35%,#02060c 75%)}
+body.fallback .nogl{display:flex}
+
+@media (max-width:680px){
+  .hud{font-size:9px;letter-spacing:.26em}
+  .tl{left:20px;top:calc(20px + env(safe-area-inset-top))}
+  .bl{left:20px;bottom:calc(20px + env(safe-area-inset-bottom))}
+  .br{right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
+  .pill{padding:0 14px}.pill .lbl{display:none}
+  .rule{width:22px;margin:0 10px 0 4px}
+}
+@media (prefers-reduced-motion:reduce){
+  h1 span,.eyebrow,.sub{animation-duration:.01s;animation-delay:.2s}
+}
+</style>
+</head>
+<body>
+
+<canvas id="sky" role="img" aria-label="A procedurally generated aurora over a mountain lake at night"></canvas>
+<div class="nogl">The northern lights need WebGL to appear. Please try a browser with WebGL enabled.</div>
+
+<div class="title">
+  <p class="eyebrow">A night sky, imagined in real time</p>
+  <h1 aria-label="Aurora">
+    <span style="--i:0">A</span><span style="--i:1">U</span><span style="--i:2">R</span><span style="--i:3">O</span><span style="--i:4">R</span><span style="--i:5">A</span>
+  </h1>
+  <p class="sub">No images. No video. Only mathematics, dreaming.</p>
+</div>
+
+<div class="hud tl"><b>Aurora</b><i class="rule"></i>69°39′N&nbsp;&nbsp;18°57′E</div>
+
+<div class="hud bl">
+  <span><em>Move</em> — look around</span>
+  <span><em>Tap the sky</em> — shooting star</span>
+  <span><em>Tap the water</em> — ripple</span>
+</div>
+
+<div class="hud br">
+  <button class="ctl pill beckon" id="snd" aria-pressed="false" title="Sound (S)">
+    <span class="bars"><i></i><i></i><i></i><i></i></span><span class="lbl">Sound off</span>
+  </button>
+  <button class="ctl" id="fs" aria-label="Toggle fullscreen" title="Fullscreen (F)">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5.5v-4h4M10.5 1.5h4v4M14.5 10.5v4h-4M5.5 14.5h-4v-4"/></svg>
+  </button>
+</div>
+
+<div class="cursor"></div>
+
+<script>
+(function(){
+'use strict';
+
+const $ = s => document.querySelector(s);
+const canvas = $('#sky');
+const FOC = 1.25, HOR = 0.18;
+const reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* =====================================================================
+   SHADERS
+   ===================================================================== */
+const VERT = 'attribute vec2 p; void main(){ gl_Position = vec4(p, 0., 1.); }';
+
+const FRAG = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+
+uniform vec2  uRes;
+uniform float uTime;
+uniform vec3  uCam;      // yaw, pitch, fade
+uniform vec4  uMet[2];   // az, el, angle, t0
+uniform vec4  uRip[4];   // x, z, t0, strength
+
+#define PI  3.14159265
+#define FOC 1.25
+
+/* ---------- hashing & noise ---------- */
+float hash11(float p){ p = fract(p*.1031); p *= p+33.33; p *= p+p; return fract(p); }
+float hash12(vec2 p){ vec3 q = fract(vec3(p.xyx)*.1031); q += dot(q, q.yzx+33.33); return fract((q.x+q.y)*q.z); }
+float hash13(vec3 q){ q = fract(q*.1031); q += dot(q, q.zyx+31.32); return fract((q.x+q.y)*q.z); }
+vec3  hash33(vec3 q){ q = fract(q*vec3(.1031,.1030,.0973)); q += dot(q, q.yxz+33.33); return fract((q.xxy+q.yxx)*q.zyx); }
+
+float vnoise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f*f*f*(f*(f*6.-15.)+10.);
+  return mix(mix(hash12(i),             hash12(i+vec2(1.,0.)), u.x),
+             mix(hash12(i+vec2(0.,1.)), hash12(i+vec2(1.,1.)), u.x), u.y);
+}
+float vnoise3(vec3 p){
+  vec3 i = floor(p), f = fract(p);
+  f = f*f*(3.-2.*f);
+  return mix(mix(mix(hash13(i),                hash13(i+vec3(1.,0.,0.)), f.x),
+                 mix(hash13(i+vec3(0.,1.,0.)), hash13(i+vec3(1.,1.,0.)), f.x), f.y),
+             mix(mix(hash13(i+vec3(0.,0.,1.)), hash13(i+vec3(1.,0.,1.)), f.x),
+                 mix(hash13(i+vec3(0.,1.,1.)), hash13(i+vec3(1.,1.,1.)), f.x), f.y), f.z);
+}
+float fbm3(vec3 p){
+  float s = 0., a = .5;
+  for(int i=0;i<4;i++){ s += a*vnoise3(p); p = p*2.02+vec3(3.1,1.7,4.3); a *= .5; }
+  return s;
+}
+float n1(float x){
+  float i = floor(x), f = fract(x);
+  f = f*f*(3.-2.*f);
+  return mix(hash11(i), hash11(i+1.), f);
+}
+float ridged(float x){
+  float s = 0., a = .5;
+  for(int i=0;i<6;i++){ s += a*(1.-abs(2.*n1(x)-1.)); x = x*2.07+13.7; a *= .5; }
+  return s;
+}
+float fbm1(float x){
+  float s = 0., a = .5;
+  for(int i=0;i<4;i++){ s += a*n1(x); x = x*2.03+7.3; a *= .5; }
+  return s;
+}
+
+/* ---------- aurora ---------- */
+float curtain(vec2 p, float t){
+  vec2 w = vec2(vnoise(p*.33+vec2(0., t*.02)), vnoise(p*.33+vec2(17.3,-t*.016)));
+  vec2 q = p+(w-.5)*3.;
+  float n = vnoise(q*.55+vec2(t*.012, 4.));
+  float r = 1.-abs(2.*n-1.);
+  r *= r; r *= r; r *= r;
+  float m = vnoise(q*1.3+vec2(9.,-t*.028));
+  float r2 = 1.-abs(2.*m-1.);
+  r2 *= r2; r2 *= r2; r2 *= r2;
+  float rays = .3+.7*vnoise(q*8.5+vec2(t*.22,-t*.06));
+  return (r+.35*r2)*rays+.025*n;
+}
+
+vec3 aurora(vec3 rd, float jit, float k){
+  float t = uTime;
+  vec2 base = rd.xz/(rd.y+.22);
+  float mask = .14+.86*smoothstep(.32,.68, vnoise(base*.22+vec2(-t*.009, 40.)));
+  vec3 top = mix(vec3(.72,.2,.9), vec3(.95,.22,.45), .5+.5*sin(t*.031));
+  vec3 col = vec3(0.);
+  float avg = 0.;
+  for(int i=0;i<32;i++){
+    float s = (float(i)+jit)/32.;
+    float h = 1.+s*.72;
+    float f = curtain(base*h+vec2(3.7,11.3), t);
+    avg = mix(avg, f, .5);
+    vec3 c = mix(vec3(.06,1.,.4), vec3(.08,.6,.95), smoothstep(.05,.5,s));
+    c = mix(c, top, smoothstep(.38,1.,s));
+    col += c*avg*exp(-s*2.4)*smoothstep(0.,.09,s);
+  }
+  return col*.19*k*mask*smoothstep(-.03,.16,rd.y);
+}
+
+/* ---------- stars ---------- */
+vec3 stars(vec3 rd, float px){
+  vec3 acc = vec3(0.);
+  for(int i=0;i<3;i++){
+    float fi = float(i);
+    float sc = 36.+fi*44.;
+    vec3 p = rd*sc+fi*13.1;
+    vec3 id = floor(p);
+    vec3 f = fract(p)-.5;
+    vec3 h = hash33(id);
+    float r = hash13(id+3.7);
+    float rad = clamp(max(.03+.05*r, 1.25*px*sc), 0., .2);
+    float d = length(f-(h-.5)*.58);
+    float b = 1.-smoothstep(0., rad, d);
+    b *= b;
+    float mag = pow(r,7.)*(3.-fi*.8)+.06*r*r;
+    float tw = .78+.22*sin(uTime*(1.2+4.*h.z)+h.x*60.);
+    vec3 tint = mix(vec3(.72,.84,1.), vec3(1.,.8,.62), h.y*h.y);
+    acc += tint*b*mag*tw;
+    if(i==0) acc += tint*pow(r,14.)*.5*exp(-d*10.);
+  }
+  return acc;
+}
+
+/* ---------- shooting stars ---------- */
+float meteor(vec2 m, vec4 M){
+  float age = uTime-M.w;
+  if(age<0. || age>1.3) return 0.;
+  float k = age/1.3;
+  vec2 d = vec2(cos(M.z), sin(M.z));
+  vec2 rel = m-(M.xy+d*age*.55);
+  float along = -dot(rel,d);
+  float perp = dot(rel, vec2(-d.y,d.x));
+  float len = .16*sin(k*PI)+.01;
+  float tail = clamp(1.-along/len, 0., 1.)*step(0., along);
+  float w = .0009+.0012*tail;
+  float core = exp(-perp*perp/(w*w))*tail*tail;
+  float hd = exp(-dot(rel,rel)/.000012);
+  return (core*1.6+hd*2.)*sin(k*PI);
+}
+
+/* ---------- pines ---------- */
+float pines(float az, float e, float dens, float seed, float hmax, float px){
+  float x = az*dens;
+  float id = floor(x);
+  float r = hash11(id*1.31+seed);
+  float fx = abs(fract(x)-.5+(r-.5)*.3);
+  float H = hmax*(.4+.6*hash11(id*2.17+seed+5.));
+  float tt = e/H;
+  float tier = 1.-fract(tt*5.+r*3.);
+  float w = (1.-tt)*(.4+.6*tier)*.33;
+  float a = px*dens*1.2;
+  return 1.-smoothstep(w-a, w+a, fx);
+}
+
+/* ---------- everything above the waterline ---------- */
+vec3 scene(vec3 rd, float jit, float px){
+  float t = uTime;
+  float lxz = max(length(rd.xz), 1e-4);
+  float az = atan(rd.x, rd.z);
+  float el = rd.y/lxz;
+  float aa = 1.4*px;
+
+  float open = smoothstep(.04,.75,abs(az-.05));
+  float h1 = (.016+.2*pow(ridged(az*1.9+2.3),1.7))*(.42+.58*open);
+  float h2 = (.011+.09*pow(ridged(az*3.3+31.),1.5))*(.5+.5*smoothstep(0.,.55,abs(az+.12)));
+  float h3 = .0045+.02*fbm1(az*7.+50.);
+  float m1 = 1.-smoothstep(h1-aa, h1+aa, el);
+  float m2 = 1.-smoothstep(h2-aa, h2+aa, el);
+  float m3 = 1.-smoothstep(h3-aa, h3+aa, el);
+  if(el < h3+.05){
+    m3 = max(m3, pines(az,       el-h3+.002, 128., 3., .026, px));
+    m3 = max(m3, pines(az+.0037, el-h3+.003,  83., 9., .036, px));
+  }
+  float cover = max(m1, max(m2, m3));
+
+  float k = .85+.25*sin(t*.047)+.12*sin(t*.113+1.3);
+  vec3 col = vec3(0.);
+
+  if(cover < .995){
+    float g = pow(clamp(rd.y,0.,1.), .5);
+    col = mix(vec3(.011,.04,.055), vec3(.003,.007,.021), g);
+    col += vec3(.005,.03,.022)*exp(-rd.y*4.)*k;
+
+    // milky way
+    float bd = dot(rd, normalize(vec3(.8,-.45,.15)));
+    float band = exp(-bd*bd*26.);
+    float mw = 0.;
+    if(band > .02){
+      float neb  = fbm3(rd*4.5+vec3(1.3,7.1,2.9));
+      float dust = fbm3(rd*9.+vec3(21.,3.,8.));
+      mw = band*smoothstep(.3,.75,neb)*(1.-.75*smoothstep(.45,.7,dust)*band)*smoothstep(0.,.35,rd.y);
+      col += (vec3(.03,.036,.06)+vec3(.03,.018,.01)*band*band)*mw;
+    }
+
+    vec3 au = aurora(rd, jit, k);
+    vec3 st = stars(rd, px)*(1.+1.6*mw)*(.25+.75*smoothstep(0.,.3,rd.y));
+    col += st*(1.-min(.75, au.g*.7));
+    col += au;
+
+    vec2 m = vec2(az, el);
+    col += vec3(.85,.93,1.)*(meteor(m,uMet[0])+meteor(m,uMet[1]));
+  }
+
+  // far range, catching the light
+  vec3 hz = vec3(.016,.05,.052)*(.7+.3*k);
+  vec3 c1 = vec3(.006,.017,.027);
+  float tex = vnoise(vec2(az*70., el*160.));
+  c1 += vec3(.01,.032,.03)*exp(-max(h1-el,0.)*26.)*(.35+.65*tex)*k;
+  c1 = mix(c1, hz, .55*exp(-el*24.));
+  col = mix(col, c1, m1);
+
+  // middle range
+  vec3 c2 = vec3(.0035,.01,.016)+vec3(.004,.014,.012)*exp(-max(h2-el,0.)*60.)*k;
+  c2 = mix(c2, hz*.6, .5*exp(-el*45.));
+  col = mix(col, c2, m2);
+
+  // near shore & pines
+  col = mix(col, vec3(.0012,.0035,.005), m3);
+
+  // one warm window across the water
+  float dd = length(vec2(az-.135, el-.0032));
+  float fl = .9+.1*sin(t*5.3)*sin(t*2.1+1.);
+  col += vec3(1.,.55,.2)*(1.4*exp(-dd*650.)+.1*exp(-dd*85.))*fl;
+
+  return col;
+}
+
+vec3 aces(vec3 x){ return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14), 0., 1.); }
+
+void main(){
+  vec2 fc = gl_FragCoord.xy;
+  float mn = min(uRes.x, uRes.y);
+  vec2 uv = (fc-.5*uRes)/mn;
+  float px = 1./(mn*FOC);
+  float t = uTime;
+
+  vec3 rd = normalize(vec3(uv.x, uv.y+.18*uRes.y/mn+uCam.y, FOC));
+  float cy = cos(uCam.x), sy = sin(uCam.x);
+  rd = vec3(rd.x*cy+rd.z*sy, rd.y, rd.z*cy-rd.x*sy);
+
+  float jit = fract(52.9829189*fract(dot(fc, vec2(.06711056,.00583715)))+t*9.37);
+
+  vec3 rr = rd;
+  float wet = 0.;
+  float spx = px;
+  if(rd.y < 0.){
+    wet = 1.;
+    vec2 wp = rd.xz/max(-rd.y, .002);
+    float dist = length(wp);
+    float fade = 1./(1.+dist*dist*.012);
+    float w1 = vnoise(wp*1.7+vec2(t*.22, t*.31))+.5*vnoise(wp*4.3+vec2(-t*.4, t*.27));
+    float w2 = vnoise(wp*2.3+vec2(31.-t*.25, t*.2));
+    float dy = (w1-.75)*.15*fade;
+    float dx = (w2-.5)*.05*fade;
+    float rf = 1./(1.+dist*dist*.004);
+    for(int i=0;i<4;i++){
+      vec4 R = uRip[i];
+      float age = t-R.z;
+      if(age>0. && age<10.){
+        float fr = length(wp-R.xy)-age*1.5;
+        dy += sin(fr*6.5)*exp(-abs(fr)*.9)*exp(-age*.5)*smoothstep(0.,.5,age)*R.w*.075*rf;
+      }
+    }
+    rr = normalize(vec3(rd.x+dx, max(-rd.y+dy, .0008), rd.z));
+    spx = px*2.;
+  }
+
+  vec3 col = scene(rr, jit, spx);
+
+  if(wet > .5){
+    float fres = .2+.72*pow(1.+rd.y, 5.);
+    col = col*fres+vec3(.002,.008,.012);
+  }
+
+  // mist lying on the lake
+  float elv = rd.y/max(length(rd.xz), 1e-4);
+  float mist = exp(-abs(elv)*(wet>.5 ? 26. : 60.));
+  float mz = vnoise(vec2(atan(rd.x,rd.z)*8.+t*.02, 1.5+t*.01));
+  col = mix(col, vec3(.028,.07,.075), mist*(.18+.3*mz));
+
+  // lens & film
+  vec2 q = fc/uRes;
+  float vig = pow(max(16.*q.x*q.y*(1.-q.x)*(1.-q.y), 1e-4), .22);
+  col *= mix(.5, 1., vig)*uCam.z;
+  col = aces(col*1.15);
+  col = pow(col, vec3(1./2.2));
+  col = mix(col, col*col*(3.-2.*col), .25);
+  col += (hash12(fc+fract(t)*91.7)-.5)*.022;
+  gl_FragColor = vec4(col, 1.);
+}
+`;
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+const S = {
+  t: 40 + Math.random()*600, last: 0,
+  yaw: 0, pitch: 0, tyaw: 0, tpitch: 0, camYaw: 0,
+  fade: 0, q: 1,
+  nextMeteor: 0, nextRipple: 0
+};
+S.nextMeteor = S.t + 5;
+S.nextRipple = S.t + 7;
+
+const met = new Float32Array(8);  met[3] = met[7] = -100;
+const rip = new Float32Array(16); for (let i = 0; i < 4; i++) rip[i*4+2] = -100;
+let metI = 0, ripI = 0;
+
+function addMeteor(az, el, ang){
+  const o = metI*4; met[o] = az; met[o+1] = el; met[o+2] = ang; met[o+3] = S.t;
+  metI = (metI+1) % 2;
+}
+function addRipple(x, z, strength){
+  const o = ripI*4; rip[o] = x; rip[o+1] = z; rip[o+2] = S.t; rip[o+3] = strength;
+  ripI = (ripI+1) % 4;
+}
+function meteorAngle(){
+  return Math.random() < .5 ? -Math.PI*.5 - .5 - Math.random()*.5
+                            : -Math.PI*.5 + .5 + Math.random()*.5;
+}
+function randomMeteor(){
+  addMeteor(S.camYaw + (Math.random()-.5)*1.1, .26 + Math.random()*.3, meteorAngle());
+}
+
+/* =====================================================================
+   WEBGL
+   ===================================================================== */
+let gl = null, U = null, glOK = false;
+
+function initGL(){
+  try{
+    const opts = {alpha:false, antialias:false, depth:false, stencil:false, powerPreference:'high-performance'};
+    gl = canvas.getContext('webgl', opts) || canvas.getContext('experimental-webgl', opts);
+    if(!gl) return false;
+    const mk = (type, src) => {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+      return s;
+    };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, mk(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, mk(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+    gl.useProgram(prog);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    U = {
+      res:  gl.getUniformLocation(prog, 'uRes'),
+      time: gl.getUniformLocation(prog, 'uTime'),
+      cam:  gl.getUniformLocation(prog, 'uCam'),
+      met:  gl.getUniformLocation(prog, 'uMet'),
+      rip:  gl.getUniformLocation(prog, 'uRip')
+    };
+    return true;
+  }catch(err){
+    console.error(err);
+    return false;
+  }
+}
+
+function resize(){
+  if(!gl) return;
+  const w = Math.max(1, innerWidth), h = Math.max(1, innerHeight);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const budget = Math.sqrt(1.8e6/(w*h));
+  const s = Math.min(dpr, budget)*S.q;
+  canvas.width  = Math.max(2, Math.round(w*s));
+  canvas.height = Math.max(2, Math.round(h*s));
+  gl.viewport(0, 0, canvas.width, canvas.height);
+}
+
+/* =====================================================================
+   SOUND — a small generative score
+   ===================================================================== */
+const Sound = (() => {
+  let ctx = null, master, verb, voices = [], on = false, chordI = 0, chordTimer = 0, chimeTimer = 0;
+  const mtof = m => 440*Math.pow(2, (m-69)/12);
+  const CH = [[38,45,54,57,64],[35,47,54,57,62],[43,50,54,59,66],[33,45,52,61,64]];
+  const PENTA = [74,76,78,81,83,86,88,90,93];
+
+  function impulse(sec, decay){
+    const len = Math.floor(ctx.sampleRate*sec), buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for(let c = 0; c < 2; c++){
+      const d = buf.getChannelData(c);
+      for(let i = 0; i < len; i++) d[i] = (Math.random()*2-1)*Math.pow(1-i/len, decay);
+    }
+    return buf;
+  }
+
+  function init(){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return false;
+    ctx = new AC();
+    master = ctx.createGain(); master.gain.value = 0;
+    const comp = ctx.createDynamicsCompressor();
+    master.connect(comp); comp.connect(ctx.destination);
+
+    verb = ctx.createConvolver(); verb.buffer = impulse(5.5, 2.6);
+    const wet = ctx.createGain(); wet.gain.value = .55;
+    verb.connect(wet); wet.connect(master);
+
+    // pad
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 720; lp.Q.value = .4;
+    const pad = ctx.createGain(); pad.gain.value = .5;
+    lp.connect(pad); pad.connect(master); pad.connect(verb);
+    const lfo = ctx.createOscillator(); lfo.frequency.value = .05;
+    const lg = ctx.createGain(); lg.gain.value = 260;
+    lfo.connect(lg); lg.connect(lp.frequency); lfo.start();
+
+    CH[0].forEach((m, i) => {
+      const g = ctx.createGain(); g.gain.value = i === 0 ? .16 : .09;
+      const o1 = ctx.createOscillator(); o1.type = 'sine';
+      const o2 = ctx.createOscillator(); o2.type = 'triangle'; o2.detune.value = i % 2 ? 7 : -7;
+      const g2 = ctx.createGain(); g2.gain.value = .45;
+      o1.frequency.value = o2.frequency.value = mtof(m);
+      o1.connect(g); o2.connect(g2); g2.connect(g); g.connect(lp);
+      const tl = ctx.createOscillator(); tl.frequency.value = .07+.05*i;
+      const tg = ctx.createGain(); tg.gain.value = .035;
+      tl.connect(tg); tg.connect(g.gain); tl.start();
+      o1.start(); o2.start();
+      voices.push([o1, o2]);
+    });
+
+    // wind
+    const nb = ctx.createBuffer(1, ctx.sampleRate*3, ctx.sampleRate);
+    const nd = nb.getChannelData(0);
+    for(let i = 0; i < nd.length; i++) nd[i] = Math.random()*2-1;
+    const ns = ctx.createBufferSource(); ns.buffer = nb; ns.loop = true;
+    const wf = ctx.createBiquadFilter(); wf.type = 'lowpass'; wf.frequency.value = 380; wf.Q.value = .3;
+    const wg = ctx.createGain(); wg.gain.value = .035;
+    const wl = ctx.createOscillator(); wl.frequency.value = .09;
+    const wlg = ctx.createGain(); wlg.gain.value = 170;
+    wl.connect(wlg); wlg.connect(wf.frequency); wl.start();
+    const wl2 = ctx.createOscillator(); wl2.frequency.value = .061;
+    const wl2g = ctx.createGain(); wl2g.gain.value = .018;
+    wl2.connect(wl2g); wl2g.connect(wg.gain); wl2.start();
+    ns.connect(wf); wf.connect(wg); wg.connect(master); ns.start();
+    return true;
+  }
+
+  function chime(m, vel, when){
+    if(!ctx || !on) return;
+    const t = ctx.currentTime + (when || 0), f = mtof(m);
+    const o = ctx.createOscillator(), o2 = ctx.createOscillator();
+    const g = ctx.createGain(), g2 = ctx.createGain(), dry = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = f;
+    o2.type = 'sine'; o2.frequency.value = f*2.01; g2.gain.value = .18;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(.07*(vel || 1), t+.02);
+    g.gain.exponentialRampToValueAtTime(.0001, t+3.2);
+    o.connect(g); o2.connect(g2); g2.connect(g);
+    let out = g;
+    if(ctx.createStereoPanner){
+      const p = ctx.createStereoPanner(); p.pan.value = Math.random()*1.4-.7;
+      g.connect(p); out = p;
+    }
+    out.connect(verb);
+    dry.gain.value = .35; out.connect(dry); dry.connect(master);
+    o.start(t); o2.start(t); o.stop(t+3.4); o2.stop(t+3.4);
+  }
+
+  function nextChord(){
+    chordI = (chordI+1) % CH.length;
+    const t = ctx.currentTime;
+    CH[chordI].forEach((m, i) => voices[i].forEach(o => o.frequency.setTargetAtTime(mtof(m), t, .9)));
+  }
+
+  function loopChime(){
+    if(!on) return;
+    chime(PENTA[Math.floor(Math.random()*PENTA.length)], .5+Math.random()*.5);
+    if(Math.random() < .35) chime(PENTA[Math.floor(Math.random()*PENTA.length)], .4, .28+Math.random()*.3);
+    chimeTimer = setTimeout(loopChime, 1600+Math.random()*4200);
+  }
+
+  function toggle(){
+    if(!ctx && !init()) return false;
+    on = !on;
+    const t = ctx.currentTime;
+    master.gain.cancelScheduledValues(t);
+    clearInterval(chordTimer); clearTimeout(chimeTimer);
+    if(on){
+      ctx.resume();
+      master.gain.setTargetAtTime(.9, t, 1.4);
+      chordTimer = setInterval(nextChord, 15000);
+      chimeTimer = setTimeout(loopChime, 2500);
+    }else{
+      master.gain.setTargetAtTime(0, t, .25);
+      setTimeout(() => { if(!on && ctx) ctx.suspend(); }, 1800);
+    }
+    return on;
+  }
+
+  return { toggle, chime };
+})();
+
+/* =====================================================================
+   INTERACTION
+   ===================================================================== */
+const ring = $('.cursor');
+let cx = -100, cy = -100, rx = -100, ry = -100;
+let down = null, idleT = 0;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+function wake(){
+  document.body.classList.remove('idle');
+  clearTimeout(idleT);
+  idleT = setTimeout(() => document.body.classList.add('idle'), 5200);
+}
+
+function ray(x, y){
+  const w = innerWidth, h = innerHeight, m = Math.min(w, h);
+  let dx = (x-.5*w)/m, dy = (.5*h-y)/m + HOR*h/m + S.pitch, dz = FOC;
+  const l = Math.hypot(dx, dy, dz); dx /= l; dy /= l; dz /= l;
+  const c = Math.cos(S.camYaw), s = Math.sin(S.camYaw);
+  return [dx*c+dz*s, dy, dz*c-dx*s];
+}
+
+function tap(x, y){
+  const r = ray(x, y);
+  if(r[1] < -.006){
+    addRipple(r[0]/-r[1], r[2]/-r[1], 1);
+    Sound.chime(62, .9); Sound.chime(69, .5, .12);
+  }else{
+    const az = Math.atan2(r[0], r[2]);
+    const el = Math.max(.02, r[1]/Math.hypot(r[0], r[2]));
+    const a = meteorAngle();
+    addMeteor(az-Math.cos(a)*.12, el-Math.sin(a)*.12, a);
+    Sound.chime(93, .8); Sound.chime(90, .6, .09); Sound.chime(86, .5, .18);
+  }
+}
+
+canvas.addEventListener('pointerdown', e => {
+  wake();
+  down = {lx: e.clientX, ly: e.clientY, t: performance.now(), moved: 0, id: e.pointerId};
+  ring.classList.add('press');
+});
+addEventListener('pointermove', e => {
+  wake();
+  if(e.pointerType === 'mouse'){
+    cx = e.clientX; cy = e.clientY; ring.classList.add('on');
+    S.tyaw = (e.clientX/innerWidth-.5)*.8;
+    S.tpitch = (.5-e.clientY/innerHeight)*.14;
+  }
+  if(down && e.pointerId === down.id){
+    const dx = e.clientX-down.lx, dy = e.clientY-down.ly;
+    down.lx = e.clientX; down.ly = e.clientY;
+    down.moved += Math.abs(dx)+Math.abs(dy);
+    if(e.pointerType !== 'mouse'){
+      S.tyaw = clamp(S.tyaw-dx/innerWidth*1.1, -.45, .45);
+      S.tpitch = clamp(S.tpitch+dy/innerHeight*.25, -.07, .09);
+    }
+  }
+}, {passive: true});
+addEventListener('pointerup', e => {
+  ring.classList.remove('press');
+  if(down && e.pointerId === down.id){
+    if(down.moved < 12 && performance.now()-down.t < 600) tap(e.clientX, e.clientY);
+    down = null;
+  }
+});
+addEventListener('pointercancel', () => { down = null; ring.classList.remove('press'); });
+document.addEventListener('mouseleave', () => ring.classList.remove('on'));
+
+const sndBtn = $('#snd'), fsBtn = $('#fs');
+function toggleSound(){
+  const on = Sound.toggle();
+  sndBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  sndBtn.querySelector('.lbl').textContent = on ? 'Sound on' : 'Sound off';
+  sndBtn.classList.remove('beckon');
+}
+sndBtn.addEventListener('click', toggleSound);
+
+const de = document.documentElement;
+const reqFS = de.requestFullscreen || de.webkitRequestFullscreen;
+if(!reqFS) fsBtn.hidden = true;
+function toggleFS(){
+  if(!reqFS) return;
+  if(document.fullscreenElement || document.webkitFullscreenElement){
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  }else{
+    const p = reqFS.call(de);
+    if(p && p.catch) p.catch(() => {});
+  }
+}
+fsBtn.addEventListener('click', toggleFS);
+
+addEventListener('keydown', e => {
+  if(e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if(k === 's') toggleSound();
+  else if(k === 'f') toggleFS();
+  else if(k === 'h') document.body.classList.toggle('bare');
+  else if(k === ' ' && !(e.target && e.target.tagName === 'BUTTON')){ e.preventDefault(); randomMeteor(); }
+});
+
+/* =====================================================================
+   LOOP
+   ===================================================================== */
+let fAcc = 0, fN = 0, warm = 0;
+
+function frame(now){
+  requestAnimationFrame(frame);
+  const raw = (now-S.last)/1000 || 0;
+  S.last = now;
+  const dt = Math.min(.1, Math.max(0, raw));
+  S.t += dt*(reduced ? .35 : 1);
+
+  // cursor
+  const ce = 1-Math.exp(-dt*16);
+  rx += (cx-rx)*ce; ry += (cy-ry)*ce;
+  ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
+
+  if(!glOK) return;
+
+  // adaptive resolution: trade pixels for smoothness on slower GPUs
+  if(raw > 0 && raw < .25){
+    warm++;
+    if(warm > 50){
+      fAcc += raw; fN++;
+      if(fN >= 45){
+        const avg = fAcc/fN; fAcc = 0; fN = 0;
+        if(avg > .027 && S.q > .42){ S.q = Math.max(.42, S.q*.8); resize(); warm = 20; }
+      }
+    }
+  }
+
+  // camera
+  const e = 1-Math.exp(-dt*2.2);
+  S.yaw += (S.tyaw-S.yaw)*e;
+  S.pitch += (S.tpitch-S.pitch)*e;
+  S.camYaw = S.yaw + (reduced ? 0 : Math.sin(S.t*.05)*.05);
+  S.fade = Math.min(1, S.fade+dt/3.6);
+  const f = S.fade*S.fade*(3-2*S.fade);
+
+  // the night keeps its own schedule
+  if(S.t > S.nextMeteor){ randomMeteor(); S.nextMeteor = S.t+5+Math.random()*10; }
+  if(S.t > S.nextRipple){
+    addRipple((Math.random()-.5)*8, 3+Math.random()*10, .45+Math.random()*.3);
+    S.nextRipple = S.t+7+Math.random()*9;
+  }
+
+  gl.uniform2f(U.res, canvas.width, canvas.height);
+  gl.uniform1f(U.time, S.t);
+  gl.uniform3f(U.cam, S.camYaw, S.pitch, f);
+  gl.uniform4fv(U.met, met);
+  gl.uniform4fv(U.rip, rip);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+}
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+glOK = initGL();
+if(glOK){
+  resize();
+  addEventListener('resize', resize);
+  canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); glOK = false; });
+  canvas.addEventListener('webglcontextrestored', () => { glOK = initGL(); resize(); });
+}else{
+  document.body.classList.add('fallback');
+}
+setTimeout(() => { document.body.classList.add('live'); wake(); }, reduced ? 4500 : 8800);
+requestAnimationFrame(frame);
+
+})();
+</script>
+</body>
+</html>
