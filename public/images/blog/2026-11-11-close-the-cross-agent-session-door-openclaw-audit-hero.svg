@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Abstract composition of agent nodes with narrowed visibility paths">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1e33"/>
+      <stop offset="1" stop-color="#0a1626"/>
+    </linearGradient>
+    <linearGradient id="door" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f2a03d" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#f2a03d" stop-opacity="0.25"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#navy)"/>
+
+  <!-- ambient glows -->
+  <circle cx="180" cy="140" r="150" fill="#12283f" opacity="0.55" filter="url(#soft)"/>
+  <circle cx="1010" cy="500" r="170" fill="#123246" opacity="0.5" filter="url(#soft)"/>
+  <circle cx="640" cy="315" r="230" fill="#0e2236" opacity="0.6" filter="url(#soft)"/>
+
+  <!-- faint mesh: the before-state, wide-open cross-links -->
+  <g stroke="#3c5a78" stroke-width="1.5" opacity="0.38">
+    <line x1="150" y1="130" x2="420" y2="240"/>
+    <line x1="420" y1="240" x2="300" y2="470"/>
+    <line x1="300" y1="470" x2="150" y2="130"/>
+    <line x1="150" y1="130" x2="300" y2="470"/>
+    <line x1="900" y1="120" x2="1050" y2="330"/>
+    <line x1="1050" y1="330" x2="880" y2="500"/>
+    <line x1="880" y1="500" x2="900" y2="120"/>
+    <line x1="900" y1="120" x2="880" y2="500"/>
+    <line x1="420" y1="240" x2="780" y2="230" stroke-dasharray="5 7"/>
+    <line x1="300" y1="470" x2="880" y2="500" stroke-dasharray="5 7"/>
+  </g>
+
+  <!-- central divider: the boundary the config draws -->
+  <rect x="596" y="70" width="8" height="490" rx="4" fill="url(#door)"/>
+
+  <!-- left cluster: many agents, many lines (the open default) -->
+  <g>
+    <circle cx="150" cy="130" r="26" fill="none" stroke="#f2a03d" stroke-width="3"/>
+    <circle cx="150" cy="130" r="9" fill="#f2a03d"/>
+    <circle cx="420" cy="240" r="30" fill="none" stroke="#e8b84b" stroke-width="3"/>
+    <circle cx="420" cy="240" r="10" fill="#e8b84b"/>
+    <circle cx="300" cy="470" r="24" fill="none" stroke="#f2a03d" stroke-width="3"/>
+    <circle cx="300" cy="470" r="8" fill="#f2a03d"/>
+    <circle cx="530" cy="420" r="18" fill="none" stroke="#e8b84b" stroke-width="2.5" opacity="0.8"/>
+    <circle cx="530" cy="420" r="6" fill="#e8b84b" opacity="0.8"/>
+    <line x1="530" y1="420" x2="420" y2="240" stroke="#3c5a78" stroke-width="1.5" opacity="0.38"/>
+    <line x1="530" y1="420" x2="300" y2="470" stroke="#3c5a78" stroke-width="1.5" opacity="0.38"/>
+  </g>
+
+  <!-- right cluster: same agents, self-scoped rings -->
+  <g>
+    <circle cx="900" cy="120" r="26" fill="none" stroke="#39b8a8" stroke-width="3"/>
+    <circle cx="900" cy="120" r="9" fill="#39b8a8"/>
+    <circle cx="900" cy="120" r="44" fill="none" stroke="#39b8a8" stroke-width="1.5" opacity="0.55" stroke-dasharray="3 6"/>
+    <circle cx="1050" cy="330" r="30" fill="none" stroke="#39b8a8" stroke-width="3"/>
+    <circle cx="1050" cy="330" r="10" fill="#39b8a8"/>
+    <circle cx="1050" cy="330" r="52" fill="none" stroke="#39b8a8" stroke-width="1.5" opacity="0.55" stroke-dasharray="3 6"/>
+    <circle cx="880" cy="500" r="24" fill="none" stroke="#39b8a8" stroke-width="3"/>
+    <circle cx="880" cy="500" r="8" fill="#39b8a8"/>
+    <circle cx="880" cy="500" r="42" fill="none" stroke="#39b8a8" stroke-width="1.5" opacity="0.55" stroke-dasharray="3 6"/>
+  </g>
+
+  <!-- single permitted bridge: the send-only channel across the boundary -->
+  <path d="M 448 232 C 520 210, 560 260, 596 300" fill="none" stroke="#e8b84b" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 12"/>
+  <path d="M 604 310 C 700 300, 760 320, 848 330" fill="none" stroke="#e8b84b" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 12"/>
+  <circle cx="448" cy="232" r="5" fill="#e8b84b"/>
+  <circle cx="848" cy="330" r="5" fill="#e8b84b"/>
+
+  <!-- blocked paths: short stubs that stop at the door -->
+  <g stroke="#8aa4bd" stroke-width="3" stroke-linecap="round" opacity="0.65">
+    <line x1="530" y1="420" x2="578" y2="404"/>
+    <line x1="300" y1="470" x2="360" y2="520"/>
+    <line x1="900" y1="120" x2="830" y2="90"/>
+  </g>
+
+  <!-- corner accents -->
+  <g stroke="#2a4a68" stroke-width="2" opacity="0.8">
+    <path d="M 40 40 h 44 M 40 40 v 44" fill="none"/>
+    <path d="M 1160 590 h -44 M 1160 590 v -44" fill="none"/>
+  </g>
+</svg>
