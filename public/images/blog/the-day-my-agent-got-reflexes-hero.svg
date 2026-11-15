@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hero for "The Day My Agent Got Reflexes" — no-text abstract: a reflex loop
+     bypassing a model node, handback arc returning to the model. Navy/orange/gold. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="A reflex path bypassing a model node, with a handback arc returning to it">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#001F3F"/>
+      <stop offset="55%" stop-color="#0a2036"/>
+      <stop offset="100%" stop-color="#001F3F"/>
+    </linearGradient>
+    <linearGradient id="orangeGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#ea580c" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#C9A96E" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- grid frame -->
+  <g stroke="#122741" stroke-width="2">
+    <line x1="80" y1="0" x2="80" y2="630"/>
+    <line x1="1120" y1="0" x2="1120" y2="630"/>
+    <line x1="0" y1="80" x2="1200" y2="80"/>
+    <line x1="0" y1="550" x2="1200" y2="550"/>
+  </g>
+
+  <!-- glows -->
+  <rect x="0" y="200" width="1200" height="56" fill="url(#orangeGlow)" filter="url(#soft)"/>
+  <rect x="0" y="380" width="1200" height="56" fill="url(#goldGlow)" filter="url(#soft)"/>
+
+  <!-- incoming message node (left) -->
+  <circle cx="190" cy="315" r="34" fill="#0d2a47" stroke="#00D4FF" stroke-width="3"/>
+  <circle cx="190" cy="315" r="10" fill="#00D4FF" opacity="0.8"/>
+
+  <!-- the model node (center, the one the reflex bypasses) -->
+  <g opacity="0.9">
+    <rect x="480" y="255" width="240" height="120" rx="18" fill="#0e2c4d" stroke="#C9A96E" stroke-width="3" stroke-dasharray="10 7"/>
+    <circle cx="540" cy="315" r="9" fill="#C9A96E"/>
+    <circle cx="600" cy="315" r="9" fill="#C9A96E" opacity="0.65"/>
+    <circle cx="660" cy="315" r="9" fill="#C9A96E" opacity="0.4"/>
+  </g>
+
+  <!-- the reflex file (right): stacked small steps -->
+  <g>
+    <rect x="880" y="195" width="180" height="34" rx="8" fill="#12304f" stroke="#ea580c" stroke-width="3"/>
+    <rect x="880" y="243" width="180" height="34" rx="8" fill="#12304f" stroke="#ea580c" stroke-width="3"/>
+    <rect x="880" y="291" width="180" height="34" rx="8" fill="#12304f" stroke="#ea580c" stroke-width="3"/>
+    <rect x="880" y="339" width="180" height="34" rx="8" fill="#12304f" stroke="#ea580c" stroke-width="2" stroke-dasharray="6 5"/>
+  </g>
+
+  <!-- fast path: message -> reflex (straight, bright) -->
+  <path d="M 224 315 C 420 315, 620 285, 872 245" fill="none" stroke="#ea580c" stroke-width="6" stroke-linecap="round"/>
+  <polygon points="872,245 850,236 852,254" fill="#ea580c"/>
+
+  <!-- slow path: message -> model (dim) -->
+  <path d="M 224 315 C 340 315, 380 315, 474 315" fill="none" stroke="#C9A96E" stroke-width="4" stroke-dasharray="4 10" stroke-linecap="round" opacity="0.6"/>
+  <polygon points="474,315 456,307 456,323" fill="#C9A96E" opacity="0.6"/>
+
+  <!-- handback arc: reflex -> back toward model (returns only what is left) -->
+  <path d="M 880 356 C 700 470, 420 470, 300 350" fill="none" stroke="#00D4FF" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round" opacity="0.75"/>
+  <polygon points="300,350 312,368 322,352" fill="#00D4FF" opacity="0.75"/>
+
+  <!-- done tick above the reflex stack -->
+  <circle cx="970" cy="150" r="22" fill="none" stroke="#ea580c" stroke-width="4"/>
+  <path d="M 959 150 L 967 159 L 983 141" fill="none" stroke="#ea580c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- small ambient nodes -->
+  <g opacity="0.35" fill="#00D4FF">
+    <circle cx="330" cy="140" r="4"/>
+    <circle cx="420" cy="520" r="3"/>
+    <circle cx="1060" cy="110" r="5"/>
+    <circle cx="180" cy="480" r="3"/>
+    <circle cx="700" cy="120" r="3"/>
+  </g>
+</svg>
