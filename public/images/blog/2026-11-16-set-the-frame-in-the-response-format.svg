@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Abstract frame-within-a-frame composition">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#001F3F"/>
+      <stop offset="1" stop-color="#002b57"/>
+    </linearGradient>
+    <linearGradient id="goldline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C9A96E" stop-opacity="0.25"/>
+      <stop offset="0.5" stop-color="#C9A96E"/>
+      <stop offset="1" stop-color="#C9A96E" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="orangeglow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ea580c" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ea580c" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#navy)"/>
+
+  <!-- outer frame: the response_format envelope -->
+  <rect x="240" y="140" width="1120" height="620" fill="none" stroke="#C9A96E" stroke-opacity="0.55" stroke-width="2.5"/>
+  <rect x="240" y="140" width="1120" height="620" fill="none" stroke="#C9A96E" stroke-opacity="0.12" stroke-width="14"/>
+
+  <!-- inner frames: crops at different ratios, sharing the same center -->
+  <!-- 21:9 -->
+  <rect x="390" y="368" width="820" height="164" fill="none" stroke="#C792EA" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="10 8"/>
+  <!-- 16:9 -->
+  <rect x="416" y="312" width="768" height="276" fill="none" stroke="#ea580c" stroke-opacity="0.5" stroke-width="2.5"/>
+  <!-- 4:3 -->
+  <rect x="530" y="252" width="540" height="396" fill="none" stroke="#C9A96E" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="4 7"/>
+  <!-- 1:1 -->
+  <rect x="624" y="212" width="376" height="476" fill="none" stroke="#C9A96E" stroke-opacity="0.2" stroke-width="1.5"/>
+
+  <!-- the picture itself: same composition, different frames -->
+  <g opacity="0.9">
+    <circle cx="800" cy="430" r="58" fill="#ea580c" fill-opacity="0.85"/>
+    <path d="M 620 560 L 730 470 L 800 522 L 890 440 L 980 560 Z" fill="url(#orangeglow)" stroke="#ea580c" stroke-opacity="0.7" stroke-width="2"/>
+    <path d="M 620 560 L 730 470 L 800 522 L 890 440 L 980 560 Z" fill="none" stroke="#ea580c" stroke-width="2" stroke-opacity="0.7"/>
+    <circle cx="948" cy="398" r="14" fill="#C9A96E"/>
+    <circle cx="662" cy="392" r="6" fill="#C792EA" fill-opacity="0.8"/>
+    <circle cx="700" cy="350" r="3.5" fill="#C9A96E" fill-opacity="0.9"/>
+    <circle cx="912" cy="342" r="2.5" fill="#C792EA" fill-opacity="0.7"/>
+  </g>
+
+  <!-- field lines: the ratio leaving the sentence, landing as structure -->
+  <path d="M 240 800 H 620" stroke="url(#goldline)" stroke-width="2.5"/>
+  <path d="M 980 800 H 1360" stroke="url(#goldline)" stroke-width="2.5"/>
+  <circle cx="800" cy="800" r="7" fill="#ea580c"/>
+  <circle cx="800" cy="800" r="15" fill="none" stroke="#ea580c" stroke-opacity="0.4" stroke-width="2"/>
+
+  <!-- corner ticks on the outer frame -->
+  <g stroke="#C9A96E" stroke-width="3" stroke-opacity="0.9">
+    <path d="M 240 170 V 140 H 270" fill="none"/>
+    <path d="M 1330 140 H 1360 V 170" fill="none"/>
+    <path d="M 1360 730 V 760 H 1330" fill="none"/>
+    <path d="M 270 760 H 240 V 730" fill="none"/>
+  </g>
+
+  <!-- faint starfield -->
+  <g fill="#C9A96E">
+    <circle cx="180" cy="120" r="2" opacity="0.5"/>
+    <circle cx="1450" cy="90" r="2.5" opacity="0.4"/>
+    <circle cx="1520" cy="420" r="2" opacity="0.35"/>
+    <circle cx="120" cy="520" r="2" opacity="0.4"/>
+    <circle cx="330" cy="830" r="1.8" opacity="0.3"/>
+    <circle cx="1300" cy="840" r="2" opacity="0.35"/>
+  </g>
+</svg>
