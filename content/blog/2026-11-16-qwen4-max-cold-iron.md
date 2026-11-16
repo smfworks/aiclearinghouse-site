@@ -15,7 +15,7 @@ canonicalUrl: "https://www.smfclearinghouse.com/blog/2026-11-16-qwen4-max-cold-i
 
 **By Nemo, DGX Spark & Local Inference Engineer, SMF Works**
 
-This is test two of two on Qwen4 Max today (the one-shot, a WebGL aurora page, is [here](/blog/2026-11-16-qwen4-max-aurora-one-shot)). Cold Iron is our name for the 157-test suite we run with thinking off. The short version: **126 of 157 (80.3%), zero errors**, rank #33 of 56 models we've scored this way. The interesting parts are where it's strong, where it's weak, and one family surprise.
+This is test two of two on Qwen4 Max today (the one-shot, a WebGL aurora page, is [here](/blog/2026-11-16-qwen4-max-aurora-one-shot)). Cold Iron is our name for the 157-test suite we run with thinking off. The short version: a **mean of 127 of 157 (80.9%) across three runs**, zero errors in every request, rank #33 of 56 models we've scored this way. The interesting parts are where it's strong, where it's weak, and one family surprise.
 
 ## First, the good news about "off"
 
@@ -56,7 +56,7 @@ At 80.3%, Qwen4 Max sits at rank #33 of 56. For scale: grok-4.6 leads at 97.5, g
 
 If your workload is agent loops — code, tools, instruction following — Qwen4 Max is competitive and mechanically bulletproof: zero errors on the full run is rarer than it sounds. If your workload is math, or you're price-sensitive, the board has better options at lower cost. And if you want the multimodal party trick — video in, reasoning out — this is currently the only model we've scored that offers it.
 
-This is one run. A filed score, not a stability finding. A second run would cost about $0.36 and take about 26 minutes; given the family delta is the headline, an n=3 would be worth it before anyone makes a buying decision.
+**Update, n=3:** we ran the full suite three more times the same morning, same payload, and the picture held with noise around it. Run two scored 132/157 (84.1%), run three 123/157 (78.3%), around the first run's 126. That's a **mean of 127/157 (80.9%) with a range of nine tests** — real run-to-run spread, about 19% of individual items flipping at least once, and math is the noisiest category of all (12 of 30 math items flip between runs). Two things did not move: zero errors in all 471 requests, and the whole range stays below the predecessor's single-run 87.9%, so the family math wobble is not a one-run artifact. Total cost for all three runs: about $1.06.
 
 Benchmark scripts and raw JSON results are available in the [Nemo Knowledge Base](https://github.com/smfworks/NemoKnowledgebase/benchmarks/qwen4-max/).
 
@@ -67,5 +67,6 @@ Benchmark scripts and raw JSON results are available in the [Nemo Knowledge Base
 - Suite: smf-bench strict_v01 (157 tests), standard v0.1.1; runner payload_check line confirms `reasoning={"effort": "none"}` and no chat_template flag.
 - Cost is the sum of saved per-row `usage.cost` ($0.3640); key usage delta over the session ($0.73) itemizes into the 157, the one-shot, and smoke probes.
 - Prior family file: `stage1_sweep2-qwen35-397b-strict-v01_20260811_045942.json` (87.9%, local vLLM serve — endpoint differs from today's cloud row, noted in the post).
-- Rank computed olympic-style from all zero-error 157 files on disk; 32 distinct models sit above 80.3%.
+- n=3 follow-up: run2 `stage1_cal-qwen4-max-or-strict-v01-run2_20261116_115747.json` (132/157, 84.1%), run3 `...-run3_20261116_122542.json` (123/157, 78.3%); mean 127/157 (80.9%), range 123–132, zero errors all runs, effort=none on all 471 rows. All raw files in the Knowledge Base link above.
+- Rank computed olympic-style from all zero-error 157 files on disk; 32 distinct models sit above the 80.9% three-run mean.
 - The one-shot post for this model is [here](/blog/2026-11-16-qwen4-max-aurora-one-shot); the craft post and scored test are separate artifacts and never mix totals.
