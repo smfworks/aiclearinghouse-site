@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1b2e"/>
+      <stop offset="1" stop-color="#132642"/>
+    </linearGradient>
+    <linearGradient id="canvasgrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5a623"/>
+      <stop offset="1" stop-color="#e8842c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- subtle grid -->
+  <g stroke="#1d3557" stroke-width="1" opacity="0.35">
+    <path d="M0 105 H1200 M0 210 H1200 M0 315 H1200 M0 420 H1200 M0 525 H1200"/>
+    <path d="M150 0 V630 M300 0 V630 M450 0 V630 M600 0 V630 M750 0 V630 M900 0 V630 M1050 0 V630"/>
+  </g>
+
+  <!-- small request rectangle (what you asked for) -->
+  <g>
+    <rect x="120" y="240" width="140" height="150" rx="10" fill="none" stroke="#4fd1c5" stroke-width="3.5" stroke-dasharray="10 8"/>
+    <path d="M150 290 h80 M150 320 h55" stroke="#4fd1c5" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+    <!-- corner ticks -->
+    <path d="M120 258 v-8 h8 M252 258 v-8 h-8 M120 372 v8 h8 M252 372 v8 h-8" stroke="#4fd1c5" stroke-width="3.5" fill="none"/>
+  </g>
+
+  <!-- arrow into the pipeline -->
+  <path d="M280 315 H 370" stroke="#7fa3d1" stroke-width="5" stroke-linecap="round"/>
+  <path d="M360 307 l12 8 -12 8" fill="none" stroke="#7fa3d1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- modular pipeline blocks (three joined blocks) -->
+  <g>
+    <rect x="390" y="235" width="120" height="160" rx="12" fill="#1b2f4d" stroke="#3e5c8a" stroke-width="2.5"/>
+    <rect x="522" y="235" width="120" height="160" rx="12" fill="#1b2f4d" stroke="#3e5c8a" stroke-width="2.5"/>
+    <rect x="654" y="235" width="120" height="160" rx="12" fill="#1b2f4d" stroke="#3e5c8a" stroke-width="2.5"/>
+    <!-- block glyphs: text lines, latent grid, decode arrow -->
+    <path d="M415 275 h70 M415 305 h50" stroke="#7fa3d1" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="440" cy="345" r="9" fill="none" stroke="#f5a623" stroke-width="3"/>
+    <path d="M440 336 v-14 m0 32 v-4" stroke="#f5a623" stroke-width="3" stroke-linecap="round"/>
+    <!-- latent grid -->
+    <g stroke="#7fa3d1" stroke-width="2.5" opacity="0.9">
+      <rect x="547" y="275" width="70" height="70" fill="none"/>
+      <path d="M570.5 275 v70 M594 275 v70 M547 298.5 h70 M547 322 h70"/>
+    </g>
+    <!-- decode -->
+    <path d="M679 300 h55 M679 330 h35" stroke="#4fd1c5" stroke-width="4.5" stroke-linecap="round" opacity="0.85"/>
+    <path d="M724 322 l12 8 -12 8" fill="none" stroke="#4fd1c5" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- arrow out -->
+  <path d="M794 315 H 880" stroke="#7fa3d1" stroke-width="5" stroke-linecap="round"/>
+  <path d="M870 307 l12 8 -12 8" fill="none" stroke="#7fa3d1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- big canvas rectangle (what actually renders), same center -->
+  <g>
+    <rect x="900" y="205" width="200" height="220" rx="12" fill="url(#canvasgrad)" opacity="0.92"/>
+    <rect x="900" y="205" width="200" height="220" rx="12" fill="none" stroke="#f5a623" stroke-width="3"/>
+    <!-- inner dashed outline showing the resize-back target -->
+    <rect x="925" y="230" width="150" height="170" rx="8" fill="none" stroke="#0d1b2e" stroke-width="3" stroke-dasharray="9 7"/>
+    <path d="M940 285 h70 M940 315 h45" stroke="#0d1b2e" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+    <!-- resize-back arrows from outer edge to dashed inner -->
+    <path d="M912 225 h14 M988 217 h14" stroke="#0d1b2e" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- six-step dots under the pipeline -->
+  <g fill="#f5a623">
+    <circle cx="435" cy="440" r="8"/>
+    <circle cx="510" cy="440" r="8"/>
+    <circle cx="585" cy="440" r="8"/>
+    <circle cx="660" cy="440" r="8"/>
+    <circle cx="735" cy="440" r="8"/>
+    <circle cx="810" cy="440" r="8"/>
+  </g>
+  <path d="M443 440 H502 M518 440 H577 M593 440 H652 M668 440 H727 M743 440 H802" stroke="#f5a623" stroke-width="3.5" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- reference photo corner, lower left: an image with a bounded short edge -->
+  <g>
+    <rect x="150" y="470" width="120" height="95" rx="10" fill="#1b2f4d" stroke="#3e5c8a" stroke-width="2.5"/>
+    <circle cx="185" cy="500" r="10" fill="#4fd1c5" opacity="0.9"/>
+    <path d="M162 550 l28 -30 20 18 22 -26 26 38" fill="none" stroke="#7fa3d1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- band arrows for the reference band -->
+  <path d="M300 517 H 420" stroke="#4fd1c5" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 7"/>
+  <path d="M410 509 l12 8 -12 8" fill="none" stroke="#4fd1c5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="440" y="480" width="150" height="75" rx="10" fill="none" stroke="#4fd1c5" stroke-width="3" stroke-dasharray="8 7"/>
+  <path d="M462 517 h100" stroke="#4fd1c5" stroke-width="3.5" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- accent bar -->
+  <rect x="0" y="614" width="1200" height="16" fill="#f5a623"/>
+</svg>
