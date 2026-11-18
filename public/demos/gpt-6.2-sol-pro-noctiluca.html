@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b15">
+<title>Noctiluca — An Atlas of the Unseen</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --ink: #080b15;
+    --paper: #f3eee6;
+    --muted: #abaeba;
+    --accent: #f4c890;
+    --line: #ffffff24;
+    --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    min-width: 280px;
+    margin: 0;
+    color: var(--paper);
+    background: var(--ink);
+    font: 15px/1.65 system-ui, sans-serif;
+  }
+
+  button { font: inherit; }
+  button:focus-visible, canvas:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+  }
+
+  .atlas {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    max-width: 1800px;
+    margin: auto;
+    padding: 0 clamp(20px, 5vw, 88px);
+    overflow: hidden;
+  }
+
+  .atlas::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 73% 40%, #13192c, transparent 63%);
+  }
+
+  .masthead, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .masthead {
+    min-height: 82px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font: 600 12px/1 var(--mono);
+    letter-spacing: .23em;
+  }
+
+  .brand svg { width: 27px; color: var(--accent); }
+
+  .micro {
+    font: 10px/1.5 var(--mono);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .edition, footer { color: var(--muted); }
+
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: center;
+    flex: 1;
+    min-height: clamp(520px, 68vh, 790px);
+  }
+
+  .copy {
+    position: relative;
+    z-index: 1;
+    width: fit-content;
+    padding: 56px 0;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 26px;
+    color: var(--accent);
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  h1 {
+    margin: 0;
+    font: 400 clamp(66px, 8.1vw, 144px)/.86 var(--serif);
+    letter-spacing: -.075em;
+  }
+
+  h1 em {
+    display: block;
+    margin-top: .08em;
+    padding-right: .12em;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .description {
+    max-width: 33ch;
+    min-height: 5em;
+    margin: 30px 0 22px;
+    color: #c5c6d0;
+    text-wrap: pretty;
+  }
+
+  .motion {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    color: var(--paper);
+    background: #080b1580;
+    cursor: pointer;
+  }
+
+  .motion:hover { border-color: var(--accent); }
+
+  .motion-dot {
+    width: 6px;
+    height: 6px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+  }
+
+  .motion[aria-pressed="true"] .motion-dot {
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .plate {
+    position: absolute;
+    inset: 0 -2.5% 0 31%;
+    margin: 0;
+  }
+
+  .plate canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .plate figcaption {
+    position: absolute;
+    right: 4%;
+    bottom: 5%;
+    display: grid;
+    gap: 3px;
+    text-align: right;
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  #coordinates { color: var(--accent); }
+
+  .index {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-block: 1px solid var(--line);
+  }
+
+  .entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(8px, 1.4vw, 24px);
+    padding: 20px clamp(9px, 2vw, 28px);
+    border: 0;
+    border-right: 1px solid var(--line);
+    color: var(--paper);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .entry:last-child { border-right: 0; }
+  .entry:hover { background: #ffffff08; }
+
+  .entry[aria-pressed="true"] {
+    background: linear-gradient(180deg, #ffffff0b, transparent);
+    box-shadow: inset 0 1px var(--accent);
+  }
+
+  .entry:focus-visible { z-index: 1; outline-offset: -4px; }
+
+  .number, .arrow { color: var(--muted); }
+  .entry[aria-pressed="true"] :is(.number, .arrow) { color: var(--accent); }
+
+  .entry strong {
+    display: block;
+    font: 400 clamp(18px, 2.2vw, 29px)/1.1 var(--serif);
+  }
+
+  .entry small {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted);
+  }
+
+  footer { min-height: 57px; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .masthead { min-height: 65px; }
+    .hero { min-height: 0; }
+    .copy { padding: 42px 0 0; }
+    h1 { font-size: clamp(53px, 13vw, 90px); }
+    .eyebrow { margin-bottom: 19px; }
+    .description { min-height: 0; margin: 23px 0 17px; }
+    .plate {
+      position: relative;
+      inset: auto;
+      height: clamp(270px, 74vw, 460px);
+      margin: -6px -12px 8px;
+    }
+    .plate figcaption { bottom: 3%; }
+    .entry {
+      grid-template-columns: 1fr;
+      gap: 5px;
+      align-content: start;
+      padding-block: 13px;
+    }
+    .entry small, .arrow { display: none; }
+  }
+
+  @media (max-width: 360px) {
+    .edition { display: none; }
+    footer span:last-child { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="atlas">
+  <header class="masthead">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="10.5" stroke="currentColor" opacity=".65"/>
+        <path d="M16 1v30M1 16h30M16 9l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"
+              stroke="currentColor" stroke-width=".85"/>
+      </svg>
+      NOCTILUCA
+    </div>
+    <div class="edition micro">An atlas of the unseen &nbsp; / &nbsp; Vol. 01</div>
+  </header>
+
+  <section class="hero" aria-labelledby="title">
+    <div class="copy">
+      <p class="eyebrow micro" id="eyebrow">01 / Totality</p>
+      <h1 id="title">The quiet <em>fire.</em></h1>
+      <p class="description" id="description">
+        The moon takes the sun from view. For a moment, its outer atmosphere
+        is the brightest thing in the sky.
+      </p>
+      <button class="motion micro" id="motion" type="button" aria-pressed="false">
+        <span class="motion-dot" aria-hidden="true"></span>
+        Orbital drift
+      </button>
+    </div>
+
+    <figure class="plate">
+      <canvas id="sky" role="img" aria-label="A golden solar corona around a dark moon, framed by fine orbital lines.">
+        An illustrated celestial observation plate.
+      </canvas>
+      <figcaption class="micro">
+        <span id="coordinates">Plate 01 · 00h 42m</span>
+        <span id="caption">The solar corona</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <nav class="index" aria-label="Observation plates">
+    <button class="entry" type="button" aria-pressed="true" data-plate="0">
+      <span class="number micro">01</span>
+      <span><strong>Totality</strong><small class="micro">Solar eclipse</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </button>
+    <button class="entry" type="button" aria-pressed="false" data-plate="1">
+      <span class="number micro">02</span>
+      <span><strong>Vesper</strong><small class="micro">Ringed world</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </button>
+    <button class="entry" type="button" aria-pressed="false" data-plate="2">
+      <span class="number micro">03</span>
+      <span><strong>Afterlight</strong><small class="micro">Stellar remnant</small></span>
+      <span class="arrow" aria-hidden="true">↗</span>
+    </button>
+  </nav>
+
+  <footer class="micro">
+    <span>Field notes from an imagined sky</span>
+    <span>Three observations &nbsp;·&nbsp; 01—03</span>
+  </footer>
+  <div class="sr-only" id="announcement" aria-live="polite"></div>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const plates = [
+    {
+      name: "Totality", title: "The quiet", italic: "fire.",
+      description: "The moon takes the sun from view. For a moment, its outer atmosphere is the brightest thing in the sky.",
+      coordinates: "Plate 01 · 00h 42m", caption: "The solar corona",
+      alt: "A golden solar corona around a dark moon, framed by fine orbital lines.",
+      accent: "#f4c890", rgb: [255, 167, 87], pale: [255, 225, 177],
+      tilt: -.32, seed: 1689
+    },
+    {
+      name: "Vesper", title: "A sea of", italic: "rings.",
+      description: "From a distance, the rings look like one continuous sheet. Up close, they are a swarm of ice and stone.",
+      coordinates: "Plate 02 · 11h 18m", caption: "Ice and dust in orbit",
+      alt: "A blue-green planet with wide, luminous rings tipped diagonally across the starfield.",
+      accent: "#a1e5da", rgb: [79, 204, 190], pale: [190, 255, 231],
+      tilt: -.43, seed: 4327
+    },
+    {
+      name: "Afterlight", title: "What the", italic: "star left.",
+      description: "Long after the star has fallen silent, its shed layers are still traveling outward. Here, a few of them catch the light.",
+      coordinates: "Plate 03 · 19h 07m", caption: "An expanding shell",
+      alt: "A violet stellar remnant with thin, luminous filaments surrounding a bright central star.",
+      accent: "#dec1ff", rgb: [169, 108, 255], pale: [241, 213, 255],
+      tilt: .24, seed: 8171
+    }
+  ];
+
+  const $ = id => document.getElementById(id);
+  const canvas = $("sky");
+  const ctx = canvas.getContext("2d");
+  const still = document.createElement("canvas");
+  const art = still.getContext("2d");
+  const buttons = [...document.querySelectorAll(".entry")];
+  const motion = $("motion");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const TAU = Math.PI * 2;
+
+  let selected = 0, w = 0, h = 0, dpr = 1, cx, cy, radius;
+  let moving = false, frame = 0, previousTime = null, elapsed = 0;
+
+  const rgba = (rgb, a) => `rgba(${rgb.join(",")},${a})`;
+
+  function random(seed) {
+    return () => {
+      seed = (Math.imul(1664525, seed) + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+  }
+
+  function circle(g, x, y, r) {
+    g.beginPath();
+    g.arc(x, y, r, 0, TAU);
+  }
+
+  function glow(g, x, y, r, color, opacity) {
+    const gradient = g.createRadialGradient(x, y, 0, x, y, r);
+    gradient.addColorStop(0, rgba(color, opacity));
+    gradient.addColorStop(.32, rgba(color, opacity * .46));
+    gradient.addColorStop(1, rgba(color, 0));
+    g.fillStyle = gradient;
+    g.fillRect(x - r, y - r, r * 2, r * 2);
+  }
+
+  function ellipsePoint(a, rx, ry, tilt) {
+    const x = Math.cos(a) * rx, y = Math.sin(a) * ry;
+    return [x * Math.cos(tilt) - y * Math.sin(tilt),
+            x * Math.sin(tilt) + y * Math.cos(tilt)];
+  }
+
+  function star(g, x, y, size, color) {
+    glow(g, x, y, size * 3.2, color, .35);
+    g.fillStyle = rgba(color, .82);
+    g.fillRect(x - size, y - .35, size * 2, .7);
+    g.fillRect(x - .35, y - size, .7, size * 2);
+    g.fillStyle = "#fff5e8";
+    circle(g, x, y, Math.max(.65, size * .14));
+    g.fill();
+  }
+
+  function background(p, rand, r) {
+    glow(art, r * .35, 0, r * 3.25, p.rgb, .13);
+    glow(art, -r * .86, -r * .7, r * 2.5, [96, 108, 193], .15);
+
+    for (let i = 0; i < 600; i++) {
+      const x = rand() * w - cx, y = rand() * h - cy;
+      const edge = Math.pow(Math.sin(Math.PI * (x + cx) / w), .65);
+      const s = rand();
+      art.fillStyle = rgba(i % 4 ? [215, 225, 250] : p.pale, edge * (.07 + s * s * .49));
+      const size = .45 + s ** 5 * 1.05;
+      art.fillRect(x, y, size, size);
+    }
+
+    for (const [x, y, s] of [[-1.99, -.85, 4], [1.53, -1.27, 5],
+      [1.64, .81, 3], [-1.37, 1.37, 3.5], [.32, -1.84, 2.7]]) {
+      star(art, x * r, y * r, s, p.pale);
+    }
+
+    // A fine instrument grid, drawn separately from the orbital paths.
+    art.strokeStyle = rgba(p.pale, .13);
+    art.lineWidth = .65;
+    art.beginPath();
+    for (let i = 0; i < 120; i++) {
+      const a = i / 120 * TAU, inner = r * (i % 10 ? 1.94 : 1.89);
+      art.moveTo(Math.cos(a) * inner, Math.sin(a) * inner);
+      art.lineTo(Math.cos(a) * r * 1.98, Math.sin(a) * r * 1.98);
+    }
+    art.stroke();
+
+    for (const [rx, ry, t, opacity] of [
+      [2.12, .78, p.tilt, .29], [2.18, .83, p.tilt, .11],
+      [1.89, 1.18, p.tilt + .62, .12], [1.78, 1.78, 0, .09]
+    ]) {
+      art.beginPath();
+      art.ellipse(0, 0, r * rx, r * ry, t, 0, TAU);
+      art.strokeStyle = rgba(p.pale, opacity);
+      art.stroke();
+    }
+
+    art.fillStyle = rgba(p.pale, .43);
+    art.font = "9px monospace";
+    art.fillText("N", -3, -r * 2.09);
+    art.fillText("+" + (selected + 1) + "°", r * 1.68, -r * 1.08);
+
+    for (let i = 0; i < 1900; i++) {
+      const a = rand() * TAU, jitter = (rand() - .5) * (rand() ** 2) * r * .76;
+      const [x, y] = ellipsePoint(a, 2.13 * r + jitter, .78 * r + jitter, p.tilt);
+      art.fillStyle = rgba(p.pale, rand() ** 2 * .39);
+      art.fillRect(x, y, .5 + rand() * .8, .65);
+    }
+  }
+
+  function eclipse(p, rand, r) {
+    glow(art, 0, 0, r * 2.25, p.rgb, .28);
+
+    const rim = art.createRadialGradient(0, 0, r * .84, 0, 0, r * 1.39);
+    rim.addColorStop(0, rgba(p.pale, 0));
+    rim.addColorStop(.28, rgba(p.pale, .81));
+    rim.addColorStop(.39, rgba(p.rgb, .25));
+    rim.addColorStop(1, rgba(p.rgb, 0));
+    art.fillStyle = rim;
+    circle(art, 0, 0, r * 1.39);
+    art.fill();
+
+    for (let i = 0; i < 1050; i++) {
+      const a = rand() * TAU;
+      const fan = .46 + .24 * Math.sin(a * 3 + .8) + .18 * Math.cos(a * 7);
+      const len = r * (.04 + rand() ** 2 * fan);
+      const bend = .08 * Math.sin(a * 5) * len / r;
+      const end = r * .98 + len;
+      const ex = Math.cos(a + bend) * end, ey = Math.sin(a + bend) * end;
+      const x = Math.cos(a) * r * .985, y = Math.sin(a) * r * .985;
+      const ray = art.createLinearGradient(x, y, ex, ey);
+      ray.addColorStop(0, rgba(p.pale, .12 + rand() * .35));
+      ray.addColorStop(.43, rgba(p.rgb, rand() * .18));
+      ray.addColorStop(1, rgba(p.rgb, 0));
+      art.strokeStyle = ray;
+      art.lineWidth = .35 + rand() * .65;
+      art.beginPath();
+      art.moveTo(x, y);
+      art.quadraticCurveTo(Math.cos(a) * (r + len * .52),
+                           Math.sin(a) * (r + len * .52), ex, ey);
+      art.stroke();
+    }
+
+    const moon = art.createLinearGradient(-r, -r, r, r);
+    moon.addColorStop(0, "#14121c");
+    moon.addColorStop(.51, "#080a13");
+    moon.addColorStop(1, "#070912");
+    art.fillStyle = moon;
+    circle(art, 0, 0, r * .987);
+    art.fill();
+
+    art.save();
+    art.shadowColor = "#ffb15f";
+    art.shadowBlur = r * .09;
+    art.strokeStyle = rgba(p.pale, .95);
+    art.lineWidth = 1.35;
+    art.beginPath();
+    art.arc(0, 0, r, 3.55, 5.48);
+    art.stroke();
+    art.restore();
+    glow(art, r * .59, -r * .81, r * .35, p.rgb, .55);
+    star(art, r * .59, -r * .81, 4.5, p.pale);
+  }
+
+  function rings(p, r, front) {
+    for (let i = 0; i < 91; i++) {
+      if ((i > 42 && i < 49) || (i > 72 && i < 76)) continue;
+      const t = i / 90;
+      const rx = r * (1.18 + t * .82);
+      art.beginPath();
+      art.ellipse(0, 0, rx, rx * .35, p.tilt,
+                  front ? 0 : Math.PI, front ? Math.PI : TAU);
+      art.lineWidth = .55 + .65 * Math.sin(t * 11) ** 2;
+      art.strokeStyle = rgba(p.pale, (.06 + .24 * Math.sin(t * 16 + .5) ** 2) *
+                            (front ? 1 : .64));
+      art.stroke();
+    }
+  }
+
+  function vesper(p, rand, r) {
+    glow(art, 0, 0, r * 1.9, p.rgb, .27);
+    rings(p, r, false);
+    art.save();
+    circle(art, 0, 0, r);
+    art.clip();
+    const sphere = art.createRadialGradient(-r * .47, -r * .47, 0, -r * .2, -r * .18, r * 1.2);
+    sphere.addColorStop(0, "#a3e2cd");
+    sphere.addColorStop(.40, "#386d74");
+    sphere.addColorStop(.75, "#192f42");
+    sphere.addColorStop(1, "#080c18");
+    art.fillStyle = sphere;
+    art.fillRect(-r, -r, 2 * r, 2 * r);
+    art.rotate(p.tilt);
+    for (let i = 0; i < 360; i++) {
+      const y = (rand() * 2 - 1) * r;
+      art.beginPath();
+      art.moveTo(-r * 1.2, y);
+      art.bezierCurveTo(-r * .55, y + r * .32, r * .53, y + r * .33, r * 1.2, y);
+      art.strokeStyle = rgba(i % 3 ? p.pale : [7, 17, 35], rand() * .14);
+      art.lineWidth = .3 + rand() * 1.9;
+      art.stroke();
+    }
+    art.restore();
+
+    art.beginPath();
+    art.arc(0, 0, r - .5, 3.1, 5.5);
+    art.strokeStyle = rgba(p.pale, .7);
+    art.lineWidth = 1.2;
+    art.stroke();
+    rings(p, r, true);
+  }
+
+  function afterlight(p, rand, r) {
+    glow(art, 0, 0, r * 1.8, p.rgb, .33);
+    glow(art, -r * .56, r * .37, r * 1.25, [154, 73, 209], .25);
+    glow(art, r * .5, -r * .4, r * 1.18, [106, 144, 255], .22);
+
+    for (let i = 0; i < 260; i++) {
+      const start = rand() * TAU, length = .15 + rand() * 1.7;
+      const band = .43 + rand() ** .55 * .92, drift = rand() * 2;
+      art.strokeStyle = rgba(i % 3 ? p.pale : [148, 157, 255], .025 + rand() * .17);
+      art.lineWidth = .35 + rand() * 1.9;
+      art.beginPath();
+      for (let j = 0; j <= 35; j++) {
+        const a = start + j / 35 * length;
+        const f = band + .15 * Math.sin(a * 3 + drift) + .08 * Math.sin(a * 7);
+        const [x, y] = ellipsePoint(a, r * f, r * f * .87, p.tilt);
+        if (j === 0) art.moveTo(x, y); else art.lineTo(x, y);
+      }
+      art.stroke();
+    }
+
+    for (let i = 0; i < 2400; i++) {
+      const a = rand() * TAU;
+      const f = .77 + (rand() - .5) * rand() * 1.25 + .21 * Math.sin(a * 3);
+      const [x, y] = ellipsePoint(a, r * f, r * f * .89, p.tilt);
+      art.fillStyle = rgba(p.pale, rand() ** 2 * .5);
+      art.fillRect(x, y, .55 + rand() * .95, .75);
+    }
+    glow(art, 0, 0, .35 * r, p.pale, .52);
+    star(art, 0, 0, 10, p.pale);
+    star(art, r * .94, -r * .42, 3.7, p.pale);
+  }
+
+  function renderPlate() {
+    if (!ctx || !art || !w || !h) return;
+    const p = plates[selected], rand = random(p.seed);
+    art.setTransform(dpr, 0, 0, dpr, 0, 0);
+    art.clearRect(0, 0, w, h);
+    art.save();
+    art.translate(cx, cy);
+    background(p, rand, radius);
+    if (selected === 0) eclipse(p, rand, radius);
+    else if (selected === 1) vesper(p, rand, radius);
+    else afterlight(p, rand, radius);
+    art.restore();
+    paint();
+  }
+
+  function paint() {
+    if (!ctx || !w || !h) return;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(still, 0, 0);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const p = plates[selected];
+    for (let i = 0; i < 3; i++) {
+      const a = elapsed * (.24 + i * .025) + .28 + i * 2.12;
+      const [x, y] = ellipsePoint(a, radius * 2.12, radius * .78, p.tilt);
+      star(ctx, cx + x, cy + y, i === 0 ? 4 : 2.4, p.pale);
+    }
+  }
+
+  function resize() {
+    if (!ctx || !art) return;
+    const box = canvas.getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    w = box.width;
+    h = box.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = still.width = Math.round(w * dpr);
+    canvas.height = still.height = Math.round(h * dpr);
+    cx = w * .52;
+    cy = h * .49;
+    radius = Math.min(w * .219, h * .205);
+    renderPlate();
+  }
+
+  function tick(now) {
+    if (!moving) return;
+    if (previousTime !== null) elapsed += Math.min(now - previousTime, 50) / 1000;
+    previousTime = now;
+    paint();
+    frame = requestAnimationFrame(tick);
+  }
+
+  function setMotion(on) {
+    moving = on;
+    motion.setAttribute("aria-pressed", String(on));
+    cancelAnimationFrame(frame);
+    previousTime = null;
+    if (on) frame = requestAnimationFrame(tick);
+  }
+
+  function select(index) {
+    if (index === selected) return;
+    selected = index;
+    const p = plates[index];
+    document.documentElement.style.setProperty("--accent", p.accent);
+    $("eyebrow").textContent = `0${index + 1} / ${p.name}`;
+    const emphasis = document.createElement("em");
+    emphasis.textContent = p.italic;
+    $("title").replaceChildren(p.title + " ", emphasis);
+    $("description").textContent = p.description;
+    $("coordinates").textContent = p.coordinates;
+    $("caption").textContent = p.caption;
+    canvas.setAttribute("aria-label", p.alt);
+    buttons.forEach((button, i) => button.setAttribute("aria-pressed", String(i === index)));
+    $("announcement").textContent = `${p.name}. ${p.title} ${p.italic} ${p.description}`;
+    elapsed = 0;
+    renderPlate();
+  }
+
+  buttons.forEach((button, i) => button.addEventListener("click", () => select(i)));
+  motion.addEventListener("click", () => setMotion(!moving));
+  reduceMotion.addEventListener("change", event => {
+    if (event.matches) setMotion(false);
+  });
+
+  if ("ResizeObserver" in window) new ResizeObserver(resize).observe(canvas);
+  window.addEventListener("resize", resize);
+  resize();
+})();
+</script>
+</body>
+</html>
