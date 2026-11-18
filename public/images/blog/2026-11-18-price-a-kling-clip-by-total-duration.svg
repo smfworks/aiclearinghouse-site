@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Abstract bill-stacking composition: output bar joined by a doubled bar and a stacked input bar">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#001F3F"/>
+      <stop offset="1" stop-color="#002b57"/>
+    </linearGradient>
+    <linearGradient id="goldline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C9A96E" stop-opacity="0.2"/>
+      <stop offset="0.5" stop-color="#C9A96E"/>
+      <stop offset="1" stop-color="#C9A96E" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#navy)"/>
+
+  <!-- horizontal rule -->
+  <rect x="160" y="760" width="1280" height="2" fill="url(#goldline)" opacity="0.5"/>
+
+  <!-- Case 1: plain output bar, x1 -->
+  <rect x="220" y="500" width="220" height="260" fill="#ea580c" opacity="0.9"/>
+  <rect x="220" y="500" width="220" height="260" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.35"/>
+
+  <!-- Case 2: output bar doubled — second block behind, offset -->
+  <rect x="600" y="430" width="220" height="330" fill="#ea580c" opacity="0.35"/>
+  <rect x="640" y="470" width="220" height="290" fill="#ea580c" opacity="0.9"/>
+  <rect x="640" y="470" width="220" height="290" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.35"/>
+  <!-- doubling arrows -->
+  <path d="M600 415 L640 455 M820 415 L860 455" stroke="#C792EA" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+  <!-- Case 3: input stacked under output — input block on top, violet -->
+  <rect x="1020" y="360" width="220" height="130" fill="#C792EA" opacity="0.85"/>
+  <rect x="1020" y="500" width="220" height="260" fill="#ea580c" opacity="0.9"/>
+  <rect x="1020" y="500" width="220" height="260" fill="none" stroke="#C9A96E" stroke-width="2" opacity="0.35"/>
+  <!-- stack seam -->
+  <rect x="1020" y="486" width="220" height="6" fill="#C9A96E" opacity="0.7"/>
+
+  <!-- case separator ticks -->
+  <path d="M520 630 h60 M940 630 h60" stroke="#C9A96E" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- rising total markers -->
+  <circle cx="330" cy="430" r="10" fill="#C9A96E" opacity="0.9"/>
+  <circle cx="750" cy="360" r="14" fill="#C9A96E" opacity="0.9"/>
+  <circle cx="1130" cy="290" r="18" fill="#C9A96E" opacity="0.9"/>
+  <path d="M330 430 L750 360 L1130 290" stroke="#C9A96E" stroke-width="2.5" stroke-dasharray="8 10" fill="none" opacity="0.5"/>
+
+  <!-- corner frame accents -->
+  <path d="M80 120 v-40 h40 M1520 120 v-40 h-40 M80 780 v40 h40 M1520 780 v40 h-40" stroke="#C9A96E" stroke-width="3" fill="none" opacity="0.45"/>
+</svg>
