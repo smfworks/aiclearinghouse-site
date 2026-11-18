@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AETHERIA — Celestial Harmonic Observatory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-void: #03040a;
+      --accent-primary: #e8c987;
+      --accent-secondary: #7dd3fc;
+      --accent-tertiary: #c084fc;
+      --glass-bg: rgba(8, 11, 22, 0.48);
+      --glass-border: rgba(255, 255, 255, 0.11);
+      --glass-highlight: rgba(255, 255, 255, 0.22);
+      --text-main: rgba(248, 250, 252, 0.94);
+      --text-muted: rgba(203, 213, 225, 0.62);
+      --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+      --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-void);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      cursor: crosshair;
+    }
+
+    /* Main Visual Canvases */
+    #cosmos-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+
+    /* Subtle Film Grain & Vignette */
+    .vignette-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 45%, rgba(2, 3, 8, 0.58) 100%),
+        radial-gradient(circle at 50% 50%, transparent 72%, rgba(0, 0, 0, 0.85) 100%);
+    }
+
+    .film-grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.032;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      animation: grainShift 8s steps(10) infinite;
+    }
+
+    @keyframes grainShift {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-2%, 1.5%); }
+      40% { transform: translate(1.5%, -2%); }
+      60% { transform: translate(-1%, -1.5%); }
+      80% { transform: translate(2%, 1%); }
+    }
+
+    /* Astrolabe Precision Reticle Overlay */
+    .astrolabe-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.42;
+      transition: opacity 0.9s var(--transition-smooth);
+    }
+
+    .astrolabe-svg {
+      width: min(76vmin, 720px);
+      height: min(76vmin, 720px);
+      overflow: visible;
+      filter: drop-shadow(0 0 18px rgba(232, 201, 135, 0.12));
+    }
+
+    .astro-ring-slow {
+      transform-origin: center;
+      animation: spinSlow 140s linear infinite;
+    }
+
+    .astro-ring-reverse {
+      transform-origin: center;
+      animation: spinReverse 95s linear infinite;
+    }
+
+    .astro-ring-inner {
+      transform-origin: center;
+      animation: spinSlow 52s linear infinite;
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Custom Cursor Halo */
+    .cursor-halo {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      pointer-events: none;
+      z-index: 50;
+      transform: translate(-50%, -50%);
+      transition: width 0.28s var(--transition-smooth),
+                  height 0.28s var(--transition-smooth),
+                  border-color 0.28s ease,
+                  opacity 0.28s ease;
+      mix-blend-mode: screen;
+      opacity: 0;
+    }
+
+    .cursor-halo::after {
+      content: '';
+      position: absolute;
+      inset: 50%;
+      width: 4px;
+      height: 4px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--accent-primary);
+      box-shadow: 0 0 10px var(--accent-primary);
+    }
+
+    .cursor-halo.active {
+      width: 68px;
+      height: 68px;
+      border-color: var(--accent-primary);
+    }
+
+    /* Editorial HUD Interface */
+    .hud-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(18px, 3vw, 38px);
+      transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+    }
+
+    body.zen-mode .hud-shell {
+      opacity: 0;
+      transform: scale(1.015);
+    }
+
+    body.zen-mode .astrolabe-layer {
+      opacity: 0.16;
+    }
+
+    /* Top Bar */
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .brand-block {
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      opacity: 0.88;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      box-shadow: 0 0 10px var(--accent-primary);
+      animation: pulseGlow 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.45; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .brand-title {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: 0.14em;
+      line-height: 1;
+      text-transform: uppercase;
+      background: linear-gradient(125deg, #ffffff 15%, var(--accent-primary) 65%, rgba(255,255,255,0.75) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 36px rgba(232, 201, 135, 0.15);
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    /* Telemetry & Quick Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      pointer-events: auto;
+    }
+
+    .telemetry-pill {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border: 1px solid var(--glass-border);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 860px) {
+      .telemetry-pill {
+        display: flex;
+      }
+    }
+
+    .telemetry-item span {
+      color: var(--text-main);
+      margin-left: 5px;
+    }
+
+    .glass-btn {
+      pointer-events: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.32s var(--transition-smooth);
+      outline: none;
+    }
+
+    .glass-btn:hover {
+      border-color: var(--glass-highlight);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .glass-btn.is-active {
+      border-color: rgba(232, 201, 135, 0.55);
+      color: var(--accent-primary);
+      box-shadow: 0 0 20px rgba(232, 201, 135, 0.16);
+    }
+
+    .glass-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+    }
+
+    /* Center Poetic Quote / Epoch Indicator */
+    .hud-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 24px;
+      text-align: center;
+    }
+
+    .epoch-caption {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(15px, 1.8vw, 20px);
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.62);
+      max-width: 520px;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeFloatIn 1.8s var(--transition-smooth) 0.4s forwards;
+      transition: opacity 0.5s ease;
+    }
+
+    @keyframes fadeFloatIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Bottom Control Dock */
+    .hud-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+
+    .preset-dock {
+      pointer-events: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .preset-btn {
+      position: relative;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.35s var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preset-swatch {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      transition: transform 0.35s var(--transition-smooth);
+    }
+
+    .preset-btn:hover {
+      color: var(--text-main);
+    }
+
+    .preset-btn:hover .preset-swatch {
+      transform: scale(1.3);
+    }
+
+    .preset-btn.active {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.16);
+      color: var(--text-main);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .interaction-dock {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-card {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(22px) saturate(150%);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      border: 1px solid var(--glass-border);
+    }
+
+    @media (min-width: 720px) {
+      .slider-card {
+        display: flex;
+      }
+    }
+
+    .slider-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 86px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      box-shadow: 0 0 10px var(--accent-primary);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    /* Floating Zen Exit Pill */
+    .zen-restore {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 25;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.5s var(--transition-smooth);
+    }
+
+    body.zen-mode .zen-restore {
+      opacity: 0.72;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    body.zen-mode .zen-restore:hover {
+      opacity: 1;
+    }
+
+    /* Hint Badge */
+    .gesture-hint {
+      position: fixed;
+      bottom: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 12;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.42);
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 1.2s ease;
+    }
+
+    .gesture-hint.hidden {
+      opacity: 0;
+    }
+
+    /* Entrance Curtain */
+    .entrance-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: #020308;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      pointer-events: none;
+      animation: curtainReveal 1.9s var(--transition-smooth) 0.25s forwards;
+    }
+
+    .entrance-monogram {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      letter-spacing: 0.45em;
+      color: var(--accent-primary);
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    .entrance-line {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+      transform: scaleX(0);
+      animation: lineExpand 1.2s var(--transition-smooth) forwards;
+    }
+
+    @keyframes lineExpand {
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes curtainReveal {
+      0% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Smooth Entrance Curtain -->
+  <div class="entrance-curtain" aria-hidden="true">
+    <div class="entrance-monogram">AETHERIA</div>
+    <div class="entrance-line"></div>
+  </div>
+
+  <!-- Primary Interactive Cosmos Canvas -->
+  <canvas id="cosmos-canvas"></canvas>
+
+  <!-- Atmospheric Vignette & Film Grain -->
+  <div class="vignette-overlay"></div>
+  <div class="film-grain"></div>
+
+  <!-- Precision Celestial Astrolabe Overlay -->
+  <div class="astrolabe-layer" aria-hidden="true">
+    <svg class="astrolabe-svg" viewBox="0 0 600 600">
+      <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f7e3b5" stop-opacity="0.65" />
+          <stop offset="50%" stop-color="#c9a45c" stop-opacity="0.22" />
+          <stop offset="100%" stop-color="#7dd3fc" stop-opacity="0.45" />
+        </linearGradient>
+      </defs>
+
+      <!-- Outer Ecliptic Ring -->
+      <g class="astro-ring-slow">
+        <circle cx="300" cy="300" r="286" fill="none" stroke="url(#goldGrad)" stroke-width="0.7" stroke-dasharray="2 8" />
+        <circle cx="300" cy="300" r="274" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="0.5" />
+        <!-- Cardinal Ticks -->
+        <g id="outer-ticks" stroke="rgba(232,201,135,0.42)" stroke-width="0.8"></g>
+      </g>
+
+      <!-- Middle Harmonic Ring -->
+      <g class="astro-ring-reverse">
+        <circle cx="300" cy="300" r="218" fill="none" stroke="url(#goldGrad)" stroke-width="0.8" stroke-dasharray="14 6 2 6" />
+        <ellipse cx="300" cy="300" rx="218" ry="118" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" transform="rotate(28 300 300)" />
+        <ellipse cx="300" cy="300" rx="218" ry="118" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" transform="rotate(-28 300 300)" />
+        <circle cx="518" cy="300" r="3" fill="#e8c987" opacity="0.85" />
+        <circle cx="82" cy="300" r="2.2" fill="#7dd3fc" opacity="0.8" />
+      </g>
+
+      <!-- Inner Sanctuary Ring -->
+      <g class="astro-ring-inner">
+        <circle cx="300" cy="300" r="128" fill="none" stroke="rgba(232,201,135,0.28)" stroke-width="0.7" />
+        <polygon points="300,172 411,364 189,364" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" />
+        <polygon points="300,428 411,236 189,236" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="0.6" />
+      </g>
+
+      <!-- Static Crosshairs -->
+      <line x1="300" y1="6" x2="300" y2="38" stroke="rgba(232,201,135,0.35)" stroke-width="0.8" />
+      <line x1="300" y1="562" x2="300" y2="594" stroke="rgba(232,201,135,0.35)" stroke-width="0.8" />
+      <line x1="6" y1="300" x2="38" y2="300" stroke="rgba(232,201,135,0.35)" stroke-width="0.8" />
+      <line x1="562" y1="300" x2="594" y2="300" stroke="rgba(232,201,135,0.35)" stroke-width="0.8" />
+    </svg>
+  </div>
+
+  <!-- Custom Magnetic Halo Cursor -->
+  <div class="cursor-halo" id="cursor-halo"></div>
+
+  <!-- Interactive Editorial HUD -->
+  <main class="hud-shell">
+    <header class="hud-header">
+      <div class="brand-block">
+        <div class="brand-eyebrow">
+          <span class="pulse-dot"></span>
+          <span>Epoch IV &bull; Celestial Harmonic Observatory</span>
+        </div>
+        <h1 class="brand-title">Aetheria</h1>
+        <p class="brand-subtitle" id="preset-subtitle">Where solar winds braid into luminous silence</p>
+      </div>
+
+      <div class="header-actions">
+        <div class="telemetry-pill" aria-label="Celestial Telemetry">
+          <div class="telemetry-item">RA<span id="coord-ra">14h 22m</span></div>
+          <div class="telemetry-item">DEC<span id="coord-dec">+41&deg; 18&prime;</span></div>
+          <div class="telemetry-item">FLUX<span id="flux-readout">60 Hz</span></div>
+        </div>
+
+        <button class="glass-btn" id="audio-toggle" type="button" title="Toggle Celestial Soundscape">
+          <svg viewBox="0 0 24 24">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+            <path id="audio-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" opacity="0.35"></path>
+          </svg>
+          <span id="audio-label">Sound Off</span>
+        </button>
+
+        <button class="glass-btn" id="zen-toggle" type="button" title="Hide Interface (Zen Mode)">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span>Zen</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="hud-center">
+      <p class="epoch-caption" id="poetic-caption">
+        &ldquo;Every particle remembers the geometry of the star that forged it.&rdquo;
+      </p>
+    </section>
+
+    <footer class="hud-footer">
+      <nav class="preset-dock" aria-label="Celestial Presets">
+        <button class="preset-btn active" data-preset="nebula" type="button">
+          <span class="preset-swatch" style="background: #e8c987; box-shadow: 0 0 8px #e8c987;"></span>
+          Auric Nebula
+        </button>
+        <button class="preset-btn" data-preset="abyss" type="button">
+          <span class="preset-swatch" style="background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></span>
+          Bioluminescent Abyss
+        </button>
+        <button class="preset-btn" data-preset="eclipse" type="button">
+          <span class="preset-swatch" style="background: #fb7185; box-shadow: 0 0 8px #fb7185;"></span>
+          Solaris Eclipse
+        </button>
+        <button class="preset-btn" data-preset="horizon" type="button">
+          <span class="preset-swatch" style="background: #c084fc; box-shadow: 0 0 8px #c084fc;"></span>
+          Velvet Singularity
+        </button>
+      </nav>
+
+      <div class="interaction-dock">
+        <div class="slider-card">
+          <span class="slider-label">Harmonic Drift</span>
+          <input type="range" id="flow-slider" min="0.2" max="2.2" step="0.05" value="1.0" />
+        </div>
+        <button class="glass-btn" id="pulse-btn" type="button" title="Emit Harmonic Shockwave">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"></circle>
+            <circle cx="12" cy="12" r="8" stroke-dasharray="3 3"></circle>
+          </svg>
+          <span>Resonate</span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <div class="gesture-hint" id="gesture-hint">
+    Move to bend gravity &bull; Click anywhere to birth a harmonic wave
+  </div>
+
+  <button class="glass-btn zen-restore" id="zen-restore" type="button">
+    Restore Observatory
+  </button>
+
+  <script>
+    (() => {
+      'use strict';
+
+      /* =====================================================================
+         1. SVG Astrolabe Precision Tick Generation
+         ===================================================================== */
+      const ticksGroup = document.getElementById('outer-ticks');
+      if (ticksGroup) {
+        const NS = 'http://www.w3.org/2000/svg';
+        for (let deg = 0; deg < 360; deg += 5) {
+          const rad = (deg * Math.PI) / 180;
+          const isMajor = deg % 30 === 0;
+          const r1 = 274;
+          const r2 = isMajor ? 261 : 268;
+          const line = document.createElementNS(NS, 'line');
+          line.setAttribute('x1', (300 + Math.cos(rad) * r1).toFixed(2));
+          line.setAttribute('y1', (300 + Math.sin(rad) * r1).toFixed(2));
+          line.setAttribute('x2', (300 + Math.cos(rad) * r2).toFixed(2));
+          line.setAttribute('y2', (300 + Math.sin(rad) * r2).toFixed(2));
+          if (isMajor) line.setAttribute('stroke-width', '1.2');
+          ticksGroup.appendChild(line);
+        }
+      }
+
+      /* =====================================================================
+         2. Celestial Curated Presets
+         ===================================================================== */
+      const PRESETS = {
+        nebula: {
+          name: 'Auric Nebula',
+          subtitle: 'Where solar winds braid into luminous silence',
+          quote: '“Every particle remembers the geometry of the star that forged it.”',
+          bgInner: [14, 19, 42],
+          bgOuter: [3, 4, 10],
+          accent: '#e8c987',
+          nebula: [
+            [232, 180, 100, 0.16],
+            [105, 165, 255, 0.15],
+            [180, 115, 245, 0.12]
+          ],
+          particles: [
+            [255, 224, 160],
+            [140, 210, 255],
+            [245, 245, 255],
+            [215, 155, 255]
+          ],
+          chord: [220, 277.18, 329.63, 415.3, 493.88, 659.25] // A Maj9
+        },
+        abyss: {
+          name: 'Bioluminescent Abyss',
+          subtitle: 'Submerged constellations drifting through midnight currents',
+          quote: '“Deep beneath the dark, light learns to breathe like water.”',
+          bgInner: [6, 28, 44],
+          bgOuter: [2, 6, 14],
+          accent: '#38bdf8',
+          nebula: [
+            [34, 211, 238, 0.17],
+            [56, 189, 248, 0.14],
+            [45, 212, 191, 0.13]
+          ],
+          particles: [
+            [103, 232, 249],
+            [94, 234, 212],
+            [186, 230, 253],
+            [240, 253, 250]
+          ],
+          chord: [196, 246.94, 293.66, 369.99, 440, 587.33] // G Maj9
+        },
+        eclipse: {
+          name: 'Solaris Eclipse',
+          subtitle: 'Crimson corona suspended at the threshold of totality',
+          quote: '“In the brief shadow of two worlds, the invisible crown awakens.”',
+          bgInner: [38, 12, 24],
+          bgOuter: [5, 2, 7],
+          accent: '#fb7185',
+          nebula: [
+            [251, 113, 133, 0.17],
+            [251, 146, 60, 0.14],
+            [192, 132, 252, 0.10]
+          ],
+          particles: [
+            [254, 202, 202],
+            [253, 186, 116],
+            [251, 113, 133],
+            [255, 241, 242]
+          ],
+          chord: [174.61, 220, 261.63, 329.63, 392, 523.25] // F Maj9
+        },
+        horizon: {
+          name: 'Velvet Singularity',
+          subtitle: 'Violet gravity lensing the echoes of distant epochs',
+          quote: '“Time folds gently where stillness becomes infinitely dense.”',
+          bgInner: [26, 12, 46],
+          bgOuter: [3, 2, 8],
+          accent: '#c084fc',
+          nebula: [
+            [192, 132, 252, 0.18],
+            [129, 140, 248, 0.15],
+            [244, 114, 182, 0.11]
+          ],
+          particles: [
+            [233, 213, 255],
+            [165, 180, 252],
+            [249, 168, 212],
+            [255, 255, 255]
+          ],
+          chord: [164.81, 207.65, 246.94, 311.13, 369.99, 493.88] // E Maj9
+        }
+      };
+
+      let activePresetKey = 'nebula';
+      let currentPreset = PRESETS.nebula;
+
+      /* =====================================================================
+         3. Generative Web Audio Harmonic Engine (Zero External Assets)
+         ===================================================================== */
+      class CelestialAudioEngine {
+        constructor() {
+          this.ctx = null;
+          this.enabled = false;
+          this.masterGain = null;
+          this.padOscs = [];
+          this.padFilter = null;
+          this.chordIndex = 0;
+        }
+
+        init() {
+          if (this.ctx) return;
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return;
+
+          this.ctx = new AudioContext();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.value = 0.0001;
+
+          // Warm stereo-like delay feedback network for cosmic spaciousness
+          const delay = this.ctx.createDelay(1.5);
+          delay.delayTime.value = 0.42;
+          const feedback = this.ctx.createGain();
+          feedback.gain.value = 0.36;
+          const delayFilter = this.ctx.createBiquadFilter();
+          delayFilter.type = 'lowpass';
+          delayFilter.frequency.value = 1400;
+
+          delay.connect(delayFilter);
+          delayFilter.connect(feedback);
+          feedback.connect(delay);
+          delayFilter.connect(this.masterGain);
+
+          this.reverbSend = delay;
+          this.masterGain.connect(this.ctx.destination);
+
+          // Continuous celestial pad drone
+          this.padFilter = this.ctx.createBiquadFilter();
+          this.padFilter.type = 'lowpass';
+          this.padFilter.frequency.value = 420;
+          this.padFilter.Q.value = 1.2;
+
+          const padGain = this.ctx.createGain();
+          padGain.gain.value = 0.11;
+          this.padFilter.connect(padGain);
+          padGain.connect(this.masterGain);
+          padGain.connect(this.reverbSend);
+
+          const baseFreqs = [110, 164.81, 220];
+          baseFreqs.forEach((f, idx) => {
+            const osc = this.ctx.createOscillator();
+            osc.type = idx === 0 ? 'sine' : 'triangle';
+            osc.frequency.value = f;
+            osc.detune.value = (idx - 1) * 6;
+            osc.connect(this.padFilter);
+            osc.start();
+            this.padOscs.push(osc);
+          });
+        }
+
+        toggle() {
+          this.init();
+          if (!this.ctx) return false;
+          if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+
+          this.enabled = !this.enabled;
+          const now = this.ctx.currentTime;
+          this.masterGain.gain.cancelScheduledValues(now);
+          this.masterGain.gain.setTargetAtTime(this.enabled ? 0.52 : 0.0001, now, 0.65);
+
+          if (this.enabled) {
+            this.playChime(0.75);
+          }
+          return this.enabled;
+        }
+
+        retuneToPreset(preset) {
+          if (!this.ctx || !this.padOscs.length) return;
+          const now = this.ctx.currentTime;
+          const root = preset.chord[0] * 0.5;
+          const fifth = preset.chord[2] * 0.5;
+          const octave = preset.chord[0];
+          [root, fifth, octave].forEach((freq, idx) => {
+            if (this.padOscs[idx]) {
+              this.padOscs[idx].frequency.setTargetAtTime(freq, now, 1.4);
+            }
+          });
+          if (this.enabled) {
+            this.playChime(0.5);
+          }
+        }
+
+        modulateFilter(normalizedY) {
+          if (!this.ctx || !this.enabled || !this.padFilter) return;
+          const target = 240 + (1 - normalizedY) * 520;
+          this.padFilter.frequency.setTargetAtTime(target, this.ctx.currentTime, 0.25);
+        }
+
+        playChime(intensity = 0.6) {
+          if (!this.ctx || !this.enabled) return;
+          const now = this.ctx.currentTime;
+          const scale = currentPreset.chord;
+          const freq = scale[this.chordIndex % scale.length];
+          this.chordIndex = (this.chordIndex + 1 + Math.floor(Math.random() * 2)) % scale.length;
+
+          const osc = this.ctx.createOscillator();
+          const harmonic = this.ctx.createOscillator();
+          const env = this.ctx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now);
+
+          harmonic.type = 'sine';
+          harmonic.frequency.setValueAtTime(freq * 2, now);
+
+          const harmonicGain = this.ctx.createGain();
+          harmonicGain.gain.value = 0.22;
+
+          env.gain.setValueAtTime(0.0001, now);
+          env.gain.exponentialRampToValueAtTime(0.14 * intensity, now + 0.035);
+          env.gain.exponentialRampToValueAtTime(0.0001, now + 3.4);
+
+          osc.connect(env);
+          harmonic.connect(harmonicGain);
+          harmonicGain.connect(env);
+
+          env.connect(this.masterGain);
+          env.connect(this.reverbSend);
+
+          osc.start(now);
+          harmonic.start(now);
+          osc.stop(now + 3.6);
+          harmonic.stop(now + 3.6);
+        }
+      }
+
+      const audioEngine = new CelestialAudioEngine();
+
+      /* =====================================================================
+         4. High-Craft Cosmos Canvas Renderer
+         ===================================================================== */
+      const canvas = document.getElementById('cosmos-canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let centerX = 0;
+      let centerY = 0;
+
+      // Smoothly interpolated palette state
+      const visualState = {
+        bgInner: [...currentPreset.bgInner],
+        bgOuter: [...currentPreset.bgOuter],
+        nebula: currentPreset.nebula.map(c => [...c]),
+        flowSpeed: 1.0,
+        time: 0
+      };
+
+      // Pointer & Gravity State
+      const pointer = {
+        x: 0,
+        y: 0,
+        targetX: 0,
+        targetY: 0,
+        vx: 0,
+        vy: 0,
+        active: false,
+        down: false
+      };
+
+      // Offscreen Pre-rendered Nebula Cloud Sprites for silky 60fps glow
+      function createGlowSprite(r, g, b, alpha) {
+        const size = 256;
+        const off = document.createElement('canvas');
+        off.width = size;
+        off.height = size;
+        const octx = off.getContext('2d');
+        const grad = octx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+        grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
+        grad.addColorStop(0.35, `rgba(${r}, ${g}, ${b}, ${alpha * 0.45})`);
+        grad.addColorStop(0.7, `rgba(${r}, ${g}, ${b}, ${alpha * 0.12})`);
+        grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+        octx.fillStyle = grad;
+        octx.fillRect(0, 0, size, size);
+        return off;
+      }
+
+      let nebulaSprites = [];
+      function rebuildNebulaSprites() {
+        nebulaSprites = visualState.nebula.map(c =>
+          createGlowSprite(Math.round(c[0]), Math.round(c[1]), Math.round(c[2]), c[3])
+        );
+      }
+
+      // Scene Entities
+      const stars = [];
+      const brightStars = [];
+      const motes = [];
+      const nebulaClouds = [];
+      const shockwaves = [];
+      const meteors = [];
+
+      const STAR_COUNT = 260;
+      const MOTE_COUNT = 680;
+      const NEBULA_CLOUD_COUNT = 11;
+
+      function initSceneEntities() {
+        stars.length = 0;
+        brightStars.length = 0;
+        motes.length = 0;
+        nebulaClouds.length = 0;
+
+        for (let i = 0; i < STAR_COUNT; i++) {
+          const isBright = i < 28;
+          const star = {
+            x: Math.random() * width,
+            y: Math.random() * height,
+            z: 0.25 + Math.random() * 0.9,
+            size: isBright ? 1.3 + Math.random() * 1.4 : 0.45 + Math.random() * 1.05,
+            phase: Math.random() * Math.PI * 2,
+            twinkleSpeed: 0.6 + Math.random() * 2.2,
+            baseAlpha: isBright ? 0.65 + Math.random() * 0.35 : 0.22 + Math.random() * 0.55,
+            isBright
+          };
+          stars.push(star);
+          if (isBright) brightStars.push(star);
+        }
+
+        for (let i = 0; i < NEBULA_CLOUD_COUNT; i++) {
+          nebulaClouds.push({
+            angle: (i / NEBULA_CLOUD_COUNT) * Math.PI * 2,
+            radiusFactor: 0.08 + Math.random() * 0.32,
+            size: Math.min(width, height) * (0.48 + Math.random() * 0.45),
+            speed: (Math.random() > 0.5 ? 1 : -1) * (0.015 + Math.random() * 0.025),
+            spriteIdx: i % 3,
+            pulseOffset: Math.random() * Math.PI * 2
+          });
+        }
+
+        for (let i = 0; i < MOTE_COUNT; i++) {
+          motes.push(createMote(true));
+        }
+
+        rebuildNebulaSprites();
+      }
+
+      function createMote(randomPos = false) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = randomPos
+          ? Math.random() * Math.max(width, height) * 0.62
+          : (0.04 + Math.random() * 0.52) * Math.min(width, height);
+        const palette = currentPreset.particles;
+        const col = palette[Math.floor(Math.random() * palette.length)];
+        return {
+          x: centerX + Math.cos(angle) * dist,
+          y: centerY + Math.sin(angle) * dist,
+          vx: 0,
+          vy: 0,
+          size: 0.7 + Math.random() * 1.9,
+          life: Math.random() * 260,
+          maxLife: 220 + Math.random() * 260,
+          color: col,
+          alpha: 0.25 + Math.random() * 0.72,
+          orbitBias: 0.6 + Math.random() * 0.8
+        };
+      }
+
+      function spawnShockwave(x, y, playAudio = true) {
+        shockwaves.push({
+          x,
+          y,
+          radius: 6,
+          maxRadius: Math.min(width, height) * 0.45,
+          alpha: 0.85,
+          color: currentPreset.accent
+        });
+
+        // Radial burst of delicate motes
+        for (let i = 0; i < 18; i++) {
+          const idx = Math.floor(Math.random() * motes.length);
+          const m = motes[idx];
+          const a = (i / 18) * Math.PI * 2 + Math.random() * 0.2;
+          const speed = 2.4 + Math.random() * 3.5;
+          m.x = x;
+          m.y = y;
+          m.vx = Math.cos(a) * speed;
+          m.vy = Math.sin(a) * speed;
+          m.life = 0;
+        }
+
+        if (playAudio) {
+          audioEngine.playChime(0.85);
+        }
+      }
+
+      function spawnMeteor() {
+        const startX = Math.random() * width * 0.9;
+        const startY = Math.random() * height * 0.45;
+        const angle = Math.PI * 0.16 + Math.random() * 0.22;
+        const speed = 11 + Math.random() * 9;
+        meteors.push({
+          x: startX,
+          y: startY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          length: 75 + Math.random() * 90,
+          alpha: 1.0
+        });
+      }
+
+      function resizeCanvas() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        centerX = width * 0.5;
+        centerY = height * 0.5;
+
+        if (!pointer.active) {
+          pointer.x = pointer.targetX = centerX;
+          pointer.y = pointer.targetY = centerY;
+        }
+        initSceneEntities();
+      }
+
+      /* =====================================================================
+         5. Smooth Color Interpolation & Vector Field Mathematics
+         ===================================================================== */
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      let colorRebuildCounter = 0;
+      function updatePaletteTransition() {
+        const ease = 0.035;
+        let changed = false;
+        for (let i = 0; i < 3; i++) {
+          if (Math.abs(visualState.bgInner[i] - currentPreset.bgInner[i]) > 0.2) {
+            visualState.bgInner[i] = lerp(visualState.bgInner[i], currentPreset.bgInner[i], ease);
+            visualState.bgOuter[i] = lerp(visualState.bgOuter[i], currentPreset.bgOuter[i], ease);
+            changed = true;
+          }
+          for (let j = 0; j < 4; j++) {
+            if (Math.abs(visualState.nebula[i][j] - currentPreset.nebula[i][j]) > 0.005) {
+              visualState.nebula[i][j] = lerp(visualState.nebula[i][j], currentPreset.nebula[i][j], ease);
+              changed = true;
+            }
+          }
+        }
+        colorRebuildCounter++;
+        if (changed && colorRebuildCounter % 8 === 0) {
+          rebuildNebulaSprites();
+        }
+      }
+
+      // Smooth harmonic curl-like flow field
+      function sampleField(x, y, t) {
+        const nx = (x - centerX) * 0.0028;
+        const ny = (y - centerY) * 0.0028;
+        const angle =
+          Math.sin(nx * 1.9 + t * 0.28) * 1.4 +
+          Math.cos(ny * 2.1 - t * 0.22) * 1.4 +
+          Math.sin((nx + ny) * 1.3 + t * 0.15);
+        return angle;
+      }
+
+      /* =====================================================================
+         6. Animation Loop (60fps Target + Live Telemetry)
+         ===================================================================== */
+      let lastTime = performance.now();
+      let fpsFrames = 0;
+      let fpsTimer = 0;
+      const fluxEl = document.getElementById('flux-readout');
+
+      function render(now) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
+        visualState.time += dt * visualState.flowSpeed;
+        const t = visualState.time;
+
+        // FPS Telemetry
+        fpsFrames++;
+        fpsTimer += dt;
+        if (fpsTimer >= 0.75) {
+          if (fluxEl) {
+            fluxEl.textContent = `${Math.round(fpsFrames / fpsTimer)} Hz`;
+          }
+          fpsFrames = 0;
+          fpsTimer = 0;
+        }
+
+        updatePaletteTransition();
+
+        // Smooth pointer inertia
+        const prevPx = pointer.x;
+        const prevPy = pointer.y;
+        pointer.x = lerp(pointer.x, pointer.targetX, 0.12);
+        pointer.y = lerp(pointer.y, pointer.targetY, 0.12);
+        pointer.vx = pointer.x - prevPx;
+        pointer.vy = pointer.y - prevPy;
+
+        // 1. Deep Atmospheric Sky Gradient
+        const bgGrad = ctx.createRadialGradient(
+          centerX + (pointer.x - centerX) * 0.12,
+          centerY + (pointer.y - centerY) * 0.12,
+          0,
+          centerX,
+          centerY,
+          Math.max(width, height) * 0.78
+        );
+        const bi = visualState.bgInner.map(Math.round);
+        const bo = visualState.bgOuter.map(Math.round);
+        bgGrad.addColorStop(0, `rgb(${bi[0]}, ${bi[1]}, ${bi[2]})`);
+        bgGrad.addColorStop(1, `rgb(${bo[0]}, ${bo[1]}, ${bo[2]})`);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, width, height);
+
+        // 2. Luminous Nebula Clouds (Additive Blending)
+        ctx.globalCompositeOperation = 'screen';
+        const parallaxX = (pointer.x - centerX) * 0.04;
+        const parallaxY = (pointer.y - centerY) * 0.04;
+
+        for (let i = 0; i < nebulaClouds.length; i++) {
+          const c = nebulaClouds[i];
+          const a = c.angle + t * c.speed;
+          const dist = Math.min(width, height) * c.radiusFactor;
+          const cx = centerX + Math.cos(a) * dist - parallaxX * 0.8;
+          const cy = centerY + Math.sin(a * 0.85) * dist * 0.72 - parallaxY * 0.8;
+          const breathe = 1 + Math.sin(t * 0.6 + c.pulseOffset) * 0.08;
+          const s = c.size * breathe;
+          const sprite = nebulaSprites[c.spriteIdx];
+          if (sprite) {
+            ctx.drawImage(sprite, cx - s * 0.5, cy - s * 0.5, s, s);
+          }
+        }
+
+        // 3. Parallax Starfield & Subtle Constellations
+        ctx.globalCompositeOperation = 'lighter';
+        for (let i = 0; i < stars.length; i++) {
+          const st = stars[i];
+          const sx = (st.x - parallaxX * st.z + width) % width;
+          const sy = (st.y - parallaxY * st.z + height) % height;
+          const twinkle = 0.65 + 0.35 * Math.sin(t * st.twinkleSpeed + st.phase);
+          const alpha = st.baseAlpha * twinkle;
+
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(sx, sy, st.size, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (st.isBright && alpha > 0.72) {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${(alpha * 0.25).toFixed(3)})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(sx - st.size * 3.2, sy);
+            ctx.lineTo(sx + st.size * 3.2, sy);
+            ctx.moveTo(sx, sy - st.size * 3.2);
+            ctx.lineTo(sx, sy + st.size * 3.2);
+            ctx.stroke();
+          }
+        }
+
+        // Delicate constellation threads near cursor
+        if (pointer.active) {
+          ctx.lineWidth = 0.55;
+          for (let i = 0; i < brightStars.length; i++) {
+            const a = brightStars[i];
+            const ax = (a.x - parallaxX * a.z + width) % width;
+            const ay = (a.y - parallaxY * a.z + height) % height;
+            const distCursor = Math.hypot(ax - pointer.x, ay - pointer.y);
+            if (distCursor > 240) continue;
+
+            for (let j = i + 1; j < brightStars.length; j++) {
+              const b = brightStars[j];
+              const bx = (b.x - parallaxX * b.z + width) % width;
+              const by = (b.y - parallaxY * b.z + height) % height;
+              const d = Math.hypot(ax - bx, ay - by);
+              if (d < 175) {
+                const lineAlpha = (1 - d / 175) * (1 - distCursor / 240) * 0.34;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha.toFixed(3)})`;
+                ctx.beginPath();
+                ctx.moveTo(ax, ay);
+                ctx.lineTo(bx, by);
+                ctx.stroke();
+              }
+            }
+          }
+        }
+
+        // 4. Harmonic Particle Stream (Orbital + Curl Field + Gravitational Cursor)
+        const palette = currentPreset.particles;
+        for (let i = 0; i < motes.length; i++) {
+          const m = motes[i];
+          m.life++;
+          if (m.life >= m.maxLife) {
+            const fresh = createMote(false);
+            m.x = fresh.x;
+            m.y = fresh.y;
+            m.vx = 0;
+            m.vy = 0;
+            m.life = 0;
+            m.color = palette[Math.floor(Math.random() * palette.length)];
+          }
+
+          // Vector field + gentle galactic swirl around center
+          const fieldAngle = sampleField(m.x, m.y, t);
+          const dxC = m.x - centerX;
+          const dyC = m.y - centerY;
+          const distC = Math.sqrt(dxC * dxC + dyC * dyC) + 1;
+          const swirlX = (-dyC / distC) * 0.42 * m.orbitBias;
+          const swirlY = (dxC / distC) * 0.42 * m.orbitBias;
+
+          m.vx += (Math.cos(fieldAngle) * 0.24 + swirlX) * visualState.flowSpeed * 0.14;
+          m.vy += (Math.sin(fieldAngle) * 0.24 + swirlY) * visualState.flowSpeed * 0.14;
+
+          // Gravitational lensing / swirling near cursor
+          if (pointer.active) {
+            const dxP = pointer.x - m.x;
+            const dyP = pointer.y - m.y;
+            const distSq = dxP * dxP + dyP * dyP;
+            const radiusLimit = pointer.down ? 320 : 210;
+            if (distSq < radiusLimit * radiusLimit && distSq > 16) {
+              const distP = Math.sqrt(distSq);
+              const pull = (1 - distP / radiusLimit) * (pointer.down ? 0.48 : 0.19);
+              // Combine subtle attraction with tangential orbital spin
+              m.vx += (dxP / distP) * pull - (dyP / distP) * pull * 0.72 + pointer.vx * 0.025;
+              m.vy += (dyP / distP) * pull + (dxP / distP) * pull * 0.72 + pointer.vy * 0.025;
+            }
+          }
+
+          // Damping & integration
+          m.vx *= 0.945;
+          m.vy *= 0.945;
+          const prevX = m.x;
+          const prevY = m.y;
+          m.x += m.vx;
+          m.y += m.vy;
+
+          // Fade in & out smoothly over lifecycle
+          const lifeRatio = m.life / m.maxLife;
+          const lifeAlpha = Math.sin(lifeRatio * Math.PI);
+          const finalAlpha = m.alpha * lifeAlpha;
+
+          if (finalAlpha > 0.02) {
+            const [r, g, b] = m.color;
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${finalAlpha.toFixed(3)})`;
+            ctx.lineWidth = m.size;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(m.x + 0.01, m.y + 0.01);
+            ctx.stroke();
+          }
+
+          // Wrap gracefully if far off-screen
+          if (m.x < -80 || m.x > width + 80 || m.y < -80 || m.y > height + 80) {
+            m.life = m.maxLife;
+          }
+        }
+
+        // 5. Central Luminous Core Singularity
+        const corePulse = 1 + Math.sin(t * 1.4) * 0.12;
+        const coreGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 96 * corePulse);
+        coreGrad.addColorStop(0, 'rgba(255, 250, 240, 0.22)');
+        coreGrad.addColorStop(0.28, `rgba(${bi[0] + 90}, ${bi[1] + 90}, ${bi[2] + 120}, 0.11)`);
+        coreGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = coreGrad;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 96 * corePulse, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 6. Harmonic Shockwaves
+        for (let i = shockwaves.length - 1; i >= 0; i--) {
+          const sw = shockwaves[i];
+          sw.radius += (sw.maxRadius - sw.radius) * 0.065 + 1.4;
+          sw.alpha *= 0.94;
+          if (sw.alpha < 0.015) {
+            shockwaves.splice(i, 1);
+            continue;
+          }
+          ctx.strokeStyle = sw.color;
+          ctx.globalAlpha = sw.alpha;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.lineWidth = 0.6;
+          ctx.globalAlpha = sw.alpha * 0.5;
+          ctx.beginPath();
+          ctx.arc(sw.x, sw.y, sw.radius * 0.76, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+
+        // 7. Occasional Shooting Stars
+        if (Math.random() < 0.0045 && meteors.length < 2) {
+          spawnMeteor();
+        }
+        for (let i = meteors.length - 1; i >= 0; i--) {
+          const met = meteors[i];
+          met.x += met.vx;
+          met.y += met.vy;
+          met.alpha -= 0.016;
+          if (met.alpha <= 0) {
+            meteors.splice(i, 1);
+            continue;
+          }
+          const norm = Math.hypot(met.vx, met.vy);
+          const tailX = met.x - (met.vx / norm) * met.length;
+          const tailY = met.y - (met.vy / norm) * met.length;
+          const mGrad = ctx.createLinearGradient(met.x, met.y, tailX, tailY);
+          mGrad.addColorStop(0, `rgba(255, 255, 255, ${met.alpha})`);
+          mGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          ctx.strokeStyle = mGrad;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(met.x, met.y);
+          ctx.lineTo(tailX, tailY);
+          ctx.stroke();
+        }
+
+        requestAnimationFrame(render);
+      }
+
+      /* =====================================================================
+         7. UI Bindings, Telemetry & Interactive Events
+         ===================================================================== */
+      const cursorHalo = document.getElementById('cursor-halo');
+      const raEl = document.getElementById('coord-ra');
+      const decEl = document.getElementById('coord-dec');
+      const gestureHint = document.getElementById('gesture-hint');
+
+      function updateCoordinates(x, y) {
+        const raHours = Math.floor((x / width) * 24);
+        const raMins = Math.floor((((x / width) * 24) % 1) * 60);
+        const decDeg = Math.round(90 - (y / height) * 180);
+        const decMin = Math.floor(Math.abs(((y / height) * 180) % 1) * 60);
+        const sign = decDeg >= 0 ? '+' : '';
+        if (raEl) raEl.textContent = `${String(raHours).padStart(2, '0')}h ${String(raMins).padStart(2, '0')}m`;
+        if (decEl) decEl.textContent = `${sign}${decDeg}° ${String(decMin).padStart(2, '0')}′`;
+      }
+
+      window.addEventListener('pointermove', (e) => {
+        pointer.active = true;
+        pointer.targetX = e.clientX;
+        pointer.targetY = e.clientY;
+        if (cursorHalo) {
+          cursorHalo.style.opacity = '1';
+          cursorHalo.style.left = `${e.clientX}px`;
+          cursorHalo.style.top = `${e.clientY}px`;
+        }
+        updateCoordinates(e.clientX, e.clientY);
+        audioEngine.modulateFilter(e.clientY / height);
+      });
+
+      window.addEventListener('pointerdown', (e) => {
+        // Ignore clicks on UI controls for shockwave spawning
+        if (e.target.closest('button, input, .preset-dock')) return;
+        pointer.down = true;
+        if (cursorHalo) cursorHalo.classList.add('active');
+        if (gestureHint) gestureHint.classList.add('hidden');
+        spawnShockwave(e.clientX, e.clientY, true);
+      });
+
+      window.addEventListener('pointerup', () => {
+        pointer.down = false;
+        if (cursorHalo) cursorHalo.classList.remove('active');
+      });
+
+      window.addEventListener('pointerleave', () => {
+        pointer.active = false;
+        if (cursorHalo) cursorHalo.style.opacity = '0';
+      });
+
+      // Preset Switching
+      const presetBtns = document.querySelectorAll('.preset-btn');
+      const subtitleEl = document.getElementById('preset-subtitle');
+      const captionEl = document.getElementById('poetic-caption');
+
+      presetBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.preset;
+          if (!PRESETS[key] || key === activePresetKey) return;
+
+          activePresetKey = key;
+          currentPreset = PRESETS[key];
+          document.documentElement.style.setProperty('--accent-primary', currentPreset.accent);
+
+          presetBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          if (subtitleEl) subtitleEl.textContent = currentPreset.subtitle;
+          if (captionEl) {
+            captionEl.style.opacity = '0';
+            setTimeout(() => {
+              captionEl.textContent = currentPreset.quote;
+              captionEl.style.opacity = '1';
+            }, 320);
+          }
+
+          spawnShockwave(centerX, centerY, false);
+          audioEngine.retuneToPreset(currentPreset);
+        });
+      });
+
+      // Harmonic Drift Slider
+      const flowSlider = document.getElementById('flow-slider');
+      if (flowSlider) {
+        flowSlider.addEventListener('input', (e) => {
+          visualState.flowSpeed = parseFloat(e.target.value);
+        });
+      }
+
+      // Resonate Button
+      const pulseBtn = document.getElementById('pulse-btn');
+      if (pulseBtn) {
+        pulseBtn.addEventListener('click', () => {
+          spawnShockwave(centerX, centerY, true);
+        });
+      }
+
+      // Audio Toggle
+      const audioBtn = document.getElementById('audio-toggle');
+      const audioLabel = document.getElementById('audio-label');
+      const audioWaves = document.getElementById('audio-waves');
+      if (audioBtn) {
+        audioBtn.addEventListener('click', () => {
+          const isOn = audioEngine.toggle();
+          audioBtn.classList.toggle('is-active', isOn);
+          if (audioLabel) audioLabel.textContent = isOn ? 'Sound On' : 'Sound Off';
+          if (audioWaves) audioWaves.setAttribute('opacity', isOn ? '1' : '0.35');
+        });
+      }
+
+      // Zen Mode Toggle
+      const zenBtn = document.getElementById('zen-toggle');
+      const zenRestore = document.getElementById('zen-restore');
+      if (zenBtn) {
+        zenBtn.addEventListener('click', () => {
+          document.body.classList.add('zen-mode');
+        });
+      }
+      if (zenRestore) {
+        zenRestore.addEventListener('click', () => {
+          document.body.classList.remove('zen-mode');
+        });
+      }
+
+      // Keyboard shortcut: 'Z' for Zen Mode, Space for Resonate
+      window.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'z') {
+          document.body.classList.toggle('zen-mode');
+        } else if (e.code === 'Space') {
+          e.preventDefault();
+          spawnShockwave(centerX, centerY, true);
+        }
+      });
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+      requestAnimationFrame(render);
+    })();
+  </script>
+</body>
+</html>

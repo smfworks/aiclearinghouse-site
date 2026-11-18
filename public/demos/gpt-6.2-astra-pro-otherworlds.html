@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d16">
+<title>Otherworlds — A Celestial Field Atlas</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --paper: #f2ede2;
+    --muted: #a4aab2;
+    --accent: #efbd83;
+    --line: rgba(205,215,228,.2);
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --serif: Georgia, "Times New Roman", serif;
+  }
+  * { box-sizing: border-box }
+  body {
+    margin: 0; background: #080d16; color: var(--paper);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  button { font: inherit; color: inherit; cursor: pointer }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px }
+  .atlas {
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: 100svh; display: flex; flex-direction: column;
+    padding: 0 clamp(22px,5vw,88px);
+    background:
+      radial-gradient(ellipse at 78% 38%, #24314180, transparent 50%),
+      radial-gradient(ellipse at 22% 94%, #312c3a55, transparent 45%),
+      linear-gradient(125deg,#090e16,#101824 58%,#080d15);
+  }
+  #sky { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2 }
+  .atlas::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' opacity='.9' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+  }
+  header, footer, .meta, .brand, .controls, .stamp, .readout { display: flex; align-items: center }
+  header, footer { justify-content: space-between; gap: 16px }
+  header { height: 86px; border-bottom: 1px solid var(--line); flex-shrink: 0 }
+  .brand { gap: 12px; font-weight: 650; letter-spacing: -.055em; font-size: 24px }
+  .brand svg { width: 37px; color: var(--accent) }
+  .mono, .kicker, .meta, footer, .stamp, .readout {
+    font: 10px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .14em;
+  }
+  .meta { gap: 14px; color: var(--muted) }
+  .signal { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 12px var(--accent) }
+  main { position: relative; flex: 1; display: grid; align-items: center; min-height: 575px }
+  .illustration {
+    position: absolute; right: -10%; top: 49%; transform: translateY(-50%);
+    width: 79%; aspect-ratio: 1.48; pointer-events: none;
+  }
+  #planet { width: 100%; height: 100%; display: block }
+  .copy { position: relative; width: 43%; padding: 70px 0; z-index: 1 }
+  .kicker { color: var(--accent); display: flex; align-items: center; gap: 12px }
+  .kicker::before { content: ""; width: 36px; height: 1px; background: currentColor }
+  h1 { margin: 25px 0 20px; font: normal clamp(74px,8.6vw,158px)/.9 var(--serif);
+    letter-spacing: -.085em; text-indent: -.065em }
+  .subtitle { font: italic clamp(21px,2vw,32px)/1.25 var(--serif); color: var(--accent); margin: 0 }
+  .description { max-width: 330px; font-size: 15px; line-height: 1.75; color: #bac0c7; margin: 22px 0 32px }
+  .controls { gap: 9px }
+  .controls button { border: 1px solid #ffffff40; background: #ffffff06;
+    width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    transition: background .2s, border-color .2s }
+  .controls button:hover { background: #ffffff14; border-color: var(--accent) }
+  .controls svg { width: 17px; fill: none; stroke: currentColor; stroke-width: 1.3 }
+  .index { margin-left: 10px; font: 11px var(--mono); letter-spacing: .15em; color: var(--muted) }
+  .index b { color: var(--paper); font-weight: normal }
+  .stamp { position: absolute; top: 26px; right: 0; color: var(--muted); gap: 10px }
+  .cross { font: 20px/1 var(--mono); color: var(--accent) }
+  .readout { position: absolute; bottom: 26px; right: 0; gap: 14px; color: var(--muted) }
+  .readout::before { content: ""; width: 55px; height: 8px; background: repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 6px) }
+  .ledger {
+    display: grid; grid-template-columns: 1.25fr repeat(3,1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 24px 0; position: relative;
+  }
+  .ledger::before,.ledger::after { position: absolute; top: -5px; color: #c6c6c2; font: 10px var(--mono); content: "+" }
+  .ledger::before { left: -3px } .ledger::after { right: -3px }
+  .field { padding: 0 22px; border-left: 1px solid var(--line) }
+  .field:first-child { padding-left: 0; border: 0 }
+  .label { display: block; color: var(--muted); font: 9px var(--mono); text-transform: uppercase; letter-spacing: .17em; margin-bottom: 9px }
+  .value { font: 20px var(--serif) }
+  .field:first-child .value { font-style: italic }
+  footer { min-height: 60px; color: var(--muted); font-size: 9px }
+  .folio { color: var(--accent) }
+  .enter { animation: arrive .65s ease-out both }
+  @keyframes arrive { from { opacity: .15; translate: 0 6px } to { opacity: 1; translate: 0 0 } }
+  @media (min-width: 1700px) { main { min-height: 720px } }
+  @media (max-width: 760px) {
+    header { height: 65px } .meta { font-size: 9px } .meta .edition { display: none }
+    main { display: flex; flex-direction: column; align-items: stretch; min-height: 0 }
+    .illustration { position: relative; width: 122%; right: 11%; top: auto; transform: none;
+      height: auto; aspect-ratio: 1.85; margin: 20px 0 -18px }
+    .stamp { top: 14px; font-size: 8px } .readout { display: none }
+    .copy { width: 100%; padding: 0 0 28px }
+    h1 { margin: 14px 0 8px; font-size: clamp(68px,14vw,100px) }
+    .description { max-width: 460px; font-size: 14px; margin: 12px 0 20px }
+    .ledger { grid-template-columns: 1fr 1fr; gap: 22px 0; padding: 19px 0 }
+    .field:nth-child(3) { padding-left: 0; border: 0 }
+    .value { font-size: 18px } footer { min-height: 48px; font-size: 8px }
+  }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation: none!important; transition: none!important } }
+</style>
+</head>
+<body>
+<div class="atlas">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true">
+        <circle cx="20" cy="20" r="12"/><ellipse cx="20" cy="20" rx="20" ry="5" transform="rotate(-34 20 20)"/>
+        <circle cx="31" cy="7" r="2" fill="currentColor" stroke="none"/>
+      </svg>Otherworlds
+    </div>
+    <div class="meta"><span class="edition">Independent celestial atlas &nbsp; /</span><i class="signal"></i> Observatory online</div>
+  </header>
+
+  <main>
+    <div class="illustration"><canvas id="planet" role="img" aria-label="An amber gas giant with luminous, finely divided rings"></canvas></div>
+    <div class="stamp"><span class="cross">⌖</span> Deep field survey</div>
+    <section class="copy" aria-live="polite" aria-atomic="true">
+      <div id="text">
+        <div class="kicker" id="plate">Plate 001 &nbsp;/&nbsp; The outer reach</div>
+        <h1 id="name">Aurelia</h1>
+        <p class="subtitle" id="subtitle">The gilded giant.</p>
+        <p class="description" id="description">At the edge of a quiet star system, a billion shards of ice catch the light. From this distance, they look like a single thread of gold.</p>
+      </div>
+      <nav class="controls" aria-label="Browse celestial plates">
+        <button id="prev" aria-label="Previous world"><svg viewBox="0 0 20 20"><path d="M16 10H4m6-6-6 6 6 6"/></svg></button>
+        <button id="next" aria-label="Next world"><svg viewBox="0 0 20 20"><path d="M4 10h12m-6-6 6 6-6 6"/></svg></button>
+        <span class="index"><b id="counter">01</b> / 03</span>
+      </nav>
+    </section>
+    <div class="readout">Spectral composite</div>
+  </main>
+
+  <section class="ledger" aria-label="World measurements">
+    <div class="field"><span class="label">Classification</span><span class="value" id="kind">Ringed gas giant</span></div>
+    <div class="field"><span class="label">Mean radius</span><span class="value" id="radius">64,280 km</span></div>
+    <div class="field"><span class="label">Orbital period</span><span class="value" id="period">31.6 years</span></div>
+    <div class="field"><span class="label">Known moons</span><span class="value" id="moons">27 satellites</span></div>
+  </section>
+  <footer><span>Field notes from imagined worlds</span><span class="folio" id="folio">Vol. I &nbsp;—&nbsp; Fig. 001</span></footer>
+</div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const worlds = [
+    {name:"Aurelia", sub:"The gilded giant.", region:"The outer reach", desc:"At the edge of a quiet star system, a billion shards of ice catch the light. From this distance, they look like a single thread of gold.", kind:"Ringed gas giant", radius:"64,280 km", period:"31.6 years", moons:"27 satellites", accent:"#efbd83", light:[251,216,163], dark:[136,75,53], tilt:-.32, open:.235},
+    {name:"Nerithe", sub:"A sea without a shore.", region:"The blue expanse", desc:"Beneath the pale rings, cobalt storms circle a sea that has never seen a coastline. Its smallest moon rises twice before the long blue day is done.", kind:"Pelagic ice giant", radius:"29,460 km", period:"58.2 years", moons:"14 satellites", accent:"#9bd6dd", light:[180,237,231], dark:[43,99,150], tilt:.23, open:.32},
+    {name:"Vespera", sub:"The last light of dusk.", region:"The violet frontier", desc:"Two distant suns set a minute apart. Between them, the high clouds turn lilac, and the shadow of the inner ring slips across the evening hemisphere.", kind:"Binary-orbit giant", radius:"48,710 km", period:"19.4 years", moons:"9 satellites", accent:"#d4b2e6", light:[237,208,239], dark:[129,76,133], tilt:-.50, open:.28}
+  ];
+  let current=0;
+  const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+  function sky(){
+    const c=$("sky"), g=c.getContext("2d"), w=c.clientWidth,h=c.clientHeight,d=Math.min(devicePixelRatio||1,2);
+    c.width=w*d;c.height=h*d;g.scale(d,d);
+    let seed=81377; const rnd=()=>((seed=Math.imul(1664525,seed)+1013904223>>>0)/4294967296);
+    for(let i=0;i<w*h/1800;i++){
+      const x=rnd()*w,y=rnd()*h,r=.28+rnd()**3*1.16;
+      g.fillStyle=`rgba(222,232,245,${.18+rnd()*.55})`;
+      g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();
+      if(r>1.39){g.fillRect(x-4,y-.34,8,.68);g.fillRect(x-.34,y-4,.68,8)}
+    }
+  }
+  // Orthographic sphere and inclined ring plane, shaded at each visible point.
+  const cache=new Map();
+  function render(){
+    const c=$("planet"),g=c.getContext("2d"),p=worlds[current];
+    const W=Math.max(400,Math.min(1550,Math.round(c.clientWidth*Math.min(devicePixelRatio||1,1.6)))), H=Math.round(W*c.clientHeight/c.clientWidth);
+    c.width=W;c.height=H;
+    const key=`${current}/${W}/${H}`;
+    if(cache.has(key)){g.putImageData(cache.get(key),0,0);return}
+    const img=g.createImageData(W,H),buf=img.data,R=Math.min(W/4.68,H/2.95);
+    const co=Math.cos(p.tilt),si=Math.sin(p.tilt),op=p.open,cosI=Math.sqrt(1-op*op);
+    const sin=Math.sin,exp=Math.exp,sqrt=Math.sqrt;
+    for(let j=0;j<H;j++)for(let i=0;i<W;i++){
+      const x=(i-W*.50)/R,y=(j-H*.5)/R;
+      const u=x*co+y*si,v=-x*si+y*co,r2=u*u+v*v;
+      const rr=sqrt(u*u+v*v/(op*op)), z=sqrt(Math.max(0,1-r2));
+      let a=0,red=0,green=0,blue=0;
+      if(r2<=1){
+        const lat=v*cosI-z*op,lon=Math.atan2(u,z);
+        const wave=lat+.014*sin(lon*5+lat*9)+.008*sin(lon*13-lat*24)+.003*sin(lon*37+lat*13);
+        const bands=clamp(.55+.19*sin(wave*24)+.12*sin(wave*59+.9*sin(wave*11))+.065*sin(wave*147)+.03*sin(wave*317));
+        const dot=-u*.67-v*.57+z*.47,lit=.105+.90*Math.pow(Math.max(0,dot),.65);
+        const limb=.13*Math.pow(1-z,3)*(dot+.95);
+        // Rings intercept sunlight in a narrow arc across the cloud tops.
+        const shadowR=sqrt((u-(z*op-v*cosI)*.91)**2+((v+.56*(z*op-v*cosI))/op)**2);
+        const shade=(z*op-v*cosI>0 && shadowR>1.27 && shadowR<2.16)?.81:1;
+        const grain=(sin(i*127.1+j*311.7)*43758.5453)%1*2;
+        const channel=k=>(p.dark[k]+(p.light[k]-p.dark[k])*bands)*lit*shade+p.light[k]*limb+grain;
+        red=channel(0);green=channel(1);blue=channel(2);a=1;
+      } else {
+        const glow=.16*exp(-(sqrt(r2)-1)*29)*clamp(.58-.5*u-.43*v);
+        if(glow>.002){a=glow;[red,green,blue]=p.light}
+      }
+      if(rr>1.21 && rr<2.23 && (r2>1 || v*cosI/op>z)){
+        const fine=.5+.5*sin(rr*950+1.5*sin(rr*142));
+        let density=(.42+.25*fine+.16*sin(rr*74)+.12*sin(rr*241))*clamp((rr-1.21)*8)*clamp((2.23-rr)*34);
+        if(rr>1.82 && rr<1.87)density*=.10;
+        if(rr>2.075 && rr<2.09)density*=.21;
+        if(rr<1.39)density*=.49;
+        const rz=v*cosI/op, dot=-.67*u-.57*v+.47*rz;
+        const inShadow=dot<0 && rr*rr-dot*dot<1;
+        const bright=(inShadow?.24:1)*(.76+.18*fine+.10*sin(rr*44));
+        const b=clamp(density),out=b+a*(1-b);
+        const mix=(old,k)=>(p.light[k]*bright*b+old*a*(1-b))/out;
+        red=mix(red,0);green=mix(green,1);blue=mix(blue,2);a=out;
+      }
+      const n=(j*W+i)*4;buf[n]=red;buf[n+1]=green;buf[n+2]=blue;buf[n+3]=a*255;
+    }
+    if(cache.size>=6)cache.clear();
+    cache.set(key,img);g.putImageData(img,0,0);
+  }
+  function browse(step){
+    current=(current+step+worlds.length)%worlds.length;
+    const p=worlds[current],num=String(current+1).padStart(3,"0");
+    for(const [id,value] of Object.entries({name:p.name,subtitle:p.sub,description:p.desc,plate:`Plate ${num}  /  ${p.region}`,kind:p.kind,radius:p.radius,period:p.period,moons:p.moons,counter:num.slice(1),folio:`Vol. I  —  Fig. ${num}`}))$(id).textContent=value;
+    document.documentElement.style.setProperty("--accent",p.accent);
+    $("planet").setAttribute("aria-label",`Illustrated portrait of ${p.name}, a ${p.kind.toLowerCase()} with inclined rings`);
+    render();
+    for(const e of [$("text"),$("planet")]){e.classList.remove("enter");void e.offsetWidth;e.classList.add("enter")}
+  }
+  $("prev").onclick=()=>browse(-1);$("next").onclick=()=>browse(1);
+  document.addEventListener("keydown",e=>{
+    if(e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;
+    if(e.key==="ArrowRight")browse(1);if(e.key==="ArrowLeft")browse(-1);
+  });
+  let timer;window.addEventListener("resize",()=>{clearTimeout(timer);timer=setTimeout(()=>{sky();render()},120)});
+  sky();render();
+})();
+</script>
+</body>
+</html>
