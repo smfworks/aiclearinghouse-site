@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/><stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="neonbar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00d4aa"/><stop offset="1" stop-color="#76b900"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-opacity="0.3">
+    <line x1="70" y1="0" x2="70" y2="500"/><line x1="0" y1="500" x2="1200" y2="500"/>
+  </g>
+  <text x="60" y="90" fill="#76b900" font-family="'SF Mono','Courier New',monospace" font-size="13" letter-spacing="3">ONESHOT · 81-BYTE BRIEF · 9 MODELS</text>
+  <text x="60" y="135" fill="#e8eef4" font-size="34" font-weight="700">What one sentence bought, per model</text>
+  <text x="60" y="165" fill="#5a8a6a" font-size="15">Measured cost of one creative one-shot run, OpenRouter, 2026-11-18/19</text>
+
+  <!-- bars: sqrt scale, max 620px for fable $3.0056 -->
+  <g font-family="'SF Mono','Courier New',monospace" font-size="13">
+    <!-- fable 3.0056 -> 620 -->
+    <rect x="230" y="190" width="620" height="24" fill="#ff9500" opacity="0.85" rx="4"/>
+    <text x="230" y="184" fill="#5a8a6a">fable-5.2</text><text x="858" y="208" fill="#e8eef4">$3.01</text>
+    <!-- glm 0.5348 -> 262 -->
+    <rect x="230" y="222" width="262" height="24" fill="#ff9500" opacity="0.6" rx="4"/>
+    <text x="230" y="216" fill="#5a8a6a">glm-5.3-prime</text><text x="500" y="240" fill="#e8eef4">$0.53</text>
+    <!-- astra 0.5025 -> 254 -->
+    <rect x="230" y="254" width="254" height="24" fill="#ff9500" opacity="0.45" rx="4"/>
+    <text x="230" y="248" fill="#5a8a6a">gpt-6.2-astra</text><text x="492" y="272" fill="#e8eef4">$0.50</text>
+    <!-- neon 0.3035 -> 197 -->
+    <rect x="230" y="286" width="197" height="24" fill="url(#neonbar)" rx="4"/>
+    <text x="230" y="280" fill="#76b900" font-weight="700">GEMINI-4-NEON</text><text x="435" y="304" fill="#00d4aa" font-weight="700">$0.30</text>
+    <!-- carbon 0.1834 -> 153 -->
+    <rect x="230" y="318" width="153" height="24" fill="#00d4aa" opacity="0.5" rx="4"/>
+    <text x="230" y="312" fill="#5a8a6a">gemini-4-carbon</text><text x="391" y="336" fill="#e8eef4">$0.18</text>
+    <!-- sol 0.1576 -> 142 -->
+    <rect x="230" y="350" width="142" height="24" fill="#00d4aa" opacity="0.4" rx="4"/>
+    <text x="230" y="344" fill="#5a8a6a">gpt-6.2-sol</text><text x="380" y="368" fill="#e8eef4">$0.16</text>
+    <!-- hydrogen 0.1423 -> 135 -->
+    <rect x="230" y="382" width="135" height="24" fill="#00d4aa" opacity="0.35" rx="4"/>
+    <text x="230" y="376" fill="#5a8a6a">gemini-4-hydrogen</text><text x="373" y="400" fill="#e8eef4">$0.14</text>
+    <!-- qwen4 0.0983 -> 112 -->
+    <rect x="230" y="414" width="112" height="24" fill="#00d4aa" opacity="0.3" rx="4"/>
+    <text x="230" y="408" fill="#5a8a6a">qwen4-max</text><text x="350" y="432" fill="#e8eef4">$0.10</text>
+    <!-- hy4 0.0038 -> 22 -->
+    <rect x="230" y="446" width="22" height="24" fill="#00d4aa" opacity="0.25" rx="4"/>
+    <text x="230" y="440" fill="#5a8a6a">hy4-flash</text><text x="260" y="464" fill="#e8eef4">$0.004</text>
+  </g>
+
+  <!-- neon stat strip -->
+  <g font-family="'SF Mono','Courier New',monospace">
+    <rect x="60" y="508" width="1080" height="86" fill="#0d1626" stroke="#1a2a3a" rx="8"/>
+    <text x="90" y="545" fill="#00d4aa" font-size="20" font-weight="700">AETHERIUM</text>
+    <text x="90" y="570" fill="#5a8a6a" font-size="12">53.9 KB — biggest page of the series</text>
+    <text x="420" y="545" fill="#e8eef4" font-size="20">168.6 s</text>
+    <text x="420" y="570" fill="#5a8a6a" font-size="12">wall clock</text>
+    <text x="620" y="545" fill="#e8eef4" font-size="20">20,226 tok</text>
+    <text x="620" y="570" fill="#5a8a6a" font-size="12">1,151 reasoning (medium effort)</text>
+    <text x="920" y="545" fill="#e8eef4" font-size="20">node --check PASS</text>
+    <text x="920" y="570" fill="#5a8a6a" font-size="12">0 splice signatures</text>
+  </g>
+</svg>
