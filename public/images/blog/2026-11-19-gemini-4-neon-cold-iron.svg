@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0e1a"/><stop offset="1" stop-color="#06141e"/></linearGradient></defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <text x="60" y="80" fill="#76b900" font-family="'SF Mono','Courier New',monospace" font-size="13" letter-spacing="3">COLD IRON · 157 TESTS · THINKING OFF · 9 MODELS</text>
+  <text x="60" y="125" fill="#e8eef4" font-size="34" font-weight="700">The Cold Iron board, with Neon on it</text>
+  <text x="60" y="153" fill="#5a8a6a" font-size="15">Pass rate, 157-test strict suite. Arms differ per row; Neon ran at catalog defaults (medium effort).</text>
+  <g font-family="'SF Mono','Courier New',monospace" font-size="13">
+  <rect x="250" y="185" width="731" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="179" fill="#5a8a6a">hydrogen</text>
+  <text x="991" y="203" fill="#e8eef4">96.2%</text>
+  <rect x="250" y="227" width="726" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="221" fill="#5a8a6a">astra-pro</text>
+  <text x="986" y="245" fill="#e8eef4">95.5%</text>
+  <rect x="250" y="269" width="721" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="263" fill="#5a8a6a">sol-pro</text>
+  <text x="981" y="287" fill="#e8eef4">94.9%</text>
+  <rect x="250" y="311" width="711" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="305" fill="#5a8a6a">carbon</text>
+  <text x="971" y="329" fill="#e8eef4">93.6%</text>
+  <rect x="250" y="353" width="691" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="347" fill="#5a8a6a">fable-5.2</text>
+  <text x="951" y="371" fill="#e8eef4">90.9%</text>
+  <rect x="250" y="395" width="654" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="389" fill="#5a8a6a">glm-5.3-prime</text>
+  <text x="914" y="413" fill="#e8eef4">86.0%</text>
+  <rect x="250" y="437" width="615" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="431" fill="#5a8a6a">qwen4-max</text>
+  <text x="875" y="455" fill="#e8eef4">80.9%</text>
+  <rect x="250" y="479" width="615" height="26" fill="#00d4aa" opacity="0.55" rx="4"/>
+  <text x="250" y="473" fill="#5a8a6a">hy4-flash</text>
+  <text x="875" y="497" fill="#e8eef4">80.9%</text>
+  <rect x="250" y="521" width="508" height="26" fill="#76b900" opacity="1.0" rx="4"/>
+  <text x="250" y="515" fill="#76b900">NEON (defaults)</text>
+  <text x="768" y="539" fill="#e8eef4">66.9%</text>
+  </g>
+  <g font-family="'SF Mono','Courier New',monospace">
+    <rect x="60" y="560" width="1080" height="40" fill="#0d1626" stroke="#1a2a3a" rx="6"/>
+    <text x="90" y="585" fill="#5a8a6a" font-size="12">Neon: 105/157, 0 errors, 66.9% — 3996.7 s wall, $6.44, 397,739 reasoning tokens burned against a 4,096-token per-item cap.</text>
+  </g>
+</svg>
