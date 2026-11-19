@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1d33"/>
+      <stop offset="1" stop-color="#123152"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5a623"/>
+      <stop offset="1" stop-color="#e8891d"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- faint grid -->
+  <g stroke="#1d3a5f" stroke-width="1" opacity="0.5">
+    <path d="M0 105 H1200 M0 210 H1200 M0 315 H1200 M0 420 H1200 M0 525 H1200"/>
+    <path d="M150 0 V630 M300 0 V630 M450 0 V630 M600 0 V630 M750 0 V630 M900 0 V630 M1050 0 V630"/>
+  </g>
+
+  <!-- left process: a training loop that stalls -->
+  <g>
+    <rect x="90" y="200" width="300" height="230" rx="18" fill="#0e2743" stroke="#2a4a73" stroke-width="2"/>
+    <circle cx="150" cy="260" r="14" fill="none" stroke="#8fa9c4" stroke-width="3"/>
+    <path d="M150 246 a14 14 0 0 1 12 7" stroke="#e8613a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="150" cy="320" r="14" fill="none" stroke="#8fa9c4" stroke-width="3"/>
+    <path d="M150 306 a14 14 0 0 1 12 7" stroke="#e8613a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- stalled spinner: frozen arc, no motion lines -->
+    <circle cx="150" cy="380" r="14" fill="none" stroke="#2f4d72" stroke-width="3"/>
+    <path d="M150 366 a14 14 0 0 1 14 14" stroke="#e8613a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M170 380 H310" stroke="#2f4d72" stroke-width="3" stroke-dasharray="2 8"/>
+  </g>
+
+  <!-- the pathological answer as abstract nested towers -->
+  <g stroke="#e8613a" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M470 430 v-60 h24 v-60 h20 v-60 h16 v-60 h12"/>
+    <path d="M470 430 h40"/>
+  </g>
+
+  <!-- wall of the timeout: 30 second clock -->
+  <g>
+    <line x1="600" y1="120" x2="600" y2="510" stroke="url(#gold)" stroke-width="5" stroke-dasharray="14 10"/>
+    <circle cx="600" cy="315" r="86" fill="#0e2743" stroke="#f5a623" stroke-width="5"/>
+    <path d="M600 315 L600 262" stroke="#f5a623" stroke-width="6" stroke-linecap="round"/>
+    <path d="M600 315 L636 338" stroke="#f5a623" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="600" cy="315" r="7" fill="#f5a623"/>
+    <path d="M600 200 a115 115 0 0 1 99 57" stroke="#f5a623" stroke-width="4" fill="none" opacity="0.55"/>
+  </g>
+
+  <!-- right process: fresh grader process, clean and closed -->
+  <g>
+    <rect x="810" y="200" width="300" height="230" rx="18" fill="#0e2743" stroke="#3fae9c" stroke-width="3"/>
+    <circle cx="880" cy="265" r="14" fill="none" stroke="#3fae9c" stroke-width="3"/>
+    <path d="M880 251 a14 14 0 0 1 12 7" stroke="#7fd4c6" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M880 251 a14 14 0 0 1 9 5" stroke="#3fae9c" stroke-width="3" fill="none" stroke-linecap="round" opacity="0"/>
+    <circle cx="880" cy="265" r="20" fill="none" stroke="#3fae9c" stroke-width="1.5" opacity="0.4"/>
+    <!-- check -->
+    <path d="M1000 252 l14 14 l26 -28" stroke="#7fd4c6" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- zero -->
+    <circle cx="960" cy="380" r="26" fill="none" stroke="#f5a623" stroke-width="6"/>
+    <path d="M944 368 a30 30 0 0 1 0 24" stroke="#f5a623" stroke-width="6" fill="none" stroke-linecap="round" opacity="0"/>
+  </g>
+
+  <!-- connecting arrow through the clock -->
+  <path d="M400 315 H508" stroke="#2a4a73" stroke-width="3" stroke-dasharray="6 8"/>
+  <path d="M692 315 H800" stroke="#3fae9c" stroke-width="3" stroke-dasharray="6 8"/>
+  <path d="M800 315 l-16 -8 v16 z" fill="#3fae9c"/>
+
+  <!-- bottom accent band -->
+  <rect x="0" y="612" width="1200" height="18" fill="url(#gold)"/>
+</svg>
