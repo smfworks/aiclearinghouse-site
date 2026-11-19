@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="An Omarchy desktop rising like a sunrise over a plugin constellation">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#070a12"/>
+      <stop offset="60%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#101a30"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#39e1ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#39e1ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#39e1ff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="72%" r="45%">
+      <stop offset="0%" stop-color="#39e1ff" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#39e1ff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#39e1ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#sun)"/>
+
+  <!-- faint grid -->
+  <g stroke="#16233c" stroke-width="1" opacity="0.5">
+    <line x1="0" y1="150" x2="1600" y2="150"/><line x1="0" y1="300" x2="1600" y2="300"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/><line x1="0" y1="600" x2="1600" y2="600"/>
+    <line x1="0" y1="750" x2="1600" y2="750"/>
+    <line x1="200" y1="0" x2="200" y2="900"/><line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="600" y1="0" x2="600" y2="900"/><line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1000" y1="0" x2="1000" y2="900"/><line x1="1200" y1="0" x2="1200" y2="900"/>
+    <line x1="1400" y1="0" x2="1400" y2="900"/>
+  </g>
+
+  <!-- plugin constellation: dots linked by thin lines -->
+  <g stroke="#39e1ff" stroke-opacity="0.28" stroke-width="1.5" fill="none">
+    <path d="M180 690 L340 560 L520 640 L660 500"/>
+    <path d="M660 500 L860 580 L1040 470 L1220 560"/>
+    <path d="M520 640 L700 720 L860 580"/>
+    <path d="M1040 470 L1180 350 L1380 430"/>
+    <path d="M340 560 L300 400 L460 320 L620 380 L660 500"/>
+    <path d="M900 260 L1040 380 L1180 350"/>
+    <path d="M300 400 L180 300"/>
+  </g>
+  <g fill="#39e1ff">
+    <circle cx="180" cy="690" r="7" fill-opacity="0.9"/><circle cx="340" cy="560" r="5"/>
+    <circle cx="520" cy="640" r="8"/><circle cx="660" cy="500" r="6"/>
+    <circle cx="860" cy="580" r="9" fill-opacity="0.95"/><circle cx="1040" cy="470" r="5"/>
+    <circle cx="1220" cy="560" r="7"/><circle cx="700" cy="720" r="5"/>
+    <circle cx="1180" cy="350" r="6"/><circle cx="1380" cy="430" r="8"/>
+    <circle cx="300" cy="400" r="5"/><circle cx="460" cy="320" r="7"/>
+    <circle cx="620" cy="380" r="4"/><circle cx="900" cy="260" r="6"/>
+    <circle cx="1040" cy="380" r="4"/><circle cx="180" cy="300" r="5"/>
+  </g>
+
+  <!-- the bar: a slim accent strip with widget blocks -->
+  <g>
+    <rect x="120" y="770" width="1360" height="56" rx="12" fill="#0d1526" stroke="#22314f" stroke-width="1.5"/>
+    <rect x="120" y="770" width="1360" height="3" rx="1.5" fill="url(#accent)"/>
+    <!-- left widgets -->
+    <rect x="150" y="788" width="90" height="20" rx="6" fill="#1a2c4a"/>
+    <rect x="255" y="788" width="60" height="20" rx="6" fill="#1a2c4a"/>
+    <!-- center clock -->
+    <rect x="740" y="784" width="120" height="28" rx="8" fill="#39e1ff" fill-opacity="0.18" stroke="#39e1ff" stroke-opacity="0.5"/>
+    <!-- right widgets -->
+    <rect x="1000" y="788" width="46" height="20" rx="6" fill="#1a2c4a"/>
+    <rect x="1062" y="788" width="46" height="20" rx="6" fill="#1a2c4a"/>
+    <rect x="1124" y="788" width="46" height="20" rx="6" fill="#1a2c4a"/>
+    <circle cx="1410" cy="798" r="8" fill="#39e1ff" fill-opacity="0.85"/>
+    <circle cx="1440" cy="798" r="8" fill="#2a3f63"/>
+  </g>
+
+  <!-- rising sun arc above the bar -->
+  <path d="M480 770 A 320 320 0 0 1 1120 770" fill="none" stroke="#39e1ff" stroke-width="3" stroke-opacity="0.65"/>
+  <path d="M560 770 A 240 240 0 0 1 1040 770" fill="none" stroke="#39e1ff" stroke-width="2" stroke-opacity="0.4"/>
+  <path d="M640 770 A 160 160 0 0 1 960 770" fill="none" stroke="#39e1ff" stroke-width="2" stroke-opacity="0.25"/>
+
+  <!-- title-block abstract text bars -->
+  <g>
+    <rect x="480" y="120" width="430" height="34" rx="10" fill="#e8f6ff" fill-opacity="0.92"/>
+    <rect x="480" y="176" width="620" height="20" rx="8" fill="#39e1ff" fill-opacity="0.35"/>
+    <rect x="480" y="212" width="540" height="20" rx="8" fill="#39e1ff" fill-opacity="0.2"/>
+  </g>
+</svg>
