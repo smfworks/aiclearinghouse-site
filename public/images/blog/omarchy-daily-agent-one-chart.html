@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Omarchy plugin growth and agent-tooling share</title>
+<style>
+  :root { --fg: var(--foreground, #e8f6ff); --muted: var(--muted-foreground, #8fa3c0); --accent: var(--accent, #39e1ff); --border: var(--border, #22314f); }
+  html,body { margin:0; padding:0; background:transparent; color:var(--fg); font-family:inherit; }
+  .wrap { padding:12px 8px; }
+  h3 { margin:0 0 4px; font-size:15px; font-weight:600; }
+  p.sub { margin:0 0 12px; font-size:12.5px; color:var(--muted); }
+  .chartbox { position:relative; height:340px; }
+  .foot { margin-top:10px; font-size:11.5px; color:var(--muted); }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <h3>Marketplace growth and the agent-tooling share of new plugins</h3>
+  <p class="sub">Left axis: total plugins listed on the registry (cumulative). Right axis: share of plugins added Nov 19–20 that fall into Developer Tools or System categories.</p>
+  <div class="chartbox"><canvas id="c"></canvas></div>
+  <p class="foot">Source: omacom/omarchy-plugin-marketplace catalog.json (site build), fetched Nov 20, 2026. 6,830 plugins total; 87 added Nov 19–20.</p>
+</div>
+<script>
+const ctx = document.getElementById('c');
+new Chart(ctx, {
+  data: {
+    labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov 1–18', 'Nov 19–20'],
+    datasets: [
+      {
+        type: 'line',
+        label: 'Total plugins on registry',
+        data: [18, 1962, 4438, 6135, 6743, 6830],
+        yAxisID: 'y',
+        borderColor: 'rgba(57, 225, 255, 0.95)',
+        backgroundColor: 'rgba(57, 225, 255, 0.12)',
+        pointBackgroundColor: 'rgba(57, 225, 255, 1)',
+        tension: 0.3,
+        fill: true
+      },
+      {
+        type: 'bar',
+        label: 'Dev + System share of new plugins (%)',
+        data: [null, null, null, null, null, 23.0],
+        yAxisID: 'y1',
+        backgroundColor: 'rgba(244, 114, 182, 0.55)',
+        borderColor: 'rgba(244, 114, 182, 0.95)',
+        borderWidth: 1.5,
+        borderRadius: 6
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: true, labels: { color: '#8fa3c0', boxWidth: 12 } },
+      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y.toLocaleString() } }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(34,49,79,0.4)' }, ticks: { color: '#8fa3c0' } },
+      y: {
+        position: 'left',
+        grid: { color: 'rgba(34,49,79,0.4)' },
+        ticks: { color: '#39e1ff', callback: v => v >= 1000 ? (v/1000) + 'k' : v },
+        title: { display: true, text: 'Total plugins', color: '#39e1ff' }
+      },
+      y1: {
+        position: 'right',
+        grid: { drawOnChartArea: false },
+        ticks: { color: '#f472b6', callback: v => v + '%' },
+        min: 0,
+        max: 40,
+        title: { display: true, text: 'Dev + System share', color: '#f472b6' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
