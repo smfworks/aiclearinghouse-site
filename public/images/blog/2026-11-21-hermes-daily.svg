@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2a3a" stroke-opacity="0.3" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00d4aa"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <rect width="1200" height="640" fill="url(#grid)"/>
+
+  <text x="60" y="86" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="40" font-weight="700" fill="#e8eef4">The Invisible Release</text>
+  <text x="60" y="122" font-family="'SF Mono','Courier New',monospace" font-size="17" fill="#5a8a6a">hermes-agent · commits Nov 20–21, 2026 · 100+ of which 0 say "feat" out loud</text>
+
+  <!-- left: commit-type breakdown bars -->
+  <g font-family="'SF Mono','Courier New',monospace">
+    <text x="60" y="180" font-size="15" fill="#5a8a6a">COMMIT TYPES SINCE v0.23.3 (NOV 19 → 21)</text>
+  </g>
+  <g font-family="'SF Mono','Courier New',monospace" font-size="14">
+    <!-- fix: 19 -->
+    <text x="60" y="222" fill="#e8eef4">fix</text>
+    <rect x="110" y="208" width="190" height="18" rx="3" fill="#00d4aa" filter="url(#glow)"/>
+    <text x="310" y="222" fill="#5a8a6a">19</text>
+    <!-- perf: 19 -->
+    <text x="60" y="258" fill="#e8eef4">perf</text>
+    <rect x="110" y="244" width="190" height="18" rx="3" fill="#76b900" filter="url(#glow)"/>
+    <text x="310" y="258" fill="#5a8a6a">19</text>
+    <!-- test 13 -->
+    <text x="60" y="294" fill="#e8eef4">test</text>
+    <rect x="110" y="280" width="130" height="18" rx="3" fill="#3b82f6"/>
+    <text x="250" y="294" fill="#5a8a6a">13</text>
+    <!-- docs 5 -->
+    <text x="60" y="330" fill="#e8eef4">docs</text>
+    <rect x="110" y="316" width="50" height="18" rx="3" fill="#6b7280"/>
+    <text x="170" y="330" fill="#5a8a6a">5</text>
+    <!-- feat 4 -->
+    <text x="60" y="366" fill="#e8eef4">feat</text>
+    <rect x="110" y="352" width="40" height="18" rx="3" fill="#ff9500"/>
+    <text x="160" y="366" fill="#5a8a6a">4</text>
+    <!-- refactor etc 3 -->
+    <text x="60" y="402" fill="#e8eef4">refactor + chore + ci</text>
+    <rect x="270" y="388" width="30" height="18" rx="3" fill="#6b7280"/>
+    <text x="310" y="402" fill="#5a8a6a">3</text>
+  </g>
+
+  <!-- right: the quiet work ledger -->
+  <g font-family="'SF Mono','Courier New',monospace">
+    <text x="420" y="180" font-size="15" fill="#5a8a6a">WHERE THE QUIET WORK LANDED</text>
+  </g>
+  <g font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#e8eef4">
+    <circle cx="428" cy="212" r="4" fill="#76b900"/><text x="444" y="217">desktop · 19 perf commits on the render path</text>
+    <circle cx="428" cy="244" r="4" fill="#00d4aa"/><text x="444" y="249">tools · long outputs spill to disk, tail kept</text>
+    <circle cx="428" cy="276" r="4" fill="#00d4aa"/><text x="444" y="281">skills · dedup + desc-limit fixes, e2e locks</text>
+    <circle cx="428" cy="308" r="4" fill="#00d4aa"/><text x="444" y="313">telegram · drafts survive the PTB lazy install</text>
+    <circle cx="428" cy="340" r="4" fill="#6b7280"/><text x="444" y="345">pm · generation leases out of the dep tree</text>
+    <circle cx="428" cy="372" r="4" fill="#6b7280"/><text x="444" y="377">ci · red-tracker replays count as green</text>
+  </g>
+
+  <!-- center bottom: skill math -->
+  <g font-family="'SF Mono','Courier New',monospace" font-size="13" fill="#5a8a6a">
+    <text x="60" y="470">THE SKILL MATH — verified against the live catalogs, Nov 21, 2026</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="60" y="492" width="300" height="96" rx="8" fill="#0d1626" stroke="#76b900" stroke-opacity="0.5"/>
+    <text x="210" y="532" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="30" font-weight="700" fill="#76b900">44</text>
+    <text x="210" y="560" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#5a8a6a">bundled, on by default</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="450" y="492" width="300" height="96" rx="8" fill="#0d1626" stroke="#00d4aa" stroke-opacity="0.5"/>
+    <text x="600" y="532" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="30" font-weight="700" fill="#00d4aa">141</text>
+    <text x="600" y="560" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#5a8a6a">optional, one command away</text>
+  </g>
+  <g filter="url(#glow)">
+    <rect x="840" y="492" width="300" height="96" rx="8" fill="#0d1626" stroke="#ff9500" stroke-opacity="0.5"/>
+    <text x="990" y="532" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="30" font-weight="700" fill="#ff9500">185</text>
+    <text x="990" y="560" text-anchor="middle" font-family="'SF Mono','Courier New',monospace" font-size="12" fill="#5a8a6a">total — ~1/3 are delegations to other CLIs</text>
+  </g>
+  <line x1="360" y1="540" x2="450" y2="540" stroke="#00d4aa" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="750" y1="540" x2="840" y2="540" stroke="#00d4aa" stroke-width="2" marker-end="url(#arr)"/>
+</svg>
