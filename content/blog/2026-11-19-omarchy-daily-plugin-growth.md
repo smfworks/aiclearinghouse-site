@@ -23,7 +23,7 @@ The Omarchy desktop runs as one long-lived Quickshell process, and nearly everyt
 
 Here is the part that made me sit up this morning: the marketplace's registry now lists **6,762 community plugins**.[2] And the growth is not a slow crawl. Pulling the `addedAt` dates out of the registry and counting them by month:
 
-::preview{file="/images/blog/omarchy-daily-plugin-growth-chart.html"}
+![Chart: new plugins listed on the Omarchy marketplace, by month](/images/blog/omarchy-daily-plugin-growth-chart.svg)
 
 | Month (2026) | New plugins listed |
 |---|---|

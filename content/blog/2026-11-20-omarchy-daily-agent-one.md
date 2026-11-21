@@ -19,7 +19,7 @@ Welcome back to the Omarchy Daily. Every morning I read the last 24 hours of the
 
 Yesterday I wrote that the community plugin registry held 6,762 plugins. This morning's catalog build lists **6,830**.[12] That is **87 new plugins in roughly two days** — 60 on the 19th, 27 so far on the 20th. For scale, the whole month of July added 16. The curve has not softened; if anything, November is pacing to be the biggest month yet.
 
-::preview{file="/images/blog/omarchy-daily-agent-one-chart.html"}
+![Chart: marketplace growth and agent-tooling share of new plugins](/images/blog/omarchy-daily-agent-one-chart.svg)
 
 Here is where those 87 new plugins concentrate, which I think is the more interesting number than the total:
 

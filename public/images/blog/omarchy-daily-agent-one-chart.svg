@@ -1,0 +1,34 @@
+<div style="position:relative;margin:1.5rem 0;">
+<svg width="100%" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line chart: cumulative Omarchy marketplace plugin growth July to November 2026, with bar showing developer and system tooling share of new plugins" style="font-family:inherit;">
+  <rect width="800" height="420" fill="#0b1220" rx="12"/>
+  <text x="32" y="44" fill="#e8f6ff" font-size="19" font-weight="600">Marketplace growth and the agent-tooling share of new plugins</text>
+  <text x="32" y="70" fill="#8fa3c0" font-size="13">Left axis: total plugins listed on the registry (cumulative). Right axis: share of new plugins in Dev Tools / System.</text>
+  <!-- gridlines -->
+  <g stroke="#22314f" stroke-width="1">
+<line x1="80" y1="330" x2="770" y2="330"/>
+<text x="72" y="334" fill="#39e1ff" font-size="12" text-anchor="end">0</text>
+<line x1="80" y1="267" x2="770" y2="267"/>
+<text x="72" y="271" fill="#39e1ff" font-size="12" text-anchor="end">2,000</text>
+<line x1="80" y1="204" x2="770" y2="204"/>
+<text x="72" y="208" fill="#39e1ff" font-size="12" text-anchor="end">4,000</text>
+<line x1="80" y1="141" x2="770" y2="141"/>
+<text x="72" y="145" fill="#39e1ff" font-size="12" text-anchor="end">6,000</text>
+  </g>
+  <polyline points="155,329 265,268 375,191 485,137 595,118 705,115" fill="none" stroke="#39e1ff" stroke-width="3" stroke-linejoin="round"/>
+  <polygon points="155,329 265,268 375,191 485,137 595,118 705,115 705,330 155,330" fill="#39e1ff" fill-opacity="0.12"/>
+  <circle cx="155" cy="329" r="4" fill="#39e1ff"/><circle cx="265" cy="268" r="4" fill="#39e1ff"/><circle cx="375" cy="191" r="4" fill="#39e1ff"/><circle cx="485" cy="137" r="4" fill="#39e1ff"/><circle cx="595" cy="118" r="4" fill="#39e1ff"/><circle cx="705" cy="115" r="4" fill="#39e1ff"/>
+  <text x="155" y="317" fill="#e8f6ff" font-size="12" text-anchor="middle" font-weight="600">18</text><text x="265" y="256" fill="#e8f6ff" font-size="12" text-anchor="middle" font-weight="600">1,962</text><text x="375" y="179" fill="#e8f6ff" font-size="12" text-anchor="middle" font-weight="600">4,438</text><text x="485" y="125" fill="#e8f6ff" font-size="12" text-anchor="middle" font-weight="600">6,135</text><text x="595" y="106" fill="#e8f6ff" font-size="12" text-anchor="middle" font-weight="600">6,743</text><text x="705" y="103" fill="#e8f6ff" font-size="12" text-anchor="middle" font-weight="600">6,830</text>
+  <g fill="#ffd166" fill-opacity="0.8" stroke="#ffd166" stroke-width="1.5">
+    <rect x="672" y="279" width="66" height="51" rx="6"/>
+  </g>
+  <text x="705" y="269" fill="#ffd166" font-size="13" text-anchor="middle" font-weight="600">23%</text>
+  <text x="155" y="356" fill="#8fa3c0" font-size="12" text-anchor="middle">Jul</text><text x="265" y="356" fill="#8fa3c0" font-size="12" text-anchor="middle">Aug</text><text x="375" y="356" fill="#8fa3c0" font-size="12" text-anchor="middle">Sep</text><text x="485" y="356" fill="#8fa3c0" font-size="12" text-anchor="middle">Oct</text><text x="595" y="356" fill="#8fa3c0" font-size="12" text-anchor="middle">Nov 1–18</text><text x="705" y="356" fill="#8fa3c0" font-size="12" text-anchor="middle">Nov 19–20</text>
+  <g font-size="12">
+  <line x1="480" y1="88" x2="510" y2="88" stroke="#39e1ff" stroke-width="3"/>
+  <text x="516" y="92" fill="#8fa3c0">Total plugins on registry</text>
+  <rect x="680" y="82" width="12" height="12" fill="#39e1ff" fill-opacity="0.75" stroke="#39e1ff"/>
+  <text x="698" y="92" fill="#8fa3c0">Dev + System share of new (%)</text>
+</g>
+  <text x="32" y="400" fill="#8fa3c0" font-size="11.5">Source: omacom/omarchy-plugin-marketplace catalog.json, fetched Nov 20, 2026. 6,830 plugins total; 87 added Nov 19–20.</text>
+</svg>
+</div>

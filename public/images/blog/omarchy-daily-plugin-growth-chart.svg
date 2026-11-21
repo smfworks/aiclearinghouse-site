@@ -1,0 +1,48 @@
+<div style="position:relative;margin:1.5rem 0;">
+<svg width="100%" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart: new plugins added to the Omarchy marketplace by month, July to November 2026" style="font-family:inherit;">
+  <rect width="800" height="420" fill="#0b1220" rx="12"/>
+  <text x="32" y="44" fill="#e8f6ff" font-size="20" font-weight="600">New plugins listed on the Omarchy marketplace, by month</text>
+  <text x="32" y="70" fill="#8fa3c0" font-size="13">Plugins added to the community registry. November is a partial month (through Nov 19).</text>
+
+  <!-- gridlines -->
+  <g stroke="#22314f" stroke-width="1">
+    <line x1="80" y1="330" x2="770" y2="330"/>
+<line x1="80" y1="284" x2="770" y2="284" stroke-opacity="0.5"/>
+<text x="72" y="288" fill="#39e1ff" font-size="12" text-anchor="end">500</text>
+<line x1="80" y1="237" x2="770" y2="237" stroke-opacity="0.5"/>
+<text x="72" y="241" fill="#39e1ff" font-size="12" text-anchor="end">1000</text>
+<line x1="80" y1="191" x2="770" y2="191" stroke-opacity="0.5"/>
+<text x="72" y="195" fill="#39e1ff" font-size="12" text-anchor="end">1500</text>
+<line x1="80" y1="144" x2="770" y2="144" stroke-opacity="0.5"/>
+<text x="72" y="148" fill="#39e1ff" font-size="12" text-anchor="end">2000</text>
+  </g>
+
+  <!-- bars -->
+  <g fill="#39e1ff" fill-opacity="0.75" stroke="#39e1ff" stroke-width="1.5">
+<rect x="100" y="329" width="80" height="1" rx="6"/>
+<rect x="245" y="149" width="80" height="181" rx="6"/>
+<rect x="390" y="100" width="80" height="230" rx="6"/>
+<rect x="535" y="172" width="80" height="158" rx="6"/>
+<rect x="680" y="272" width="80" height="58" rx="6"/>
+  </g>
+
+  <!-- value labels -->
+  <g fill="#e8f6ff" font-size="14" text-anchor="middle" font-weight="600">
+<text x="140" y="319">16</text>
+<text x="285" y="139">1,944</text>
+<text x="430" y="90">2,476</text>
+<text x="575" y="162">1,697</text>
+<text x="720" y="262">629</text>
+  </g>
+
+  <!-- month labels -->
+  <g fill="#8fa3c0" font-size="12" text-anchor="middle">
+<text x="140" y="356">Jul 2026</text>
+<text x="285" y="356">Aug 2026</text>
+<text x="430" y="356">Sep 2026</text>
+<text x="575" y="356">Oct 2026</text>
+<text x="720" y="356">Nov 1–19</text>
+  </g>
+  <text x="32" y="400" fill="#8fa3c0" font-size="11.5">Source: omacom/omarchy-plugin-marketplace registry.json, fetched Nov 19, 2026. 6,762 plugins total.</text>
+</svg>
+</div>
