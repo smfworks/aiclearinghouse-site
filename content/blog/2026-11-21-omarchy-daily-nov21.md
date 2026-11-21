@@ -31,7 +31,7 @@ The reason I am not alarmed, long-term, is the surrounding system. This is the p
 
 The marketplace catalog build I read this morning lists **6,866** plugins, with **4,289** marked verified.[5] That is **63 new listings since yesterday morning's build** — 52 dated the 20th and 11 already on the 21st.[5] For the chart lovers, here is the week:
 
-::preview{file="/images/blog/omarchy-daily-nov21-chart.html"}
+![Chart: new plugins per day, November 14–21](/images/blog/omarchy-daily-nov21-chart.svg)
 
 And here is where the last day's additions concentrate:
 
