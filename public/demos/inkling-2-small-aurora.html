@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora — A Symphony of Light</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>🌌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#eef2ff;
+    --dim:rgba(238,242,255,.55);
+    --glass:rgba(255,255,255,.06);
+    --glass-border:rgba(255,255,255,.14);
+    --accent:#7df0c8;
+    --accent2:#8ab8ff;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; overflow:hidden; background:#050818; }
+  body{ font-family:'Inter',sans-serif; color:var(--ink); cursor:crosshair; }
+
+  /* ============ SCENE CANVAS ============ */
+  #scene{ position:fixed; inset:0; width:100%; height:100%; display:block; }
+
+  /* ============ FILM GRAIN ============ */
+  .grain{
+    position:fixed; inset:-100px; pointer-events:none; z-index:40; opacity:.055;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grainShift 8s steps(6) infinite;
+  }
+  @keyframes grainShift{
+    0%,100%{transform:translate(0,0)} 20%{transform:translate(-30px,20px)}
+    40%{transform:translate(25px,-35px)} 60%{transform:translate(-20px,-15px)} 80%{transform:translate(30px,25px)}
+  }
+
+  /* ============ VIGNETTE ============ */
+  .vignette{
+    position:fixed; inset:0; pointer-events:none; z-index:30;
+    background:radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(2,4,16,.55) 100%);
+  }
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.6rem 3rem;
+    animation:fadeDown 1.4s .3s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes fadeDown{ from{opacity:0; transform:translateY(-24px)} to{opacity:1; transform:none} }
+  .brand{ display:flex; align-items:center; gap:.75rem; text-decoration:none; }
+  .brand-mark{
+    width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--glass-border);
+    display:grid; place-items:center; font-size:.95rem;
+    background:radial-gradient(circle at 35% 35%, rgba(125,240,200,.35), rgba(138,184,255,.08));
+    box-shadow:0 0 24px rgba(125,240,200,.35), inset 0 0 12px rgba(255,255,255,.15);
+  }
+  .brand span:last-child{
+    font-family:'Italiana',serif; font-size:1.15rem; letter-spacing:.42em;
+    text-transform:uppercase; color:var(--ink);
+  }
+  .nav-links{ display:flex; gap:2.4rem; list-style:none; }
+  .nav-links a{
+    color:var(--dim); text-decoration:none; font-size:.72rem;
+    letter-spacing:.22em; text-transform:uppercase; font-weight:400;
+    position:relative; padding:.3rem 0; transition:color .4s;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; height:1px; width:0;
+    background:linear-gradient(90deg, var(--accent), transparent); transition:width .45s cubic-bezier(.22,1,.36,1);
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ width:100%; }
+  .clock{
+    font-size:.72rem; letter-spacing:.28em; color:var(--dim);
+    font-variant-numeric:tabular-nums; min-width:96px; text-align:right;
+  }
+
+  /* ============ HERO CONTENT ============ */
+  .hero{
+    position:fixed; z-index:50; left:0; right:0; bottom:0;
+    padding:0 3rem 2.6rem;
+    display:flex; align-items:flex-end; justify-content:space-between; gap:2rem;
+    pointer-events:none;
+  }
+  .hero > *{ pointer-events:auto; }
+
+  .eyebrow{
+    display:flex; align-items:center; gap:1rem; margin-bottom:1.1rem;
+    animation:fadeUp 1.2s .6s cubic-bezier(.22,1,.36,1) both;
+  }
+  .eyebrow .line{ width:52px; height:1px; background:linear-gradient(90deg, transparent, var(--accent)); }
+  .eyebrow span:last-child{
+    font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:var(--accent);
+  }
+  @keyframes fadeUp{ from{opacity:0; transform:translateY(30px)} to{opacity:1; transform:none} }
+
+  h1.title{
+    font-family:'Italiana',serif; font-weight:400;
+    font-size:clamp(3.4rem, 9.5vw, 7.6rem);
+    line-height:.98; letter-spacing:.01em;
+    animation:fadeUp 1.3s .75s cubic-bezier(.22,1,.36,1) both;
+  }
+  h1 .thin{
+    display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+    font-size:.42em; letter-spacing:.06em; color:var(--dim); margin-top:.35em;
+  }
+  h1 .glow{
+    background:linear-gradient(115deg,#fff 0%,#a8f5d4 28%,#8ab8ff 55%,#d3a5ff 80%,#fff 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    animation:shimmer 7s ease-in-out infinite alternate;
+    filter:drop-shadow(0 0 34px rgba(138,184,255,.35));
+  }
+  @keyframes shimmer{ from{background-position:0% 50%} to{background-position:100% 50%} }
+
+  .sub{
+    max-width:34ch; margin-top:1.3rem; font-weight:300; font-size:.86rem;
+    line-height:1.75; color:var(--dim);
+    animation:fadeUp 1.3s .9s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .cta-row{ display:flex; align-items:center; gap:1.4rem; margin-top:1.7rem; animation:fadeUp 1.3s 1.05s cubic-bezier(.22,1,.36,1) both; }
+  .btn{
+    position:relative; overflow:hidden; cursor:pointer;
+    font-family:'Inter'; font-size:.7rem; letter-spacing:.32em; text-transform:uppercase;
+    color:#06131a; padding:1rem 2.1rem; border:none; border-radius:100px;
+    background:linear-gradient(120deg,#8ff5cd,#7cc4ff);
+    box-shadow:0 0 32px rgba(124,196,255,.4), 0 8px 30px rgba(0,0,0,.4);
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+  }
+  .btn:hover{ transform:translateY(-2px) scale(1.02); box-shadow:0 0 55px rgba(140,245,205,.55), 0 14px 40px rgba(0,0,0,.45); }
+  .btn:active{ transform:translateY(1px) scale(.99); }
+  .btn::after{
+    content:''; position:absolute; top:-60%; left:-80%; width:50%; height:220%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.85), transparent);
+    transform:rotate(20deg); animation:sheen 3.6s ease-in-out infinite;
+  }
+  @keyframes sheen{ 0%,60%{left:-90%} 100%{left:140%} }
+  .hint{ font-size:.68rem; color:var(--dim); letter-spacing:.08em; }
+  .hint em{ color:var(--accent); font-style:normal; }
+
+  /* ============ PALETTE SWITCHER ============ */
+  .panel{
+    display:flex; flex-direction:column; align-items:flex-end; gap:1.1rem;
+    animation:fadeUp 1.3s 1.15s cubic-bezier(.22,1,.36,1) both;
+  }
+  .panel-label{ font-size:.62rem; letter-spacing:.4em; text-transform:uppercase; color:var(--dim); }
+  .swatches{ display:flex; gap:.8rem; }
+  .swatch{
+    width:44px; height:44px; border-radius:50%; cursor:pointer; border:1px solid var(--glass-border);
+    position:relative; transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s;
+    outline:none;
+  }
+  .swatch:hover{ transform:scale(1.18) translateY(-3px); }
+  .swatch.active{ transform:scale(1.25); box-shadow:0 0 0 2px #050818, 0 0 0 3.5px var(--accent), 0 0 26px rgba(125,240,200,.5); }
+  .swatch[data-p="aurora"]{ background:conic-gradient(from 200deg,#43ffb0,#3fd6ff,#a06bff,#43ffb0); }
+  .swatch[data-p="ember"] { background:conic-gradient(from 200deg,#ffb03f,#ff5e62,#c94b9e,#ffb03f); }
+  .swatch[data-p="ocean"] { background:conic-gradient(from 200deg,#37e6ff,#2f7bff,#7b5cff,#37e6ff); }
+  .swatch[data-p="rose"]  { background:conic-gradient(from 200deg,#ff9ad5,#b06bff,#5fd0ff,#ff9ad5); }
+
+  .quote{
+    max-width:30ch; text-align:right; font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-weight:300; font-size:1.02rem; line-height:1.6; color:rgba(238,242,255,.72);
+    border-right:1px solid var(--glass-border); padding-right:1.1rem;
+  }
+  .quote small{
+    display:block; margin-top:.5rem; font-family:'Inter'; font-style:normal;
+    font-size:.58rem; letter-spacing:.34em; text-transform:uppercase; color:var(--dim);
+  }
+
+  /* ============ SCROLL-LESS FOOTER STRIP ============ */
+  .strip{
+    position:fixed; z-index:50; top:50%; right:1.6rem; transform:translateY(-50%);
+    writing-mode:vertical-rl; font-size:.58rem; letter-spacing:.5em; text-transform:uppercase;
+    color:rgba(238,242,255,.3); animation:fadeDown 1.6s 1.3s both;
+  }
+
+  /* ============ TOAST ============ */
+  #toast{
+    position:fixed; z-index:60; top:5.5rem; left:50%; transform:translate(-50%,-16px);
+    background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(14px);
+    padding:.6rem 1.4rem; border-radius:100px; font-size:.68rem; letter-spacing:.24em;
+    text-transform:uppercase; color:var(--accent); opacity:0; pointer-events:none;
+    transition:all .45s cubic-bezier(.22,1,.36,1);
+  }
+  #toast.show{ opacity:1; transform:translate(-50%,0); }
+
+  @media (max-width:900px){
+    nav{ padding:1.1rem 1.4rem; }
+    .nav-links{ display:none; }
+    .hero{ flex-direction:column; align-items:flex-start; padding:0 1.4rem 1.6rem; }
+    .panel{ flex-direction:row; align-items:center; width:100%; justify-content:space-between; }
+    .quote{ display:none; }
+    .strip{ display:none; }
+    .sub{ font-size:.8rem; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ animation-duration:.001s !important; transition-duration:.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="scene"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<nav>
+  <a class="brand" href="#">
+    <span class="brand-mark">✦</span>
+    <span>Aurora</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">The Phenomenon</a></li>
+    <li><a href="#">Destinations</a></li>
+    <li><a href="#">Expeditions</a></li>
+    <li><a href="#">Journal</a></li>
+  </ul>
+  <div class="clock" id="clock">--:--:--</div>
+</nav>
+
+<div class="strip">68°58′ N — Tromsø, Norway</div>
+
+<main class="hero">
+  <div class="hero-left">
+    <div class="eyebrow"><span class="line"></span><span>The Northern Lights</span></div>
+    <h1 class="title">
+      <span class="glow">Aurora</span>
+      <span class="thin">where the sky learns to dance</span>
+    </h1>
+    <p class="sub">A living canvas of charged particles and ancient light — rendered here in real time, every frame unique, never to be repeated.</p>
+    <div class="cta-row">
+      <button class="btn" id="igniteBtn">Ignite the Sky</button>
+      <span class="hint">or <em>click anywhere</em> to bloom the light</span>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <div class="quote">“The sky is the daily bread of the eyes.”<small>Ralph Waldo Emerson</small></div>
+    <span class="panel-label">Palette</span>
+    <div class="swatches" id="swatches">
+      <button class="swatch active" data-p="aurora" aria-label="Aurora palette"></button>
+      <button class="swatch" data-p="ember"  aria-label="Ember palette"></button>
+      <button class="swatch" data-p="ocean"  aria-label="Ocean palette"></button>
+      <button class="swatch" data-p="rose"   aria-label="Rose palette"></button>
+    </div>
+  </aside>
+</main>
+
+<div id="toast">The sky answers</div>
+
+<script>
+'use strict';
+/* ================================================================
+   AURORA — a real-time generative nocturne
+   Layers: sky gradient → stars → aurora ribbons → moon →
+           mountain silhouettes → lake reflection → fireflies
+   ================================================================ */
+
+const canvas = document.getElementById('scene');
+const ctx = canvas.getContext('2d');
+
+let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+function resize(){
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = W * DPR; canvas.height = H * DPR;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  buildMountains();
+}
+window.addEventListener('resize', resize);
+
+/* ---------------- Palettes ---------------- */
+const PALETTES = {
+  aurora: { skyTop:'#030a1e', skyMid:'#071a33', skyLow:'#0d2b3d', bands:['#43ffb0','#2fe0c0','#3fd6ff','#7a6bff'], glow:'#7df0c8', moon:'#fdf6e3' },
+  ember:  { skyTop:'#160512', skyMid:'#2b0a1e', skyLow:'#3d1420', bands:['#ffb03f','#ff6a4d','#ff3d71','#c94b9e'], glow:'#ffb27d', moon:'#ffe9c9' },
+  ocean:  { skyTop:'#020d1f', skyMid:'#062040', skyLow:'#0a2f4d', bands:['#37e6ff','#2f9bff','#2f6bff','#8a5cff'], glow:'#6fd8ff', moon:'#eef6ff' },
+  rose:   { skyTop:'#120620', skyMid:'#241033', skyLow:'#331a3d', bands:['#ff9ad5','#c86bff','#8a6bff','#5fd0ff'], glow:'#e3a5ff', moon:'#fdeeff' }
+};
+let palette = PALETTES.aurora;
+let paletteName = 'aurora';
+
+/* ---------------- Stars ---------------- */
+const stars = [];
+function buildStars(){
+  stars.length = 0;
+  const n = Math.floor((W * H) / 3200);
+  for (let i = 0; i < n; i++){
+    stars.push({
+      x: Math.random() * W,
+      y: Math.random() * H * 0.55,
+      r: Math.random() ** 2.2 * 1.6 + 0.3,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.5 + Math.random() * 1.4,
+      hue: Math.random() < 0.12 ? (Math.random() < 0.5 ? '#bcd4ff' : '#ffe9c9') : '#ffffff'
+    });
+  }
+}
+
+/* ---------------- Shooting stars ---------------- */
+const meteors = [];
+let meteorTimer = 2.5;
+function spawnMeteor(){
+  const fromLeft = Math.random() < 0.5;
+  meteors.push({
+    x: fromLeft ? -60 : W + 60,
+    y: Math.random() * H * 0.3 + 20,
+    vx: (fromLeft ? 1 : -1) * (520 + Math.random() * 380),
+    vy: 180 + Math.random() * 140,
+    life: 1, len: 90 + Math.random() * 90
+  });
+}
+
+/* ---------------- Mountains (procedural ridgelines) ---------------- */
+let ridges = [];
+function ridgeLine(baseY, amp, rough, seed){
+  const pts = [];
+  const steps = 90;
+  let s = seed;
+  const rand = () => { s = (s * 16807) % 2147483647; return s / 2147483647; };
+  const offsets = [];
+  for (let i = 0; i <= steps; i++) offsets.push(rand());
+  for (let i = 0; i <= steps; i++){
+    const t = i / steps;
+    let y = 0, freq = 1, a = 1, norm = 0;
+    for (let o = 0; o < 4; o++){
+      const idx = Math.floor(t * (steps / Math.pow(2, o)) ) % (offsets.length);
+      y += Math.sin(t * Math.PI * freq * 2 + o * 1.7 + seed * 0.001) * a;
+      norm += a; freq *= 2.1; a *= rough;
+    }
+    pts.push({ x: t * W, y: baseY - (y / norm * 0.5 + 0.5) * amp - offsets[i] * amp * 0.25 });
+  }
+  return pts;
+}
+function buildMountains(){
+  ridges = [
+    { pts: ridgeLine(H * 0.66, H * 0.20, 0.55, 1234), color: '#0b1226', par: 0.012 },
+    { pts: ridgeLine(H * 0.74, H * 0.16, 0.6,  9876), color: '#070c1d', par: 0.03 },
+    { pts: ridgeLine(H * 0.82, H * 0.10, 0.65, 5551), color: '#04060f', par: 0.055 }
+  ];
+  buildStars();
+}
+const WATER_Y = () => H * 0.82;
+
+/* ---------------- Fireflies ---------------- */
+const fireflies = [];
+for (let i = 0; i < 26; i++){
+  fireflies.push({
+    x: Math.random(), y: 0.78 + Math.random() * 0.18,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.3 + Math.random() * 0.5,
+    drift: (Math.random() - 0.5) * 0.02
+  });
+}
+
+/* ---------------- Bloom bursts (click) ---------------- */
+const bursts = [];
+function spawnBurst(x, y, big){
+  const count = big ? 90 : 42;
+  for (let i = 0; i < count; i++){
+    const ang = Math.random() * Math.PI * 2;
+    const spd = (big ? 60 : 30) + Math.random() * (big ? 260 : 150);
+    bursts.push({
+      x, y,
+      vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd - 30,
+      life: 1, decay: 0.35 + Math.random() * 0.5,
+      r: 0.8 + Math.random() * (big ? 3.2 : 2.1),
+      color: palette.bands[(Math.random() * palette.bands.length) | 0]
+    });
+  }
+}
+
+/* ---------------- Mouse parallax ---------------- */
+const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+window.addEventListener('mousemove', e => {
+  mouse.tx = e.clientX / W; mouse.ty = e.clientY / H;
+});
+window.addEventListener('click', e => {
+  if (e.target.closest('button, a, .swatch')) return;
+  spawnBurst(e.clientX, e.clientY, false);
+});
+
+/* ---------------- Aurora ribbons ---------------- */
+function drawAurora(t, px, py){
+  const bands = palette.bands;
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  const ribbonCount = 4;
+  for (let b = 0; b < ribbonCount; b++){
+    const baseY = H * (0.16 + b * 0.075) + Math.sin(t * 0.13 + b * 2.1) * 18;
+    const amp = 46 + b * 26;
+    const freq = 0.0038 + b * 0.0011;
+    const speed = t * (0.35 + b * 0.12);
+    const col = bands[b % bands.length];
+    const col2 = bands[(b + 1) % bands.length];
+
+    // vertical curtain gradient
+    const grad = ctx.createLinearGradient(0, baseY - amp, 0, baseY + amp * 2.4);
+    grad.addColorStop(0, hexA(col, 0));
+    grad.addColorStop(0.28, hexA(col, 0.42));
+    grad.addColorStop(0.55, hexA(col2, 0.16));
+    grad.addColorStop(1, hexA(col2, 0));
+
+    ctx.beginPath();
+    ctx.moveTo(-40, baseY);
+    const step = 14;
+    for (let x = -40; x <= W + 40; x += step){
+      const y = baseY
+        + Math.sin(x * freq + speed + b * 1.7) * amp
+        + Math.sin(x * freq * 2.7 - speed * 1.6 + b) * amp * 0.35
+        + Math.sin(x * 0.011 + t * 0.7 + b * 3.0) * 8
+        + (py - 0.5) * 26 * (1 + b * 0.35)
+        + (px - 0.5) * 14 * b;
+      ctx.lineTo(x, y);
+    }
+    // close downward curtain
+    for (let x = W + 40; x >= -40; x -= step){
+      const yTop = baseY
+        + Math.sin(x * freq + speed + b * 1.7) * amp
+        + Math.sin(x * freq * 2.7 - speed * 1.6 + b) * amp * 0.35
+        + Math.sin(x * 0.011 + t * 0.7 + b * 3.0) * 8
+        + (py - 0.5) * 26 * (1 + b * 0.35)
+        + (px - 0.5) * 14 * b;
+      const curtain = amp * (1.5 + Math.sin(x * 0.006 + t * 0.5 + b) * 0.7);
+      ctx.lineTo(x, yTop + curtain);
+    }
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.filter = 'blur(6px)';
+    ctx.fill();
+    ctx.filter = 'none';
+
+    // bright core line
+    ctx.beginPath();
+    for (let x = -40; x <= W + 40; x += step){
+      const y = baseY
+        + Math.sin(x * freq + speed + b * 1.7) * amp
+        + Math.sin(x * freq * 2.7 - speed * 1.6 + b) * amp * 0.35
+        + Math.sin(x * 0.011 + t * 0.7 + b * 3.0) * 8
+        + (py - 0.5) * 26 * (1 + b * 0.35)
+        + (px - 0.5) * 14 * b;
+      x === -40 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = hexA('#ffffff', 0.32 + 0.14 * Math.sin(t * 0.9 + b * 2));
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = col;
+    ctx.shadowBlur = 18;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+  ctx.restore();
+}
+function hexA(hex, a){
+  const n = hex.replace('#','');
+  const v = n.length === 3 ? n.split('').map(c => c + c).join('') : n;
+  const r = parseInt(v.slice(0,2),16), g = parseInt(v.slice(2,4),16), b = parseInt(v.slice(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ---------------- Moon ---------------- */
+function drawMoon(t, px, py){
+  const mx = W * 0.78 + (px - 0.5) * -30, my = H * 0.17 + (py - 0.5) * -18, r = Math.min(W, H) * 0.052;
+  ctx.save();
+  const halo = ctx.createRadialGradient(mx, my, r * 0.4, mx, my, r * 6);
+  halo.addColorStop(0, hexA(palette.moon, 0.5));
+  halo.addColorStop(0.25, hexA(palette.moon, 0.12));
+  halo.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = halo;
+  ctx.fillRect(mx - r * 6, my - r * 6, r * 12, r * 12);
+
+  const body = ctx.createRadialGradient(mx - r * 0.35, my - r * 0.35, r * 0.1, mx, my, r);
+  body.addColorStop(0, '#fffdf4');
+  body.addColorStop(0.75, palette.moon);
+  body.addColorStop(1, '#c9c4b2');
+  ctx.fillStyle = body;
+  ctx.beginPath(); ctx.arc(mx, my, r, 0, Math.PI * 2); ctx.fill();
+
+  // craters
+  ctx.fillStyle = 'rgba(120,116,100,.38)';
+  const craters = [[-0.3,-0.15,0.16],[0.25,0.1,0.12],[0.05,-0.4,0.09],[-0.15,0.35,0.1],[0.4,-0.28,0.07]];
+  for (const [cx, cy, cr] of craters){
+    ctx.beginPath(); ctx.arc(mx + cx * r, my + cy * r, cr * r, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+  return { mx, my, r };
+}
+
+/* ---------------- Lake reflection ---------------- */
+function drawWater(t, moon){
+  const wy = WATER_Y();
+  const g = ctx.createLinearGradient(0, wy, 0, H);
+  g.addColorStop(0, palette.skyLow);
+  g.addColorStop(0.35, '#060a1c');
+  g.addColorStop(1, '#02040c');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, wy, W, H - wy);
+
+  // moon glitter path
+  const shimmerW = 26 + Math.sin(t * 0.8) * 6;
+  const gg = ctx.createLinearGradient(0, wy, 0, H);
+  gg.addColorStop(0, hexA(palette.moon, 0.4));
+  gg.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = gg;
+  ctx.beginPath();
+  ctx.moveTo(moon.mx - shimmerW * 0.4, wy);
+  ctx.lineTo(moon.mx + shimmerW * 0.4, wy);
+  ctx.lineTo(moon.mx + shimmerW * 2.4, H);
+  ctx.lineTo(moon.mx - shimmerW * 2.4, H);
+  ctx.closePath(); ctx.fill();
+
+  // horizontal ripple strokes
+  ctx.globalAlpha = 0.5;
+  for (let i = 0; i < 46; i++){
+    const yy = wy + ((i * 37.7 + t * 14) % (H - wy));
+    const len = 24 + ((i * 91.3) % 130);
+    const xx = (i * 173.3 + Math.sin(t * 0.6 + i) * 30 + W) % W;
+    ctx.strokeStyle = i % 5 === 0 ? hexA(palette.glow, 0.5) : 'rgba(200,220,255,.16)';
+    ctx.lineWidth = 1 + (i % 3) * 0.5;
+    ctx.beginPath(); ctx.moveTo(xx - len / 2, yy); ctx.lineTo(xx + len / 2, yy); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* ---------------- Ridge rendering ---------------- */
+function drawRidge(ridge, px, py){
+  const off = (px - 0.5) * W * ridge.par;
+  ctx.fillStyle = ridge.color;
+  ctx.beginPath();
+  ctx.moveTo(-60, H);
+  ctx.lineTo(-60, ridge.pts[0].y + (py - 0.5) * 8);
+  for (const p of ridge.pts) ctx.lineTo(p.x + off, p.y + (py - 0.5) * 8);
+  ctx.lineTo(W + 60, H);
+  ctx.closePath(); ctx.fill();
+}
+
+/* ---------------- Main loop ---------------- */
+let last = performance.now();
+let time = 0;
+let ignite = 0; // extra energy after pressing the button
+
+function frame(now){
+  const dt = Math.min((now - last) / 1000, 0.05);
+  last = now; time += dt;
+  ignite = Math.max(0, ignite - dt * 0.35);
+
+  mouse.x += (mouse.tx - mouse.x) * 0.045;
+  mouse.y += (mouse.ty - mouse.y) * 0.045;
+  const px = mouse.x, py = mouse.y;
+
+  // sky
+  const sky = ctx.createLinearGradient(0, 0, 0, WATER_Y());
+  sky.addColorStop(0, palette.skyTop);
+  sky.addColorStop(0.55, palette.skyMid);
+  sky.addColorStop(1, palette.skyLow);
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, W, WATER_Y() + 1);
+
+  // stars
+  for (const s of stars){
+    const tw = 0.55 + 0.45 * Math.sin(time * s.speed + s.phase);
+    ctx.globalAlpha = tw;
+    ctx.fillStyle = s.hue;
+    ctx.beginPath(); ctx.arc(s.x + (px - 0.5) * 6, s.y + (py - 0.5) * 4, s.r, 0, Math.PI * 2); ctx.fill();
+    if (s.r > 1.25){ // cross sparkle on the brightest
+      ctx.globalAlpha = tw * 0.5;
+      ctx.strokeStyle = s.hue; ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(s.x - s.r * 4, s.y); ctx.lineTo(s.x + s.r * 4, s.y);
+      ctx.moveTo(s.x, s.y - s.r * 4); ctx.lineTo(s.x, s.y + s.r * 4);
+      ctx.stroke();
+    }
+  }
+  ctx.globalAlpha = 1;
+
+  // meteors
+  meteorTimer -= dt;
+  if (meteorTimer <= 0){ spawnMeteor(); meteorTimer = 2.5 + Math.random() * 4.5; }
+  for (let i = meteors.length - 1; i >= 0; i--){
+    const m = meteors[i];
+    m.x += m.vx * dt; m.y += m.vy * dt; m.life -= dt * 1.15;
+    if (m.life <= 0){ meteors.splice(i, 1); continue; }
+    const tailX = m.x - (m.vx / Math.hypot(m.vx, m.vy)) * m.len;
+    const tailY = m.y - (m.vy / Math.hypot(m.vx, m.vy)) * m.len;
+    const mg = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+    mg.addColorStop(0, `rgba(255,255,255,${m.life})`);
+    mg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.strokeStyle = mg; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(tailX, tailY); ctx.stroke();
+  }
+
+  // aurora (boosted briefly after "Ignite")
+  ctx.save();
+  if (ignite > 0){ ctx.globalAlpha = 1 + ignite * 0.6; }
+  drawAurora(time * (1 + ignite * 1.6), px, py);
+  ctx.restore();
+
+  const moon = drawMoon(time, px, py);
+
+  // mountains back→front
+  for (const r of ridges) drawRidge(r, px, py);
+
+  drawWater(time, moon);
+
+  // fireflies
+  for (const f of fireflies){
+    f.phase += dt * f.speed * 2;
+    f.x += f.drift * dt;
+    if (f.x < 0) f.x = 1; if (f.x > 1) f.x = 0;
+    const glow = Math.max(0, Math.sin(f.phase)) ** 3;
+    if (glow > 0.05){
+      const fx = f.x * W, fy = f.y * H + Math.sin(time * 0.8 + f.phase) * 8;
+      ctx.globalAlpha = glow;
+      ctx.fillStyle = '#d8ffb0';
+      ctx.shadowColor = '#b6ff6e'; ctx.shadowBlur = 12;
+      ctx.beginPath(); ctx.arc(fx, fy, 1.6, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+    }
+  }
+
+  // burst particles
+  for (let i = bursts.length - 1; i >= 0; i--){
+    const p = bursts[i];
+    p.vy += 140 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= p.decay * dt;
+    if (p.life <= 0){ bursts.splice(i, 1); continue; }
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.fillStyle = p.color;
+    ctx.shadowColor = p.color; ctx.shadowBlur = 10;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r * p.life + 0.4, 0, Math.PI * 2); ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+  ctx.globalAlpha = 1;
+
+  requestAnimationFrame(frame);
+}
+
+/* ---------------- UI wiring ---------------- */
+const clockEl = document.getElementById('clock');
+setInterval(() => {
+  clockEl.textContent = new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+}, 1000);
+
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+
+document.getElementById('swatches').addEventListener('click', e => {
+  const btn = e.target.closest('.swatch'); if (!btn) return;
+  paletteName = btn.dataset.p;
+  palette = PALETTES[paletteName];
+  document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('active', s === btn));
+  document.documentElement.style.setProperty('--accent', palette.glow);
+  spawnBurst(W / 2, H * 0.3, true);
+  showToast(paletteName.charAt(0).toUpperCase() + paletteName.slice(1) + ' skies');
+});
+
+document.getElementById('igniteBtn').addEventListener('click', () => {
+  ignite = 1;
+  spawnBurst(W * 0.5, H * 0.28, true);
+  spawnBurst(W * 0.3, H * 0.4, false);
+  spawnBurst(W * 0.7, H * 0.35, false);
+  showToast('The sky answers');
+});
+
+/* ---------------- Boot ---------------- */
+resize();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
