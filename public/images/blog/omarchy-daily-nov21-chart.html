@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Omarchy daily: marketplace growth, Nov 14–21</title>
+<style>
+  :root { --fg: var(--foreground, #e8f6ff); --muted: var(--muted-foreground, #8fa3c0); --accent: var(--accent, #39e1ff); --border: var(--border, #22314f); }
+  html,body { margin:0; padding:0; background:transparent; color:var(--fg); font-family:inherit; }
+  .wrap { padding:12px 8px; }
+  h3 { margin:0 0 4px; font-size:15px; font-weight:600; }
+  p.sub { margin:0 0 12px; font-size:12.5px; color:var(--muted); }
+  .chartbox { position:relative; height:340px; }
+  .foot { margin-top:10px; font-size:11.5px; color:var(--muted); }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <h3>New plugins per day, November 14–21</h3>
+  <p class="sub">Listings added to the Omarchy Plugin Marketplace by day, from the site catalog build.</p>
+  <div class="chartbox"><canvas id="c"></canvas></div>
+  <p class="foot">Source: omacom/omarchy-plugin-marketplace site/catalog.json (generated 2026-11-21T05:57Z). 6,866 plugins total; 4,289 verified.</p>
+</div>
+<script>
+const ctx = document.getElementById('c');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Nov 14', 'Nov 15', 'Nov 16', 'Nov 17', 'Nov 18', 'Nov 19', 'Nov 20', 'Nov 21'],
+    datasets: [{
+      label: 'Plugins added',
+      data: [65, 11, 34, 11, 31, 60, 52, 11],
+      backgroundColor: 'rgba(57, 225, 255, 0.55)',
+      borderColor: 'rgba(57, 225, 255, 0.95)',
+      borderWidth: 1.5,
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.y + ' plugins added' } }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(34,49,79,0.4)' }, ticks: { color: '#8fa3c0' } },
+      y: {
+        grid: { color: 'rgba(34,49,79,0.4)' },
+        ticks: { color: '#39e1ff' },
+        title: { display: true, text: 'New plugins per day', color: '#39e1ff' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

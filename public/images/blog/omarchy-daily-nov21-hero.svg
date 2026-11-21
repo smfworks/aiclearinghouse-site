@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="A quiet mini-PC desktop at dusk: the Omarchy bar with fresh plugin widgets, a padlock and a shield glowing above, and a small sleeping laptop icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#070a12"/>
+      <stop offset="60%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#101a30"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#39e1ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#39e1ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#39e1ff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#39e1ff" stop-opacity="0.32"/>
+      <stop offset="60%" stop-color="#39e1ff" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#39e1ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+
+  <!-- faint grid -->
+  <g stroke="#16233c" stroke-width="1" opacity="0.5">
+    <line x1="0" y1="150" x2="1600" y2="150"/><line x1="0" y1="300" x2="1600" y2="300"/>
+    <line x1="0" y1="450" x2="1600" y2="450"/><line x1="0" y1="600" x2="1600" y2="600"/>
+    <line x1="200" y1="0" x2="200" y2="900"/><line x1="500" y1="0" x2="500" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/><line x1="1100" y1="0" x2="1100" y2="900"/>
+    <line x1="1400" y1="0" x2="1400" y2="900"/>
+  </g>
+
+  <!-- shield (security theme) -->
+  <g transform="translate(800,240)">
+    <path d="M0 -110 C 60 -80 100 -70 130 -65 L 130 30 C 130 95 70 140 0 165 C -70 140 -130 95 -130 30 L -130 -65 C -100 -70 -60 -80 0 -110 Z" fill="#0d1526" stroke="#39e1ff" stroke-width="4" stroke-opacity="0.85"/>
+    <path d="M-45 5 L -10 45 L 55 -35" fill="none" stroke="#39e1ff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.95"/>
+  </g>
+
+  <!-- orbiting plugin dots -->
+  <g fill="#39e1ff">
+    <circle cx="210" cy="180" r="6" fill-opacity="0.85"/><circle cx="390" cy="110" r="4"/>
+    <circle cx="560" cy="210" r="7" fill-opacity="0.9"/><circle cx="1180" cy="130" r="5"/>
+    <circle cx="1330" cy="220" r="8" fill-opacity="0.95"/><circle cx="1460" cy="140" r="4"/>
+    <circle cx="300" cy="300" r="4"/><circle cx="1260" cy="330" r="5"/>
+  </g>
+  <path d="M240 480 A 560 360 0 0 1 1360 480" fill="none" stroke="#39e1ff" stroke-width="1.5" stroke-opacity="0.25"/>
+
+  <!-- sleeping laptop (SDDM-after-sleep nod) -->
+  <g transform="translate(230,620)">
+    <rect x="0" y="0" width="240" height="140" rx="10" fill="#0d1526" stroke="#22314f" stroke-width="2"/>
+    <rect x="0" y="0" width="240" height="26" rx="10" fill="#14203a"/>
+    <rect x="-16" y="140" width="272" height="12" rx="6" fill="#14203a"/>
+    <path d="M96 62 L96 84 M96 62 L112 74 L96 86" stroke="#39e1ff" stroke-width="5" fill="none" stroke-opacity="0.9"/>
+    <text x="130" y="86" font-family="monospace" font-size="20" fill="#39e1ff" fill-opacity="0.9">zZ</text>
+  </g>
+
+  <!-- the bar -->
+  <g>
+    <rect x="120" y="790" width="1360" height="52" rx="12" fill="#0d1526" stroke="#22314f" stroke-width="1.5"/>
+    <rect x="120" y="790" width="1360" height="3" rx="1.5" fill="url(#accent)"/>
+    <rect x="150" y="806" width="90" height="20" rx="6" fill="#1a2c4a"/>
+    <rect x="255" y="806" width="60" height="20" rx="6" fill="#1a2c4a"/>
+    <rect x="700" y="802" width="160" height="28" rx="8" fill="#39e1ff" fill-opacity="0.18" stroke="#39e1ff" stroke-opacity="0.5"/>
+    <rect x="1000" y="806" width="46" height="20" rx="6" fill="#1a2c4a"/>
+    <rect x="1062" y="806" width="46" height="20" rx="6" fill="#1a2c4a"/>
+    <circle cx="1410" cy="816" r="8" fill="#39e1ff" fill-opacity="0.85"/>
+    <circle cx="1440" cy="816" r="8" fill="#2a3f63"/>
+  </g>
+
+  <!-- title-block abstract text bars -->
+  <g>
+    <rect x="480" y="40" width="560" height="34" rx="10" fill="#e8f6ff" fill-opacity="0.92"/>
+    <rect x="480" y="92" width="640" height="20" rx="8" fill="#39e1ff" fill-opacity="0.35" transform="translate(640,0) scale(-1,1) translate(-640,0)"/>
+    <rect x="600" y="128" width="520" height="20" rx="8" fill="#39e1ff" fill-opacity="0.2"/>
+  </g>
+
+  <!-- sleeping laptop right-side balance (SDDM-after-sleep nod) -->
+  <g transform="translate(1130,620)">
+    <rect x="0" y="0" width="240" height="140" rx="10" fill="#0d1526" stroke="#22314f" stroke-width="2"/>
+    <rect x="0" y="0" width="240" height="26" rx="10" fill="#14203a"/>
+    <rect x="-16" y="140" width="272" height="12" rx="6" fill="#14203a"/>
+    <path d="M96 62 L96 84 M96 62 L112 74 L96 86" stroke="#39e1ff" stroke-width="5" fill="none" stroke-opacity="0.9"/>
+    <text x="130" y="86" font-family="monospace" font-size="20" fill="#39e1ff" fill-opacity="0.9">zZ</text>
+  </g>
+</svg>
