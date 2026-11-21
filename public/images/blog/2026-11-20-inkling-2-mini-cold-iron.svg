@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="barMini" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9500"/>
+      <stop offset="1" stop-color="#ffb85c"/>
+    </linearGradient>
+    <linearGradient id="barSmall" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00d4aa"/>
+      <stop offset="1" stop-color="#66e8cc"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="124" x2="1200" y2="124"/><line x1="0" y1="248" x2="1200" y2="248"/>
+    <line x1="0" y1="372" x2="1200" y2="372"/><line x1="0" y1="496" x2="1200" y2="496"/>
+  </g>
+
+  <text x="60" y="72" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="34" font-weight="700" fill="#e8eef4">Inkling 2 Mini — Cold Iron, thinking off</text>
+  <text x="60" y="104" font-family="'SF Mono','Courier New',monospace" font-size="15" fill="#5a8a6a">SMF Official A strict_v01 · 157 items · effort=none (true off, 0 reasoning tokens) · n=1 · 2026-11-20</text>
+
+  <!-- Bars: scale 157 -> 900px width -->
+  <g filter="url(#glow)">
+    <rect x="330" y="160" width="516" height="56" rx="6" fill="url(#barMini)"/>
+    <rect x="330" y="248" width="900" height="56" rx="6" fill="url(#barSmall)"/>
+  </g>
+  <text x="300" y="195" text-anchor="end" font-family="'SF Pro Display',Arial,sans-serif" font-size="20" fill="#e8eef4">Inkling 2 Mini</text>
+  <text x="300" y="283" text-anchor="end" font-family="'SF Pro Display',Arial,sans-serif" font-size="20" fill="#e8eef4">Inkling 2 Small*</text>
+  <text x="856" y="195" font-family="'SF Mono',monospace" font-size="19" font-weight="700" fill="#ffb85c">90/157 · 57.3%</text>
+  <text x="1040" y="283" font-family="'SF Mono',monospace" font-size="19" font-weight="700" fill="#66e8cc">147/157 · 93.6%</text>
+  <text x="330" y="330" font-family="'SF Mono',monospace" font-size="13" fill="#5a8a6a">* Small is an effort=minimal analogue — its endpoint rejects effort=none (HTTP 400). Not arm-identical.</text>
+
+  <!-- Per-category: mini pass counts -->
+  <text x="60" y="382" font-family="'SF Pro Display',Arial,sans-serif" font-size="17" fill="#e8eef4">Mini by category</text>
+  <g font-family="'SF Mono',monospace" font-size="13">
+    <rect x="230" y="396" width="180" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="418" y="409" fill="#e8eef4">math 6/30</text>
+    <rect x="230" y="422" width="390" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="628" y="435" fill="#e8eef4">coding 13/30</text>
+    <rect x="230" y="448" width="570" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="808" y="461" fill="#e8eef4">reasoning 19/30</text>
+    <rect x="230" y="474" width="750" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="988" y="487" fill="#e8eef4">instruction 25/30</text>
+    <rect x="230" y="500" width="660" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="898" y="513" fill="#e8eef4">prose 22/30</text>
+    <rect x="230" y="526" width="150" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="388" y="539" fill="#e8eef4">writing 3/5</text>
+    <rect x="230" y="552" width="60" height="16" rx="3" fill="#ff9500" opacity="0.85"/><text x="298" y="565" fill="#e8eef4">tools 2/2</text>
+  </g>
+
+  <!-- Stats bar -->
+  <g font-family="'SF Mono','Courier New',monospace">
+    <rect x="880" y="396" width="260" height="180" rx="10" fill="#0d1526" stroke="#1a2a3a"/>
+    <text x="900" y="424" font-size="13" fill="#5a8a6a">COST / SUITE</text>
+    <text x="900" y="448" font-size="20" font-weight="700" fill="#e8eef4">$0.0918</text>
+    <text x="900" y="478" font-size="13" fill="#5a8a6a">MEAN / ITEM</text>
+    <text x="900" y="502" font-size="20" font-weight="700" fill="#e8eef4">24.9 s</text>
+    <text x="900" y="532" font-size="13" fill="#5a8a6a">WALL</text>
+    <text x="900" y="556" font-size="20" font-weight="700" fill="#e8eef4">3,905 s</text>
+  </g>
+</svg>
