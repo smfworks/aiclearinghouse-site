@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e1a"/>
+      <stop offset="1" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="gSmall" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00d4aa"/>
+      <stop offset="1" stop-color="#66e8cc"/>
+    </linearGradient>
+    <linearGradient id="gMini" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff9500"/>
+      <stop offset="1" stop-color="#ffb85c"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g stroke="#1a2a3a" stroke-width="1" opacity="0.3">
+    <line x1="0" y1="156" x2="1200" y2="156"/><line x1="0" y1="312" x2="1200" y2="312"/>
+    <line x1="0" y1="468" x2="1200" y2="468"/>
+  </g>
+
+  <text x="60" y="66" font-family="'SF Pro Display','Helvetica Neue',Arial,sans-serif" font-size="34" font-weight="700" fill="#e8eef4">Inkling generation 2, head to head</text>
+  <text x="60" y="96" font-family="'SF Mono','Courier New',monospace" font-size="14" fill="#5a8a6a">SMF Official A strict_v01 (157) + 81-byte one-shot · measured 2026-11-20 · n=1 each</text>
+
+  <!-- Cold Iron bars -->
+  <text x="60" y="136" font-family="'SF Pro Display',Arial,sans-serif" font-size="17" fill="#8ab8ff">Cold Iron (thinking off)</text>
+  <g filter="url(#glow)">
+    <rect x="320" y="118" width="846" height="26" rx="5" fill="url(#gSmall)"/>
+    <rect x="320" y="152" width="516" height="26" rx="5" fill="url(#gMini)"/>
+  </g>
+  <text x="310" y="136" text-anchor="end" font-family="'SF Pro Display',Arial,sans-serif" font-size="15" fill="#e8eef4">Small 594B</text>
+  <text x="310" y="170" text-anchor="end" font-family="'SF Pro Display',Arial,sans-serif" font-size="15" fill="#e8eef4">Mini 26.4B</text>
+  <text x="1040" y="136" font-family="'SF Mono',monospace" font-size="14" font-weight="700" fill="#66e8cc">147/157 93.6%</text>
+  <text x="1040" y="170" font-family="'SF Mono',monospace" font-size="14" font-weight="700" fill="#ffb85c">90/157 57.3%</text>
+
+  <!-- One-shot bars (seconds, log-ish scale note) -->
+  <text x="60" y="216" font-family="'SF Pro Display',Arial,sans-serif" font-size="17" fill="#8ab8ff">One-shot wall clock</text>
+  <rect x="320" y="198" width="107" height="26" rx="5" fill="url(#gSmall)"/>
+  <rect x="320" y="232" width="345" height="26" rx="5" fill="url(#gMini)"/>
+  <text x="437" y="216" font-family="'SF Mono',monospace" font-size="14" font-weight="700" fill="#66e8cc">19.3 s · $0.0124</text>
+  <text x="675" y="250" font-family="'SF Mono',monospace" font-size="14" font-weight="700" fill="#ffb85c">62.2 s · $0.0028</text>
+
+  <!-- Category comparison -->
+  <text x="60" y="296" font-family="'SF Pro Display',Arial,sans-serif" font-size="17" fill="#8ab8ff">Where the 36 points live (Small vs Mini, per 30)</text>
+  <g font-family="'SF Mono',monospace" font-size="13">
+    <text x="60"  y="322" fill="#e8eef4">math</text>       <rect x="150" y="310" width="780" height="14" rx="3" fill="#00d4aa" opacity="0.9"/><rect x="150" y="322" width="180" height="2" fill="none"/><rect x="150" y="310" width="180" height="14" rx="3" fill="#ff9500" opacity="0.9"/><text x="940" y="322" fill="#5a8a6a">26 / 6</text>
+    <text x="60"  y="348" fill="#e8eef4">coding</text>     <rect x="150" y="336" width="810" height="14" rx="3" fill="#00d4aa" opacity="0.9"/><rect x="150" y="336" width="390" height="14" rx="3" fill="#ff9500" opacity="0.9"/><text x="970" y="348" fill="#5a8a6a">27 / 13</text>
+    <text x="60"  y="374" fill="#e8eef4">reasoning</text>  <rect x="150" y="362" width="870" height="14" rx="3" fill="#00d4aa" opacity="0.9"/><rect x="150" y="362" width="570" height="14" rx="3" fill="#ff9500" opacity="0.9"/><text x="1030" y="374" fill="#5a8a6a">29 / 19</text>
+    <text x="60"  y="400" fill="#e8eef4">instruction</text><rect x="150" y="388" width="900" height="14" rx="3" fill="#00d4aa" opacity="0.9"/><rect x="150" y="388" width="750" height="14" rx="3" fill="#ff9500" opacity="0.9"/><text x="1060" y="400" fill="#5a8a6a">30 / 25</text>
+    <text x="60"  y="426" fill="#e8eef4">prose</text>      <rect x="150" y="414" width="840" height="14" rx="3" fill="#00d4aa" opacity="0.9"/><rect x="150" y="414" width="660" height="14" rx="3" fill="#ff9500" opacity="0.9"/><text x="1000" y="426" fill="#5a8a6a">28 / 22</text>
+  </g>
+  <text x="60" y="452" font-family="'SF Mono',monospace" font-size="12" fill="#5a8a6a">teal = Small, orange = Mini. Writing 5/5 vs 3/5 and tools 2/2 vs 2/2 omitted for scale.</text>
+
+  <!-- Stats -->
+  <g font-family="'SF Mono','Courier New',monospace">
+    <rect x="60" y="478" width="340" height="120" rx="10" fill="#0d1526" stroke="#1a2a3a"/>
+    <text x="80" y="502" font-size="12" fill="#5a8a6a">SMALL · COST / SUITE + LAT</text>
+    <text x="80" y="526" font-size="18" font-weight="700" fill="#e8eef4">$0.18 · 3.8 s/item</text>
+    <text x="80" y="550" font-size="12" fill="#5a8a6a">ARM</text>
+    <text x="80" y="572" font-size="14" fill="#e8eef4">effort=minimal analogue (always thinks)</text>
+
+    <rect x="430" y="478" width="340" height="120" rx="10" fill="#0d1526" stroke="#1a2a3a"/>
+    <text x="450" y="502" font-size="12" fill="#5a8a6a">MINI · COST / SUITE + LAT</text>
+    <text x="450" y="526" font-size="18" font-weight="700" fill="#e8eef4">$0.09 · 24.9 s/item</text>
+    <text x="450" y="550" font-size="12" fill="#5a8a6a">ARM</text>
+    <text x="450" y="572" font-size="14" fill="#e8eef4">effort=none TRUE OFF (0 rt × 157)</text>
+
+    <rect x="800" y="478" width="340" height="120" rx="10" fill="#0d1526" stroke="#1a2a3a"/>
+    <text x="820" y="502" font-size="12" fill="#5a8a6a">FAMILY GAP</text>
+    <text x="820" y="526" font-size="18" font-weight="700" fill="#e8eef4">36.3 points</text>
+    <text x="820" y="550" font-size="12" fill="#5a8a6a">LIVES IN</text>
+    <text x="820" y="572" font-size="14" fill="#e8eef4">math (−20) and coding (−14)</text>
+  </g>
+</svg>
