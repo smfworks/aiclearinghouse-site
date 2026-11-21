@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AURORA — An Interactive Cosmos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#eef2ff; --muted:#b9c1e6; --cyan:#7df9ff; --violet:#b78cff; --rose:#ff7ad9;
+    --glass:rgba(255,255,255,.08); --stroke:rgba(255,255,255,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; overflow:hidden; color:var(--ink);
+    font-family:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:#04060f;
+  }
+  #sky{position:fixed; inset:0; width:100%; height:100%; display:block;}
+  .vignette{position:fixed; inset:0; pointer-events:none; z-index:1;
+    background:
+      radial-gradient(120% 90% at 50% 10%, transparent 40%, rgba(0,0,0,.55) 100%),
+      linear-gradient(180deg, rgba(0,0,0,.1), transparent 35%, rgba(0,0,0,.55));
+  }
+  .glow{position:fixed; z-index:1; width:520px; height:520px; left:0; top:0; pointer-events:none;
+    transform:translate(-50%,-50%); border-radius:50%; mix-blend-mode:screen;
+    background:radial-gradient(circle, rgba(125,249,255,.22), rgba(183,140,255,.14) 32%, transparent 65%);
+    filter:blur(6px); transition:opacity .4s ease;
+  }
+  .wrap{position:relative; z-index:2; min-height:100vh; display:grid; place-items:center; padding:28px;}
+  .panel{text-align:center; max-width:920px; will-change:transform;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:.7rem;
+    font-size:.72rem; letter-spacing:.42em; text-transform:uppercase; color:#bdf6ff;
+    padding:.55rem .95rem; border:1px solid var(--stroke); border-radius:999px;
+    background:var(--glass); backdrop-filter:blur(10px);
+  }
+  .eyebrow::before,.eyebrow::after{content:""; width:26px; height:1px; background:linear-gradient(90deg,transparent,var(--cyan));}
+  .eyebrow::after{background:linear-gradient(90deg,var(--cyan),transparent);}
+  h1{
+    margin:.28em 0 .12em; font-family:'Fraunces',serif; font-weight:600;
+    font-size:clamp(3.2rem,12vw,8.2rem); line-height:.9; letter-spacing:-.03em;
+    background:linear-gradient(115deg,#fff 0%, #bfefff 22%, var(--cyan) 38%, var(--violet) 62%, var(--rose) 82%, #fff 100%);
+    background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:sheen 7s ease-in-out infinite;
+    text-shadow:0 0 90px rgba(125,249,255,.18);
+  }
+  @keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .sub{max-width:620px; margin:0 auto 1.8rem; color:var(--muted); font-size:clamp(1rem,2.1vw,1.18rem); line-height:1.65; font-weight:300;}
+  .cta{display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.4rem;}
+  .btn{
+    appearance:none; border:0; cursor:pointer; font:inherit; font-weight:600; letter-spacing:.02em;
+    padding:1rem 1.45rem; border-radius:999px; color:#071018;
+    background:linear-gradient(135deg,var(--cyan),var(--violet) 65%,var(--rose));
+    box-shadow:0 12px 40px rgba(125,249,255,.28), inset 0 1px 0 rgba(255,255,255,.55);
+    transition:transform .25s cubic-bezier(.2,.9,.2,1.2), box-shadow .25s ease, filter .25s ease;
+  }
+  .btn:hover{transform:translateY(-2px) scale(1.03); filter:saturate(1.15); box-shadow:0 18px 55px rgba(183,140,255,.38), inset 0 1px 0 rgba(255,255,255,.6);}
+  .btn:active{transform:translateY(0) scale(.98);}
+  .btn.ghost{
+    color:var(--ink); background:var(--glass); border:1px solid var(--stroke); backdrop-filter:blur(12px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .meta{display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; color:#a9b3d8; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;}
+  .chip{padding:.45rem .8rem; border-radius:999px; border:1px solid var(--stroke); background:rgba(255,255,255,.05); backdrop-filter:blur(8px);}
+  .toast{
+    position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px); z-index:5; opacity:0; pointer-events:none;
+    padding:.75rem 1.1rem; border-radius:14px; border:1px solid var(--stroke); background:rgba(10,14,28,.7);
+    backdrop-filter:blur(14px); color:#dffcff; font-size:.85rem; transition:.35s ease;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0);}
+  .foot{position:fixed; left:0; right:0; bottom:14px; z-index:2; text-align:center; color:rgba(185,193,230,.55); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; pointer-events:none;}
+  @media (prefers-reduced-motion: reduce){
+    h1{animation:none}
+    .btn{transition:none}
+  }
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="vignette"></div>
+<div class="glow" id="glow"></div>
+
+<main class="wrap">
+  <section class="panel" id="panel" aria-labelledby="title">
+    <span class="eyebrow">Interactive Celestial Engine</span>
+    <h1 id="title">AURORA</h1>
+    <p class="sub">A living sky rendered live in your browser — ribbons of light, a field of silent stars, and a comet that answers every click.</p>
+    <div class="cta">
+      <button class="btn" id="enter">Enter the nebula</button>
+      <button class="btn ghost" id="burst">Send a comet</button>
+    </div>
+    <div class="meta">
+      <span class="chip">60 fps</span>
+      <span class="chip">Canvas 2D</span>
+      <span class="chip">Zero assets</span>
+      <span class="chip">Mouse + touch</span>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="foot">Move to steer · Click to burst · Reduced motion respected</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('sky');
+  const ctx = canvas.getContext('2d');
+  const glow = document.getElementById('glow');
+  const panel = document.getElementById('panel');
+  const toast = document.getElementById('toast');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W = 0, H = 0, DPR = 1;
+  function resize(){
+    DPR = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  addEventListener('resize', resize); resize();
+
+  const mouse = { x:.5, y:.42, tx:.5, ty:.42 };
+  function setMouse(x, y){
+    mouse.tx = x / W; mouse.ty = y / H;
+    glow.style.left = x + 'px'; glow.style.top = y + 'px';
+  }
+  addEventListener('pointermove', e => setMouse(e.clientX, e.clientY), {passive:true});
+  setMouse(W * .5, H * .42);
+
+  const stars = Array.from({length: Math.min(260, Math.floor(W*H/6500))}, () => ({
+    x: Math.random(), y: Math.random() * .72,
+    r: Math.random() * 1.5 + .35,
+    p: Math.random() * Math.PI * 2,
+    s: .4 + Math.random() * 1.6,
+    hue: Math.random() < .12 ? 190 : (Math.random() < .18 ? 285 : 220)
+  }));
+  const embers = Array.from({length: 52}, () => ({
+    x: Math.random(), y: Math.random(),
+    vy: .00012 + Math.random() * .00032,
+    vx: (Math.random() - .5) * .00008,
+    r: 1 + Math.random() * 2.4,
+    a: .25 + Math.random() * .55,
+    p: Math.random() * Math.PI * 2
+  }));
+  let meteors = [];
+  let sparks = [];
+  let lastMeteor = 0;
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+  function burst(x, y, n = 46){
+    for (let i = 0; i < n; i++){
+      const a = Math.random() * Math.PI * 2, v = 1.2 + Math.random() * 5.2;
+      sparks.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1.1, life: 1, r: 1 + Math.random() * 2.6, hue: 175 + Math.random() * 135 });
+    }
+  }
+  function comet(x, y){
+    meteors.push({ x, y, vx: (Math.random() < .5 ? -1 : 1) * (4 + Math.random() * 4), vy: 2.4 + Math.random() * 2.4, life: 1 });
+  }
+
+  addEventListener('pointerdown', e => {
+    if (e.target.closest('button, a, input, textarea, select')) return;
+    burst(e.clientX, e.clientY, 42);
+  });
+
+  document.getElementById('enter').addEventListener('click', () => {
+    burst(W * .5, H * .46, 90);
+    showToast('Welcome — the sky is listening.');
+  });
+  document.getElementById('burst').addEventListener('click', () => {
+    comet(W * (.25 + Math.random() * .5), H * (.12 + Math.random() * .18));
+    showToast('A comet has been dispatched.');
+  });
+
+  function aurora(t){
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const bands = [
+      { y:.22, amp:70,  speed:.00016, thick:190, c1:'rgba(125,249,255,.34)', c2:'rgba(125,249,255,0)' },
+      { y:.34, amp:95,  speed:.00011, thick:230, c1:'rgba(183,140,255,.30)', c2:'rgba(183,140,255,0)' },
+      { y:.48, amp:120, speed:.00008, thick:260, c1:'rgba(255,122,217,.22)', c2:'rgba(255,122,217,0)' },
+      { y:.62, amp:80,  speed:.00013, thick:210, c1:'rgba(80,255,190,.20)', c2:'rgba(80,255,190,0)' }
+    ];
+    bands.forEach((b, i) => {
+      const drift = mouse.x * 90 * (i + 1) / 4;
+      const grad = ctx.createLinearGradient(0, H * b.y - 120, 0, H);
+      grad.addColorStop(0, b.c1); grad.addColorStop(1, b.c2);
+      ctx.beginPath();
+      const baseY = H * b.y;
+      for (let x = -40; x <= W + 40; x += 28){
+        const y = baseY + Math.sin(x * .0042 + t * b.speed * 1000 + i * 1.7) * b.amp
+                          + Math.sin(x * .011 - t * b.speed * 640 + i) * (b.amp * .34)
+                          + Math.cos((x + drift) * .0021 + t * .00045) * 26;
+        x === -40 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.lineTo(W + 40, H + 60); ctx.lineTo(-40, H + 60); ctx.closePath();
+      ctx.fillStyle = grad; ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  function drawStars(t){
+    for (const s of stars){
+      const tw = reduce ? 1 : (.55 + .45 * Math.sin(t * s.s + s.p));
+      const px = s.x * W + (mouse.x - .5) * 26 * (s.r / 1.8);
+      const py = s.y * H + (mouse.y - .5) * 18 * (s.r / 1.8);
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${s.hue}, 90%, ${82 + tw * 12}%, ${(.35 + tw * .65).toFixed(3)})`;
+      ctx.arc(px, py, s.r * (0.85 + tw * .35), 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawEmbers(dt, t){
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (const e of embers){
+      e.y -= e.vy * dt; e.x += e.vx * dt + Math.sin(t * .001 + e.p) * .00006;
+      if (e.y < -0.05 || e.x < -0.05 || e.x > 1.05){ e.y = 1.05; e.x = Math.random(); }
+      const x = e.x * W, y = e.y * H;
+      const a = e.a * (.6 + .4 * Math.sin(t * .002 + e.p));
+      const g = ctx.createRadialGradient(x, y, 0, x, y, e.r * 5);
+      g.addColorStop(0, `rgba(190,245,255,${a})`); g.addColorStop(1, 'rgba(190,245,255,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, e.r * 5, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawMeteors(dt){
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    meteors = meteors.filter(m => m.life > 0 && m.x > -200 && m.x < W + 200 && m.y < H + 200);
+    for (const m of meteors){
+      m.x += m.vx * dt * .06; m.y += m.vy * dt * .06; m.life -= dt * .0011;
+      const tail = 90 + m.life * 90;
+      const grad = ctx.createLinearGradient(m.x, m.y, m.x - m.vx * tail * .12, m.y - m.vy * tail * .12);
+      grad.addColorStop(0, `rgba(255,255,255,${.9 * m.life})`);
+      grad.addColorStop(.35, `rgba(125,249,255,${.55 * m.life})`);
+      grad.addColorStop(1, 'rgba(125,249,255,0)');
+      ctx.strokeStyle = grad; ctx.lineWidth = 2.2; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(m.x - m.vx * tail * .12, m.y - m.vy * tail * .12); ctx.stroke();
+      ctx.fillStyle = `rgba(255,255,255,${m.life})`; ctx.beginPath(); ctx.arc(m.x, m.y, 2.2, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawSparks(dt){
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    sparks = sparks.filter(s => s.life > 0);
+    for (const s of sparks){
+      s.x += s.vx * dt * .06; s.y += s.vy * dt * .06; s.vy += .045 * dt * .06; s.life -= dt * .0016;
+      ctx.fillStyle = `hsla(${s.hue}, 95%, 72%, ${Math.max(0, s.life)})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r * s.life, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  let prev = performance.now();
+  function frame(now){
+    const dt = Math.min(50, now - prev); prev = now;
+    mouse.x += (mouse.tx - mouse.x) * .07;
+    mouse.y += (mouse.ty - mouse.y) * .07;
+    panel.style.transform = `translate3d(${(mouse.x - .5) * 22}px, ${(mouse.y - .5) * 14}px, 0)`;
+
+    ctx.clearRect(0, 0, W, H);
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#02030a'); bg.addColorStop(.42, '#070b1d'); bg.addColorStop(1, '#04060f');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    aurora(now);
+    drawStars(now);
+    drawEmbers(dt, now);
+
+    if (!reduce && now - lastMeteor > 2600 + Math.random() * 2400){
+      lastMeteor = now;
+      comet(W * Math.random(), H * (.06 + Math.random() * .22));
+    }
+    drawMeteors(dt);
+    drawSparks(dt);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
