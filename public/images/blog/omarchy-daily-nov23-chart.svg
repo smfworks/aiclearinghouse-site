@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Bar chart: new plugins added to the Omarchy marketplace per day, November 17 to 23" style="font-family:inherit;">
+  <rect width="800" height="420" fill="#0b1220" rx="12"/>
+  <text x="32" y="44" fill="#e8f6ff" font-size="20" font-weight="600">New plugins per day, November 17–23</text>
+  <text x="32" y="70" fill="#8fa3c0" font-size="13">Listings added to the Omarchy Plugin Marketplace by day</text>
+
+  <!-- gridlines -->
+  <g stroke="#22314f" stroke-width="1">
+    <line x1="80" y1="330" x2="770" y2="330"/>
+    <line x1="80" y1="260" x2="770" y2="260" stroke-opacity="0.5"/>
+    <line x1="80" y1="190" x2="770" y2="190" stroke-opacity="0.5"/>
+    <line x1="80" y1="120" x2="770" y2="120" stroke-opacity="0.5"/>
+  </g>
+  <g fill="#39e1ff" font-size="12" text-anchor="end">
+    <text x="72" y="334">0</text>
+    <text x="72" y="264">20</text>
+    <text x="72" y="194">40</text>
+    <text x="72" y="124">60</text>
+  </g>
+
+  <!-- bars: 7 days, width 52, gap ~24, start x=140; baseline y=330; scale 3.5px per plugin -->
+  <g fill="#39e1ff" fill-opacity="0.75" stroke="#39e1ff" stroke-width="1.5">
+    <rect x="140" y="291.5" width="52" height="38.5"  rx="6"/>
+    <rect x="220" y="221.5" width="52" height="108.5" rx="6"/>
+    <rect x="300" y="120"   width="52" height="210"   rx="6"/>
+    <rect x="380" y="148"   width="52" height="182"   rx="6"/>
+    <rect x="460" y="256.5" width="52" height="73.5"  rx="6"/>
+    <rect x="540" y="221.5" width="52" height="108.5" rx="6"/>
+    <rect x="620" y="309"   width="52" height="21"    rx="6"/>
+  </g>
+
+  <!-- value labels -->
+  <g fill="#e8f6ff" font-size="14" text-anchor="middle" font-weight="600">
+    <text x="166" y="283">11</text>
+    <text x="246" y="213">31</text>
+    <text x="326" y="112">60</text>
+    <text x="406" y="140">52</text>
+    <text x="486" y="248">21</text>
+    <text x="566" y="213">31</text>
+    <text x="646" y="301">6</text>
+  </g>
+
+  <!-- day labels -->
+  <g fill="#8fa3c0" font-size="12" text-anchor="middle">
+    <text x="166" y="356">Nov 17</text>
+    <text x="246" y="356">Nov 18</text>
+    <text x="326" y="356">Nov 19</text>
+    <text x="406" y="356">Nov 20</text>
+    <text x="486" y="356">Nov 21</text>
+    <text x="566" y="356">Nov 22</text>
+    <text x="646" y="356">Nov 23</text>
+  </g>
+
+  <text x="32" y="400" fill="#8fa3c0" font-size="12">Source: omacom/omarchy-plugin-marketplace site/catalog.json, generated 2026-11-23T10:10Z — 6,914 plugins total, 4,264 verified.</text>
+</svg>
