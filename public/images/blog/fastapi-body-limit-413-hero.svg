@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Abstract diagram of request bodies meeting a limit line">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1f3a"/>
+      <stop offset="1" stop-color="#123456"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="150" cy="520" r="180" fill="#1d4ed8" opacity="0.12"/>
+  <circle cx="1080" cy="90" r="220" fill="#f59e0b" opacity="0.08"/>
+
+  <!-- incoming request body: a rounded bar that grows -->
+  <rect x="90" y="270" width="430" height="64" rx="32" fill="url(#body)"/>
+  <rect x="90" y="270" width="430" height="64" rx="32" fill="none" stroke="#0b1f3a" stroke-opacity="0.25" stroke-width="2"/>
+  <rect x="90" y="360" width="560" height="64" rx="32" fill="url(#body)" opacity="0.85"/>
+  <rect x="90" y="450" width="700" height="64" rx="32" fill="url(#body)" opacity="0.7"/>
+
+  <!-- the limit line -->
+  <line x1="850" y1="120" x2="850" y2="540" stroke="#2dd4bf" stroke-width="6" stroke-dasharray="4 14" stroke-linecap="round"/>
+  <circle cx="850" cy="120" r="10" fill="#2dd4bf"/>
+  <circle cx="850" cy="540" r="10" fill="#2dd4bf"/>
+
+  <!-- accepted path stops before the line -->
+  <path d="M 520 302 H 700 Q 740 302 740 342 V 400" fill="none" stroke="#2dd4bf" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="740" cy="412" r="9" fill="#2dd4bf"/>
+
+  <!-- oversized path bounces off the line -->
+  <path d="M 770 482 Q 800 482 828 502 Q 840 510 850 510" fill="none" stroke="#ef4444" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M 770 482 Q 800 482 820 500" fill="none" stroke="#ef4444" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <circle cx="850" cy="482" r="12" fill="#ef4444"/>
+
+  <!-- quiet geometry, no text -->
+  <g stroke="#fbbf24" stroke-opacity="0.35" stroke-width="2" fill="none">
+    <path d="M 960 180 h 90"/>
+    <path d="M 960 210 h 140"/>
+    <path d="M 960 240 h 60"/>
+  </g>
+  <rect x="960" y="300" width="120" height="120" rx="24" fill="#f59e0b" opacity="0.18"/>
+  <rect x="1010" y="350" width="120" height="120" rx="24" fill="#2dd4bf" opacity="0.15"/>
+</svg>
