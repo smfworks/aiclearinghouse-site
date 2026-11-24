@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Bar chart: new plugins added to the Omarchy marketplace per day, November 17 to 24">
+  <rect width="800" height="420" fill="#0b1220" rx="12"/>
+  <text x="32" y="44" fill="#e8f6ff" font-size="20" font-weight="600">New plugins per day, November 17–24</text>
+  <text x="32" y="70" fill="#8fa3c0" font-size="13">Listings added to the Omarchy Plugin Marketplace by day</text>
+
+  <!-- gridlines -->
+  <g stroke="#22314f" stroke-width="1">
+    <line x1="80" y1="330" x2="770" y2="330"/>
+    <line x1="80" y1="260" x2="770" y2="260" stroke-opacity="0.5"/>
+    <line x1="80" y1="190" x2="770" y2="190" stroke-opacity="0.5"/>
+    <line x1="80" y1="120" x2="770" y2="120" stroke-opacity="0.5"/>
+  </g>
+  <g fill="#39e1ff" font-size="12" text-anchor="end">
+    <text x="72" y="334">0</text>
+    <text x="72" y="264">20</text>
+    <text x="72" y="194">40</text>
+    <text x="72" y="124">60</text>
+  </g>
+
+  <!-- bars: 8 days, width 46, gap ~20, start x=110; baseline y=330; scale 3.5px per plugin -->
+  <g fill="#39e1ff" fill-opacity="0.75" stroke="#39e1ff" stroke-width="1.5">
+    <rect x="110" y="291.5" width="46" height="38.5"  rx="6"/>
+    <rect x="176" y="221.5" width="46" height="108.5" rx="6"/>
+    <rect x="242" y="120"   width="46" height="210"   rx="6"/>
+    <rect x="308" y="148"   width="46" height="182"   rx="6"/>
+    <rect x="374" y="256.5" width="46" height="73.5"  rx="6"/>
+    <rect x="440" y="221.5" width="46" height="108.5" rx="6"/>
+    <rect x="506" y="106"   width="46" height="224"   rx="6"/>
+    <rect x="572" y="179.5" width="46" height="150.5" rx="6"/>
+  </g>
+  <!-- highlighted latest two days -->
+  <rect x="506" y="106" width="46" height="224" rx="6" fill="none" stroke="#39e1ff" stroke-width="3"/>
+  <rect x="572" y="179.5" width="46" height="150.5" rx="6" fill="none" stroke="#39e1ff" stroke-width="3"/>
+
+  <!-- value labels -->
+  <g fill="#e8f6ff" font-size="12" text-anchor="middle">
+    <text x="133" y="283">11</text>
+    <text x="199" y="213">31</text>
+    <text x="265" y="112">60</text>
+    <text x="331" y="140">52</text>
+    <text x="397" y="248">21</text>
+    <text x="463" y="213">31</text>
+    <text x="529" y="98">64</text>
+    <text x="595" y="171">43</text>
+  </g>
+
+  <!-- day labels -->
+  <g fill="#8fa3c0" font-size="11" text-anchor="middle">
+    <text x="133" y="352">17</text>
+    <text x="199" y="352">18</text>
+    <text x="265" y="352">19</text>
+    <text x="331" y="352">20</text>
+    <text x="397" y="352">21</text>
+    <text x="463" y="352">22</text>
+    <text x="529" y="352">23</text>
+    <text x="595" y="352">24</text>
+  </g>
+  <text x="337" y="378" fill="#8fa3c0" font-size="12" text-anchor="middle">November 2026 (UTC)</text>
+
+  <!-- note -->
+  <text x="770" y="404" fill="#5f7392" font-size="11" text-anchor="end">Source: omarchy-plugin-marketplace site/catalog.json · 7,015 listings, 4,330 verified</text>
+</svg>
