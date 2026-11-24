@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1f3a"/>
+      <stop offset="1" stop-color="#123055"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#0ea5a4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#navy)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#1d3a5f" stroke-width="1" opacity="0.35">
+    <path d="M0 105 H1200 M0 210 H1200 M0 315 H1200 M0 420 H1200 M0 525 H1200"/>
+    <path d="M150 0 V630 M300 0 V630 M450 0 V630 M600 0 V630 M750 0 V630 M900 0 V630 M1050 0 V630"/>
+  </g>
+
+  <!-- large faint document stack (right) -->
+  <g opacity="0.42">
+    <rect x="880" y="120" width="240" height="330" rx="14" fill="#f59e0b" transform="rotate(8 1000 285)"/>
+    <rect x="840" y="150" width="240" height="330" rx="14" fill="#fbbf24" transform="rotate(-4 960 315)"/>
+    <rect x="800" y="175" width="240" height="330" rx="14" fill="#2dd4bf"/>
+  </g>
+
+  <!-- left: request flow, three passes -->
+  <!-- pass 1: full body download (long arrow) -->
+  <g>
+    <rect x="80" y="120" width="150" height="70" rx="10" fill="#0b1f3a" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="110" cy="155" r="7" fill="#2dd4bf"/>
+    <line x1="112" y1="155" x2="128" y2="155" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="200" cy="155" r="7" fill="#2dd4bf"/>
+    <rect x="330" y="120" width="150" height="70" rx="10" fill="#0b1f3a" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="360" cy="155" r="7" fill="#f59e0b"/>
+    <line x1="362" y1="155" x2="378" y2="155" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="450" cy="155" r="7" fill="#f59e0b"/>
+    <!-- long payload bar: full bytes down the wire -->
+    <rect x="272" y="147" width="60" height="16" rx="8" fill="#f59e0b" opacity="0.9"/>
+  </g>
+
+  <!-- pass 2: revalidation with validator (short arrow) -->
+  <g>
+    <rect x="80" y="290" width="150" height="70" rx="10" fill="#0b1f3a" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="110" cy="325" r="7" fill="#2dd4bf"/>
+    <line x1="112" y1="325" x2="128" y2="325" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="200" cy="325" r="7" fill="#2dd4bf"/>
+    <rect x="330" y="290" width="150" height="70" rx="10" fill="#0b1f3a" stroke="#fbbf24" stroke-width="2"/>
+    <circle cx="360" cy="325" r="7" fill="#fbbf24"/>
+    <line x1="362" y1="325" x2="378" y2="325" stroke="#fbbf24" stroke-width="2"/>
+    <circle cx="450" cy="325" r="7" fill="#fbbf24"/>
+    <!-- tiny payload: just the tag, 304 back -->
+    <rect x="272" y="317" width="14" height="16" rx="7" fill="#fbbf24"/>
+    <rect x="292" y="317" width="14" height="16" rx="7" fill="#fbbf24" opacity="0.35"/>
+  </g>
+
+  <!-- pass 3: changed resource, full 200 again -->
+  <g>
+    <rect x="80" y="450" width="150" height="70" rx="10" fill="#0b1f3a" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="110" cy="485" r="7" fill="#2dd4bf"/>
+    <line x1="112" y1="485" x2="128" y2="485" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="200" cy="485" r="7" fill="#2dd4bf"/>
+    <rect x="330" y="450" width="150" height="70" rx="10" fill="#0b1f3a" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="360" cy="485" r="7" fill="#f59e0b"/>
+    <line x1="362" y1="485" x2="378" y2="485" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="450" cy="485" r="7" fill="#f59e0b"/>
+    <rect x="272" y="477" width="60" height="16" rx="8" fill="#f59e0b" opacity="0.9"/>
+  </g>
+
+  <!-- connecting flow lines -->
+  <g stroke="#3b6a99" stroke-width="2" stroke-dasharray="6 8" opacity="0.6" fill="none">
+    <path d="M230 155 H330 M480 155 H560 V325 H330 M480 325 H560 V485 H330"/>
+  </g>
+
+  <!-- status chips on the right of each flow -->
+  <g font-family="monospace" font-size="26" text-anchor="middle">
+    <rect x="600" y="132" width="120" height="46" rx="23" fill="#f59e0b"/>
+    <text x="660" y="163" fill="#0b1f3a" font-weight="bold">200</text>
+    <rect x="600" y="302" width="120" height="46" rx="23" fill="#2dd4bf"/>
+    <text x="660" y="333" fill="#0b1f3a" font-weight="bold">304</text>
+    <rect x="600" y="462" width="120" height="46" rx="23" fill="#f59e0b"/>
+    <text x="660" y="493" fill="#0b1f3a" font-weight="bold">200</text>
+  </g>
+
+  <!-- validator tag motif -->
+  <g transform="translate(760 540)">
+    <rect x="0" y="0" width="330" height="52" rx="12" fill="#0b1f3a" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="26" cy="26" r="8" fill="none" stroke="#2dd4bf" stroke-width="2"/>
+    <line x1="26" y1="26" x2="26" y2="18" stroke="#2dd4bf" stroke-width="2"/>
+    <line x1="26" y1="26" x2="33" y2="30" stroke="#2dd4bf" stroke-width="2"/>
+    <rect x="46" y="18" width="240" height="16" rx="8" fill="#123055" stroke="#fbbf24" stroke-width="1.5"/>
+  </g>
+
+  <!-- orange arc accent -->
+  <path d="M0 630 A 320 320 0 0 1 320 310" fill="none" stroke="#f59e0b" stroke-width="6" opacity="0.55"/>
+  <path d="M1200 0 A 360 360 0 0 0 840 0" fill="none" stroke="#f59e0b" stroke-width="5" opacity="0.4"/>
+</svg>
