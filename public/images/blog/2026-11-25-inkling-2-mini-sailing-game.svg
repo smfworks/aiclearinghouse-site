@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="624" viewBox="0 0 1200 624">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1624"/>
+      <stop offset="100%" stop-color="#06141e"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a4a62"/>
+      <stop offset="100%" stop-color="#0d2c3d"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <g opacity="0.25" stroke="#1a2a3a" stroke-width="1">
+    <path d="M0 80 H1200 M0 160 H1200 M0 240 H1200 M0 320 H1200 M0 400 H1200 M0 480 H1200 M0 560 H1200"/>
+    <path d="M80 0 V624 M160 0 V624 M240 0 V624 M320 0 V624 M400 0 V624 M480 0 V624 M560 0 V624 M640 0 V624 M720 0 V624 M800 0 V624 M880 0 V624 M960 0 V624 M1040 0 V624 M1120 0 V624"/>
+  </g>
+  <text x="60" y="72" fill="#e8eef4" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="700">Keep the richer sailing game</text>
+  <text x="60" y="108" fill="#8aa4b8" font-family="Courier New, monospace" font-size="16">Inkling 2 Mini on a Mac Mini. Three runs each. Same brief.</text>
+  <rect x="60" y="150" width="500" height="340" rx="16" fill="url(#water)" stroke="#3a5a6a"/>
+  <text x="84" y="188" fill="#9bb0c0" font-family="Courier New, monospace" font-size="14">THINKING OFF</text>
+  <text x="84" y="230" fill="#e8eef4" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700">198 to 261 s</text>
+  <text x="84" y="268" fill="#c5d4e0" font-family="Helvetica, Arial, sans-serif" font-size="18">Checklist 10, 11, 11</text>
+  <text x="84" y="308" fill="#ffb020" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700">Cheaper picture</text>
+  <text x="84" y="348" fill="#9bb0c0" font-family="Helvetica, Arial, sans-serif" font-size="16">Flat water. A boat that moves.</text>
+  <text x="84" y="376" fill="#9bb0c0" font-family="Helvetica, Arial, sans-serif" font-size="16">A page, not a place you want to stay.</text>
+  <polygon points="160,430 190,400 220,430 190,418" fill="#d7e2ea"/>
+  <rect x="640" y="150" width="500" height="340" rx="16" fill="#12384a" stroke="#76b900" stroke-width="2" filter="url(#glow)"/>
+  <rect x="640" y="430" width="500" height="60" fill="#c4a574"/>
+  <text x="664" y="188" fill="#76b900" font-family="Courier New, monospace" font-size="14">THINKING ON</text>
+  <text x="664" y="230" fill="#e8eef4" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700">369 to 516 s</text>
+  <text x="664" y="268" fill="#c5d4e0" font-family="Helvetica, Arial, sans-serif" font-size="18">Checklist 11, 11, 11</text>
+  <text x="664" y="308" fill="#76b900" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700">Richer picture</text>
+  <text x="664" y="348" fill="#d5e4ee" font-family="Helvetica, Arial, sans-serif" font-size="16">Beach, sail, wake, wind on the water.</text>
+  <text x="664" y="376" fill="#d5e4ee" font-family="Helvetica, Arial, sans-serif" font-size="16">This is the game.</text>
+  <polygon points="760,400 800,352 840,400 800,384" fill="#f4f1e8" stroke="#1d3557"/>
+  <text x="60" y="560" fill="#e8eef4" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="700">Richer wins. The checklist ranges overlap. The pictures do not.</text>
+  <text x="60" y="592" fill="#5a8a6a" font-family="Courier New, monospace" font-size="14">Local. No charge. Ollama 0.40.17. MLX. NVFP4.</text>
+</svg>

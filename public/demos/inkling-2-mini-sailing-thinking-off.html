@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bay Sailing</title>
+<style>
+  body {
+    margin: 0;
+    background: #0b2b3a;
+    color: #eaf6fb;
+    font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 10px;
+  }
+  h1 { font-size: 1.15rem; font-weight: 650; margin: 0 0 4px; letter-spacing: .02em; }
+  p.controls { margin: 0 0 12px; font-size: .85rem; color: #b9d6e2; text-align: center; }
+  canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 28px rgba(0,0,0,.45);
+    background: #14425a;
+  }
+</style>
+</head>
+<body>
+<h1>Bay Sailing</h1>
+<p class="controls">Controls: &larr; and &rarr; arrow keys turn the boat. Wind blows from the north. No engine.</p>
+<canvas id="game" width="960" height="640"></canvas>
+<script>
+(function () {
+  "use strict";
+
+  var canvas = document.getElementById("game");
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width, H = canvas.height;
+
+  // ---------- Course ----------
+  var marks = [
+    { x: 480, y: 150, r: 22, type: "start", label: "S" },
+    { x: 210, y: 350, r: 18, type: "buoy",  label: "1" },
+    { x: 745, y: 330, r: 18, type: "buoy",  label: "2" },
+    { x: 470, y: 520, r: 18, type: "buoy",  label: "3" }
+  ];
+  var course = [1, 2, 3, 0]; // buoy 1, buoy 2, buoy 3, then start
+
+  var boat, stage, elapsed, finished, finishTimer;
+
+  function reset() {
+    boat = { x: 480, y: 225, heading: Math.PI, speed: 0 }; // heading PI = south
+    stage = 0;
+    elapsed = 0;
+    finished = false;
+    finishTimer = 0;
+  }
+  reset();
+
+  // ---------- Wind marks ----------
+  var windMarks = [];
+  for (var i = 0; i < 46; i++) {
+    windMarks.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      len: 10 + Math.random() * 14,
+      spd: 55 + Math.random() * 65,
+      drift: (Math.random() - 0.5) * 8
+    });
+  }
+
+  // ---------- Input ----------
+  var keys = { left: false, right: false };
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft")  { keys.left = true;  e.preventDefault(); }
+    if (e.key === "ArrowRight") { keys.right = true; e.preventDefault(); }
+  });
+  window.addEventListener("keyup", function (e) {
+    if (e.key === "ArrowLeft")  keys.left = false;
+    if (e.key === "ArrowRight") keys.right = false;
+  });
+
+  // ---------- Sailing polar ----------
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function polarFactor(heading) {
+    var a = Math.abs(heading % (Math.PI * 2));
+    if (a > Math.PI) a = Math.PI * 2 - a; // angle from north, 0..PI
+    var deg = a * 180 / Math.PI;
+    if (deg < 60) return 0;                                   // no-go zone (in irons)
+    if (deg < 90) return lerp(0.15, 1.0, (deg - 60) / 30);    // close hauled -> reach
+    if (deg < 135) return lerp(1.0, 0.95, (deg - 90) / 45);   // reach
+    return lerp(0.95, 0.6, (deg - 135) / 45);                 // downwind
+  }
+
+  // ---------- Update ----------
+  var TURN_RATE = 1.7;   // rad/s
+  var BASE_SPEED = 150;  // px/s
+
+  function update(dt) {
+    if (!finished) {
+      if (keys.left)  boat.heading -= TURN_RATE * dt;
+      if (keys.right) boat.heading += TURN_RATE * dt;
+
+      var f = polarFactor(boat.heading);
+      boat.speed = BASE_SPEED * f;
+      boat.x += Math.sin(boat.heading) * boat.speed * dt;
+      boat.y += -Math.cos(boat.heading) * boat.speed * dt;
+
+      // keep boat inside the bay
+      boat.x = Math.max(24, Math.min(W - 24, boat.x));
+      boat.y = Math.max(70, Math.min(H - 24, boat.y));
+
+      elapsed += dt;
+
+      var target = marks[course[stage]];
+      var dx = boat.x - target.x, dy = boat.y - target.y;
+      if (Math.sqrt(dx * dx + dy * dy) < target.r + 12) {
+        stage++;
+        if (stage >= course.length) {
+          finished = true;
+          finishTimer = 0;
+        }
+      }
+    } else {
+      finishTimer += dt;
+      if (finishTimer > 5) reset(); // auto-restart after a short pause
+    }
+
+    // wind streaks drift south
+    for (var i = 0; i < windMarks.length; i++) {
+      var m = windMarks[i];
+      m.y += m.spd * dt;
+      m.x += m.drift * dt;
+      if (m.y > H + 20) { m.y = -20; m.x = Math.random() * W; }
+      if (m.x < -20) m.x = W + 20;
+      if (m.x > W + 20) m.x = -20;
+    }
+  }
+
+  // ---------- Drawing ----------
+  function drawWater() {
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#1b5a76");
+    g.addColorStop(1, "#0e3a52");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+
+    // faint static wave strokes
+    ctx.strokeStyle = "rgba(255,255,255,0.05)";
+    ctx.lineWidth = 1.5;
+    for (var y = 90; y < H; y += 56) {
+      ctx.beginPath();
+      for (var x = 0; x <= W; x += 24) {
+        var yy = y + Math.sin(x * 0.02 + y) * 4;
+        if (x === 0) ctx.moveTo(x, yy); else ctx.lineTo(x, yy);
+      }
+      ctx.stroke();
+    }
+
+    // northern shore (sand band)
+    ctx.fillStyle = "#d9c08a";
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(W, 0);
+    ctx.lineTo(W, 46);
+    for (var x2 = W; x2 >= 0; x2 -= 40) {
+      ctx.lineTo(x2, 46 + Math.sin(x2 * 0.03) * 7);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#c2a96f";
+    ctx.fillRect(0, 0, W, 6);
+  }
+
+  function drawWindMarks() {
+    ctx.strokeStyle = "rgba(230,245,250,0.55)";
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    for (var i = 0; i < windMarks.length; i++) {
+      var m = windMarks[i];
+      ctx.beginPath();
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(m.x + m.drift * 0.15, m.y + m.len);
+      ctx.stroke();
+    }
+  }
+
+  function drawMark(mark, isNext) {
+    if (isNext) {
+      var pulse = 1 + Math.sin(performance.now() * 0.006) * 0.12;
+      ctx.strokeStyle = "rgba(255,235,140,0.9)";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(mark.x, mark.y, (mark.r + 10) * pulse, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    if (mark.type === "start") {
+      // start mark: striped ring
+      ctx.fillStyle = "#f2f2f2";
+      ctx.beginPath(); ctx.arc(mark.x, mark.y, mark.r, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#222";
+      ctx.lineWidth = 4;
+      for (var a = 0; a < Math.PI * 2; a += Math.PI / 4) {
+        ctx.beginPath();
+        ctx.arc(mark.x, mark.y, mark.r - 2, a, a + Math.PI / 8);
+        ctx.stroke();
+      }
+      ctx.fillStyle = "#222";
+      ctx.font = "bold 13px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("S", mark.x, mark.y);
+    } else {
+      ctx.fillStyle = "#e2572b";
+      ctx.beginPath(); ctx.arc(mark.x, mark.y, mark.r, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#8c2f10";
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 15px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(mark.label, mark.x, mark.y + 1);
+    }
+  }
+
+  function drawBoat() {
+    ctx.save();
+    ctx.translate(boat.x, boat.y);
+    ctx.rotate(boat.heading);
+
+    // wake
+    if (boat.speed > 5) {
+      ctx.strokeStyle = "rgba(255,255,255,0.25)";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(0, 16);
+      ctx.lineTo(0, 16 + boat.speed * 0.18);
+      ctx.stroke();
+    }
+
+    // hull
+    ctx.fillStyle = "#f5f1e4";
+    ctx.beginPath();
+    ctx.moveTo(0, -21);
+    ctx.quadraticCurveTo(7, -7, 6, 12);
+    ctx.quadraticCurveTo(0, 18, -6, 12);
+    ctx.quadraticCurveTo(-7, -7, 0, -21);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "#274b5a";
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+
+    // sail
+    ctx.fillStyle = "#e9f6fa";
+    ctx.beginPath();
+    ctx.moveTo(0, -15);
+    ctx.lineTo(0, 12);
+    ctx.lineTo(15, 10);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = "#9fc3d1";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawWindIndicator() {
+    var x = W - 60, y = 92;
+    ctx.fillStyle = "rgba(0,0,0,0.3)";
+    ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x, y - 14); ctx.lineTo(x, y + 10); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x - 6, y + 4); ctx.lineTo(x, y + 12); ctx.lineTo(x + 6, y + 4);
+    ctx.stroke();
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 10px system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("N", x, y - 30);
+  }
+
+  function drawHUD() {
+    ctx.fillStyle = "rgba(0,0,0,0.35)";
+    ctx.fillRect(0, 0, W, 34);
+    ctx.fillStyle = "#fff";
+    ctx.font = "600 15px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Time: " + elapsed.toFixed(1) + " s", 14, 17);
+
+    var nextLabel = finished ? "Finished" : (course[stage] === 0 ? "Start mark" : "Buoy " + marks[course[stage]].label);
+    ctx.textAlign = "right";
+    ctx.fillText("Next: " + nextLabel, W - 14, 17);
+    ctx.textAlign = "left";
+
+    var f = polarFactor(boat.heading);
+    if (!finished && f === 0) {
+      ctx.fillStyle = "rgba(0,0,0,0.55)";
+      var tw = 460;
+      ctx.fillRect(W / 2 - tw / 2, H - 46, tw, 32);
+      ctx.fillStyle = "#ffd76a";
+      ctx.font = "600 15px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("In irons — turn away from the wind!", W / 2, H - 30);
+      ctx.textAlign = "left";
+    }
+
+    if (finished) {
+      ctx.fillStyle = "rgba(0,0,0,0.6)";
+      ctx.fillRect(0, H / 2 - 55, W, 110);
+      ctx.fillStyle = "#ffe89a";
+      ctx.font = "bold 30px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("Course complete!", W / 2, H / 2 - 16);
+      ctx.fillStyle = "#fff";
+      ctx.font = "600 18px system-ui, sans-serif";
+      ctx.fillText("Time: " + elapsed.toFixed(1) + " s", W / 2, H / 2 + 20);
+      ctx.textAlign = "left";
+    }
+  }
+
+  function draw() {
+    drawWater();
+    drawWindMarks();
+
+    var nextIndex = finished ? -1 : course[stage];
+    for (var i = 0; i < marks.length; i++) {
+      drawMark(marks[i], i === nextIndex);
+    }
+
+    drawBoat();
+    drawWindIndicator();
+    drawHUD();
+  }
+
+  // ---------- Main loop ----------
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
