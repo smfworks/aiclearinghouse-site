@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img">
+  <rect width="1200" height="630" fill="#0A1628"/>
+  <circle cx="280" cy="300" r="220" fill="#1F6F6A" opacity="0.18"/>
+  <circle cx="920" cy="320" r="240" fill="#C46A2E" opacity="0.16"/>
+  <rect x="48" y="48" width="1104" height="534" rx="28" fill="none" stroke="#E8B84A" stroke-opacity="0.35" stroke-width="2"/>
+  <rect x="96" y="118" width="420" height="390" rx="22" fill="#12263F" stroke="#2A9D8F" stroke-width="3"/>
+  <rect x="96" y="118" width="420" height="52" rx="22" fill="#1B3A4A"/>
+  <rect x="96" y="148" width="420" height="22" fill="#1B3A4A"/>
+  <circle cx="128" cy="144" r="8" fill="#2A9D8F"/>
+  <circle cx="156" cy="144" r="8" fill="#E8B84A"/>
+  <circle cx="184" cy="144" r="8" fill="#E07A3D"/>
+  <rect x="128" y="204" width="250" height="28" rx="14" fill="#2A9D8F" opacity="0.85"/>
+  <rect x="210" y="252" width="270" height="36" rx="16" fill="#E8B84A" opacity="0.9"/>
+  <rect x="128" y="308" width="210" height="28" rx="14" fill="#2A9D8F" opacity="0.55"/>
+  <rect x="128" y="360" width="340" height="18" rx="9" fill="#1F6F6A" opacity="0.7"/>
+  <rect x="128" y="392" width="280" height="18" rx="9" fill="#1F6F6A" opacity="0.45"/>
+  <rect x="684" y="118" width="420" height="390" rx="22" fill="#12263F" stroke="#E07A3D" stroke-width="3"/>
+  <rect x="720" y="168" width="348" height="48" rx="10" fill="#1B3A4A"/>
+  <rect x="736" y="182" width="180" height="20" rx="6" fill="#E07A3D"/>
+  <rect x="720" y="236" width="348" height="48" rx="10" fill="#1B3A4A"/>
+  <rect x="736" y="250" width="240" height="20" rx="6" fill="#E8B84A"/>
+  <rect x="720" y="304" width="348" height="48" rx="10" fill="#1B3A4A"/>
+  <rect x="736" y="318" width="140" height="20" rx="6" fill="#2A9D8F"/>
+  <rect x="720" y="372" width="348" height="48" rx="10" fill="#1B3A4A"/>
+  <rect x="736" y="386" width="200" height="20" rx="6" fill="#E07A3D" opacity="0.75"/>
+  <path d="M516 312 C590 312, 610 312, 684 312" fill="none" stroke="#E8B84A" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="600" cy="312" r="14" fill="#E8B84A"/>
+  <circle cx="600" cy="312" r="6" fill="#0A1628"/>
+</svg>
