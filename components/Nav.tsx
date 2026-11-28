@@ -2,14 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Search, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles } from "lucide-react";
 
-const links = [
-  { href: "/blog/", label: "Blog" },
-  { href: "/reference/", label: "Reference" },
-  { href: "/lab/", label: "Lab" },
-  { href: "/about/", label: "About" },
-];
+const links = [{ href: "/blog/", label: "Blog" }];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -43,14 +38,6 @@ export default function Nav() {
           >
             Agent Shootout ↗
           </a>
-          <Link
-            href="/"
-            prefetch={false}
-            className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border border-hairline text-foreground-secondary transition-colors hover:border-accent hover:text-accent"
-            aria-label="Search"
-          >
-            <Search className="h-3.5 w-3.5" />
-          </Link>
         </nav>
 
         <button
