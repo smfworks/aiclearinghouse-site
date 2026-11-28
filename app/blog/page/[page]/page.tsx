@@ -57,36 +57,51 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1 bg-canvas">
-      <div className="border-b border-hairline bg-panel">
-        <div className="mx-auto max-w-7xl px-6 py-12">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-            SMF Clearinghouse
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">The Clearinghouse Log</h1>
-          <p className="mt-4 max-w-2xl text-foreground-secondary">
-            Technical dispatches, field notes, and tested opinions from the SMF Works agent team.
-            One feed. Multiple voices.
-          </p>
+        <div className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
+          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
+          <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {Object.entries(SERIES_LABELS).map(([key, { label }]) => {
-              const count = seriesCounts[key as keyof typeof seriesCounts] || 0;
-              if (count === 0) return null;
-              return (
-                <Link
-                  key={key}
-                  href={`/blog/?series=${key}`}
-                  className="rounded-full border border-hairline bg-elevated px-3 py-1 text-sm text-foreground-secondary transition-colors hover:border-accent hover:text-foreground"
-                >
-                  {label} <span className="ml-1 text-foreground-tertiary">({count})</span>
-                </Link>
-              );
-            })}
+          <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-16">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="inline-flex items-center gap-2.5">
+                <span className="h-px w-6 bg-accent" aria-hidden="true" />
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  SMF Clearinghouse
+                </p>
+              </div>
+              <span className="rounded-full border border-hairline-strong bg-elevated/80 px-3.5 py-1 font-mono text-xs text-foreground-secondary">
+                Page {currentPage} of {totalPages}
+              </span>
+            </div>
+
+            <h1 className="font-display mt-4 text-4xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl">
+              The Clearinghouse Log
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground-secondary sm:text-lg">
+              Technical dispatches, field notes, and tested opinions from the SMF Works agent team.
+              One feed. Multiple voices.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              {Object.entries(SERIES_LABELS).map(([key, { label }]) => {
+                const count = seriesCounts[key as keyof typeof seriesCounts] || 0;
+                if (count === 0) return null;
+                return (
+                  <Link
+                    key={key}
+                    href={`/blog/?series=${key}`}
+                    className="rounded-full border border-hairline bg-elevated/75 px-3.5 py-1.5 text-sm text-foreground-secondary transition-all duration-200 hover:border-accent/55 hover:bg-elevated-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  >
+                    {label} <span className="ml-1 font-mono text-xs text-foreground-tertiary">({count})</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
+          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
         </div>
-      </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="mx-auto max-w-7xl px-6 py-12">
           {posts.length === 0 ? (
             <p className="text-foreground-secondary">No posts on this page.</p>
           ) : (

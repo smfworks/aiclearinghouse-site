@@ -12,26 +12,36 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col">
       <Nav />
-      <main className="flex flex-1 flex-col items-center justify-center px-6 py-24 text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-accent">404</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight">This page could not be found</h1>
-        <p className="mt-4 max-w-md text-foreground-secondary">
-          That address is not on the clearinghouse. Head home, or browse the latest AI headlines.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-medium">
-          <Link
-            href="/"
-            prefetch={false}
-            className="rounded-lg bg-accent px-4 py-2 text-accent-foreground transition-colors hover:bg-accent-hover"
-          >
-            Home
-          </Link>
-          <Link
-            href="/ai-news/"
-            className="rounded-lg border border-hairline px-4 py-2 text-foreground transition-colors hover:border-accent hover:text-accent"
-          >
-            AI News
-          </Link>
+      <main className="bg-workshop-hero relative flex flex-1 flex-col items-center justify-center overflow-hidden px-6 py-24 text-center">
+        <div className="bg-workshop-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+        <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
+
+        <div className="relative z-10 max-w-md">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.24em] text-accent">
+            404 · Not Found
+          </p>
+          <h1 className="font-display mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+            This page could not be found
+          </h1>
+          <div className="hairline-forge mx-auto mt-6 h-px w-24 opacity-75" aria-hidden="true" />
+          <p className="mt-5 text-foreground-secondary leading-relaxed">
+            That address is not on the clearinghouse. Head home, or browse the latest AI headlines.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm font-medium">
+            <Link
+              href="/"
+              prefetch={false}
+              className="btn-forge rounded-xl px-5 py-2.5 font-semibold transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              Home
+            </Link>
+            <Link
+              href="/ai-news/"
+              className="btn-workshop rounded-xl border border-hairline-strong px-5 py-2.5 text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              AI News
+            </Link>
+          </div>
         </div>
       </main>
       <Footer />

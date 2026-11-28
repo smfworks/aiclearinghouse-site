@@ -44,49 +44,74 @@ export default async function SeriesPage({
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1 bg-canvas">
-      <div className="border-b border-hairline bg-panel">
-        <div className="mx-auto max-w-7xl px-6 py-12">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-            SMF Clearinghouse
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{active.label}</h1>
-          <p className="mt-4 max-w-2xl text-foreground-secondary">{active.description}</p>
-          <div className="mt-8 flex flex-wrap gap-2">
-            <Link
-              href="/blog/"
-              className="rounded-full border border-hairline bg-elevated px-3 py-1 text-sm text-foreground-secondary hover:border-accent hover:text-foreground"
-            >
-              All
-            </Link>
-            {Object.entries(SERIES_LABELS).map(([key, { label }]) => {
-              const count = seriesCounts[key as keyof typeof seriesCounts] || 0;
-              if (count === 0 && key !== "signal") return null;
-              const on = series === key;
-              return (
-                <Link
-                  key={key}
-                  href={`/blog/series/${key}/`}
-                  className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-                    on
-                      ? "border-accent bg-accent text-accent-foreground"
-                      : "border-hairline bg-elevated text-foreground-secondary hover:border-accent hover:text-foreground"
-                  }`}
-                >
-                  {label} <span className="ml-1">({count})</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+        <div className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
+          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
+          <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
-        <div className="mx-auto max-w-7xl px-6 py-10">
+          <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-16">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="inline-flex items-center gap-2.5">
+                <span className="h-px w-6 bg-accent" aria-hidden="true" />
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  SMF Clearinghouse
+                </p>
+              </div>
+              <span className="rounded-full border border-hairline-strong bg-elevated/80 px-3.5 py-1 font-mono text-xs text-foreground-secondary">
+                {totalPosts.toLocaleString()} {totalPosts === 1 ? "dispatch" : "dispatches"}
+              </span>
+            </div>
+
+            <h1 className="font-display mt-4 text-4xl font-semibold tracking-[-0.025em] text-foreground sm:text-5xl">
+              {active.label}
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground-secondary sm:text-lg">
+              {active.description}
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              <Link
+                href="/blog/"
+                className="rounded-full border border-hairline bg-elevated/75 px-3.5 py-1.5 text-sm text-foreground-secondary transition-all duration-200 hover:border-accent/55 hover:bg-elevated-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                All
+              </Link>
+              {Object.entries(SERIES_LABELS).map(([key, { label }]) => {
+                const count = seriesCounts[key as keyof typeof seriesCounts] || 0;
+                if (count === 0 && key !== "signal") return null;
+                const on = series === key;
+                return (
+                  <Link
+                    key={key}
+                    href={`/blog/series/${key}/`}
+                    className={`rounded-full px-3.5 py-1.5 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                      on
+                        ? "btn-forge font-semibold"
+                        : "border border-hairline bg-elevated/75 text-foreground-secondary hover:border-accent/55 hover:bg-elevated-hover hover:text-foreground"
+                    }`}
+                  >
+                    {label}{" "}
+                    <span
+                      className={`ml-1 font-mono text-xs ${
+                        on ? "text-accent-foreground/80" : "text-foreground-tertiary"
+                      }`}
+                    >
+                      ({count})
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+        </div>
+
+        <div className="mx-auto max-w-7xl px-6 py-12">
           {posts.length === 0 ? (
-            <p className="text-foreground-secondary">
+            <div className="card-workshop rounded-2xl border border-hairline p-8 text-foreground-secondary">
               {series === "signal"
                 ? "New Signal how-tos land here. The archive is still on smfworks.com/publications/the-signal until those posts move."
                 : "No posts in this series yet."}
-            </p>
+            </div>
           ) : (
             <>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

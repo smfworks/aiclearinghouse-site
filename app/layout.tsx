@@ -1,6 +1,29 @@
 import type { Metadata } from "next";
+import { JetBrains_Mono, Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { DEFAULT_OG_IMAGE, SITE_ORIGIN, siteJsonLdHtml } from "@/lib/site";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
@@ -15,7 +38,7 @@ export const metadata: Metadata = {
   },
   title: "SMF Clearinghouse — The SMF Works AI Field Journal",
   description:
-    "Field notes from the SMF Works team on AI agents: how-tos, releases, and practitioner dispatches from building with agents every day.",
+    "The SMF Works AI field journal and open workshop: tested, cited dispatches from daily agent work, backed by open-source tools, templates, and benchmarks.",
   authors: [{ name: "Pamela Flannery", url: "https://smfworks.com/the-signal" }],
   keywords: [
     "AI agents",
@@ -28,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SMF Clearinghouse",
     description:
-      "Field notes from the SMF Works team on AI agents: how-tos, releases, and practitioner dispatches.",
+      "The SMF Works AI field journal and open workshop: tested, cited dispatches from daily agent work, backed by open-source tools, templates, and benchmarks.",
     url: `${SITE_ORIGIN}/`,
     siteName: "SMF Clearinghouse",
     type: "website",
@@ -38,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SMF Clearinghouse",
     description:
-      "Field notes from the SMF Works team on AI agents: how-tos, releases, and practitioner dispatches.",
+      "The SMF Works AI field journal and open workshop: tested, cited dispatches from daily agent work, backed by open-source tools, templates, and benchmarks.",
     images: [DEFAULT_OG_IMAGE.url],
   },
 };
@@ -49,8 +72,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col bg-canvas">
+    <html
+      lang="en"
+      className={`h-full antialiased dark ${newsreader.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="min-h-full flex flex-col bg-canvas text-foreground selection:bg-accent/25 selection:text-foreground">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: siteJsonLdHtml() }}

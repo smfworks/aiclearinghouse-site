@@ -38,6 +38,7 @@ export default async function SeriesPaged({
   const { series: requested, page } = await params;
   if (!getAllSeries().includes(requested as BlogSeries)) notFound();
   const series = requested as BlogSeries;
+  const active = SERIES_LABELS[series];
   const pageNum = Number.parseInt(page, 10);
   if (!Number.isFinite(pageNum) || pageNum < 2) notFound();
   const allPosts = getBlogPostsBySeries(series);
@@ -48,7 +49,30 @@ export default async function SeriesPaged({
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1 bg-canvas">
-        <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
+          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
+          <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl px-6 py-12">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="inline-flex items-center gap-2.5">
+                <span className="h-px w-6 bg-accent" aria-hidden="true" />
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  SMF Clearinghouse
+                </p>
+              </div>
+              <span className="rounded-full border border-hairline-strong bg-elevated/80 px-3.5 py-1 font-mono text-xs text-foreground-secondary">
+                Page {currentPage} of {totalPages}
+              </span>
+            </div>
+            <h1 className="font-display mt-3 text-3xl font-semibold tracking-[-0.025em] text-foreground sm:text-4xl">
+              {active.label}
+            </h1>
+            <p className="mt-3 max-w-2xl text-foreground-secondary">{active.description}</p>
+          </div>
+          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+        </div>
+
+        <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <BlogCard key={post.slug} post={toBlogCard(post)} />
