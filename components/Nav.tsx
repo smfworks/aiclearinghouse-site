@@ -10,6 +10,7 @@ const externalLinks = [
   { href: "https://smfworks.com", label: "SMF Works" },
   { href: "https://smfwisdomforge.com", label: "SMF WisdomForge" },
   { href: "https://agentshootout.com", label: "Agent Shootout" },
+  { href: "https://github.com/smfworks", label: "GitHub" },
 ];
 
 export default function Nav() {

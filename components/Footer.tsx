@@ -6,6 +6,7 @@ const links = [
   { href: "https://smfworks.com", label: "SMF Works", external: true },
   { href: "https://smfwisdomforge.com", label: "SMF WisdomForge", external: true },
   { href: "https://agentshootout.com", label: "Agent Shootout", external: true },
+  { href: "https://github.com/smfworks", label: "GitHub", external: true },
 ];
 
 export default function Footer() {
