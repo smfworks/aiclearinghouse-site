@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 624" width="1200" height="624" role="img" aria-label="Two-model website rebuild pipeline: Grok 4.7 for structure and Gemini 4 Neon for visual design, shipping smfworks.com and smfclearinghouse.com">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05070c"/>
+      <stop offset="55%" stop-color="#0a101d"/>
+      <stop offset="100%" stop-color="#05070c"/>
+    </linearGradient>
+    <radialGradient id="cyanGlow" cx="24%" cy="22%" r="48%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="copperGlow" cx="78%" cy="26%" r="46%">
+      <stop offset="0%" stop-color="#f5a623" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#f5a623" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="signalLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="28%" stop-color="#22d3ee" stop-opacity="0.85"/>
+      <stop offset="52%" stop-color="#f5a623" stop-opacity="0.95"/>
+      <stop offset="76%" stop-color="#22d3ee" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#1e273d" stroke-width="1" stroke-opacity="0.5"/>
+    </pattern>
+    <marker id="arrowCyan" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee"/>
+    </marker>
+    <marker id="arrowCopper" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f5a623"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="624" fill="url(#bg)"/>
+  <rect width="1200" height="624" fill="url(#grid)"/>
+  <rect width="1200" height="624" fill="url(#cyanGlow)"/>
+  <rect width="1200" height="624" fill="url(#copperGlow)"/>
+  <rect x="0" y="0" width="1200" height="2" fill="url(#signalLine)"/>
+
+  <!-- Header -->
+  <rect x="64" y="42" width="232" height="28" rx="14" fill="#0d1424" stroke="#22d3ee" stroke-opacity="0.45"/>
+  <circle cx="82" cy="56" r="4" fill="#22d3ee"/>
+  <text x="96" y="60" font-family="'SF Mono', 'JetBrains Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.6" fill="#cfd7e6">SMF WORKS · AI R&amp;D LOG</text>
+
+  <text x="64" y="114" font-family="'Space Grotesk', 'Helvetica Neue', Arial, sans-serif" font-size="36" font-weight="700" fill="#f5f7fb" letter-spacing="-0.6">Two Websites, Two AI Models, One Clean System</text>
+  <text x="64" y="144" font-family="'Plus Jakarta Sans', 'Helvetica Neue', Arial, sans-serif" font-size="17" fill="#9ba6bc">Separating structural plumbing from visual design across smfworks.com and smfclearinghouse.com</text>
+
+  <!-- Stage 1 Card -->
+  <rect x="64" y="184" width="320" height="248" rx="16" fill="#0d1320" stroke="#22d3ee" stroke-opacity="0.55" stroke-width="1.5"/>
+  <rect x="64" y="184" width="320" height="3" rx="1.5" fill="#22d3ee"/>
+  <text x="88" y="218" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.5" fill="#22d3ee">STAGE 01 · STRUCTURE</text>
+  <text x="88" y="250" font-family="'Space Grotesk', Arial, sans-serif" font-size="24" font-weight="700" fill="#f5f7fb">Grok 4.7</text>
+  <text x="88" y="274" font-family="'SF Mono', monospace" font-size="12" fill="#8490a8">Alias: grok-struct (OAuth)</text>
+  <line x1="88" y1="292" x2="360" y2="292" stroke="#1f273b"/>
+  <text x="88" y="318" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• Routes &amp; permanent 301 redirects</text>
+  <text x="88" y="344" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• Retire old consulting &amp; duplicate pages</text>
+  <text x="88" y="370" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• Structured fleet &amp; ecosystem data</text>
+  <text x="88" y="396" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• Green tests, build &amp; secret scans</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="392" y1="308" x2="432" y2="308" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Stage 2 Card -->
+  <rect x="440" y="184" width="320" height="248" rx="16" fill="#0d1320" stroke="#f5a623" stroke-opacity="0.6" stroke-width="1.5"/>
+  <rect x="440" y="184" width="320" height="3" rx="1.5" fill="#f5a623"/>
+  <text x="464" y="218" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.5" fill="#f5a623">STAGE 02 · VISUAL DESIGN</text>
+  <text x="464" y="250" font-family="'Space Grotesk', Arial, sans-serif" font-size="24" font-weight="700" fill="#f5f7fb">Gemini 4 Neon</text>
+  <text x="464" y="274" font-family="'SF Mono', monospace" font-size="12" fill="#8490a8">Alias: neon (Visual &amp; Copy)</text>
+  <line x1="464" y1="292" x2="736" y2="292" stroke="#1f273b"/>
+  <text x="464" y="318" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• Space Grotesk + Jakarta + Mono stack</text>
+  <text x="464" y="344" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• High-tech obsidian, cyan &amp; copper</text>
+  <text x="464" y="370" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• LabTopology schematic &amp; crisp cards</text>
+  <text x="464" y="396" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#cfd7e6">• Plain-spoken human copy + AA contrast</text>
+
+  <!-- Arrow 2 -> Outputs -->
+  <line x1="768" y1="262" x2="808" y2="262" stroke="#f5a623" stroke-width="2" marker-end="url(#arrowCopper)"/>
+  <line x1="768" y1="356" x2="808" y2="356" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+  <!-- Output 1: smfworks.com -->
+  <rect x="816" y="184" width="320" height="114" rx="14" fill="#101829" stroke="#2e3854" stroke-width="1.5"/>
+  <text x="838" y="214" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.4" fill="#f5a623">PARENT LAB · COMMIT e683e6b</text>
+  <text x="838" y="242" font-family="'Space Grotesk', Arial, sans-serif" font-size="21" font-weight="700" fill="#f5f7fb">smfworks.com</text>
+  <text x="838" y="266" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">6 live routes · 4 autonomous fleets</text>
+  <text x="838" y="284" font-family="'SF Mono', monospace" font-size="11" fill="#22d3ee">11/11 tests · 0 services clutter</text>
+
+  <!-- Output 2: smfclearinghouse.com -->
+  <rect x="816" y="318" width="320" height="114" rx="14" fill="#101829" stroke="#2e3854" stroke-width="1.5"/>
+  <text x="838" y="348" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.4" fill="#22d3ee">FIELD JOURNAL · COMMIT adc38459</text>
+  <text x="838" y="376" font-family="'Space Grotesk', Arial, sans-serif" font-size="21" font-weight="700" fill="#f5f7fb">smfclearinghouse.com</text>
+  <text x="838" y="400" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">3 core surfaces · 1,278 static pages</text>
+  <text x="838" y="418" font-family="'SF Mono', monospace" font-size="11" fill="#f5a623">8/8 tests · Support the lab live</text>
+
+  <!-- Bottom Metrics Bar -->
+  <rect x="64" y="472" width="1072" height="104" rx="14" fill="#0b101b" stroke="#1f273b"/>
+  <line x1="332" y1="490" x2="332" y2="558" stroke="#1f273b"/>
+  <line x1="600" y1="490" x2="600" y2="558" stroke="#1f273b"/>
+  <line x1="868" y1="490" x2="868" y2="558" stroke="#1f273b"/>
+
+  <text x="92" y="502" font-family="'SF Mono', monospace" font-size="11" fill="#8490a8" letter-spacing="1.2">SITES SHIPPED</text>
+  <text x="92" y="538" font-family="'Space Grotesk', Arial, sans-serif" font-size="30" font-weight="700" fill="#f5f7fb">2</text>
+  <text x="122" y="538" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#9ba6bc">unified design system</text>
+
+  <text x="360" y="502" font-family="'SF Mono', monospace" font-size="11" fill="#8490a8" letter-spacing="1.2">AUTONOMOUS FLEETS</text>
+  <text x="360" y="538" font-family="'Space Grotesk', Arial, sans-serif" font-size="30" font-weight="700" fill="#22d3ee">4</text>
+  <text x="390" y="538" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#9ba6bc">Grok Bot · Hermes · OpenClaw · Orca</text>
+
+  <text x="628" y="502" font-family="'SF Mono', monospace" font-size="11" fill="#8490a8" letter-spacing="1.2">AUTOMATED TESTS</text>
+  <text x="628" y="538" font-family="'Space Grotesk', Arial, sans-serif" font-size="30" font-weight="700" fill="#f5a623">19/19</text>
+  <text x="724" y="538" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#9ba6bc">green + secrets clean</text>
+
+  <text x="896" y="502" font-family="'SF Mono', monospace" font-size="11" fill="#8490a8" letter-spacing="1.2">STATIC PAGES BUILT</text>
+  <text x="896" y="538" font-family="'Space Grotesk', Arial, sans-serif" font-size="30" font-weight="700" fill="#f5f7fb">1,294</text>
+  <text x="984" y="538" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" fill="#9ba6bc">across both builds</text>
+</svg>
