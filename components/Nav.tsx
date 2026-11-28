@@ -4,7 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, Sparkles } from "lucide-react";
 
-const links = [{ href: "/blog/", label: "Blog" }];
+const links = [
+  { href: "/blog/", label: "Blog" },
+  { href: "/projects/", label: "SMF Projects" },
+];
 
 const externalLinks = [
   { href: "https://smfworks.com", label: "SMF Works" },

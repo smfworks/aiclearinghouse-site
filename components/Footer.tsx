@@ -3,6 +3,7 @@ import { GitBranch, Sparkles } from "lucide-react";
 
 const links = [
   { href: "/blog/", label: "Blog" },
+  { href: "/projects/", label: "SMF Projects" },
   { href: "https://smfworks.com", label: "SMF Works", external: true },
   { href: "https://smfwisdomforge.com", label: "SMF WisdomForge", external: true },
   { href: "https://agentshootout.com", label: "Agent Shootout", external: true },
