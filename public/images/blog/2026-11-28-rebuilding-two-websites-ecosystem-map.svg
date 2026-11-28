@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" width="1100" height="540" role="img" aria-label="SMF Works operating map: Human leadership directing four autonomous agent fleets feeding four public platforms">
+  <defs>
+    <linearGradient id="ecoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060911"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+    <pattern id="ecoGrid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M 44 0 L 0 0 0 44" fill="none" stroke="#1b2438" stroke-width="1" stroke-opacity="0.45"/>
+    </pattern>
+  </defs>
+
+  <rect width="1100" height="540" rx="16" fill="url(#ecoBg)" stroke="#1f273b"/>
+  <rect width="1100" height="540" rx="16" fill="url(#ecoGrid)"/>
+
+  <text x="44" y="48" font-family="'SF Mono', monospace" font-size="12" font-weight="600" letter-spacing="1.8" fill="#22d3ee">HOW THE LAB FITS TOGETHER</text>
+  <text x="44" y="80" font-family="'Space Grotesk', Arial, sans-serif" font-size="26" font-weight="700" fill="#f5f7fb">Human Direction → Four Agent Fleets → Four Public Sites</text>
+
+  <!-- Tier 1: Human Leadership -->
+  <rect x="44" y="106" width="1012" height="92" rx="14" fill="#141112" stroke="#f5a623" stroke-opacity="0.55"/>
+  <text x="68" y="134" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.6" fill="#f5a623">LAYER 01 · HUMAN LEADERSHIP &amp; FINAL SAY</text>
+  <rect x="68" y="148" width="466" height="36" rx="8" fill="#0a0e17" stroke="#2a3248"/>
+  <text x="86" y="171" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" font-weight="600" fill="#f5f7fb">Michael Gannotti</text>
+  <text x="234" y="171" font-family="'SF Mono', monospace" font-size="12" fill="#9ba6bc">Founder &amp; Principal AI · Research &amp; Architecture</text>
+
+  <rect x="566" y="148" width="466" height="36" rx="8" fill="#0a0e17" stroke="#2a3248"/>
+  <text x="584" y="171" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="14" font-weight="600" fill="#f5f7fb">Mary Gannotti</text>
+  <text x="716" y="171" font-family="'SF Mono', monospace" font-size="12" fill="#9ba6bc">COO · Operating Discipline &amp; Review</text>
+
+  <!-- Connectors 1 -> 2 -->
+  <line x1="170" y1="198" x2="170" y2="234" stroke="#f5a623" stroke-width="1.5" stroke-opacity="0.7"/>
+  <line x1="424" y1="198" x2="424" y2="234" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.7"/>
+  <line x1="676" y1="198" x2="676" y2="234" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.7"/>
+  <line x1="930" y1="198" x2="930" y2="234" stroke="#22d3ee" stroke-width="1.5" stroke-opacity="0.9"/>
+
+  <!-- Tier 2: Four Autonomous Agent Fleets -->
+  <text x="44" y="226" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.6" fill="#22d3ee">LAYER 02 · FOUR AUTONOMOUS AGENT FLEETS</text>
+
+  <rect x="44" y="238" width="238" height="120" rx="12" fill="#0d1424" stroke="#2c3752"/>
+  <text x="64" y="268" font-family="'Space Grotesk', Arial, sans-serif" font-size="19" font-weight="700" fill="#f5f7fb">Grok Bot</text>
+  <text x="64" y="290" font-family="'SF Mono', monospace" font-size="11" fill="#f5a623">Coding &amp; Media</text>
+  <text x="64" y="314" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">Two-bot Builder/Reviewer</text>
+  <text x="64" y="334" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">flows &amp; Video Studio</text>
+
+  <rect x="302" y="238" width="238" height="120" rx="12" fill="#0d1424" stroke="#2c3752"/>
+  <text x="322" y="268" font-family="'Space Grotesk', Arial, sans-serif" font-size="19" font-weight="700" fill="#f5f7fb">Hermes</text>
+  <text x="322" y="290" font-family="'SF Mono', monospace" font-size="11" fill="#f5a623">Self-Improving Specialists</text>
+  <text x="322" y="314" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">Isolated profiles, memory,</text>
+  <text x="322" y="334" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">&amp; daily journal research</text>
+
+  <rect x="560" y="238" width="238" height="120" rx="12" fill="#0d1424" stroke="#2c3752"/>
+  <text x="580" y="268" font-family="'Space Grotesk', Arial, sans-serif" font-size="19" font-weight="700" fill="#f5f7fb">OpenClaw</text>
+  <text x="580" y="290" font-family="'SF Mono', monospace" font-size="11" fill="#22d3ee">Local-First Gateway</text>
+  <text x="580" y="314" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">Offline SQLite memory &amp;</text>
+  <text x="580" y="334" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#9ba6bc">multi-channel routing</text>
+
+  <rect x="818" y="238" width="238" height="120" rx="12" fill="#0b1a28" stroke="#22d3ee" stroke-opacity="0.75" stroke-width="1.5"/>
+  <text x="838" y="268" font-family="'Space Grotesk', Arial, sans-serif" font-size="19" font-weight="700" fill="#f5f7fb">Orca</text>
+  <text x="838" y="290" font-family="'SF Mono', monospace" font-size="11" fill="#22d3ee">Parallel Worktree Orchestrator</text>
+  <text x="838" y="314" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="13" fill="#cfd7e6">Active focus right now:</text>
+  <text x="838" y="334" font-family="'SF Mono', monospace" font-size="13" font-weight="600" fill="#22d3ee">→ Praxis Prime (Linux)</text>
+
+  <!-- Connectors 2 -> 3 -->
+  <line x1="170" y1="358" x2="170" y2="404" stroke="#2e3854" stroke-width="1.5"/>
+  <line x1="424" y1="358" x2="424" y2="404" stroke="#2e3854" stroke-width="1.5"/>
+  <line x1="676" y1="358" x2="676" y2="404" stroke="#2e3854" stroke-width="1.5"/>
+  <line x1="930" y1="358" x2="930" y2="404" stroke="#2e3854" stroke-width="1.5"/>
+
+  <!-- Tier 3: Four Public Destinations -->
+  <text x="44" y="394" font-family="'SF Mono', monospace" font-size="11" font-weight="600" letter-spacing="1.6" fill="#9ba6bc">LAYER 03 · FOUR PUBLIC ECOSYSTEM SITES (LINKED IN BOTH NAVS &amp; FOOTERS)</text>
+
+  <rect x="44" y="408" width="238" height="92" rx="12" fill="#0a0f1c" stroke="#22d3ee" stroke-opacity="0.4"/>
+  <text x="64" y="438" font-family="'Space Grotesk', Arial, sans-serif" font-size="16" font-weight="700" fill="#f5f7fb">SMF Clearinghouse</text>
+  <text x="64" y="460" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12.5" fill="#9ba6bc">Daily field journal &amp; projects</text>
+  <text x="64" y="482" font-family="'SF Mono', monospace" font-size="11" fill="#22d3ee">smfclearinghouse.com</text>
+
+  <rect x="302" y="408" width="238" height="92" rx="12" fill="#0a0f1c" stroke="#22d3ee" stroke-opacity="0.4"/>
+  <text x="322" y="438" font-family="'Space Grotesk', Arial, sans-serif" font-size="16" font-weight="700" fill="#f5f7fb">SMF WisdomForge</text>
+  <text x="322" y="460" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12.5" fill="#9ba6bc">Parent-operated AI academy</text>
+  <text x="322" y="482" font-family="'SF Mono', monospace" font-size="11" fill="#22d3ee">smfwisdomforge.com</text>
+
+  <rect x="560" y="408" width="238" height="92" rx="12" fill="#0a0f1c" stroke="#f5a623" stroke-opacity="0.45"/>
+  <text x="580" y="438" font-family="'Space Grotesk', Arial, sans-serif" font-size="16" font-weight="700" fill="#f5f7fb">Agent Shootout</text>
+  <text x="580" y="460" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12.5" fill="#9ba6bc">Head-to-head agent evals</text>
+  <text x="580" y="482" font-family="'SF Mono', monospace" font-size="11" fill="#f5a623">agentshootout.com</text>
+
+  <rect x="818" y="408" width="238" height="92" rx="12" fill="#0a0f1c" stroke="#f5a623" stroke-opacity="0.45"/>
+  <text x="838" y="438" font-family="'Space Grotesk', Arial, sans-serif" font-size="16" font-weight="700" fill="#f5f7fb">GitHub</text>
+  <text x="838" y="460" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="12.5" fill="#9ba6bc">Open tools, templates &amp; books</text>
+  <text x="838" y="482" font-family="'SF Mono', monospace" font-size="11" fill="#f5a623">github.com/smfworks</text>
+</svg>
