@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Newsreader, Plus_Jakarta_Sans } from "next/font/google";
+import { JetBrains_Mono, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { DEFAULT_OG_IMAGE, SITE_ORIGIN, siteJsonLdHtml } from "@/lib/site";
 
-const newsreader = Newsreader({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-newsreader",
+  weight: ["500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -38,20 +37,21 @@ export const metadata: Metadata = {
   },
   title: "SMF Clearinghouse — The SMF Works AI Field Journal",
   description:
-    "The SMF Works AI field journal and open workshop: tested, cited dispatches from daily agent work, backed by open-source tools, templates, and benchmarks.",
-  authors: [{ name: "Pamela Flannery", url: "https://smfworks.com/the-signal" }],
+    "AI R&D at the intersection of human-AI interaction and personal and organizational transformation: tested, cited dispatches and open-source tools, templates, and benchmarks from SMF Works.",
+  authors: [{ name: "Pamela Flannery", url: "https://smfworks.com" }],
   keywords: [
+    "AI R&D",
     "AI agents",
-    "autonomous agents",
+    "autonomous AI",
+    "human-AI interaction",
+    "organizational transformation",
     "open source AI",
-    "coding agents",
-    "agent how-tos",
     "local LLMs",
   ],
   openGraph: {
     title: "SMF Clearinghouse",
     description:
-      "The SMF Works AI field journal and open workshop: tested, cited dispatches from daily agent work, backed by open-source tools, templates, and benchmarks.",
+      "AI R&D at the intersection of human-AI interaction and personal and organizational transformation: tested, cited dispatches and open-source projects from SMF Works.",
     url: `${SITE_ORIGIN}/`,
     siteName: "SMF Clearinghouse",
     type: "website",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SMF Clearinghouse",
     description:
-      "The SMF Works AI field journal and open workshop: tested, cited dispatches from daily agent work, backed by open-source tools, templates, and benchmarks.",
+      "AI R&D at the intersection of human-AI interaction and personal and organizational transformation: tested, cited dispatches and open-source projects from SMF Works.",
     images: [DEFAULT_OG_IMAGE.url],
   },
 };
@@ -74,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased dark ${newsreader.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
+      className={`h-full antialiased dark ${spaceGrotesk.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-foreground selection:bg-accent/25 selection:text-foreground">
         <script

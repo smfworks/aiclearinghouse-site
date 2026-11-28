@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Flame, Menu, X } from "lucide-react";
+import { ArrowUpRight, Cpu, Menu, X } from "lucide-react";
 
 const links = [
   { href: "/blog/", label: "Blog" },
@@ -29,22 +29,22 @@ export default function Nav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-hairline/90 bg-canvas/82 backdrop-blur-xl">
-      <div className="hairline-forge h-px w-full opacity-75" aria-hidden="true" />
+      <div className="hairline-signal h-px w-full opacity-75" aria-hidden="true" />
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
         <Link
           href="/"
           prefetch={false}
           className="group flex items-center gap-3 rounded-lg py-0.5 text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         >
-          <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent-hover via-accent to-accent-copper text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_0_20px_-4px_var(--accent-glow)] transition-transform duration-300 group-hover:scale-105">
-            <Flame className="h-4 w-4 stroke-[2.25]" aria-hidden="true" />
+          <span className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-cyan/30 bg-gradient-to-br from-elevated via-panel to-canvas text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_20px_-6px_var(--cyan-glow)] transition-all duration-300 group-hover:border-accent/55 group-hover:text-accent-hover group-hover:shadow-[0_0_22px_-4px_var(--accent-glow)]">
+            <Cpu className="h-4 w-4 stroke-[2]" aria-hidden="true" />
           </span>
           <span className="hidden flex-col sm:flex">
-            <span className="font-display text-[1.125rem] font-semibold leading-none tracking-[-0.015em] text-foreground transition-colors group-hover:text-accent-hover">
+            <span className="font-display text-[1.05rem] font-semibold leading-none tracking-[-0.02em] text-foreground transition-colors group-hover:text-accent-hover">
               SMF Clearinghouse
             </span>
-            <span className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-tertiary">
-              AI Field Journal
+            <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-tertiary">
+              AI R&amp;D Field Journal
             </span>
           </span>
         </Link>

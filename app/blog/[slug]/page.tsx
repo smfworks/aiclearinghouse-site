@@ -66,8 +66,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <Nav />
       <main className="flex-1 bg-canvas">
         <article>
-          <header className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
-            <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+          <header className="bg-rd-masthead relative overflow-hidden border-b border-hairline">
+            <div className="bg-rd-grid pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
             <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
             <div className="relative mx-auto max-w-3xl px-6 py-14 sm:py-16">
@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
               </div>
             </div>
-            <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+            <div className="hairline-signal-subtle h-px w-full" aria-hidden="true" />
           </header>
 
           <div className="mx-auto max-w-3xl px-6 py-12 sm:py-14">
@@ -154,7 +154,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
 
             {post.originalUrl && (
-              <div className="card-workshop mt-12 rounded-xl border border-hairline px-5 py-4 text-sm text-foreground-secondary">
+              <div className="card-rd mt-12 rounded-xl border border-hairline px-5 py-4 text-sm text-foreground-secondary">
                 Originally published at{" "}
                 <a
                   href={post.originalUrl}
@@ -182,7 +182,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <li key={item.slug}>
                         <Link
                           href={`/blog/${item.slug}/`}
-                          className="card-workshop group flex items-center justify-between gap-4 rounded-xl border border-hairline px-5 py-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                          className="card-rd group flex items-center justify-between gap-4 rounded-xl border border-hairline px-5 py-3.5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                         >
                           <span className="font-medium text-foreground transition-colors group-hover:text-accent-hover">
                             {item.title}

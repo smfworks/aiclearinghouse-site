@@ -44,8 +44,8 @@ export default async function SeriesPage({
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1 bg-canvas">
-        <div className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
-          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
+        <div className="bg-rd-masthead relative overflow-hidden border-b border-hairline">
+          <div className="bg-rd-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
           <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
           <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-16">
@@ -85,7 +85,7 @@ export default async function SeriesPage({
                     href={`/blog/series/${key}/`}
                     className={`rounded-full px-3.5 py-1.5 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       on
-                        ? "btn-forge font-semibold"
+                        ? "btn-signal font-semibold"
                         : "border border-hairline bg-elevated/75 text-foreground-secondary hover:border-accent/55 hover:bg-elevated-hover hover:text-foreground"
                     }`}
                   >
@@ -102,12 +102,12 @@ export default async function SeriesPage({
               })}
             </div>
           </div>
-          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+          <div className="hairline-signal-subtle h-px w-full" aria-hidden="true" />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-12">
           {posts.length === 0 ? (
-            <div className="card-workshop rounded-2xl border border-hairline p-8 text-foreground-secondary">
+            <div className="card-rd rounded-2xl border border-hairline p-8 text-foreground-secondary">
               {series === "signal"
                 ? "New Signal how-tos land here. The archive is still on smfworks.com/publications/the-signal until those posts move."
                 : "No posts in this series yet."}

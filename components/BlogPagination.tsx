@@ -70,7 +70,7 @@ export default function BlogPagination({
               href={pageHref(page as number, basePath)}
               className={`flex h-10 min-w-10 items-center justify-center rounded-lg px-3 font-mono text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                 page === currentPage
-                  ? "btn-forge font-semibold"
+                  ? "btn-signal font-semibold"
                   : "border border-hairline bg-panel text-foreground-secondary hover:border-accent/55 hover:bg-elevated hover:text-foreground"
               }`}
               aria-current={page === currentPage ? "page" : undefined}

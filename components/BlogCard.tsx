@@ -14,7 +14,7 @@ export default function BlogCard({ post }: BlogCardProps) {
   const series = SERIES_LABELS[post.series];
 
   return (
-    <article className="card-workshop group relative flex flex-col overflow-hidden rounded-2xl border border-hairline transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45">
+    <article className="card-rd group relative flex flex-col overflow-hidden rounded-2xl border border-hairline transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         aria-hidden="true"

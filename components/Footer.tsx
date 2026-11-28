@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { ArrowUpRight, Flame, GitBranch } from "lucide-react";
+import { ArrowUpRight, Cpu, GitBranch, Heart } from "lucide-react";
+
+export const SUPPORT_THE_LAB_URL =
+  "https://donate.stripe.com/14A6oGbHv3hHekY2ODew801";
 
 const links = [
   { href: "/blog/", label: "Blog" },
@@ -13,13 +16,13 @@ const links = [
 export default function Footer() {
   return (
     <footer className="relative mt-auto overflow-hidden border-t border-hairline bg-panel">
-      <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+      <div className="hairline-signal-subtle h-px w-full" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-96 rounded-full bg-accent/6 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-96 rounded-full bg-cyan/5 blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -bottom-24 right-0 h-56 w-80 rounded-full bg-cyan/5 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 right-0 h-56 w-80 rounded-full bg-accent/5 blur-3xl"
         aria-hidden="true"
       />
 
@@ -31,16 +34,31 @@ export default function Footer() {
               prefetch={false}
               className="group inline-flex items-center gap-2.5 rounded-lg text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-panel"
             >
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent-hover via-accent to-accent-copper text-accent-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_0_16px_-4px_var(--accent-glow)] transition-transform duration-300 group-hover:scale-105">
-                <Flame className="h-3.5 w-3.5 stroke-[2.25]" aria-hidden="true" />
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-cyan/30 bg-gradient-to-br from-elevated via-panel to-canvas text-cyan shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 group-hover:border-accent/55 group-hover:text-accent-hover">
+                <Cpu className="h-3.5 w-3.5 stroke-[2]" aria-hidden="true" />
               </span>
-              <span className="font-display text-lg font-semibold tracking-[-0.015em]">
+              <span className="font-display text-lg font-semibold tracking-[-0.02em]">
                 SMF Clearinghouse
               </span>
             </Link>
             <p className="mt-3.5 text-sm leading-relaxed text-foreground-secondary">
-              Independent guidance for AI builders. We test claims, compare costs, and publish the recipes that actually work.
+              Independent AI R&amp;D at the intersection of human-AI interaction, autonomous agents, and personal and organizational transformation.
             </p>
+            <div className="mt-5">
+              <a
+                href={SUPPORT_THE_LAB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-accent/35 bg-accent/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-accent transition-all duration-200 hover:border-accent/65 hover:bg-accent/18 hover:text-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-panel"
+              >
+                <Heart className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+                <span>Support the lab</span>
+                <ArrowUpRight
+                  className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </a>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm sm:grid-cols-3">

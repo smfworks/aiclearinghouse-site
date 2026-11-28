@@ -131,8 +131,8 @@ export default async function ProjectsPage() {
       <Nav />
       <main className="flex-1 bg-canvas">
         {/* Org header — mirrors github.com/smfworks */}
-        <section className="bg-workshop-foundry relative overflow-hidden border-b border-hairline">
-          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
+        <section className="bg-rd-projects relative overflow-hidden border-b border-hairline">
+          <div className="bg-rd-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
           <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
           <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-16">
@@ -140,7 +140,7 @@ export default async function ProjectsPage() {
               <div className="inline-flex items-center gap-2.5">
                 <span className="h-px w-6 bg-cyan" aria-hidden="true" />
                 <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-cyan">
-                  Open-Source Foundry
+                  Open-Source R&amp;D
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
@@ -225,7 +225,7 @@ export default async function ProjectsPage() {
               </div>
             </div>
           </div>
-          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+          <div className="hairline-signal-subtle h-px w-full" aria-hidden="true" />
         </section>
 
         {/* Featured repositories */}
@@ -258,7 +258,7 @@ export default async function ProjectsPage() {
                 href={repoLink(p)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card-workshop group relative flex flex-col overflow-hidden rounded-2xl border border-hairline p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="card-rd group relative flex flex-col overflow-hidden rounded-2xl border border-hairline p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <div
                   className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-accent/0 via-accent/70 to-cyan/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -332,7 +332,7 @@ export default async function ProjectsPage() {
                     href={repoLink(p)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="card-workshop-teal group flex h-full flex-col rounded-xl border border-hairline/85 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="card-rd-teal group flex h-full flex-col rounded-xl border border-hairline/85 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <div className="flex items-center gap-2.5">
                       <GitBranch
@@ -375,7 +375,7 @@ export default async function ProjectsPage() {
               ))}
             </ul>
 
-            <div className="card-workshop mt-12 rounded-2xl border border-hairline px-6 py-5 text-sm leading-relaxed text-foreground-secondary">
+            <div className="card-rd mt-12 rounded-2xl border border-hairline px-6 py-5 text-sm leading-relaxed text-foreground-secondary">
               New here? Start with{" "}
               <Link
                 href="/blog"

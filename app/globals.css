@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* SMF Clearinghouse — Night Workshop: Electric Copper + Deep Teal on Obsidian */
+  /* SMF Clearinghouse — High-Tech AI R&D: Electric Copper + Deep Teal on Obsidian */
   --canvas: #040508;
   --panel: #0a0c12;
   --surface: #0a0c12;
@@ -55,7 +55,7 @@
   --ring: var(--accent);
   --radius: 0.75rem;
 
-  /* Section color palette — each category gets its own flame */
+  /* Section color palette — distinct signal accents per category */
   --c-copper: #f5a623;
   --c-copper-glow: rgba(245, 166, 35, 0.28);
   --c-cyan: #22d3ee;
@@ -129,7 +129,7 @@
   --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.5);
-  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -163,7 +163,7 @@
     text-wrap: pretty;
   }
 
-  /* Precision workshop grids */
+  /* Precision R&D coordinate grids */
   .bg-grid {
     background-image:
       linear-gradient(to right, var(--hairline) 1px, transparent 1px),
@@ -188,117 +188,117 @@
     background-size: 100% 100%, 48px 48px, 48px 48px;
   }
 
-  .bg-workshop-grid {
+  .bg-rd-grid {
     background-image:
-      linear-gradient(to right, rgba(45, 51, 72, 0.38) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(45, 51, 72, 0.38) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, black 0%, rgba(0, 0, 0, 0.45) 52%, transparent 82%);
+      linear-gradient(to right, rgba(45, 52, 74, 0.42) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(45, 52, 74, 0.42) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 76% 64% at 50% 42%, black 0%, rgba(0, 0, 0, 0.48) 54%, transparent 84%);
   }
 
-  /* Subtle anodized surface grain to eliminate dark gradient banding */
+  /* Subtle surface micro-grain to eliminate dark gradient banding */
   .bg-grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.032;
+    opacity: 0.026;
     mix-blend-mode: overlay;
   }
 
-  /* Atmospheric night-workshop backdrops */
-  .bg-workshop-hero {
+  /* High-tech AI R&D ambient illumination */
+  .bg-rd-hero {
     background:
-      radial-gradient(ellipse 68% 50% at 50% 18%, rgba(245, 166, 35, 0.14) 0%, rgba(223, 123, 30, 0.05) 38%, transparent 72%),
-      radial-gradient(ellipse 58% 48% at 84% 78%, rgba(34, 211, 238, 0.09) 0%, rgba(15, 61, 68, 0.05) 42%, transparent 74%),
-      radial-gradient(ellipse 46% 42% at 14% 72%, rgba(245, 166, 35, 0.06) 0%, transparent 68%),
+      radial-gradient(ellipse 62% 46% at 50% 14%, rgba(34, 211, 238, 0.10) 0%, rgba(15, 61, 68, 0.05) 40%, transparent 72%),
+      radial-gradient(ellipse 56% 44% at 50% 24%, rgba(245, 166, 35, 0.11) 0%, rgba(223, 123, 30, 0.04) 40%, transparent 70%),
+      radial-gradient(ellipse 52% 44% at 86% 80%, rgba(34, 211, 238, 0.08) 0%, transparent 72%),
       var(--canvas);
   }
 
-  .bg-workshop-masthead {
+  .bg-rd-masthead {
     background:
-      radial-gradient(ellipse 52% 95% at 12% 0%, rgba(245, 166, 35, 0.11) 0%, transparent 65%),
-      radial-gradient(ellipse 48% 90% at 90% 10%, rgba(34, 211, 238, 0.07) 0%, transparent 65%),
-      linear-gradient(180deg, #0b0d14 0%, #080a0f 100%);
+      radial-gradient(ellipse 52% 95% at 10% 0%, rgba(245, 166, 35, 0.10) 0%, transparent 64%),
+      radial-gradient(ellipse 50% 95% at 90% 8%, rgba(34, 211, 238, 0.09) 0%, transparent 64%),
+      linear-gradient(180deg, #0b0e16 0%, #07090f 100%);
   }
 
-  .bg-workshop-foundry {
+  .bg-rd-projects {
     background:
-      radial-gradient(ellipse 55% 95% at 10% 0%, rgba(34, 211, 238, 0.10) 0%, transparent 64%),
-      radial-gradient(ellipse 48% 95% at 88% 12%, rgba(245, 166, 35, 0.10) 0%, transparent 64%),
-      linear-gradient(180deg, #0b0e15 0%, #080a0f 100%);
+      radial-gradient(ellipse 55% 95% at 10% 0%, rgba(34, 211, 238, 0.12) 0%, transparent 64%),
+      radial-gradient(ellipse 48% 95% at 88% 10%, rgba(245, 166, 35, 0.09) 0%, transparent 64%),
+      linear-gradient(180deg, #0b0e16 0%, #07090f 100%);
   }
 
-  /* Copper-to-teal workshop hairline */
-  .hairline-forge {
+  /* Copper-to-teal signal hairlines */
+  .hairline-signal {
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(245, 166, 35, 0.55) 28%,
-      rgba(255, 190, 79, 0.7) 50%,
-      rgba(34, 211, 238, 0.45) 74%,
+      rgba(34, 211, 238, 0.52) 26%,
+      rgba(245, 166, 35, 0.72) 50%,
+      rgba(34, 211, 238, 0.52) 74%,
       transparent 100%
     );
   }
 
-  .hairline-forge-subtle {
+  .hairline-signal-subtle {
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(245, 166, 35, 0.25) 30%,
-      rgba(34, 211, 238, 0.22) 70%,
+      rgba(245, 166, 35, 0.28) 30%,
+      rgba(34, 211, 238, 0.28) 70%,
       transparent 100%
     );
   }
 
-  /* Tactile forge & workshop button treatments */
-  .btn-forge {
-    background: linear-gradient(180deg, #ffbe4f 0%, #f5a623 52%, #e08b14 100%);
+  /* Engineered high-tech controls */
+  .btn-signal {
+    background: linear-gradient(180deg, #ffbe4f 0%, #f5a623 54%, #e08b14 100%);
     color: var(--accent-foreground);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.42),
       0 1px 2px rgba(0, 0, 0, 0.6),
-      0 10px 28px -10px rgba(245, 166, 35, 0.52);
+      0 10px 28px -10px rgba(245, 166, 35, 0.5);
   }
-  .btn-forge:hover {
-    background: linear-gradient(180deg, #ffca6a 0%, #ffb336 52%, #eb971e 100%);
+  .btn-signal:hover {
+    background: linear-gradient(180deg, #ffca6a 0%, #ffb336 54%, #eb971e 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.5),
       0 2px 6px rgba(0, 0, 0, 0.65),
-      0 14px 36px -8px rgba(245, 166, 35, 0.68);
+      0 14px 36px -8px rgba(245, 166, 35, 0.66);
   }
 
-  .btn-workshop {
-    background: linear-gradient(180deg, rgba(22, 26, 38, 0.92) 0%, rgba(14, 17, 26, 0.92) 100%);
+  .btn-surface {
+    background: linear-gradient(180deg, rgba(20, 25, 38, 0.92) 0%, rgba(13, 16, 25, 0.94) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.06),
       0 8px 24px -14px rgba(0, 0, 0, 0.8);
   }
-  .btn-workshop:hover {
-    background: linear-gradient(180deg, rgba(28, 33, 48, 0.96) 0%, rgba(18, 22, 33, 0.96) 100%);
+  .btn-surface:hover {
+    background: linear-gradient(180deg, rgba(26, 32, 48, 0.96) 0%, rgba(17, 21, 32, 0.96) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.09),
-      0 12px 30px -12px rgba(34, 211, 238, 0.24);
+      0 12px 30px -12px rgba(34, 211, 238, 0.28);
   }
 
-  /* Precision workshop cards */
-  .card-workshop {
-    background: linear-gradient(180deg, rgba(14, 17, 25, 0.94) 0%, rgba(10, 12, 18, 0.98) 100%);
+  /* Precision R&D cards */
+  .card-rd {
+    background: linear-gradient(180deg, rgba(14, 17, 26, 0.94) 0%, rgba(10, 12, 18, 0.98) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.045),
       0 8px 28px -16px rgba(0, 0, 0, 0.78);
   }
-  .card-workshop:hover {
+  .card-rd:hover {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.075),
       0 18px 40px -20px rgba(0, 0, 0, 0.9),
       0 0 36px -16px var(--accent-glow);
   }
 
-  .card-workshop-teal {
-    background: linear-gradient(180deg, rgba(13, 16, 24, 0.84) 0%, rgba(9, 11, 17, 0.92) 100%);
+  .card-rd-teal {
+    background: linear-gradient(180deg, rgba(13, 16, 25, 0.86) 0%, rgba(9, 11, 17, 0.94) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.035),
       0 6px 20px -14px rgba(0, 0, 0, 0.72);
   }
-  .card-workshop-teal:hover {
+  .card-rd-teal:hover {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.07),
       0 14px 32px -18px rgba(0, 0, 0, 0.85),
@@ -329,8 +329,8 @@
     animation: cyanPulse 3s ease-in-out infinite;
   }
 
-  .ember-pulse {
-    animation: emberPulse 3.6s ease-in-out infinite;
+  .signal-pulse {
+    animation: signalPulse 3.2s ease-in-out infinite;
   }
 
   @keyframes cyanPulse {
@@ -338,14 +338,14 @@
     50% { box-shadow: 0 0 16px 2px var(--cyan-glow); }
   }
 
-  @keyframes emberPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.45); opacity: 0.9; }
-    50% { box-shadow: 0 0 12px 2px rgba(245, 166, 35, 0.45); opacity: 1; }
+  @keyframes signalPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.48); opacity: 0.9; }
+    50% { box-shadow: 0 0 12px 2px rgba(34, 211, 238, 0.48); opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .cyan-pulse,
-    .ember-pulse {
+    .signal-pulse {
       animation: none;
     }
   }

@@ -56,8 +56,8 @@ export default function BlogPage() {
       />
       <Nav />
       <main className="flex-1 bg-canvas">
-        <div className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
-          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
+        <div className="bg-rd-masthead relative overflow-hidden border-b border-hairline">
+          <div className="bg-rd-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
           <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
           <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-16">
@@ -84,7 +84,7 @@ export default function BlogPage() {
             <div className="mt-8 flex flex-wrap gap-2">
               <Link
                 href="/blog/"
-                className="btn-forge rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-panel"
+                className="btn-signal rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-panel"
               >
                 All
               </Link>
@@ -103,7 +103,7 @@ export default function BlogPage() {
               })}
             </div>
           </div>
-          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+          <div className="hairline-signal-subtle h-px w-full" aria-hidden="true" />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-12">

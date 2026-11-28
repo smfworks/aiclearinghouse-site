@@ -57,8 +57,8 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
     <div className="flex min-h-screen flex-col">
       <Nav />
       <main className="flex-1 bg-canvas">
-        <div className="bg-workshop-masthead relative overflow-hidden border-b border-hairline">
-          <div className="bg-workshop-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
+        <div className="bg-rd-masthead relative overflow-hidden border-b border-hairline">
+          <div className="bg-rd-grid pointer-events-none absolute inset-0 opacity-65" aria-hidden="true" />
           <div className="bg-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
           <div className="relative mx-auto max-w-7xl px-6 py-14 sm:py-16">
@@ -98,7 +98,7 @@ export default async function BlogPageNumbered({ params }: BlogPageNumberedProps
               })}
             </div>
           </div>
-          <div className="hairline-forge-subtle h-px w-full" aria-hidden="true" />
+          <div className="hairline-signal-subtle h-px w-full" aria-hidden="true" />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-12">
