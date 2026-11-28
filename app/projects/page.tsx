@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { fetchProfile, fetchProjects, type GhProfile, type GhRepo } from "@/lib/github";
 
 export const metadata: Metadata = {
   title: "SMF Projects | SMF Clearinghouse",
@@ -18,9 +19,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Snapshot of https://github.com/smfworks (pulled via the GitHub API).
-// Refresh with scripts/refresh-projects.sh; commit the updated arrays.
-const PROFILE = {
+// Fallback snapshot of https://github.com/smfworks (GitHub API, 2026-11-28).
+// Used only when a live API fetch fails, so the page never breaks.
+const PROFILE: GhProfile = {
   login: "smfworks",
   name: "SMF Works",
   bio: "SMF Works delivers HighTech-powered content and workflow solutions. Serious expertise. Genuine craftsmanship. No corporate fluff",
@@ -81,10 +82,6 @@ const HIGHLIGHTS = new Set([
   "praxis-prime",
 ]);
 
-function repoUrl(name: string) {
-  return `https://github.com/smfworks/${name}`;
-}
-
 const LANG_STYLES: Record<string, string> = {
   Python: "bg-yellow-500",
   TypeScript: "bg-blue-500",
@@ -100,9 +97,24 @@ function fmtDate(iso: string) {
   return d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 }
 
-export default function ProjectsPage() {
-  const highlights = PROJECTS.filter((p) => HIGHLIGHTS.has(p.name));
-  const rest = PROJECTS.filter((p) => !HIGHLIGHTS.has(p.name));
+export default async function ProjectsPage() {
+  // Live from the GitHub API (ISR cache, revalidate hourly); static snapshot
+  // below is the fallback if the API is unreachable or rate-limited.
+  const [liveProfile, liveProjects] = await Promise.all([
+    fetchProfile(),
+    fetchProjects(),
+  ]);
+  const profile = liveProfile ?? PROFILE;
+  const allProjects: (GhRepo | (typeof PROJECTS)[number])[] =
+    liveProjects ?? PROJECTS;
+  const known = (p: GhRepo | (typeof PROJECTS)[number]) =>
+    HIGHLIGHTS.has(p.name);
+  const highlights = allProjects.filter(known);
+  const rest = allProjects.filter((p) => !known(p));
+  const repoLink = (p: GhRepo | (typeof PROJECTS)[number]) =>
+    "url" in p ? p.url : `https://github.com/smfworks/${p.name}`;
+  const hasStars = (p: GhRepo | (typeof PROJECTS)[number]): p is GhRepo =>
+    typeof (p as GhRepo).stars === "number";
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -116,20 +128,20 @@ export default function ProjectsPage() {
                 S
               </div>
               <div className="min-w-0">
-                <h1 className="text-3xl font-semibold tracking-tight">{PROFILE.name}</h1>
-                <p className="mt-1 text-sm text-foreground-secondary">{PROFILE.login}</p>
-                <p className="mt-4 max-w-2xl text-foreground-secondary">{PROFILE.bio}</p>
+                <h1 className="text-3xl font-semibold tracking-tight">{profile.name}</h1>
+                <p className="mt-1 text-sm text-foreground-secondary">{profile.login}</p>
+                <p className="mt-4 max-w-2xl text-foreground-secondary">{profile.bio}</p>
                 <dl className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-foreground-secondary">
                   <div>
                     <dt className="sr-only">Website</dt>
                     <dd>
                       <a
-                        href={PROFILE.blog}
+                        href={profile.blog}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-accent hover:underline"
                       >
-                        {PROFILE.blog.replace("https://", "")}
+                        {profile.blog.replace("https://", "")}
                       </a>
                     </dd>
                   </div>
@@ -137,30 +149,30 @@ export default function ProjectsPage() {
                     <dt className="sr-only">X</dt>
                     <dd>
                       <a
-                        href={`https://x.com/${PROFILE.twitter}`}
+                        href={`https://x.com/${profile.twitter ?? ""}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-accent hover:underline"
                       >
-                        @{PROFILE.twitter}
+                        {profile.twitter ? `@${profile.twitter}` : null}
                       </a>
                     </dd>
                   </div>
                   <div>
                     <dt className="sr-only">Email</dt>
                     <dd>
-                      <a href={`mailto:${PROFILE.email}`} className="text-accent hover:underline">
-                        {PROFILE.email}
+                      <a href={`mailto:${profile.email ?? ""}`} className="text-accent hover:underline">
+                        {profile.email}
                       </a>
                     </dd>
                   </div>
                   <div>
                     <dt className="sr-only">Followers</dt>
-                    <dd>{PROFILE.followers} followers</dd>
+                    <dd>{profile.followers} followers</dd>
                   </div>
                   <div>
                     <dt className="sr-only">Joined</dt>
-                    <dd>Joined {PROFILE.joined}</dd>
+                    <dd>Joined {profile.joined}</dd>
                   </div>
                 </dl>
               </div>
@@ -173,26 +185,26 @@ export default function ProjectsPage() {
           <div className="flex items-baseline justify-between gap-4">
             <h2 className="text-xl font-semibold tracking-tight">Featured projects</h2>
             <a
-              href={PROFILE.url}
+              href={profile.url}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-accent hover:underline"
             >
-              View all {PROFILE.publicRepos} repositories on GitHub ↗
+              View all {profile.publicRepos} repositories on GitHub ↗
             </a>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {highlights.map((p) => (
               <a
                 key={p.name}
-                href={repoUrl(p.name)}
+                href={repoLink(p)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent"
               >
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold text-accent group-hover:underline">{p.name}</h3>
-                  {p.stars > 0 && (
+                  {hasStars(p) && p.stars > 0 && (
                     <span className="text-xs text-foreground-secondary">★ {p.stars}</span>
                   )}
                 </div>
@@ -222,7 +234,7 @@ export default function ProjectsPage() {
               {rest.map((p) => (
                 <li key={p.name} className="border-b border-border py-4">
                   <a
-                    href={repoUrl(p.name)}
+                    href={repoLink(p)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex flex-col"
@@ -231,7 +243,7 @@ export default function ProjectsPage() {
                       <span className="font-medium text-accent group-hover:underline">
                         {p.name}
                       </span>
-                      {p.stars > 0 && (
+                      {hasStars(p) && p.stars > 0 && (
                         <span className="text-xs text-foreground-secondary">★ {p.stars}</span>
                       )}
                       {p.language && (
