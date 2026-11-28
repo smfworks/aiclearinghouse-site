@@ -13,23 +13,22 @@ export const metadata: Metadata = {
   icons: {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
-  title: "SMF Clearinghouse — Find the Right AI Agent",
+  title: "SMF Clearinghouse — The SMF Works AI Field Journal",
   description:
-    "Compare autonomous AI agents, LLM pricing, open-source tools, and self-hosting recipes. Built for builders, enthusiasts, and small businesses.",
+    "Field notes from the SMF Works team on AI agents: how-tos, releases, and practitioner dispatches from building with agents every day.",
   authors: [{ name: "Pamela Flannery", url: "https://smfworks.com/the-signal" }],
   keywords: [
     "AI agents",
     "autonomous agents",
-    "LLM pricing",
     "open source AI",
     "coding agents",
-    "agent comparison",
-    "self-hosting",
+    "agent how-tos",
     "local LLMs",
   ],
   openGraph: {
     title: "SMF Clearinghouse",
-    description: "Compare autonomous AI agents, LLM pricing, and self-hosting recipes.",
+    description:
+      "Field notes from the SMF Works team on AI agents: how-tos, releases, and practitioner dispatches.",
     url: `${SITE_ORIGIN}/`,
     siteName: "SMF Clearinghouse",
     type: "website",
@@ -38,7 +37,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SMF Clearinghouse",
-    description: "Compare autonomous AI agents, LLM pricing, and self-hosting recipes.",
+    description:
+      "Field notes from the SMF Works team on AI agents: how-tos, releases, and practitioner dispatches.",
     images: [DEFAULT_OG_IMAGE.url],
   },
 };
