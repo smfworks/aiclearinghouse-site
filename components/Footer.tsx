@@ -8,11 +8,6 @@ const links = [
   { href: "https://agentshootout.com", label: "Agent Shootout", external: true },
 ];
 
-const resources = [
-  { href: "/llms.txt", label: "llms.txt" },
-  { href: "/feed.xml", label: "RSS" },
-];
-
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-hairline bg-panel">
@@ -53,15 +48,6 @@ export default function Footer() {
                 </Link>
               )
             )}
-            {resources.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="text-foreground-secondary transition-colors hover:text-foreground"
-              >
-                {l.label}
-              </a>
-            ))}
           </div>
         </div>
 
