@@ -6,6 +6,12 @@ import { Menu, X, Sparkles } from "lucide-react";
 
 const links = [{ href: "/blog/", label: "Blog" }];
 
+const externalLinks = [
+  { href: "https://smfworks.com", label: "SMF Works" },
+  { href: "https://smfwisdomforge.com", label: "SMF WisdomForge" },
+  { href: "https://agentshootout.com", label: "Agent Shootout" },
+];
+
 export default function Nav() {
   const [open, setOpen] = useState(false);
 
@@ -30,14 +36,17 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <a
-            href="https://agentshootout.com/#board"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md px-3 py-1.5 text-foreground-secondary transition-colors hover:bg-elevated hover:text-foreground"
-          >
-            Agent Shootout ↗
-          </a>
+          {externalLinks.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md px-3 py-1.5 text-foreground-secondary transition-colors hover:bg-elevated hover:text-foreground"
+            >
+              {l.label} ↗
+            </a>
+          ))}
         </nav>
 
         <button
@@ -63,15 +72,18 @@ export default function Nav() {
                 {l.label}
               </Link>
             ))}
-            <a
-              href="https://agentshootout.com/#board"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="rounded-md px-3 py-2 text-foreground-secondary transition-colors hover:bg-elevated hover:text-foreground"
-            >
-              Agent Shootout ↗
-            </a>
+            {externalLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="rounded-md px-3 py-2 text-foreground-secondary transition-colors hover:bg-elevated hover:text-foreground"
+              >
+                {l.label} ↗
+              </a>
+            ))}
           </div>
         </div>
       )}

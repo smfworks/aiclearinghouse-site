@@ -3,9 +3,9 @@ import { GitBranch, Sparkles } from "lucide-react";
 
 const links = [
   { href: "/blog/", label: "Blog" },
-  { href: "/reference/", label: "Reference" },
-  { href: "/lab/", label: "Lab" },
-  { href: "/about/", label: "About" },
+  { href: "https://smfworks.com", label: "SMF Works", external: true },
+  { href: "https://smfwisdomforge.com", label: "SMF WisdomForge", external: true },
+  { href: "https://agentshootout.com", label: "Agent Shootout", external: true },
 ];
 
 const resources = [
@@ -31,16 +31,28 @@ export default function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm sm:grid-cols-3">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                prefetch={false}
-                className="text-foreground-secondary transition-colors hover:text-foreground"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {links.map((l) =>
+              "external" in l && l.external ? (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground-secondary transition-colors hover:text-foreground"
+                >
+                  {l.label} ↗
+                </a>
+              ) : (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  prefetch={false}
+                  className="text-foreground-secondary transition-colors hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              )
+            )}
             {resources.map((l) => (
               <a
                 key={l.href}
